@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm Home Discount Expansion - SwitchPilot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #fafafa;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .back-home {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(99,102,241,0.3);
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .article-header {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.08);
+        }
+
+        .article-date {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-date span {
+            background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
+            color: #92400e;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .article-header h1 {
+            font-size: 3rem;
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .article-body {
+            background: white;
+            padding: 3rem;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.08);
+        }
+
+        .article-body h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .article-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .article-body p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-body ul {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-section {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            padding: 1.2rem 2.5rem;
+            background: white;
+            color: #6366f1;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .article-header,
+            .article-body {
+                padding: 2rem;
+            }
+
+            .article-body h2 {
+                font-size: 1.5rem;
+            }
+
+            .article-body p,
+            .article-body ul {
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <span style="font-size: 2rem;">✈️</span>
+                SwitchPilot
+            </a>
+            <a href="index.html" class="back-home">← Back Home</a>
+        </nav>
+    </header>
+
+    <div class="article-container">
+        <div class="article-header">
+            <div class="article-date">
+                <span>25 October 2025</span>
+            </div>
+            
+            <h1>🔆 Warm Home Discount Expansion: What's Changing and What It Means for Bills</h1>
+        </div>
+
+        <div class="article-body">
+            <h2>Overview</h2>
+            <p>The UK Government has announced a major expansion of the Warm Home Discount (WHD) scheme from winter 2025–26, aiming to make energy bills more affordable for millions of low-income households. The WHD provides a £150 annual rebate on electricity bills to help with winter heating costs.</p>
+            
+            <h2>Why It's Changing</h2>
+            <p>The old system was criticised for being too restrictive and inconsistent, leaving some struggling families without help simply because their home wasn't classed as "expensive to heat." Removing this rule makes eligibility simpler, fairer, and automatic for those on qualifying benefits — ensuring help reaches those most in need, but also increasing the burden on other customers who ultimately subsidise these discounts through their energy bills.</p>
+            
+            <h2>Impact on Bills</h2>
+            <p>The WHD is funded by energy suppliers and spread across all customer bills through Ofgem's Standard Variable Tariff (SVT) price cap, which will also be reflected in fixed tariffs. With the expansion doubling the number of recipients:</p>
+            <ul>
+                <li>The cost of running the scheme will rise.</li>
+                <li>This will add around £15 per year to the average dual-fuel household bill.</li>
+                <li>Including other related initiatives, the total increase is expected to be around £21–£22 per year.</li>
+            </ul>
+            <p>These costs will start being recovered in bills from October 2025, through the Q4 2025 price cap period.</p>
+            <ul>
+                <li>There is also likely to be a further increase from April 2026 to recover Energy supplier's shortfalls, as the expansion started mid–Warm Home Discount scheme year.</li>
+            </ul>
+            
+            <h2>What This Means for Your Bill</h2>
+            <p>From October 2025, it's likely that most energy suppliers will price the cost of the WHD expansion into new fixed contracts. This means even customers switching to a fixed tariff could see the impact reflected in rates — not just those on the price cap.</p>
+            <p>However, as of 26 October 2025, there's a significant amount of price competition emerging in the residential energy market. Much of this is being driven by Fuse Energy, whose aggressively priced fixed deals are putting downward pressure on other suppliers' tariffs.</p>
+            <p>In practical terms, while the WHD expansion adds upward pressure on bills, competitive pricing — especially from newer entrants like Fuse — is helping to offset some of that impact. There are still good-value fixed options available even as policy costs drive up total bills.</p>
+            <p>If you fix now for one or two years, you could potentially avoid higher costs when the next WHD-related adjustment is added to bills next year.</p>
+            
+            <h2>In Summary</h2>
+            <ul>
+                <li>✅ Eligibility widened – no more "high-cost-to-heat" rule in England & Wales</li>
+                <li>✅ Support doubles – from ~3 million to ~6 million households</li>
+                <li>✅ Rebate stays at £150</li>
+                <li>⚠️ Cost increase – around £15–£22 added to the average annual bill this winter</li>
+                <li>⚠️ Further cost increases – around £10–£20 added to the average annual bill likely in April 2026 to make up for supplier shortfall</li>
+                <li>💡 Effective from winter 2025–26, feeding into the Q4 2025 SVT cap</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="cta-box">
+            <h3>Want More Insights Like This?</h3>
+            <p>Join our community and get weekly updates on energy bills, price caps, and how to save money</p>
+            <a href="index.html#signup" class="cta-button">Join the Community ✈️</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">&copy; 2024 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+</body>
+</html>

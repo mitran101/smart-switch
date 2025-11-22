@@ -152,6 +152,17 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
     .stats {grid-template-columns:1fr;gap:2rem;}
     .stat-number {font-size:2.5rem;}
     
+    /* Game section responsive */
+    section:has(a[href="game.html"]) > div {
+        padding: 2.5rem 2rem !important;
+    }
+    section:has(a[href="game.html"]) h2 {
+        font-size: 1.8rem !important;
+    }
+    section:has(a[href="game.html"]) p {
+        font-size: 1rem !important;
+    }
+    
     .final-cta {padding:4rem 1.5rem;}
     .final-cta p {font-size:1rem;}
     .cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
@@ -241,6 +252,47 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 </div>
 </section>
 
+<!-- GAME SECTION -->
+<section style="max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;">
+<div style="background:#11162e;padding:4rem 3rem;border-radius:30px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
+  
+  <!-- Animated background -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
+  
+  <div style="position:relative;z-index:2;">
+    <div style="font-size:3rem;margin-bottom:1rem;">✈️⚡💷</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
+    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
+    
+    <div id="gameStartScreen" style="margin-bottom:1.5rem;">
+      <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">🎮 Start Game</button>
+    </div>
+    
+    <canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
+    
+    <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+      <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+        <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
+        <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+      </div>
+      <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+        <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
+        <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+      </div>
+    </div>
+    
+    <div id="gameOverScreen" style="display:none;margin-top:2rem;">
+      <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
+      <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
+      <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">Play Again</button>
+    </div>
+  </div>
+</div>
+</section>eover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">🎮 Play Now</a>
+  </div>
+</div>
+</section>
+
 <section class="final-cta">
 <h2>We're Building This Together</h2>
 <p>65% of UK households are on Standard Variable Tariffs and could save £200+ per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
@@ -265,7 +317,159 @@ function handleSubmit(e) {
         </div>
     `;
 }
+
+// GAME CODE
+const gameCanvas = document.getElementById('gameCanvas');
+if (gameCanvas) {
+    const ctx = gameCanvas.getContext('2d');
+    
+    let gameRunning = false;
+    let gameScore = 0;
+    let gameHighScore = localStorage.getItem('switchpilotHighScore') || 0;
+    document.getElementById('gameHighScore').textContent = gameHighScore;
+    
+    const player = {
+        x: gameCanvas.width / 2,
+        y: gameCanvas.height - 80,
+        size: 35,
+        emoji: '✈️'
+    };
+    
+    const goodItems = ['⚡', '💷', '🔋', '💡'];
+    const badItems = ['💥', '🌩️'];
+    const items = [];
+    
+    let mouseX = player.x;
+    let mouseY = player.y;
+    
+    gameCanvas.addEventListener('mousemove', (e) => {
+        const rect = gameCanvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+    });
+    
+    gameCanvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = touch.clientX - rect.left;
+        mouseY = touch.clientY - rect.top;
+    });
+    
+    function createItem() {
+        const isGood = Math.random() > 0.25;
+        const emoji = isGood 
+            ? goodItems[Math.floor(Math.random() * goodItems.length)]
+            : badItems[Math.floor(Math.random() * badItems.length)];
+        
+        items.push({
+            x: Math.random() * (gameCanvas.width - 40),
+            y: -40,
+            size: 30,
+            emoji: emoji,
+            speed: 2 + Math.random() * 2,
+            isGood: isGood
+        });
+    }
+    
+    function drawEmoji(emoji, x, y, size) {
+        ctx.font = `${size}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(emoji, x, y);
+    }
+    
+    function checkCollision(item) {
+        const dist = Math.sqrt(
+            Math.pow(player.x - item.x, 2) + 
+            Math.pow(player.y - item.y, 2)
+        );
+        return dist < (player.size + item.size) / 2;
+    }
+    
+    function updateGame() {
+        if (!gameRunning) return;
+        
+        ctx.fillStyle = '#0a0c1a';
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+        
+        player.x += (mouseX - player.x) * 0.15;
+        player.y += (mouseY - player.y) * 0.15;
+        
+        player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
+        player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
+        
+        drawEmoji(player.emoji, player.x, player.y, player.size);
+        
+        for (let i = items.length - 1; i >= 0; i--) {
+            const item = items[i];
+            item.y += item.speed;
+            
+            drawEmoji(item.emoji, item.x, item.y, item.size);
+            
+            if (checkCollision(item)) {
+                if (item.isGood) {
+                    gameScore += 10;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    
+                    ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
+                    ctx.beginPath();
+                    ctx.arc(item.x, item.y, 50, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    endGame();
+                }
+                items.splice(i, 1);
+            }
+            else if (item.y > gameCanvas.height + 40) {
+                items.splice(i, 1);
+            }
+        }
+        
+        if (Math.random() < 0.02) {
+            createItem();
+        }
+        
+        requestAnimationFrame(updateGame);
+    }
+    
+    function endGame() {
+        gameRunning = false;
+        
+        if (gameScore > gameHighScore) {
+            gameHighScore = gameScore;
+            localStorage.setItem('switchpilotHighScore', gameHighScore);
+            document.getElementById('gameHighScore').textContent = gameHighScore;
+        }
+        
+        document.getElementById('finalGameScore').textContent = gameScore;
+        document.getElementById('gameOverScreen').style.display = 'block';
+        document.getElementById('gameCanvas').style.display = 'none';
+    }
+    
+    window.startMainGame = function() {
+        gameRunning = true;
+        gameScore = 0;
+        items.length = 0;
+        player.x = gameCanvas.width / 2;
+        player.y = gameCanvas.height - 80;
+        document.getElementById('gameScore').textContent = 0;
+        document.getElementById('gameStartScreen').style.display = 'none';
+        document.getElementById('gameCanvas').style.display = 'block';
+        updateGame();
+        
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createItem, i * 500);
+        }
+    };
+    
+    window.restartMainGame = function() {
+        document.getElementById('gameOverScreen').style.display = 'none';
+        startMainGame();
+    };
+}
 </script>
 
 </body>
 </html>
+

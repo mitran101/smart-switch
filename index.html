@@ -307,13 +307,35 @@ function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.querySelector('input').value;
     const form = e.target.closest('.waitlist-form');
-    form.innerHTML = `
-        <div style="text-align:center;padding:2rem;">
-            <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
-            <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-            <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
-        </div>
-    `;
+    
+    // Show loading
+    form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the flight crew...</p></div>';
+    
+    // Send to Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbzfkOkubAQMR_YWxDl1u1kVKaRHQepGyvoyK6WeWAYf0yNapjTt6UzKk5V6FdKzAEKB4w/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
+            </div>
+        `;
+    })
+    .catch(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
+            </div>
+        `;
+    });
 }
 
 // GAME CODE

@@ -840,5 +840,14 @@
         }
 
         function showArticle() {
+            document.getElementById('article').style.display = 'block';
+            document.getElementById('article').scrollIntoView({behavior: 'smooth'});
+        }
 
-
+        function hideArticle() {
+            document.getElementById('article').style.display = 'none';
+            document.querySelector('.hero').scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

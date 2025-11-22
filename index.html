@@ -1,873 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwitchPilot - Stop Overpaying on Energy</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #1a1a2e;
-            background: #ffffff;
-            overflow-x: hidden;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pilot-icon {
-            font-size: 2rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero {
-            position: relative;
-            padding: 6rem 2rem 8rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            overflow: hidden;
-        }
-
-        .floating-icons {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .floating-icon {
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.1;
-            animation: floatAround 20s infinite;
-        }
-
-        .floating-icon:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .floating-icon:nth-child(2) { left: 80%; top: 15%; animation-delay: 3s; }
-        .floating-icon:nth-child(3) { left: 15%; top: 70%; animation-delay: 6s; }
-        .floating-icon:nth-child(4) { right: 15%; top: 60%; animation-delay: 9s; }
-        .floating-icon:nth-child(5) { left: 50%; top: 30%; animation-delay: 12s; }
-
-        @keyframes floatAround {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(20px, -20px) rotate(10deg); }
-            50% { transform: translate(-15px, 15px) rotate(-5deg); }
-            75% { transform: translate(15px, 20px) rotate(8deg); }
-        }
-
-        .energy-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.1;
-            background-image: 
-                linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            color: white;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            font-weight: 900;
-        }
-
-        .hero-text p {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .pilot-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .pilot-character {
-            font-size: 15rem;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
-            animation: pilotFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes pilotFloat {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
-        }
-
-        .destination-tag {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .destination-tag strong {
-            display: block;
-            font-size: 2rem;
-            color: #6366f1;
-            font-weight: 900;
-        }
-
-        .destination-tag span {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .waitlist-form {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            max-width: 500px;
-            margin: -4rem auto 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .waitlist-form h3 {
-            margin-bottom: 1rem;
-            color: #1a1a2e;
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
-
-        .waitlist-form p {
-            color: #666;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 1.2rem;
-            border: 3px solid #f0f0f0;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            background: #fafafa;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #6366f1;
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(99,102,241,0.2);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(99,102,241,0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(99,102,241,0.4);
-        }
-
-        .trust-line {
-            text-align: center;
-            color: #999;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
-
-        .what-you-get {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 4rem;
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .benefit {
-            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
-            padding: 2.5rem;
-            border-radius: 25px;
-            border: 3px solid transparent;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .benefit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            z-index: 0;
-        }
-
-        .benefit:hover::before {
-            opacity: 0.05;
-        }
-
-        .benefit:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #6366f1;
-            box-shadow: 0 20px 60px rgba(99,102,241,0.2);
-        }
-
-        .benefit > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .benefit-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .benefit h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #1a1a2e;
-            font-weight: 800;
-        }
-
-        .benefit p {
-            color: #555;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .newsletter-preview {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 6rem 2rem;
-            margin: 6rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .newsletter-preview::before {
-            content: '⚡';
-            position: absolute;
-            font-size: 30rem;
-            opacity: 0.03;
-            right: -5rem;
-            top: 50%;
-            transform: translateY(-50%) rotate(15deg);
-        }
-
-        .newsletter-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .newsletter-preview h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: 900;
-        }
-
-        .newsletter-preview > .newsletter-content > p {
-            text-align: center;
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 3rem;
-        }
-
-        .newsletter-topics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .topic {
-            background: rgba(255,255,255,0.08);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .topic:hover {
-            background: rgba(255,255,255,0.12);
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        .topic.clickable {
-            cursor: pointer;
-        }
-
-        .topic.clickable::after {
-            content: '→';
-            position: absolute;
-            right: 1.5rem;
-            bottom: 1.5rem;
-            font-size: 1.5rem;
-            opacity: 0;
-            transition: all 0.3s;
-        }
-
-        .topic.clickable:hover::after {
-            opacity: 1;
-            right: 1rem;
-        }
-
-        .topic h4 {
-            margin-bottom: 0.75rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .topic p {
-            font-size: 1rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .community-stats {
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            text-align: center;
-        }
-
-        .stat {
-            padding: 2rem;
-            position: relative;
-        }
-
-        .stat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            border-radius: 10px;
-        }
-
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 1rem 0;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .final-cta {
-            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
-            padding: 6rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .final-cta::before {
-            content: '✈️';
-            position: absolute;
-            font-size: 20rem;
-            opacity: 0.05;
-            left: -3rem;
-            bottom: -3rem;
-            transform: rotate(-15deg);
-        }
-
-        .final-cta h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .final-cta p {
-            color: #555;
-            margin-bottom: 2.5rem;
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .cta-btn {
-            padding: 1.5rem 3rem;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 15px 40px rgba(99,102,241,0.3);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(99,102,241,0.4);
-        }
-
-        .footer {
-            background: #1a1a2e;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer p {
-            opacity: 0.8;
-            margin: 0.5rem 0;
-        }
-
-        .article-section {
-            max-width: 900px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-            display: none;
-        }
-
-        .article-content {
-            background: white;
-            padding: 4rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.1);
-        }
-
-        .article-date {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .article-date span {
-            background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
-            color: #92400e;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        .article-content h1 {
-            font-size: 2.8rem;
-            color: #1a1a2e;
-            margin-bottom: 2rem;
-            line-height: 1.2;
-            font-weight: 900;
-        }
-
-        .article-content h2 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        .article-content p {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #444;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-content ul {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #444;
-            margin-left: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-content li {
-            margin-bottom: 0.75rem;
-        }
-
-        .back-btn {
-            display: block;
-            margin: 3rem auto 0;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(99,102,241,0.3);
-        }
-
-        @media (max-width: 968px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .pilot-character {
-                font-size: 10rem;
-            }
-
-            .destination-tag {
-                position: static;
-                margin: 2rem auto 0;
-                max-width: 250px;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .stat-number {
-                font-size: 3rem;
-            }
-
-            .article-content {
-                padding: 2rem;
-            }
-
-            .article-content h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SwitchPilot - Futuristic Full Landing</title>
+<style>
+body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;}
+
+/* HERO */
+.hero {position:relative;padding:7rem 2rem 10rem;overflow:hidden;background:#0c0e1f;} 
+.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;} 
+@keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
+.floating-symbols {position:absolute;inset:0;pointer-events:none;}
+.symbol {position:absolute;font-size:3rem;opacity:.15;animation:drift 10s ease-in-out infinite;pointer-events:none;} {position:absolute;font-size:3rem;opacity:.10;transform:translate(0,0);pointer-events:none;} 
+@keyframes drift {0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(20px,-30px) rotate(10deg)}}
+.symbol:nth-child(1){left:12%;top:20%}
+.symbol:nth-child(2){left:70%;top:10%}
+.symbol:nth-child(3){left:20%;top:75%}
+.symbol:nth-child(4){left:82%;top:60%}
+.symbol:nth-child(5){left:45%;top:35%}
+
+.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;} 
+.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);} 
+.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);} 
+.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;} 
+.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;} 
+.pilot-character {font-size:18rem;animation:pilotFloat 4s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));} 
+@keyframes pilotFloat {0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-35px) rotate(6deg)}}
+.destination-tag {position:absolute;bottom:2rem;right:2rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);} 
+.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;} 
+
+/* WAITLIST */
+.waitlist-form {max-width:600px;margin:2rem auto 4rem;background:#11162e;padding:3rem;border-radius:25px;box-shadow:0 20px 70px rgba(0,0,0,0.5);} 
+.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;} 
+.waitlist-form p {opacity:.8;margin-bottom:1.5rem;} 
+.form-group input {width:100%;padding:1.2rem;border:none;border-radius:15px;background:#0c0f21;color:#fff;font-size:1rem;margin-bottom:1rem;} 
+.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;background:linear-gradient(135deg,#6366f1,#ec4899);font-size:1.2rem;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);} 
+
+/* BENEFITS */
+.benefits-section {max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;} 
+.benefits-section h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;} 
+.benefits-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:3rem;} 
+.benefit {background:#12172f;padding:2rem;border-radius:20px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.4);} 
+.benefit-icon {font-size:2.5rem;margin-bottom:1rem;} 
+
+/* INSIGHTS */
+.insights {background:#0f1329;padding:6rem 2rem;text-align:center;} 
+.insights h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;} 
+.topics {max-width:1200px;margin:3rem auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem;} 
+.topic {background:#11162e;padding:2rem;border-radius:20px;cursor:pointer;transition:.3s;height:240px;display:flex;flex-direction:column;justify-content:space-between;} 
+.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(0,0,0,0.5);} 
+
+/* STATS */
+.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;} 
+.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;color:transparent;} 
+
+/* CTA */
+.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;} 
+.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;} 
+.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;} 
+.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);} 
+</style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">
-                <span class="pilot-icon">✈️</span>
-                SwitchPilot
-            </div>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <div class="energy-grid"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="badge">🚀 Building Together</div>
-                <h1>Your Pilot to Better Energy Deals</h1>
-                <p>We're building an automated service that finds you the best energy tariffs while you sleep. Join our community, share what frustrates you, and help us create something that actually works.</p>
-            </div>
-            <div class="pilot-container">
-                <div class="pilot-character">✈️</div>
-                <div class="destination-tag">
-                    <span>Next Destination:</span>
-                    <strong>£200+ Saved</strong>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+<div class="energy-grid"></div>
+<div class="floating-symbols">
+<div class="symbol">⚡</div><div class="symbol">💷</div><div class="symbol">🔌</div><div class="symbol">💡</div><div class="symbol">📈</div>
+</div>
+<div class="hero-content">
+<div class="hero-text">
+<div class="badge">🚀 Building Together</div>
+<h1>Your Pilot to Better Energy Deals</h1>
+<p>We're building an automated service that finds you the best energy tariffs while you sleep. Join our community, share what frustrates you, and help us create something that actually works.</p></p>
+</div>
+<div class="pilot-container">
+<div class="pilot-character">✈️</div>
+<div class="destination-tag"><span>Next Destination:</span><strong>£200+ Saved</strong></div>
+</div>
+</div>
+</section>
 
-    <div class="waitlist-form">
-        <h3>Join the Flight Crew ✈️</h3>
-        <p>Get weekly insights + early access when we launch</p>
-        <form onsubmit="handleSubmit(event)">
-            <div class="form-group">
-                <input type="email" placeholder="Your email address" required>
-            </div>
-            <button type="submit" class="submit-btn">Get Weekly Insights</button>
-        </form>
-        <p class="trust-line">🔒 Unsubscribe anytime. We respect your inbox.</p>
-    </div>
+<div class="waitlist-form" style="background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);max-width:700px;margin:3.5rem auto 4rem;">
+<h3 style="font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;">Join the Flight Crew ✈️</h3>
+<p style="opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;">Get weekly insights + early access when we launch</p>
+<form>
+<div class="form-group"><input type="email" placeholder="Your email address" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;"/></div>
+<button class="submit-btn" style="width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);">Get Weekly Insights</button>
+</form>
+<p style="margin-top:1rem;font-size:.9rem;opacity:.6;color:#1a1a2e;">🔒 Unsubscribe anytime. We respect your inbox.</p>
+</div>
+</section>
 
-    <section class="what-you-get">
-        <h2 class="section-title">What You'll Get Every Week</h2>
-        <p class="section-subtitle">Be part of building the future of energy switching</p>
-        <div class="benefits">
-            <div class="benefit">
-                <span class="benefit-icon">📊</span>
-                <h3>Bill Breakdown</h3>
-                <p>Plain English explanations of what you're actually paying for - no jargon, no confusion</p>
-            </div>
-            <div class="benefit">
-                <span class="benefit-icon">💰</span>
-                <h3>Overpaying Alerts</h3>
-                <p>Find out if you're being charged more than you should be based on the latest price cap</p>
-            </div>
-            <div class="benefit">
-                <span class="benefit-icon">📈</span>
-                <h3>Industry Updates</h3>
-                <p>What's happening in UK energy - new tariffs, regulatory changes, and market trends</p>
-            </div>
-            <div class="benefit">
-                <span class="benefit-icon">🎯</span>
-                <h3>Actionable Tips</h3>
-                <p>Simple steps you can take this week to reduce your energy costs</p>
-            </div>
-        </div>
-    </section>
+<section class="insights">
+<h2>Recent Insights</h2>
+<p style="opacity:.85;margin-top:.5rem;margin-bottom:3rem;font-size:1.2rem;">Here's what our community is learning about right now</p>
+<div class="topics" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;align-items:stretch;">
 
-    <section class="newsletter-preview">
-        <div class="newsletter-content">
-            <h2>Recent Insights</h2>
-            <p>Here's what our community is learning about right now</p>
-            
-            <div class="newsletter-topics">
-                <div class="topic clickable" onclick="window.open('article.html', '_blank')">
-                    <h4>🔆 Warm Home Discount Expansion</h4>
-                    <p>What's changing from winter 2025-26 and how it affects your bills - plus why competition is heating up</p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">📅 25 Oct 2025</p>
-                </div>
-                <div class="topic">
-                    <h4>⚠️ Standing Charges</h4>
-                    <p>Why you pay even when you use zero energy - and if it's fair</p>
-                </div>
-                <div class="topic">
-                    <h4>💡 Smart Meter Truth</h4>
-                    <p>Do they actually save you money or just help suppliers?</p>
-                </div>
-                <div class="topic">
-                    <h4>🎯 Best Tariff Strategy</h4>
-                    <p>Fixed vs variable - which is right for you right now</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="topic" onclick="window.open('article.html','_blank')" style="padding:2rem;border-radius:22px;background:#11162e;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;">
+<h3 style="font-size:1.3rem;margin-bottom:.8rem;">🔆 Warm Home Discount Expansion</h3>
+<p style="opacity:.85;line-height:1.5;font-size:1rem;">What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up</p>
+<p style="margin-top:auto;font-size:.9rem;opacity:.7;">📅 25 Oct 2025</p>
+</div>
 
-    <section class="community-stats">
-        <div class="stat">
-            <div class="stat-number">65%</div>
-            <div class="stat-label">of UK households on SVT</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">£200+</div>
-            <div class="stat-label">potential savings per year</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number">You</div>
-            <div class="stat-label">shape what we build</div>
-        </div>
-    </section>
+<div class="topic" style="padding:2rem;border-radius:22px;background:#11162e;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;">
+<h3 style="font-size:1.3rem;margin-bottom:.8rem;">⚠️ Standing Charges</h3>
+<p style="opacity:.85;line-height:1.5;font-size:1rem;">Why you pay even when you use zero energy – and if it's fair</p>
+</div>
 
-    <section class="final-cta">
-        <h2>We're Building This Together</h2>
-        <p>65% of UK households are on Standard Variable Tariffs and could save £200+ per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you - but we need your input to build what actually works.</p>
-        <button class="cta-btn" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">Join the Community</button>
-    </section>
+<div class="topic" style="padding:2rem;border-radius:22px;background:#11162e;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;">
+<h3 style="font-size:1.3rem;margin-bottom:.8rem;">💡 Smart Meter Truth</h3>
+<p style="opacity:.85;line-height:1.5;font-size:1rem;">Do they actually save you money or just help suppliers?</p>
+</div>
 
-    <section class="article-section" id="article">
-        <div class="article-content">
-            <div class="article-date">
-                <span>25 October 2025</span>
-            </div>
-            
-            <h1>🔆 Warm Home Discount Expansion: What's Changing and What It Means for Bills</h1>
-            
-            <h2>Overview</h2>
-            <p>The UK Government has announced a major expansion of the Warm Home Discount (WHD) scheme from winter 2025–26, aiming to make energy bills more affordable for millions of low-income households. The WHD provides a £150 annual rebate on electricity bills to help with winter heating costs.</p>
-            
-            <h2>Why It's Changing</h2>
-            <p>The old system was criticised for being too restrictive and inconsistent, leaving some struggling families without help simply because their home wasn't classed as "expensive to heat." Removing this rule makes eligibility simpler, fairer, and automatic for those on qualifying benefits — ensuring help reaches those most in need, but also increasing the burden on other customers who ultimately subsidise these discounts through their energy bills.</p>
-            
-            <h2>Impact on Bills</h2>
-            <p>The WHD is funded by energy suppliers and spread across all customer bills through Ofgem's Standard Variable Tariff (SVT) price cap, which will also be reflected in fixed tariffs. With the expansion doubling the number of recipients:</p>
-            <ul>
-                <li>The cost of running the scheme will rise.</li>
-                <li>This will add around £15 per year to the average dual-fuel household bill.</li>
-                <li>Including other related initiatives, the total increase is expected to be around £21–£22 per year.</li>
-            </ul>
-            <p>These costs will start being recovered in bills from October 2025, through the Q4 2025 price cap period.</p>
-            <ul>
-                <li>There is also likely to be a further increase from April 2026 to recover Energy supplier's shortfalls, as the expansion started mid–Warm Home Discount scheme year.</li>
-            </ul>
-            
-            <h2>What This Means for Your Bill</h2>
-            <p>From October 2025, it's likely that most energy suppliers will price the cost of the WHD expansion into new fixed contracts. This means even customers switching to a fixed tariff could see the impact reflected in rates — not just those on the price cap.</p>
-            <p>However, as of 26 October 2025, there's a significant amount of price competition emerging in the residential energy market. Much of this is being driven by Fuse Energy, whose aggressively priced fixed deals are putting downward pressure on other suppliers' tariffs.</p>
-            <p>In practical terms, while the WHD expansion adds upward pressure on bills, competitive pricing — especially from newer entrants like Fuse — is helping to offset some of that impact. There are still good-value fixed options available even as policy costs drive up total bills.</p>
-            <p>If you fix now for one or two years, you could potentially avoid higher costs when the next WHD-related adjustment is added to bills next year.</p>
-            
-            <h2>In Summary</h2>
-            <ul>
-                <li>✅ Eligibility widened – no more "high-cost-to-heat" rule in England & Wales</li>
-                <li>✅ Support doubles – from ~3 million to ~6 million households</li>
-                <li>✅ Rebate stays at £150</li>
-                <li>⚠️ Cost increase – around £15–£22 added to the average annual bill this winter</li>
-                <li>⚠️ Further cost increases – around £10–£20 added to the average annual bill likely in April 2026 to make up for supplier shortfall</li>
-                <li>💡 Effective from winter 2025–26, feeding into the Q4 2025 SVT cap</li>
-            </ul>
-            
-            <button class="back-btn" onclick="hideArticle()">← Back to Home</button>
-        </div>
-    </section>
+<!-- CENTERED LAST CARD -->
+<div class="topic" style="padding:2rem;border-radius:22px;background:#11162e;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;grid-column:2/3;">
+<h3 style="font-size:1.3rem;margin-bottom:.8rem;">🎯 Best Tariff Strategy</h3>
+<p style="opacity:.85;line-height:1.5;font-size:1rem;">Fixed vs variable – which is right for you right now</p>
+</div>
 
-    <footer class="footer">
-        <p>💌 Weekly energy insights delivered to your inbox</p>
-        <p style="margin-top: 1rem; opacity: 0.7;">&copy; 2024 SwitchPilot. Making energy bills make sense.</p>
-    </footer>
+</div>
+</section>
 
-    <script>
-        function handleSubmit(e) {
-            e.preventDefault();
-            const email = e.target.querySelector('input').value;
-            
-            const form = e.target.closest('.waitlist-form');
-            form.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
-                    <h3 style="background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; font-size: 1.8rem;">Welcome Aboard!</h3>
-                    <p style="color: #666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
-                </div>
-            `;
-        }
-    </script>
+<section class="stats">
+<div>
+  <div class="stat-number">65%</div>
+  <div>of UK could save more</div>
+</div>
+<div>
+  <div class="stat-number">£200+</div>
+  <div>potential yearly savings</div>
+</div>
+<div>
+  <div class="stat-number">You</div>
+  <div>shape what we build</div>
+</div>
+</section>
+
+<section class="final-cta">
+<h2>We're Building This Together</h2>
+<p>65% of UK households are on Standard Variable Tariffs and could save £200+ per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
+<button class="cta-btn">Join the Community</button>
+</section>
+
+<footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
+<p>💌 Weekly energy insights delivered to your inbox</p>
+<p style="margin-top:1rem;">© 2024 SwitchPilot. Making energy bills make sense.</p>
+</footer>
+
 </body>
 </html>

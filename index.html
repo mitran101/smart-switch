@@ -304,6 +304,36 @@ section:has(a[href="game.html"]) p {
 </div>
 </section>
 
+<div class="waitlist-form">
+<div class="signup-counter" style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1.5rem;">👥</span>
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
+    </div>
+  </div>
+  <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
+    <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10,000</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
+    </div>
+  </div>
+</div>
+<h3>Join the Flight Crew ✈️</h3>
+<p>Get weekly insights + early access when we launch</p>
+<form onsubmit="handleSubmit(event)">
+<div class="form-group"><input type="email" placeholder="Your email address" required /></div>
+<button type="submit" class="submit-btn">Get Weekly Insights</button>
+</form>
+<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
+</div>
+
 <!-- EMBEDDED PRICE CAP TOOL -->
 <section style="max-width:1400px;margin:5rem auto 0;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
@@ -345,36 +375,6 @@ section:has(a[href="game.html"]) p {
   </div>
 </div>
 </section>
-
-<div class="waitlist-form">
-<div class="signup-counter" style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <span style="font-size:1.5rem;">👥</span>
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
-    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
-      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
-      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
-    </div>
-  </div>
-  <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
-    <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
-  </div>
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
-    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
-      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10,000</span>
-      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
-    </div>
-  </div>
-</div>
-<h3>Join the Flight Crew ✈️</h3>
-<p>Get weekly insights + early access when we launch</p>
-<form onsubmit="handleSubmit(event)">
-<div class="form-group"><input type="email" placeholder="Your email address" required /></div>
-<button type="submit" class="submit-btn">Get Weekly Insights</button>
-</form>
-<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
-</div>
 
 <section class="insights">
 <h2>Recent Insights</h2>
@@ -425,7 +425,6 @@ section:has(a[href="game.html"]) p {
     <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
     <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
 
-```
 <div id="gameStartScreen" style="margin-bottom:1.5rem;">
   <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
 </div>
@@ -448,36 +447,9 @@ section:has(a[href="game.html"]) p {
   <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
   <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
 </div>
-```
 
   </div>
 </div>
-</section>
-
-<!-- TOOLS SECTION -->
-
-<section style="background:#0f1329;padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
-
-  <div style="position:relative;z-index:2;">
-    <div style="font-size:3rem;margin-bottom:1rem;">🔧📊✨</div>
-    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Energy Bill Tools</h2>
-    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;">Explore interactive tools to understand where your energy money really goes</p>
-
-```
-<div style="max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:2rem;">
-  <!-- Price Cap Tool -->
-  <a href="price-cap.html" style="text-decoration:none;display:block;background:rgba(17,22,46,0.95);padding:2.5rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);transition:all 0.3s;position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(99,102,241,0.5)';" onmouseout="this.style.transform='';this.style.boxShadow='0 15px 50px rgba(0,0,0,0.4)';">
-    <div style="position:absolute;inset:0;border-radius:22px;padding:2px;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0';"></div>
-    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
-    <h3 style="font-size:1.8rem;font-weight:900;margin-bottom:1rem;color:#fff;">Energy Price Cap Breakdown</h3>
-    <p style="font-size:1.1rem;opacity:0.85;line-height:1.6;color:#fff;margin-bottom:1.5rem;">Interactive visualization showing exactly where your energy bill money goes—from wholesale costs to hidden policy charges like Nuclear RAB and constraint payments.</p>
-    <span style="display:inline-block;padding:0.8rem 2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border-radius:15px;font-weight:700;font-size:1rem;">Explore the Tool →</span>
-  </a>
-</div>
-```
-
-  </div>
 </section>
 
 <section class="final-cta">

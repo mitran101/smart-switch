@@ -149,6 +149,12 @@ animation: gridSlide 15s linear infinite;
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 968px) {
+/* Reduce giant gap before WHO WE ARE */
+section[style*="Who We Are"] { margin-top: 2rem !important; }
+
+/* Fix chart height issues */
+div[style*="height:600px"] { height: 320px !important; }
+#priceCapChart { max-height: 260px !important; }
 .hero {padding:5rem 1.5rem 3rem;}
 .hero-content {grid-template-columns:1fr;gap:2rem;text-align:center;}
 .hero-text {order:1;}
@@ -797,11 +803,20 @@ function renderPriceCapChart() {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
+        x: {
+  stacked: true,
+  ticks: { color: '#ecf0f1', padding: 0 },
+  grid: { color: '#34495e' }
+},
         y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
       },
       plugins: {
-        legend: { labels: { color: '#ecf0f1' } },
+        legend: { labels: {
+  color: '#ecf0f1',
+  padding: 6,
+  boxWidth: 12,
+  boxHeight: 12
+} },
         tooltip: {
           backgroundColor: 'white',
           titleColor: '#2c3e50',
@@ -858,3 +873,4 @@ window.addEventListener('load', function() {
 
 </body>
 </html>
+

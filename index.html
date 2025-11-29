@@ -387,7 +387,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 
 <script>
 // Google Apps Script URL
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzE528vYoas8bb2UrvJuBOHkoOOStV3KIAGhPjiWa5dhNB0BhEmfEeK1wbtFJRP257bFw/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHUoADAcbqf_l_aq_Lu8dwblLiqrvLJZ-2GmSRY_YlpeLLpfV5qrMHY_15w2nYYXfg/exec';
 
 // Target number for countdown
 const TARGET_SIGNUPS = 10000;
@@ -452,9 +452,9 @@ function handleSubmit(e) {
     .then(() => {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
-                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
-                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
+                <div style="font-size:4rem;margin-bottom:1rem;">📧</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Check Your Email!</h3>
+                <p style="color:#666;">We sent a confirmation link to <strong>${email}</strong>. Click it to join the crew and start receiving weekly insights!</p>
             </div>
         `;
     })

@@ -233,15 +233,41 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
       <span style="font-size:1.8rem;">🔮</span>
       <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Our Vision</h3>
     </div>
-    <p style="margin:0;font-size:1.4rem;font-weight:700;line-height:1.4;">Putting the power back in your hands</p>
+    <p style="margin:0;font-size:1.4rem;font-weight:700;line-height:1.4;margin-bottom:1rem;">Putting the power back in your hands</p>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.85;">An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
   </div>
   <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(236,72,153,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
     <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
       <span style="font-size:1.8rem;">🚀</span>
       <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Our Mission</h3>
     </div>
-    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">We're building a free auto-switching service to find you the cheapest energy deals possible. For exclusive "energy pilots" we will leverage our industry knowledge and experience to secure you better deals than anything that is widely available on the market. But first, in order to do that we need to show we have power in numbers so we need 10,000 willing participants to express their interest so we can bring back the power to Energy customers across the UK.</p>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">Build a free auto-switching service that finds the cheapest energy deals for you. But first, we need <strong>10,000 willing participants</strong> to show we have power in numbers—so we can bring back the power to energy customers across the UK.</p>
   </div>
+</div>
+</section>
+
+<!-- WHO WE ARE -->
+<section style="max-width:900px;margin:5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
+  
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    We're just two people who've been working in the UK energy industry recently. Before this? <strong>Zero knowledge about energy bills.</strong>
+  </p>
+  
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    Now? We've learned things that shocked us. And we can't unsee them.
+  </p>
+  
+  <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
+    <p style="font-size:1rem;line-height:1.6;margin:0;opacity:0.95;">
+      Did you know you're paying wind farms to turn off when it's too windy (<strong>constraint payments</strong>), whilst funding them through <strong>CfDs</strong>? Or funding nuclear plant investors <strong>before it's even built</strong> (Nuclear RAB)? Through the Warm Home Discount, you're subsidising other people's discounts even if you don't qualify.
+    </p>
+  </div>
+  
+  <p style="font-size:1.1rem;line-height:1.7;margin-top:1.2rem;margin-bottom:0;opacity:0.9;">
+    None of this is explained on your bill. But you're paying for all of it. That's why we're building SwitchPilot <strong>WITH you</strong>—educating you while creating a service that actually works for you. Because an informed customer creates a more competitive market for everyone.
+  </p>
 </div>
 </section>
 
@@ -250,16 +276,20 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
   <div style="display:flex;align-items:center;gap:0.5rem;">
     <span style="font-size:1.5rem;">👥</span>
     <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
-    <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
+    </div>
   </div>
   <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
     <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
   </div>
   <div style="display:flex;align-items:center;gap:0.5rem;">
     <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
-    <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10,000</span>
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10,000</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
+    </div>
   </div>
 </div>
 <h3>Join the Flight Crew ✈️</h3>

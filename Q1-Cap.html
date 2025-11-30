@@ -1,132 +1,417 @@
-<!-- Paste your article HTML here or start editing -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Q1-26 Ofgem Price Cap Explained</title>
-  <style>
-    body {
-      background: #0c0e1f;
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #e2e8f0;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
-    }
-    h1 {
-      font-size: 2rem;
-      color: #fff;
-      margin-top: 1rem;
-      line-height: 1.3;
-    }
-    h2 {
-      color: #93c5fd;
-      margin-top: 2.5rem;
-    }
-    p, li {
-      font-size: 1.07rem;
-      line-height: 1.65;
-      color: #e2e8f0;
-      margin-bottom: 1rem;
-    }
-    ul { padding-left: 1.2rem; }
-    .back {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      text-decoration: none;
-      color: #60a5fa;
-      font-size: 1rem;
-    }
-    .card {
-      background: #111827;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
-      margin-top: 1rem;
-    }
-    .highlight {
-      background: #1e293b;
-      padding: 1rem 1.2rem;
-      border-radius: 8px;
-      margin: 1.5rem 0;
-      border-left: 4px solid #60a5fa;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Q1-26 Price Cap Breakdown - SwitchPilot</title>
+
+<style>
+/* GLOBAL – MATCH INDEX */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0c0e1f;
+  color: #fff;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
+  background-size: 70px 70px;
+}
+
+/* ARTICLE SHELL */
+.article-shell {
+  position: relative;
+  padding: 7.5rem 2rem 5rem;
+  overflow: hidden;
+}
+
+/* GRID (SAME AS INDEX) */
+.energy-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
+  background-size: 70px 70px;
+  opacity: .10;
+  animation: energyGridMove 18s linear infinite;
+  pointer-events: none;
+}
+@keyframes energyGridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+
+/* LOGO */
+.top-logo {
+  position: absolute;
+  top: 45px;
+  left: 32px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-logo span:first-child {
+  font-size: 2.3rem;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+}
+.top-logo span:last-child {
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* ARTICLE LAYOUT */
+.article-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* Price cap themed icons on sides */
+.article-inner::before {
+  content: '💷';
+  position: absolute;
+  top: 15%;
+  left: -180px;
+  font-size: 5rem;
+  opacity: 0.85;
+  animation: floatCap 8s ease-in-out infinite;
+}
+.article-inner::after {
+  content: '📊';
+  position: absolute;
+  top: 45%;
+  right: -180px;
+  font-size: 5rem;
+  opacity: 0.85;
+  animation: floatCap 10s ease-in-out infinite 3s;
+}
+
+/* Additional side icons */
+.article-card::after {
+  content: '⚡';
+  position: absolute;
+  bottom: 20%;
+  left: -190px;
+  font-size: 4.5rem;
+  opacity: 0.85;
+  animation: floatCap 9s ease-in-out infinite 1.5s;
+  z-index: -2;
+}
+
+@keyframes floatCap {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(5deg); }
+}
+
+/* BACK LINK */
+.back-home {
+  display: inline-block;
+  margin-bottom: 1.4rem;
+  padding: 0.6rem 1.4rem;
+  background: rgba(255,255,255,0.14);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7ff;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: .3s;
+}
+.back-home:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* CARD */
+.article-card {
+  margin-top: 1.8rem;
+  background: #ffffff;
+  color: #1a1a2e;
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  overflow: visible;
+  position: relative;
+}
+
+/* HEADER */
+.article-header {
+  padding: 2.2rem 3rem 1.3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.article-date span {
+  background: linear-gradient(135deg, #fef3c7, #dbeafe);
+  color: #92400e;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+}
+
+.article-header h1 {
+  margin: 0;
+  margin-top: 1rem;
+  line-height: 1.18;
+  font-size: 2.7rem;
+  font-weight: 900;
+  position: relative;
+  z-index: 2;
+}
+
+/* BODY */
+.article-body {
+  padding: 1.1rem 3rem 2.8rem;
+}
+.article-body h2 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 2rem 0 1.2rem;
+  font-weight: 800;
+}
+.article-body h2:first-child {
+  margin-top: 0.4rem;
+}
+
+.article-body p, .article-body ul {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #444;
+}
+.article-body p {
+  margin-bottom: 1.5rem;
+}
+.article-body ul {
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+.article-body li {
+  margin-bottom: 0.7rem;
+}
+
+/* FOOTER */
+.footer {
+  background: #0c0e1f;
+  text-align: center;
+  padding: 3rem 2rem;
+  color: white;
+}
+.footer p {
+  opacity: 0.8;
+  margin: 0.5rem 0;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 968px) {
+  .article-shell {
+    padding: 6rem 1.5rem 4rem;
+  }
+  
+  /* Hide side icons on mobile/tablet */
+  .article-inner::before,
+  .article-inner::after,
+  .article-card::after {
+    display: none;
+  }
+  
+  .top-logo {
+    top: 25px;
+    left: 20px;
+  }
+  .top-logo span:first-child {
+    font-size: 1.8rem;
+  }
+  .top-logo span:last-child {
+    font-size: 1.5rem;
+  }
+  
+  .article-header {
+    padding: 2rem 2rem 1rem;
+  }
+  .article-header h1 {
+    font-size: 2rem;
+  }
+  
+  .article-body {
+    padding: 1rem 2rem 2rem;
+  }
+  .article-body h2 {
+    font-size: 1.6rem;
+  }
+  .article-body p, .article-body ul {
+    font-size: 1.05rem;
+  }
+  .article-body ul {
+    margin-left: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-shell {
+    padding: 5rem 1rem 3rem;
+  }
+  
+  .top-logo {
+    top: 20px;
+    left: 15px;
+    gap: 6px;
+  }
+  .top-logo span:first-child {
+    font-size: 1.5rem;
+  }
+  .top-logo span:last-child {
+    font-size: 1.3rem;
+  }
+  
+  .back-home {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.2rem;
+  }
+  
+  .article-card {
+    border-radius: 20px;
+  }
+  
+  .article-header {
+    padding: 1.5rem 1.5rem 0.8rem;
+  }
+  .article-date span {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+  }
+  .article-header h1 {
+    font-size: 1.6rem;
+    margin-top: 0.8rem;
+  }
+  
+  .article-body {
+    padding: 0.8rem 1.5rem 1.8rem;
+  }
+  .article-body h2 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+  }
+  .article-body p, .article-body ul {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .article-body ul {
+    margin-left: 1.2rem;
+  }
+  
+  .footer {
+    padding: 2.5rem 1.5rem;
+  }
+  .footer p {
+    font-size: 0.9rem;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <a href="index.html" class="back">← Back to SwitchPilot</a>
 
-    <h1>🔆 Q1-26 Ofgem Price Cap: What’s Changing and What It Means for Bills</h1>
-    
-    <p style="opacity:0.7;font-size:0.95rem;margin-top:0.3rem;">📅 28 Nov 2025</p>
+<!-- LOGO -->
+<div class="top-logo">
+  <span>✈️⚡</span>
+  <span>SwitchPilot</span>
+</div>
 
-    <div class="card">
-      <h2>Overview</h2>
-      <p>Ofgem has released the energy price cap for <strong>1 January – 31 March 2026</strong>, setting the typical dual-fuel Direct Debit bill at <strong>£1,758</strong>, an increase of just <strong>£3</strong> from the previous quarter (£1,755).</p>
+<section class="article-shell">
 
-      <p>While the headline rise looks tiny, the surprising truth is that <strong>actual energy costs fell by £29</strong>.</p>
+  <div class="energy-grid"></div>
 
-      <p class="highlight">➜ The drop in real energy costs is being completely wiped out by rising policy and structural costs.</p>
+  <div class="article-inner">
 
-      <h2>Why It’s Changing</h2>
-      <ul>
-        <li><strong>Wholesale energy costs fell by £29</strong>.</li>
-        <li><strong>Policy costs increased by £21</strong>, due to Nuclear RAB + higher Warm Home Discount allocation.</li>
-        <li><strong>Operating & industry costs rose by £9</strong> due to benchmark electricity consumption dropping from 3.1 MWh → 2.7 MWh, raising the allowed unit rates.</li>
-      </ul>
+    <a href="index.html" class="back-home">← Back Home</a>
 
-      <h2>Impact on Bills</h2>
-      <ul>
-        <li>Small headline change, but higher unit cost per MWh.</li>
-        <li>Policy costs continue to rise every quarter.</li>
-        <li>Fixed tariffs still offer value even with underlying cost pressures.</li>
-      </ul>
+    <div class="article-card">
+      <div class="article-header">
+        <div class="article-date"><span>28 November 2025</span></div>
 
-      <h2>Policy Cost Breakdown</h2>
-      <ul>
-        <li><strong>Policy cost allowance: £236/year</strong> (energy cost is only £690/year).</li>
-        <li>WHD allowance increases to <strong>£45.83/year</strong>.</li>
-        <li>Nuclear RAB adds ~<strong>£14</strong>.</li>
-      </ul>
-
-      <h2>What This Means for Your Bill</h2>
-      <ul>
-        <li>SVT customers pay more per MWh.</li>
-        <li>Network cost rises likely add <strong>£20–£50</strong> from April 2026.</li>
-        <li>Bills may reach <strong>~£1,800</strong>.</li>
-      </ul>
-
-      <h2>In Summary</h2>
-      <div class="highlight">
-        <ul>
-          <li>✔ Small cap rise: <strong>£1,755 → £1,758</strong></li>
-          <li>⚠ Policy-driven costs rising</li>
-          <li>⚠ Further rises expected Q2-26</li>
-          <li>📅 Valid Jan–Mar 2026</li>
-        </ul>
+        <h1>🔆 Q1-26 Price Cap Breakdown: What's Changing and What It Means for Bills</h1>
       </div>
 
-      <h2>💰 Best Price — E.ON Next Fixed 18m v23 (£1,564.89)</h2>
-      <ul>
-        <li>Likely to outperform cap savings by £210+ by Q2-26.</li>
-        <li>Close competitor: EDF Simply Fixed Nov26v10 (£1,569.34).</li>
-        <li>Fuse now ~£1,619.</li>
-      </ul>
+      <div class="article-body">
 
-      <h2>💎 Editor’s Choice — E.ON Next Fixed 18m v23 (£1,564.89)</h2>
-      <ul>
-        <li>Strong value with falling wholesale + rising structural costs.</li>
-        <li>Electricity standing charges: 34.55p/day (vs EDF 41.39p/day).</li>
-        <li>Gas standing charges slightly favour EDF — overall marginal difference.</li>
-      </ul>
+        <h2>Overview</h2>
+        <p>Ofgem has released the energy price cap for <strong>1 January – 31 March 2026</strong>, setting the typical dual-fuel Direct Debit bill at <strong>£1,758</strong>, an increase of just <strong>£3</strong> from the previous quarter (£1,755).</p>
 
+        <p>While the headline rise looks tiny, the surprising truth is that <strong>actual energy costs fell by £29</strong>.</p>
+
+        <p style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">➜ The drop in real energy costs is being completely wiped out by rising policy and structural costs.</p>
+
+        <h2>Why It's Changing</h2>
+        <ul>
+          <li><strong>Wholesale energy costs fell by £29</strong>.</li>
+          <li><strong>Policy costs increased by £21</strong>, due to Nuclear RAB + higher Warm Home Discount allocation.</li>
+          <li><strong>Operating & industry costs rose by £9</strong> due to benchmark electricity consumption dropping from 3.1 MWh → 2.7 MWh, raising the allowed unit rates.</li>
+        </ul>
+
+        <h2>Impact on Bills</h2>
+        <ul>
+          <li>Small headline change, but higher unit cost per MWh.</li>
+          <li>Policy costs continue to rise every quarter.</li>
+          <li>Fixed tariffs still offer value even with underlying cost pressures.</li>
+        </ul>
+
+        <h2>Policy Cost Breakdown</h2>
+        <ul>
+          <li><strong>Policy cost allowance: £236/year</strong> (energy cost is only £690/year).</li>
+          <li>WHD allowance increases to <strong>£45.83/year</strong>.</li>
+          <li>Nuclear RAB adds ~<strong>£14</strong>.</li>
+        </ul>
+
+        <h2>What This Means for Your Bill</h2>
+        <ul>
+          <li>SVT customers pay more per MWh.</li>
+          <li>Network cost rises likely add <strong>£20–£50</strong> from April 2026.</li>
+          <li>Bills may reach <strong>~£1,800</strong>.</li>
+        </ul>
+
+        <h2>In Summary</h2>
+        <div style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">
+          <ul style="margin: 0;">
+            <li>✓ Small cap rise: <strong>£1,755 → £1,758</strong></li>
+            <li>⚠ Policy-driven costs rising</li>
+            <li>⚠ Further rises expected Q2-26</li>
+            <li>📅 Valid Jan–Mar 2026</li>
+          </ul>
+        </div>
+
+        <h2>💰 Best Price – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
+        <ul>
+          <li>Likely to outperform cap savings by £210+ by Q2-26.</li>
+          <li>Close competitor: EDF Simply Fixed Nov26v10 (£1,569.34).</li>
+          <li>Fuse now ~£1,619.</li>
+        </ul>
+
+        <h2>💎 Editor's Choice – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
+        <ul>
+          <li>Strong value with falling wholesale + rising structural costs.</li>
+          <li>Electricity standing charges: 34.55p/day (vs EDF 41.39p/day).</li>
+          <li>Gas standing charges slightly favour EDF – overall marginal difference.</li>
+        </ul>
+
+      </div>
     </div>
   </div>
+</section>
+
+<footer class="footer">
+  <p>💌 Weekly energy insights delivered to your inbox</p>
+  <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
+</footer>
+
 </body>
 </html>

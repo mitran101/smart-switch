@@ -13,10 +13,48 @@ body {
   line-height: 1.6;
 }
 
+/* LOGO */
+.top-logo {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-logo span:first-child {
+  font-size: 2.3rem;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+}
+.top-logo span:last-child {
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* Separator line under logo area */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 85px;
+  left: 30px;
+  right: 30px;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+}
+
 .header {
+  background: #0c0e1f;
+  padding: 6rem 2rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
   background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.2));
   padding: 2rem;
-  text-align: center;
+  border-radius: 20px 20px 0 0;
   border-bottom: 2px solid rgba(99,102,241,0.3);
 }
 
@@ -198,12 +236,33 @@ li {
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding: 5rem 1.5rem 0;
+  }
+  
+  .header-content {
+    padding: 1.5rem;
+  }
+  
   .header h1 {
     font-size: 1.8rem;
   }
   
   .container {
     padding: 1.5rem;
+  }
+  
+  .top-logo {
+    top: 15px;
+    left: 20px;
+    padding-bottom: 15px;
+    padding-right: 20px;
+  }
+  .top-logo span:first-child {
+    font-size: 1.8rem;
+  }
+  .top-logo span:last-child {
+    font-size: 1.5rem;
   }
   
   .section {
@@ -218,9 +277,17 @@ li {
 </head>
 <body>
 
+<!-- LOGO -->
+<div class="top-logo">
+  <span>✈️⚡</span>
+  <span>SwitchPilot</span>
+</div>
+
 <div class="header">
-  <h1>📊 Why 3 in 4 People Want Auto-Switching</h1>
-  <div class="meta">Survey Results from 200 UK Energy Customers | Published 30 Nov 2025</div>
+  <div class="header-content">
+    <h1>📊 Why 3 in 4 People Want Auto-Switching</h1>
+    <div class="meta">Survey Results from 200 UK Energy Customers | Published 30 Nov 2025</div>
+  </div>
 </div>
 
 <div class="container">

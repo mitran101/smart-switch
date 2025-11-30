@@ -840,6 +840,17 @@ const priceCapLabels = {
   vat: 'VAT'
 };
 
+const priceCapDescriptions = {
+  wholesale: 'The cost of buying energy on wholesale markets, plus Contracts for Difference (CfD) payments to renewable generators',
+  networks: 'Charges for maintaining and operating the electricity and gas distribution networks that deliver energy to your home',
+  operating: 'Supplier costs including customer service, billing, meter reading, and debt management',
+  policy: 'Government policy costs: Renewables Obligation, Feed-in Tariffs, ECO scheme, Warm Home Discount, and Nuclear RAB charges',
+  ebit: 'Earnings Before Interest and Tax - the profit margin Ofgem allows suppliers to earn',
+  headroom: 'Additional allowance to protect suppliers from unexpected cost increases and reduce the risk of supplier failures',
+  levelisation: 'Adjustment that balances costs across different payment methods (can be negative for prepayment meters)',
+  vat: 'Value Added Tax charged at 5% on domestic energy bills'
+};
+
 let currentPriceCapMethod = 'directDebit';
 let priceCapChart = null;
 
@@ -875,20 +886,69 @@ function renderPriceCapChart() {
         y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
       },
       plugins: {
-        legend: { labels: { color: '#ecf0f1' } },
+        legend: { 
+          labels: { color: '#ecf0f1', padding: 15, font: { size: 12 } }
+        },
         tooltip: {
-          backgroundColor: 'white',
+          enabled: true,
+          mode: 'nearest',
+          intersect: true,
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
           titleColor: '#2c3e50',
-          bodyColor: '#2c3e50',
-          borderColor: '#ddd',
+          bodyColor: '#34495e',
+          borderColor: '#6366f1',
           borderWidth: 2,
+          padding: 15,
+          cornerRadius: 10,
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          boxPadding: 6,
+          usePointStyle: true,
+          displayColors: true,
           callbacks: {
+            title: function(items) {
+              return items[0].dataset.label;
+            },
+            label: function(context) {
+              return '£' + context.parsed.y + ' per year';
+            },
+            afterLabel: function(context) {
+              const componentKey = components[context.datasetIndex];
+              const description = priceCapDescriptions[componentKey];
+              // Wrap text for mobile readability
+              const maxLength = window.innerWidth < 480 ? 50 : 80;
+              if (description.length > maxLength) {
+                const words = description.split(' ');
+                let lines = [];
+                let currentLine = '';
+                
+                words.forEach(word => {
+                  if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                  } else {
+                    currentLine += word + ' ';
+                  }
+                });
+                lines.push(currentLine.trim());
+                return '\n' + lines.join('\n');
+              }
+              return '\n' + description;
+            },
             footer: function(items) {
               const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
-              return 'Total: £' + Math.round(total);
+              return '\nPeriod Total: £' + Math.round(total);
             }
-          }
+          },
+          bodySpacing: 6,
+          footerMarginTop: 10,
+          footerFont: { size: 13, weight: 'bold' },
+          footerColor: '#6366f1'
         }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: true
       }
     }
   });

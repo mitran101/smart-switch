@@ -1,3 +1,39 @@
+
+Step 1: Create a new repo on GitHub (make it public)
+
+Step 2: Upload these 3 files to the root:
+
+index.html
+all_tariffs.json (rename your dated file)
+README.md (optional)
+Step 3: Settings → Pages → Deploy from branch main → Save
+
+Step 4: Wait 2 mins, then visit https://YOUR-USERNAME.github.io/REPO-NAME/
+
+To Update Data Later
+Just replace all_tariffs.json in the repo whenever you run your scraper. The site auto-updates.
+
+Want me to also set up a GitHub Action that runs your scraper automatically every day?
+
+Index
+Code · HTML 
+All tariffs
+Code · JSON 
+Readme
+Document · MD 
+
+
+Want to be notified when Claude responds?
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+Index · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +84,6 @@
             margin-bottom: 30px;
         }
 
-        /* Input Section */
         .input-section {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(168, 85, 247, 0.3);
@@ -94,6 +129,24 @@
         select option {
             background: #1a1d3a;
             color: #e0e0e0;
+        }
+
+        .info-box {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .info-box.green {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .info-box.purple {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
         }
 
         .usage-grid {
@@ -143,7 +196,6 @@
             color: #e0e0e0;
         }
 
-        /* Tariff Cards */
         .tariffs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -188,10 +240,16 @@
         .supplier-logo {
             width: 60px;
             height: 60px;
-            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: white;
             padding: 8px;
             border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1a1d3a;
+            text-align: center;
         }
 
         .supplier-info h3 {
@@ -230,107 +288,50 @@
 
         .savings-badge {
             display: inline-block;
-            margin-top: 10px;
             padding: 6px 12px;
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border-radius: 6px;
+            border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            margin-top: 10px;
         }
 
         .tariff-details {
-            margin: 20px 0;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            padding-top: 20px;
+            margin-top: 20px;
         }
 
         .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .detail-label {
             color: #94a3b8;
-            font-size: 0.9rem;
         }
 
         .detail-value {
             color: #e0e0e0;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .pros-cons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
         }
 
-        .pros, .cons {
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-
-        .pros {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .cons {
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #ef4444;
             background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
         }
 
-        .pros h4 {
-            color: #22c55e;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .cons h4 {
-            color: #ef4444;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .pros ul, .cons ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .pros li, .cons li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 6px;
-            color: #cbd5e1;
-            line-height: 1.4;
-        }
-
-        .pros li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #22c55e;
-            font-weight: bold;
-        }
-
-        .cons li:before {
-            content: "✗";
-            position: absolute;
-            left: 0;
-            color: #ef4444;
-            font-weight: bold;
-        }
-
-        /* Educational Section */
-        .education-section {
+        .footer-info {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(168, 85, 247, 0.3);
             border-radius: 16px;
@@ -338,138 +339,60 @@
             margin-top: 40px;
         }
 
-        .education-section h2 {
-            color: #e0e0e0;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .education-section h3 {
-            color: #a855f7;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .education-section p {
-            color: #cbd5e1;
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        .education-section ul {
-            color: #cbd5e1;
-            margin-left: 20px;
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .education-section li {
-            margin-bottom: 8px;
-        }
-
-        .highlight-box {
-            background: rgba(168, 85, 247, 0.1);
-            border-left: 4px solid #a855f7;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .highlight-box h4 {
-            color: #a855f7;
-            margin-bottom: 10px;
-        }
-
-        .footer-info {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 40px;
-        }
-
         .footer-info h3 {
-            color: #a855f7;
-            font-size: 1.2rem;
+            color: #e0e0e0;
             margin-bottom: 15px;
         }
 
         .footer-info ul {
             list-style: none;
-            padding-left: 0;
+            color: #94a3b8;
         }
 
         .footer-info li {
-            padding-left: 25px;
-            position: relative;
-            margin-bottom: 12px;
-            color: #cbd5e1;
-            line-height: 1.6;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .footer-info li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #a855f7;
-            font-weight: bold;
+        .footer-info li:last-child {
+            border-bottom: none;
         }
 
-        .footer-info strong {
-            color: #e0e0e0;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .input-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .usage-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pros-cons {
-                grid-template-columns: 1fr;
-            }
-
-            .tariffs-grid {
-                grid-template-columns: 1fr;
-            }
+        .elec-only-badge {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>⚡ Energy Tariff Tracker</h1>
-        <p class="subtitle">Compare live energy deals tailored to your exact setup</p>
-        <p class="last-updated">Last updated: <span id="lastUpdated">30 November 2025</span></p>
+        <p class="subtitle">Compare the latest energy deals - prices updated automatically</p>
+        <p class="last-updated">Last updated: <span id="lastUpdated">Loading...</span></p>
 
-        <!-- Input Section -->
         <div class="input-section">
             <div class="input-grid">
                 <div class="input-group">
                     <label for="region">Your Region</label>
                     <select id="region">
-                        <option value="Average">UK Average</option>
                         <option value="Eastern">Eastern</option>
                         <option value="East Midlands">East Midlands</option>
-                        <option value="London">London</option>
-                        <option value="Manweb">Manweb (North Wales, Merseyside, Cheshire)</option>
-                        <option value="Midlands">Midlands</option>
-                        <option value="Northern">Northern</option>
-                        <option value="Norweb">Norweb (North West)</option>
-                        <option value="Scottish Hydro">Scottish Hydro</option>
-                        <option value="Scottish Power">Scottish Power</option>
-                        <option value="Seeboard">Seeboard (South East)</option>
+                        <option value="London" selected>London</option>
+                        <option value="North Wales & Merseyside">North Wales & Merseyside</option>
+                        <option value="West Midlands">West Midlands</option>
+                        <option value="North East">North East</option>
+                        <option value="North West">North West</option>
+                        <option value="South East">South East</option>
                         <option value="Southern">Southern</option>
-                        <option value="Swalec">Swalec (South Wales)</option>
-                        <option value="Sweb">Sweb (South West)</option>
+                        <option value="South Wales">South Wales</option>
+                        <option value="South West">South West</option>
                         <option value="Yorkshire">Yorkshire</option>
+                        <option value="North Scotland">North Scotland</option>
+                        <option value="South Scotland">South Scotland</option>
                     </select>
                 </div>
 
@@ -483,20 +406,13 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="meterType">Meter Type</label>
-                    <select id="meterType">
-                        <option value="standard">Standard Meter</option>
-                        <option value="economy7">Economy 7</option>
-                    </select>
+                    <label>Meter Type</label>
+                    <div class="info-box purple">⚡ Standard Meter prices shown</div>
                 </div>
 
                 <div class="input-group">
-                    <label for="paymentMethod">Payment Method</label>
-                    <select id="paymentMethod">
-                        <option value="dd">Direct Debit</option>
-                        <option value="sc">Standard Credit</option>
-                        <option value="ppm">Prepayment</option>
-                    </select>
+                    <label>Payment Method</label>
+                    <div class="info-box green">💳 Direct Debit prices shown</div>
                 </div>
             </div>
 
@@ -513,1552 +429,211 @@
                     </div>
                 </div>
                 <div class="preset-buttons">
-                    <button class="preset-btn" data-elec="1800" data-gas="7000">Low (1-2 people)</button>
-                    <button class="preset-btn" data-elec="2700" data-gas="11500">Medium (2-3 people)</button>
-                    <button class="preset-btn" data-elec="3800" data-gas="15000">High (4+ people)</button>
+                    <button class="preset-btn" data-elec="1800" data-gas="7500">🏠 Small (1-2 bed)</button>
+                    <button class="preset-btn" data-elec="2700" data-gas="11500">🏡 Medium (3 bed)</button>
+                    <button class="preset-btn" data-elec="4100" data-gas="17000">🏘️ Large (4+ bed)</button>
                 </div>
             </div>
         </div>
 
-        <!-- Tariffs Grid -->
-        <div class="tariffs-grid" id="tariffsGrid">
-            <!-- Tariff cards will be inserted here by JavaScript -->
+        <div id="tariffsGrid" class="tariffs-grid">
+            <div class="loading">Loading tariff data...</div>
         </div>
 
-        <!-- Educational Content -->
-        <div class="education-section">
-            <h2>📚 Understanding Your Energy Bill</h2>
-            
-            <h3>What Are Standing Charges?</h3>
-            <p>Your standing charge is a <strong>daily fee</strong> you pay regardless of usage. Think of it like a subscription fee for being connected to the energy network. Here's where your money goes:</p>
-            <ul>
-                <li><strong>Network Costs (~£396/year):</strong> Maintaining the physical infrastructure - cables, pipes, substations that bring energy to your home</li>
-                <li><strong>Operating Costs (~£270-406/year):</strong> Billing systems, customer service, meter reading, account management</li>
-                <li><strong>Policy Costs (~£215-236/year):</strong> Government schemes like Renewables Obligation, Feed-in Tariffs, ECO (Energy Company Obligation), Warm Home Discount, Nuclear RAB charges</li>
-                <li><strong>Headroom (~£18-20/year):</strong> A buffer suppliers keep for unexpected costs or market fluctuations</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>💡 Why E.ON is Cheapest</h4>
-                <p>E.ON's standing charge is <strong>34.55p/day for electricity vs the cap's 60p/day</strong> - that's a saving of £93/year on electricity alone! Combined with gas at 29p/day vs 31p/day, you save ~£100/year just in standing charges. This is possible because:</p>
-                <ul>
-                    <li>More efficient operations = lower operating costs</li>
-                    <li>Buying energy in bulk 18 months in advance locks in lower wholesale prices</li>
-                    <li>Spreading policy costs across more customers reduces per-customer cost</li>
-                </ul>
-                <p><strong>Trade-off:</strong> You pay £200 exit fees (£100 per fuel) and commit for 18 months</p>
-            </div>
-
-            <h3>What Are Unit Rates?</h3>
-            <p>Your unit rate is what you pay per kilowatt-hour (kWh) of energy used. Every time you boil the kettle, turn on the heating, or watch TV, you're consuming kWh. Here's the breakdown:</p>
-            <ul>
-                <li><strong>Wholesale Energy (~£690-720/year):</strong> The actual cost of gas and electricity from power stations and the market</li>
-                <li><strong>CfD Payments:</strong> Contracts for Difference - subsidies paid to renewable generators to encourage clean energy investment</li>
-                <li><strong>Supplier Margin/EBIT (~£42-44/year):</strong> The profit suppliers are allowed to make, capped by Ofgem at 1.9% of the total bill</li>
-                <li><strong>Levelisation (~£11-13/year):</strong> Smoothing costs across seasons (winter prices are higher, so suppliers spread costs across the year)</li>
-            </ul>
-
-            <h3>Why Do Payment Methods Matter?</h3>
-            <p>Direct Debit customers typically save <strong>~£90/year</strong> compared to Standard Credit. Why?</p>
-            <ul>
-                <li><strong>Lower Admin Costs:</strong> Automated payments reduce billing and collection costs</li>
-                <li><strong>Reduced Debt Risk:</strong> Suppliers face lower bad debt costs, savings passed to customers</li>
-                <li><strong>Cash Flow Predictability:</strong> Regular payments help suppliers manage finances better</li>
-            </ul>
-            <p>Ofgem explicitly permits this price difference. Prepayment has historically been more expensive due to meter infrastructure costs and top-up processing, though the gap has narrowed significantly.</p>
-
-            <div class="highlight-box">
-                <h4>📅 Price Cap Changes: December 2025 vs January 2026</h4>
-                <p><strong>Current cap (until 31 Dec 2025):</strong> £1,711/year for typical Direct Debit use</p>
-                <p><strong>New cap (1 Jan - 31 Mar 2026):</strong> £1,758/year for typical Direct Debit use</p>
-                <p>That's a <strong>£47/year increase (2.7%)</strong> from January. The fixed tariffs shown here will stay the same regardless of cap changes, which is why locking in now could save you money.</p>
-            </div>
-
-            <h3>High Usage vs Low Usage: What Matters More?</h3>
-            <ul>
-                <li><strong>Low Usage Households (1-2 people):</strong> Standing charge is king! It can be 20-30% of your total bill. Choose tariffs with the lowest standing charge.</li>
-                <li><strong>High Usage Households (4+ people):</strong> Unit rate is king! A 1p/kWh difference = £40+/year on typical usage. Choose tariffs with the lowest unit rates.</li>
-                <li><strong>Typical Usage (2-3 people):</strong> Both matter equally. Look for tariffs that balance low standing charges with competitive unit rates.</li>
-            </ul>
-
-            <h3>Should You Fix or Stay Variable?</h3>
-            <p><strong>Choose E.ON Fixed if:</strong></p>
-            <ul>
-                <li>You want the absolute cheapest rate available today</li>
-                <li>You're confident you won't need to switch for 18+ months</li>
-                <li>£200 exit fees aren't a concern (e.g., not moving house)</li>
-                <li>You value budget certainty over flexibility</li>
-            </ul>
-
-            <p><strong>Choose EDF Fixed if:</strong></p>
-            <ul>
-                <li>You want flexibility with £0 exit fees</li>
-                <li>You might switch if prices drop significantly</li>
-                <li>You're willing to pay ~£13/year for that freedom</li>
-                <li>You still want better rates than the variable cap</li>
-            </ul>
-
-            <p><strong>Stay on the Price Cap if:</strong></p>
-            <ul>
-                <li>You expect wholesale prices to drop significantly in the next 6-12 months</li>
-                <li>You might be moving house soon and want zero exit fees</li>
-                <li>You value maximum flexibility over guaranteed savings</li>
-                <li>You're in a temporary living situation</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>📊 Current Savings: Fixed vs Cap (January 2026 prices)</h4>
-                <p>With typical usage (2,700 kWh elec, 11,500 kWh gas), compared to the January cap of £1,758:</p>
-                <ul>
-                    <li><strong>E.ON:</strong> Save £165/year = £13.75/month</li>
-                    <li><strong>EDF:</strong> Save £178/year = £14.83/month</li>
-                </ul>
-                <p>These savings compound over time. Over 18 months, E.ON saves you ~£247, EDF saves ~£267.</p>
-            </div>
-        </div>
-
-        <!-- Footer Info -->
         <div class="footer-info">
             <h3>📝 Important Notes</h3>
             <ul>
-                <li><strong>Exit Fees:</strong> Most tariffs charge £50 per fuel (£100 total for dual fuel) if you leave early. Factor this in if you might move house or want flexibility.</li>
-                <li><strong>Regional Variation:</strong> Prices vary by up to £150/year between regions due to distribution costs. Always select your actual region for accurate pricing.</li>
-                <li><strong>Payment Method:</strong> Direct Debit is typically £80-100/year cheaper than Standard Credit. Prepayment meters often pay slightly more than Direct Debit.</li>
-                <li><strong>Price Guarantee:</strong> Fixed tariffs lock in your unit rates and standing charges for the contract period. The price cap changes quarterly.</li>
-                <li><strong>Green Tariffs:</strong> Some tariffs (like So Energy Hawthorn) provide 100% renewable electricity, usually at a small premium.</li>
-                <li><strong>Data Source:</strong> All tariff data sourced from Ofgem's Tariff Comparison Tool and supplier websites. Updated 30 November 2024.</li>
+                <li><strong>Exit Fees:</strong> Most tariffs charge £50 per fuel (£100 total for dual fuel) if you leave early.</li>
+                <li><strong>Regional Variation:</strong> Prices vary by region due to distribution costs. Always select your actual region.</li>
+                <li><strong>Payment Method:</strong> All prices shown are for Direct Debit - the cheapest option.</li>
+                <li><strong>Meter Type:</strong> All prices shown are for Standard Meters.</li>
+                <li><strong>Data Source:</strong> Prices scraped directly from supplier websites.</li>
             </ul>
         </div>
     </div>
 
     <script>
-const tariffData = {
-    lastUpdated: "30 November 2025",
-    priceCap: {
-        regions: {
-                "Average": {
-                        "dd": {
-                                "elecSC": 60.0,
-                                "elecUnit": 24.5,
-                                "gasSC": 31.0,
-                                "gasUnit": 6.24
-                        },
-                        "sc": {
-                                "elecSC": 60.0,
-                                "elecUnit": 25.8,
-                                "gasSC": 31.0,
-                                "gasUnit": 6.56
-                        },
-                        "ppm": {
-                                "elecSC": 60.0,
-                                "elecUnit": 24.05,
-                                "gasSC": 31.0,
-                                "gasUnit": 6.11
-                        }
-                }
-        }
-    },
-    tariffs: [
-        {
-            supplier: "E.ON Next",
-            logo: "logo-eon-next.png",
-            name: "Fixed 18m v24",
-            contractLength: "18 months",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 35.228,
-                                                "elecUnit": 25.962,
-                                                "gasSC": 33.668,
-                                                "gasUnit": 5.151
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 35.228,
-                                                "elecUnit": 25.962,
-                                                "gasSC": 33.668,
-                                                "gasUnit": 5.151
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 32.813,
-                                                "elecUnit": 25.506,
-                                                "gasSC": 33.752,
-                                                "gasUnit": 5.099
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 36.383,
-                                                "elecUnit": 24.702,
-                                                "gasSC": 34.572,
-                                                "gasUnit": 5.31
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 61.582,
-                                                "elecUnit": 25.845,
-                                                "gasSC": 34.434,
-                                                "gasUnit": 5.225
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 38.829,
-                                                "elecUnit": 25.478,
-                                                "gasSC": 34.054,
-                                                "gasUnit": 5.192
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 45.917,
-                                                "elecUnit": 25.4,
-                                                "gasSC": 34.146,
-                                                "gasUnit": 5.2
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 40.582,
-                                                "elecUnit": 25.506,
-                                                "gasSC": 34.174,
-                                                "gasUnit": 5.229
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 49.402,
-                                                "elecUnit": 26.888,
-                                                "gasSC": 34.215,
-                                                "gasUnit": 5.419
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 48.038,
-                                                "elecUnit": 25.013,
-                                                "gasSC": 34.244,
-                                                "gasUnit": 5.144
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 33.705,
-                                                "elecUnit": 26.613,
-                                                "gasSC": 33.602,
-                                                "gasUnit": 5.205
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 31.5,
-                                                "elecUnit": 26.018,
-                                                "gasSC": 33.481,
-                                                "gasUnit": 5.284
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 41.496,
-                                                "elecUnit": 26.004,
-                                                "gasSC": 34.301,
-                                                "gasUnit": 5.31
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 43.313,
-                                                "elecUnit": 26.223,
-                                                "gasSC": 33.643,
-                                                "gasUnit": 5.371
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 50.684,
-                                                "elecUnit": 24.264,
-                                                "gasSC": 34.123,
-                                                "gasUnit": 5.208
-                                    }
-                        }
-            },
-            pros: [
-                        "Lowest standing charges",
-                        "18-month price certainty",
-                        "Competitive unit rates"
-            ],
-            cons: [
-                        "\u00a3100 total exit fees",
-                        "18-month commitment",
-                        "Locked in if prices drop"
-            ]
-        },
-        {
-            supplier: "EDF Energy",
-            logo: "logo-edf-energy.png",
-            name: "Simply Fixed Feb27v2",
-            contractLength: "~15 months (Feb 2027)",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 39.879,
-                                                "elecUnit": 25.788,
-                                                "gasSC": 25.284,
-                                                "gasUnit": 5.376
-                                    },
-                                    "sc": {
-                                                "elecSC": 39.879,
-                                                "elecUnit": 27.3,
-                                                "gasSC": 25.284,
-                                                "gasUnit": 5.737
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 39.879,
-                                                "elecUnit": 25.788,
-                                                "gasSC": 25.284,
-                                                "gasUnit": 5.376
-                                    },
-                                    "sc": {
-                                                "elecSC": 39.879,
-                                                "elecUnit": 27.3,
-                                                "gasSC": 25.284,
-                                                "gasUnit": 5.737
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 40.719,
-                                                "elecUnit": 24.77,
-                                                "gasSC": 25.368,
-                                                "gasUnit": 5.3
-                                    },
-                                    "sc": {
-                                                "elecSC": 40.719,
-                                                "elecUnit": 26.282,
-                                                "gasSC": 25.368,
-                                                "gasUnit": 5.662
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 37.664,
-                                                "elecUnit": 24.496,
-                                                "gasSC": 26.177,
-                                                "gasUnit": 5.71
-                                    },
-                                    "sc": {
-                                                "elecSC": 37.664,
-                                                "elecUnit": 26.009,
-                                                "gasSC": 26.177,
-                                                "gasUnit": 6.071
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 61.562,
-                                                "elecUnit": 26.859,
-                                                "gasSC": 26.04,
-                                                "gasUnit": 5.395
-                                    },
-                                    "sc": {
-                                                "elecSC": 61.562,
-                                                "elecUnit": 28.371,
-                                                "gasSC": 26.04,
-                                                "gasUnit": 5.756
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 44.636,
-                                                "elecUnit": 25.137,
-                                                "gasSC": 25.662,
-                                                "gasUnit": 5.402
-                                    },
-                                    "sc": {
-                                                "elecSC": 44.636,
-                                                "elecUnit": 26.649,
-                                                "gasSC": 25.662,
-                                                "gasUnit": 5.763
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 51.482,
-                                                "elecUnit": 24.854,
-                                                "gasSC": 25.757,
-                                                "gasUnit": 5.469
-                                    },
-                                    "sc": {
-                                                "elecSC": 51.482,
-                                                "elecUnit": 26.366,
-                                                "gasSC": 25.757,
-                                                "gasUnit": 5.831
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 42.777,
-                                                "elecUnit": 25.788,
-                                                "gasSC": 25.778,
-                                                "gasUnit": 5.465
-                                    },
-                                    "sc": {
-                                                "elecSC": 42.777,
-                                                "elecUnit": 27.3,
-                                                "gasSC": 25.778,
-                                                "gasUnit": 5.826
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 52.616,
-                                                "elecUnit": 25.578,
-                                                "gasSC": 25.83,
-                                                "gasUnit": 5.481
-                                    },
-                                    "sc": {
-                                                "elecSC": 52.616,
-                                                "elecUnit": 27.09,
-                                                "gasSC": 25.83,
-                                                "gasUnit": 5.842
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 48.174,
-                                                "elecUnit": 25.473,
-                                                "gasSC": 25.851,
-                                                "gasUnit": 5.437
-                                    },
-                                    "sc": {
-                                                "elecSC": 48.174,
-                                                "elecUnit": 26.985,
-                                                "gasSC": 25.851,
-                                                "gasUnit": 5.798
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 39.217,
-                                                "elecUnit": 26.303,
-                                                "gasSC": 25.221,
-                                                "gasUnit": 5.421
-                                    },
-                                    "sc": {
-                                                "elecSC": 39.217,
-                                                "elecUnit": 27.815,
-                                                "gasSC": 25.221,
-                                                "gasUnit": 5.782
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 36.257,
-                                                "elecUnit": 25.736,
-                                                "gasSC": 25.106,
-                                                "gasUnit": 5.529
-                                    },
-                                    "sc": {
-                                                "elecSC": 36.257,
-                                                "elecUnit": 27.248,
-                                                "gasSC": 25.106,
-                                                "gasUnit": 5.891
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 43.302,
-                                                "elecUnit": 26.156,
-                                                "gasSC": 25.904,
-                                                "gasUnit": 5.597
-                                    },
-                                    "sc": {
-                                                "elecSC": 43.302,
-                                                "elecUnit": 27.668,
-                                                "gasSC": 25.904,
-                                                "gasUnit": 5.958
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 45.654,
-                                                "elecUnit": 26.219,
-                                                "gasSC": 25.253,
-                                                "gasUnit": 5.668
-                                    },
-                                    "sc": {
-                                                "elecSC": 45.654,
-                                                "elecUnit": 27.731,
-                                                "gasSC": 25.253,
-                                                "gasUnit": 6.029
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 50.264,
-                                                "elecUnit": 24.675,
-                                                "gasSC": 25.725,
-                                                "gasUnit": 5.54
-                                    },
-                                    "sc": {
-                                                "elecSC": 50.264,
-                                                "elecUnit": 26.187,
-                                                "gasSC": 25.725,
-                                                "gasUnit": 5.901
-                                    }
-                        }
-            },
-            pros: [
-                        "\u00a30 exit fees - switch anytime",
-                        "Lower gas standing charge",
-                        "Good balance of flexibility vs savings"
-            ],
-            cons: [
-                        "Higher electricity standing charge",
-                        "~\u00a36/year more than E.ON",
-                        "Still a long-term commitment"
-            ]
-        },
-        {
-            supplier: "So Energy",
-            logo: "logo-so-energy.png",
-            name: "Hawthorn One Year - Green",
-            contractLength: "12 months",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 54.171,
-                                                "elecUnit": 23.822,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.122
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 54.171,
-                                                "elecUnit": 23.822,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.122
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 53.972,
-                                                "elecUnit": 23.12,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.083
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 46.811,
-                                                "elecUnit": 23.502,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.286
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 70.856,
-                                                "elecUnit": 24.774,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.191
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 58.875,
-                                                "elecUnit": 23.321,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.181
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 63.926,
-                                                "elecUnit": 23.334,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.21
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 50.58,
-                                                "elecUnit": 24.327,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.199
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 59.883,
-                                                "elecUnit": 24.461,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.173
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 62.529,
-                                                "elecUnit": 23.155,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.183
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 54.339,
-                                                "elecUnit": 24.288,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.211
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 50.402,
-                                                "elecUnit": 24.217,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.353
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 57.111,
-                                                "elecUnit": 24.209,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.311
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 58.445,
-                                                "elecUnit": 24.472,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.357
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 63.579,
-                                                "elecUnit": 22.678,
-                                                "gasSC": 34.521,
-                                                "gasUnit": 5.212
-                                    }
-                        }
-            },
-            pros: [
-                        "\u00a30 exit fees",
-                        "100% renewable electricity",
-                        "12-month term"
-            ],
-            cons: [
-                        "Higher standing charges",
-                        "~\u00a36/year more than cheapest",
-                        "Green tariff premium"
-            ]
-        },
-        {
-            supplier: "E.ON Next",
-            logo: "logo-eon-next.png",
-            name: "Fixed 12m v106",
-            contractLength: "12 months",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 33.6,
-                                                "elecUnit": 25.697,
-                                                "gasSC": 33.668,
-                                                "gasUnit": 5.376
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 33.6,
-                                                "elecUnit": 25.697,
-                                                "gasSC": 33.668,
-                                                "gasUnit": 5.376
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 35.27,
-                                                "elecUnit": 24.681,
-                                                "gasSC": 33.752,
-                                                "gasUnit": 5.272
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 31.5,
-                                                "elecUnit": 24.922,
-                                                "gasSC": 34.572,
-                                                "gasUnit": 5.583
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 53.025,
-                                                "elecUnit": 26.635,
-                                                "gasSC": 34.434,
-                                                "gasUnit": 5.495
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 36.225,
-                                                "elecUnit": 25.363,
-                                                "gasSC": 34.054,
-                                                "gasUnit": 5.395
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 43.092,
-                                                "elecUnit": 25.174,
-                                                "gasSC": 34.146,
-                                                "gasUnit": 5.437
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 34.335,
-                                                "elecUnit": 25.98,
-                                                "gasSC": 34.174,
-                                                "gasUnit": 5.466
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 44.279,
-                                                "elecUnit": 26.079,
-                                                "gasSC": 34.215,
-                                                "gasUnit": 5.405
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 39.9,
-                                                "elecUnit": 25.573,
-                                                "gasSC": 34.244,
-                                                "gasUnit": 5.453
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 31.5,
-                                                "elecUnit": 26.444,
-                                                "gasSC": 33.602,
-                                                "gasUnit": 5.411
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 31.5,
-                                                "elecUnit": 25.546,
-                                                "gasSC": 33.481,
-                                                "gasUnit": 5.502
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 34.85,
-                                                "elecUnit": 26.374,
-                                                "gasSC": 34.301,
-                                                "gasUnit": 5.592
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 37.212,
-                                                "elecUnit": 26.488,
-                                                "gasSC": 33.643,
-                                                "gasUnit": 5.651
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 42.0,
-                                                "elecUnit": 24.975,
-                                                "gasSC": 34.123,
-                                                "gasUnit": 5.51
-                                    }
-                        }
-            },
-            pros: [
-                        "Very low standing charges",
-                        "Shorter 12-month term",
-                        "Competitive rates"
-            ],
-            cons: [
-                        "\u00a3100 total exit fees",
-                        "Slightly higher than 18m tariff",
-                        "12-month commitment"
-            ]
-        },
-        {
-            supplier: "British Gas",
-            logo: "logo-british-gas.png",
-            name: "Fixed Tariff Dec26 v3",
-            contractLength: "12 months",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric", "gas"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 47.018,
-                                                "elecUnit": 25.9,
-                                                "gasSC": 32.436,
-                                                "gasUnit": 5.434
-                                    },
-                                    "sc": {
-                                                "elecSC": 55.401,
-                                                "elecUnit": 27.444,
-                                                "gasSC": 40.612,
-                                                "gasUnit": 5.746
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 47.018,
-                                                "elecUnit": 25.9,
-                                                "gasSC": 32.436,
-                                                "gasUnit": 5.434
-                                    },
-                                    "sc": {
-                                                "elecSC": 55.401,
-                                                "elecUnit": 27.444,
-                                                "gasSC": 40.612,
-                                                "gasUnit": 5.746
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 47.852,
-                                                "elecUnit": 24.925,
-                                                "gasSC": 32.52,
-                                                "gasUnit": 5.406
-                                    },
-                                    "sc": {
-                                                "elecSC": 56.01,
-                                                "elecUnit": 26.415,
-                                                "gasSC": 40.617,
-                                                "gasUnit": 5.713
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 44.823,
-                                                "elecUnit": 25.002,
-                                                "gasSC": 33.339,
-                                                "gasUnit": 5.645
-                                    },
-                                    "sc": {
-                                                "elecSC": 52.044,
-                                                "elecUnit": 26.498,
-                                                "gasSC": 40.617,
-                                                "gasUnit": 5.965
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 68.714,
-                                                "elecUnit": 27.093,
-                                                "gasSC": 33.201,
-                                                "gasUnit": 5.687
-                                    },
-                                    "sc": {
-                                                "elecSC": 77.381,
-                                                "elecUnit": 28.704,
-                                                "gasSC": 40.622,
-                                                "gasUnit": 6.002
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 51.768,
-                                                "elecUnit": 25.015,
-                                                "gasSC": 32.822,
-                                                "gasUnit": 5.455
-                                    },
-                                    "sc": {
-                                                "elecSC": 59.913,
-                                                "elecUnit": 26.511,
-                                                "gasSC": 40.621,
-                                                "gasUnit": 5.766
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 58.632,
-                                                "elecUnit": 24.799,
-                                                "gasSC": 32.914,
-                                                "gasUnit": 5.565
-                                    },
-                                    "sc": {
-                                                "elecSC": 67.176,
-                                                "elecUnit": 26.283,
-                                                "gasSC": 40.618,
-                                                "gasUnit": 5.88
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 49.924,
-                                                "elecUnit": 26.48,
-                                                "gasSC": 32.942,
-                                                "gasUnit": 5.275
-                                    },
-                                    "sc": {
-                                                "elecSC": 57.884,
-                                                "elecUnit": 28.055,
-                                                "gasSC": 40.622,
-                                                "gasUnit": 5.588
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 59.765,
-                                                "elecUnit": 26.427,
-                                                "gasSC": 32.983,
-                                                "gasUnit": 5.41
-                                    },
-                                    "sc": {
-                                                "elecSC": 68.2,
-                                                "elecUnit": 27.999,
-                                                "gasSC": 40.617,
-                                                "gasUnit": 5.723
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 55.318,
-                                                "elecUnit": 25.205,
-                                                "gasSC": 33.012,
-                                                "gasUnit": 5.595
-                                    },
-                                    "sc": {
-                                                "elecSC": 63.316,
-                                                "elecUnit": 26.711,
-                                                "gasSC": 40.621,
-                                                "gasUnit": 5.908
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 46.362,
-                                                "elecUnit": 26.29,
-                                                "gasSC": 32.37,
-                                                "gasUnit": 5.474
-                                    },
-                                    "sc": {
-                                                "elecSC": 54.77,
-                                                "elecUnit": 27.854,
-                                                "gasSC": 40.612,
-                                                "gasUnit": 5.783
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 43.391,
-                                                "elecUnit": 25.846,
-                                                "gasSC": 32.249,
-                                                "gasUnit": 5.562
-                                    },
-                                    "sc": {
-                                                "elecSC": 51.63,
-                                                "elecUnit": 27.386,
-                                                "gasSC": 40.597,
-                                                "gasUnit": 5.881
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 50.456,
-                                                "elecUnit": 26.205,
-                                                "gasSC": 33.069,
-                                                "gasUnit": 5.689
-                                    },
-                                    "sc": {
-                                                "elecSC": 58.315,
-                                                "elecUnit": 27.765,
-                                                "gasSC": 40.611,
-                                                "gasUnit": 6.013
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 52.8,
-                                                "elecUnit": 26.194,
-                                                "gasSC": 32.41,
-                                                "gasUnit": 5.78
-                                    },
-                                    "sc": {
-                                                "elecSC": 61.442,
-                                                "elecUnit": 27.754,
-                                                "gasSC": 40.598,
-                                                "gasUnit": 6.107
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 57.415,
-                                                "elecUnit": 24.701,
-                                                "gasSC": 32.891,
-                                                "gasUnit": 5.622
-                                    },
-                                    "sc": {
-                                                "elecSC": 65.856,
-                                                "elecUnit": 26.181,
-                                                "gasSC": 40.623,
-                                                "gasUnit": 5.936
-                                    }
-                        }
-            },
-            pros: [
-                        "\u00a30 exit fees",
-                        "Trusted brand",
-                        "Both DD and Standard Credit available"
-            ],
-            cons: [
-                        "Higher than E.ON and EDF",
-                        "Standing charges closer to cap",
-                        "~\u00a369/year more than cheapest"
-            ]
-        },
-        {
-            supplier: "Fuse Energy",
-            logo: "logo-fuse-energy.png",
-            name: "November 2025 Fixed (13m) V1",
-            contractLength: "13 months",
-            exitFees: "£50 per fuel",
-            fuelTypes: ["dual", "electric", "gas"],
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 44.83,
-                                                "elecUnit": 24.76,
-                                                "gasSC": 30.06,
-                                                "gasUnit": 5.891
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 44.83,
-                                                "elecUnit": 24.76,
-                                                "gasSC": 30.06,
-                                                "gasUnit": 5.891
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 45.92,
-                                                "elecUnit": 23.94,
-                                                "gasSC": 30.14,
-                                                "gasUnit": 5.91
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 42.65,
-                                                "elecUnit": 23.89,
-                                                "gasSC": 31.02,
-                                                "gasUnit": 6.26
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 66.59,
-                                                "elecUnit": 25.28,
-                                                "gasSC": 26.91,
-                                                "gasUnit": 6.28
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 49.66,
-                                                "elecUnit": 24.28,
-                                                "gasSC": 30.53,
-                                                "gasUnit": 5.94
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 56.49,
-                                                "elecUnit": 23.98,
-                                                "gasSC": 26.91,
-                                                "gasUnit": 6.14
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 47.79,
-                                                "elecUnit": 24.76,
-                                                "gasSC": 30.65,
-                                                "gasUnit": 6.03
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 57.58,
-                                                "elecUnit": 24.99,
-                                                "gasSC": 30.69,
-                                                "gasUnit": 6.01
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 53.14,
-                                                "elecUnit": 24.28,
-                                                "gasSC": 30.71,
-                                                "gasUnit": 5.98
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 44.19,
-                                                "elecUnit": 25.19,
-                                                "gasSC": 30.0,
-                                                "gasUnit": 5.94
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 41.28,
-                                                "elecUnit": 24.83,
-                                                "gasSC": 29.88,
-                                                "gasUnit": 6.06
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 48.31,
-                                                "elecUnit": 24.99,
-                                                "gasSC": 26.91,
-                                                "gasUnit": 6.32
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 50.64,
-                                                "elecUnit": 25.29,
-                                                "gasSC": 26.91,
-                                                "gasUnit": 6.38
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 55.24,
-                                                "elecUnit": 23.48,
-                                                "gasSC": 26.91,
-                                                "gasUnit": 6.21
-                                    }
-                        }
-            },
-            pros: [
-                        "\u00a30 exit fees",
-                        "App-based account management",
-                        "13-month term"
-            ],
-            cons: [
-                        "Variable DD only",
-                        "~\u00a381/year more than cheapest",
-                        "Relatively unknown brand"
-            ]
-        },
-        {
-            supplier: "EDF Energy",
-            logo: "logo-edf-energy.png",
-            name: "Simply Tracker Jan27",
-            contractLength: "Until 31 Jan 2027",
-            exitFees: "£25 per fuel",
-            fuelTypes: ["dual", "electric"],
-            variable: true,
-            regions: {
-                        "Average": {
-                                    "dd": {
-                                                "elecSC": 41.391,
-                                                "elecUnit": 26.534,
-                                                "gasSC": 26.817,
-                                                "gasUnit": 6.22
-                                    },
-                                    "sc": {
-                                                "elecSC": 49.707,
-                                                "elecUnit": 27.993,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.55
-                                    }
-                        },
-                        "Eastern": {
-                                    "dd": {
-                                                "elecSC": 41.391,
-                                                "elecUnit": 26.534,
-                                                "gasSC": 26.817,
-                                                "gasUnit": 6.22
-                                    },
-                                    "sc": {
-                                                "elecSC": 49.707,
-                                                "elecUnit": 27.993,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.55
-                                    }
-                        },
-                        "East Midlands": {
-                                    "dd": {
-                                                "elecSC": 42.231,
-                                                "elecUnit": 25.557,
-                                                "gasSC": 26.901,
-                                                "gasUnit": 6.144
-                                    },
-                                    "sc": {
-                                                "elecSC": 50.316,
-                                                "elecUnit": 26.964,
-                                                "gasSC": 34.913,
-                                                "gasUnit": 6.47
-                                    }
-                        },
-                        "London": {
-                                    "dd": {
-                                                "elecSC": 39.197,
-                                                "elecUnit": 25.631,
-                                                "gasSC": 27.72,
-                                                "gasUnit": 6.383
-                                    },
-                                    "sc": {
-                                                "elecSC": 46.326,
-                                                "elecUnit": 27.048,
-                                                "gasSC": 34.892,
-                                                "gasUnit": 6.722
-                                    }
-                        },
-                        "Manweb": {
-                                    "dd": {
-                                                "elecSC": 63.095,
-                                                "elecUnit": 27.72,
-                                                "gasSC": 27.573,
-                                                "gasUnit": 6.295
-                                    },
-                                    "sc": {
-                                                "elecSC": 71.663,
-                                                "elecUnit": 29.253,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.63
-                                    }
-                        },
-                        "Midlands": {
-                                    "dd": {
-                                                "elecSC": 46.148,
-                                                "elecUnit": 25.641,
-                                                "gasSC": 27.195,
-                                                "gasUnit": 6.207
-                                    },
-                                    "sc": {
-                                                "elecSC": 54.212,
-                                                "elecUnit": 27.059,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.536
-                                    }
-                        },
-                        "Northern": {
-                                    "dd": {
-                                                "elecSC": 53.004,
-                                                "elecUnit": 25.431,
-                                                "gasSC": 27.29,
-                                                "gasUnit": 6.287
-                                    },
-                                    "sc": {
-                                                "elecSC": 61.467,
-                                                "elecUnit": 26.838,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.621
-                                    }
-                        },
-                        "Norweb": {
-                                    "dd": {
-                                                "elecSC": 44.3,
-                                                "elecUnit": 27.111,
-                                                "gasSC": 27.321,
-                                                "gasUnit": 6.249
-                                    },
-                                    "sc": {
-                                                "elecSC": 52.175,
-                                                "elecUnit": 28.602,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.58
-                                    }
-                        },
-                        "Scottish Hydro": {
-                                    "dd": {
-                                                "elecSC": 54.138,
-                                                "elecUnit": 27.059,
-                                                "gasSC": 27.363,
-                                                "gasUnit": 6.242
-                                    },
-                                    "sc": {
-                                                "elecSC": 62.486,
-                                                "elecUnit": 28.55,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.574
-                                    }
-                        },
-                        "Scottish Power": {
-                                    "dd": {
-                                                "elecSC": 49.697,
-                                                "elecUnit": 25.83,
-                                                "gasSC": 27.384,
-                                                "gasUnit": 6.242
-                                    },
-                                    "sc": {
-                                                "elecSC": 57.603,
-                                                "elecUnit": 27.258,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.574
-                                    }
-                        },
-                        "Seeboard": {
-                                    "dd": {
-                                                "elecSC": 40.74,
-                                                "elecUnit": 26.922,
-                                                "gasSC": 26.744,
-                                                "gasUnit": 6.179
-                                    },
-                                    "sc": {
-                                                "elecSC": 49.067,
-                                                "elecUnit": 28.403,
-                                                "gasSC": 34.913,
-                                                "gasUnit": 6.508
-                                    }
-                        },
-                        "Southern": {
-                                    "dd": {
-                                                "elecSC": 37.769,
-                                                "elecUnit": 26.471,
-                                                "gasSC": 26.628,
-                                                "gasUnit": 6.356
-                                    },
-                                    "sc": {
-                                                "elecSC": 45.927,
-                                                "elecUnit": 27.941,
-                                                "gasSC": 34.892,
-                                                "gasUnit": 6.693
-                                    }
-                        },
-                        "Swalec": {
-                                    "dd": {
-                                                "elecSC": 44.835,
-                                                "elecUnit": 26.838,
-                                                "gasSC": 27.447,
-                                                "gasUnit": 6.461
-                                    },
-                                    "sc": {
-                                                "elecSC": 52.595,
-                                                "elecUnit": 28.319,
-                                                "gasSC": 34.892,
-                                                "gasUnit": 6.804
-                                    }
-                        },
-                        "Sweb": {
-                                    "dd": {
-                                                "elecSC": 47.177,
-                                                "elecUnit": 26.828,
-                                                "gasSC": 26.786,
-                                                "gasUnit": 6.502
-                                    },
-                                    "sc": {
-                                                "elecSC": 55.734,
-                                                "elecUnit": 28.308,
-                                                "gasSC": 34.892,
-                                                "gasUnit": 6.847
-                                    }
-                        },
-                        "Yorkshire": {
-                                    "dd": {
-                                                "elecSC": 51.786,
-                                                "elecUnit": 25.326,
-                                                "gasSC": 27.268,
-                                                "gasUnit": 6.254
-                                    },
-                                    "sc": {
-                                                "elecSC": 60.144,
-                                                "elecUnit": 26.733,
-                                                "gasSC": 34.902,
-                                                "gasUnit": 6.587
-                                    }
-                        }
-            },
-            pros: [
-                        "\u00a350 total exit fees (lowest)",
-                        "\u00a350 price cap discount applied",
-                        "Tracks price cap - may drop"
-            ],
-            cons: [
-                        "Variable - changes every 3 months",
-                        "No price certainty",
-                        "More expensive than fixed deals"
-            ]
-        },
-    ]
-};
+        // Raw tariff data from scraper
+        let rawData = {
+            last_updated: null,
+            tariffs: []
+        };
 
-        // Calculate cost function
-        function calculateCost(elecUsage, gasUsage, rates, fuelType) {
-            let cost = 0;
-            
-            if (fuelType === 'dual' || fuelType === 'electric') {
-                const elecStanding = (rates.elecSC / 100) * 365;
-                const elecUnits = (rates.elecUnit / 100) * elecUsage;
-                cost += elecStanding + elecUnits;
+        // Supplier display names and colors
+        const supplierInfo = {
+            'eon_next': { name: 'E.ON Next', color: '#e4002b' },
+            'british_gas': { name: 'British Gas', color: '#0066cc' },
+            'octopus': { name: 'Octopus Energy', color: '#ff00ff' },
+            'ovo': { name: 'OVO Energy', color: '#00dc64' },
+            'scottish_power': { name: 'Scottish Power', color: '#0066b3' },
+            'edf': { name: 'EDF', color: '#ff6600' },
+            'shell': { name: 'Shell Energy', color: '#ffcd00' }
+        };
+
+        // Load JSON data
+        async function loadTariffData() {
+            try {
+                // Try loading from same directory (GitHub Pages)
+                const response = await fetch('all_tariffs.json');
+                if (response.ok) {
+                    rawData = await response.json();
+                    console.log(`Loaded ${rawData.tariffs.length} tariffs`);
+                } else {
+                    throw new Error('Could not load tariff data');
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+                document.getElementById('tariffsGrid').innerHTML = 
+                    '<div class="error-message">Could not load tariff data. Make sure all_tariffs.json is in the same folder.</div>';
+                return;
             }
             
+            // Format the date
+            if (rawData.last_updated) {
+                const date = new Date(rawData.last_updated);
+                document.getElementById('lastUpdated').textContent = date.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            
+            renderTariffs();
+        }
+
+        function calculateCost(tariff, elecUsage, gasUsage, fuelType) {
+            let cost = 0;
+            
+            // Electricity cost
+            if (fuelType === 'dual' || fuelType === 'electric') {
+                if (tariff.elec_unit_rate_p && tariff.elec_standing_p) {
+                    const elecStanding = (tariff.elec_standing_p / 100) * 365;
+                    const elecUnits = (tariff.elec_unit_rate_p / 100) * elecUsage;
+                    cost += elecStanding + elecUnits;
+                } else {
+                    return null; // Can't calculate without elec rates
+                }
+            }
+            
+            // Gas cost
             if (fuelType === 'dual' || fuelType === 'gas') {
-                const gasStanding = (rates.gasSC / 100) * 365;
-                const gasUnits = (rates.gasUnit / 100) * gasUsage;
-                cost += gasStanding + gasUnits;
+                if (tariff.gas_unit_rate_p && tariff.gas_standing_p) {
+                    const gasStanding = (tariff.gas_standing_p / 100) * 365;
+                    const gasUnits = (tariff.gas_unit_rate_p / 100) * gasUsage;
+                    cost += gasStanding + gasUnits;
+                } else if (fuelType === 'dual') {
+                    return null; // Need gas for dual fuel
+                } else if (fuelType === 'gas') {
+                    return null; // Can't calculate gas-only without gas rates
+                }
             }
             
             return Math.round(cost);
         }
 
-        // Render tariffs
+        function getSupplierDisplay(supplierId) {
+            return supplierInfo[supplierId] || { name: supplierId, color: '#a855f7' };
+        }
+
         function renderTariffs() {
             const region = document.getElementById('region').value;
             const fuelType = document.getElementById('fuelType').value;
-            const meterType = document.getElementById('meterType').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
             const elecUsage = parseInt(document.getElementById('elecUsage').value) || 0;
             const gasUsage = parseInt(document.getElementById('gasUsage').value) || 0;
 
-            // Filter tariffs by fuel type and calculate costs
-            const applicableTariffs = tariffData.tariffs
-                .filter(tariff => tariff.fuelTypes.includes(fuelType))
+            if (rawData.tariffs.length === 0) {
+                document.getElementById('tariffsGrid').innerHTML = 
+                    '<div class="error-message">No tariff data available.</div>';
+                return;
+            }
+
+            // Filter by region and calculate costs
+            const applicableTariffs = rawData.tariffs
+                .filter(t => t.region === region && !t.error)
                 .map(tariff => {
-                    const regionData = tariff.regions[region] || tariff.regions["Average"];
-                    const rates = regionData[paymentMethod] || regionData["dd"];
+                    const cost = calculateCost(tariff, elecUsage, gasUsage, fuelType);
+                    if (cost === null) return null;
                     
-                    if (!rates) return null;
+                    const hasGas = tariff.gas_unit_rate_p && tariff.gas_standing_p;
                     
                     return {
                         ...tariff,
-                        cost: calculateCost(elecUsage, gasUsage, rates, fuelType),
-                        rates: rates
+                        cost: cost,
+                        hasGas: hasGas,
+                        supplierDisplay: getSupplierDisplay(tariff.supplier)
                     };
                 })
                 .filter(t => t !== null)
                 .sort((a, b) => a.cost - b.cost);
 
-            // Calculate cap cost
-            const capRegion = tariffData.priceCap.regions[region] || tariffData.priceCap.regions["Average"];
-            const capRates = capRegion[paymentMethod] || capRegion["dd"];
-            const capCost = calculateCost(elecUsage, gasUsage, capRates, fuelType);
+            if (applicableTariffs.length === 0) {
+                document.getElementById('tariffsGrid').innerHTML = 
+                    '<div class="error-message">No tariffs available for this region/fuel combination. Try a different selection.</div>';
+                return;
+            }
 
-            // Add price cap as a comparison point
-            const allTariffs = [
-                ...applicableTariffs,
-                {
-                    supplier: "Price Cap SVT",
-                    logo: "logo-ofgem.png",
-                    name: "Variable",
-                    contractLength: "No contract",
-                    exitFees: "£0",
-                    cost: capCost,
-                    rates: capRates,
-                    isCapVariable: true,
-                    pros: [
-                        "No exit fees",
-                        "Maximum flexibility",
-                        "Protected by Ofgem"
-                    ],
-                    cons: [
-                        "Price changes quarterly",
-                        "Usually more expensive",
-                        "No budget certainty"
-                    ]
-                }
-            ].sort((a, b) => a.cost - b.cost);
+            const cheapestCost = applicableTariffs[0].cost;
 
             // Render cards
             const grid = document.getElementById('tariffsGrid');
-            grid.innerHTML = allTariffs.map((tariff, index) => {
-                const savings = capCost - tariff.cost;
-                const savingsText = savings > 0 ? `Save £${savings}/year` : 
-                                   savings < 0 ? `£${Math.abs(savings)}/year more than cap` : 
-                                   'Same as cap';
-                const savingsColor = savings > 0 ? '#22c55e' : savings < 0 ? '#ef4444' : '#94a3b8';
+            grid.innerHTML = applicableTariffs.map((tariff, index) => {
+                const extraCost = tariff.cost - cheapestCost;
+                const savingsText = extraCost === 0 ? '🏆 Cheapest' : `£${extraCost}/year more`;
+                const savingsColor = extraCost === 0 ? '#22c55e' : '#f59e0b';
+                
+                const exitFee = typeof tariff.exit_fee_gbp === 'string' 
+                    ? tariff.exit_fee_gbp 
+                    : `£${tariff.exit_fee_gbp} per fuel`;
+                
+                const elecOnlyBadge = !tariff.hasGas && fuelType === 'electric' 
+                    ? '' 
+                    : (!tariff.hasGas ? '<span class="elec-only-badge">Elec Only</span>' : '');
                 
                 return `
                     <div class="tariff-card">
                         ${index === 0 ? '<div class="best-deal-badge">🏆 Best Deal</div>' : ''}
                         <div class="supplier-header">
-                            <img src="${tariff.logo}" alt="${tariff.supplier}" class="supplier-logo" onerror="this.style.display='none'">
+                            <div class="supplier-logo" style="background: ${tariff.supplierDisplay.color}; color: white;">
+                                ${tariff.supplierDisplay.name.split(' ')[0]}
+                            </div>
                             <div class="supplier-info">
-                                <h3>${tariff.supplier}</h3>
-                                <div class="tariff-name">${tariff.name}</div>
-                                ${tariff.isCapVariable ? '<div style="color: #f59e0b; font-size: 0.85rem; margin-top: 5px;">⚠️ Rising to £1,758 on 1 Jan 2026</div>' : ''}
+                                <h3>${tariff.supplierDisplay.name}</h3>
+                                <div class="tariff-name">${tariff.tariff_name || 'Standard Tariff'}${elecOnlyBadge}</div>
                             </div>
                         </div>
                         
                         <div class="price-display">
                             <div class="price-amount">£${tariff.cost}</div>
                             <div class="price-period">per year</div>
-                            ${!tariff.isCapVariable ? `<div class="savings-badge" style="background: rgba(${savings > 0 ? '34, 197, 94' : '239, 68, 68'}, 0.2); color: ${savingsColor};">${savingsText}</div>` : ''}
+                            <div class="savings-badge" style="background: rgba(${extraCost === 0 ? '34, 197, 94' : '245, 158, 11'}, 0.2); color: ${savingsColor};">${savingsText}</div>
                         </div>
 
                         <div class="tariff-details">
                             ${fuelType !== 'gas' ? `
                             <div class="detail-row">
-                                <span class="detail-label">Elec Standing</span>
-                                <span class="detail-value">${tariff.rates.elecSC.toFixed(2)}p/day</span>
+                                <span class="detail-label">Elec Unit Rate</span>
+                                <span class="detail-value">${tariff.elec_unit_rate_p?.toFixed(2) || 'N/A'}p/kWh</span>
                             </div>
                             <div class="detail-row">
-                                <span class="detail-label">Elec Unit Rate</span>
-                                <span class="detail-value">${tariff.rates.elecUnit.toFixed(2)}p/kWh</span>
+                                <span class="detail-label">Elec Standing</span>
+                                <span class="detail-value">${tariff.elec_standing_p?.toFixed(2) || 'N/A'}p/day</span>
                             </div>
                             ` : ''}
-                            ${fuelType !== 'electric' ? `
-                            <div class="detail-row">
-                                <span class="detail-label">Gas Standing</span>
-                                <span class="detail-value">${tariff.rates.gasSC.toFixed(2)}p/day</span>
-                            </div>
+                            ${fuelType !== 'electric' && tariff.hasGas ? `
                             <div class="detail-row">
                                 <span class="detail-label">Gas Unit Rate</span>
-                                <span class="detail-value">${tariff.rates.gasUnit.toFixed(2)}p/kWh</span>
+                                <span class="detail-value">${tariff.gas_unit_rate_p?.toFixed(2) || 'N/A'}p/kWh</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Gas Standing</span>
+                                <span class="detail-value">${tariff.gas_standing_p?.toFixed(2) || 'N/A'}p/day</span>
                             </div>
                             ` : ''}
                             <div class="detail-row">
-                                <span class="detail-label">Contract</span>
-                                <span class="detail-value">${tariff.contractLength}</span>
-                            </div>
-                            <div class="detail-row">
                                 <span class="detail-label">Exit Fees</span>
-                                <span class="detail-value">${tariff.exitFees}</span>
-                            </div>
-                        </div>
-
-                        <div class="pros-cons">
-                            <div class="pros">
-                                <h4>✓ Pros</h4>
-                                <ul>
-                                    ${tariff.pros.map(pro => `<li>${pro}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="cons">
-                                <h4>✗ Cons</h4>
-                                <ul>
-                                    ${tariff.cons.map(con => `<li>${con}</li>`).join('')}
-                                </ul>
+                                <span class="detail-value">${exitFee}</span>
                             </div>
                         </div>
                     </div>
@@ -2080,10 +655,8 @@ const tariffData = {
             });
         });
 
-        document.getElementById('lastUpdated').textContent = tariffData.lastUpdated;
-        
-        // Initial render
-        renderTariffs();
+        // Load data on page load
+        loadTariffData();
     </script>
 </body>
 </html>

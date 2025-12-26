@@ -435,7 +435,7 @@
 
         <!-- Chart Section -->
         <div class="chart-section">
-            <h2>📊 Top 10 Cheapest Tariffs</h2>
+            <h2>📊 Top 10 Fixed Deals (Beating The Cap)</h2>
             <div class="chart-container">
                 <canvas id="tariffChart"></canvas>
             </div>
@@ -466,7 +466,8 @@
         </div>
 
         <!-- Tariff Cards -->
-        <h2 class="section-title">🏆 Best Deals in <span id="regionDisplay">London</span></h2>
+        <h2 class="section-title">🏆 Fixed Deals That Beat The Cap in <span id="regionDisplay">London</span></h2>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; margin-top: -10px;">Only showing tariffs cheaper than the Ofgem price cap. No point paying SVT rates!</p>
         <div class="tariffs-grid" id="tariffsGrid">
             <div class="loading">Loading tariffs...</div>
         </div>
@@ -492,6 +493,47 @@
                     <p>Fee to leave a fixed tariff early (typically £25-100 per fuel). No exit fees on variable tariffs or when contract ends.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- What You're Paying For Section -->
+        <div class="breakdown-section" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; padding: 25px; margin-bottom: 30px;">
+            <h2 style="color: #e0e0e0; font-size: 1.2rem; margin-bottom: 20px;">💰 What You're Actually Paying For</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #a855f7; font-size: 1rem; margin-bottom: 12px;">📊 Standing Charge Breakdown</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">If you're paying more in standing charges, you're funding:</p>
+                    <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Policy costs</strong> - government green levies & schemes</li>
+                        <li><strong>Network costs</strong> - maintaining pipes & wires to your home</li>
+                        <li><strong>Metering</strong> - smart meter rollout & readings</li>
+                        <li><strong>Supplier costs</strong> - billing, customer service, bad debt</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #ec4899; font-size: 1rem; margin-bottom: 12px;">⚡ Unit Rate Breakdown</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">If you're paying more per kWh, you're funding:</p>
+                    <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Wholesale costs</strong> - actual cost of gas & electricity</li>
+                        <li><strong>Balancing costs</strong> - keeping the grid stable</li>
+                        <li><strong>Losses</strong> - energy lost in transmission</li>
+                        <li><strong>Supplier margin</strong> - their profit (typically 1-2%)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGO Disclaimer -->
+        <div class="disclaimer-section" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.05)); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 16px; padding: 25px; margin-bottom: 30px;">
+            <h2 style="color: #22c55e; font-size: 1.2rem; margin-bottom: 15px;">🌱 What Does "100% Renewable" Actually Mean?</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                When a supplier claims "100% renewable electricity", they've purchased <strong style="color: #22c55e;">REGOs</strong> (Renewable Energy Guarantees of Origin) or signed <strong style="color: #22c55e;">PPAs</strong> (Power Purchase Agreements) with UK renewable generators.
+            </p>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                <strong style="color: #fbbf24;">However:</strong> The electricity physically coming into your home is from the National Grid - a mix of wind, solar, nuclear, gas, and other sources. You can't choose which electrons reach your socket!
+            </p>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7;">
+                Think of it like this: everyone draws from the same pool of water, but green tariffs pay to add more clean water to that pool. Your money supports renewable generation, even if your actual electrons are mixed source.
+            </p>
         </div>
 
         <div class="footer">
@@ -619,6 +661,12 @@
             // Filter and calculate
             let filtered = tariffData.tariffs
                 .filter(t => t.region === region && !t.error)
+                .filter(t => {
+                    // Remove standard variable tariffs - we only want deals that beat the cap
+                    const name = (t.tariff_name || '').toLowerCase();
+                    if (name.includes('variable') || name.includes('svt') || name.includes('standard') || name === '') return false;
+                    return true;
+                })
                 .map(t => ({
                     ...t,
                     annualCost: calculateCost(t, elecUsage, gasUsage, fuelType),
@@ -627,7 +675,10 @@
                 }))
                 .filter(t => {
                     if (fuelType === 'dual' && t.isElecOnly) return false;
-                    return t.annualCost > 0;
+                    if (t.annualCost <= 0) return false;
+                    // Only show tariffs that actually beat the cap
+                    if (t.savings < 0) return false;
+                    return true;
                 })
                 .sort((a, b) => a.annualCost - b.annualCost);
 
@@ -647,7 +698,7 @@
             const grid = document.getElementById('tariffsGrid');
             
             if (top5.length === 0) {
-                grid.innerHTML = '<div class="loading">No tariffs found for this region/fuel type.</div>';
+                grid.innerHTML = '<div class="loading">No fixed deals currently beat the price cap for this region/fuel type. Check back soon!</div>';
                 return;
             }
 
@@ -664,7 +715,7 @@
                         <div class="supplier-header">
                             <div>
                                 <div class="supplier-name" style="color: ${supplier.color}">${supplier.name}</div>
-                                <div class="tariff-name">${tariff.tariff_name || 'Standard Tariff'}</div>
+                                <div class="tariff-name">${tariff.tariff_name || supplier.name + ' Standard'}</div>
                             </div>
                             <div class="annual-cost">
                                 <div class="cost-amount">£${Math.round(tariff.annualCost)}</div>
@@ -725,7 +776,7 @@
             
             const labels = tariffs.map(t => {
                 const supplier = supplierInfo[t.supplier]?.name || t.supplier;
-                const name = t.tariff_name || '';
+                const name = t.tariff_name || supplier;
                 return name.length > 20 ? name.substring(0, 17) + '...' : name;
             });
             

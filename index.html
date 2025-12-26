@@ -498,7 +498,7 @@ body { font-size:15px !important; }
   
   <div style="margin-top:30px;padding:15px;background:rgba(44,62,80,0.3);border-left:4px solid #6366f1;font-size:12px;color:#bdc3c7;border-radius:5px;">
     <p style="margin:0 0 5px 0;"><strong>Source:</strong> OFGEM (Office of Gas and Electricity Markets)</p>
-    <p style="margin:0 0 5px 0;"><strong>Typical Consumption:</strong> 2,700kWh electricity, 11,500kWh gas annually</p>
+    <p style="margin:0 0 5px 0;"><strong>Typical Consumption:</strong> 2,700kWh electricity, 11,500kWh gas annually (UK average, rates vary by region)</p>
     <p style="margin:5px 0 0 0;"><strong>Note:</strong> Hover over chart bars to see individual cost components and their values.</p>
   </div>
 </div>
@@ -566,7 +566,7 @@ body { font-size:15px !important; }
   <div>of UK could save more</div>
 </div>
 <div>
-  <div class="stat-number">£200+</div>
+  <div class="stat-number" id="dynamicSavings">£200+</div>
   <div>potential yearly savings</div>
 </div>
 <div>
@@ -618,8 +618,8 @@ body { font-size:15px !important; }
 
 <section class="final-cta">
 <h2>We're Building This Together</h2>
-<p>65% of UK households are on Standard Variable Tariffs and could save £200+ per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
-<button class="cta-btn" onclick="document.querySelector('.hero').scrollIntoView({behavior:'smooth'})">Join the Community</button>
+<p>65% of UK households are on Standard Variable Tariffs and could save <span id="dynamicSavingsText">£200+</span> per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
+<button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Join the Community</button>
 </section>
 
 <footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
@@ -1059,7 +1059,87 @@ window.addEventListener('load', function() {
   if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
     renderPriceCapChart();
   }
+  
+  // Load dynamic savings from tariff tracker
+  loadDynamicSavings();
 });
+
+// Fetch tariff data and calculate best savings
+async function loadDynamicSavings() {
+  try {
+    const response = await fetch('./all_tariffs.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    
+    // Ofgem cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+    const capRatesByRegion = {
+      'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+      'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+      'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+      'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+      'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+      'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+      'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+      'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+      'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+      'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+      'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+      'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+      'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+      'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
+    };
+    
+    const typicalElec = 2700;
+    const typicalGas = 11500;
+    
+    // Calculate cap cost for each region and find the most expensive
+    let maxCapCost = 0;
+    let expensiveRegion = 'London';
+    
+    for (const [region, rates] of Object.entries(capRatesByRegion)) {
+      const capCost = (rates.elecStanding * 365 / 100) + (rates.elecUnit * typicalElec / 100) +
+                      (rates.gasStanding * 365 / 100) + (rates.gasUnit * typicalGas / 100);
+      if (capCost > maxCapCost) {
+        maxCapCost = capCost;
+        expensiveRegion = region;
+      }
+    }
+    
+    // Find cheapest dual fuel fixed tariff in that expensive region
+    const regionTariffs = data.tariffs.filter(t => 
+      t.region === expensiveRegion && 
+      !t.error && 
+      t.elec_unit_rate_p && t.elec_standing_p &&
+      t.gas_unit_rate_p && t.gas_standing_p &&
+      !(t.tariff_name || '').toLowerCase().includes('variable') &&
+      !(t.tariff_name || '').toLowerCase().includes('svt')
+    );
+    
+    let cheapestCost = Infinity;
+    regionTariffs.forEach(t => {
+      const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
+                   (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
+      if (cost < cheapestCost) cheapestCost = cost;
+    });
+    
+    // Calculate savings
+    const bestSavings = maxCapCost - cheapestCost;
+    
+    // Update the display if we found savings
+    if (bestSavings > 50) {
+      const savingsEl = document.getElementById('dynamicSavings');
+      if (savingsEl) {
+        savingsEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+      const savingsTextEl = document.getElementById('dynamicSavingsText');
+      if (savingsTextEl) {
+        savingsTextEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+    }
+  } catch (e) {
+    console.log('Could not load dynamic savings:', e);
+  }
+}
 
 </script>
 

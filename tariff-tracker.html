@@ -364,7 +364,7 @@
             <div class="text">
                 <h3>Price cap rising to £1,758 in January!*</h3>
                 <p>Fixed deals are currently beating the cap. Lock in a rate now before the January increase. We compare tariffs daily from multiple suppliers.</p>
-                <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">*Based on Ofgem typical consumption: 2,700 kWh electricity + 11,500 kWh gas per year.</p>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">*UK average based on Ofgem typical consumption (2,700 kWh elec + 11,500 kWh gas). Varies by region.</p>
             </div>
         </div>
 
@@ -423,8 +423,8 @@
                 <div class="label">Cheapest Deal</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="capPrice">£1,758</div>
-                <div class="label" id="capLabel">Price Cap (Jan '26)</div>
+                <div class="value" id="capPrice">-</div>
+                <div class="label" id="capLabel">Regional Cap</div>
             </div>
             <div class="stat-card">
                 <div class="value" id="savingsAmount">-</div>
@@ -446,27 +446,27 @@
 
         <!-- Price Cap Info -->
         <div class="price-cap-section">
-            <h2>⚠️ Ofgem Price Cap (Direct Debit)</h2>
+            <h2>⚠️ Ofgem Price Cap (Direct Debit, Jan-Mar 2026)</h2>
             <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.9rem;">The maximum your supplier can charge on a standard variable tariff. All figures include 5% VAT.</p>
             <div class="price-cap-grid">
                 <div class="cap-item">
-                    <div class="value">£1,755*</div>
-                    <div class="label">Oct-Dec 2025</div>
-                </div>
-                <div class="cap-item" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.1);">
-                    <div class="value" style="color: #ef4444;">£1,758*</div>
-                    <div class="label">Jan-Mar 2026 ↑</div>
+                    <div class="value">£1,758*</div>
+                    <div class="label">GB Average</div>
                 </div>
                 <div class="cap-item">
-                    <div class="value">£1,894*</div>
-                    <div class="label">Standard Credit</div>
+                    <div class="value">27.69p</div>
+                    <div class="label">Avg Elec Unit</div>
                 </div>
                 <div class="cap-item">
-                    <div class="value">£1,711*</div>
-                    <div class="label">Prepayment</div>
+                    <div class="value">54.75p</div>
+                    <div class="label">Avg Elec Standing</div>
+                </div>
+                <div class="cap-item">
+                    <div class="value">5.93p</div>
+                    <div class="label">Avg Gas Unit</div>
                 </div>
             </div>
-            <p style="color: #64748b; margin-top: 15px; font-size: 0.8rem;">*Based on Ofgem's typical domestic consumption values: <strong>2,700 kWh electricity</strong> + <strong>11,500 kWh gas</strong> per year. Your actual costs will vary based on your usage. Electricity-only uses regional cap data which varies by DNO area.</p>
+            <p style="color: #64748b; margin-top: 15px; font-size: 0.8rem;">*Based on Ofgem's typical domestic consumption: <strong>2,700 kWh electricity</strong> + <strong>11,500 kWh gas</strong> per year. This is the UK average and varies by region. We calculate your exact regional cap based on your selected area and usage (inc 5% VAT).</p>
         </div>
 
         <!-- Tariff Cards -->
@@ -561,38 +561,25 @@
             'scottish_power': { name: 'Scottish Power', color: '#0066b3', rating: 3.9, green: true, greenNote: '100% renewable' }
         };
 
-        // Price cap totals (based on typical usage 2700 kWh elec + 11500 kWh gas)
-        const priceCap = {
-            directDebit: { current: 1755, jan2026: 1758 },
-            standardCredit: { current: 1890, jan2026: 1894 },
-            prepayment: { current: 1707, jan2026: 1711 }
+        // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+        // Source: https://www.ofgem.gov.uk/energy-price-cap
+        // Standing charges in p/day, unit rates in p/kWh
+        const capRatesByRegion = {
+            'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+            'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+            'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+            'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+            'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+            'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+            'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+            'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+            'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+            'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+            'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+            'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+            'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+            'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
         };
-        
-        // Regional electricity-only cap data (Jan 2026, inc 5% VAT)
-        // Nil kWh = standing charges only, benchmark = total at typical usage
-        const elecCapByRegion = {
-            'North West': { standing: 190.62, benchmark: 958.69 },
-            'North East': { standing: 222.41, benchmark: 944.58 },
-            'Yorkshire': { standing: 217.97, benchmark: 938.53 },
-            'North Scotland': { standing: 226.54, benchmark: 992.31 },
-            'Southern': { standing: 166.81, benchmark: 918.14 },
-            'South Scotland': { standing: 210.32, benchmark: 944.22 },
-            'North Wales & Merseyside': { standing: 259.19, benchmark: 1044.60 },
-            'London': { standing: 171.95, benchmark: 900.91 },
-            'South East': { standing: 177.62, benchmark: 940.87 },
-            'Eastern': { standing: 180.05, benchmark: 932.91 },
-            'East Midlands': { standing: 183.12, benchmark: 909.11 },
-            'West Midlands': { standing: 197.40, benchmark: 926.08 },
-            'South West': { standing: 201.14, benchmark: 961.43 },
-            'South Wales': { standing: 192.54, benchmark: 953.43 }
-        };
-        
-        // Use Jan 2026 cap as the comparison baseline
-        let currentCapMethod = 'directDebit';
-
-        function getCapCost() {
-            return priceCap[currentCapMethod].jan2026;
-        }
 
         async function loadData() {
             try {
@@ -635,24 +622,25 @@
         }
 
         function calculateCapCost(elecKwh, gasKwh, fuelType, region) {
-            const typicalElec = 2700;
-            const typicalGas = 11500;
+            const rates = capRatesByRegion[region] || capRatesByRegion['London'];
             
-            if (fuelType === 'elec') {
-                // Use regional electricity cap data
-                const regionData = elecCapByRegion[region] || elecCapByRegion['London'];
-                const standingCost = regionData.standing; // Fixed regardless of usage
-                const usageCost = regionData.benchmark - regionData.standing; // Unit cost portion at typical usage
-                const scaledUsage = usageCost * (elecKwh / typicalElec);
-                return standingCost + scaledUsage;
-            } else {
-                // Dual fuel - use overall cap and scale
-                const baseCap = getCapCost();
-                // Roughly 40% elec, 60% gas based on typical usage
-                const elecPortion = baseCap * 0.4 * (elecKwh / typicalElec);
-                const gasPortion = baseCap * 0.6 * (gasKwh / typicalGas);
-                return elecPortion + gasPortion;
+            // Calculate from actual unit rates and standing charges (already inc 5% VAT)
+            // Standing charge: p/day × 365 days / 100 = £/year
+            // Unit cost: p/kWh × kWh / 100 = £/year
+            
+            let total = 0;
+            
+            if (fuelType === 'elec' || fuelType === 'dual') {
+                total += (rates.elecStanding * 365) / 100;  // Standing charge
+                total += (rates.elecUnit * elecKwh) / 100;   // Unit cost
             }
+            
+            if (fuelType === 'dual') {
+                total += (rates.gasStanding * 365) / 100;   // Standing charge
+                total += (rates.gasUnit * gasKwh) / 100;     // Unit cost
+            }
+            
+            return total;
         }
 
         function isElecOnly(tariff) {
@@ -723,8 +711,7 @@
 
             // Update stats
             document.getElementById('capPrice').textContent = `£${Math.round(capCost)}`;
-            const shortRegion = region.length > 12 ? region.substring(0, 10) + '...' : region;
-            document.getElementById('capLabel').textContent = fuelType === 'elec' ? `Elec Cap (${shortRegion})` : "Price Cap (Jan '26)";
+            document.getElementById('capLabel').textContent = `Cap (${region.length > 10 ? region.substring(0, 8) + '...' : region})`;
             document.getElementById('tariffCount').textContent = filtered.length;
             
             if (filtered.length > 0) {

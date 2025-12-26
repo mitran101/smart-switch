@@ -1071,6 +1071,18 @@ async function loadDynamicSavings() {
     if (!response.ok) return;
     const data = await response.json();
     
+    
+    // Validation function to filter out incomplete data
+    function isValidTariff(tariff) {
+      if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+      if (tariff.error) return false;
+      if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+      if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+      if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+      if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+      return true;
+    }
+
     // Ofgem cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
     const capRatesByRegion = {
       'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
@@ -1106,16 +1118,13 @@ async function loadDynamicSavings() {
     }
     
     // Find cheapest dual fuel fixed tariff in that expensive region
-    const regionTariffs = data.tariffs.filter(t => 
-      t.region === expensiveRegion && 
-      !t.error && 
-      t.elec_unit_rate_p && t.elec_standing_p &&
-      t.gas_unit_rate_p && t.gas_standing_p &&
-      (t.tariff_name || '').trim() !== '' &&
-      !(t.tariff_name || '').toLowerCase().includes('variable') &&
-      !(t.tariff_name || '').toLowerCase().includes('svt') &&
-      !(t.tariff_name || '').toLowerCase().includes('standard')
-    );
+    const regionTariffs = data.tariffs
+      .filter(t => t.region === expensiveRegion)
+      .filter(t => isValidTariff(t))
+      .filter(t => {
+        const name = (t.tariff_name || '').toLowerCase();
+        return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
+      });
     
     let cheapestCost = Infinity;
     regionTariffs.forEach(t => {

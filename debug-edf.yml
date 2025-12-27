@@ -1,0 +1,36 @@
+name: Debug EDF on GitHub
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install playwright
+        playwright install chromium
+        playwright install-deps
+    
+    - name: Test EDF single region with debug
+      run: |
+        python edf_scraper_debug.py --test "BN2 7HQ" --headless
+      continue-on-error: true
+    
+    - name: Upload screenshots
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: edf-debug-screenshots
+        path: screenshots/*.png

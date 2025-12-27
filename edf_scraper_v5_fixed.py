@@ -366,20 +366,44 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
             
             print(f"    ✓ Opened dropdown")
             
-            # Navigate to address
+            # Navigate to address using keyboard
             page.keyboard.press("Home")
             time.sleep(0.3)
             for _ in range(current_idx):
                 page.keyboard.press("ArrowDown")
                 time.sleep(0.2)
             page.keyboard.press("Enter")
-            time.sleep(2)
+            time.sleep(1)
+            
+            # CRITICAL: Force trigger change event so form recognizes selection
+            try:
+                page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('select');
+                        selects.forEach(select => {
+                            const event = new Event('change', { bubbles: true });
+                            select.dispatchEvent(event);
+                        });
+                    }
+                """)
+                print(f"    ✓ Triggered change event")
+            except:
+                pass
+            
+            time.sleep(3)  # Increased wait for form to process
             
             print(f"    ✓ Selected address #{current_idx}")
             page.screenshot(path=f"screenshots/edf_{region.replace(' ', '_')}_addr_{current_idx}.png")
             
             # CHECK FOR PROBLEMS BEFORE CONTINUE
             page_text = page.inner_text('body').lower()
+            
+            # Check if address selection failed
+            if 'address is required' in page_text:
+                print(f"    ⚠ Address selection didn't register - trying next address")
+                current_idx += 1
+                reset_and_search(page, postcode)
+                continue
             
             # Business page?
             if 'step 1 of 7' in page_text or 'business prices' in page_text:
@@ -408,11 +432,47 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
                 reset_and_search(page, postcode)
                 continue
             
-            time.sleep(3)
+            time.sleep(5)  # Increased wait for headless mode
             page.screenshot(path=f"screenshots/edf_{region.replace(' ', '_')}_after_continue.png")
             
-            # CHECK WHERE WE LANDED
+            # COMPREHENSIVE DEBUG - What's actually on the page?
+            print(f"\n  [DEBUG] Analyzing page content...")
+            print(f"  [DEBUG] Current URL: {page.url}")
             page_text = page.inner_text('body').lower()
+            
+            # Print first 500 chars of page
+            print(f"  [DEBUG] Page text (first 500 chars):")
+            print(f"  {page_text[:500]}")
+            
+            # Look for fuel-related text
+            fuel_keywords = ['electricity', 'gas', 'fuel', 'energy', 'dual']
+            found_keywords = [kw for kw in fuel_keywords if kw in page_text]
+            print(f"  [DEBUG] Fuel keywords found: {found_keywords}")
+            
+            # Get all clickable elements
+            try:
+                buttons = page.locator('button, a, [role="button"]').all()
+                print(f"  [DEBUG] Found {len(buttons)} clickable elements")
+                
+                # Print text of first 10 buttons
+                for i, btn in enumerate(buttons[:10]):
+                    try:
+                        btn_text = btn.inner_text()
+                        if btn_text.strip():
+                            print(f"  [DEBUG] Button {i}: '{btn_text.strip()}'")
+                    except:
+                        pass
+            except Exception as e:
+                print(f"  [DEBUG] Error getting buttons: {e}")
+            
+            # CHECK WHERE WE LANDED
+            
+            # DEBUG: Print what fuel options are actually available
+            try:
+                fuel_options = page.locator('text=/electricity|gas/i').all_text_contents()
+                print(f"    [DEBUG] Fuel options found: {fuel_options}")
+            except:
+                print(f"    [DEBUG] No fuel options found on page")
             
             # Business page after continue?
             if 'step 1 of 7' in page_text or 'business prices' in page_text:
@@ -429,15 +489,68 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
                 reset_and_search(page, postcode)
                 continue
             
-            # STEP 6: TRY TO SELECT ELECTRICITY AND GAS - IF NOT THERE, TRY NEXT ADDRESS
-            print(f"\n  [STEP 6] Selecting Electricity and Gas...")
+            # STEP 6: SELECT FUEL TYPE (TRY MULTIPLE OPTIONS)
+            print(f"\n  [STEP 6] Selecting fuel type...")
+            
+            # Wait for fuel selection section to be visible
             try:
-                remove_onetrust_overlay(page)  # Remove overlay
-                page.click('text="Electricity and Gas"', timeout=5000)
-                print(f"    ✓ Selected Electricity and Gas")
-                time.sleep(1)
+                page.wait_for_selector('text=/electricity|gas/i', timeout=10000)
+                time.sleep(2)  # Extra wait for animations
             except:
-                print(f"    ⚠ No 'Electricity and Gas' option - trying next address")
+                print(f"    ⚠ Fuel selection section not loaded - trying next address")
+                current_idx += 1
+                reset_and_search(page, postcode)
+                continue
+            
+            fuel_selected = False
+            
+            # Try 1: Dual fuel (preferred)
+            if not fuel_selected:
+                try:
+                    remove_onetrust_overlay(page)
+                    page.click('text="Electricity and Gas"', timeout=3000)
+                    print(f"    ✓ Selected Electricity and Gas")
+                    fuel_selected = True
+                    time.sleep(1)
+                except:
+                    print(f"    ⚠ 'Electricity and Gas' not found")
+            
+            # Try 2: Electricity and gas (lowercase)
+            if not fuel_selected:
+                try:
+                    remove_onetrust_overlay(page)
+                    page.click('text="Electricity and gas"', timeout=3000)
+                    print(f"    ✓ Selected Electricity and gas")
+                    fuel_selected = True
+                    time.sleep(1)
+                except:
+                    print(f"    ⚠ 'Electricity and gas' not found")
+            
+            # Try 3: Just look for any button with "gas" in it
+            if not fuel_selected:
+                try:
+                    remove_onetrust_overlay(page)
+                    page.click('button:has-text("gas")', timeout=3000)
+                    print(f"    ✓ Clicked button containing 'gas'")
+                    fuel_selected = True
+                    time.sleep(1)
+                except:
+                    print(f"    ⚠ No button with 'gas' found")
+            
+            # Try 4: Accept electricity only as fallback
+            if not fuel_selected:
+                try:
+                    remove_onetrust_overlay(page)
+                    page.click('text="Electricity only"', timeout=3000)
+                    print(f"    ⚠ WARNING: Selected Electricity only (no gas available)")
+                    fuel_selected = True
+                    time.sleep(1)
+                except:
+                    print(f"    ⚠ 'Electricity only' not found either")
+            
+            # If still nothing found, try next address
+            if not fuel_selected:
+                print(f"    ✗ No fuel options found at all - trying next address")
                 current_idx += 1
                 reset_and_search(page, postcode)
                 continue

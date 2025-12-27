@@ -554,12 +554,12 @@
 
         // Supplier info
         const supplierInfo = {
-            'octopus': { name: 'Octopus Energy', color: '#ff00ff', rating: 4.8, green: true, greenNote: '100% renewable' },
-            'eon_next': { name: 'E.ON Next', color: '#e4002b', rating: 4.2, green: true, greenNote: '100% renewable' },
-            'british_gas': { name: 'British Gas', color: '#0066cc', rating: 3.8, green: false, greenNote: 'Standard mix' },
-            'ovo': { name: 'OVO Energy', color: '#00dc64', rating: 4.3, green: true, greenNote: '100% renewable' },
-            'scottish_power': { name: 'Scottish Power', color: '#0066b3', rating: 3.9, green: true, greenNote: '100% renewable' },
-            'fuse_energy': { name: 'Fuse Energy', color: '#a855f7', rating: 4.0, green: false, greenNote: 'Standard mix' }
+            'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable' },
+            'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable' },
+            'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix' },
+            'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable' },
+            'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable' },
+            'fuse_energy': { name: 'Fuse Energy', color: '#a855f7', green: false, greenNote: 'Standard mix' }
         };
 
         // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
@@ -671,9 +671,39 @@
         }
 
         function getExitFee(tariff) {
-            if (!tariff.exit_fee_gbp) return '£0';
-            if (typeof tariff.exit_fee_gbp === 'number') return `£${tariff.exit_fee_gbp}`;
-            return tariff.exit_fee_gbp.replace(/\\u00a3/g, '£');
+            // Check if it's dual fuel (has both elec and gas)
+            const isDualFuel = tariff.gas_unit_rate_p && tariff.gas_standing_p && 
+                              tariff.elec_unit_rate_p && tariff.elec_standing_p;
+            
+            // No exit fee
+            if (!tariff.exit_fee_gbp || tariff.exit_fee_gbp === '£0' || tariff.exit_fee_gbp === 0) {
+                return '£0';
+            }
+            
+            // If it's a number (like 50), this is per fuel
+            if (typeof tariff.exit_fee_gbp === 'number') {
+                if (isDualFuel) {
+                    // Dual fuel = 2× the fee (elec + gas)
+                    return `£${tariff.exit_fee_gbp * 2} total (£${tariff.exit_fee_gbp} per fuel)`;
+                } else {
+                    return `£${tariff.exit_fee_gbp}`;
+                }
+            }
+            
+            // If it's a string
+            let feeStr = tariff.exit_fee_gbp.replace(/\\u00a3/g, '£');
+            
+            // If it already says "per fuel", calculate total for dual fuel
+            if (feeStr.toLowerCase().includes('per fuel') && isDualFuel) {
+                const match = feeStr.match(/£(\d+)/);
+                if (match) {
+                    const perFuel = parseInt(match[1]);
+                    return `£${perFuel * 2} total (£${perFuel} per fuel)`;
+                }
+            }
+            
+            // Return as-is
+            return feeStr;
         }
 
         function getPros(tariff, savings, supplier) {
@@ -682,7 +712,7 @@
             if (supplier?.green) pros.push(supplier.greenNote);
             if (getExitFee(tariff).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
-            if (supplier?.rating >= 4.5) pros.push(`${supplier.rating}★ rated`);
+            // Removed fake rating - we don't have real review data
             return pros.slice(0, 3);
         }
 
@@ -692,7 +722,7 @@
             if (!exitFee.includes('£0')) cons.push(`Exit fee: ${exitFee}`);
             if (isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
-            if (supplier?.rating < 4) cons.push('Average reviews');
+            // Removed fake "Average reviews" - we don't have real review data
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
             return cons.slice(0, 3);
         }
@@ -759,7 +789,7 @@
             }
 
             grid.innerHTML = top5.map((tariff, index) => {
-                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#a855f7', rating: 3.5, green: false };
+                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#a855f7', green: false };
                 const pros = getPros(tariff, tariff.savings, supplier);
                 const cons = getCons(tariff, tariff.savings, supplier);
                 

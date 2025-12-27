@@ -1,4 +1,4 @@
-name: Test Scottish Power Only
+name: Daily Tariff Scraper
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90  # 6 scrapers in parallel
     
     steps:
     - name: Checkout code
@@ -22,10 +22,10 @@ jobs:
     - name: Install dependencies
       run: |
         pip install playwright requests undetected-chromedriver selenium
-        playwright install chromium
+        playwright install chromium firefox
         playwright install-deps
     
-    - name: Test Scottish Power scraper
+    - name: Run 6 automated scrapers
       run: |
         python run_all_scrapers.py --only sp
       continue-on-error: true
@@ -34,6 +34,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.json all_tariffs_*.csv sp_tariffs_*.json sp_tariffs_*.csv
-        git diff --staged --quiet || git commit -m "Test: Scottish Power $(date +'%Y-%m-%d %H:%M')"
+        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.json all_tariffs_*.csv
+        git diff --staged --quiet || git commit -m "Daily update: 6 suppliers $(date +'%Y-%m-%d %H:%M')"
         git push || echo "Nothing to push"

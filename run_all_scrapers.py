@@ -115,8 +115,14 @@ def run_scraper(name, config):
     
     try:
         # Run the scraper
+        cmd = [sys.executable, script]
+        
+        # Add headless flag for browser-based scrapers (not APIs)
+        if not config.get("is_api", False):
+            cmd.append("--headless")
+        
         result = subprocess.run(
-            [sys.executable, script],
+            cmd,
             capture_output=False,  # Show output in real-time
             text=True
         )
@@ -258,7 +264,7 @@ def save_combined_results(results):
     print(f"\n✓ Saved: {json_file}")
     
     # Also save a simple version for website
-    simple_file = "all_tariffs.json"
+    simple_file = "all_tariffs_latest.json"
     with open(simple_file, "w") as f:
         json.dump(output_data, f, indent=2)
     print(f"✓ Saved: {simple_file} (for website)")
@@ -592,7 +598,7 @@ def main():
     else:
         print("\n  ⚠ No results to combine!")
     
-    input("\nPress Enter to exit...")
+    # input("\nPress Enter to exit...")  # Disabled for automated runs
 
 
 if __name__ == "__main__":

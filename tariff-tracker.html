@@ -684,9 +684,9 @@
             if (typeof tariff.exit_fee_gbp === 'number') {
                 if (isDualFuel) {
                     // Dual fuel = 2× the fee (elec + gas)
-                    return `£${tariff.exit_fee_gbp * 2} total (£${tariff.exit_fee_gbp} per fuel)`;
+                    return `£${(tariff.exit_fee_gbp * 2).toFixed(2)} total (£${tariff.exit_fee_gbp.toFixed(2)} per fuel)`;
                 } else {
-                    return `£${tariff.exit_fee_gbp}`;
+                    return `£${tariff.exit_fee_gbp.toFixed(2)}`;
                 }
             }
             
@@ -695,14 +695,23 @@
             
             // If it already says "per fuel", calculate total for dual fuel
             if (feeStr.toLowerCase().includes('per fuel') && isDualFuel) {
-                const match = feeStr.match(/£(\d+)/);
+                const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
                 if (match) {
-                    const perFuel = parseInt(match[1]);
-                    return `£${perFuel * 2} total (£${perFuel} per fuel)`;
+                    const perFuel = parseFloat(match[1]);
+                    return `£${(perFuel * 2).toFixed(2)} total (£${perFuel.toFixed(2)} per fuel)`;
                 }
             }
             
-            // Return as-is
+            // Plain string like "£50.00" - extract number and multiply for dual fuel
+            if (isDualFuel) {
+                const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
+                if (match) {
+                    const perFuel = parseFloat(match[1]);
+                    return `£${(perFuel * 2).toFixed(2)} total (£${perFuel.toFixed(2)} per fuel)`;
+                }
+            }
+            
+            // Return as-is (single fuel or couldn't parse)
             return feeStr;
         }
 

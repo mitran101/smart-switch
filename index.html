@@ -66,7 +66,7 @@ min-width: 2ch;
 
 /* Animated circuit lines */
 .insights::before {
-content: ‘’;
+content: '';
 position: absolute;
 top: 0;
 left: 0;
@@ -76,7 +76,7 @@ background: linear-gradient(90deg, transparent, #6366f1, transparent);
 animation: scanline 3s linear infinite;
 }
 .insights::after {
-content: ‘’;
+content: '';
 position: absolute;
 bottom: 0;
 left: 0;
@@ -96,7 +96,7 @@ animation: scanline 3s linear infinite reverse;
 
 /* Glowing edge on hover */
 .topic::before {
-content: ‘’;
+content: '';
 position: absolute;
 inset: 0;
 border-radius: 22px;
@@ -126,7 +126,7 @@ opacity: 1;
 
 /* Animated grid overlay */
 .final-cta::before {
-content: ‘’;
+content: '';
 position: absolute;
 inset: 0;
 background-image:
@@ -511,7 +511,7 @@ body { font-size:15px !important; }
   <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
   <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Live Tariff Tracker</h2>
   <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
-    Compare energy deals tailored to your exact region, usage, and payment method. Updated weekly with real tariff data across all 14 UK regions.
+    Compare energy deals tailored to your exact region, usage, and payment method. Updated every weekday with real tariff data across all 14 UK regions.
   </p>
   <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
     <div style="text-align:center;">
@@ -523,7 +523,7 @@ body { font-size:15px !important; }
       <div style="font-size:0.9rem;opacity:0.8;">UK Regions</div>
     </div>
     <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">£165</div>
+      <div id="trackerSavings" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">£165</div>
       <div style="font-size:0.9rem;opacity:0.8;">Avg. Savings/year</div>
     </div>
   </div>
@@ -1146,6 +1146,10 @@ async function loadDynamicSavings() {
       if (savingsTextEl) {
         savingsTextEl.textContent = '£' + Math.round(bestSavings) + '+';
       }
+      const trackerEl = document.getElementById('trackerSavings');
+      if (trackerEl) {
+        trackerEl.textContent = '£' + Math.round(bestSavings);
+      }
     }
   } catch (e) {
     console.log('Could not load dynamic savings:', e);
@@ -1156,4 +1160,3 @@ async function loadDynamicSavings() {
 
 </body>
 </html>
-

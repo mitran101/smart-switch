@@ -1,14 +1,14 @@
-name: Daily Tariff Scraper - All Suppliers
+name: Test Scottish Power Only
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 2am UTC daily
+    - cron: '0 2 * * 1-5'  # 2am UTC, Monday-Friday only
   workflow_dispatch:  # Manual trigger button
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     
     steps:
     - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
         playwright install chromium
         playwright install-deps
     
-    - name: Run ALL 7 scrapers
+    - name: Test Scottish Power scraper
       run: |
         python run_all_scrapers.py --only sp
       continue-on-error: true
@@ -34,6 +34,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.json all_tariffs_*.csv
-        git diff --staged --quiet || git commit -m "Auto update: All suppliers $(date +'%Y-%m-%d %H:%M')"
+        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.json all_tariffs_*.csv sp_tariffs_*.json sp_tariffs_*.csv
+        git diff --staged --quiet || git commit -m "Test: Scottish Power $(date +'%Y-%m-%d %H:%M')"
         git push || echo "Nothing to push"

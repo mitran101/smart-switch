@@ -97,11 +97,33 @@ OUTPUT_FIELDS = [
 # ============================================
 
 def get_latest_file(pattern):
-    """Get the most recently modified file matching pattern."""
+    """Get the file with MOST data matching pattern (not just newest).
+    This prevents single-region retry files from overwriting full scrape data.
+    """
     files = glob.glob(pattern)
     if not files:
         return None
-    return max(files, key=os.path.getmtime)
+    
+    # Find file with most records, not just newest
+    best_file = None
+    best_count = -1
+    
+    for f in files:
+        try:
+            with open(f, 'r') as fp:
+                data = json.load(fp)
+                count = len(data) if isinstance(data, list) else 0
+                if count > best_count:
+                    best_count = count
+                    best_file = f
+        except:
+            continue
+    
+    # Fallback to newest if we couldn't read any files
+    if best_file is None:
+        return max(files, key=os.path.getmtime)
+    
+    return best_file
 
 
 def run_scraper(name, config):
@@ -351,7 +373,8 @@ def main():
     parser.add_argument("--sequential", action="store_true", help="Run one at a time")
     parser.add_argument("--combine-only", action="store_true", help="Only combine existing results")
     parser.add_argument("--wait", type=int, default=300, help="Wait time between scrapers")
-    parser.add_argument("--no-retry", action="store_true", help="Skip retry logic")
+    parser.add_argument("--no-retry", action="store_true", default=True, help="Skip retry logic (default: True)")
+    parser.add_argument("--retry", action="store_true", help="Enable retry logic for failed regions")
     args = parser.parse_args()
     
     print("="*60)
@@ -407,8 +430,9 @@ def main():
     
     # =====================================================
     # SMART RETRY: Only retry scrapers that mostly worked
+    # (Disabled by default - use --retry to enable)
     # =====================================================
-    if not args.combine_only and not args.no_retry:
+    if not args.combine_only and args.retry:
         failures_by_supplier = {}
         
         for r in results:

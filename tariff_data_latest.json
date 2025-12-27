@@ -1,0 +1,1541 @@
+{
+  "lastUpdated": "27 December 2025",
+  "tariffs": [
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Agile Octopus",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 48.788145,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 54.84696,
+            "elecUnit": 18.48,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 39.535125,
+            "elecUnit": 18.48,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 65.83542,
+            "elecUnit": 20.328,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 61.56108,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 70.04823,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.98336,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 62.224785,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 55.78566,
+            "elecUnit": 20.328,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 62.064135,
+            "elecUnit": 20.328,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 66.066105,
+            "elecUnit": 21.252,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 66.26277,
+            "elecUnit": 18.48,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 62.11863,
+            "elecUnit": 19.404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 59.928225,
+            "elecUnit": 22.176,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Cosy Octopus",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 14.62608,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 14.08806,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 14.131005,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 15.283905,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 14.137935,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 14.01855,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 14.9457,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 14.596155,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 14.841015,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 14.79387,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 14.788305,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 13.96521,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 14.24304,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 14.916615,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Cosy Octopus 12M Fixed",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a325 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 28.649355,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 27.59547,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 27.67968,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 29.93802,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 27.693225,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 27.459495,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 29.275575,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 28.59087,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 29.070405,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 28.978215,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 28.96719,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 27.354915,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 27.89913,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 29.218455,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Octopus Flux Import",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 27.326355,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 26.36886,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 26.479635,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 28.50036,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 26.46231,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 26.24118,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 27.93063,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 27.240045,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 27.68136,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 27.609225,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 27.57531,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 26.185215,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 25.823805,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 26.98731,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Octopus Go 12M Fixed",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 8.49975,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Octopus Go",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 29.198085,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 28.12404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 28.209825,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 30.511425,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 28.223685,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 27.985335,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 29.836275,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 29.138445,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 29.627115,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 29.533245,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 29.52201,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 27.878865,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 28.43358,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 29.778105,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Intelligent Octopus Go 12M Fixed",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 7.00035,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Intelligent Octopus Flux Import",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 23.017365,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 21.705075,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 23.45175,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 23.18232,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 21.77091,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 21.16086,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 22.81986,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 22.480605,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 23.036055,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 22.36479,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 22.07604,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 21.477015,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 21.881265,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 22.75497,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Intelligent Octopus Go",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 29.198085,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 28.12404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 28.209825,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 30.511425,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 28.223685,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 27.985335,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 29.836275,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 29.138445,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 29.627115,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 29.533245,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 29.52201,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 27.878865,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 28.43358,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 29.778105,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Intelligent Octopus Go - EV Saver",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 29.198085,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 28.12404,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 28.209825,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 30.511425,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 28.223685,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 27.985335,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 29.836275,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 29.138445,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 29.627115,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 29.533245,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 29.52201,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 27.878865,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 28.43358,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 29.778105,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Octopus 12M Fixed",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.29221,
+            "elecUnit": 25.9371,
+            "gasSC": 32.710125,
+            "gasUnit": 5.44257
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 48.126435,
+            "elecUnit": 24.96123,
+            "gasSC": 32.7936,
+            "gasUnit": 5.41443
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 45.09729,
+            "elecUnit": 25.03914,
+            "gasSC": 33.61344,
+            "gasUnit": 5.65404
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.98836,
+            "elecUnit": 27.130425,
+            "gasSC": 33.475365,
+            "gasUnit": 5.69625
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 52.041675,
+            "elecUnit": 25.05174,
+            "gasSC": 33.09558,
+            "gasUnit": 5.463255
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.905525,
+            "elecUnit": 24.83523,
+            "gasSC": 33.187665,
+            "gasUnit": 5.574135
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 50.197665,
+            "elecUnit": 26.517015,
+            "gasSC": 33.216435,
+            "gasUnit": 5.284125
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.66467,
+            "elecUnit": 25.88292,
+            "gasSC": 32.52312,
+            "gasUnit": 5.571195
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 46.636275,
+            "elecUnit": 26.326965,
+            "gasSC": 32.643975,
+            "gasUnit": 5.482365
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 50.72991,
+            "elecUnit": 26.2416,
+            "gasSC": 33.343065,
+            "gasUnit": 5.698035
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.07435,
+            "elecUnit": 26.231415,
+            "gasSC": 32.684295,
+            "gasUnit": 5.78844
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.68868,
+            "elecUnit": 24.73842,
+            "gasSC": 33.16467,
+            "gasUnit": 5.62989
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 55.591515,
+            "elecUnit": 25.24242,
+            "gasSC": 33.285525,
+            "gasUnit": 5.60427
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.038895,
+            "elecUnit": 26.464095,
+            "gasSC": 33.256755,
+            "gasUnit": 5.417895
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Octopus Energy",
+      "logo": "logo-octopus.png",
+      "name": "Snug Octopus",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a30 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.7036,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.631675,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.78082,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.34114,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.80868,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.21221,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.605045,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.822905,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 47.07927,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 49.797825,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 53.70435,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 57.15927,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 56.595525,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 60.993975,
+            "elecUnit": 8.99997,
+            "gasSC": 0,
+            "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    }
+  ]
+}

@@ -25,7 +25,7 @@ jobs:
     
     - name: Run scrapers (excluding EDF)
       run: |
-        python run_all_scrapers.py --only eon
+        python run_all_scrapers.py --only eon bg ovo octopus sp fuse
       continue-on-error: true
     
     - name: Upload screenshots for debugging

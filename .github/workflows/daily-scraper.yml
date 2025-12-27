@@ -27,7 +27,7 @@ jobs:
     
     - name: Run 6 automated scrapers
       run: |
-        python run_all_scrapers.py --only sp
+        python run_all_scrapers.py --only octopus bg eon ovo fuse sp
       continue-on-error: true
     
     - name: Commit and push results

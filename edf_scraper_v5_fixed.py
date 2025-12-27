@@ -574,6 +574,8 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
 
 def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
     results = []
+    consecutive_failures = 0  # Track consecutive failures for early abort
+    early_abort = False
     
     for i, (region, postcode) in enumerate(postcodes.items()):
         print(f"\n{'='*60}")
@@ -583,6 +585,20 @@ def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
         result = scrape_edf(browser, postcode, region)
         results.append(result)
         
+        # Track success/failure
+        if result.get('tariffs'):
+            consecutive_failures = 0  # Reset on success
+        else:
+            consecutive_failures += 1
+        
+        # EARLY ABORT: If first 3 regions all fail, scraper is broken
+        if consecutive_failures >= 3 and len(results) <= 4:
+            print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
+            print(f"  → Scraper appears broken on this environment")
+            print(f"  → Run manually on local machine")
+            early_abort = True
+            break
+        
         with open("edf_tariffs_partial.json", "w") as f:
             json.dump(results, f, indent=2)
         
@@ -590,6 +606,9 @@ def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
             wait = wait_between + random.randint(-5, 10)
             print(f"\n  ⏳ Waiting {wait}s...")
             time.sleep(wait)
+    
+    if early_abort:
+        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
     
     return results
 

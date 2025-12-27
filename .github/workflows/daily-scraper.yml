@@ -6,7 +6,7 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 60
     
     steps:
     - name: Checkout code
@@ -23,9 +23,9 @@ jobs:
         playwright install chromium firefox
         playwright install-deps
     
-    - name: Run scrapers (excluding EDF)
+    - name: Run all scrapers
       run: |
-        python run_all_scrapers.py --only eon bg ovo octopus sp fuse
+        python run_all_scrapers.py
       continue-on-error: true
     
     - name: Upload screenshots for debugging

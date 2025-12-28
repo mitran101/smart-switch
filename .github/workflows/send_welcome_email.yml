@@ -15,6 +15,10 @@ jobs:
         with:
           python-version: '3.11'
       
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+      
       - name: Send welcome email
         env:
           MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}

@@ -204,7 +204,7 @@ def send_welcome_email(to_email):
               What frustrates YOU about energy bills?
             </p>
             <p style="color: #4a5568; line-height: 1.6; margin: 10px 0 0 0;">
-              Hit reply and tell us. We read everything. Your answers shape what we build.
+              <a href="https://switch-pilot.com/community.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Join our Community</a> to discuss, learn from others, and share your experiences — or simply reply to this email and we'll get back to you.
             </p>
           </div>
           

@@ -22,16 +22,12 @@
         }
         h1 { font-size: 2rem; margin-bottom: 1rem; }
         p { opacity: 0.85; line-height: 1.6; }
-        .success { color: #86efac; }
-        .error { color: #fca5a5; }
-        a { color: #6366f1; text-decoration: none; }
-        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <div class="container" id="content">
-        <h1>💔 Sorry to see you go</h1>
-        <p>Confirming unsubscribe...</p>
+    <div class="container">
+        <h1>💔 Processing unsubscribe...</h1>
+        <p>Please wait...</p>
     </div>
     
     <script>
@@ -41,23 +37,11 @@
         const token = params.get('token');
         
         if (token) {
-            fetch(WEBAPP_URL + '?unsubscribe=' + encodeURIComponent(token))
-                .then(() => {
-                    document.getElementById('content').innerHTML = `
-                        <h1 class="success">✅ Unsubscribed</h1>
-                        <p>You've been removed from our mailing list.</p>
-                        <p style="margin-top: 2rem;"><a href="https://switch-pilot.com">← Back to SwitchPilot</a></p>
-                    `;
-                })
-                .catch(() => {
-                    document.getElementById('content').innerHTML = `
-                        <h1 class="error">⚠️ Error</h1>
-                        <p>Could not process unsubscribe. Please email us directly.</p>
-                    `;
-                });
+            // Redirect directly to Apps Script
+            window.location.href = WEBAPP_URL + '?unsubscribe=' + encodeURIComponent(token);
         } else {
-            document.getElementById('content').innerHTML = `
-                <h1 class="error">⚠️ Invalid Link</h1>
+            document.querySelector('.container').innerHTML = `
+                <h1 style="color: #fca5a5;">⚠️ Invalid Link</h1>
                 <p>No unsubscribe token found.</p>
             `;
         }

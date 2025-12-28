@@ -4,16 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Community Discussions - SwitchPilot</title>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WEQ6VBT567');
-</script>
-
 <style>
 html {
   scroll-behavior: smooth;
@@ -479,8 +469,8 @@ body {
 .category-tag.bills { background: rgba(236,72,153,0.2); color: #f9a8d4; }
 .category-tag.tips { background: rgba(251,191,36,0.2); color: #fde68a; }
 .category-tag.suppliers { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+.category-tag.products { background: rgba(168,85,247,0.2); color: #e9d5ff; }
 .category-tag.general { background: rgba(148,163,184,0.2); color: #cbd5e1; }
-.category-tag.product { background: rgba(168,85,247,0.2); color: #d8b4fe; }
 
 .replies-section {
   padding: 1rem 2rem 1.5rem;
@@ -1090,11 +1080,11 @@ body {
             <label for="postCategory">Category</label>
             <select id="postCategory" required>
               <option value="">Select a category...</option>
-              <option value="product">🛠️ Shape SwitchPilot</option>
               <option value="switching">🔄 Switching Experiences</option>
               <option value="bills">💷 Understanding Bills</option>
               <option value="tips">💡 Money-Saving Tips</option>
               <option value="suppliers">🏢 Supplier Reviews</option>
+              <option value="products">🛍️ Suggested Products</option>
               <option value="general">💬 General Chat</option>
             </select>
           </div>
@@ -1112,11 +1102,11 @@ body {
 
       <div class="filter-tabs" role="tablist" aria-label="Filter discussions by category">
         <button class="filter-tab active" data-category="all" role="tab" aria-selected="true">All Topics</button>
-        <button class="filter-tab" data-category="product" role="tab" aria-selected="false">🛠️ Shape SwitchPilot</button>
         <button class="filter-tab" data-category="switching" role="tab" aria-selected="false">🔄 Switching</button>
         <button class="filter-tab" data-category="bills" role="tab" aria-selected="false">💷 Bills</button>
         <button class="filter-tab" data-category="tips" role="tab" aria-selected="false">💡 Tips</button>
         <button class="filter-tab" data-category="suppliers" role="tab" aria-selected="false">🏢 Suppliers</button>
+        <button class="filter-tab" data-category="products" role="tab" aria-selected="false">🛍️ Products</button>
         <button class="filter-tab" data-category="general" role="tab" aria-selected="false">💬 General</button>
       </div>
 
@@ -1514,6 +1504,7 @@ function getCategoryLabel(category) {
     bills: '💷 Bills',
     tips: '💡 Tips',
     suppliers: '🏢 Suppliers',
+    products: '🛍️ Products',
     general: '💬 General'
   };
   return labels[category] || category;

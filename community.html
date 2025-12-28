@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Community Discussions - SwitchPilot</title>
 <style>
-/* HTML & BODY reset */
 html {
   scroll-behavior: smooth;
 }
 
-/* GLOBAL - MATCH INDEX */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -24,7 +22,6 @@ body {
   min-height: 100vh;
 }
 
-/* GRID ANIMATION */
 .energy-grid {
   position: fixed;
   inset: 0;
@@ -42,7 +39,6 @@ body {
   100% { transform: translateY(60px); }
 }
 
-/* LOGO */
 .top-logo {
   position: absolute;
   top: 25px;
@@ -64,7 +60,6 @@ body {
   letter-spacing: -0.5px;
 }
 
-/* MAIN CONTAINER */
 .main-container {
   position: relative;
   z-index: 5;
@@ -73,7 +68,6 @@ body {
   margin: 0 auto;
 }
 
-/* HEADER SECTION */
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -111,7 +105,6 @@ body {
   background: rgba(255,255,255,0.2);
 }
 
-/* FLOATING SYMBOLS */
 .floating-symbols {
   position: fixed;
   inset: 0;
@@ -135,7 +128,6 @@ body {
 .symbol:nth-child(3) { left: 10%; bottom: 25%; animation-delay: 4s; }
 .symbol:nth-child(4) { right: 5%; bottom: 30%; animation-delay: 1s; }
 
-/* LAYOUT GRID */
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -143,7 +135,6 @@ body {
   align-items: start;
 }
 
-/* MAIN DISCUSSION AREA */
 .discussions-panel {
   background: rgba(17,22,46,0.95);
   border-radius: 22px;
@@ -152,7 +143,6 @@ body {
   overflow: hidden;
 }
 
-/* NEW POST FORM */
 .new-post-section {
   padding: 2rem;
   border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -237,7 +227,6 @@ body {
   transform: none;
 }
 
-/* CATEGORY FILTER TABS */
 .filter-tabs {
   display: flex;
   gap: 0.5rem;
@@ -269,7 +258,6 @@ body {
   border-color: transparent;
 }
 
-/* SORT OPTIONS */
 .sort-bar {
   display: flex;
   align-items: center;
@@ -309,13 +297,11 @@ body {
   border-color: rgba(99,102,241,0.5);
 }
 
-/* DISCUSSIONS LIST */
 .discussions-list {
   max-height: 900px;
   overflow-y: auto;
 }
 
-/* LOADING STATE */
 .loading-state {
   text-align: center;
   padding: 4rem 2rem;
@@ -374,7 +360,6 @@ body {
   gap: 1rem;
 }
 
-/* UPVOTE SECTION */
 .upvote-section {
   display: flex;
   flex-direction: column;
@@ -486,7 +471,6 @@ body {
 .category-tag.suppliers { background: rgba(99,102,241,0.2); color: #a5b4fc; }
 .category-tag.general { background: rgba(148,163,184,0.2); color: #cbd5e1; }
 
-/* REPLIES SECTION */
 .replies-section {
   padding: 1rem 2rem 1.5rem;
   padding-left: 5.5rem;
@@ -550,7 +534,6 @@ body {
   white-space: pre-wrap;
 }
 
-/* Reply upvote */
 .reply-upvote {
   position: absolute;
   top: 1rem;
@@ -592,7 +575,6 @@ body {
   color: #a5b4fc;
 }
 
-/* REPLY INPUT */
 .reply-input-wrapper {
   display: flex;
   gap: 0.8rem;
@@ -636,7 +618,6 @@ body {
   transform: none;
 }
 
-/* SIDEBAR */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -660,7 +641,6 @@ body {
   gap: 0.5rem;
 }
 
-/* USER PROFILE CARD */
 .user-profile-card {
   text-align: center;
 }
@@ -733,7 +713,6 @@ body {
   background: rgba(255,255,255,0.1);
 }
 
-/* STATS CARD */
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -762,7 +741,6 @@ body {
   margin-top: 0.3rem;
 }
 
-/* ACTIVE TOPICS */
 .active-topic {
   padding: 0.8rem;
   background: rgba(255,255,255,0.03);
@@ -792,7 +770,6 @@ body {
   opacity: 0.6;
 }
 
-/* GUIDELINES CARD */
 .guidelines-list {
   list-style: none;
   padding: 0;
@@ -814,7 +791,6 @@ body {
   border-bottom: none;
 }
 
-/* EMPTY STATE */
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
@@ -836,7 +812,6 @@ body {
   opacity: 0.8;
 }
 
-/* FOOTER */
 .footer {
   background: #0c0e1f;
   text-align: center;
@@ -851,7 +826,6 @@ body {
   margin: 0.5rem 0;
 }
 
-/* SCROLLBAR STYLING */
 .discussions-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -869,7 +843,6 @@ body {
   background: rgba(99,102,241,0.5);
 }
 
-/* SUCCESS MESSAGE */
 .success-message {
   padding: 1rem;
   background: rgba(34,197,94,0.2);
@@ -899,7 +872,6 @@ body {
   to { opacity: 1; }
 }
 
-/* CONNECTION STATUS */
 .connection-status {
   display: flex;
   align-items: center;
@@ -932,7 +904,6 @@ body {
   50% { opacity: 0.5; }
 }
 
-/* MOBILE RESPONSIVE */
 @media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;
@@ -1187,6 +1158,7 @@ body {
           </div>
         </div>
         <button class="change-name-btn" onclick="changeName()">Change Name</button>
+        <button class="change-name-btn" onclick="clearAllData()" style="margin-top: 0.5rem; background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3);">Clear All Data</button>
       </div>
 
       <!-- COMMUNITY STATS -->
@@ -1216,7 +1188,6 @@ body {
       <div class="sidebar-card">
         <h3>🔥 Top Discussions</h3>
         <div id="activeTopics">
-          <!-- Active topics will be loaded here -->
         </div>
       </div>
 
@@ -1244,29 +1215,18 @@ body {
 </footer>
 
 <script>
-// ============================================
-// GOOGLE APPS SCRIPT INTEGRATION
-// ============================================
-
-// Your Google Apps Script Web App URL - Update this with your community endpoint
 const COMMUNITY_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2sd1Tgj8AMak2yEYxCFasS1UdpMTkhAn5vG2f835o3CbdXxQ4pKPH3BQBwspAdV3sMA/exec';
 
-// Local storage keys
 const STORAGE_KEY = 'switchpilot_discussions';
 const USER_KEY = 'switchpilot_user';
 const UPVOTES_KEY = 'switchpilot_upvotes';
 const REPLY_UPVOTES_KEY = 'switchpilot_reply_upvotes';
 
-// State
 let discussions = [];
 let currentFilter = 'all';
 let currentSort = 'newest';
 let isOnline = true;
 let currentUser = null;
-
-// ============================================
-// USER MANAGEMENT
-// ============================================
 
 function initUser() {
   const stored = localStorage.getItem(USER_KEY);
@@ -1327,9 +1287,15 @@ function changeName() {
   }
 }
 
-// ============================================
-// UPVOTE MANAGEMENT
-// ============================================
+function clearAllData() {
+  if (confirm('This will delete all discussions, your profile, and reset everything. Are you sure?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(UPVOTES_KEY);
+    localStorage.removeItem(REPLY_UPVOTES_KEY);
+    location.reload();
+  }
+}
 
 function getUserUpvotes() {
   return JSON.parse(localStorage.getItem(UPVOTES_KEY) || '[]');
@@ -1365,12 +1331,10 @@ async function toggleUpvote(discussionId, event) {
   const alreadyUpvoted = upvotes.includes(discussionId);
   
   if (alreadyUpvoted) {
-    // Remove upvote
     const index = upvotes.indexOf(discussionId);
     upvotes.splice(index, 1);
     discussion.upvotes = Math.max(0, (discussion.upvotes || 0) - 1);
   } else {
-    // Add upvote
     upvotes.push(discussionId);
     discussion.upvotes = (discussion.upvotes || 0) + 1;
   }
@@ -1378,7 +1342,6 @@ async function toggleUpvote(discussionId, event) {
   saveUserUpvotes(upvotes);
   saveDiscussionsLocal(discussions);
   
-  // Update UI immediately
   const btn = document.querySelector(`.upvote-btn[data-id="${discussionId}"]`);
   const count = document.querySelector(`.upvote-count[data-id="${discussionId}"]`);
   
@@ -1389,7 +1352,6 @@ async function toggleUpvote(discussionId, event) {
     count.textContent = discussion.upvotes;
   }
   
-  // Sync to server
   syncUpvoteToServer(discussionId, !alreadyUpvoted);
   updateStats();
 }
@@ -1418,7 +1380,6 @@ async function toggleReplyUpvote(discussionId, replyId, event) {
   saveUserReplyUpvotes(upvotes);
   saveDiscussionsLocal(discussions);
   
-  // Update UI
   const btn = document.querySelector(`.reply-upvote-btn[data-reply-id="${replyId}"]`);
   const count = document.querySelector(`.reply-upvote-count[data-reply-id="${replyId}"]`);
   
@@ -1446,132 +1407,7 @@ async function syncUpvoteToServer(discussionId, isUpvote) {
   }
 }
 
-// ============================================
-// DATA MANAGEMENT
-// ============================================
-
-// Sample initial discussions
-const sampleDiscussions = [
-  {
-    id: 'disc_1',
-    name: 'SwitchPilot Team',
-    userId: 'team',
-    avatar: 'SP',
-    category: 'general',
-    title: '📌 Welcome to SwitchPilot Community!',
-    content: 'This is your space to share energy switching experiences, ask questions about bills, and help each other save money. We\'re building this community WITH you - your feedback shapes what we create.\n\n👆 Upvote discussions you find helpful!\n💬 Reply to share your experiences\n🔄 Discussions sync across all users\n\nJump in and start a conversation!',
-    timestamp: Date.now() - 86400000 * 7,
-    upvotes: 24,
-    pinned: true,
-    replies: [
-      {
-        id: 'reply_1',
-        name: 'EnergyExplorer',
-        userId: 'user_1',
-        avatar: 'EE',
-        text: 'Great to be here! Looking forward to learning from everyone.',
-        timestamp: Date.now() - 86400000 * 6,
-        upvotes: 8
-      }
-    ]
-  },
-  {
-    id: 'disc_2',
-    name: 'BillBuster22',
-    userId: 'user_2',
-    avatar: 'BB',
-    category: 'switching',
-    title: 'Just switched to E.ON - saving £165/year!',
-    content: 'Used the tariff tracker here and found E.ON\'s fixed 18m deal was the cheapest for my usage. The switch took about 3 weeks and was completely hassle-free. My standing charge dropped from 60p/day to 35p/day on electricity alone!\n\nHighly recommend checking out the tariff tracker if you haven\'t already.',
-    timestamp: Date.now() - 86400000 * 3,
-    upvotes: 18,
-    replies: [
-      {
-        id: 'reply_2',
-        name: 'CuriousSwitcher',
-        userId: 'user_3',
-        avatar: 'CS',
-        text: 'That\'s amazing! Did you have any issues with the meter readings during the switch?',
-        timestamp: Date.now() - 86400000 * 2,
-        upvotes: 3
-      },
-      {
-        id: 'reply_3',
-        name: 'BillBuster22',
-        userId: 'user_2',
-        avatar: 'BB',
-        text: 'None at all! I submitted readings on the switch date and both suppliers accepted them. Super smooth.',
-        timestamp: Date.now() - 86400000,
-        upvotes: 5
-      }
-    ]
-  },
-  {
-    id: 'disc_3',
-    name: 'ConfusedConsumer',
-    userId: 'user_4',
-    avatar: 'CC',
-    category: 'bills',
-    title: 'Can someone explain standing charges?',
-    content: 'I keep seeing standing charges mentioned but I don\'t fully understand why we pay them. My electricity standing charge is 60p/day - that\'s over £200/year just for being connected! Is this normal? Can I avoid it?\n\nWould really appreciate if someone could break this down for me.',
-    timestamp: Date.now() - 86400000 * 5,
-    upvotes: 12,
-    replies: [
-      {
-        id: 'reply_4',
-        name: 'EnergyExpert',
-        userId: 'user_5',
-        avatar: 'EX',
-        text: 'Standing charges cover network maintenance, meter costs, and some policy costs. Unfortunately you can\'t avoid them, but some suppliers like E.ON have much lower ones - around 35p/day for electricity!\n\nThe breakdown is roughly:\n• Network costs (~40%)\n• Operating costs (~30%)\n• Policy costs (~20%)\n• Other (~10%)',
-        timestamp: Date.now() - 86400000 * 4,
-        upvotes: 15
-      }
-    ]
-  },
-  {
-    id: 'disc_4',
-    name: 'GreenEnthusiast',
-    userId: 'user_6',
-    avatar: 'GE',
-    category: 'suppliers',
-    title: 'Anyone tried Octopus Agile tariff?',
-    content: 'Thinking about switching to Octopus Agile for their variable pricing. Has anyone here tried it? I have solar panels so wondering if it makes sense to use more energy when prices are negative.\n\nWould love to hear real experiences - both good and bad!',
-    timestamp: Date.now() - 86400000 * 4,
-    upvotes: 9,
-    replies: []
-  },
-  {
-    id: 'disc_5',
-    name: 'PennyPincher',
-    userId: 'user_7',
-    avatar: 'PP',
-    category: 'tips',
-    title: 'My top 5 tips for reducing energy bills',
-    content: '1. Switch to LED bulbs (saves ~£40/year)\n2. Use a smart thermostat - I dropped heating by 1°C\n3. Wash clothes at 30°C\n4. Unplug devices on standby\n5. Check your tariff quarterly using tools like the one on this site!\n\nWhat are your best tips? Share below! 👇',
-    timestamp: Date.now() - 86400000 * 6,
-    upvotes: 21,
-    replies: [
-      {
-        id: 'reply_5',
-        name: 'ThriftyTom',
-        userId: 'user_8',
-        avatar: 'TT',
-        text: 'Great list! I\'d add: dry clothes on a rack instead of tumble dryer. Saves me about £50/year.',
-        timestamp: Date.now() - 86400000 * 5,
-        upvotes: 7
-      },
-      {
-        id: 'reply_6',
-        name: 'SmartHomeSam',
-        userId: 'user_9',
-        avatar: 'SH',
-        text: 'Smart plugs are a game changer too! I can see exactly what\'s using power and schedule things to run at cheaper times.',
-        timestamp: Date.now() - 86400000 * 4,
-        upvotes: 4
-      }
-    ]
-  }
-];
+const sampleDiscussions = [];
 
 function loadDiscussionsLocal() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -1579,7 +1415,7 @@ function loadDiscussionsLocal() {
     try {
       return JSON.parse(stored);
     } catch (e) {
-      console.warn('Could not parse stored discussions, using sample data');
+      console.warn('Could not parse stored discussions, starting fresh');
     }
   }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleDiscussions));
@@ -1597,7 +1433,6 @@ async function loadDiscussionsFromServer() {
     
     const data = await response.json();
     if (data.discussions && data.discussions.length > 0) {
-      // Merge server data with local data
       discussions = mergeDiscussions(data.discussions, loadDiscussionsLocal());
       saveDiscussionsLocal(discussions);
       setOnlineStatus(true);
@@ -1608,25 +1443,19 @@ async function loadDiscussionsFromServer() {
     setOnlineStatus(false);
   }
   
-  // Fall back to local data
   discussions = loadDiscussionsLocal();
   return discussions;
 }
 
 function mergeDiscussions(serverData, localData) {
-  // Create a map of all discussions by ID
   const merged = new Map();
   
-  // Add local data first
   localData.forEach(d => merged.set(d.id, d));
   
-  // Merge server data (server wins for conflicts, but preserve local upvote counts)
   serverData.forEach(d => {
     const existing = merged.get(d.id);
     if (existing) {
-      // Keep higher upvote count
       d.upvotes = Math.max(d.upvotes || 0, existing.upvotes || 0);
-      // Merge replies
       if (d.replies && existing.replies) {
         const replyMap = new Map();
         existing.replies.forEach(r => replyMap.set(r.id, r));
@@ -1659,10 +1488,6 @@ function setOnlineStatus(online) {
     text.textContent = 'Offline - discussions saved locally';
   }
 }
-
-// ============================================
-// RENDERING
-// ============================================
 
 function getInitials(name) {
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -1705,7 +1530,6 @@ function escapeHtml(text) {
 function sortDiscussions(data, sortBy) {
   const sorted = [...data];
   
-  // Always put pinned posts first
   sorted.sort((a, b) => {
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
@@ -1729,15 +1553,12 @@ function sortDiscussions(data, sortBy) {
 function renderDiscussions() {
   const container = document.getElementById('discussionsList');
   
-  // Filter
   let filtered = currentFilter === 'all' 
     ? discussions 
     : discussions.filter(d => d.category === currentFilter);
   
-  // Sort
   filtered = sortDiscussions(filtered, currentSort);
   
-  // Update count
   document.getElementById('discussionCount').textContent = 
     `${filtered.length} discussion${filtered.length !== 1 ? 's' : ''}`;
   
@@ -1813,7 +1634,6 @@ function toggleDiscussion(id) {
   const repliesSection = document.getElementById(`replies-${id}`);
   const discussionItem = document.querySelector(`.discussion-item[data-id="${id}"]`);
   
-  // Close other open discussions
   document.querySelectorAll('.replies-section.visible').forEach(section => {
     if (section.id !== `replies-${id}`) {
       section.classList.remove('visible');
@@ -1829,10 +1649,6 @@ function toggleDiscussion(id) {
   discussionItem.classList.toggle('expanded');
 }
 
-// ============================================
-// POST & REPLY HANDLERS
-// ============================================
-
 async function handleNewPost(e) {
   e.preventDefault();
   
@@ -1846,7 +1662,6 @@ async function handleNewPost(e) {
   const content = document.getElementById('postContent').value.trim();
   
   if (!name || !category || !title || !content) {
-    // Show validation error
     const errorEl = document.getElementById('errorMessage');
     errorEl.textContent = '⚠️ Please fill in all fields before posting.';
     errorEl.style.display = 'block';
@@ -1859,7 +1674,6 @@ async function handleNewPost(e) {
     return;
   }
   
-  // Update user name if different
   if (name !== currentUser.name) {
     currentUser.name = name;
     saveUser();
@@ -1879,16 +1693,13 @@ async function handleNewPost(e) {
     replies: []
   };
   
-  // Add to local data immediately
   discussions.unshift(newDiscussion);
   saveDiscussionsLocal(discussions);
   
-  // Update user stats
   currentUser.posts = (currentUser.posts || 0) + 1;
   saveUser();
   updateUserDisplay();
   
-  // Try to sync to server
   try {
     await fetch(COMMUNITY_SCRIPT_URL, {
       method: 'POST',
@@ -1912,14 +1723,12 @@ async function handleNewPost(e) {
     }, 3000);
   }
   
-  // Reset form
   document.getElementById('newPostForm').reset();
   document.getElementById('postName').value = currentUser.name || '';
   
   submitBtn.disabled = false;
   submitBtn.textContent = 'Post Discussion';
   
-  // Re-render
   renderDiscussions();
   updateStats();
   updateActiveTopics();
@@ -1931,7 +1740,6 @@ async function submitReply(discussionId) {
   
   if (!text) return;
   
-  // Check if user has a name
   if (!currentUser.name) {
     const name = prompt('Enter your name for this reply:');
     if (!name) return;
@@ -1958,12 +1766,10 @@ async function submitReply(discussionId) {
   
   saveDiscussionsLocal(discussions);
   
-  // Update user stats
   currentUser.replies = (currentUser.replies || 0) + 1;
   saveUser();
   updateUserDisplay();
   
-  // Try to sync to server
   try {
     await fetch(COMMUNITY_SCRIPT_URL, {
       method: 'POST',
@@ -1983,7 +1789,6 @@ async function submitReply(discussionId) {
   renderDiscussions();
   updateStats();
   
-  // Keep the replies section open
   setTimeout(() => {
     const repliesSection = document.getElementById(`replies-${discussionId}`);
     const discussionItem = document.querySelector(`.discussion-item[data-id="${discussionId}"]`);
@@ -1998,10 +1803,6 @@ function handleReplyKeypress(e, discussionId) {
   }
 }
 
-// ============================================
-// STATS & SIDEBAR
-// ============================================
-
 function updateStats() {
   const totalReplies = discussions.reduce((sum, d) => sum + (d.replies?.length || 0), 0);
   const totalUpvotes = discussions.reduce((sum, d) => {
@@ -2010,7 +1811,6 @@ function updateStats() {
     return sum + discussionUpvotes + replyUpvotes;
   }, 0);
   
-  // Count unique members
   const members = new Set();
   discussions.forEach(d => {
     members.add(d.name.toLowerCase());
@@ -2026,7 +1826,6 @@ function updateStats() {
 function updateActiveTopics() {
   const container = document.getElementById('activeTopics');
   
-  // Sort by upvotes + reply count
   const sorted = [...discussions]
     .filter(d => !d.pinned)
     .sort((a, b) => {
@@ -2035,6 +1834,11 @@ function updateActiveTopics() {
       return bScore - aScore;
     })
     .slice(0, 4);
+  
+  if (sorted.length === 0) {
+    container.innerHTML = '<p style="opacity: 0.6; font-size: 0.9rem;">No discussions yet. Be the first!</p>';
+    return;
+  }
   
   container.innerHTML = sorted.map(d => `
     <div class="active-topic" onclick="scrollToDiscussion('${d.id}')">
@@ -2052,11 +1856,6 @@ function scrollToDiscussion(id) {
   }
 }
 
-// ============================================
-// EVENT LISTENERS
-// ============================================
-
-// Filter tabs
 document.querySelectorAll('.filter-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.filter-tab').forEach(t => {
@@ -2070,7 +1869,6 @@ document.querySelectorAll('.filter-tab').forEach(tab => {
   });
 });
 
-// Sort buttons
 document.querySelectorAll('.sort-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.sort-btn').forEach(b => {
@@ -2084,16 +1882,11 @@ document.querySelectorAll('.sort-btn').forEach(btn => {
   });
 });
 
-// ============================================
-// INITIALIZATION
-// ============================================
-
 async function init() {
   initUser();
   
   const discussionsList = document.getElementById('discussionsList');
   
-  // Show loading state
   discussionsList.setAttribute('aria-busy', 'true');
   discussionsList.innerHTML = `
     <div class="loading-state">
@@ -2102,17 +1895,14 @@ async function init() {
     </div>
   `;
   
-  // Try to load from server first, fall back to local
   discussions = await loadDiscussionsFromServer();
   
-  // Update aria-busy when done loading
   discussionsList.setAttribute('aria-busy', 'false');
   
   renderDiscussions();
   updateStats();
   updateActiveTopics();
   
-  // Refresh from server periodically
   setInterval(async () => {
     const serverDiscussions = await loadDiscussionsFromServer();
     if (serverDiscussions) {
@@ -2120,7 +1910,7 @@ async function init() {
       updateStats();
       updateActiveTopics();
     }
-  }, 30000); // Refresh every 30 seconds
+  }, 30000);
 }
 
 document.addEventListener('DOMContentLoaded', init);

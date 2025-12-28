@@ -36,7 +36,7 @@
         const token = params.get('token');
         
         if (token) {
-            fetch('YOUR_APPS_SCRIPT_URL?unsubscribe=' + token)
+            fetch('https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec?unsubscribe=' + token)
                 .then(() => {
                     document.getElementById('content').innerHTML = `
                         <h1 class="success">✅ Unsubscribed</h1>

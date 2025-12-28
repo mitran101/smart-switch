@@ -23,6 +23,9 @@
         h1 { font-size: 2rem; margin-bottom: 1rem; }
         p { opacity: 0.85; line-height: 1.6; }
         .success { color: #86efac; }
+        .error { color: #fca5a5; }
+        a { color: #6366f1; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -32,24 +35,31 @@
     </div>
     
     <script>
+        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
+        
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         
         if (token) {
-            fetch('https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec?unsubscribe=' + token)
+            fetch(WEBAPP_URL + '?unsubscribe=' + encodeURIComponent(token))
                 .then(() => {
                     document.getElementById('content').innerHTML = `
                         <h1 class="success">✅ Unsubscribed</h1>
                         <p>You've been removed from our mailing list.</p>
-                        <p style="margin-top: 2rem;"><a href="https://switch-pilot.com" style="color: #6366f1;">← Back to SwitchPilot</a></p>
+                        <p style="margin-top: 2rem;"><a href="https://switch-pilot.com">← Back to SwitchPilot</a></p>
                     `;
                 })
                 .catch(() => {
                     document.getElementById('content').innerHTML = `
-                        <h1>⚠️ Error</h1>
+                        <h1 class="error">⚠️ Error</h1>
                         <p>Could not process unsubscribe. Please email us directly.</p>
                     `;
                 });
+        } else {
+            document.getElementById('content').innerHTML = `
+                <h1 class="error">⚠️ Invalid Link</h1>
+                <p>No unsubscribe token found.</p>
+            `;
         }
     </script>
 </body>

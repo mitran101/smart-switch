@@ -470,6 +470,7 @@ body {
 .category-tag.tips { background: rgba(251,191,36,0.2); color: #fde68a; }
 .category-tag.suppliers { background: rgba(99,102,241,0.2); color: #a5b4fc; }
 .category-tag.general { background: rgba(148,163,184,0.2); color: #cbd5e1; }
+.category-tag.product { background: rgba(168,85,247,0.2); color: #d8b4fe; }
 
 .replies-section {
   padding: 1rem 2rem 1.5rem;
@@ -1079,6 +1080,7 @@ body {
             <label for="postCategory">Category</label>
             <select id="postCategory" required>
               <option value="">Select a category...</option>
+              <option value="product">🛠️ Shape SwitchPilot</option>
               <option value="switching">🔄 Switching Experiences</option>
               <option value="bills">💷 Understanding Bills</option>
               <option value="tips">💡 Money-Saving Tips</option>
@@ -1100,6 +1102,7 @@ body {
 
       <div class="filter-tabs" role="tablist" aria-label="Filter discussions by category">
         <button class="filter-tab active" data-category="all" role="tab" aria-selected="true">All Topics</button>
+        <button class="filter-tab" data-category="product" role="tab" aria-selected="false">🛠️ Shape SwitchPilot</button>
         <button class="filter-tab" data-category="switching" role="tab" aria-selected="false">🔄 Switching</button>
         <button class="filter-tab" data-category="bills" role="tab" aria-selected="false">💷 Bills</button>
         <button class="filter-tab" data-category="tips" role="tab" aria-selected="false">💡 Tips</button>

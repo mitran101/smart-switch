@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Billing vs Consumption: Interactive Tool - SwitchPilot</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0c0e1f;
+  color: #fff;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
+  background-size: 70px 70px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+}
+
+/* LOGO */
+.top-logo {
+  position: fixed;
+  top: 25px;
+  left: 30px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-logo span:first-child {
+  font-size: 2.3rem;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+}
+.top-logo span:last-child {
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.back-home {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 1.4rem;
+  background: rgba(255,255,255,0.14);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7ff;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: .3s;
+}
+.back-home:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+h1 {
+  text-align: center;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 2.5rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* MAIN CARD */
+.main-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* INPUT SECTION */
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.input-group h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #a855f7;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.85rem;
+}
+
+.preset-btn:hover {
+  border-color: #a855f7;
+  background: rgba(168, 85, 247, 0.15);
+  color: #e0e0e0;
+}
+
+/* CHART */
+.chart-container {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  height: 500px;
+}
+
+canvas {
+  max-height: 100%;
+}
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.stat-note {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* EXPLANATION */
+.explanation {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1));
+  border-left: 4px solid #6366f1;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.explanation h3 {
+  margin: 0 0 1rem 0;
+  color: #e0e0e0;
+  font-size: 1.3rem;
+}
+
+.explanation p {
+  margin: 0 0 0.75rem 0;
+  color: #cbd5e1;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.explanation p:last-child {
+  margin-bottom: 0;
+}
+
+.explanation ul {
+  margin: 0.75rem 0 0 1.5rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+}
+
+/* LEGEND EXPLANATION */
+.legend-guide {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.legend-guide h4 {
+  margin: 0 0 1rem 0;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+}
+
+.legend-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legend-color {
+  width: 30px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.legend-text {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.legend-text strong {
+  color: #e0e0e0;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* MOBILE */
+@media (max-width: 968px) {
+  .container {
+    padding: 3rem 1.5rem 2rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .main-card {
+    padding: 1.5rem;
+  }
+  
+  .inputs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container {
+    height: 400px;
+    padding: 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .legend-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+  
+  .top-logo {
+    top: 15px;
+    left: 15px;
+    gap: 6px;
+  }
+  
+  .top-logo span:first-child {
+    font-size: 1.8rem;
+  }
+  
+  .top-logo span:last-child {
+    font-size: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+  }
+  
+  .chart-container {
+    height: 300px;
+    padding: 0.75rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-value {
+    font-size: 1.6rem;
+  }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+</head>
+<body>
+
+<!-- LOGO -->
+<div class="top-logo">
+  <span>✈️⚡</span>
+  <span>SwitchPilot</span>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-home">← Back Home</a>
+  
+  <h1>📊 Billing vs Consumption: See The Difference</h1>
+  <p class="subtitle">Why your monthly Direct Debit stays the same while your energy use changes dramatically with the seasons</p>
+
+  <!-- WHY DID MY DD CHANGE EXPANDABLE -->
+  <div class="dd-explainer-toggle" style="text-align: center; margin-bottom: 2rem;">
+    <button onclick="toggleDDExplainer()" style="padding: 0.8rem 1.5rem; background: linear-gradient(135deg, #a855f7, #ec4899); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3); transition: all 0.3s;">
+      💡 Why Did My Direct Debit Change? Click to Learn More
+    </button>
+  </div>
+
+  <div id="ddExplainer" class="dd-explainer" style="display: none; margin-bottom: 2rem;">
+    <div style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(168, 85, 247, 0.3); border-radius: 16px; padding: 2.5rem;">
+      
+      <h2 style="margin: 0 0 1.5rem 0; font-size: 2rem; color: #e0e0e0; text-align: center;">Why & When Suppliers Change Your Direct Debit</h2>
+      
+      <div style="background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1)); border-left: 4px solid #6366f1; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+        <h3 style="margin: 0 0 1rem 0; color: #a855f7; font-size: 1.3rem;">📅 The Review Process</h3>
+        <p style="margin: 0 0 1rem 0; color: #cbd5e1; line-height: 1.7;">Suppliers <strong>must review</strong> your Direct Debit at least <strong>twice per year</strong> (typically every 6 months). Additional reviews can happen when:</p>
+        <ul style="color: #cbd5e1; line-height: 1.7; margin: 0;">
+          <li>The price cap changes quarterly (Jan, Apr, Jul, Oct)</li>
+          <li>New meter readings show significantly different usage</li>
+          <li>Your account balance gets too high (credit) or too low (debt)</li>
+          <li>You request a review</li>
+        </ul>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem 0; color: #e0e0e0; font-size: 1.5rem;">🔍 What Triggers an Increase</h3>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem;">
+          <h4 style="margin: 0 0 0.8rem 0; color: #a855f7; font-size: 1.1rem;">1️⃣ Updated Consumption Forecast</h4>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Your actual meter readings show you're using <strong>more energy</strong> than estimated. Supplier recalculates and increases DD to catch up.</p>
+          <p style="margin: 0.8rem 0 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic;">Example: Estimated 2,700 kWh but using 3,200 kWh</p>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem;">
+          <h4 style="margin: 0 0 0.8rem 0; color: #a855f7; font-size: 1.1rem;">2️⃣ Account Balance Management</h4>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">You've built up <strong>debt</strong> on your account. Supplier increases DD to pay it off over the remaining months before next annual review.</p>
+          <p style="margin: 0.8rem 0 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic;">Goal: Keep balance near £0 by annual review</p>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem;">
+          <h4 style="margin: 0 0 0.8rem 0; color: #a855f7; font-size: 1.1rem;">3️⃣ Price Cap Changes</h4>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Unit rates increase quarterly. Your <strong>consumption stays the same</strong>, but the cost per kWh goes up, so DD must increase.</p>
+          <p style="margin: 0.8rem 0 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic;">This is why everyone's DD goes up in January</p>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem;">
+          <h4 style="margin: 0 0 0.8rem 0; color: #a855f7; font-size: 1.1rem;">4️⃣ Coming Off Fixed Tariff</h4>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Your cheap fixed deal ended and you rolled onto the more expensive Standard Variable Tariff.</p>
+          <p style="margin: 0.8rem 0 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic;">Can be £30-50/month increase overnight</p>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem;">
+          <h4 style="margin: 0 0 0.8rem 0; color: #a855f7; font-size: 1.1rem;">5️⃣ Changed Circumstances</h4>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">New household members, new appliances (EV, heat pump), or working from home increase your actual consumption.</p>
+          <p style="margin: 0.8rem 0 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic;">Tell supplier so they can adjust forecast</p>
+        </div>
+
+      </div>
+
+      <div style="background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(251,146,60,0.1)); border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+        <h3 style="margin: 0 0 1rem 0; color: #f87171; font-size: 1.3rem;">⚠️ The Seasonal Timing Trap</h3>
+        <p style="margin: 0 0 0.8rem 0; color: #cbd5e1; line-height: 1.7;">This is where Ofgem's quarterly demand weights really matter:</p>
+        <ul style="color: #cbd5e1; line-height: 1.7; margin: 0 0 0.8rem 1.5rem;">
+          <li>If supplier reviews in <strong>September</strong> (after summer): your actual usage looks low</li>
+          <li>If they review in <strong>March</strong> (after winter): your actual usage looks high</li>
+          <li>Gas in Q1 (Jan-Mar) = <strong>39%</strong> of annual vs Q3 (Jul-Sep) = <strong>11%</strong> — that's 3.5x different!</li>
+        </ul>
+        <p style="margin: 0; color: #cbd5e1; line-height: 1.7;">A review in March might show you "under-forecasted" because winter was heavy, triggering an increase even though summer (lower usage) is coming next.</p>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem 0; color: #e0e0e0; font-size: 1.5rem;">🧮 How Suppliers Calculate Your New DD</h3>
+      
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; font-family: monospace;">
+        <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.8;">
+          <strong style="color: #a855f7;">New Monthly DD = (</strong><br>
+          &nbsp;&nbsp;[Forecasted Annual Consumption × New Unit Rates] +<br>
+          &nbsp;&nbsp;[Standing Charges × 365] +<br>
+          &nbsp;&nbsp;[Existing Debt to Clear]<br>
+          <strong style="color: #a855f7;">) ÷ 12</strong>
+        </p>
+        <p style="margin: 1rem 0 0 0; color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">Then adjusted for: months remaining in review period, existing credit to utilize, and seasonal patterns</p>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem 0; color: #e0e0e0; font-size: 1.5rem;">🛡️ Your Rights & Ofgem Requirements</h3>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> <strong>10 days notice</strong> before any DD increase (Direct Debit Guarantee)</p>
+        </div>
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> DD must be <strong>"fair and reasonable"</strong> based on actual usage</p>
+        </div>
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> Right to <strong>clear explanation</strong> of how it was calculated</p>
+        </div>
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> Can <strong>challenge unfair increases</strong> and request review</p>
+        </div>
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> Must <strong>refund excess credit</strong> or reduce DD if building up</p>
+        </div>
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 1.2rem;">
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;"><strong style="color: #22c55e;">✓</strong> Escalate to <strong>Energy Ombudsman</strong> if unresolved</p>
+        </div>
+      </div>
+
+      <div style="background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1)); border-left: 4px solid #6366f1; padding: 1.5rem; border-radius: 12px;">
+        <h3 style="margin: 0 0 1rem 0; color: #a855f7; font-size: 1.3rem;">💡 Tips to Manage Your Direct Debit</h3>
+        <ul style="color: #cbd5e1; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+          <li><strong>Submit meter readings monthly</strong> — Ensures accurate consumption tracking</li>
+          <li><strong>Check account balance quarterly</strong> — Are you building credit or debt?</li>
+          <li><strong>Request a review</strong> if circumstances change (new appliances, household size, work patterns)</li>
+          <li><strong>Challenge increases</strong> you think are unfair — Ask for detailed calculation breakdown</li>
+          <li><strong>Consider fixed tariffs</strong> — Protects from rate changes for 12-24 months</li>
+          <li><strong>Set reminders</strong> for cap change dates (Jan, Apr, Jul, Oct) to anticipate DD reviews</li>
+        </ul>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button onclick="toggleDDExplainer()" style="padding: 0.7rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 10px; color: #cbd5e1; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+          Close Explainer ↑
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main-card">
+    
+    <!-- INPUTS -->
+    <div class="inputs-grid">
+      
+      <!-- CONSUMPTION INPUTS -->
+      <div class="input-group">
+        <h3>⚡ Your Annual Usage</h3>
+        <label>Electricity (kWh/year)</label>
+        <input type="number" id="elecUsage" value="2700" min="500" max="10000" step="100">
+        
+        <label>Gas (kWh/year)</label>
+        <input type="number" id="gasUsage" value="11500" min="1000" max="30000" step="500">
+        
+        <div class="preset-buttons">
+          <button class="preset-btn" onclick="setUsage(1800, 7000)">Low Usage</button>
+          <button class="preset-btn" onclick="setUsage(2700, 11500)">Medium</button>
+          <button class="preset-btn" onclick="setUsage(3800, 15000)">High Usage</button>
+        </div>
+      </div>
+
+      <!-- SVT RATES -->
+      <div class="input-group">
+        <h3>📈 SVT Rates (Price Cap)</h3>
+        <label>Electricity Standing Charge (p/day)</label>
+        <input type="number" id="svtElecSC" value="60.0" min="20" max="100" step="0.1">
+        
+        <label>Electricity Unit Rate (p/kWh)</label>
+        <input type="number" id="svtElecUnit" value="24.5" min="10" max="50" step="0.1">
+        
+        <label>Gas Standing Charge (p/day)</label>
+        <input type="number" id="svtGasSC" value="31.0" min="10" max="60" step="0.1">
+        
+        <label>Gas Unit Rate (p/kWh)</label>
+        <input type="number" id="svtGasUnit" value="6.24" min="3" max="15" step="0.01">
+      </div>
+
+      <!-- FIXED RATES -->
+      <div class="input-group">
+        <h3>🔒 Fixed Tariff Rates</h3>
+        <label>Electricity Standing Charge (p/day)</label>
+        <input type="number" id="fixedElecSC" value="35.0" min="20" max="100" step="0.1">
+        
+        <label>Electricity Unit Rate (p/kWh)</label>
+        <input type="number" id="fixedElecUnit" value="25.7" min="10" max="50" step="0.1">
+        
+        <label>Gas Standing Charge (p/day)</label>
+        <input type="number" id="fixedGasSC" value="33.0" min="10" max="60" step="0.1">
+        
+        <label>Gas Unit Rate (p/kWh)</label>
+        <input type="number" id="fixedGasUnit" value="5.15" min="3" max="15" step="0.01">
+        
+        <div class="preset-buttons">
+          <button class="preset-btn" onclick="setFixedRates(35.0, 25.7, 33.0, 5.15)">E.ON Fixed</button>
+          <button class="preset-btn" onclick="setFixedRates(39.9, 25.8, 25.3, 5.38)">EDF Fixed</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-container">
+      <canvas id="billingChart"></canvas>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h4>Monthly Direct Debit (SVT)</h4>
+        <div class="stat-value" id="svtMonthly">£0</div>
+        <div class="stat-note">Same every month</div>
+      </div>
+      
+      <div class="stat-card">
+        <h4>Monthly Direct Debit (Fixed)</h4>
+        <div class="stat-value" id="fixedMonthly">£0</div>
+        <div class="stat-note">Same every month</div>
+      </div>
+      
+      <div class="stat-card">
+        <h4>Peak Winter Month Cost</h4>
+        <div class="stat-value" id="peakCost">£0</div>
+        <div class="stat-note">Actual consumption cost</div>
+      </div>
+      
+      <div class="stat-card">
+        <h4>Low Summer Month Cost</h4>
+        <div class="stat-value" id="lowCost">£0</div>
+        <div class="stat-note">Actual consumption cost</div>
+      </div>
+      
+      <div class="stat-card">
+        <h4>Annual Savings (Fixed vs SVT)</h4>
+        <div class="stat-value" id="annualSavings">£0</div>
+        <div class="stat-note" id="savingsNote">Fixed tariff benefit</div>
+      </div>
+      
+      <div class="stat-card">
+        <h4>Max Account Credit</h4>
+        <div class="stat-value" id="maxCredit">£0</div>
+        <div class="stat-note">Summer surplus (Sep)</div>
+      </div>
+    </div>
+
+    <!-- LEGEND GUIDE -->
+    <div class="legend-guide">
+      <h4>📖 Understanding The Chart</h4>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #ef4444;"></div>
+          <div class="legend-text">
+            <strong>Actual Monthly Cost</strong>
+            What you'd pay if billed monthly for actual usage
+          </div>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-color" style="background: #3b82f6;"></div>
+          <div class="legend-text">
+            <strong>SVT Direct Debit</strong>
+            Your fixed monthly payment (price cap rates)
+          </div>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-color" style="background: #22c55e;"></div>
+          <div class="legend-text">
+            <strong>Fixed Tariff DD</strong>
+            Your fixed monthly payment (locked rates)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPLANATION -->
+    <div class="explanation">
+      <h3>💡 What This Shows</h3>
+      <p><strong>The red line (Actual Monthly Cost)</strong> shows what you'd pay each month if you were billed for exactly what you used that month. Notice how it spikes dramatically in winter (heating season) and drops in summer. This uses <strong>official Ofgem quarterly demand weights</strong> that reflect typical UK consumption patterns.</p>
+      
+      <p><strong>Ofgem's assumed demand profile:</strong></p>
+      <ul>
+        <li><strong>Gas:</strong> Q1 (Jan-Mar) = 39%, Q2 (Apr-Jun) = 18%, Q3 (Jul-Sep) = 11%, Q4 (Oct-Dec) = 32%</li>
+        <li><strong>Electricity:</strong> Winter (Oct-Mar) = 54%, Summer (Apr-Sep) = 46%</li>
+      </ul>
+      
+      <p><strong>The blue line (SVT Direct Debit)</strong> is your actual monthly payment if you're on a Standard Variable Tariff with Direct Debit. It stays flat all year — same payment every month.</p>
+      
+      <p><strong>The green line (Fixed Tariff DD)</strong> is your monthly payment on a fixed deal. Also stays flat, but often lower than SVT.</p>
+      
+      <p><strong>Why the gap matters:</strong></p>
+      <ul>
+        <li><strong>Summer (Jul-Sep):</strong> You pay MORE than you use → build credit in your account (gas usage drops to just 11% of annual total!)</li>
+        <li><strong>Winter (Q1: Jan-Mar):</strong> You use MORE than you pay → draw down that credit (gas usage jumps to 39% of annual total)</li>
+        <li><strong>By end of year:</strong> Should balance out to roughly zero (if estimates were accurate)</li>
+      </ul>
+      
+      <p><strong>This is by design!</strong> The smoothing prevents £300+ bills in January and makes budgeting easier. But it's why "bills going up" doesn't always mean "using more energy" — sometimes it just means rates increased while your consumption stayed the same.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Seasonal multipliers for monthly consumption (based on Ofgem quarterly demand weights)
+// Gas: Q1=39%, Q2=18%, Q3=11%, Q4=32% | Electricity: Winter(Oct-Mar)=54%, Summer(Apr-Sep)=46%
+const seasonalMultipliers = {
+  // Electricity: 54% in winter (Oct-Mar), 46% in summer (Apr-Sep)
+  // Winter months get 54/6 = 9% each, Summer months get 46/6 = 7.67% each
+  electricity: [
+    1.08, 1.08, 1.08,  // Jan-Mar (Q1): 9% each month = 1.08x average
+    0.92, 0.92, 0.92,  // Apr-Jun (Q2): 7.67% each month = 0.92x average
+    0.92, 0.92, 0.92,  // Jul-Sep (Q3): 7.67% each month = 0.92x average
+    1.08, 1.08, 1.08   // Oct-Dec (Q4): 9% each month = 1.08x average
+  ],
+  // Gas: Q1=39%, Q2=18%, Q3=11%, Q4=32%
+  // Q1: 39/3 = 13% per month, Q2: 18/3 = 6% per month
+  // Q3: 11/3 = 3.67% per month, Q4: 32/3 = 10.67% per month
+  gas: [
+    1.56, 1.56, 1.56,  // Jan-Mar (Q1): 13% each month = 1.56x average
+    0.72, 0.72, 0.72,  // Apr-Jun (Q2): 6% each month = 0.72x average
+    0.44, 0.44, 0.44,  // Jul-Sep (Q3): 3.67% each month = 0.44x average
+    1.28, 1.28, 1.28   // Oct-Dec (Q4): 10.67% each month = 1.28x average
+  ]
+};
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+let chart = null;
+
+function calculateMonthlyCost(elecUsage, gasUsage, elecSC, elecUnit, gasSC, gasUnit, month) {
+  // Calculate monthly consumption based on seasonal patterns
+  const elecMonthly = (elecUsage / 12) * seasonalMultipliers.electricity[month];
+  const gasMonthly = (gasUsage / 12) * seasonalMultipliers.gas[month];
+  
+  // Calculate cost
+  const elecStanding = (elecSC / 100) * 30.4; // Average days per month
+  const elecUnits = (elecUnit / 100) * elecMonthly;
+  const gasStanding = (gasSC / 100) * 30.4;
+  const gasUnits = (gasUnit / 100) * gasMonthly;
+  
+  return elecStanding + elecUnits + gasStanding + gasUnits;
+}
+
+function calculateAnnualCost(elecUsage, gasUsage, elecSC, elecUnit, gasSC, gasUnit) {
+  const elecStanding = (elecSC / 100) * 365;
+  const elecUnits = (elecUnit / 100) * elecUsage;
+  const gasStanding = (gasSC / 100) * 365;
+  const gasUnits = (gasUnit / 100) * gasUsage;
+  
+  return elecStanding + elecUnits + gasStanding + gasUnits;
+}
+
+function updateChart() {
+  const elecUsage = parseFloat(document.getElementById('elecUsage').value);
+  const gasUsage = parseFloat(document.getElementById('gasUsage').value);
+  
+  const svtElecSC = parseFloat(document.getElementById('svtElecSC').value);
+  const svtElecUnit = parseFloat(document.getElementById('svtElecUnit').value);
+  const svtGasSC = parseFloat(document.getElementById('svtGasSC').value);
+  const svtGasUnit = parseFloat(document.getElementById('svtGasUnit').value);
+  
+  const fixedElecSC = parseFloat(document.getElementById('fixedElecSC').value);
+  const fixedElecUnit = parseFloat(document.getElementById('fixedElecUnit').value);
+  const fixedGasSC = parseFloat(document.getElementById('fixedGasSC').value);
+  const fixedGasUnit = parseFloat(document.getElementById('fixedGasUnit').value);
+  
+  // Calculate monthly costs for actual consumption (using SVT rates for the curve)
+  const actualMonthlyCosts = [];
+  for (let i = 0; i < 12; i++) {
+    actualMonthlyCosts.push(calculateMonthlyCost(elecUsage, gasUsage, svtElecSC, svtElecUnit, svtGasSC, svtGasUnit, i));
+  }
+  
+  // Calculate annual costs
+  const svtAnnual = calculateAnnualCost(elecUsage, gasUsage, svtElecSC, svtElecUnit, svtGasSC, svtGasUnit);
+  const fixedAnnual = calculateAnnualCost(elecUsage, gasUsage, fixedElecSC, fixedElecUnit, fixedGasSC, fixedGasUnit);
+  
+  // Monthly Direct Debit amounts (same every month)
+  const svtMonthly = svtAnnual / 12;
+  const fixedMonthly = fixedAnnual / 12;
+  
+  // Update stats
+  document.getElementById('svtMonthly').textContent = '£' + Math.round(svtMonthly);
+  document.getElementById('fixedMonthly').textContent = '£' + Math.round(fixedMonthly);
+  document.getElementById('peakCost').textContent = '£' + Math.round(Math.max(...actualMonthlyCosts));
+  document.getElementById('lowCost').textContent = '£' + Math.round(Math.min(...actualMonthlyCosts));
+  
+  const savings = svtAnnual - fixedAnnual;
+  document.getElementById('annualSavings').textContent = savings >= 0 ? '£' + Math.round(savings) : '-£' + Math.round(Math.abs(savings));
+  document.getElementById('savingsNote').textContent = savings >= 0 ? 'Save with fixed tariff' : 'SVT is cheaper';
+  
+  // Calculate max credit (difference between DD and actual cost in September - typically highest credit month)
+  const sepCredit = (svtMonthly * 9) - actualMonthlyCosts.slice(0, 9).reduce((a, b) => a + b, 0);
+  document.getElementById('maxCredit').textContent = '£' + Math.round(sepCredit);
+  
+  // Chart data
+  const chartData = {
+    labels: months,
+    datasets: [
+      {
+        label: 'Actual Monthly Cost',
+        data: actualMonthlyCosts,
+        borderColor: '#ef4444',
+        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+        borderWidth: 3,
+        tension: 0.4,
+        fill: true
+      },
+      {
+        label: 'SVT Direct Debit',
+        data: Array(12).fill(svtMonthly),
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderWidth: 3,
+        borderDash: [5, 5],
+        tension: 0,
+        fill: false
+      },
+      {
+        label: 'Fixed Tariff Direct Debit',
+        data: Array(12).fill(fixedMonthly),
+        borderColor: '#22c55e',
+        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+        borderWidth: 3,
+        borderDash: [5, 5],
+        tension: 0,
+        fill: false
+      }
+    ]
+  };
+  
+  if (chart) {
+    chart.data = chartData;
+    chart.update();
+  } else {
+    const ctx = document.getElementById('billingChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              color: '#e0e0e0',
+              font: {
+                size: 13,
+                weight: 'bold'
+              },
+              padding: 15,
+              usePointStyle: true
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            titleColor: '#1a1a2e',
+            bodyColor: '#1a1a2e',
+            borderColor: '#a855f7',
+            borderWidth: 2,
+            padding: 12,
+            displayColors: true,
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': £' + Math.round(context.parsed.y);
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#94a3b8',
+              callback: function(value) {
+                return '£' + value;
+              }
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#94a3b8'
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.1)'
+            }
+          }
+        }
+      }
+    });
+  }
+}
+
+function setUsage(elec, gas) {
+  document.getElementById('elecUsage').value = elec;
+  document.getElementById('gasUsage').value = gas;
+  updateChart();
+}
+
+function setFixedRates(elecSC, elecUnit, gasSC, gasUnit) {
+  document.getElementById('fixedElecSC').value = elecSC;
+  document.getElementById('fixedElecUnit').value = elecUnit;
+  document.getElementById('fixedGasSC').value = gasSC;
+  document.getElementById('fixedGasUnit').value = gasUnit;
+  updateChart();
+}
+
+// Add event listeners to all inputs
+document.querySelectorAll('input[type="number"]').forEach(input => {
+  input.addEventListener('input', updateChart);
+});
+
+// Toggle DD Explainer
+function toggleDDExplainer() {
+  const explainer = document.getElementById('ddExplainer');
+  if (explainer.style.display === 'none') {
+    explainer.style.display = 'block';
+    // Smooth scroll to explainer
+    explainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } else {
+    explainer.style.display = 'none';
+    // Scroll back to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// Initial render
+updateChart();
+</script>
+
+</body>
+</html>

@@ -143,7 +143,11 @@ def send_welcome_email(to_email):
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We're building a <strong>free auto-switching service</strong> that truly empowers the customer. But more than that, we're building a <strong>community that educates and empowers consumers</strong>.
+            We're building a <strong>free auto-switching service</strong> that puts you on the best deal possible based on your preferences (and consent, of course!). But more than that, we're building a <strong>community that educates and empowers consumers</strong>.
+          </p>
+          
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
+            You're part of <strong>5,000 early access pilots</strong> who will help us shape SwitchPilot and fly us to our destination: smarter switching for everyone.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
@@ -160,11 +164,11 @@ def send_welcome_email(to_email):
           </div>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We want to engage with people and educate you. Because here's the thing: an informed consumer makes the market more competitive, forces suppliers to offer better deals, and when more people engage, Ofgem listens and makes changes.
+            But surveys are just surveys. We want to build this <strong>WITH you</strong> — not just based on numbers, but through real conversations, shared frustrations, and your input every step of the way.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We want to find out what frustrates you. Help you understand what you're paying for. And the best part? We're building this WITH you, so you help us shape the product.
+            An informed consumer makes the market more competitive and forces suppliers to offer better deals. When more people engage, Ofgem listens and makes changes.
           </p>
           
           <p style="color: #1a1a2e; line-height: 1.6; margin-bottom: 2rem; font-weight: 600;">
@@ -190,7 +194,7 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            Whilst we build a service that works for you, check out our <strong>Tariff Tracker</strong> to find the cheapest energy tariffs on the market. We update this every weekday.
+            Whilst we build a service that works for you, check out our <strong>Tariff Tracker</strong> to find the cheapest deals. We update this every weekday.
           </p>
           
           <div style="text-align: center; margin: 30px 0;">
@@ -200,11 +204,11 @@ def send_welcome_email(to_email):
           </div>
           
           <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #6366f1; margin: 25px 0;">
-            <p style="color: #1a1a2e; line-height: 1.6; margin: 0; font-weight: 600;">
-              What frustrates YOU about energy bills?
+            <p style="color: #1a1a2e; line-height: 1.6; margin: 0 0 0.5rem 0; font-weight: 600;">
+              What Frustrates YOU About Energy Bills?
             </p>
-            <p style="color: #4a5568; line-height: 1.6; margin: 10px 0 0 0;">
-              <a href="https://switch-pilot.com/community.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Join our Community Discussions Forum</a> to discuss, learn from others, and share your experiences — or simply reply to this email and we'll get back to you.
+            <p style="color: #4a5568; line-height: 1.6; margin: 0;">
+              <a href="https://switch-pilot.com/community.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Join our Community Forum</a> to discuss what frustrates you, learn from other energy switchers, share your experiences, and help us shape what we build — or simply reply to this email. We read everything.
             </p>
           </div>
           

@@ -6,10 +6,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SwitchPilot - Free Auto-Switching Energy Service (Coming Soon)</title>
 <style>
-body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;}
+html {scroll-behavior:smooth;}
+body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;scroll-padding-top:80px;}
+
+/* STICKY NAV */
+.sticky-nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:rgba(12,14,31,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding:0.8rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:all 0.3s ease;
+}
+.sticky-nav.scrolled {
+  background:rgba(12,14,31,0.95);
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+}
+.nav-logo {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:#fff;
+}
+.nav-logo span:first-child {font-size:1.8rem;}
+.nav-logo span:last-child {font-size:1.4rem;font-weight:900;letter-spacing:-0.5px;}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.nav-links a {
+  color:#fff;
+  text-decoration:none;
+  padding:0.5rem 1rem;
+  border-radius:10px;
+  font-size:0.9rem;
+  font-weight:600;
+  opacity:0.75;
+  transition:all 0.2s ease;
+}
+.nav-links a:hover {
+  opacity:1;
+  background:rgba(255,255,255,0.1);
+}
+.nav-links a.active {
+  opacity:1;
+  background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(236,72,153,0.3));
+}
+.nav-cta {
+  background:linear-gradient(135deg,#6366f1,#ec4899) !important;
+  opacity:1 !important;
+  box-shadow:0 4px 15px rgba(236,72,153,0.3);
+}
+.nav-cta:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(236,72,153,0.4);
+}
+.nav-toggle {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:5px;
+}
+.nav-toggle span {
+  width:24px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:all 0.3s ease;
+}
+@media (max-width: 900px) {
+  .nav-links {
+    position:fixed;
+    top:60px;
+    left:0;
+    right:0;
+    background:rgba(12,14,31,0.98);
+    backdrop-filter:blur(20px);
+    flex-direction:column;
+    padding:1.5rem;
+    gap:0.5rem;
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+    transition:all 0.3s ease;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-links.open {
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .nav-links a {
+    width:100%;
+    text-align:center;
+    padding:0.8rem 1rem;
+  }
+  .nav-toggle {display:flex;}
+  .nav-toggle.open span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
+  .nav-toggle.open span:nth-child(2) {opacity:0;}
+  .nav-toggle.open span:nth-child(3) {transform:rotate(-45deg) translate(5px,-5px);}
+}
 
 /* HERO */
-.hero {position:relative;padding:8.5rem 2rem 6rem;overflow:hidden;background:#0c0e1f;}
+.hero {position:relative;padding:7rem 2rem 6rem;overflow:hidden;background:#0c0e1f;}
 .energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
 @keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
 .floating-symbols {position:absolute;inset:0;pointer-events:none;}
@@ -211,8 +322,7 @@ section[style*="max-width:1400px"] div[style*="gap:40px"] {
 }
 
 @media (max-width: 480px) {
-.hero { padding:4.5rem 1rem 3rem !important; }
-.top-logo-wrapper { top:12px !important; }
+.hero { padding:5.5rem 1rem 3rem !important; }
 .pilot-container { margin-top:1rem !important; }
 .destination-tag { margin-top:1rem !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
 .hero-text h1 { font-size:2rem !important; }
@@ -280,11 +390,6 @@ body { font-size:15px !important; }
 .waitlist-form h3 {font-size:1.4rem;}
 .insights, .final-cta {padding:3rem 1rem;}
 
-/* Responsive logo */
-.top-logo-wrapper {left:15px !important;gap:6px !important;}
-.logo-icon {font-size:1.8rem !important;}
-.logo-text {font-size:1.5rem !important;}
-
 }
 
 /* Price Cap Tool Styles */
@@ -313,14 +418,25 @@ body { font-size:15px !important; }
 </head>
 <body>
 
-<!-- TOP LEFT LOGO -->
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <a href="#hero" class="nav-logo">
+    <span>✈️⚡</span>
+    <span>SwitchPilot</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#bill-breakdown">Bill Breakdown</a>
+    <a href="#tariffs">Tariff Tracker</a>
+    <a href="#community">Community</a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
 
-<div class="top-logo-wrapper" style="position:absolute; top:25px; left:30px; z-index:9999; display:flex; align-items:center; gap:10px;">
-    <span class="logo-icon" style="font-size:2.3rem; filter:drop-shadow(0 5px 10px rgba(0,0,0,0.4));">✈️⚡</span>
-    <span class="logo-text" style="font-size:1.9rem; font-weight:900; letter-spacing:-0.5px;">SwitchPilot</span>
-</div>
-
-<section class="hero">
+<section class="hero" id="hero">
 <div class="energy-grid"></div>
 <div class="floating-symbols">
 <div class="symbol">⚡</div><div class="symbol">💷</div><div class="symbol">🔌</div><div class="symbol">💡</div><div class="symbol">📈</div>
@@ -374,7 +490,7 @@ body { font-size:15px !important; }
 
 <!-- WHO WE ARE -->
 
-<section style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
+<section id="about" style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
   <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
 
@@ -399,7 +515,7 @@ body { font-size:15px !important; }
 </section>
 
 <!-- SURVEY STATS SHOWCASE -->
-<section style="max-width:1200px;margin:4rem auto;padding:0 2rem;">
+<section id="survey" style="max-width:1200px;margin:4rem auto;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
   <div style="font-size:2rem;margin-bottom:0.8rem;">📊</div>
   <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1rem;">We Asked 200 People About Energy Switching</h2>
@@ -443,7 +559,7 @@ body { font-size:15px !important; }
 </div>
 </section>
 
-<div class="waitlist-form">
+<div id="waitlist" class="waitlist-form">
 <div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:1.5rem 2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);margin-bottom:1.5rem;text-align:center;">
   <div style="font-size:1.3rem;font-weight:800;color:#1a1a2e;margin-bottom:0.5rem;">🎯 Join 5,000 Early Access Pilots</div>
   <p style="margin:0;font-size:1rem;color:#1a1a2e;opacity:0.85;">Be part of the crew that shapes what we build—and get first access when we launch</p>
@@ -521,7 +637,7 @@ body { font-size:15px !important; }
 
 
 <!-- TARIFF TRACKER CALLOUT -->
-<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<section id="tariffs" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
 <div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
   <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">⏳ While We Build Auto-Switching</div>
   <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
@@ -551,7 +667,7 @@ body { font-size:15px !important; }
 </section>
 
 <!-- COMMUNITY CALLOUT -->
-<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<section id="community" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
 <div style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(99,102,241,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(236,72,153,0.3);box-shadow:0 20px 60px rgba(236,72,153,0.2);text-align:center;">
   <div style="font-size:3rem;margin-bottom:1rem;">💬</div>
   <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Community Discussions</h2>
@@ -1204,6 +1320,69 @@ async function loadDynamicSavings() {
     console.log('Could not load dynamic savings:', e);
   }
 }
+
+// NAV FUNCTIONALITY
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const stickyNav = document.getElementById('stickyNav');
+const navLinksAll = document.querySelectorAll('.nav-links a');
+
+// Mobile menu toggle
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+
+// Close mobile menu when clicking a link
+navLinksAll.forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+
+// Scroll effects
+window.addEventListener('scroll', () => {
+  // Add shadow on scroll
+  if (window.scrollY > 50) {
+    stickyNav.classList.add('scrolled');
+  } else {
+    stickyNav.classList.remove('scrolled');
+  }
+  
+  // Update active link based on scroll position
+  const sections = document.querySelectorAll('section[id], div[id="waitlist"]');
+  let current = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinksAll.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offsetTop = target.offsetTop - 70;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
 </script>
 

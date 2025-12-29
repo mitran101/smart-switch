@@ -83,6 +83,43 @@
         select:focus, input:focus { outline: none; border-color: #a855f7; }
         select option { background: #1a1d3a; }
 
+        .info-tooltip {
+            cursor: help;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-left: 4px;
+            position: relative;
+        }
+        .info-tooltip:hover {
+            color: #a855f7;
+        }
+        .info-tooltip::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #e0e0e0;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            width: 220px;
+            text-align: left;
+            line-height: 1.4;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .info-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .preset-buttons {
             display: flex;
             gap: 10px;
@@ -382,7 +419,12 @@
             <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.9rem;">Enter your actual usage from a recent bill, or just pick your household size below for an estimate.</p>
             <div class="input-grid">
                 <div>
-                    <label>📍 Your Region</label>
+                    <label>📍 Your Postcode <span class="info-tooltip" title="Region auto-detected from postcode. May not be 100% accurate for border areas - check your electricity bill or manually select region if unsure.">ⓘ</span></label>
+                    <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8" style="text-transform: uppercase;">
+                    <p id="postcodeHint" style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">Enter postcode to auto-detect region</p>
+                </div>
+                <div>
+                    <label>🗺️ Region <span style="font-size: 0.75rem; color: #64748b;">(or select manually)</span></label>
                     <select id="region">
                         <option value="London">London</option>
                         <option value="South East">South East</option>
@@ -950,6 +992,102 @@
 
         // Load data on page load
         loadData();
+
+        // Postcode to Region mapping (based on DNO areas)
+        const postcodeToRegion = {
+            // London
+            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
+            'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+            // South East
+            'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
+            'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
+            'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
+            // South West
+            'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
+            'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
+            'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
+            // Southern
+            'GU': 'Southern', 'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
+            'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
+            // Eastern
+            'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
+            'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
+            'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
+            'SS': 'Eastern', 'WD': 'Eastern',
+            // East Midlands
+            'DE': 'East Midlands', 'DN': 'East Midlands', 'LE': 'East Midlands',
+            'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
+            'S': 'East Midlands',
+            // West Midlands
+            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
+            'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
+            'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
+            // North West
+            'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
+            'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
+            'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
+            'WN': 'North West',
+            // North East
+            'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
+            'TS': 'North East',
+            // Yorkshire
+            'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
+            'HX': 'Yorkshire', 'LS': 'Yorkshire', 'S': 'Yorkshire', 'WF': 'Yorkshire',
+            'YO': 'Yorkshire', 'DN': 'Yorkshire',
+            // South Wales
+            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales',
+            // North Wales & Merseyside
+            'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
+            'SY': 'North Wales & Merseyside',
+            // South Scotland
+            'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
+            'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
+            'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
+            // North Scotland
+            'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
+            'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
+            'HS': 'North Scotland'
+        };
+
+        function getRegionFromPostcode(postcode) {
+            // Clean the postcode
+            const cleaned = postcode.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (cleaned.length < 2) return null;
+            
+            // Try two-letter prefix first (e.g., SW, NW, SE)
+            const twoLetter = cleaned.substring(0, 2);
+            if (postcodeToRegion[twoLetter]) {
+                return postcodeToRegion[twoLetter];
+            }
+            
+            // Try one-letter prefix (e.g., E, N, W, B, G, L, M, S)
+            const oneLetter = cleaned.substring(0, 1);
+            if (postcodeToRegion[oneLetter]) {
+                return postcodeToRegion[oneLetter];
+            }
+            
+            return null;
+        }
+
+        // Postcode input handler
+        document.getElementById('postcode').addEventListener('input', function() {
+            const postcode = this.value;
+            const hint = document.getElementById('postcodeHint');
+            const region = getRegionFromPostcode(postcode);
+            
+            if (region) {
+                document.getElementById('region').value = region;
+                hint.style.color = '#22c55e';
+                hint.textContent = '✓ Region detected: ' + region;
+                render();
+            } else if (postcode.length >= 2) {
+                hint.style.color = '#eab308';
+                hint.textContent = 'Region not found - select manually below';
+            } else {
+                hint.style.color = '#64748b';
+                hint.textContent = 'Enter postcode to auto-detect region';
+            }
+        });
     </script>
 </body>
 </html>

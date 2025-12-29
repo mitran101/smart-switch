@@ -646,6 +646,35 @@ body { font-size:15px !important; }
 </div>
 </section>
 
+<!-- NEW BILLING VS CONSUMPTION INTERACTIVE -->
+<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
+  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">📚 Educational Tool</div>
+  <div style="font-size:3rem;margin-bottom:1rem;">💡</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Why Your Bill Doesn't Match Your Usage</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    Ever wonder why you pay the same in summer and winter, even though you use way more energy when it's cold? Explore our interactive tool to understand the disconnect between billing and consumption.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Direct Debit</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Monthly Smoothing</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Seasonal</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Consumption Patterns</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Interactive</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Visualizations</div>
+    </div>
+  </div>
+  <button onclick="window.open('billing-consumption-interactive.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Explore the Interactive Tool →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Understand how Direct Debit smoothing actually works</p>
+</div>
+</section>
 
 <!-- TARIFF TRACKER CALLOUT -->
 <section id="tariffs" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
@@ -714,6 +743,12 @@ body { font-size:15px !important; }
 <h2>Recent Insights</h2>
 <p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
 <div class="topics">
+
+<div class="topic" onclick="window.open('billing-consumption-interactive.html','_blank')">
+  <h3>💡 Bills vs. Consumption: The Disconnect</h3>
+  <p>Why does your Direct Debit stay the same when your actual energy use changes dramatically? Explore the interactive tool that reveals how monthly smoothing works and why your summer bill equals your winter bill.</p>
+  <p>📅 29 Dec 2025</p>
+</div>
 
 <div class="topic" onclick="window.open('Q1-Cap.html','_blank')">
   <h3>🔆 Q1-26 Price Cap Breakdown</h3>
@@ -1399,4 +1434,3 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 
 </body>
 </html>
-

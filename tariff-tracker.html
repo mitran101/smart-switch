@@ -93,6 +93,25 @@
         .info-tooltip:hover {
             color: #a855f7;
         }
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1.5px solid #64748b;
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-style: italic;
+            font-family: Georgia, serif;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+        .info-tooltip:hover .info-icon {
+            border-color: #a855f7;
+            color: #a855f7;
+        }
         .info-tooltip::after {
             content: attr(title);
             position: absolute;
@@ -419,7 +438,7 @@
             <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.9rem;">Enter your actual usage from a recent bill, or just pick your household size below for an estimate.</p>
             <div class="input-grid">
                 <div>
-                    <label>📍 Your Postcode <span class="info-tooltip" title="Region auto-detected from postcode. May not be 100% accurate for border areas - check your electricity bill or manually select region if unsure.">ⓘ</span></label>
+                    <label>📍 Your Postcode <span class="info-tooltip" title="Region auto-detected from postcode. May not be 100% accurate for border areas - check your electricity bill or manually select region if unsure."><span class="info-icon">i</span></span></label>
                     <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8" style="text-transform: uppercase;">
                     <p id="postcodeHint" style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">Enter postcode to auto-detect region</p>
                 </div>

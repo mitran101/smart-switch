@@ -44,23 +44,6 @@ body {
   letter-spacing: -0.5px;
 }
 
-.back-home {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  padding: 0.6rem 1.4rem;
-  background: rgba(255,255,255,0.14);
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e5e7ff;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: .3s;
-}
-.back-home:hover {
-  background: rgba(255,255,255,0.2);
-}
-
 h1 {
   text-align: center;
   background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
@@ -135,6 +118,21 @@ input[type="number"]:focus {
   outline: none;
   border-color: #a855f7;
   background: rgba(255, 255, 255, 0.12);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a855f7' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+select option {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 10px;
+}
 }
 
 .preset-buttons {
@@ -380,7 +378,6 @@ canvas {
 </div>
 
 <div class="container">
-  <a href="index.html" class="back-home">← Back Home</a>
   
   <h1>📊 Billing vs Consumption: See The Difference</h1>
   <p class="subtitle">Why your monthly Direct Debit stays the same while your energy use changes dramatically with the seasons</p>
@@ -552,22 +549,26 @@ canvas {
       <!-- FIXED RATES -->
       <div class="input-group">
         <h3>🔒 Fixed Tariff Rates</h3>
+        
+        <label>Choose Supplier (London rates)</label>
+        <select id="supplierSelect" onchange="setSupplierRates()" style="width:100%;padding:0.8rem;border-radius:8px;border:1px solid rgba(168,85,247,0.3);background:#1a1a2e;color:#fff;font-size:1rem;margin-bottom:1rem;cursor:pointer;">
+          <option value="fuse_energy">Fuse Energy - Fixed (13m)</option>
+          <option value="british_gas">British Gas - Fixed Dec26</option>
+          <option value="scottish_power">Scottish Power - 1 Year Fixed</option>
+          <option value="ovo">OVO - 1 Year Fixed</option>
+        </select>
+        
         <label>Electricity Standing Charge (p/day)</label>
-        <input type="number" id="fixedElecSC" value="35.0" min="20" max="100" step="0.1">
+        <input type="number" id="fixedElecSC" value="39.55" min="20" max="100" step="0.1">
         
         <label>Electricity Unit Rate (p/kWh)</label>
-        <input type="number" id="fixedElecUnit" value="25.7" min="10" max="50" step="0.1">
+        <input type="number" id="fixedElecUnit" value="22.14" min="10" max="50" step="0.1">
         
         <label>Gas Standing Charge (p/day)</label>
-        <input type="number" id="fixedGasSC" value="33.0" min="10" max="60" step="0.1">
+        <input type="number" id="fixedGasSC" value="28.42" min="10" max="60" step="0.1">
         
         <label>Gas Unit Rate (p/kWh)</label>
-        <input type="number" id="fixedGasUnit" value="5.15" min="3" max="15" step="0.01">
-        
-        <div class="preset-buttons">
-          <button class="preset-btn" onclick="setFixedRates(35.0, 25.7, 33.0, 5.15)">E.ON Fixed</button>
-          <button class="preset-btn" onclick="setFixedRates(39.9, 25.8, 25.3, 5.38)">EDF Fixed</button>
-        </div>
+        <input type="number" id="fixedGasUnit" value="5.35" min="3" max="15" step="0.01">
       </div>
 
     </div>
@@ -886,6 +887,56 @@ function setFixedRates(elecSC, elecUnit, gasSC, gasUnit) {
   document.getElementById('fixedGasUnit').value = gasUnit;
   updateChart();
 }
+
+// Supplier rates loaded from JSON (London region)
+// Fallback values if JSON fails to load
+let supplierRates = {
+  fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
+  british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
+  scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
+  ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
+};
+
+// Load rates from all_tariffs.json
+async function loadSupplierRates() {
+  try {
+    const response = await fetch('./all_tariffs.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    
+    // Filter for London region and specific suppliers
+    const suppliers = ['fuse_energy', 'british_gas', 'scottish_power', 'ovo'];
+    
+    data.tariffs.forEach(t => {
+      if (t.region === 'London' && suppliers.includes(t.supplier) && !t.error) {
+        if (t.elec_unit_rate_p && t.gas_unit_rate_p) {
+          supplierRates[t.supplier] = {
+            elecSC: t.elec_standing_p,
+            elecUnit: t.elec_unit_rate_p,
+            gasSC: t.gas_standing_p,
+            gasUnit: t.gas_unit_rate_p
+          };
+        }
+      }
+    });
+    
+    // Set initial rates from first supplier in dropdown
+    setSupplierRates();
+  } catch (e) {
+    console.log('Could not load tariff data:', e);
+  }
+}
+
+function setSupplierRates() {
+  const supplier = document.getElementById('supplierSelect').value;
+  const rates = supplierRates[supplier];
+  if (rates) {
+    setFixedRates(rates.elecSC, rates.elecUnit, rates.gasSC, rates.gasUnit);
+  }
+}
+
+// Load rates when page loads
+window.addEventListener('load', loadSupplierRates);
 
 // Add event listeners to all inputs
 document.querySelectorAll('input[type="number"]').forEach(input => {

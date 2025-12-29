@@ -776,10 +776,11 @@
             return true;
         }
 
-        function getExitFee(tariff) {
-            // Check if it's dual fuel (has both elec and gas)
-            const isDualFuel = tariff.gas_unit_rate_p && tariff.gas_standing_p && 
-                              tariff.elec_unit_rate_p && tariff.elec_standing_p;
+        function getExitFee(tariff, fuelType = 'dual') {
+            // Check if displaying as dual fuel
+            const showAsDualFuel = fuelType === 'dual' && 
+                                   tariff.gas_unit_rate_p && tariff.gas_standing_p && 
+                                   tariff.elec_unit_rate_p && tariff.elec_standing_p;
             
             // No exit fee
             if (!tariff.exit_fee_gbp || tariff.exit_fee_gbp === '£0' || tariff.exit_fee_gbp === 0) {
@@ -790,7 +791,7 @@
             if (typeof tariff.exit_fee_gbp === 'number') {
                 const fee = tariff.exit_fee_gbp;
                 
-                if (isDualFuel) {
+                if (showAsDualFuel) {
                     // If fee >= 75, assume it's already TOTAL (e.g. £100 = £50 per fuel)
                     // If fee < 75, assume it's per fuel (e.g. £50 per fuel = £100 total)
                     if (fee >= 75) {
@@ -801,28 +802,24 @@
                         return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
                     }
                 } else {
-                    return `£${fee.toFixed(0)}`;
+                    // Elec only - show single fuel fee
+                    if (fee >= 75) {
+                        return `£${(fee / 2).toFixed(0)}`;
+                    } else {
+                        return `£${fee.toFixed(0)}`;
+                    }
                 }
             }
             
             // If it's a string
             let feeStr = tariff.exit_fee_gbp.replace(/\\u00a3/g, '£');
             
-            // If it already says "per fuel", calculate total for dual fuel
-            if (feeStr.toLowerCase().includes('per fuel') && isDualFuel) {
-                const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
-                if (match) {
-                    const perFuel = parseFloat(match[1]);
-                    return `£${(perFuel * 2).toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
-                }
-            }
-            
-            // Plain string like "£100" - extract number and apply same logic
-            if (isDualFuel) {
-                const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
-                if (match) {
-                    const fee = parseFloat(match[1]);
-                    // If fee >= 75, it's probably total already
+            // Extract number from string
+            const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
+            if (match) {
+                const fee = parseFloat(match[1]);
+                
+                if (showAsDualFuel) {
                     if (fee >= 75) {
                         const perFuel = fee / 2;
                         return `£${fee.toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
@@ -830,28 +827,36 @@
                         const total = fee * 2;
                         return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
                     }
+                } else {
+                    // Elec only
+                    if (fee >= 75) {
+                        return `£${(fee / 2).toFixed(0)}`;
+                    } else {
+                        return `£${fee.toFixed(0)}`;
+                    }
                 }
             }
             
-            // Return as-is (single fuel or couldn't parse)
+            // Return as-is (couldn't parse)
             return feeStr;
         }
 
-        function getPros(tariff, savings, supplier) {
+        function getPros(tariff, savings, supplier, fuelType) {
             const pros = [];
             if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
-            if (getExitFee(tariff).includes('£0')) pros.push('No exit fees');
+            if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             // Removed fake rating - we don't have real review data
             return pros.slice(0, 3);
         }
 
-        function getCons(tariff, savings, supplier) {
+        function getCons(tariff, savings, supplier, fuelType) {
             const cons = [];
-            const exitFee = getExitFee(tariff);
+            const exitFee = getExitFee(tariff, fuelType);
             if (!exitFee.includes('£0')) cons.push(`Exit fee: ${exitFee}`);
-            if (isElecOnly(tariff)) cons.push('Electricity only');
+            // Only show "Electricity only" as con when viewing dual fuel
+            if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
             // Removed fake "Average reviews" - we don't have real review data
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
@@ -921,8 +926,11 @@
 
             grid.innerHTML = top5.map((tariff, index) => {
                 const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#a855f7', green: false };
-                const pros = getPros(tariff, tariff.savings, supplier);
-                const cons = getCons(tariff, tariff.savings, supplier);
+                const pros = getPros(tariff, tariff.savings, supplier, fuelType);
+                const cons = getCons(tariff, tariff.savings, supplier, fuelType);
+                
+                // Show gas rates only if dual fuel mode AND tariff has gas rates
+                const showGasRates = fuelType === 'dual' && !tariff.isElecOnly;
                 
                 // Fix tariff name if it's the same as supplier (data bug)
                 let displayTariffName = tariff.tariff_name || supplier.name + ' Standard';
@@ -953,7 +961,7 @@
                         <div class="card-badges">
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
                             ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
-                            ${getExitFee(tariff).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
+                            ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
                         </div>
 
                         <div class="rates-grid">
@@ -965,7 +973,7 @@
                                 <div class="rate-label">Elec Standing</div>
                                 <div class="rate-value">${tariff.elec_standing_p?.toFixed(2) || '-'}p/day</div>
                             </div>
-                            ${!tariff.isElecOnly ? `
+                            ${showGasRates ? `
                             <div class="rate-item">
                                 <div class="rate-label">Gas Unit</div>
                                 <div class="rate-value">${tariff.gas_unit_rate_p?.toFixed(2) || '-'}p/kWh</div>
@@ -977,7 +985,7 @@
                             ` : ''}
                         </div>
 
-                        ${tariff.isElecOnly ? '<div class="elec-only-warning">⚡ Electricity only - you\'ll need separate gas</div>' : ''}
+                        ${tariff.isElecOnly && fuelType === 'dual' ? '<div class="elec-only-warning">⚡ Electricity only - you\'ll need separate gas</div>' : ''}
 
                         <div class="pros-cons">
                             <div class="pros">

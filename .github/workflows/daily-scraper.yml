@@ -1,7 +1,7 @@
-name: Daily Tariff Scraper
+name: Weekly Tariff Scraper
 on:
   schedule:
-    - cron: '0 2 * * 1-5'  # 2am UTC, Monday-Friday only
+    - cron: '0 2 * * 1'  # 2am UTC, Monday only
   workflow_dispatch:  # Manual trigger button
 jobs:
   scrape:

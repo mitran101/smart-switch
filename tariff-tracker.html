@@ -786,13 +786,22 @@
                 return '£0';
             }
             
-            // If it's a number (like 50), this is per fuel
+            // If it's a number
             if (typeof tariff.exit_fee_gbp === 'number') {
+                const fee = tariff.exit_fee_gbp;
+                
                 if (isDualFuel) {
-                    // Dual fuel = 2× the fee (elec + gas)
-                    return `£${(tariff.exit_fee_gbp * 2).toFixed(2)} total (£${tariff.exit_fee_gbp.toFixed(2)} per fuel)`;
+                    // If fee >= 75, assume it's already TOTAL (e.g. £100 = £50 per fuel)
+                    // If fee < 75, assume it's per fuel (e.g. £50 per fuel = £100 total)
+                    if (fee >= 75) {
+                        const perFuel = fee / 2;
+                        return `£${fee.toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
+                    } else {
+                        const total = fee * 2;
+                        return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
+                    }
                 } else {
-                    return `£${tariff.exit_fee_gbp.toFixed(2)}`;
+                    return `£${fee.toFixed(0)}`;
                 }
             }
             
@@ -804,16 +813,23 @@
                 const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
                 if (match) {
                     const perFuel = parseFloat(match[1]);
-                    return `£${(perFuel * 2).toFixed(2)} total (£${perFuel.toFixed(2)} per fuel)`;
+                    return `£${(perFuel * 2).toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
                 }
             }
             
-            // Plain string like "£50.00" - extract number and multiply for dual fuel
+            // Plain string like "£100" - extract number and apply same logic
             if (isDualFuel) {
                 const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
                 if (match) {
-                    const perFuel = parseFloat(match[1]);
-                    return `£${(perFuel * 2).toFixed(2)} total (£${perFuel.toFixed(2)} per fuel)`;
+                    const fee = parseFloat(match[1]);
+                    // If fee >= 75, it's probably total already
+                    if (fee >= 75) {
+                        const perFuel = fee / 2;
+                        return `£${fee.toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
+                    } else {
+                        const total = fee * 2;
+                        return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
+                    }
                 }
             }
             

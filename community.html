@@ -489,6 +489,23 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.full-content {
+  display: none;
+  padding: 1rem;
+  background: rgba(99,102,241,0.08);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .full-content {
+    display: block;
+  }
+}
+
 .reply-item {
   padding: 1rem;
   background: rgba(255,255,255,0.03);
@@ -1592,6 +1609,7 @@ function renderDiscussions() {
       </div>
     </div>
     <div class="replies-section" id="replies-${discussion.id}">
+      <div class="full-content">${escapeHtml(discussion.content)}</div>
       ${(discussion.replies || []).map(reply => `
         <div class="reply-item">
           <div class="reply-upvote">

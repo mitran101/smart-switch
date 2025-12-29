@@ -70,9 +70,6 @@ SCRAPERS = {
     },
 }
 
-# Retry threshold - only retry if success rate > this percentage
-RETRY_THRESHOLD = 0.5  # 50% = 7/14 regions must succeed to bother retrying
-
 # Unified output fields
 OUTPUT_FIELDS = [
     "supplier",
@@ -97,14 +94,11 @@ OUTPUT_FIELDS = [
 # ============================================
 
 def get_latest_file(pattern):
-    """Get the file with MOST data matching pattern (not just newest).
-    This prevents single-region retry files from overwriting full scrape data.
-    """
+    """Get the file with MOST data matching pattern (not just newest)."""
     files = glob.glob(pattern)
     if not files:
         return None
     
-    # Find file with most records, not just newest
     best_file = None
     best_count = -1
     
@@ -119,7 +113,6 @@ def get_latest_file(pattern):
         except:
             continue
     
-    # Fallback to newest if we couldn't read any files
     if best_file is None:
         return max(files, key=os.path.getmtime)
     
@@ -239,30 +232,32 @@ def combine_results(scrapers_to_run):
     return all_results
 
 
-def check_incomplete_data(r):
-    """Check if a result has incomplete data. Returns reason string or None if OK."""
-    if r.get("error"):
-        return f"error: {r.get('error')}"
+def get_supplier_status(results):
+    """Get simple success/fail status per supplier by region count."""
+    supplier_regions = {}
     
-    if not r.get("tariff_name"):
-        return "missing tariff_name"
+    for r in results:
+        supplier = r.get("supplier", "unknown")
+        region = r.get("region", "unknown")
+        
+        if supplier not in supplier_regions:
+            supplier_regions[supplier] = {"success": set(), "failed": set()}
+        
+        # A region is successful if it has a tariff name and elec rates
+        has_tariff = r.get("tariff_name") is not None
+        has_elec = r.get("elec_unit_rate_p") or r.get("elec_day_rate_p")
+        has_error = r.get("error") is not None
+        
+        if has_tariff and has_elec and not has_error:
+            supplier_regions[supplier]["success"].add(region)
+        elif region not in supplier_regions[supplier]["success"]:
+            supplier_regions[supplier]["failed"].add(region)
     
-    if not r.get("elec_unit_rate_p") and not r.get("elec_day_rate_p"):
-        return "missing elec rates"
+    # Remove failed regions that are also in success
+    for supplier in supplier_regions:
+        supplier_regions[supplier]["failed"] -= supplier_regions[supplier]["success"]
     
-    if not r.get("elec_standing_p"):
-        return "missing elec_standing_p"
-    
-    tariff_name = (r.get("tariff_name") or "").lower()
-    is_elec_only = "electric" in tariff_name or "elec only" in tariff_name
-    
-    if not is_elec_only:
-        if not r.get("gas_unit_rate_p"):
-            return "missing gas_unit_rate_p"
-        if not r.get("gas_standing_p"):
-            return "missing gas_standing_p"
-    
-    return None
+    return supplier_regions
 
 
 def save_combined_results(results):
@@ -353,18 +348,6 @@ def run_scraper_thread(name, config, results_dict):
     results_dict[name] = success
 
 
-def get_supplier_success_rate(results, supplier_name):
-    """Calculate success rate for a supplier."""
-    supplier_results = [r for r in results if r.get("supplier") == supplier_name]
-    if not supplier_results:
-        return 0, 0, 0
-    
-    total = len(supplier_results)
-    successful = sum(1 for r in supplier_results if not check_incomplete_data(r))
-    
-    return successful, total, successful / total if total > 0 else 0
-
-
 def main():
     import argparse
     
@@ -373,8 +356,6 @@ def main():
     parser.add_argument("--sequential", action="store_true", help="Run one at a time")
     parser.add_argument("--combine-only", action="store_true", help="Only combine existing results")
     parser.add_argument("--wait", type=int, default=300, help="Wait time between scrapers")
-    parser.add_argument("--no-retry", action="store_true", default=True, help="Skip retry logic (default: True)")
-    parser.add_argument("--retry", action="store_true", help="Enable retry logic for failed regions")
     args = parser.parse_args()
     
     print("="*60)
@@ -428,134 +409,49 @@ def main():
     # Combine all results
     results = combine_results(scrapers_to_run)
     
-    # =====================================================
-    # SMART RETRY: Only retry scrapers that mostly worked
-    # (Disabled by default - use --retry to enable)
-    # =====================================================
-    if not args.combine_only and args.retry:
-        failures_by_supplier = {}
-        
-        for r in results:
-            supplier = r.get("supplier", "")
-            
-            is_api = False
-            scraper_name = None
-            for name, config in SCRAPERS.items():
-                if config["supplier_name"] == supplier:
-                    is_api = config.get("is_api", False)
-                    scraper_name = name
-                    break
-            
-            if is_api:
-                continue
-            
-            reason = check_incomplete_data(r)
-            if reason:
-                if supplier not in failures_by_supplier:
-                    failures_by_supplier[supplier] = []
-                failures_by_supplier[supplier].append((r, reason, scraper_name))
-        
-        # Check each supplier's success rate
-        suppliers_to_retry = {}
-        suppliers_to_skip = []
-        
-        print(f"\n{'#'*60}")
-        print(f"  ANALYZING FAILURE RATES")
-        print('#'*60)
-        
-        for supplier, failures in failures_by_supplier.items():
-            successful, total, rate = get_supplier_success_rate(results, supplier)
-            failed_count = len(failures)
-            
-            print(f"\n  {supplier}:")
-            print(f"    Success: {successful}/{total} regions ({rate*100:.0f}%)")
-            print(f"    Failed:  {failed_count} regions")
-            
-            if rate >= RETRY_THRESHOLD:
-                print(f"    → Will retry {failed_count} failed regions")
-                suppliers_to_retry[supplier] = failures
-            else:
-                print(f"    → SKIPPING retries (below {RETRY_THRESHOLD*100:.0f}% threshold)")
-                print(f"    → Run manually and upload JSON")
-                suppliers_to_skip.append(supplier)
-        
-        # Only retry suppliers that mostly worked
-        if suppliers_to_retry:
-            total_retries = sum(len(f) for f in suppliers_to_retry.values())
-            print(f"\n{'#'*60}")
-            print(f"  RETRYING {total_retries} REGIONS")
-            print(f"  (Skipping {len(suppliers_to_skip)} mostly-failed scrapers)")
-            print('#'*60)
-            
-            for supplier, failures in suppliers_to_retry.items():
-                print(f"\n  📍 {supplier}: {len(failures)} regions")
-                
-                for r, reason, scraper_name in failures:
-                    region = r.get("region", "")
-                    postcode = r.get("postcode", "")
-                    
-                    print(f"\n    Retrying: {region} ({postcode})")
-                    print(f"    Reason: {reason}")
-                    
-                    if not scraper_name:
-                        print(f"    ⚠ Unknown scraper, skipping")
-                        continue
-                    
-                    config = SCRAPERS[scraper_name]
-                    script = config["script"]
-                    
-                    if not os.path.exists(script):
-                        print(f"    ⚠ Script not found: {script}")
-                        continue
-                    
-                    try:
-                        cmd = [sys.executable, script, "--test", postcode, "--headless"]
-                        print(f"    Running: {script} --test \"{postcode}\"")
-                        subprocess.run(cmd, capture_output=False, text=True)
-                        print(f"\n    ⏳ Cooling down 30s...")
-                        time.sleep(30)
-                    except Exception as e:
-                        print(f"    ✗ Error: {e}")
-            
-            print(f"\n  Re-combining results...")
-            results = combine_results(scrapers_to_run)
-        
-        if suppliers_to_skip:
-            print(f"\n{'#'*60}")
-            print(f"  ⚠ SCRAPERS THAT NEED MANUAL RUN:")
-            print('#'*60)
-            for supplier in suppliers_to_skip:
-                print(f"    - {supplier}")
-            print(f"\n  Run locally and upload JSON files.")
-    
     if results:
         save_combined_results(results)
         
-        # Final report
+        # =====================================================
+        # SUPPLIER STATUS REPORT - Simple and accurate
+        # =====================================================
         print(f"\n{'='*60}")
-        print("  DATA QUALITY REPORT")
+        print("  SUPPLIER STATUS")
         print('='*60)
         
-        complete = sum(1 for r in results if not check_incomplete_data(r))
-        incomplete = len(results) - complete
-        pct = 100 * complete / len(results) if results else 0
+        status = get_supplier_status(results)
         
-        print(f"  Complete: {complete}/{len(results)} ({pct:.1f}%)")
-        print(f"  Failed:   {incomplete}")
+        total_success = 0
+        total_regions = 0
         
-        if incomplete > 0:
-            print(f"\n  Incomplete by supplier:")
-            by_supplier = {}
-            for r in results:
-                reason = check_incomplete_data(r)
-                if reason:
-                    s = r.get("supplier", "unknown")
-                    if s not in by_supplier:
-                        by_supplier[s] = []
-                    by_supplier[s].append(f"{r.get('region')}")
+        for supplier, data in sorted(status.items()):
+            success_count = len(data["success"])
+            failed_count = len(data["failed"])
+            total = success_count + failed_count
             
-            for s, regions in by_supplier.items():
-                print(f"    {s}: {len(regions)} regions")
+            total_success += success_count
+            total_regions += total
+            
+            if failed_count == 0:
+                icon = "✓"
+            elif success_count == 0:
+                icon = "✗"
+            else:
+                icon = "⚠"
+            
+            print(f"  {icon} {supplier}: {success_count}/{total} regions")
+            
+            if failed_count > 0 and failed_count <= 5:
+                failed_list = ", ".join(sorted(data["failed"]))
+                print(f"      Failed: {failed_list}")
+        
+        print(f"\n  {'─'*40}")
+        print(f"  TOTAL: {total_success}/{total_regions} regions with data")
+        
+        # Count tariffs
+        tariff_count = sum(1 for r in results if r.get("tariff_name") and not r.get("error"))
+        print(f"  TARIFFS: {tariff_count} total")
+        
     else:
         print("\n  ⚠ No results!")
 

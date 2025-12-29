@@ -330,10 +330,14 @@ def create_summary(results):
                     fee_num = float(exit_fee)
                 
                 if fee_num is not None:
-                    if supplier_name == "edf":
-                        fee_num = fee_num / 2
+                    # If fee >= 75, assume it's total (e.g. £100 = £50 per fuel)
+                    # If fee < 75, assume it's per fuel already
+                    if fee_num >= 75:
+                        per_fuel = int(fee_num / 2)
+                    else:
+                        per_fuel = int(fee_num)
                     
-                    suppliers[key]["exitFees"] = f"£{int(fee_num)} per fuel"
+                    suppliers[key]["exitFees"] = f"£{per_fuel} per fuel"
         
         contract_months = r.get("contract_months")
         if contract_months:

@@ -2,32 +2,40 @@ name: Weekly Tariff Scraper
 on:
   schedule:
     - cron: '0 2 * * 0'  # 2am UTC, Sunday
-  workflow_dispatch:  # Manual trigger button
+  workflow_dispatch:
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-    
+    timeout-minutes: 90
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
+    - name: Install Chrome (for E.ON scraper)
+      run: |
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
     - name: Install dependencies
       run: |
         pip install playwright requests undetected-chromedriver selenium
         playwright install chromium firefox
         playwright install-deps
-    
-    - name: Run all scrapers
+
+    - name: Run all scrapers (excluding EDF)
       run: |
         python run_all_scrapers.py
       continue-on-error: true
-    
+
     - name: Upload screenshots for debugging
       uses: actions/upload-artifact@v4
       if: always()
@@ -35,11 +43,11 @@ jobs:
         name: debug-screenshots
         path: screenshots/
         retention-days: 7
-    
+
     - name: Commit and push results
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add all_tariffs.json tariff_data_latest.json all_tariffs_*.csv
-        git diff --staged --quiet || git commit -m "Daily update: $(date +'%Y-%m-%d %H:%M')"
+        git diff --staged --quiet || git commit -m "Weekly update: $(date +'%Y-%m-%d %H:%M')"
         git push || echo "Nothing to push"

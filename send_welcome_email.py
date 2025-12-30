@@ -133,7 +133,7 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            Did you know you're paying wind farms to turn off? Or funding a nuclear plant before it's even built? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
+            Did you know you're paying wind farms to turn off? Or subsidising other people's energy discounts even if you don't qualify? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">

@@ -332,6 +332,7 @@
         .badge.blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
         .badge.yellow { background: rgba(234, 179, 8, 0.2); color: #eab308; }
         .badge.purple { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .badge.trustpilot { background: rgba(0, 182, 122, 0.2); color: #00b67a; }
 
         .pros-cons {
             display: grid;
@@ -666,13 +667,13 @@
 
         // Supplier info
         const supplierInfo = {
-    'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable' },
-    'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable' },
-    'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix' },
-    'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable' },
-    'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable' },
-    'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable' },
-    'fuse_energy': { name: 'Fuse Energy', color: '#a855f7', green: false, greenNote: 'Standard mix' }
+    'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
+    'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable', trustpilot: 4.5 },
+    'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix', trustpilot: 4.3 },
+    'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable', trustpilot: 4.6 },
+    'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable', trustpilot: 4.3 },
+    'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
+    'fuse_energy': { name: 'Fuse Energy', color: '#a855f7', green: false, greenNote: 'Standard mix', trustpilot: 4.7 }
 };
 
         // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
@@ -854,7 +855,7 @@
             if (supplier?.green) pros.push(supplier.greenNote);
             if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
-            // Removed fake rating - we don't have real review data
+            if (supplier?.trustpilot >= 4.7) pros.push(`Excellent reviews (${supplier.trustpilot}★)`);
             return pros.slice(0, 3);
         }
 
@@ -865,7 +866,7 @@
             // Only show "Electricity only" as con when viewing dual fuel
             if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
-            // Removed fake "Average reviews" - we don't have real review data
+            if (supplier?.trustpilot && supplier.trustpilot < 4.5) cons.push(`Average reviews (${supplier.trustpilot}★)`);
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
             return cons.slice(0, 3);
         }
@@ -969,6 +970,7 @@
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
                             ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
                             ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
+                            ${supplier.trustpilot ? `<span class="badge trustpilot">⭐ ${supplier.trustpilot}/5</span>` : ''}
                         </div>
 
                         <div class="rates-grid">

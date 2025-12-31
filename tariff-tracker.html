@@ -856,6 +856,7 @@
             if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             if (supplier?.trustpilot >= 4.7) pros.push(`Top rated (${supplier.trustpilot}★)`);
+            else if (supplier?.trustpilot >= 4.5) pros.push(`Well rated (${supplier.trustpilot}★)`);
             return pros.slice(0, 3);
         }
 
@@ -866,7 +867,8 @@
             // Only show "Electricity only" as con when viewing dual fuel
             if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
-            if (supplier?.trustpilot && supplier.trustpilot < 4.5) cons.push(`Lower reviews vs others (${supplier.trustpilot}★)`);
+            if (supplier?.trustpilot && supplier.trustpilot >= 4 && supplier.trustpilot < 4.5) cons.push(`Lower rated vs others (${supplier.trustpilot}★)`);
+            if (supplier?.trustpilot && supplier.trustpilot < 4) cons.push(`Not great reviews (${supplier.trustpilot}★)`);
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
             return cons.slice(0, 3);
         }

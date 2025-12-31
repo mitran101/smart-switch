@@ -853,10 +853,10 @@
             const pros = [];
             if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
-            if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
-            if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             if (supplier?.trustpilot >= 4.7) pros.push(`Top rated (${supplier.trustpilot}★)`);
             else if (supplier?.trustpilot >= 4.5) pros.push(`Well rated (${supplier.trustpilot}★)`);
+            if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
+            if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             return pros.slice(0, 3);
         }
 
@@ -972,7 +972,7 @@
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
                             ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
                             ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
-                            ${supplier.trustpilot ? `<span class="badge trustpilot">⭐ ${supplier.trustpilot}/5</span>` : ''}
+                            ${supplier.trustpilot ? `<span class="badge trustpilot">⭐ ${supplier.trustpilot} on Trustpilot</span>` : ''}
                         </div>
 
                         <div class="rates-grid">

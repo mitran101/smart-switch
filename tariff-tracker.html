@@ -853,8 +853,6 @@
             const pros = [];
             if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
-            if (supplier?.trustpilot >= 4.7) pros.push(`Top rated (${supplier.trustpilot}★)`);
-            else if (supplier?.trustpilot >= 4.5) pros.push(`Well rated (${supplier.trustpilot}★)`);
             if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             return pros.slice(0, 3);
@@ -867,8 +865,6 @@
             // Only show "Electricity only" as con when viewing dual fuel
             if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
-            if (supplier?.trustpilot && supplier.trustpilot >= 4 && supplier.trustpilot < 4.5) cons.push(`Lower rated vs others (${supplier.trustpilot}★)`);
-            if (supplier?.trustpilot && supplier.trustpilot < 4) cons.push(`Not great reviews (${supplier.trustpilot}★)`);
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
             return cons.slice(0, 3);
         }
@@ -972,7 +968,7 @@
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
                             ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
                             ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
-                            ${supplier.trustpilot ? `<span class="badge trustpilot">⭐ ${supplier.trustpilot} on Trustpilot</span>` : ''}
+                            ${supplier.trustpilot ? `<span class="badge trustpilot" style="background: ${supplier.trustpilot >= 4.5 ? 'rgba(0, 182, 122, 0.2)' : supplier.trustpilot >= 4 ? 'rgba(255, 200, 0, 0.2)' : 'rgba(255, 77, 77, 0.2)'}; color: ${supplier.trustpilot >= 4.5 ? '#00b67a' : supplier.trustpilot >= 4 ? '#e6a700' : '#ff4d4d'}">⭐ ${supplier.trustpilot} on Trustpilot</span>` : ''}
                         </div>
 
                         <div class="rates-grid">

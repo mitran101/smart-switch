@@ -3849,7 +3849,7 @@
       "elec_unit_rate_p": 22.64,
       "elec_day_rate_p": null,
       "elec_night_rate_p": null,
-      "elec_standing_p": 55,
+      "elec_standing_p": 40.55,
       "gas_unit_rate_p": 5.18,
       "gas_standing_p": 28.42,
       "exit_fee_gbp": "\u00a350.00",

@@ -571,20 +571,20 @@ canvas {
     <div class="region-selector">
       <h3>📍 Select Your Region</h3>
       <select id="regionSelect" onchange="setRegion()">
-        <option value="london">London</option>
-        <option value="south_east">South East</option>
-        <option value="southern">Southern</option>
-        <option value="south_west">South Western</option>
-        <option value="eastern">Eastern</option>
-        <option value="east_midlands">East Midlands</option>
-        <option value="midlands">Midlands</option>
-        <option value="north_west">North West</option>
-        <option value="yorkshire">Yorkshire</option>
-        <option value="northern">Northern</option>
-        <option value="north_wales_mersey">North Wales & Merseyside</option>
-        <option value="south_wales">South Wales</option>
-        <option value="southern_scotland">Southern Scotland</option>
-        <option value="northern_scotland">Northern Scotland</option>
+        <option value="London">London</option>
+        <option value="South East">South East</option>
+        <option value="Southern">Southern</option>
+        <option value="South West">South West</option>
+        <option value="South Wales">South Wales</option>
+        <option value="Eastern">Eastern</option>
+        <option value="East Midlands">East Midlands</option>
+        <option value="West Midlands">West Midlands</option>
+        <option value="North West">North West</option>
+        <option value="North East">North East</option>
+        <option value="Yorkshire">Yorkshire</option>
+        <option value="North Wales & Merseyside">North Wales & Merseyside</option>
+        <option value="South Scotland">South Scotland</option>
+        <option value="North Scotland">North Scotland</option>
       </select>
       <p class="region-note">⚡ SVT rates vary significantly by region — North Wales & Merseyside has the highest electricity standing charge (71p/day) while Southern has the lowest (46p/day)</p>
     </div>
@@ -633,6 +633,9 @@ canvas {
         <label>Choose Supplier</label>
         <select id="supplierSelect" onchange="setSupplierRates()" style="width:100%;padding:0.8rem;border-radius:8px;border:1px solid rgba(168,85,247,0.3);background:#1a1a2e;color:#fff;font-size:1rem;margin-bottom:1rem;cursor:pointer;">
           <option value="fuse_energy">Fuse Energy - Fixed (13m)</option>
+          <option value="eon_next">E.ON Next - Fixed 18m</option>
+          <option value="octopus">Octopus Energy</option>
+          <option value="edf">EDF Energy</option>
           <option value="british_gas">British Gas - Fixed Dec26</option>
           <option value="scottish_power">Scottish Power - 1 Year Fixed</option>
           <option value="ovo">OVO - 1 Year Fixed</option>
@@ -788,38 +791,30 @@ const seasonalMultipliers = {
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Regional SVT rates (Ofgem Price Cap Q1 2026 - January to March 2026)
-// Source: https://www.uswitch.com/gas-electricity/guides/regional-energy-prices/
+// Keys match all_tariffs_latest.json region names
 const regionalSVTRates = {
-  london:           { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.62, gasUnit: 6.02, name: "London" },
-  south_east:       { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.67, gasUnit: 5.82, name: "South East" },
-  southern:         { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.55, gasUnit: 6.00, name: "Southern" },
-  south_west:       { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.70, gasUnit: 6.14, name: "South Western" },
-  eastern:          { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.73, gasUnit: 5.86, name: "Eastern" },
-  east_midlands:    { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.78, name: "East Midlands" },
-  midlands:         { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.11, gasUnit: 5.85, name: "Midlands" },
-  north_west:       { elecSC: 52.22, elecUnit: 28.45, gasSC: 35.23, gasUnit: 5.89, name: "North West" },
-  yorkshire:        { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.17, gasUnit: 5.90, name: "Yorkshire" },
-  northern:         { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.20, gasUnit: 5.93, name: "Northern" },
-  north_wales_mersey: { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.48, gasUnit: 5.94, name: "North Wales & Mersey" },
-  south_wales:      { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.10, name: "South Wales" },
-  southern_scotland:{ elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.88, name: "Southern Scotland" },
-  northern_scotland:{ elecSC: 62.07, elecUnit: 28.36, gasSC: 35.27, gasUnit: 5.88, name: "Northern Scotland" }
+  "London":                 { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.62, gasUnit: 6.02 },
+  "South East":             { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.67, gasUnit: 5.82 },
+  "Southern":               { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.55, gasUnit: 6.00 },
+  "South West":             { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.70, gasUnit: 6.14 },
+  "South Wales":            { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.10 },
+  "Eastern":                { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.73, gasUnit: 5.86 },
+  "East Midlands":          { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.78 },
+  "West Midlands":          { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.11, gasUnit: 5.85 },
+  "North West":             { elecSC: 52.22, elecUnit: 28.45, gasSC: 35.23, gasUnit: 5.89 },
+  "North East":             { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.20, gasUnit: 5.93 },
+  "Yorkshire":              { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.17, gasUnit: 5.90 },
+  "North Wales & Merseyside": { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.48, gasUnit: 5.94 },
+  "South Scotland":         { elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.88 },
+  "North Scotland":         { elecSC: 62.07, elecUnit: 28.36, gasSC: 35.27, gasUnit: 5.88 }
 };
 
-// Supplier fixed rates by region (where available - fallback to London rates)
-// In production, this would load from all_tariffs.json
-let supplierRatesByRegion = {
-  london: {
-    fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
-    british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
-    scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
-    ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
-  }
-};
-
-// Default supplier rates (used for all regions initially)
+// Default supplier rates (will be overwritten when JSON loads)
 let supplierRates = {
   fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
+  eon_next: { elecSC: 38.22, elecUnit: 24.79, gasSC: 34.57, gasUnit: 5.29 },
+  octopus: { elecSC: 46.06, elecUnit: 24.50, gasSC: 29.85, gasUnit: 6.24 },
+  edf: { elecSC: 46.06, elecUnit: 25.21, gasSC: 29.43, gasUnit: 5.48 },
   british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
   scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
   ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
@@ -1039,25 +1034,24 @@ function setSupplierRates() {
   }
 }
 
-// Load rates from all_tariffs.json (if available)
+// Load rates from all_tariffs_latest.json
 async function loadSupplierRates() {
   const region = document.getElementById('regionSelect').value;
-  const regionName = regionalSVTRates[region]?.name || 'London';
   
   try {
-    const response = await fetch('./all_tariffs.json');
-    if (!response.ok) return;
+    const response = await fetch('./all_tariffs_latest.json');
+    if (!response.ok) {
+      console.log('JSON not found, using defaults');
+      return;
+    }
     const data = await response.json();
     
-    // Filter for selected region and specific suppliers
-    const suppliers = ['fuse_energy', 'british_gas', 'scottish_power', 'ovo'];
+    // Filter for selected region
+    const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
     
     data.tariffs.forEach(t => {
-      // Match region name (handle variations)
-      const tariffRegion = t.region?.toLowerCase().replace(/[^a-z]/g, '');
-      const selectedRegion = regionName.toLowerCase().replace(/[^a-z]/g, '');
-      
-      if (tariffRegion === selectedRegion && suppliers.includes(t.supplier) && !t.error) {
+      // Direct match on region name
+      if (t.region === region && suppliers.includes(t.supplier) && !t.error) {
         if (t.elec_unit_rate_p && t.gas_unit_rate_p) {
           supplierRates[t.supplier] = {
             elecSC: t.elec_standing_p,
@@ -1069,11 +1063,10 @@ async function loadSupplierRates() {
       }
     });
     
-    // Update fixed rates from first supplier
+    // Update fixed rates from currently selected supplier
     setSupplierRates();
   } catch (e) {
     console.log('Could not load tariff data, using defaults:', e);
-    // Use default rates
     setSupplierRates();
   }
 }

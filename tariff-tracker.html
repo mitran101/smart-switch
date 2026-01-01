@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q1-26 Price Cap Breakdown - SwitchPilot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Tariff Tracker | SwitchPilot</title>
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -13,422 +13,1175 @@
   gtag('js', new Date());
   gtag('config', 'G-WEQ6VBT567');
 </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0c0e1f 0%, #1a1d3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-<style>
-/* GLOBAL – MATCH INDEX */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0c0e1f;
-  color: #fff;
-  overflow-x: hidden;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-}
+        .container { max-width: 1200px; margin: 0 auto; }
 
-/* ARTICLE SHELL */
-.article-shell {
-  position: relative;
-  padding: 7.5rem 2rem 5rem;
-  overflow: hidden;
-}
+        .back-home:hover { opacity: 0.8; }
+        .home-link:hover { color: #a855f7; }
+        
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .top-logo:hover { opacity: 0.8; }
 
-/* GRID (SAME AS INDEX) */
-.energy-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-  opacity: .10;
-  animation: energyGridMove 18s linear infinite;
-  pointer-events: none;
-}
-@keyframes energyGridMove {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(60px); }
-}
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-/* LOGO */
-.top-logo {
-  position: absolute;
-  top: 45px;
-  left: 32px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.top-logo span:first-child {
-  font-size: 2.3rem;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
-}
-.top-logo span:last-child {
-  font-size: 1.9rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
+        .subtitle { text-align: center; color: #94a3b8; margin-bottom: 8px; font-size: 1.1rem; }
+        .updated { text-align: center; color: #64748b; font-size: 0.9rem; margin-bottom: 30px; }
 
-/* ARTICLE LAYOUT */
-.article-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 5;
-}
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .info-banner .icon { font-size: 2rem; }
+        .info-banner .text h3 { color: #e0e0e0; margin-bottom: 5px; }
+        .info-banner .text p { color: #94a3b8; font-size: 0.9rem; line-height: 1.5; }
 
-/* Price cap themed icons on sides */
-.article-inner::before {
-  content: '💷';
-  position: absolute;
-  top: 15%;
-  left: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatCap 8s ease-in-out infinite;
-}
-.article-inner::after {
-  content: '📊';
-  position: absolute;
-  top: 45%;
-  right: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatCap 10s ease-in-out infinite 3s;
-}
+        /* Input Section */
+        .input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
 
-/* Additional side icons */
-.article-card::after {
-  content: '⚡';
-  position: absolute;
-  bottom: 20%;
-  left: -190px;
-  font-size: 4.5rem;
-  opacity: 0.85;
-  animation: floatCap 9s ease-in-out infinite 1.5s;
-  z-index: -2;
-}
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
 
-@keyframes floatCap {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(5deg); }
-}
+        label { display: block; color: #cbd5e1; font-weight: 500; margin-bottom: 8px; font-size: 0.9rem; }
+        
+        select, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        select:focus, input:focus { outline: none; border-color: #a855f7; }
+        select option { background: #1a1d3a; }
 
-/* BACK LINK */
-.back-home {
-  display: inline-block;
-  margin-bottom: 1.4rem;
-  padding: 0.6rem 1.4rem;
-  background: rgba(255,255,255,0.14);
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e5e7ff;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: .3s;
-}
-.back-home:hover {
-  background: rgba(255,255,255,0.2);
-}
+        .info-tooltip {
+            cursor: help;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-left: 4px;
+            position: relative;
+        }
+        .info-tooltip:hover {
+            color: #a855f7;
+        }
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1.5px solid #64748b;
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-style: italic;
+            font-family: Georgia, serif;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+        .info-tooltip:hover .info-icon {
+            border-color: #a855f7;
+            color: #a855f7;
+        }
+        .info-tooltip::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #e0e0e0;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            width: 220px;
+            text-align: left;
+            line-height: 1.4;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .info-tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
 
-/* CARD */
-.article-card {
-  margin-top: 1.8rem;
-  background: #ffffff;
-  color: #1a1a2e;
-  border-radius: 28px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  overflow: visible;
-  position: relative;
-}
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
 
-/* HEADER */
-.article-header {
-  padding: 2.2rem 3rem 1.3rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
+        .preset-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 15px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        .preset-btn:hover {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.2);
+        }
 
-.article-date span {
-  background: linear-gradient(135deg, #fef3c7, #dbeafe);
-  color: #92400e;
-  padding: 0.7rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  position: relative;
-  z-index: 2;
-}
+        /* Chart Section */
+        .chart-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .chart-section h2 {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chart-container { position: relative; height: 300px; }
 
-.article-header h1 {
-  margin: 0;
-  margin-top: 1rem;
-  line-height: 1.18;
-  font-size: 2.7rem;
-  font-weight: 900;
-  position: relative;
-  z-index: 2;
-}
+        /* Summary Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card.best { border-color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+        .stat-card .value { font-size: 2rem; font-weight: 700; color: #a855f7; }
+        .stat-card.best .value { color: #22c55e; }
+        .stat-card .label { color: #94a3b8; font-size: 0.85rem; margin-top: 5px; }
 
-/* BODY */
-.article-body {
-  padding: 1.1rem 3rem 2.8rem;
-}
-.article-body h2 {
-  font-size: 2rem;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 2rem 0 1.2rem;
-  font-weight: 800;
-}
-.article-body h2:first-child {
-  margin-top: 0.4rem;
-}
+        /* Tariff Cards */
+        .section-title {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.article-body p, .article-body ul {
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: #444;
-}
-.article-body p {
-  margin-bottom: 1.5rem;
-}
-.article-body ul {
-  margin-left: 2rem;
-  margin-bottom: 1.5rem;
-}
-.article-body li {
-  margin-bottom: 0.7rem;
-}
+        .tariffs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
 
-/* FOOTER */
-.footer {
-  background: #0c0e1f;
-  text-align: center;
-  padding: 3rem 2rem;
-  color: white;
-}
-.footer p {
-  opacity: 0.8;
-  margin: 0.5rem 0;
-}
+        .tariff-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .tariff-card:hover {
+            transform: translateY(-5px);
+            border-color: #a855f7;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        }
+        .tariff-card.best {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 968px) {
-  .article-shell {
-    padding: 6rem 1.5rem 4rem;
-  }
-  
-  /* Hide side icons on mobile/tablet */
-  .article-inner::before,
-  .article-inner::after,
-  .article-card::after {
-    display: none;
-  }
-  
-  .top-logo {
-    top: 25px;
-    left: 20px;
-  }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
-  }
-  .top-logo span:last-child {
-    font-size: 1.5rem;
-  }
-  
-  .article-header {
-    padding: 2rem 2rem 1rem;
-  }
-  .article-header h1 {
-    font-size: 2rem;
-  }
-  
-  .article-body {
-    padding: 1rem 2rem 2rem;
-  }
-  .article-body h2 {
-    font-size: 1.6rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1.05rem;
-  }
-  .article-body ul {
-    margin-left: 1.5rem;
-  }
-}
+        .best-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
 
-@media (max-width: 480px) {
-  .article-shell {
-    padding: 5rem 1rem 3rem;
-  }
-  
-  .top-logo {
-    top: 20px;
-    left: 15px;
-    gap: 6px;
-  }
-  .top-logo span:first-child {
-    font-size: 1.5rem;
-  }
-  .top-logo span:last-child {
-    font-size: 1.3rem;
-  }
-  
-  .back-home {
-    font-size: 0.85rem;
-    padding: 0.5rem 1.2rem;
-  }
-  
-  .article-card {
-    border-radius: 20px;
-  }
-  
-  .article-header {
-    padding: 1.5rem 1.5rem 0.8rem;
-  }
-  .article-date span {
-    font-size: 0.85rem;
-    padding: 0.6rem 1.2rem;
-  }
-  .article-header h1 {
-    font-size: 1.6rem;
-    margin-top: 0.8rem;
-  }
-  
-  .article-body {
-    padding: 0.8rem 1.5rem 1.8rem;
-  }
-  .article-body h2 {
-    font-size: 1.4rem;
-    margin: 1.5rem 0 1rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-  .article-body ul {
-    margin-left: 1.2rem;
-  }
-  
-  .footer {
-    padding: 2.5rem 1.5rem;
-  }
-  .footer p {
-    font-size: 0.9rem;
-  }
-}
-</style>
+        .rank-badge {
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .supplier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            margin-left: 25px;
+        }
+        .supplier-name { font-size: 1.4rem; font-weight: 600; color: #f1f5f9; }
+        .tariff-name { color: #94a3b8; font-size: 0.9rem; margin-top: 3px; }
+        .annual-cost { text-align: right; }
+        .cost-amount { font-size: 2rem; font-weight: 700; color: #a855f7; }
+        .tariff-card.best .cost-amount { color: #22c55e; }
+        .cost-label { font-size: 0.75rem; color: #64748b; }
+
+        .savings-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        .savings-tag.positive { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .savings-tag.negative { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .rates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .rate-item { }
+        .rate-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; }
+        .rate-value { font-size: 0.95rem; color: #e0e0e0; font-weight: 500; }
+
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge.green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .badge.blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .badge.yellow { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+        .badge.purple { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .badge.trustpilot { background: rgba(0, 182, 122, 0.2); color: #00b67a; }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .pros h4 { color: #22c55e; font-size: 0.85rem; margin-bottom: 8px; }
+        .cons h4 { color: #ef4444; font-size: 0.85rem; margin-bottom: 8px; }
+        .pros ul, .cons ul { list-style: none; font-size: 0.8rem; color: #94a3b8; }
+        .pros li, .cons li { padding: 3px 0; }
+        .pros li::before { content: "✓ "; color: #22c55e; }
+        .cons li::before { content: "✗ "; color: #ef4444; }
+
+        /* Price Cap Section */
+        .price-cap-section {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .price-cap-section h2 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-cap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .cap-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .cap-item .value { font-size: 1.5rem; font-weight: 700; color: #fbbf24; }
+        .cap-item .label { font-size: 0.8rem; color: #94a3b8; margin-top: 5px; }
+
+        /* Explainer Section */
+        .explainer-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .explainer-section h2 {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .explainer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .explainer-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+        .explainer-item h3 {
+            color: #a855f7;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .explainer-item p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        .footer a { color: #a855f7; text-decoration: none; }
+
+        .elec-only-warning {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            color: #eab308;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .loading { text-align: center; padding: 40px; color: #94a3b8; }
+        .error { text-align: center; padding: 40px; color: #ef4444; }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <a href="/" class="top-logo">
+                <span>✈️</span>
+                <span style="color: #f97316;">⚡</span>
+                <span>SwitchPilot</span>
+            </a>
+            <a href="/" class="home-link" style="color: #64748b; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
+                ← Home
+            </a>
+        </div>
+        <h1>⚡ Energy Tariff Tracker</h1>
+        <p class="subtitle">Compare the cheapest energy deals - updated weekly</p>
+        <p class="updated">Last updated: <span id="lastUpdated">Loading...</span></p>
 
-<!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
-  <span>SwitchPilot</span>
-</div>
-
-<section class="article-shell">
-
-  <div class="energy-grid"></div>
-
-  <div class="article-inner">
-
-    <a href="index.html" class="back-home">← Back Home</a>
-
-    <div class="article-card">
-      <div class="article-header">
-        <div class="article-date"><span>28 November 2025</span></div>
-
-        <h1>🔆 Q1-26 Price Cap Breakdown: What's Changing and What It Means for Bills</h1>
-      </div>
-
-      <div class="article-body">
-
-        <h2>Overview</h2>
-        <p>Ofgem has released the energy price cap for <strong>1 January – 31 March 2026</strong>, setting the typical dual-fuel Direct Debit bill at <strong>£1,758</strong>, an increase of just <strong>£3</strong> from the previous quarter (£1,755).</p>
-
-        <p>While the headline rise looks tiny, the surprising truth is that <strong>actual energy costs fell by £29</strong>.</p>
-
-        <p style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">➜ The drop in real energy costs is being completely wiped out by rising policy and structural costs.</p>
-
-        <h2>Why It's Changing</h2>
-        <ul>
-          <li><strong>Wholesale energy costs fell by £29</strong>.</li>
-          <li><strong>Policy costs increased by £21</strong>, due to Nuclear RAB + higher Warm Home Discount allocation.</li>
-          <li><strong>Operating & industry costs rose by £9</strong> due to benchmark electricity consumption dropping from 3.1 MWh → 2.7 MWh, raising the allowed unit rates.</li>
-        </ul>
-
-        <h2>Impact on Bills</h2>
-        <ul>
-          <li>Small headline change, but higher unit cost per MWh.</li>
-          <li>Policy costs continue to rise every quarter.</li>
-          <li>Fixed tariffs still offer value even with underlying cost pressures.</li>
-        </ul>
-
-        <h2>Policy Cost Breakdown</h2>
-        <ul>
-          <li><strong>Policy cost allowance: £236/year</strong> (energy cost is only £690/year).</li>
-          <li>WHD allowance increases to <strong>£45.83/year</strong>.</li>
-          <li>Nuclear RAB adds ~<strong>£14</strong>.</li>
-        </ul>
-
-        <h2>What This Means for Your Bill</h2>
-        <ul>
-          <li>SVT customers pay more per MWh.</li>
-          <li>Network cost rises likely add <strong>£20–£50</strong> from April 2026.</li>
-          <li>Bills may reach <strong>~£1,800</strong>.</li>
-        </ul>
-
-        <h2>In Summary</h2>
-        <div style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">
-          <ul style="margin: 0;">
-            <li>✓ Small cap rise: <strong>£1,755 → £1,758</strong></li>
-            <li>⚠ Policy-driven costs rising</li>
-            <li>⚠ Further rises expected Q2-26</li>
-            <li>📅 Valid Jan–Mar 2026</li>
-          </ul>
+        <!-- Info Banner -->
+        <div class="info-banner">
+            <div class="icon">💡</div>
+            <div class="text">
+                <h3>Price cap rising to £1,758 in January!*</h3>
+                <p>Fixed deals are currently beating the cap. Lock in a rate now before the January increase. We compare tariffs weekly from multiple suppliers.</p>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">*UK average based on Ofgem typical consumption (2,700 kWh elec + 11,500 kWh gas). Varies by region. Always verify on supplier website.</p>
+                <p style="margin-top: 12px;"><a href="Switching-guide.html" style="color: #a855f7; text-decoration: none; font-weight: 600;">📖 Read our switching guide →</a></p>
+            </div>
         </div>
 
-        <h2>💰 Best Price – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
-        <ul>
-          <li>Likely to outperform cap savings by £210+ by Q2-26.</li>
-          <li>Close competitor: EDF Simply Fixed Nov26v10 (£1,569.34).</li>
-          <li>Fuse now ~£1,619.</li>
-        </ul>
+        <!-- Disclaimer -->
+        <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 10px; padding: 15px; margin-bottom: 25px;">
+            <p style="color: #94a3b8; font-size: 0.8rem; line-height: 1.5; margin: 0;">
+                <strong style="color: #fbbf24;">⚠️ Disclaimer:</strong> This tracker shows representative rates to help you compare tariffs. Availability may vary by postcode, meter type, and payment method. <strong style="color: #e0e0e0;">Always verify on the supplier's website before switching.</strong>
+            </p>
+        </div>
 
-        <h2>💎 Editor's Choice – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
-        <ul>
-          <li>Strong value with falling wholesale + rising structural costs.</li>
-          <li>Electricity standing charges: 34.55p/day (vs EDF 41.39p/day).</li>
-          <li>Gas standing charges slightly favour EDF – overall marginal difference.</li>
-        </ul>
+        <!-- Input Section -->
+        <div class="input-section">
+            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.9rem;">Enter your actual usage from a recent bill, or just pick your household size below for an estimate.</p>
+            <div class="input-grid">
+                <div>
+                    <label>📍 Your Postcode <span class="info-tooltip" title="Region auto-detected from postcode. May not be 100% accurate for border areas - check your electricity bill or manually select region if unsure."><span class="info-icon">i</span></span></label>
+                    <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8" style="text-transform: uppercase;">
+                    <p id="postcodeHint" style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">Enter postcode to auto-detect region</p>
+                </div>
+                <div>
+                    <label>🗺️ Region <span style="font-size: 0.75rem; color: #64748b;">(or select manually)</span></label>
+                    <select id="region">
+                        <option value="London">London</option>
+                        <option value="South East">South East</option>
+                        <option value="South West">South West</option>
+                        <option value="East Midlands">East Midlands</option>
+                        <option value="West Midlands">West Midlands</option>
+                        <option value="Eastern">Eastern</option>
+                        <option value="North West">North West</option>
+                        <option value="North East">North East</option>
+                        <option value="Yorkshire">Yorkshire</option>
+                        <option value="Southern">Southern</option>
+                        <option value="South Wales">South Wales</option>
+                        <option value="North Wales & Merseyside">North Wales & Merseyside</option>
+                        <option value="South Scotland">South Scotland</option>
+                        <option value="North Scotland">North Scotland</option>
+                    </select>
+                </div>
+                <div>
+                    <label>⚡ Electricity (kWh/year)</label>
+                    <input type="number" id="elecUsage" value="2700">
+                </div>
+                <div>
+                    <label>🔥 Gas (kWh/year)</label>
+                    <input type="number" id="gasUsage" value="11500">
+                </div>
+                <div>
+                    <label>🏠 Fuel Type</label>
+                    <select id="fuelType">
+                        <option value="dual">Dual Fuel</option>
+                        <option value="elec">Electricity Only</option>
+                    </select>
+                </div>
+            </div>
+            <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 10px; margin-top: 20px;">Or pick your household size:</p>
+            <div class="preset-buttons">
+                <button class="preset-btn" data-elec="1800" data-gas="7500">🏢 Small (1-2 bed)</button>
+                <button class="preset-btn" data-elec="2700" data-gas="11500">🏠 Medium (Ofgem typical)</button>
+                <button class="preset-btn" data-elec="4300" data-gas="17000">🏡 Large (4+ bed)</button>
+                <button class="preset-btn" data-elec="2000" data-gas="0">⚡ Electricity Only</button>
+            </div>
+            <p style="color: #64748b; font-size: 0.8rem; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(168, 85, 247, 0.2);">
+                📋 Rates shown are for <strong style="color: #94a3b8;">Direct Debit, Standard Meter</strong> customers. Prepayment meter or other payment method rates may differ.
+            </p>
+        </div>
 
-      </div>
+        <!-- Summary Stats -->
+        <div class="stats-grid">
+            <div class="stat-card best">
+                <div class="value" id="bestPrice">-</div>
+                <div class="label">Cheapest Deal</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="capPrice">-</div>
+                <div class="label" id="capLabel">Regional Cap</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="savingsAmount">-</div>
+                <div class="label">You Could Save</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="tariffCount">-</div>
+                <div class="label">Tariffs Compared</div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+            <h2>📊 Top 10 Fixed Deals (Beating The Cap)</h2>
+            <div class="chart-container">
+                <canvas id="tariffChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Price Cap Info -->
+        <div class="price-cap-section">
+            <h2>⚠️ Ofgem Price Cap (Direct Debit, Jan-Mar 2026)</h2>
+            <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.9rem;">The maximum your supplier can charge on a standard variable tariff. All figures include 5% VAT.</p>
+            <div class="price-cap-grid">
+                <div class="cap-item">
+                    <div class="value">£1,758*</div>
+                    <div class="label">GB Average</div>
+                </div>
+                <div class="cap-item">
+                    <div class="value">27.69p</div>
+                    <div class="label">Avg Elec Unit</div>
+                </div>
+                <div class="cap-item">
+                    <div class="value">54.75p</div>
+                    <div class="label">Avg Elec Standing</div>
+                </div>
+                <div class="cap-item">
+                    <div class="value">5.93p</div>
+                    <div class="label">Avg Gas Unit</div>
+                </div>
+            </div>
+            <p style="color: #64748b; margin-top: 15px; font-size: 0.8rem;">*Based on Ofgem's typical domestic consumption: <strong>2,700 kWh electricity</strong> + <strong>11,500 kWh gas</strong> per year. This is the UK average and varies by region. We calculate your exact regional cap based on your selected area and usage (inc 5% VAT).</p>
+        </div>
+
+        <!-- Tariff Cards -->
+        <h2 class="section-title">🏆 Fixed Deals That Beat The Cap in <span id="regionDisplay">London</span></h2>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; margin-top: -10px;">Only showing tariffs cheaper than the Ofgem price cap. No point paying SVT rates!</p>
+        <div class="tariffs-grid" id="tariffsGrid">
+            <div class="loading">Loading tariffs...</div>
+        </div>
+
+        <!-- Explainer Section -->
+        <div class="explainer-section">
+            <h2>📚 Understanding Energy Tariffs</h2>
+            <div class="explainer-grid">
+                <div class="explainer-item">
+                    <h3>🔒 Fixed vs Variable</h3>
+                    <p><strong>Fixed:</strong> Rate locked for 12-24 months. Protects against price rises but may have exit fees.<br><strong>Variable:</strong> Rate can change anytime, usually following the price cap.</p>
+                </div>
+                <div class="explainer-item">
+                    <h3>💷 Standing Charge</h3>
+                    <p>Daily fee you pay regardless of usage (typically 30-60p/day per fuel). This covers meter reading, billing, and grid maintenance.</p>
+                </div>
+                <div class="explainer-item">
+                    <h3>⚡ Unit Rate</h3>
+                    <p>Cost per kWh of energy used. This is where most of your bill comes from. Lower is better, but watch the standing charge too!</p>
+                </div>
+                <div class="explainer-item">
+                    <h3>🚪 Exit Fees</h3>
+                    <p>Fee to leave a fixed tariff early (typically £25-100 per fuel). No exit fees on variable tariffs or when contract ends.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What You're Paying For Section -->
+        <div class="breakdown-section" style="background: rgba(255, 255, 255, 0.03); border-radius: 16px; padding: 25px; margin-bottom: 30px;">
+            <h2 style="color: #e0e0e0; font-size: 1.2rem; margin-bottom: 20px;">💰 What You're Actually Paying For</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #a855f7; font-size: 1rem; margin-bottom: 12px;">📊 Standing Charge (Nil kWh)</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">What you pay even with zero usage. Higher standing charges mean you're funding:</p>
+                    <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Policy costs</strong> - government green levies & schemes</li>
+                        <li><strong>Network costs</strong> - maintaining pipes & wires to your home</li>
+                        <li><strong>Metering</strong> - smart meter rollout & readings</li>
+                        <li><strong>Supplier costs</strong> - billing, customer service, bad debt</li>
+                    </ul>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 12px;">💡 Standing charges vary by region due to different network costs (DNO areas).</p>
+                </div>
+                <div style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #ec4899; font-size: 1rem; margin-bottom: 12px;">⚡ Unit Rate (per kWh)</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">What you pay per kWh consumed. Higher unit rates mean you're funding more:</p>
+                    <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Wholesale costs</strong> - actual cost of gas & electricity</li>
+                        <li><strong>Balancing costs</strong> - keeping the grid stable</li>
+                        <li><strong>Losses</strong> - energy lost in transmission</li>
+                        <li><strong>Supplier margin</strong> - their profit (typically 1-2%)</li>
+                    </ul>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 12px;">💡 Low users benefit from low standing charges. High users benefit from low unit rates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGO Disclaimer -->
+        <div class="disclaimer-section" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.05)); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 16px; padding: 25px; margin-bottom: 30px;">
+            <h2 style="color: #22c55e; font-size: 1.2rem; margin-bottom: 15px;">🌱 What Does "100% Renewable" Actually Mean?</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                When a supplier claims "100% renewable electricity", they've purchased <strong style="color: #22c55e;">REGOs</strong> (Renewable Energy Guarantees of Origin) or signed <strong style="color: #22c55e;">PPAs</strong> (Power Purchase Agreements) with UK renewable generators.
+            </p>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                <strong style="color: #fbbf24;">However:</strong> The electricity physically coming into your home is from the National Grid - a mix of wind, solar, nuclear, gas, and other sources. You can't choose which electrons reach your socket!
+            </p>
+            <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.7;">
+                Think of it like this: everyone draws from the same pool of water, but green tariffs pay to add more clean water to that pool. Your money supports renewable generation, even if your actual electrons are mixed source. <em style="color: #64748b;">(Note: Some suppliers like Fuse Energy choose not to claim 100% renewable for this reason, preferring transparency over REGO-backed marketing.)</em>
+            </p>
+        </div>
+
+        <!-- Ready to Switch Box -->
+        <div style="max-width:800px;margin:3rem auto 0;background:rgba(168, 85, 247, 0.1);border:1px solid rgba(168, 85, 247, 0.3);padding:2rem;border-radius:16px;text-align:center;">
+            <h3 style="font-size:1.3rem;font-weight:700;margin:0 0 0.8rem 0;color:#e0e0e0;">📖 Ready to switch?</h3>
+            <p style="font-size:1rem;margin:0 0 1.2rem 0;color:#94a3b8;">Not sure how switching works? Our insider guide covers everything - the 5-day process, exit fees, what to check, and common myths debunked.</p>
+            <a href="Switching-guide.html" style="display:inline-block;padding:0.8rem 2rem;background:rgba(168, 85, 247, 0.2);border:1px solid #a855f7;color:#a855f7;text-decoration:none;border-radius:10px;font-weight:600;transition:all 0.2s;">Read the Switching Guide →</a>
+        </div>
+
+        <!-- CTA -->
+        <div style="max-width:800px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
+            <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">This is just a preview</h3>
+            <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">While we build the real auto-switching service, join our waitlist to help shape what we build and get early access when we launch</p>
+            <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
+        </div>
+
+        <div class="footer">
+            <p>Data updated weekly from supplier websites. Rates are indicative - always confirm with supplier.</p>
+            <p style="margin-top: 10px;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;">flightcrew@switch-pilot.com</a></p>
+            <p style="margin-top: 10px;">Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>
+        </div>
     </div>
 
-    <!-- CTA -->
-    <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want weekly insights like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for early access to free auto-switching and more breakdowns of what you're actually paying for</p>
-      <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
-    </div>
-  </div>
-</section>
+    <script>
+        let tariffData = { tariffs: [], updated: null };
+        let chart = null;
 
-<footer class="footer">
-  <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
-  <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
-</footer>
+        // Supplier info
+        const supplierInfo = {
+    'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
+    'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable', trustpilot: 4.5 },
+    'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix', trustpilot: 4.3 },
+    'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable', trustpilot: 4.6 },
+    'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable', trustpilot: 4.3 },
+    'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
+    'fuse_energy': { name: 'Fuse Energy', color: '#ff8c00', green: false, greenNote: 'Standard mix', trustpilot: 4.7 }
+};
 
+        // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+        // Source: https://www.ofgem.gov.uk/energy-price-cap
+        // Standing charges in p/day, unit rates in p/kWh
+        const capRatesByRegion = {
+            'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+            'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+            'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+            'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+            'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+            'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+            'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+            'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+            'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+            'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+            'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+            'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+            'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+            'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
+        };
+
+        async function loadData() {
+            try {
+                const response = await fetch('./all_tariffs.json');
+                if (!response.ok) throw new Error('Failed to load');
+                tariffData = await response.json();
+                
+                if (tariffData.updated) {
+                    const date = new Date(tariffData.updated);
+                    document.getElementById('lastUpdated').textContent = date.toLocaleDateString('en-GB', {
+                        day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                    });
+                }
+                
+                render();
+            } catch (e) {
+                console.error(e);
+                document.getElementById('tariffsGrid').innerHTML = '<div class="error">Failed to load tariff data. Please refresh the page.</div>';
+            }
+        }
+
+        function calculateCost(tariff, elecKwh, gasKwh, fuelType) {
+            let total = 0;
+            
+            if (fuelType === 'dual' || fuelType === 'elec') {
+                if (tariff.elec_unit_rate_p && tariff.elec_standing_p) {
+                    total += (tariff.elec_standing_p / 100) * 365;
+                    total += (tariff.elec_unit_rate_p / 100) * elecKwh;
+                }
+            }
+            
+            if (fuelType === 'dual') {
+                if (tariff.gas_unit_rate_p && tariff.gas_standing_p) {
+                    total += (tariff.gas_standing_p / 100) * 365;
+                    total += (tariff.gas_unit_rate_p / 100) * gasKwh;
+                }
+            }
+            
+            return total;
+        }
+
+        function calculateCapCost(elecKwh, gasKwh, fuelType, region) {
+            const rates = capRatesByRegion[region] || capRatesByRegion['London'];
+            
+            // Calculate from actual unit rates and standing charges (already inc 5% VAT)
+            // Standing charge: p/day × 365 days / 100 = £/year
+            // Unit cost: p/kWh × kWh / 100 = £/year
+            
+            let total = 0;
+            
+            if (fuelType === 'elec' || fuelType === 'dual') {
+                total += (rates.elecStanding * 365) / 100;  // Standing charge
+                total += (rates.elecUnit * elecKwh) / 100;   // Unit cost
+            }
+            
+            if (fuelType === 'dual') {
+                total += (rates.gasStanding * 365) / 100;   // Standing charge
+                total += (rates.gasUnit * gasKwh) / 100;     // Unit cost
+            }
+            
+            return total;
+        }
+
+        function isElecOnly(tariff) {
+            return !tariff.gas_unit_rate_p || !tariff.gas_standing_p;
+        }
+        
+        function isValidTariff(tariff, fuelType) {
+            // Must have tariff name
+            if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+            
+            // Must not have error
+            if (tariff.error) return false;
+            
+            // For elec-only or dual fuel, must have elec rates
+            if (fuelType === 'elec' || fuelType === 'dual') {
+                if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+                if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+            }
+            
+            // For dual fuel, must have gas rates
+            if (fuelType === 'dual') {
+                if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+                if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+            }
+            
+            return true;
+        }
+
+        function getExitFee(tariff, fuelType = 'dual') {
+            // Check if displaying as dual fuel
+            const showAsDualFuel = fuelType === 'dual' && 
+                                   tariff.gas_unit_rate_p && tariff.gas_standing_p && 
+                                   tariff.elec_unit_rate_p && tariff.elec_standing_p;
+            
+            // No exit fee
+            if (!tariff.exit_fee_gbp || tariff.exit_fee_gbp === '£0' || tariff.exit_fee_gbp === 0) {
+                return '£0';
+            }
+            
+            // If it's a number
+            if (typeof tariff.exit_fee_gbp === 'number') {
+                const fee = tariff.exit_fee_gbp;
+                
+                if (showAsDualFuel) {
+                    // If fee >= 75, assume it's already TOTAL (e.g. £100 = £50 per fuel)
+                    // If fee < 75, assume it's per fuel (e.g. £50 per fuel = £100 total)
+                    if (fee >= 75) {
+                        const perFuel = fee / 2;
+                        return `£${fee.toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
+                    } else {
+                        const total = fee * 2;
+                        return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
+                    }
+                } else {
+                    // Elec only - show single fuel fee
+                    if (fee >= 75) {
+                        return `£${(fee / 2).toFixed(0)}`;
+                    } else {
+                        return `£${fee.toFixed(0)}`;
+                    }
+                }
+            }
+            
+            // If it's a string
+            let feeStr = tariff.exit_fee_gbp.replace(/\\u00a3/g, '£');
+            
+            // Extract number from string
+            const match = feeStr.match(/£?(\d+(?:\.\d+)?)/);
+            if (match) {
+                const fee = parseFloat(match[1]);
+                
+                if (showAsDualFuel) {
+                    if (fee >= 75) {
+                        const perFuel = fee / 2;
+                        return `£${fee.toFixed(0)} total (£${perFuel.toFixed(0)} per fuel)`;
+                    } else {
+                        const total = fee * 2;
+                        return `£${total.toFixed(0)} total (£${fee.toFixed(0)} per fuel)`;
+                    }
+                } else {
+                    // Elec only
+                    if (fee >= 75) {
+                        return `£${(fee / 2).toFixed(0)}`;
+                    } else {
+                        return `£${fee.toFixed(0)}`;
+                    }
+                }
+            }
+            
+            // Return as-is (couldn't parse)
+            return feeStr;
+        }
+
+        function getPros(tariff, savings, supplier, fuelType) {
+            const pros = [];
+            if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
+            if (supplier?.green) pros.push(supplier.greenNote);
+            if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
+            if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
+            return pros.slice(0, 3);
+        }
+
+        function getCons(tariff, savings, supplier, fuelType) {
+            const cons = [];
+            const exitFee = getExitFee(tariff, fuelType);
+            if (!exitFee.includes('£0')) cons.push(`Exit fee: ${exitFee}`);
+            // Only show "Electricity only" as con when viewing dual fuel
+            if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
+            if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
+            if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
+            return cons.slice(0, 3);
+        }
+
+        function render() {
+            const region = document.getElementById('region').value;
+            const elecUsage = parseInt(document.getElementById('elecUsage').value) || 2700;
+            const gasUsage = parseInt(document.getElementById('gasUsage').value) || 11500;
+            const fuelType = document.getElementById('fuelType').value;
+
+            document.getElementById('regionDisplay').textContent = region;
+
+            // Calculate cap cost
+            const capCost = calculateCapCost(elecUsage, gasUsage, fuelType, region);
+
+            // Filter and calculate
+            let filtered = tariffData.tariffs
+                .filter(t => t.region === region)
+                .filter(t => isValidTariff(t, fuelType))  // Validate complete data first
+                .filter(t => {
+                    // Remove SVT and standard tariffs - we only want fixed deals that beat the cap
+                    const name = (t.tariff_name || '').toLowerCase().trim();
+                    if (name.includes('variable') || name.includes('svt') || name.includes('standard')) return false;
+                    return true;
+                })
+                .map(t => ({
+                    ...t,
+                    annualCost: calculateCost(t, elecUsage, gasUsage, fuelType),
+                    isElecOnly: isElecOnly(t),
+                    savings: capCost - calculateCost(t, elecUsage, gasUsage, fuelType)
+                }))
+                .filter(t => {
+                    if (fuelType === 'dual' && t.isElecOnly) return false;
+                    if (t.annualCost <= 0) return false;
+                    // Only show tariffs that actually beat the cap
+                    if (t.savings < 0) return false;
+                    return true;
+                })
+                .sort((a, b) => a.annualCost - b.annualCost);
+
+            // Update stats
+            document.getElementById('capPrice').textContent = `£${Math.round(capCost)}`;
+            document.getElementById('capLabel').textContent = `Cap (${region.length > 10 ? region.substring(0, 8) + '...' : region})`;
+            document.getElementById('tariffCount').textContent = filtered.length;
+            
+            if (filtered.length > 0) {
+                document.getElementById('bestPrice').textContent = `£${Math.round(filtered[0].annualCost)}`;
+                document.getElementById('savingsAmount').textContent = `£${Math.round(filtered[0].savings)}/yr`;
+            } else {
+                document.getElementById('bestPrice').textContent = '-';
+                document.getElementById('savingsAmount').textContent = '-';
+            }
+
+            // Update chart
+            updateChart(filtered.slice(0, 10), capCost);
+
+            // Render cards (top 5)
+            const top5 = filtered.slice(0, 5);
+            const grid = document.getElementById('tariffsGrid');
+            
+            if (top5.length === 0) {
+                grid.innerHTML = '<div class="loading">No fixed deals currently beat the price cap for this region/fuel type. Check back soon!</div>';
+                return;
+            }
+
+            grid.innerHTML = top5.map((tariff, index) => {
+                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#a855f7', green: false };
+                const pros = getPros(tariff, tariff.savings, supplier, fuelType);
+                const cons = getCons(tariff, tariff.savings, supplier, fuelType);
+                
+                // Show gas rates only if dual fuel mode AND tariff has gas rates
+                const showGasRates = fuelType === 'dual' && !tariff.isElecOnly;
+                
+                // Fix tariff name if it's the same as supplier (data bug)
+                let displayTariffName = tariff.tariff_name || supplier.name + ' Standard';
+                if (displayTariffName === tariff.supplier || displayTariffName === supplier.name) {
+                    displayTariffName = 'Standard Tariff';
+                }
+                
+                return `
+                    <div class="tariff-card ${index === 0 ? 'best' : ''}">
+                        ${index === 0 ? '<div class="best-badge">🏆 Best Deal</div>' : ''}
+                        <div class="rank-badge">#${index + 1}</div>
+                        
+                        <div class="supplier-header">
+                            <div>
+                                <div class="supplier-name" style="color: ${supplier.color}">${supplier.name}</div>
+                                <div class="tariff-name">${displayTariffName}</div>
+                            </div>
+                            <div class="annual-cost">
+                                <div class="cost-amount">£${Math.round(tariff.annualCost)}</div>
+                                <div class="cost-label">per year</div>
+                                ${tariff.savings > 0 
+                                    ? `<div class="savings-tag positive">Save £${Math.round(tariff.savings)}</div>`
+                                    : `<div class="savings-tag negative">£${Math.abs(Math.round(tariff.savings))} more</div>`
+                                }
+                            </div>
+                        </div>
+
+                        <div class="card-badges">
+                            ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
+                            ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
+                            ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
+                            ${supplier.trustpilot ? `<span class="badge trustpilot" style="background: ${supplier.trustpilot >= 4.5 ? 'rgba(0, 182, 122, 0.2)' : supplier.trustpilot >= 4 ? 'rgba(255, 200, 0, 0.2)' : 'rgba(255, 77, 77, 0.2)'}; color: ${supplier.trustpilot >= 4.5 ? '#00b67a' : supplier.trustpilot >= 4 ? '#e6a700' : '#ff4d4d'}">⭐ ${supplier.trustpilot} on Trustpilot</span>` : ''}
+                        </div>
+
+                        <div class="rates-grid">
+                            <div class="rate-item">
+                                <div class="rate-label">Elec Unit</div>
+                                <div class="rate-value">${tariff.elec_unit_rate_p?.toFixed(2) || '-'}p/kWh</div>
+                            </div>
+                            <div class="rate-item">
+                                <div class="rate-label">Elec Standing</div>
+                                <div class="rate-value">${tariff.elec_standing_p?.toFixed(2) || '-'}p/day</div>
+                            </div>
+                            ${showGasRates ? `
+                            <div class="rate-item">
+                                <div class="rate-label">Gas Unit</div>
+                                <div class="rate-value">${tariff.gas_unit_rate_p?.toFixed(2) || '-'}p/kWh</div>
+                            </div>
+                            <div class="rate-item">
+                                <div class="rate-label">Gas Standing</div>
+                                <div class="rate-value">${tariff.gas_standing_p?.toFixed(2) || '-'}p/day</div>
+                            </div>
+                            ` : ''}
+                        </div>
+
+                        ${tariff.isElecOnly && fuelType === 'dual' ? '<div class="elec-only-warning">⚡ Electricity only - you\'ll need separate gas</div>' : ''}
+
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <h4>✓ Pros</h4>
+                                <ul>${pros.map(p => `<li>${p}</li>`).join('')}</ul>
+                            </div>
+                            <div class="cons">
+                                <h4>✗ Cons</h4>
+                                <ul>${cons.length > 0 ? cons.map(c => `<li>${c}</li>`).join('') : '<li>None significant</li>'}</ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateChart(tariffs, capCost) {
+            const ctx = document.getElementById('tariffChart').getContext('2d');
+            
+            const labels = tariffs.map(t => {
+                const supplier = supplierInfo[t.supplier]?.name || t.supplier;
+                const tariffName = t.tariff_name || 'Standard';
+                const full = supplier + ' - ' + tariffName;
+                return full.length > 28 ? full.substring(0, 25) + '...' : full;
+            });
+            
+            const data = tariffs.map(t => Math.round(t.annualCost));
+            const colors = tariffs.map((t, i) => i === 0 ? '#22c55e' : '#a855f7');
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Annual Cost (£)',
+                        data: data,
+                        backgroundColor: colors,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#94a3b8', callback: v => '£' + v }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#e0e0e0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listeners
+        document.querySelectorAll('select, input').forEach(el => {
+            el.addEventListener('change', render);
+            el.addEventListener('input', render);
+        });
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('elecUsage').value = this.dataset.elec;
+                document.getElementById('gasUsage').value = this.dataset.gas;
+                if (this.dataset.gas === '0') {
+                    document.getElementById('fuelType').value = 'elec';
+                } else {
+                    document.getElementById('fuelType').value = 'dual';
+                }
+                render();
+            });
+        });
+
+        // Load data on page load
+        loadData();
+
+        // Postcode to Region mapping (based on DNO areas)
+        const postcodeToRegion = {
+            // London
+            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
+            'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+            // South East
+            'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
+            'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
+            'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
+            // South West
+            'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
+            'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
+            'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
+            // Southern
+            'GU': 'Southern', 'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
+            'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
+            // Eastern
+            'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
+            'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
+            'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
+            'SS': 'Eastern', 'WD': 'Eastern',
+            // East Midlands
+            'DE': 'East Midlands', 'DN': 'East Midlands', 'LE': 'East Midlands',
+            'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
+            'S': 'East Midlands',
+            // West Midlands
+            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
+            'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
+            'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
+            // North West
+            'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
+            'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
+            'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
+            'WN': 'North West',
+            // North East
+            'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
+            'TS': 'North East',
+            // Yorkshire
+            'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
+            'HX': 'Yorkshire', 'LS': 'Yorkshire', 'S': 'Yorkshire', 'WF': 'Yorkshire',
+            'YO': 'Yorkshire', 'DN': 'Yorkshire',
+            // South Wales
+            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales',
+            // North Wales & Merseyside
+            'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
+            'SY': 'North Wales & Merseyside',
+            // South Scotland
+            'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
+            'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
+            'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
+            // North Scotland
+            'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
+            'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
+            'HS': 'North Scotland'
+        };
+
+        function getRegionFromPostcode(postcode) {
+            // Clean the postcode
+            const cleaned = postcode.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (cleaned.length < 2) return null;
+            
+            // Try two-letter prefix first (e.g., SW, NW, SE)
+            const twoLetter = cleaned.substring(0, 2);
+            if (postcodeToRegion[twoLetter]) {
+                return postcodeToRegion[twoLetter];
+            }
+            
+            // Try one-letter prefix (e.g., E, N, W, B, G, L, M, S)
+            const oneLetter = cleaned.substring(0, 1);
+            if (postcodeToRegion[oneLetter]) {
+                return postcodeToRegion[oneLetter];
+            }
+            
+            return null;
+        }
+
+        // Postcode input handler
+        document.getElementById('postcode').addEventListener('input', function() {
+            const postcode = this.value;
+            const hint = document.getElementById('postcodeHint');
+            const region = getRegionFromPostcode(postcode);
+            
+            if (region) {
+                document.getElementById('region').value = region;
+                hint.style.color = '#22c55e';
+                hint.textContent = '✓ Region detected: ' + region;
+                render();
+            } else if (postcode.length >= 2) {
+                hint.style.color = '#eab308';
+                hint.textContent = 'Region not found - select manually below';
+            } else {
+                hint.style.color = '#64748b';
+                hint.textContent = 'Enter postcode to auto-detect region';
+            }
+        });
+    </script>
 </body>
 </html>

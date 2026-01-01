@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Switch Energy Supplier: The Insider's Guide | SwitchPilot</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0c0e1f 0%, #1a1d3a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 40px 60px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .top-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 30px;
+        }
+        .top-logo:hover { opacity: 0.8; }
+
+        h1 {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle { 
+            color: #94a3b8; 
+            margin-bottom: 30px; 
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            color: #a855f7;
+            font-size: 2rem;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #ec4899;
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            margin-left: 30px;
+            color: #cbd5e1;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #e0e0e0;
+        }
+
+        a {
+            color: #a855f7;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.2s;
+        }
+        a:hover {
+            color: #ec4899;
+            border-bottom-color: rgba(236, 72, 153, 0.5);
+        }
+
+        .disclaimer {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .disclaimer h4 {
+            color: #ec4899;
+            margin-top: 0;
+        }
+
+        .info-box {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #fbbf24;
+            margin-top: 0;
+        }
+
+        .success-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box strong {
+            color: #22c55e;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            color: #e0e0e0;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .checklist {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            color: #a855f7;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        th {
+            background: rgba(168, 85, 247, 0.2);
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .myth {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-left: 3px solid #ec4899;
+        }
+
+        .myth-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        code {
+            background: rgba(168, 85, 247, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px 25px; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://switchpilot.uk" class="top-logo">
+            ⚡ SwitchPilot
+        </a>
+
+        <h1>How to Switch Energy Supplier</h1>
+        <p class="subtitle">The insider's guide - written by people who actually work in the industry</p>
+
+        <div class="disclaimer">
+            <h4>⚠️ Important Disclaimer</h4>
+            <p><strong>This guide is for informational purposes only.</strong> While we work in the energy industry and have researched Ofgem regulations, energy supply rules can change and individual circumstances vary.</p>
+            <p><strong>Always:</strong></p>
+            <ul>
+                <li>Check your specific contract terms before switching</li>
+                <li>Verify current Ofgem rules at <a href="https://www.ofgem.gov.uk" target="_blank">ofgem.gov.uk</a></li>
+                <li>Contact your supplier directly for your exact situation</li>
+                <li>Read all terms and conditions before signing up with a new supplier</li>
+            </ul>
+            <p>We've done our best to ensure accuracy, but we're not providing legal or financial advice. Do your own research and make informed decisions.</p>
+        </div>
+
+        <h2>TL;DR - It's Stupidly Easy</h2>
+        
+        <ol>
+            <li>Find a better tariff (use our <a href="https://switchpilot.uk/tariff-tracker">tracker</a>)</li>
+            <li>Sign up online with new supplier (10 minutes max)</li>
+            <li><strong>They do everything else</strong></li>
+            <li>Switch completes in <strong>5 working days</strong></li>
+            <li>Save money</li>
+        </ol>
+
+        <div class="success-box">
+            <p><strong>✓ Your power stays on (legally guaranteed)</strong></p>
+            <p><strong>✓ No engineer needed</strong></p>
+            <p><strong>✓ 14-day cooling off period - cancel free if you change your mind</strong></p>
+            <p><strong>✓ £30 automatic compensation if it takes longer than 5 days</strong></p>
+        </div>
+
+        <p>If suppliers make this hard, that's their problem and their loss for making it difficult.</p>
+
+        <h2>What You'll Need (The Bare Minimum)</h2>
+
+        <p>Realistically, you need:</p>
+
+        <ul>
+            <li><strong>Your address</strong> (obviously)</li>
+            <li><strong>Current supplier name</strong> (check a recent email if you forgot)</li>
+            <li><strong>Bank details</strong> (if paying by Direct Debit - most people do, but not required)</li>
+        </ul>
+
+        <p><strong>That's genuinely it for most switches.</strong></p>
+
+        <h3>Helpful But Not Always Required:</h3>
+
+        <ul>
+            <li><strong>Meter readings</strong> (supplier will estimate if you don't have them, but better to provide)</li>
+            <li><strong>MPAN number</strong> (electricity - 13 digits on your bill, starts with something like "10 012...")</li>
+            <li><strong>MPRN number</strong> (gas - 6-10 digits, usually starts with "G...")</li>
+            <li><strong>Current tariff name</strong> (nice to know but not required)</li>
+        </ul>
+
+        <p>Don't stress about finding these. Modern switching systems can work without them - your new supplier will sort it. Having them just speeds things up slightly.</p>
+
+        <h2>Step-by-Step: How to Switch</h2>
+
+        <h3>Step 1: Find a Better Tariff</h3>
+
+        <p>Use our <a href="https://switchpilot.uk/tariff-tracker">tariff tracker</a> - zero commission bias, updated weekly.</p>
+
+        <div class="info-box">
+            <p><strong>💡 Insider tip:</strong> Don't just look at monthly cost - check <strong>unit rates</strong> (p/kWh) and <strong>standing charges</strong> (p/day). These matter more than the estimated bill.</p>
+        </div>
+
+        <h3>Step 2: Check for Exit Fees (If You Care)</h3>
+
+        <p>If you're on a <strong>fixed tariff</strong>, you <em>might</em> have exit fees.</p>
+
+        <h4>Quick check:</h4>
+        <ul>
+            <li>Log into your supplier account</li>
+            <li>Look for "contract end date"</li>
+            <li>Check for "exit fees" or "early termination charges"</li>
+        </ul>
+
+        <h4>Insider reality:</h4>
+        <ul>
+            <li>Most exit fees are £30-60 per fuel (£60-120 for dual fuel)</li>
+            <li>If savings beat exit fees within 6 months, switch anyway</li>
+            <li><strong>No exit fees within 49 days of contract end</strong> - Ofgem rule</li>
+            <li>No contract end date? You're on rolling contract - <strong>zero exit fees</strong></li>
+            <li>Honestly, if you're saving £200+/year, pay the exit fee and move on</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Example:</strong><br>
+            Exit fee: £60<br>
+            New tariff saves: £20/month<br>
+            Break even: 3 months<br>
+            After 3 months: pure £20/month savings = £240/year profit</p>
+        </div>
+
+        <h3>Step 3: Check If You Have Debt</h3>
+
+        <div class="warning-box">
+            <h4>⚠️ IMPORTANT - Debt Blocking Rules</h4>
+            <p><strong>You CANNOT switch if:</strong></p>
+            <ul>
+                <li>You've owed money to your current supplier for <strong>more than 28 days</strong></li>
+                <li>You need to settle the debt first before you can switch</li>
+            </ul>
+            
+            <p><strong>You CAN switch if:</strong></p>
+            <ul>
+                <li>You've been in debt for <strong>less than 28 days</strong> - the debt will be added to your final bill</li>
+                <li>You have a prepayment meter and owe up to <strong>£500 per fuel</strong> (max £1,000 total for gas + electric)</li>
+            </ul>
+        </div>
+
+        <p>Not sure if you owe money? Log into your supplier account and check your balance. In credit = green light to switch. In debit = check how long you've owed for.</p>
+
+        <h3>Step 4: Sign Up With New Supplier</h3>
+
+        <p>Go to their website, click "Switch to us", fill in a form.</p>
+
+        <h4>They'll ask for:</h4>
+        <ul>
+            <li>Your address</li>
+            <li>Current supplier name</li>
+            <li>Meter readings (if you have them)</li>
+            <li>MPAN/MPRN (if you have them - if not, they'll find them)</li>
+            <li>Payment method (Direct Debit, prepayment, or monthly payment card)</li>
+            <li>Preferred switch date (or just click "ASAP")</li>
+        </ul>
+
+        <p><strong>Takes 10 minutes. Then you're done.</strong></p>
+
+        <div class="info-box">
+            <p><strong>💡 Red flag:</strong> If their signup process is painful or confusing, find a different supplier. It's 2026 - easy onboarding = good customer service. Complicated onboarding = run away.</p>
+        </div>
+
+        <h3>Step 5: They Do Everything Else</h3>
+
+        <p><strong>Seriously - you're done.</strong> Your new supplier:</p>
+
+        <ul>
+            <li>Contacts your old supplier</li>
+            <li>Arranges the switch via industry systems</li>
+            <li>Tells you when it's happening</li>
+            <li>Handles all the admin</li>
+        </ul>
+
+        <p><strong>Your job:</strong> Literally nothing. Wait for emails.</p>
+
+        <h4>You'll get:</h4>
+        <ul>
+            <li>Confirmation email immediately</li>
+            <li><strong>14-day cooling off period</strong> (change your mind free, no penalty, no questions asked)</li>
+            <li>Switch completion notification after ~5 working days</li>
+        </ul>
+
+        <div class="warning-box">
+            <h4>⚠️ Don't cancel your old Direct Debit yet</h4>
+            <p>Wait until you've received and paid your final bill from your old supplier. Cancelling too early can cause billing issues.</p>
+        </div>
+
+        <h3>Step 6: Switch Completes (5 Working Days)</h3>
+
+        <p>As of 2022, Ofgem rules state switches must complete within <strong>5 working days</strong> (used to be 21 days).</p>
+
+        <h4>What happens:</h4>
+        <ul>
+            <li>Your power stays on throughout (legally required - cannot go off)</li>
+            <li>No engineer visit needed</li>
+            <li>No interruption to supply</li>
+            <li>Old supplier sends final bill (within 6 weeks)</li>
+            <li>New supplier starts billing you from switch date</li>
+        </ul>
+
+        <div class="success-box">
+            <p><strong>✓ Automatic £30 compensation if delayed</strong></p>
+            <p>From April 2024, if your new supplier takes longer than 5 working days to complete the switch, they must pay you £30 compensation automatically. You don't have to do anything - it goes into your account or comes as a cheque.</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>💡 Insider tip:</strong> Take meter readings on switch completion date and submit to BOTH suppliers. This prevents billing disputes and estimated bills.</p>
+        </div>
+
+        <h3>Step 7: Settle Up & Done</h3>
+
+        <ul>
+            <li>Old supplier sends final bill (within 6 weeks)</li>
+            <li>Pay any balance owed, or get refund if in credit (within 10 working days by law)</li>
+            <li>Cancel old Direct Debit once final bill is settled</li>
+            <li>Job done</li>
+        </ul>
+
+        <p><strong>Total effort on your part: 10 minutes signup + 2 minutes taking readings.</strong></p>
+
+        <p>If suppliers make this harder than that, <strong>that's their problem</strong> for losing customers to competitors who make it easy.</p>
+
+        <h2>Common Myths Debunked</h2>
+
+        <div class="myth">
+            <div class="myth-icon">❌</div>
+            <div>
+                <h4>"Sounds complicated"</h4>
+                <p>It's not. You fill in one form, they do everything else. If it feels complicated, you're overthinking it or the supplier has terrible UX.</p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">❌</div>
+            <div>
+                <h4>"Will my power go off during the switch?"</h4>
+                <p>No. Illegal. Cannot happen. Supply continuity is guaranteed by law. Your electricity and gas stay on throughout.</p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">✅</div>
+            <div>
+                <h4>"What if I pick the wrong supplier?"</h4>
+                <p>14-day cooling off period - cancel free if you change your mind. After that? Just switch again. No limit on how often you can switch.</p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">❌</div>
+            <div>
+                <h4>"Do I need an engineer to visit?"</h4>
+                <p>No. Everything is done remotely via industry systems. No one needs to visit your property.</p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">⚠️</div>
+            <div>
+                <h4>"Will my smart meter stop working?"</h4>
+                <p>Older SMETS1 meters (installed before 2018) might lose smart functionality when you switch. They still work as normal meters - you just have to submit readings manually. Newer SMETS2 meters (2018+) stay smart after switching.</p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">❌</div>
+            <div>
+                <h4>"Do I have to use Direct Debit?"</h4>
+                <p>No. Most people do because it's easiest and usually cheapest, but you can pay by:
+                    <ul>
+                        <li>Prepayment meter (top-up as you go)</li>
+                        <li>Monthly payment card</li>
+                        <li>Bank transfer (some suppliers)</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">❌</div>
+            <div>
+                <h4>"Can I switch if I owe money?"</h4>
+                <p><strong>It depends:</strong>
+                    <ul>
+                        <li>Debt less than 28 days old? Yes - added to final bill</li>
+                        <li>Debt more than 28 days old? No - settle it first</li>
+                        <li>Prepayment meter with debt under £500 per fuel? Yes</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="myth">
+            <div class="myth-icon">⚠️</div>
+            <div>
+                <h4>"Will I lose my payment plan?"</h4>
+                <p>Yes. Payment plans (for debt repayment) don't transfer to new suppliers. Discuss with your new supplier before switching if you're on one.</p>
+            </div>
+        </div>
+
+        <h2>Insider Tips They Don't Tell You</h2>
+
+        <h3>1. Switch Mid-Contract If Savings Justify It</h3>
+        <p>Don't wait for your fixed tariff to end if a cheaper deal exists now. Do the math:</p>
+        
+        <div class="info-box">
+            <p><strong>Simple calculation:</strong><br>
+            Savings per month × 6 months > Exit fee? Switch immediately.</p>
+            
+            <p><strong>Example:</strong><br>
+            Exit fee: £60<br>
+            New tariff saves: £20/month<br>
+            Break even: 3 months<br>
+            After 3 months: pure savings</p>
+        </div>
+
+        <h3>2. NEVER Auto-Renew a Fixed Tariff</h3>
+        <p>When your fixed tariff ends, suppliers automatically roll you onto their <strong>Standard Variable Tariff</strong> (default rate). This is usually £200-400/year more expensive than switching to a new fixed deal.</p>
+        
+        <p><strong>Set a calendar reminder 6-7 weeks before your contract ends</strong> and shop around for new deals.</p>
+
+        <div class="info-box">
+            <p><strong>💡 We've got you covered:</strong> Our <a href="https://switchpilot.uk/#waitlist">newsletter</a> will remind you when it's time to switch. And we're building auto-switching so we can handle the whole process for you - no more calendar reminders needed.</p>
+        </div>
+
+        <h3>3. Use the 14-Day Cooling Off as a Test Drive</h3>
+        <p>Not sure about a supplier? Switch anyway, test their customer service for 2 weeks, cancel free if it's terrible. Zero risk.</p>
+
+        <h3>4. Don't Switch for Tiny Savings</h3>
+        <p>Switching for £5-10/year savings isn't worth the admin. <strong>Minimum £50/year savings</strong> is a good rule of thumb.</p>
+        
+        <p>But if you're on an expensive default tariff overpaying £200+/year? Switch immediately.</p>
+
+        <h3>5. Most Comparison Sites Are Biased</h3>
+        <p>Sites like MoneySuperMarket, Uswitch, etc. earn commission when you switch through their links. This can bias results - they won't show you tariffs from suppliers who don't pay them commission.</p>
+        
+        <p><strong>We built SwitchPilot specifically to avoid this.</strong> Zero commission, just data.</p>
+
+        <h3>6. Submit Meter Readings on Switch Date</h3>
+        <p>Take readings the day your switch completes and submit to BOTH old and new suppliers. This prevents:</p>
+        <ul>
+            <li>Estimated bills from old supplier (usually overestimate to get more money)</li>
+            <li>Disputes about who owes what</li>
+            <li>Delays to your final bill/refund</li>
+        </ul>
+
+        <h3>7. Don't Overthink It</h3>
+        <p>Paralysis by analysis is costing you money. Pick a cheaper tariff, switch, move on with your life. You can always switch again later if something better comes up.</p>
+
+        <h2>What If Something Goes Wrong?</h2>
+
+        <h3>Switch Delayed Beyond 5 Days</h3>
+        <p>Contact your new supplier - they're responsible. You're entitled to automatic £30 compensation from April 2024.</p>
+
+        <h3>Being Charged by Both Suppliers</h3>
+        <p>Take meter readings immediately and contact both suppliers with the readings. One has billed incorrectly - usually resolved within a few days.</p>
+
+        <h3>Smart Meter Stopped Working</h3>
+        <p>If you had a SMETS1 (pre-2018) meter, this is normal when switching. You can:</p>
+        <ul>
+            <li>Continue using it as a normal meter (submit manual readings monthly)</li>
+            <li>Request a SMETS2 upgrade from new supplier (usually free)</li>
+        </ul>
+
+        <h3>Switched By Mistake (Erroneous Transfer)</h3>
+        <p>If you were switched to a new supplier without your permission, contact them immediately. Ofgem rules require them to switch you back at no cost. This is rare but does happen.</p>
+
+        <h3>Genuinely Unhappy With New Supplier</h3>
+        <ul>
+            <li>Within 14 days: Use cooling off period - cancel free, no questions asked</li>
+            <li>After 14 days: Just switch again (no limit on how often)</li>
+            <li>Serious complaint unresolved: Contact <a href="https://www.energyombudsman.org/" target="_blank">Energy Ombudsman</a> (free service)</li>
+        </ul>
+
+        <h2>How Often Should You Switch?</h2>
+
+        <p><strong>Bare minimum:</strong> Every time your fixed tariff ends (usually 12-24 months)</p>
+
+        <p><strong>Optimal:</strong> Check every 3-6 months, switch if you find savings of £50+/year</p>
+
+        <h4>Why switch regularly?</h4>
+        <ul>
+            <li>Price cap changes quarterly (Feb 1, May 1, Aug 1, Nov 1)</li>
+            <li>New fixed deals launch constantly</li>
+            <li>Default tariffs are always expensive</li>
+            <li>Loyalty penalty is real - suppliers reward switchers, punish loyal customers</li>
+        </ul>
+
+        <div class="warning-box">
+            <h4>⚠️ Reality Check</h4>
+            <p><strong>65% of UK households are on expensive default tariffs</strong> because they don't switch regularly. Don't be in that 65%.</p>
+            <p>The average household overpays £200-400/year by not switching. That's £2,000-4,000 over 10 years.</p>
+        </div>
+
+        <h2>Quick Reference: Timeline</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>What Happens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Day 0</td>
+                        <td>You sign up with new supplier</td>
+                    </tr>
+                    <tr>
+                        <td>Day 0-14</td>
+                        <td>Cooling off period (can cancel free)</td>
+                    </tr>
+                    <tr>
+                        <td>Day 1-2</td>
+                        <td>New supplier registers switch with industry</td>
+                    </tr>
+                    <tr>
+                        <td>Day 3-5</td>
+                        <td>Old supplier confirms details, switch completes</td>
+                    </tr>
+                    <tr>
+                        <td>Day 5</td>
+                        <td>Switch should be complete (£30 compensation if delayed)</td>
+                    </tr>
+                    <tr>
+                        <td>Day 5+</td>
+                        <td>New supplier takes over, old supplier sends final bill (within 6 weeks)</td>
+                    </tr>
+                    <tr>
+                        <td>Within 10 working days</td>
+                        <td>Old supplier must refund any credit balance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Checklist: Before You Switch</h2>
+
+        <div class="checklist">
+            <p><strong>Print this or screenshot it:</strong></p>
+            <ul>
+                <li>Found cheaper tariff (minimum £50/year saving)</li>
+                <li>Checked contract end date and exit fees</li>
+                <li>Calculated if exit fees are worth paying</li>
+                <li>Verified I don't have debt older than 28 days (or prepay debt over £500/fuel)</li>
+                <li>Got current meter readings ready</li>
+                <li>Found MPAN/MPRN numbers (if possible)</li>
+                <li>Have bank details ready for Direct Debit</li>
+                <li>Set calendar reminder to take meter readings on switch date</li>
+                <li>Set calendar reminder to check tariffs again in 6 months</li>
+                <li>Ready to use 14-day cooling off if needed</li>
+            </ul>
+        </div>
+
+        <h2>Still Have Questions?</h2>
+
+        <h3>Common Questions We Didn't Cover:</h3>
+
+        <h4>Can I switch if I rent?</h4>
+        <p>Yes, if you're responsible for the bills (your name on the account). If bills are included in rent, you can't. Ofgem rules override any rental contract clause saying you can't switch.</p>
+
+        <h4>Can I switch if I have a prepayment meter?</h4>
+        <p>Yes, but fewer tariffs are available. Some suppliers will let you switch to a credit meter (Direct Debit) as part of the switch. If you owe up to £500 per fuel, you can still switch.</p>
+
+        <h4>Can I switch if I have solar panels?</h4>
+        <p>Yes, but make sure your new supplier offers export payments (SEG - Smart Export Guarantee). Not all suppliers offer this, so check before switching.</p>
+
+        <h4>What if I'm moving house?</h4>
+        <p>Don't switch - instead, choose your supplier when you move in. Moving house counts as a new connection, not a switch. You can pick any supplier from day one.</p>
+
+        <h4>Can I switch gas and electricity to different suppliers?</h4>
+        <p>Yes, but "dual fuel" deals (same supplier for both) are usually slightly cheaper and simpler to manage. Only split if you find significantly better deals separately.</p>
+
+        <h4>What if I have Economy 7 or Economy 10?</h4>
+        <p>Make sure your new supplier supports your meter type. Most do, but verify before switching to avoid losing your off-peak rates.</p>
+
+        <h2>The Bottom Line</h2>
+
+        <div class="success-box">
+            <p><strong>Switching is:</strong></p>
+            <ul>
+                <li>✅ Simple (10 minutes of admin)</li>
+                <li>✅ Safe (power stays on, legally guaranteed)</li>
+                <li>✅ Free (if no exit fees, or fees worth paying)</li>
+                <li>✅ Fast (5 working days max, £30 compensation if delayed)</li>
+                <li>✅ Risk-free (14-day cooling off period)</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Not switching is:</h4>
+            <ul>
+                <li>❌ Costing you £200-400/year on average</li>
+                <li>❌ Funding suppliers' profits from customer inertia</li>
+                <li>❌ Keeping you on expensive default tariffs</li>
+                <li>❌ Making you poorer every single month</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 1.2rem; text-align: center; margin: 30px 0;"><strong>The energy industry relies on you thinking switching is complicated. It's not. They just want you to believe it is.</strong></p>
+
+        <p style="text-align: center;">14-day cooling off period = zero risk. Try a new supplier, hate them? Cancel free.</p>
+
+        <div class="info-box" style="text-align: center; margin: 40px 0;">
+            <h3 style="margin-top: 0;">Ready to Switch?</h3>
+            <p style="font-size: 1.1rem;">Check our <a href="https://switchpilot.uk/tariff-tracker">tariff tracker</a> for the best deals, updated weekly.</p>
+        </div>
+
+        <div class="cta-box">
+            <h3>Found This Guide Helpful?</h3>
+            <p>Join the waitlist for auto-switching - we'll handle switching for you automatically when better deals appear. Plus get weekly industry insights and stay ahead of price cap changes.</p>
+
+            <div class="cta-buttons">
+                <a href="https://switchpilot.uk/#waitlist" class="btn btn-primary">Join the Waitlist</a>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 0.95rem; color: #94a3b8;">
+                <em>Industry insiders sharing what suppliers don't want you to know.</em>
+            </p>
+        </div>
+
+        <h2>Questions?</h2>
+
+        <p>Got questions or want to discuss switching strategies?</p>
+
+        <p>
+            📧 Email us: <a href="mailto:hello@switchpilot.uk">hello@switchpilot.uk</a><br>
+            💬 Join the discussion: <a href="https://switchpilot.uk/community">Community Discussion Page</a>
+        </p>
+
+        <p>We're industry insiders building SwitchPilot to cut through the bullshit. No commission, just transparency.</p>
+
+        <div class="disclaimer">
+            <h4>Final Research Reminder</h4>
+            <p><strong>We've researched Ofgem regulations extensively</strong>, but energy rules can change. Always verify current rules at <a href="https://www.ofgem.gov.uk" target="_blank">ofgem.gov.uk</a> before making decisions.</p>
+            
+            <p><strong>Key sources we used:</strong></p>
+            <ul>
+                <li>Ofgem Switching Guidelines (2025)</li>
+                <li>Energy Switch Guarantee Standards</li>
+                <li>Supplier Guaranteed Standards of Performance</li>
+                <li>Consumer Protection Regulations</li>
+            </ul>
+            
+            <p>Do your own research, read your specific contract terms, and make informed decisions. We're here to help educate, not replace professional advice.</p>
+        </div>

@@ -1,828 +1,1474 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Switch Energy Supplier: The Insider's Guide | SwitchPilot</title>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WEQ6VBT567');
-    </script>
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0c0e1f 0%, #1a1d3a 100%);
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SwitchPilot - Free Auto-Switching Energy Service (Coming Soon)</title>
 
-        .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 40px 60px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-        }
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WEQ6VBT567');
+</script>
 
-        .top-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 30px;
-        }
-        .top-logo:hover { opacity: 0.8; }
+<style>
+html {scroll-behavior:smooth;}
+body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;scroll-padding-top:80px;}
 
-        h1 {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+/* STICKY NAV */
+.sticky-nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:rgba(12,14,31,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  padding:0.8rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:all 0.3s ease;
+}
+.sticky-nav.scrolled {
+  background:rgba(12,14,31,0.95);
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.nav-logo {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:#fff;
+}
+.nav-logo span:first-child {font-size:1.8rem;}
+.nav-logo span:last-child {font-size:1.4rem;font-weight:900;letter-spacing:-0.5px;}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.nav-links a {
+  color:#fff;
+  text-decoration:none;
+  padding:0.5rem 1rem;
+  border-radius:10px;
+  font-size:0.9rem;
+  font-weight:600;
+  opacity:0.75;
+  transition:all 0.2s ease;
+}
+.nav-links a:hover {
+  opacity:1;
+  background:rgba(255,255,255,0.1);
+}
+.nav-links a.active {
+  opacity:1;
+  background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(236,72,153,0.3));
+}
+.nav-cta {
+  background:linear-gradient(135deg,#6366f1,#ec4899) !important;
+  opacity:1 !important;
+  box-shadow:0 4px 15px rgba(236,72,153,0.3);
+}
+.nav-cta:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(236,72,153,0.4);
+}
+.nav-toggle {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:5px;
+}
+.nav-toggle span {
+  width:24px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:all 0.3s ease;
+}
+@media (max-width: 900px) {
+  .nav-links {
+    position:fixed;
+    top:60px;
+    left:0;
+    right:0;
+    background:rgba(12,14,31,0.98);
+    backdrop-filter:blur(20px);
+    flex-direction:column;
+    padding:1.5rem;
+    gap:0.5rem;
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+    transition:all 0.3s ease;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-links.open {
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .nav-links a {
+    width:100%;
+    text-align:center;
+    padding:0.8rem 1rem;
+  }
+  .nav-toggle {display:flex;}
+  .nav-toggle.open span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
+  .nav-toggle.open span:nth-child(2) {opacity:0;}
+  .nav-toggle.open span:nth-child(3) {transform:rotate(-45deg) translate(5px,-5px);}
+}
 
-        .subtitle { 
-            color: #94a3b8; 
-            margin-bottom: 30px; 
-            font-size: 1.1rem;
-        }
+/* HERO */
+.hero {position:relative;padding:7rem 2rem 6rem;overflow:hidden;background:#0c0e1f;}
+.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
+@keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
+.floating-symbols {position:absolute;inset:0;pointer-events:none;}
+.symbol {position:absolute;font-size:3rem;opacity:.85;animation:drift 10s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 0 20px rgba(99,102,241,0.6));}
+@keyframes drift {0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(20px,-30px) rotate(10deg)}}
 
-        h2 {
-            color: #a855f7;
-            font-size: 2rem;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
+/* Glowing pulse animation for energy symbols */
+.symbol:nth-child(1), .symbol:nth-child(4) {
+animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
+}
+@keyframes energyGlow {
+0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
+50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
+}
 
-        h3 {
-            color: #ec4899;
-            font-size: 1.4rem;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
+.symbol:nth-child(1){left:55%;top:14%}
+.symbol:nth-child(2){left:70%;top:10%}
+.symbol:nth-child(3){left:50%;top:65%}
+.symbol:nth-child(4){left:85%;top:28%}
+.symbol:nth-child(5){left:50%;top:35%}
 
-        h4 {
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
+.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;}
+.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);}
+.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
+.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
+.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;}
+.pilot-character {font-size:18rem;animation:pilotFloat 4s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));transform:translateX(-15px);}
+@keyframes pilotFloat {0%,100%{transform:translateX(-15px) translateY(0) rotate(-6deg)}50%{transform:translateX(-15px) translateY(-35px) rotate(6deg)}}
+.destination-tag {position:absolute;bottom:2rem;right:1rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;}
 
-        p {
-            margin-bottom: 15px;
-            color: #cbd5e1;
-        }
+/* WAITLIST */
+.waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);}
+.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;}
+.waitlist-form p {opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;}
+.form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;}
+.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;}
 
-        ul, ol {
-            margin-bottom: 20px;
-            margin-left: 30px;
-            color: #cbd5e1;
-        }
+/* Signup counter animation */
+.signup-counter {
+animation: counterFadeIn 0.6s ease-out;
+}
+@keyframes counterFadeIn {
+0% { opacity: 0; transform: translateY(-10px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+#signupCount {
+display: inline-block;
+min-width: 2ch;
+}
 
-        li {
-            margin-bottom: 8px;
-        }
+/* INSIGHTS */
+.insights {background:#0f1329;padding:4.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
 
-        strong {
-            color: #e0e0e0;
-        }
+/* Animated circuit lines */
+.insights::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #6366f1, transparent);
+animation: scanline 3s linear infinite;
+}
+.insights::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #ec4899, transparent);
+animation: scanline 3s linear infinite reverse;
+}
+@keyframes scanline {
+0% { transform: translateX(-100%); }
+100% { transform: translateX(100%); }
+}
 
-        a {
-            color: #a855f7;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            transition: all 0.2s;
-        }
-        a:hover {
-            color: #ec4899;
-            border-bottom-color: rgba(236, 72, 153, 0.5);
-        }
+.insights h2 {font-size:3rem;font-weight:900;margin-bottom:0.5rem;position:relative;z-index:2;}
+.topics {max-width:1200px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;padding:0 2rem;}
+.topic {background:#11162e;padding:2.5rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;text-align:left;}
 
-        .disclaimer {
-            background: rgba(236, 72, 153, 0.1);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 30px 0;
-        }
+/* Glowing edge on hover */
+.topic::before {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: 22px;
+padding: 2px;
+background: linear-gradient(135deg, #6366f1, #ec4899);
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+opacity: 0;
+transition: opacity 0.3s;
+}
+.topic:hover::before {
+opacity: 1;
+}
 
-        .disclaimer h4 {
-            color: #ec4899;
-            margin-top: 0;
-        }
+.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);}
+.topic h3 {font-size:1.5rem;margin-bottom:1rem;margin-top:0;line-height:1.3;font-weight:800;}
+.topic p {opacity:.85;line-height:1.6;font-size:1.05rem;margin:0 0 1.2rem 0;}
+.topic p:last-child {margin-bottom:0;font-size:0.9rem;opacity:0.6;margin-top:auto;padding-top:1rem;}
 
-        .info-box {
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
+/* STATS */
+.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;}
+.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-        .warning-box {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
+/* CTA */
+.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;}
 
-        .warning-box h4 {
-            color: #fbbf24;
-            margin-top: 0;
-        }
+/* Animated grid overlay */
+.final-cta::before {
+content: '';
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+background-size: 50px 50px;
+animation: gridSlide 15s linear infinite;
+}
+@keyframes gridSlide {
+0% { transform: translate(0, 0); }
+100% { transform: translate(50px, 50px); }
+}
 
-        .success-box {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
+.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;}
+.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;}
+.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;}
+.cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
 
-        .success-box strong {
-            color: #22c55e;
-        }
+/* Mid-page CTA */
+.mid-cta-btn {
+  display:inline-block;
+  padding:1rem 2.5rem;
+  background:#fff;
+  color:#6366f1;
+  text-decoration:none;
+  border-radius:15px;
+  font-weight:800;
+  font-size:1.05rem;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  transition:all 0.2s;
+}
+.mid-cta-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px rgba(0,0,0,0.3);
+}
 
-        .cta-box {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 12px;
-            padding: 40px;
-            margin: 50px 0;
-            text-align: center;
-        }
+/* MOBILE RESPONSIVE */
 
-        .cta-box h3 {
-            color: #e0e0e0;
-            margin-top: 0;
-            font-size: 1.8rem;
-        }
+@media (max-width: 968px) {
+.hero {padding:6rem 1.5rem 4rem;}
+.hero-content {grid-template-columns:1fr;gap:2rem;}
+.hero-text h1 {font-size:2.5rem;}
+.hero-text p {font-size:1.1rem;max-width:100%;}
+.pilot-character {font-size:10rem;}
+.destination-tag {position:static;margin:2rem auto 0;max-width:280px;text-align:center;}
 
-        .cta-box p {
-            font-size: 1.1rem;
-            margin: 20px 0;
-        }
+.floating-symbols {display:none;}
 
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
+.vision-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0 1.5rem !important;
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+}
 
-        .btn {
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            transition: all 0.2s;
-            display: inline-block;
-        }
+section[style*="max-width:900px"][style*="margin:3.5rem"] {
+    margin: 2.5rem auto 0 !important;
+    padding: 0 1.5rem !important;
+}
 
-        .btn-primary {
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            color: white;
-        }
+.waitlist-form {padding:2rem 1.5rem;margin:2rem 1.5rem;}
+.waitlist-form h3 {font-size:1.6rem;}
+.signup-counter {padding:1rem !important;}
+.signup-counter > div {flex-wrap:wrap;justify-content:center;text-align:center;}
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
-        }
+.insights {padding:3.5rem 1.5rem !important;}
+.insights h2, .final-cta h2 {font-size:2rem;}
+.topics {grid-template-columns:1fr;gap:1.5rem;}
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #e0e0e0;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
+.stats {grid-template-columns:1fr;gap:2rem;}
+.stat-number {font-size:2.5rem;}
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
+#gameCanvas {max-width:100%;height:auto;}
 
-        .checklist {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 20px 0;
-        }
+/* Price cap section mobile */
+section[style*="max-width:1400px"] {
+    padding: 3rem 1.5rem !important;
+}
+section[style*="max-width:1400px"] > div {
+    padding: 2rem 1.5rem !important;
+}
+section[style*="max-width:1400px"] h2 {
+    font-size: 2rem !important;
+}
+section[style*="max-width:1400px"] div[style*="height:600px"] {
+    height: 400px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] {
+    min-width: 140px !important;
+    padding: 15px !important;
+}
+section[style*="max-width:1400px"] div[style*="gap:40px"] {
+    gap: 20px !important;
+}
 
-        .checklist ul {
-            list-style: none;
-            margin-left: 0;
-        }
+.final-cta {padding:4rem 1.5rem;}
+.final-cta p {font-size:1rem;}
+.cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
+}
 
-        .checklist li:before {
-            content: "☐ ";
-            color: #a855f7;
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
+@media (max-width: 480px) {
+.hero { padding:5.5rem 1rem 3rem !important; }
+.pilot-container { margin-top:1rem !important; }
+.destination-tag { margin-top:1rem !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
+.hero-text h1 { font-size:2rem !important; }
+.pilot-character { font-size:8rem !important; }
 
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
+.vision-mission-grid {
+    padding: 0 1rem !important;
+    gap: 1rem !important;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            overflow: hidden;
-        }
+section[style*="max-width:900px"][style*="margin:3.5rem"] {
+    margin: 2rem auto 0 !important;
+    padding: 0 1rem !important;
+}
 
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-        }
+section[style*="max-width:900px"] > div {
+    padding: 1.5rem 1rem !important;
+}
 
-        th {
-            background: rgba(168, 85, 247, 0.2);
-            color: #e0e0e0;
-            font-weight: 600;
-        }
+.waitlist-form {
+    padding: 1.5rem 1rem !important;
+    margin: 1.5rem 1rem !important;
+}
 
-        .myth {
-            display: flex;
-            gap: 15px;
-            margin: 15px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            border-left: 3px solid #ec4899;
-        }
+/* Price cap section on small phones */
+section[style*="max-width:1400px"] {
+    padding: 2rem 1rem !important;
+}
+section[style*="max-width:1400px"] > div {
+    padding: 1.5rem 1rem !important;
+}
+section[style*="max-width:1400px"] h2 {
+    font-size: 1.6rem !important;
+}
+section[style*="max-width:1400px"] p[style*="font-size:1.1rem"] {
+    font-size: 0.95rem !important;
+}
+section[style*="max-width:1400px"] div[style*="height:600px"] {
+    height: 300px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 250px !important;
+    padding: 12px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:first-child {
+    font-size: 10px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:nth-child(2) {
+    font-size: 24px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
+    font-size: 12px !important;
+}
 
-        .myth-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
+.final-cta { padding: 3rem 1rem !important; }
+}
+.topic p { font-size:1rem !important; line-height:1.45 !important; }
+.price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
+.footer { padding:2.5rem 1rem !important; }
+body { font-size:15px !important; }
+.hero-text h1 {font-size:2rem;}
+.pilot-character {font-size:10rem;}
+.waitlist-form h3 {font-size:1.4rem;}
+.insights, .final-cta {padding:3rem 1rem;}
 
-        code {
-            background: rgba(168, 85, 247, 0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: #e0e0e0;
-            font-family: 'Courier New', monospace;
-        }
+}
 
-        .last-updated {
-            text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(168, 85, 247, 0.2);
-        }
+/* Price Cap Tool Styles */
+.price-cap-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 5px;
+  background: #2c3e50;
+  color: white;
+}
 
-        @media (max-width: 768px) {
-            .container { padding: 20px 25px; }
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.6rem; }
-        }
-    </style>
+.price-cap-active {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: white;
+  font-weight: bold;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
-    <div class="container">
-        <a href="https://switch-pilot.com" class="top-logo">
-            ⚡ SwitchPilot
-        </a>
 
-        <h1>How to Switch Energy Supplier</h1>
-        <p class="subtitle">The insider's guide - written by people who actually work in the industry</p>
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <a href="#hero" class="nav-logo">
+    <span>✈️⚡</span>
+    <span>SwitchPilot</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#bill-breakdown">Bill Breakdown</a>
+    <a href="#tariffs">Tariff Tracker</a>
+    <a href="#community">Community</a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
 
-        <div class="disclaimer">
-            <h4>⚠️ Important Disclaimer</h4>
-            <p><strong>This guide is for informational purposes only.</strong> While we work in the energy industry and have researched Ofgem regulations, energy supply rules can change and individual circumstances vary.</p>
-            <p><strong>Always:</strong></p>
-            <ul>
-                <li>Check your specific contract terms before switching</li>
-                <li>Verify current Ofgem rules at <a href="https://www.ofgem.gov.uk" target="_blank">ofgem.gov.uk</a></li>
-                <li>Contact your supplier directly for your exact situation</li>
-                <li>Read all terms and conditions before signing up with a new supplier</li>
-            </ul>
-            <p>We've done our best to ensure accuracy, but we're not providing legal or financial advice. Do your own research and make informed decisions.</p>
-        </div>
+<section class="hero" id="hero">
+<div class="energy-grid"></div>
+<div class="floating-symbols">
+<div class="symbol">⚡</div><div class="symbol">💷</div><div class="symbol">🔌</div><div class="symbol">💡</div><div class="symbol">📈</div>
+</div>
+<div class="hero-content">
+<div class="hero-text">
+<div class="badge">🚀 Building Together</div>
+<h1>Your Flight to Better Energy Deals</h1>
+<p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal on the market — for free. Plus a community that educates you on what you're actually paying for.</p>
+</div>
+<div class="pilot-container">
+<div class="pilot-character">✈️</div>
+<div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
+</div>
+</div>
 
-        <h2>TL;DR - It's Stupidly Easy</h2>
+<!-- Vision & Mission Boxes -->
+
+<div class="vision-mission-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:0 2rem;position:relative;z-index:5;">
+  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+      <span style="font-size:1.8rem;">🔮</span>
+      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Our Vision</h3>
+    </div>
+    <p style="margin:0;font-size:1.4rem;font-weight:700;line-height:1.4;margin-bottom:1rem;">Putting the power back in your hands</p>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.85;">An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
+  </div>
+  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(236,72,153,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+      <span style="font-size:1.8rem;">🚀</span>
+      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">What We're Building</h3>
+    </div>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) — no commission, no catch. Plus a community that educates you on where your money actually goes. We're not another comparison site. We're building this WITH you to challenge the status quo.</p>
+  </div>
+</div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section style="max-width:1000px;margin:3.5rem auto 0;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(236,72,153,0.12));padding:2.5rem;border-radius:22px;border:1px solid rgba(99,102,241,0.25);box-shadow:0 15px 50px rgba(0,0,0,0.3);text-align:center;">
+  <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.8rem;">65%</div>
+  <p style="font-size:1.3rem;font-weight:700;margin:0 0 1rem 0;opacity:0.95;">of UK households are stuck on expensive default tariffs</p>
+  <p style="font-size:1.1rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
+    And even those who switch often miss better deals — comparing tariffs is confusing, time-consuming, and easy to put off.
+  </p>
+  <p style="font-size:1.1rem;line-height:1.7;margin:0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
+    That's why we're building a service that does the hard work for you — while educating and empowering you to drive real change. When more people switch, suppliers compete. When more people question their bills, regulators listen. An informed, active market works better for <strong>everyone</strong>.
+  </p>
+</div>
+</section>
+
+<!-- WHO WE ARE -->
+
+<section id="about" style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    We're just two people who've been working in the UK energy industry recently. Before this? <strong>Zero knowledge about energy bills.</strong>
+  </p>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    Now? We've learned things that shocked us. And we can't unsee them.
+  </p>
+
+  <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
+    <p style="font-size:1rem;line-height:1.6;margin:0;opacity:0.95;">
+      Did you know you're paying wind farms to turn off when it's too windy (<strong>constraint payments</strong>), whilst funding them through <strong>CfDs</strong>? Or that <strong>your electricity prices are tied to gas prices</strong>—even when most power comes from cheap renewables, the last generator needed (usually gas) sets the price everyone gets paid (<strong>marginal pricing</strong>)? Or that through the <strong>Warm Home Discount</strong> scheme, you're subsidising other people's discounts even if you don't qualify.
+    </p>
+  </div>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-top:1.2rem;margin-bottom:1.5rem;opacity:0.9;">
+    None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, make switching effortless, and educate people on what they're actually paying for.
+  </p>
+
+  <div style="background:linear-gradient(135deg,rgba(236,72,153,0.1),rgba(99,102,241,0.1));padding:1.8rem;border-radius:18px;border:2px solid rgba(236,72,153,0.25);">
+    <p style="font-size:1.15rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.95;font-weight:600;">
+      That's why we're building two things:
+    </p>
+    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:0.8rem;">
+      <span style="font-size:1.3rem;">⚡</span>
+      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>A free auto-switching service</strong> that works in the background for you—finding and switching you to better deals automatically (with your consent)</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;">
+      <span style="font-size:1.3rem;">📚</span>
+      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>An educated community</strong> that actually understands what they're paying for—because informed customers create a more competitive market for everyone</p>
+    </div>
+    <p style="margin:0;font-size:1.1rem;line-height:1.6;opacity:0.95;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.1);">
+      <strong style="background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">The best part?</strong> You help us shape exactly what we build. We're not building FOR you—we're building WITH you. Your feedback, your frustrations, your ideas—they all matter.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<section style="max-width:900px;margin:3rem auto;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,#6366f1,#ec4899);padding:2rem 2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
+  <p style="font-size:1.2rem;font-weight:700;margin:0 0 1rem 0;color:#fff;">Ready to be part of this?</p>
+  <p style="font-size:1rem;margin:0 0 1.3rem 0;opacity:0.95;color:#fff;">Join the waitlist and help shape what we build</p>
+  <a href="#waitlist" class="mid-cta-btn">Get Early Access →</a>
+</div>
+</section>
+
+<!-- SURVEY STATS SHOWCASE -->
+<section id="survey" style="max-width:1200px;margin:4rem auto;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
+  <div style="font-size:2rem;margin-bottom:0.8rem;">📊</div>
+  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1rem;">We Asked 200 People About Energy Switching</h2>
+  <p style="font-size:1.1rem;line-height:1.6;opacity:0.85;margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;">
+    Before building anything, we surveyed real people. Here's what we found:
+  </p>
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-bottom:2rem;">
+    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">77.5%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Want auto-switching</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">3 in 4 people are ready for this</p>
+    </div>
+    
+    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">73%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Of "content" customers</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Still want switching when friction is removed</p>
+    </div>
+    
+    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">61%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Don't understand bills</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Education builds trust & empowerment</p>
+    </div>
+    
+    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">48%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Haven't switched in 5+ years</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">The exact inertia suppliers profit from</p>
+    </div>
+  </div>
+  
+  <a href="survey-results.html" style="display:inline-block;padding:1rem 2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;text-decoration:none;border-radius:15px;font-weight:700;font-size:1rem;box-shadow:0 10px 30px rgba(236,72,153,0.3);transition:transform 0.2s;">
+    Read Full Survey Results →
+  </a>
+  
+  <p style="font-size:1rem;opacity:0.8;margin-top:2rem;max-width:650px;margin-left:auto;margin-right:auto;line-height:1.6;">
+    <strong>But surveys are just surveys.</strong> We want to build a community and listen to <strong>YOU</strong>—creating a product <strong>WITH</strong> you that actually works for you.
+  </p>
+</div>
+</section>
+
+<div id="waitlist" class="waitlist-form">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:1.5rem 2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);margin-bottom:1.5rem;text-align:center;">
+  <div style="font-size:1.3rem;font-weight:800;color:#1a1a2e;margin-bottom:0.5rem;">🎯 Join 5,000 Early Access Pilots</div>
+  <p style="margin:0;font-size:1rem;color:#1a1a2e;opacity:0.85;">Be part of the crew that shapes what we build—and get first access when we launch</p>
+</div>
+<div class="signup-counter" style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1.5rem;">👥</span>
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
+    </div>
+  </div>
+  <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
+    <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5,000</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
+    </div>
+  </div>
+</div>
+<h3>Join the Flight Crew ✈️</h3>
+<p>Get weekly energy insights + early access to free auto-switching when we launch</p>
+<form onsubmit="handleSubmit(event)">
+<div class="form-group"><input type="email" placeholder="Your email address" required /></div>
+<button type="submit" class="submit-btn">Get Early Access</button>
+</form>
+<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
+</div>
+
+<!-- EMBEDDED PRICE CAP TOOL -->
+<section id="bill-breakdown" style="max-width:1400px;margin:3.5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <div style="text-align:center;margin-bottom:2rem;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Energy Price Cap Breakdown</h2>
+    <p style="font-size:1.1rem;opacity:0.85;max-width:800px;margin:0 auto;">
+      Ever wondered where your energy bill money actually goes? We've broken down the UK price cap into every single cost component.
+    </p>
+  </div>
+
+  <div style="margin-bottom:30px;text-align:center;">
+    <p style="font-size:14px;color:#bdc3c7;margin-bottom:10px;font-weight:500;">Payment Method:</p>
+    <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
+  </div>
+  
+  <div style="height:600px;margin-bottom:30px;">
+    <canvas id="priceCapChart"></canvas>
+  </div>
+  
+  <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:30px;">
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:rgba(44,62,80,0.5);">
+      <p style="font-size:12px;color:#bdc3c7;margin-bottom:5px;">Oct-Dec 2025</p>
+      <p id="priceCapPeriod1Total" style="font-size:32px;font-weight:bold;color:#ecf0f1;margin:0;">£1755</p>
+    </div>
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:linear-gradient(135deg,#6366f1,#ec4899);">
+      <p style="font-size:12px;color:#ecf0f1;margin-bottom:5px;">Jan-Mar 2026</p>
+      <p id="priceCapPeriod2Total" style="font-size:32px;font-weight:bold;color:white;margin:0;">£1758</p>
+      <p id="priceCapChangeAmount" style="font-size:14px;color:#ecf0f1;margin-top:5px;">+£3 (+0.2%)</p>
+    </div>
+  </div>
+  
+  <div style="margin-top:30px;padding:15px;background:rgba(44,62,80,0.3);border-left:4px solid #6366f1;font-size:12px;color:#bdc3c7;border-radius:5px;">
+    <p style="margin:0 0 5px 0;"><strong>Source:</strong> OFGEM (Office of Gas and Electricity Markets)</p>
+    <p style="margin:0 0 5px 0;"><strong>Typical Consumption:</strong> 2,700kWh electricity, 11,500kWh gas annually (UK average, rates vary by region)</p>
+    <p style="margin:5px 0 0 0;"><strong>Note:</strong> Hover over chart bars to see individual cost components and their values.</p>
+  </div>
+</div>
+</section>
+
+<!-- NEW BILLING VS CONSUMPTION INTERACTIVE -->
+<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
+  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">📚 Educational Tool</div>
+  <div style="font-size:3rem;margin-bottom:1rem;">💡</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Why Your Bill Doesn't Match Your Usage</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    Ever wonder why you pay the same in summer and winter, even though you use way more energy when it's cold? Explore our interactive tool to understand the disconnect between billing and consumption.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Direct Debit</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Monthly Smoothing</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Seasonal</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Consumption Patterns</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Interactive</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Visualizations</div>
+    </div>
+  </div>
+  <button onclick="window.open('billing-consumption-interactive.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Explore the Interactive Tool →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Understand how Direct Debit smoothing actually works</p>
+</div>
+</section>
+
+<!-- TARIFF TRACKER CALLOUT -->
+<section id="tariffs" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
+  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">⏳ While We Build Auto-Switching</div>
+  <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Live Tariff Tracker</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    We're not a comparison site — but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">7</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Live Tariffs</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">14</div>
+      <div style="font-size:0.9rem;opacity:0.8;">UK Regions</div>
+    </div>
+    <div style="text-align:center;">
+      <div id="trackerSavings" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">£165</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Avg. Savings/year</div>
+    </div>
+  </div>
+  <button onclick="window.open('tariff-tracker.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Compare Tariffs Now →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Updated weekly • While we build full automation • <a href="Switching-guide.html" style="color:#a855f7;text-decoration:none;">Read our switching guide</a></p>
+</div>
+</section>
+
+<!-- COMMUNITY CALLOUT -->
+<section id="community" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(99,102,241,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(236,72,153,0.3);box-shadow:0 20px 60px rgba(236,72,153,0.2);text-align:center;">
+  <div style="font-size:3rem;margin-bottom:1rem;">💬</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Community Discussions</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    Help us shape the product, share experiences, ask questions, and learn what you're actually paying for. Together we can challenge the status quo.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">🛠️</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Shape SwitchPilot</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">🔄</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Switching Tips</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">💷</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Bill Help</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">💡</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Money Saving</div>
+    </div>
+  </div>
+  <button onclick="window.open('community.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#ec4899,#6366f1);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Join the Discussion →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Share your ideas • Help others save</p>
+</div>
+</section>
+
+<section class="insights">
+<h2>Recent Insights</h2>
+<p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
+<div class="topics">
+
+<div class="topic" onclick="window.open('Q1-Cap.html','_blank')">
+  <h3>🔆 Q1-26 Price Cap Breakdown</h3>
+  <p>Bills only rose £3 — but what's the deeper picture? Policy costs rising, wholesale costs fell, unit rates rose sharply. What does this mean for you?</p>
+  <p>📅 28 Nov 2025</p>
+</div>
+
+<div class="topic" onclick="window.open('nuclear-rab.html','_blank')">
+  <h3>⚛️ Nuclear RAB Charge</h3>
+  <p>What's being added to bills from 2026 – and why you're paying for a nuclear plant before it's built</p>
+  <p>📅 22 Nov 2025</p>
+</div>
+
+<div class="topic" onclick="window.open('article.html','_blank')">
+  <h3>🔆 Warm Home Discount Expansion</h3>
+  <p>What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up</p>
+  <p>📅 25 Oct 2025</p>
+</div>
+
+</div>
+</section>
+
+<section class="stats">
+<div>
+  <div class="stat-number">65%</div>
+  <div>of UK could save more</div>
+</div>
+<div>
+  <div class="stat-number" id="dynamicSavings">£200+</div>
+  <div>potential yearly savings</div>
+</div>
+<div>
+  <div class="stat-number">You</div>
+  <div>shape what we build</div>
+</div>
+</section>
+
+<!-- GAME SECTION -->
+
+<section id="game" style="max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;">
+<div style="background:#11162e;padding:3rem;border-radius:30px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
+
+  <!-- Animated background -->
+
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;">
+    <div style="font-size:3rem;margin-bottom:1rem;">✈️⚡💷</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
+    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
+
+<div id="gameStartScreen" style="margin-bottom:1.5rem;">
+  <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
+</div>
+
+<canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
+
+<div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
+    <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+  </div>
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
+    <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+  </div>
+</div>
+
+<div id="gameOverScreen" style="display:none;margin-top:2rem;">
+  <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
+  <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
+  <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
+</div>
+
+  </div>
+</div>
+</section>
+
+<section class="final-cta">
+<h2>We're Building This Together</h2>
+<p>65% of UK households are on Standard Variable Tariffs and could save <span id="dynamicSavingsText">£200+</span> per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
+<button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Join the Community</button>
+</section>
+
+<footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
+<p>💌 Weekly energy insights delivered to your inbox</p>
+<p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
+</footer>
+
+<script>
+// Google Apps Script URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
+
+// Target number for countdown
+const TARGET_SIGNUPS = 5000;
+
+// Initialize signup counter - fetch from Google Sheets
+let signupCount = 0;
+
+function updateCounterDisplay(count) {
+    const countElement = document.getElementById('signupCount');
+    const spotsElement = document.getElementById('spotsRemaining');
+    const progressBar = document.getElementById('progressBar');
+    
+    if (countElement) countElement.textContent = count.toLocaleString();
+    if (spotsElement) spotsElement.textContent = Math.max(0, TARGET_SIGNUPS - count).toLocaleString();
+    if (progressBar) progressBar.style.width = Math.min(100, (count / TARGET_SIGNUPS) * 100) + '%';
+}
+
+// Fetch ONLY verified count ("yes") from Apps Script
+fetch(SCRIPT_URL + '?getCount=1')
+    .then(response => response.json())
+    .then(data => {
+        signupCount = data.count || 0;
+        updateCounterDisplay(signupCount);
+    })
+    .catch(err => {
+        console.log('Could not fetch signup count:', err);
+        updateCounterDisplay(0);
+    });
+
+
+function animateCounter(element, newValue) {
+    element.style.transform = 'scale(1.3)';
+    element.style.transition = 'transform 0.3s ease';
+    element.textContent = newValue.toLocaleString();
+    setTimeout(() => {
+        element.style.transform = 'scale(1)';
+    }, 300);
+}
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    const form = e.target.closest('.waitlist-form');
+    
+    // Optimistically increment counter (immediate feedback)
+    signupCount++;
+    const counterElement = document.getElementById('signupCount');
+    if (counterElement) {
+        animateCounter(counterElement, signupCount);
+    }
+    updateCounterDisplay(signupCount);
+    
+    // Show loading
+    form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the flight crew...</p></div>';
+    
+    // Send to Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
+            </div>
+        `;
+    })
+    .catch(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
+            </div>
+        `;
+    });
+}
+
+// GAME CODE
+const gameCanvas = document.getElementById('gameCanvas');
+if (gameCanvas) {
+    const ctx = gameCanvas.getContext('2d');
+    
+    let gameRunning = false;
+    let gameScore = 0;
+    let gameHighScore = 0;
+    document.getElementById('gameHighScore').textContent = gameHighScore;
+    
+    const player = {
+        x: gameCanvas.width / 2,
+        y: gameCanvas.height - 80,
+        size: 35,
+        emoji: '✈️'
+    };
+    
+    const goodItems = ['⚡', '💷', '🔋', '💡'];
+    const badItems = ['💥', '🌩️'];
+    const items = [];
+    
+    let mouseX = player.x;
+    let mouseY = player.y;
+    
+    gameCanvas.addEventListener('mousemove', (e) => {
+        const rect = gameCanvas.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (e.clientY - rect.top) * (gameCanvas.height / rect.height);
+    });
+    
+    // Improved touch controls with finger offset
+    gameCanvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+    });
+    
+    gameCanvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+    });
+    
+    gameCanvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+    });
+    
+    function createItem() {
+        const isGood = Math.random() > 0.25;
+        const emoji = isGood 
+            ? goodItems[Math.floor(Math.random() * goodItems.length)]
+            : badItems[Math.floor(Math.random() * badItems.length)];
         
-        <ol>
-            <li>Find a better tariff (use our <a href="https://switch-pilot.com/tariff-tracker">tracker</a>)</li>
-            <li>Sign up online with new supplier (10 minutes max)</li>
-            <li><strong>They do everything else</strong></li>
-            <li>Switch completes in <strong>5 working days</strong></li>
-            <li>Save money</li>
-        </ol>
-
-        <div class="success-box">
-            <p><strong>✓ Your power stays on (legally guaranteed)</strong></p>
-            <p><strong>✓ No engineer needed</strong></p>
-            <p><strong>✓ 14-day cooling off period - cancel free if you change your mind</strong></p>
-            <p><strong>✓ £30 automatic compensation if it takes longer than 5 days</strong></p>
-        </div>
-
-        <p>If suppliers make this hard, that's their problem and their loss for making it difficult.</p>
-
-        <h2>What You'll Need (The Bare Minimum)</h2>
-
-        <p>Realistically, you need:</p>
-
-        <ul>
-            <li><strong>Your address</strong> (obviously)</li>
-            <li><strong>Current supplier name</strong> (check a recent email if you forgot)</li>
-            <li><strong>Bank details</strong> (if paying by Direct Debit - most people do, but not required)</li>
-        </ul>
-
-        <p><strong>That's genuinely it for most switches.</strong></p>
-
-        <h3>Helpful But Not Always Required:</h3>
-
-        <ul>
-            <li><strong>Meter readings</strong> (supplier will estimate if you don't have them, but better to provide)</li>
-            <li><strong>MPAN number</strong> (electricity - 13 digits on your bill, starts with something like "10 012...")</li>
-            <li><strong>MPRN number</strong> (gas - 6-10 digits, usually starts with "G...")</li>
-            <li><strong>Current tariff name</strong> (nice to know but not required)</li>
-        </ul>
-
-        <p>Don't stress about finding these. Modern switching systems can work without them - your new supplier will sort it. Having them just speeds things up slightly.</p>
-
-        <h2>Step-by-Step: How to Switch</h2>
-
-        <h3>Step 1: Find a Better Tariff</h3>
-
-        <p>Use our <a href="https://switch-pilot.com/tariff-tracker">tariff tracker</a> - zero commission bias, updated weekly.</p>
-
-        <div class="info-box">
-            <p><strong>💡 Insider tip:</strong> Don't just look at monthly cost - check <strong>unit rates</strong> (p/kWh) and <strong>standing charges</strong> (p/day). These matter more than the estimated bill.</p>
-        </div>
-
-        <h3>Step 2: Check for Exit Fees (If You Care)</h3>
-
-        <p>If you're on a <strong>fixed tariff</strong>, you <em>might</em> have exit fees.</p>
-
-        <h4>Quick check:</h4>
-        <ul>
-            <li>Log into your supplier account</li>
-            <li>Look for "contract end date"</li>
-            <li>Check for "exit fees" or "early termination charges"</li>
-        </ul>
-
-        <h4>Insider reality:</h4>
-        <ul>
-            <li>Most exit fees are £30-60 per fuel (£60-120 for dual fuel)</li>
-            <li>If savings beat exit fees within 6 months, switch anyway</li>
-            <li><strong>No exit fees within 49 days of contract end</strong> - Ofgem rule</li>
-            <li>No contract end date? You're on rolling contract - <strong>zero exit fees</strong></li>
-            <li>Honestly, if you're saving £200+/year, pay the exit fee and move on</li>
-        </ul>
-
-        <div class="info-box">
-            <p><strong>Example:</strong><br>
-            Exit fee: £60<br>
-            New tariff saves: £20/month<br>
-            Break even: 3 months<br>
-            After 3 months: pure £20/month savings = £240/year profit</p>
-        </div>
-
-        <h3>Step 3: Check If You Have Debt</h3>
-
-        <div class="warning-box">
-            <h4>⚠️ IMPORTANT - Debt Blocking Rules</h4>
-            <p><strong>You CANNOT switch if:</strong></p>
-            <ul>
-                <li>You've owed money to your current supplier for <strong>more than 28 days</strong></li>
-                <li>You need to settle the debt first before you can switch</li>
-            </ul>
+        items.push({
+            x: Math.random() * (gameCanvas.width - 40),
+            y: -40,
+            size: 30,
+            emoji: emoji,
+            speed: 2 + Math.random() * 2,
+            isGood: isGood
+        });
+    }
+    
+    function drawEmoji(emoji, x, y, size) {
+        ctx.font = `${size}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(emoji, x, y);
+    }
+    
+    function checkCollision(item) {
+        const dist = Math.sqrt(
+            Math.pow(player.x - item.x, 2) + 
+            Math.pow(player.y - item.y, 2)
+        );
+        return dist < (player.size + item.size) / 2;
+    }
+    
+    function updateGame() {
+        if (!gameRunning) return;
+        
+        ctx.fillStyle = '#0a0c1a';
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+        
+        player.x += (mouseX - player.x) * 0.15;
+        player.y += (mouseY - player.y) * 0.15;
+        
+        player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
+        player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
+        
+        drawEmoji(player.emoji, player.x, player.y, player.size);
+        
+        for (let i = items.length - 1; i >= 0; i--) {
+            const item = items[i];
+            item.y += item.speed;
             
-            <p><strong>You CAN switch if:</strong></p>
-            <ul>
-                <li>You've been in debt for <strong>less than 28 days</strong> - the debt will be added to your final bill</li>
-                <li>You have a prepayment meter and owe up to <strong>£500 per fuel</strong> (max £1,000 total for gas + electric)</li>
-            </ul>
-        </div>
-
-        <p>Not sure if you owe money? Log into your supplier account and check your balance. In credit = green light to switch. In debit = check how long you've owed for.</p>
-
-        <h3>Step 4: Sign Up With New Supplier</h3>
-
-        <p>Go to their website, click "Switch to us", fill in a form.</p>
-
-        <h4>They'll ask for:</h4>
-        <ul>
-            <li>Your address</li>
-            <li>Current supplier name</li>
-            <li>Meter readings (if you have them)</li>
-            <li>MPAN/MPRN (if you have them - if not, they'll find them)</li>
-            <li>Payment method (Direct Debit, prepayment, or monthly payment card)</li>
-            <li>Preferred switch date (or just click "ASAP")</li>
-        </ul>
-
-        <p><strong>Takes 10 minutes. Then you're done.</strong></p>
-
-        <div class="info-box">
-            <p><strong>💡 Red flag:</strong> If their signup process is painful or confusing, find a different supplier. It's 2026 - easy onboarding = good customer service. Complicated onboarding = run away.</p>
-        </div>
-
-        <h3>Step 5: They Do Everything Else</h3>
-
-        <p><strong>Seriously - you're done.</strong> Your new supplier:</p>
-
-        <ul>
-            <li>Contacts your old supplier</li>
-            <li>Arranges the switch via industry systems</li>
-            <li>Tells you when it's happening</li>
-            <li>Handles all the admin</li>
-        </ul>
-
-        <p><strong>Your job:</strong> Literally nothing. Wait for emails.</p>
-
-        <h4>You'll get:</h4>
-        <ul>
-            <li>Confirmation email immediately</li>
-            <li><strong>14-day cooling off period</strong> (change your mind free, no penalty, no questions asked)</li>
-            <li>Switch completion notification after ~5 working days</li>
-        </ul>
-
-        <div class="warning-box">
-            <h4>⚠️ Don't cancel your old Direct Debit yet</h4>
-            <p>Wait until you've received and paid your final bill from your old supplier. Cancelling too early can cause billing issues.</p>
-        </div>
-
-        <h3>Step 6: Switch Completes (5 Working Days)</h3>
-
-        <p>As of 2022, Ofgem rules state switches must complete within <strong>5 working days</strong> (used to be 21 days).</p>
-
-        <h4>What happens:</h4>
-        <ul>
-            <li>Your power stays on throughout (legally required - cannot go off)</li>
-            <li>No engineer visit needed</li>
-            <li>No interruption to supply</li>
-            <li>Old supplier sends final bill (within 6 weeks)</li>
-            <li>New supplier starts billing you from switch date</li>
-        </ul>
-
-        <div class="success-box">
-            <p><strong>✓ Automatic £30 compensation if delayed</strong></p>
-            <p>From April 2024, if your new supplier takes longer than 5 working days to complete the switch, they must pay you £30 compensation automatically. You don't have to do anything - it goes into your account or comes as a cheque.</p>
-        </div>
-
-        <div class="info-box">
-            <p><strong>💡 Insider tip:</strong> Take meter readings on switch completion date and submit to BOTH suppliers. This prevents billing disputes and estimated bills.</p>
-        </div>
-
-        <h3>Step 7: Settle Up & Done</h3>
-
-        <ul>
-            <li>Old supplier sends final bill (within 6 weeks)</li>
-            <li>Pay any balance owed, or get refund if in credit (within 10 working days by law)</li>
-            <li>Cancel old Direct Debit once final bill is settled</li>
-            <li>Job done</li>
-        </ul>
-
-        <p><strong>Total effort on your part: 10 minutes signup + 2 minutes taking readings.</strong></p>
-
-        <p>If suppliers make this harder than that, <strong>that's their problem</strong> for losing customers to competitors who make it easy.</p>
-
-        <h2>Common Myths Debunked</h2>
-
-        <div class="myth">
-            <div class="myth-icon">❌</div>
-            <div>
-                <h4>"Sounds complicated"</h4>
-                <p>It's not. You fill in one form, they do everything else. If it feels complicated, you're overthinking it or the supplier has terrible UX.</p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">❌</div>
-            <div>
-                <h4>"Will my power go off during the switch?"</h4>
-                <p>No. Illegal. Cannot happen. Supply continuity is guaranteed by law. Your electricity and gas stay on throughout.</p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">✅</div>
-            <div>
-                <h4>"What if I pick the wrong supplier?"</h4>
-                <p>14-day cooling off period - cancel free if you change your mind. After that? Just switch again. No limit on how often you can switch.</p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">❌</div>
-            <div>
-                <h4>"Do I need an engineer to visit?"</h4>
-                <p>No. Everything is done remotely via industry systems. No one needs to visit your property.</p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">⚠️</div>
-            <div>
-                <h4>"Will my smart meter stop working?"</h4>
-                <p>Older SMETS1 meters (installed before 2018) might lose smart functionality when you switch. They still work as normal meters - you just have to submit readings manually. Newer SMETS2 meters (2018+) stay smart after switching.</p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">❌</div>
-            <div>
-                <h4>"Do I have to use Direct Debit?"</h4>
-                <p>No. Most people do because it's easiest and usually cheapest, but you can pay by:
-                    <ul>
-                        <li>Prepayment meter (top-up as you go)</li>
-                        <li>Monthly payment card</li>
-                        <li>Bank transfer (some suppliers)</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">❌</div>
-            <div>
-                <h4>"Can I switch if I owe money?"</h4>
-                <p><strong>It depends:</strong>
-                    <ul>
-                        <li>Debt less than 28 days old? Yes - added to final bill</li>
-                        <li>Debt more than 28 days old? No - settle it first</li>
-                        <li>Prepayment meter with debt under £500 per fuel? Yes</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
-
-        <div class="myth">
-            <div class="myth-icon">⚠️</div>
-            <div>
-                <h4>"Will I lose my payment plan?"</h4>
-                <p>Yes. Payment plans (for debt repayment) don't transfer to new suppliers. Discuss with your new supplier before switching if you're on one.</p>
-            </div>
-        </div>
-
-        <h2>Insider Tips They Don't Tell You</h2>
-
-        <h3>1. Switch Mid-Contract If Savings Justify It</h3>
-        <p>Don't wait for your fixed tariff to end if a cheaper deal exists now. Do the math:</p>
-        
-        <div class="info-box">
-            <p><strong>Simple calculation:</strong><br>
-            Savings per month × 6 months > Exit fee? Switch immediately.</p>
+            drawEmoji(item.emoji, item.x, item.y, item.size);
             
-            <p><strong>Example:</strong><br>
-            Exit fee: £60<br>
-            New tariff saves: £20/month<br>
-            Break even: 3 months<br>
-            After 3 months: pure savings</p>
-        </div>
-
-        <h3>2. NEVER Auto-Renew a Fixed Tariff</h3>
-        <p>When your fixed tariff ends, suppliers automatically roll you onto their <strong>Standard Variable Tariff</strong> (default rate). This is usually £200-400/year more expensive than switching to a new fixed deal.</p>
+            if (checkCollision(item)) {
+                if (item.isGood) {
+                    gameScore += 10;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    
+                    ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
+                    ctx.beginPath();
+                    ctx.arc(item.x, item.y, 50, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    endGame();
+                }
+                items.splice(i, 1);
+            }
+            else if (item.y > gameCanvas.height + 40) {
+                items.splice(i, 1);
+            }
+        }
         
-        <p><strong>Set a calendar reminder 6-7 weeks before your contract ends</strong> and shop around for new deals.</p>
-
-        <div class="info-box">
-            <p><strong>💡 We've got you covered:</strong> Our <a href="https://switch-pilot.com/#waitlist">newsletter</a> will remind you when it's time to switch. And we're building auto-switching so we can handle the whole process for you - no more calendar reminders needed.</p>
-        </div>
-
-        <h3>3. Use the 14-Day Cooling Off as a Test Drive</h3>
-        <p>Not sure about a supplier? Switch anyway, test their customer service for 2 weeks, cancel free if it's terrible. Zero risk.</p>
-
-        <h3>4. Don't Switch for Tiny Savings</h3>
-        <p>Switching for £5-10/year savings isn't worth the admin. <strong>Minimum £50/year savings</strong> is a good rule of thumb.</p>
+        if (Math.random() < 0.02) {
+            createItem();
+        }
         
-        <p>But if you're on an expensive default tariff overpaying £200+/year? Switch immediately.</p>
-
-        <h3>5. Most Comparison Sites Are Biased</h3>
-        <p>Sites like MoneySuperMarket, Uswitch, etc. earn commission when you switch through their links. This can bias results - they won't show you tariffs from suppliers who don't pay them commission.</p>
+        requestAnimationFrame(updateGame);
+    }
+    
+    function endGame() {
+        gameRunning = false;
         
-        <p><strong>We built SwitchPilot specifically to avoid this.</strong> Zero commission, just data.</p>
+        if (gameScore > gameHighScore) {
+            gameHighScore = gameScore;
+            document.getElementById('gameHighScore').textContent = gameHighScore;
+        }
+        
+        document.getElementById('finalGameScore').textContent = gameScore;
+        document.getElementById('gameOverScreen').style.display = 'block';
+        document.getElementById('gameCanvas').style.display = 'none';
+    }
+    
+    window.startMainGame = function() {
+        gameRunning = true;
+        gameScore = 0;
+        items.length = 0;
+        player.x = gameCanvas.width / 2;
+        player.y = gameCanvas.height - 80;
+        document.getElementById('gameScore').textContent = 0;
+        document.getElementById('gameStartScreen').style.display = 'none';
+        document.getElementById('gameCanvas').style.display = 'block';
+        updateGame();
+        
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createItem, i * 500);
+        }
+    };
+    
+    window.restartMainGame = function() {
+        document.getElementById('gameOverScreen').style.display = 'none';
+        startMainGame();
+    };
+}
 
-        <h3>6. Submit Meter Readings on Switch Date</h3>
-        <p>Take readings the day your switch completes and submit to BOTH old and new suppliers. This prevents:</p>
-        <ul>
-            <li>Estimated bills from old supplier (usually overestimate to get more money)</li>
-            <li>Disputes about who owes what</li>
-            <li>Delays to your final bill/refund</li>
-        </ul>
+// PRICE CAP TOOL CODE
+const priceCapData = {
+  directDebit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 270, policy: 215, ebit: 42, headroom: 18, levelisation: 10, vat: 84, total: 1755 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 279, policy: 236, ebit: 44, headroom: 18, levelisation: 10, vat: 84, total: 1758 }
+  },
+  standardCredit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 406, policy: 215, ebit: 44, headroom: 20, levelisation: 0, vat: 90, total: 1890 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 415, policy: 236, ebit: 45, headroom: 20, levelisation: 0, vat: 90, total: 1894 }
+  },
+  prepayment: {
+    period1: { name: "Oct-Dec 2025", wholesale: 719, networks: 391, operating: 296, policy: 215, ebit: 42, headroom: 19, levelisation: -56, vat: 81, total: 1707 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 392, operating: 304, policy: 236, ebit: 44, headroom: 19, levelisation: -56, vat: 81, total: 1711 }
+  }
+};
 
-        <h3>7. Don't Overthink It</h3>
-        <p>Paralysis by analysis is costing you money. Pick a cheaper tariff, switch, move on with your life. You can always switch again later if something better comes up.</p>
+const priceCapColors = {
+  wholesale: '#5DADE2',
+  networks: '#884EA0',
+  operating: '#E67E22',
+  policy: '#34495E',
+  ebit: '#A569BD',
+  headroom: '#7F8C8D',
+  levelisation: '#52796F',
+  vat: '#922B3E'
+};
 
-        <h2>What If Something Goes Wrong?</h2>
+const priceCapLabels = {
+  wholesale: 'Wholesale incl. CFD',
+  networks: 'Networks',
+  operating: 'Operating costs',
+  policy: 'Policy',
+  ebit: 'EBIT allowance',
+  headroom: 'Headroom',
+  levelisation: 'Levelisation',
+  vat: 'VAT'
+};
 
-        <h3>Switch Delayed Beyond 5 Days</h3>
-        <p>Contact your new supplier - they're responsible. You're entitled to automatic £30 compensation from April 2024.</p>
+const priceCapDescriptions = {
+  wholesale: 'The cost of buying energy on wholesale markets, plus Contracts for Difference (CfD) payments to renewable generators',
+  networks: 'Charges for maintaining and operating the electricity and gas distribution networks that deliver energy to your home',
+  operating: 'Supplier costs including customer service, billing, meter reading, and debt management',
+  policy: 'Government policy costs: Renewables Obligation, Feed-in Tariffs, ECO scheme, Warm Home Discount, and Nuclear RAB charges',
+  ebit: 'Earnings Before Interest and Tax - the profit margin Ofgem allows suppliers to earn',
+  headroom: 'Additional allowance to protect suppliers from unexpected cost increases and reduce the risk of supplier failures',
+  levelisation: 'Adjustment that balances costs across different payment methods (can be negative for prepayment meters)',
+  vat: 'Value Added Tax charged at 5% on domestic energy bills'
+};
 
-        <h3>Being Charged by Both Suppliers</h3>
-        <p>Take meter readings immediately and contact both suppliers with the readings. One has billed incorrectly - usually resolved within a few days.</p>
+let currentPriceCapMethod = 'directDebit';
+let priceCapChart = null;
 
-        <h3>Smart Meter Stopped Working</h3>
-        <p>If you had a SMETS1 (pre-2018) meter, this is normal when switching. You can:</p>
-        <ul>
-            <li>Continue using it as a normal meter (submit manual readings monthly)</li>
-            <li>Request a SMETS2 upgrade from new supplier (usually free)</li>
-        </ul>
+function renderPriceCapChart() {
+  const data = priceCapData[currentPriceCapMethod];
+  const ctx = document.getElementById('priceCapChart');
+  
+  if (!ctx) return;
+  
+  if (priceCapChart) {
+    priceCapChart.destroy();
+  }
+  
+  const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
+  
+  priceCapChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [data.period1.name, data.period2.name],
+      datasets: components.map(comp => ({
+        label: priceCapLabels[comp],
+        data: [data.period1[comp], data.period2[comp]],
+        backgroundColor: priceCapColors[comp],
+        borderColor: priceCapColors[comp],
+        borderWidth: 1
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
+        y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
+      },
+      plugins: {
+        legend: { 
+          labels: { color: '#ecf0f1', padding: 15, font: { size: 12 } }
+        },
+        tooltip: {
+          enabled: true,
+          mode: 'nearest',
+          intersect: true,
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
+          titleColor: '#2c3e50',
+          bodyColor: '#34495e',
+          borderColor: '#6366f1',
+          borderWidth: 2,
+          padding: 15,
+          cornerRadius: 10,
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          boxPadding: 6,
+          usePointStyle: true,
+          displayColors: true,
+          callbacks: {
+            title: function(items) {
+              return items[0].dataset.label;
+            },
+            label: function(context) {
+              return '£' + context.parsed.y + ' per year';
+            },
+            afterLabel: function(context) {
+              const componentKey = components[context.datasetIndex];
+              const description = priceCapDescriptions[componentKey];
+              // Wrap text for mobile readability
+              const maxLength = window.innerWidth < 480 ? 50 : 80;
+              if (description.length > maxLength) {
+                const words = description.split(' ');
+                let lines = [];
+                let currentLine = '';
+                
+                words.forEach(word => {
+                  if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                  } else {
+                    currentLine += word + ' ';
+                  }
+                });
+                lines.push(currentLine.trim());
+                return '\n' + lines.join('\n');
+              }
+              return '\n' + description;
+            },
+            footer: function(items) {
+              const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
+              return '\nPeriod Total: £' + Math.round(total);
+            }
+          },
+          bodySpacing: 6,
+          footerMarginTop: 10,
+          footerFont: { size: 13, weight: 'bold' },
+          footerColor: '#6366f1'
+        }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: true
+      }
+    }
+  });
+  
+  updatePriceCapStats();
+}
 
-        <h3>Switched By Mistake (Erroneous Transfer)</h3>
-        <p>If you were switched to a new supplier without your permission, contact them immediately. Ofgem rules require them to switch you back at no cost. This is rare but does happen.</p>
+function updatePriceCapStats() {
+  const data = priceCapData[currentPriceCapMethod];
+  const p1 = document.getElementById('priceCapPeriod1Total');
+  const p2 = document.getElementById('priceCapPeriod2Total');
+  const change = document.getElementById('priceCapChangeAmount');
+  
+  if (p1) p1.textContent = '£' + data.period1.total;
+  if (p2) p2.textContent = '£' + data.period2.total;
+  
+  if (change) {
+    const changeVal = data.period2.total - data.period1.total;
+    const percentChange = ((changeVal / data.period1.total) * 100).toFixed(1);
+    change.textContent = (changeVal >= 0 ? '+' : '') + '£' + changeVal + ' (' + (changeVal >= 0 ? '+' : '') + percentChange + '%)';
+  }
+}
 
-        <h3>Genuinely Unhappy With New Supplier</h3>
-        <ul>
-            <li>Within 14 days: Use cooling off period - cancel free, no questions asked</li>
-            <li>After 14 days: Just switch again (no limit on how often)</li>
-            <li>Serious complaint unresolved: Contact <a href="https://www.energyombudsman.org/" target="_blank">Energy Ombudsman</a> (free service)</li>
-        </ul>
+function setPriceCapMethod(method) {
+  currentPriceCapMethod = method;
+  document.querySelectorAll('.price-cap-btn').forEach(btn => {
+    btn.className = 'price-cap-btn';
+  });
+  event.target.className = 'price-cap-btn price-cap-active';
+  renderPriceCapChart();
+}
 
-        <h2>How Often Should You Switch?</h2>
+// Initialize price cap chart when page loads
+window.addEventListener('load', function() {
+  if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
+    renderPriceCapChart();
+  }
+  
+  // Load dynamic savings from tariff tracker
+  loadDynamicSavings();
+});
 
-        <p><strong>Bare minimum:</strong> Every time your fixed tariff ends (usually 12-24 months)</p>
+// Fetch tariff data and calculate best savings
+async function loadDynamicSavings() {
+  try {
+    const response = await fetch('./all_tariffs.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    
+    
+    // Validation function to filter out incomplete data
+    function isValidTariff(tariff) {
+      if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+      if (tariff.error) return false;
+      if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+      if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+      if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+      if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+      return true;
+    }
 
-        <p><strong>Optimal:</strong> Check every 3-6 months, switch if you find savings of £50+/year</p>
+    // Ofgem cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+    const capRatesByRegion = {
+      'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+      'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+      'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+      'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+      'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+      'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+      'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+      'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+      'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+      'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+      'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+      'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+      'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+      'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
+    };
+    
+    const typicalElec = 2700;
+    const typicalGas = 11500;
+    
+    // Calculate cap cost for each region and find the most expensive
+    let maxCapCost = 0;
+    let expensiveRegion = 'London';
+    
+    for (const [region, rates] of Object.entries(capRatesByRegion)) {
+      const capCost = (rates.elecStanding * 365 / 100) + (rates.elecUnit * typicalElec / 100) +
+                      (rates.gasStanding * 365 / 100) + (rates.gasUnit * typicalGas / 100);
+      if (capCost > maxCapCost) {
+        maxCapCost = capCost;
+        expensiveRegion = region;
+      }
+    }
+    
+    // Find cheapest dual fuel fixed tariff in that expensive region
+    const regionTariffs = data.tariffs
+      .filter(t => t.region === expensiveRegion)
+      .filter(t => isValidTariff(t))
+      .filter(t => {
+        const name = (t.tariff_name || '').toLowerCase();
+        return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
+      });
+    
+    let cheapestCost = Infinity;
+    regionTariffs.forEach(t => {
+      const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
+                   (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
+      if (cost < cheapestCost) cheapestCost = cost;
+    });
+    
+    // Calculate savings
+    const bestSavings = maxCapCost - cheapestCost;
+    
+    // Update the display if we found savings
+    if (bestSavings > 50) {
+      const savingsEl = document.getElementById('dynamicSavings');
+      if (savingsEl) {
+        savingsEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+      const savingsTextEl = document.getElementById('dynamicSavingsText');
+      if (savingsTextEl) {
+        savingsTextEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+      const trackerEl = document.getElementById('trackerSavings');
+      if (trackerEl) {
+        trackerEl.textContent = '£' + Math.round(bestSavings);
+      }
+    }
+  } catch (e) {
+    console.log('Could not load dynamic savings:', e);
+  }
+}
 
-        <h4>Why switch regularly?</h4>
-        <ul>
-            <li>Price cap changes quarterly (Feb 1, May 1, Aug 1, Nov 1)</li>
-            <li>New fixed deals launch constantly</li>
-            <li>Default tariffs are always expensive</li>
-            <li>Loyalty penalty is real - suppliers reward switchers, punish loyal customers</li>
-        </ul>
+// NAV FUNCTIONALITY
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const stickyNav = document.getElementById('stickyNav');
+const navLinksAll = document.querySelectorAll('.nav-links a');
 
-        <div class="warning-box">
-            <h4>⚠️ Reality Check</h4>
-            <p><strong>65% of UK households are on expensive default tariffs</strong> because they don't switch regularly. Don't be in that 65%.</p>
-            <p>The average household overpays £200-400/year by not switching. That's £2,000-4,000 over 10 years.</p>
-        </div>
+// Mobile menu toggle
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
 
-        <h2>Quick Reference: Timeline</h2>
+// Close mobile menu when clicking a link
+navLinksAll.forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>What Happens</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Day 0</td>
-                        <td>You sign up with new supplier</td>
-                    </tr>
-                    <tr>
-                        <td>Day 0-14</td>
-                        <td>Cooling off period (can cancel free)</td>
-                    </tr>
-                    <tr>
-                        <td>Day 1-2</td>
-                        <td>New supplier registers switch with industry</td>
-                    </tr>
-                    <tr>
-                        <td>Day 3-5</td>
-                        <td>Old supplier confirms details, switch completes</td>
-                    </tr>
-                    <tr>
-                        <td>Day 5</td>
-                        <td>Switch should be complete (£30 compensation if delayed)</td>
-                    </tr>
-                    <tr>
-                        <td>Day 5+</td>
-                        <td>New supplier takes over, old supplier sends final bill (within 6 weeks)</td>
-                    </tr>
-                    <tr>
-                        <td>Within 10 working days</td>
-                        <td>Old supplier must refund any credit balance</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+// Scroll effects
+window.addEventListener('scroll', () => {
+  // Add shadow on scroll
+  if (window.scrollY > 50) {
+    stickyNav.classList.add('scrolled');
+  } else {
+    stickyNav.classList.remove('scrolled');
+  }
+  
+  // Update active link based on scroll position
+  const sections = document.querySelectorAll('section[id], div[id="waitlist"]');
+  let current = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinksAll.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
 
-        <h2>Checklist: Before You Switch</h2>
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offsetTop = target.offsetTop - 70;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
-        <div class="checklist">
-            <p><strong>Print this or screenshot it:</strong></p>
-            <ul>
-                <li>Found cheaper tariff (minimum £50/year saving)</li>
-                <li>Checked contract end date and exit fees</li>
-                <li>Calculated if exit fees are worth paying</li>
-                <li>Verified I don't have debt older than 28 days (or prepay debt over £500/fuel)</li>
-                <li>Got current meter readings ready</li>
-                <li>Found MPAN/MPRN numbers (if possible)</li>
-                <li>Have bank details ready for Direct Debit</li>
-                <li>Set calendar reminder to take meter readings on switch date</li>
-                <li>Set calendar reminder to check tariffs again in 6 months</li>
-                <li>Ready to use 14-day cooling off if needed</li>
-            </ul>
-        </div>
+</script>
 
-        <h2>Still Have Questions?</h2>
-
-        <h3>Common Questions We Didn't Cover:</h3>
-
-        <h4>Can I switch if I rent?</h4>
-        <p>Yes, if you're responsible for the bills (your name on the account). If bills are included in rent, you can't. Ofgem rules override any rental contract clause saying you can't switch.</p>
-
-        <h4>Can I switch if I have a prepayment meter?</h4>
-        <p>Yes, but fewer tariffs are available. Some suppliers will let you switch to a credit meter (Direct Debit) as part of the switch. If you owe up to £500 per fuel, you can still switch.</p>
-
-        <h4>Can I switch if I have solar panels?</h4>
-        <p>Yes, but make sure your new supplier offers export payments (SEG - Smart Export Guarantee). Not all suppliers offer this, so check before switching.</p>
-
-        <h4>What if I'm moving house?</h4>
-        <p>Don't switch - instead, choose your supplier when you move in. Moving house counts as a new connection, not a switch. You can pick any supplier from day one.</p>
-
-        <h4>Can I switch gas and electricity to different suppliers?</h4>
-        <p>Yes, but "dual fuel" deals (same supplier for both) are usually slightly cheaper and simpler to manage. Only split if you find significantly better deals separately.</p>
-
-        <h4>What if I have Economy 7 or Economy 10?</h4>
-        <p>Make sure your new supplier supports your meter type. Most do, but verify before switching to avoid losing your off-peak rates.</p>
-
-        <h2>The Bottom Line</h2>
-
-        <div class="success-box">
-            <p><strong>Switching is:</strong></p>
-            <ul>
-                <li>✅ Simple (10 minutes of admin)</li>
-                <li>✅ Safe (power stays on, legally guaranteed)</li>
-                <li>✅ Free (if no exit fees, or fees worth paying)</li>
-                <li>✅ Fast (5 working days max, £30 compensation if delayed)</li>
-                <li>✅ Risk-free (14-day cooling off period)</li>
-            </ul>
-        </div>
-
-        <div class="warning-box">
-            <h4>⚠️ Not switching is:</h4>
-            <ul>
-                <li>❌ Costing you £200-400/year on average</li>
-                <li>❌ Funding suppliers' profits from customer inertia</li>
-                <li>❌ Keeping you on expensive default tariffs</li>
-                <li>❌ Making you poorer every single month</li>
-            </ul>
-        </div>
-
-        <p style="font-size: 1.2rem; text-align: center; margin: 30px 0;"><strong>The energy industry relies on you thinking switching is complicated. It's not. They just want you to believe it is.</strong></p>
-
-        <p style="text-align: center;">14-day cooling off period = zero risk. Try a new supplier, hate them? Cancel free.</p>
-
-        <div class="info-box" style="text-align: center; margin: 40px 0;">
-            <h3 style="margin-top: 0;">Ready to Switch?</h3>
-            <p style="font-size: 1.1rem;">Check our <a href="https://switch-pilot.com/tariff-tracker">tariff tracker</a> for the best deals, updated weekly.</p>
-        </div>
-
-        <div class="cta-box">
-            <h3>Found This Guide Helpful?</h3>
-            <p>Join the waitlist for auto-switching - we'll handle switching for you automatically when better deals appear. Plus get weekly industry insights and stay ahead of price cap changes.</p>
-
-            <div class="cta-buttons">
-                <a href="https://switch-pilot.com/#waitlist" class="btn btn-primary">Join the Waitlist</a>
-            </div>
-
-            <p style="margin-top: 20px; font-size: 0.95rem; color: #94a3b8;">
-                <em>Industry insiders sharing what suppliers don't want you to know.</em>
-            </p>
-        </div>
-
-        <h2>Questions?</h2>
-
-        <p>Got questions or want to discuss switching strategies?</p>
-
-        <p>
-            📧 Email us: <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a><br>
-            💬 Join the discussion: <a href="https://switch-pilot.com/community">Community Discussion Page</a>
-        </p>
-
-        <p>We're industry insiders building SwitchPilot to cut through the bullshit. No commission, just transparency.</p>
-
-        <div class="disclaimer">
-            <h4>Final Research Reminder</h4>
-            <p><strong>We've researched Ofgem regulations extensively</strong>, but energy rules can change. Always verify current rules at <a href="https://www.ofgem.gov.uk" target="_blank">ofgem.gov.uk</a> before making decisions.</p>
-            
-            <p><strong>Key sources we used:</strong></p>
-            <ul>
-                <li>Ofgem Switching Guidelines (2025)</li>
-                <li>Energy Switch Guarantee Standards</li>
-                <li>Supplier Guaranteed Standards of Performance</li>
-                <li>Consumer Protection Regulations</li>
-            </ul>
-            
-            <p>Do your own research, read your specific contract terms, and make informed decisions. We're here to help educate, not replace professional advice.</p>
-        </div>
+</body>
+</html>

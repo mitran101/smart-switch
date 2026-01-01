@@ -792,21 +792,22 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 
 // Regional SVT rates (Ofgem Price Cap Q1 2026 - January to March 2026)
 // Keys match all_tariffs_latest.json region names
+// Synced with tariff-tracker capRatesByRegion
 const regionalSVTRates = {
-  "London":                 { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.62, gasUnit: 6.02 },
-  "South East":             { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.67, gasUnit: 5.82 },
-  "Southern":               { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.55, gasUnit: 6.00 },
-  "South West":             { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.70, gasUnit: 6.14 },
-  "South Wales":            { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.10 },
-  "Eastern":                { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.73, gasUnit: 5.86 },
-  "East Midlands":          { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.78 },
-  "West Midlands":          { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.11, gasUnit: 5.85 },
+  "London":                 { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.63, gasUnit: 6.03 },
+  "South East":             { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.68, gasUnit: 5.83 },
+  "Southern":               { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.56, gasUnit: 6.00 },
+  "South West":             { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.71, gasUnit: 6.15 },
+  "South Wales":            { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.11 },
+  "Eastern":                { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.74, gasUnit: 5.87 },
+  "East Midlands":          { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.79 },
+  "West Midlands":          { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.12, gasUnit: 5.85 },
   "North West":             { elecSC: 52.22, elecUnit: 28.45, gasSC: 35.23, gasUnit: 5.89 },
-  "North East":             { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.20, gasUnit: 5.93 },
-  "Yorkshire":              { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.17, gasUnit: 5.90 },
-  "North Wales & Merseyside": { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.48, gasUnit: 5.94 },
-  "South Scotland":         { elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.88 },
-  "North Scotland":         { elecSC: 62.07, elecUnit: 28.36, gasSC: 35.27, gasUnit: 5.88 }
+  "North East":             { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.21, gasUnit: 5.93 },
+  "Yorkshire":              { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.18, gasUnit: 5.90 },
+  "North Wales & Merseyside": { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.49, gasUnit: 5.94 },
+  "South Scotland":         { elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.89 },
+  "North Scotland":         { elecSC: 62.07, elecUnit: 28.36, gasSC: 35.28, gasUnit: 5.89 }
 };
 
 // Default supplier rates (will be overwritten when JSON loads)
@@ -1029,28 +1030,34 @@ function setRegion() {
 function setSupplierRates() {
   const supplier = document.getElementById('supplierSelect').value;
   const rates = supplierRates[supplier];
+  console.log(`Setting ${supplier} rates:`, rates);
   if (rates) {
     setFixedRates(rates.elecSC, rates.elecUnit, rates.gasSC, rates.gasUnit);
   }
 }
 
-// Load rates from all_tariffs_latest.json
+// Load rates from all_tariffs.json
 async function loadSupplierRates() {
   const region = document.getElementById('regionSelect').value;
+  console.log('Loading rates for region:', region);
   
   try {
-    const response = await fetch('./all_tariffs_latest.json');
+    const response = await fetch('./all_tariffs.json');
+    console.log('Fetch response:', response.status, response.ok);
+    
     if (!response.ok) {
       console.log('JSON not found, using defaults');
       return;
     }
     const data = await response.json();
+    console.log('Loaded JSON with', data.tariffs.length, 'tariffs');
     
     // Filter for selected region
     const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
     
+    // Find matching tariffs
+    let found = 0;
     data.tariffs.forEach(t => {
-      // Direct match on region name
       if (t.region === region && suppliers.includes(t.supplier) && !t.error) {
         if (t.elec_unit_rate_p && t.gas_unit_rate_p) {
           supplierRates[t.supplier] = {
@@ -1059,14 +1066,17 @@ async function loadSupplierRates() {
             gasSC: t.gas_standing_p,
             gasUnit: t.gas_unit_rate_p
           };
+          console.log(`✓ Loaded ${t.supplier} for ${region}:`, supplierRates[t.supplier]);
+          found++;
         }
       }
     });
+    console.log(`Found ${found} suppliers for ${region}`);
     
     // Update fixed rates from currently selected supplier
     setSupplierRates();
   } catch (e) {
-    console.log('Could not load tariff data, using defaults:', e);
+    console.error('Could not load tariff data:', e);
     setSupplierRates();
   }
 }

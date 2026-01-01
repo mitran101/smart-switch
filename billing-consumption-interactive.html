@@ -82,6 +82,51 @@ h1 {
   margin-bottom: 2rem;
 }
 
+/* REGION SELECTOR */
+.region-selector {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.15));
+  border: 2px solid rgba(168, 85, 247, 0.4);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.region-selector h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+
+.region-selector select {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid rgba(168, 85, 247, 0.5);
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23a855f7' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.region-selector select:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+
+.region-note {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
 /* INPUT SECTION */
 .inputs-grid {
   display: grid;
@@ -143,7 +188,6 @@ select option {
   background: #1a1a2e;
   color: #fff;
   padding: 10px;
-}
 }
 
 .preset-buttons {
@@ -523,6 +567,28 @@ canvas {
 
   <div class="main-card">
     
+    <!-- REGION SELECTOR -->
+    <div class="region-selector">
+      <h3>📍 Select Your Region</h3>
+      <select id="regionSelect" onchange="setRegion()">
+        <option value="london">London</option>
+        <option value="south_east">South East</option>
+        <option value="southern">Southern</option>
+        <option value="south_west">South Western</option>
+        <option value="eastern">Eastern</option>
+        <option value="east_midlands">East Midlands</option>
+        <option value="midlands">Midlands</option>
+        <option value="north_west">North West</option>
+        <option value="yorkshire">Yorkshire</option>
+        <option value="northern">Northern</option>
+        <option value="north_wales_mersey">North Wales & Mersey</option>
+        <option value="south_wales">South Wales</option>
+        <option value="southern_scotland">Southern Scotland</option>
+        <option value="northern_scotland">Northern Scotland</option>
+      </select>
+      <p class="region-note">⚡ SVT rates vary significantly by region — North Wales & Mersey has the highest electricity standing charge (71p/day) while Southern has the lowest (46p/day)</p>
+    </div>
+
     <!-- INPUTS -->
     <div class="inputs-grid">
       
@@ -544,25 +610,27 @@ canvas {
 
       <!-- SVT RATES -->
       <div class="input-group">
-        <h3>📈 SVT Rates (Price Cap)</h3>
+        <h3>📈 SVT Rates (Price Cap Q1 2026)</h3>
         <label>Electricity Standing Charge (p/day)</label>
-        <input type="number" id="svtElecSC" value="60.0" min="20" max="100" step="0.1">
+        <input type="number" id="svtElecSC" value="47.11" min="20" max="100" step="0.01">
         
         <label>Electricity Unit Rate (p/kWh)</label>
-        <input type="number" id="svtElecUnit" value="24.5" min="10" max="50" step="0.1">
+        <input type="number" id="svtElecUnit" value="27.00" min="10" max="50" step="0.01">
         
         <label>Gas Standing Charge (p/day)</label>
-        <input type="number" id="svtGasSC" value="31.0" min="10" max="60" step="0.1">
+        <input type="number" id="svtGasSC" value="35.62" min="10" max="60" step="0.01">
         
         <label>Gas Unit Rate (p/kWh)</label>
-        <input type="number" id="svtGasUnit" value="6.24" min="3" max="15" step="0.01">
+        <input type="number" id="svtGasUnit" value="6.02" min="3" max="15" step="0.01">
+        
+        <p style="margin: 0.75rem 0 0 0; font-size: 0.8rem; color: #94a3b8;">Rates auto-update when you change region</p>
       </div>
 
       <!-- FIXED RATES -->
       <div class="input-group">
         <h3>🔒 Fixed Tariff Rates</h3>
         
-        <label>Choose Supplier (London rates)</label>
+        <label>Choose Supplier</label>
         <select id="supplierSelect" onchange="setSupplierRates()" style="width:100%;padding:0.8rem;border-radius:8px;border:1px solid rgba(168,85,247,0.3);background:#1a1a2e;color:#fff;font-size:1rem;margin-bottom:1rem;cursor:pointer;">
           <option value="fuse_energy">Fuse Energy - Fixed (13m)</option>
           <option value="british_gas">British Gas - Fixed Dec26</option>
@@ -718,6 +786,44 @@ const seasonalMultipliers = {
 };
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Regional SVT rates (Ofgem Price Cap Q1 2026 - January to March 2026)
+// Source: https://www.uswitch.com/gas-electricity/guides/regional-energy-prices/
+const regionalSVTRates = {
+  london:           { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.62, gasUnit: 6.02, name: "London" },
+  south_east:       { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.67, gasUnit: 5.82, name: "South East" },
+  southern:         { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.55, gasUnit: 6.00, name: "Southern" },
+  south_west:       { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.70, gasUnit: 6.14, name: "South Western" },
+  eastern:          { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.73, gasUnit: 5.86, name: "Eastern" },
+  east_midlands:    { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.78, name: "East Midlands" },
+  midlands:         { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.11, gasUnit: 5.85, name: "Midlands" },
+  north_west:       { elecSC: 52.22, elecUnit: 28.45, gasSC: 35.23, gasUnit: 5.89, name: "North West" },
+  yorkshire:        { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.17, gasUnit: 5.90, name: "Yorkshire" },
+  northern:         { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.20, gasUnit: 5.93, name: "Northern" },
+  north_wales_mersey: { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.48, gasUnit: 5.94, name: "North Wales & Mersey" },
+  south_wales:      { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.10, name: "South Wales" },
+  southern_scotland:{ elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.88, name: "Southern Scotland" },
+  northern_scotland:{ elecSC: 62.07, elecUnit: 28.36, gasSC: 35.27, gasUnit: 5.88, name: "Northern Scotland" }
+};
+
+// Supplier fixed rates by region (where available - fallback to London rates)
+// In production, this would load from all_tariffs.json
+let supplierRatesByRegion = {
+  london: {
+    fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
+    british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
+    scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
+    ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
+  }
+};
+
+// Default supplier rates (used for all regions initially)
+let supplierRates = {
+  fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
+  british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
+  scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
+  ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
+};
 
 let chart = null;
 
@@ -907,42 +1013,21 @@ function setFixedRates(elecSC, elecUnit, gasSC, gasUnit) {
   updateChart();
 }
 
-// Supplier rates loaded from JSON (London region)
-// Fallback values if JSON fails to load
-let supplierRates = {
-  fuse_energy: { elecSC: 39.55, elecUnit: 22.14, gasSC: 28.42, gasUnit: 5.35 },
-  british_gas: { elecSC: 44.82, elecUnit: 25.00, gasSC: 33.34, gasUnit: 5.65 },
-  scottish_power: { elecSC: 46.05, elecUnit: 24.85, gasSC: 34.57, gasUnit: 6.18 },
-  ovo: { elecSC: 51.32, elecUnit: 26.05, gasSC: 30.40, gasUnit: 6.18 }
-};
-
-// Load rates from all_tariffs.json
-async function loadSupplierRates() {
-  try {
-    const response = await fetch('./all_tariffs.json');
-    if (!response.ok) return;
-    const data = await response.json();
+function setRegion() {
+  const region = document.getElementById('regionSelect').value;
+  const rates = regionalSVTRates[region];
+  
+  if (rates) {
+    // Update SVT rates
+    document.getElementById('svtElecSC').value = rates.elecSC;
+    document.getElementById('svtElecUnit').value = rates.elecUnit;
+    document.getElementById('svtGasSC').value = rates.gasSC;
+    document.getElementById('svtGasUnit').value = rates.gasUnit;
     
-    // Filter for London region and specific suppliers
-    const suppliers = ['fuse_energy', 'british_gas', 'scottish_power', 'ovo'];
+    // Try to load regional supplier rates
+    loadSupplierRates();
     
-    data.tariffs.forEach(t => {
-      if (t.region === 'London' && suppliers.includes(t.supplier) && !t.error) {
-        if (t.elec_unit_rate_p && t.gas_unit_rate_p) {
-          supplierRates[t.supplier] = {
-            elecSC: t.elec_standing_p,
-            elecUnit: t.elec_unit_rate_p,
-            gasSC: t.gas_standing_p,
-            gasUnit: t.gas_unit_rate_p
-          };
-        }
-      }
-    });
-    
-    // Set initial rates from first supplier in dropdown
-    setSupplierRates();
-  } catch (e) {
-    console.log('Could not load tariff data:', e);
+    updateChart();
   }
 }
 
@@ -954,27 +1039,67 @@ function setSupplierRates() {
   }
 }
 
-// Load rates when page loads
-window.addEventListener('load', loadSupplierRates);
-
-// Add event listeners to all inputs
-document.querySelectorAll('input[type="number"]').forEach(input => {
-  input.addEventListener('input', updateChart);
-});
+// Load rates from all_tariffs.json (if available)
+async function loadSupplierRates() {
+  const region = document.getElementById('regionSelect').value;
+  const regionName = regionalSVTRates[region]?.name || 'London';
+  
+  try {
+    const response = await fetch('./all_tariffs.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    
+    // Filter for selected region and specific suppliers
+    const suppliers = ['fuse_energy', 'british_gas', 'scottish_power', 'ovo'];
+    
+    data.tariffs.forEach(t => {
+      // Match region name (handle variations)
+      const tariffRegion = t.region?.toLowerCase().replace(/[^a-z]/g, '');
+      const selectedRegion = regionName.toLowerCase().replace(/[^a-z]/g, '');
+      
+      if (tariffRegion === selectedRegion && suppliers.includes(t.supplier) && !t.error) {
+        if (t.elec_unit_rate_p && t.gas_unit_rate_p) {
+          supplierRates[t.supplier] = {
+            elecSC: t.elec_standing_p,
+            elecUnit: t.elec_unit_rate_p,
+            gasSC: t.gas_standing_p,
+            gasUnit: t.gas_unit_rate_p
+          };
+        }
+      }
+    });
+    
+    // Update fixed rates from first supplier
+    setSupplierRates();
+  } catch (e) {
+    console.log('Could not load tariff data, using defaults:', e);
+    // Use default rates
+    setSupplierRates();
+  }
+}
 
 // Toggle DD Explainer
 function toggleDDExplainer() {
   const explainer = document.getElementById('ddExplainer');
   if (explainer.style.display === 'none') {
     explainer.style.display = 'block';
-    // Smooth scroll to explainer
     explainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } else {
     explainer.style.display = 'none';
-    // Scroll back to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
+
+// Add event listeners to all inputs
+document.querySelectorAll('input[type="number"]').forEach(input => {
+  input.addEventListener('input', updateChart);
+});
+
+// Load rates when page loads
+window.addEventListener('load', () => {
+  setRegion(); // Initialize with default region
+  loadSupplierRates();
+});
 
 // Initial render
 updateChart();

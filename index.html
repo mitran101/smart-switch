@@ -131,7 +131,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 }
 
 /* HERO */
-.hero {position:relative;padding:7rem 2rem 6rem;overflow:hidden;background:#0c0e1f;}
+.hero {position:relative;padding:7rem 2rem 4rem;overflow:hidden;background:#0c0e1f;}
 .energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
 @keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
 .floating-symbols {position:absolute;inset:0;pointer-events:none;}
@@ -505,7 +505,7 @@ body { font-size:15px !important; }
 </section>
 
 <!-- WHY IT MATTERS -->
-<section style="max-width:1000px;margin:3.5rem auto 0;padding:0 2rem;">
+<section style="max-width:1000px;margin:2rem auto 0;padding:0 2rem;">
 <div style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(236,72,153,0.12));padding:2.5rem;border-radius:22px;border:1px solid rgba(99,102,241,0.25);box-shadow:0 15px 50px rgba(0,0,0,0.3);text-align:center;">
   <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.8rem;">65%</div>
   <p style="font-size:1.3rem;font-weight:700;margin:0 0 1rem 0;opacity:0.95;">of UK households are stuck on expensive default tariffs</p>
@@ -520,7 +520,7 @@ body { font-size:15px !important; }
 
 <!-- WHO WE ARE -->
 
-<section id="about" style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
+<section id="about" style="max-width:900px;margin:2rem auto 0;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
   <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
 
@@ -650,7 +650,7 @@ body { font-size:15px !important; }
 </div>
 
 <!-- EMBEDDED PRICE CAP TOOL -->
-<section id="bill-breakdown" style="max-width:1400px;margin:3.5rem auto 0;padding:0 2rem;">
+<section id="bill-breakdown" style="max-width:1400px;margin:2rem auto 0;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
   <div style="text-align:center;margin-bottom:2rem;">
     <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
@@ -789,6 +789,12 @@ body { font-size:15px !important; }
 <p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
 <div class="topics">
 
+<div class="topic" onclick="window.open('q2-26-budget-intervention.html','_blank')">
+  <h3>📊 Q2-26 Price Cap: Budget Intervention</h3>
+  <p>The government says £150 off your bills — but £88 is just moving to general taxation. Here's what's really changing and why ECO ending matters.</p>
+  <p>📅 3 Jan 2026</p>
+</div>
+
 <div class="topic" onclick="window.open('Q1-Cap.html','_blank')">
   <h3>🔆 Q1-26 Price Cap Breakdown</h3>
   <p>Bills only rose £3 — but what's the deeper picture? Policy costs rising, wholesale costs fell, unit rates rose sharply. What does this mean for you?</p>
@@ -874,11 +880,11 @@ body { font-size:15px !important; }
 
 <footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
 <p>💌 Weekly energy insights delivered to your inbox</p>
-<p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
+<p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#e482888d838c9087968193a497938d90878cc9948d888b90ca878b89" style="color:#a855f7;text-decoration:none;"><span class="__cf_email__" data-cfemail="5b3d37323c332f38293e2c1b282c322f3833762b3237342f75383436">[email&#160;protected]</span></a></p>
 <p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Google Apps Script URL
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
 
@@ -1476,18 +1482,4 @@ window.addEventListener('scroll', () => {
 document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const offsetTop = target.offsetTop - 70;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  });
-});
-
-</script>
-
-</body>
-</html>
+    const target = d

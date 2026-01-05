@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIIO-3 & TNUoS: The Hidden Network Costs Coming to Your Bill | SwitchPilot</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-red: #EF4444;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Navigation Container */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+
+        .top-logo span:first-child {
+            font-size: 1.6rem;
+        }
+
+        .top-logo span:last-child {
+            font-size: 1.35rem;
+        }
+
+        /* Back Button */
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--sp-amber);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 600px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .danger-box {
+            background: #FEE2E2;
+            border-left: 4px solid var(--sp-red);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .danger-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        /* Chart containers */
+        .chart-section {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .chart-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--sp-slate);
+            margin-bottom: 0.35rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-bottom: 1.25rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .timeline-track {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #E2E8F0;
+            border-radius: 2px;
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--sp-green);
+            border: 4px solid var(--sp-green-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-point.warning .timeline-dot {
+            background: var(--sp-amber);
+            border-color: #FEF3C7;
+        }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--sp-slate);
+            text-align: center;
+        }
+
+        .timeline-label {
+            font-size: 0.7rem;
+            color: var(--sp-slate-light);
+            text-align: center;
+            max-width: 90px;
+            margin-top: 0.25rem;
+        }
+
+        /* Summary section */
+        .summary-section {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0 0;
+            color: white;
+        }
+
+        .summary-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .summary-item strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .summary-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .summary-item.positive .summary-icon { color: var(--sp-green); }
+        .summary-item.warning .summary-icon { color: var(--sp-amber); }
+        .summary-item.danger .summary-icon { color: var(--sp-red); }
+        .summary-item.info .summary-icon { color: #60A5FA; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sp-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value.warning {
+            color: var(--sp-amber);
+        }
+
+        .stat-value.danger {
+            color: var(--sp-red);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            font-weight: 500;
+        }
+
+        /* Lists */
+        ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: var(--sp-slate-light);
+        }
+
+        /* Footer */
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+        }
+
+        /* CTA Box */
+        .cta-box {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            color: #fff;
+        }
+
+        .cta-box p {
+            font-size: 1.05rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.95;
+            color: #fff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #fff;
+            color: var(--sp-green-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Site Footer */
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .site-footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .site-footer a {
+            color: var(--sp-green);
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 700px) {
+            .top-nav {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .top-logo span:first-child {
+                font-size: 1.5rem;
+            }
+            .top-logo span:last-child {
+                font-size: 1.25rem;
+            }
+            
+            .back-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .cta-box {
+                margin: 1.5rem 1rem 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta-box h3 {
+                font-size: 1.3rem;
+            }
+            
+            .cta-box p {
+                font-size: 0.95rem;
+            }
+            
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart-section, .timeline, .summary-section, .stats-grid {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <span>✈️⚡</span>
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back Home</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">⚡ Network Infrastructure</span>
+            <h1>RIIO-3 & TNUoS: The £108 Network Cost Addition Coming to Your Bill</h1>
+            <p class="subtitle">From April 2026, Ofgem's new price controls unlock £28bn in network investment—but transmission charges will nearly double for many customers. Here's what's really happening to your electricity bill.</p>
+            <div class="article-meta">
+                <span>January 2026</span>
+                <span>•</span>
+                <span>8 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <h2>Overview</h2>
+        <p>From <strong>1 April 2026</strong>, the UK enters a new five-year regulatory period for energy network operators known as RIIO-3 (Revenue = Incentives + Innovation + Outputs). This price control framework will determine how much network companies can charge customers to operate, maintain, and expand Britain's electricity and gas infrastructure until March 2031.</p>
+        
+        <p>Ofgem has approved <strong>£28.1 billion in initial investment</strong>—£10.3bn for electricity transmission and £17.8bn for gas networks. However, this could rise to <strong>£90 billion by 2031</strong> once all planned infrastructure upgrades are accounted for, with electricity transmission alone potentially requiring over £70bn in investment.</p>
+
+        <div class="danger-box">
+            <p><strong>The headline impact:</strong> Network charges will add <strong>£108 to typical household bills by 2031</strong>—£60 for electricity and £48 for gas. Transmission Network Use of System (TNUoS) charges, which fund the high-voltage grid, are forecast to nearly double from April 2026.</p>
+        </div>
+
+        <h2>What is RIIO-3?</h2>
+        <p>RIIO-3 is Ofgem's regulatory framework that sets the allowed revenues for monopoly network operators over 2026-2031. It covers three sectors:</p>
+
+        <ul>
+            <li><strong>Electricity Transmission (ET):</strong> The high-voltage network carrying power across Great Britain, operated by National Grid, Scottish Power Transmission, and Scottish Hydro Electric Transmission</li>
+            <li><strong>Gas Transmission (GT):</strong> The high-pressure gas network operated by National Gas</li>
+            <li><strong>Gas Distribution (GD):</strong> Local gas networks operated by Cadent, Northern Gas Networks, SGN, and Wales & West Utilities</li>
+        </ul>
+
+        <p>A separate price control, RIIO-ED3, will cover electricity distribution networks from 2028-2033.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">£28bn</div>
+                <div class="stat-label">Initial investment approved (2026-2031)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value warning">£108</div>
+                <div class="stat-label">Added to bills by 2031 (£60 elec + £48 gas)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value danger">94%</div>
+                <div class="stat-label">TNUoS fixed residual increase (2026/27 vs 2025/26)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">£80</div>
+                <div class="stat-label">Estimated savings from grid expansion by 2031</div>
+            </div>
+        </div>
+
+        <h2>Why Network Costs Are Surging</h2>
+        <p>The investment surge addresses three critical infrastructure challenges:</p>
+
+        <p><strong>1. Renewable energy integration</strong> — Offshore wind farms in Scotland and the North Sea generate power far from population centres in southern England. Connecting these renewable sources requires massive transmission infrastructure: new pylons, substations, and high-voltage cables to transport electricity hundreds of miles south.</p>
+
+        <p><strong>2. Grid capacity constraints</strong> — Britain's transmission network was designed for a different energy system. As renewable generation grows and industrial demand for electricity increases, the grid needs significant capacity upgrades to avoid bottlenecks and constraint costs—where the grid pays generators to reduce output or fires up expensive local generation because transmission capacity can't deliver cheaper power from elsewhere.</p>
+
+        <p><strong>3. Ageing infrastructure</strong> — Gas and electricity networks require ongoing maintenance and asset replacement. Metal gas pipes are being replaced with safer plastic alternatives that can also transport hydrogen. Transmission towers and cables are reaching the end of their operational lives and must be upgraded or replaced.</p>
+
+        <div class="highlight-box">
+            <p>Ofgem argues this investment will deliver long-term benefits: by 2031, grid expansion should reduce wholesale electricity prices and constraint costs by around <strong>£80</strong>, partially offsetting the £108 in network charges. The net increase to bills is therefore expected to be around <strong>£30 per year</strong>.</p>
+        </div>
+
+        <h2>Understanding TNUoS: The Transmission Charge</h2>
+        <p>Transmission Network Use of System (TNUoS) charges fund the operation, maintenance, and expansion of the high-voltage electricity network. These charges appear on electricity bills—often buried within the standing charge—and are set annually by the National Energy System Operator (NESO).</p>
+
+        <p>TNUoS has two main components:</p>
+
+        <ul>
+            <li><strong>Fixed residual charges:</strong> A flat £/site/day rate based on your connection voltage and capacity. This cannot be avoided by reducing consumption—it's charged regardless of how much electricity you use.</li>
+            <li><strong>Locational demand charges:</strong> Variable charges based on where in Britain you're located and when you use electricity (half-hourly settled demand pays based on consumption during Triad periods—the three half-hours of highest system demand each winter).</li>
+        </ul>
+
+        <h2>The TNUoS Increase: What's Changing</h2>
+        <p>According to NESO's latest five-year forecast, TNUoS revenue requirements are set to surge:</p>
+
+        <div class="chart-section">
+            <div class="chart-title">TNUoS Revenue Forecast (2025/26 to 2030/31)</div>
+            <div class="chart-subtitle">Total transmission charges rising to fund RIIO-3 infrastructure investment</div>
+            <ul style="margin-top: 1rem; color: var(--sp-slate-light); font-size: 0.9rem;">
+                <li><strong>2025/26:</strong> £5.1bn total TNUoS revenue</li>
+                <li><strong>2026/27:</strong> £8.9bn total (+£3.8bn increase, +75%)</li>
+                <li><strong>2030/31:</strong> £13.6bn total (forecast)</li>
+            </ul>
+        </div>
+
+        <p>The <strong>fixed residual element</strong>, which affects all electricity customers, will increase dramatically:</p>
+
+        <ul>
+            <li><strong>2025/26:</strong> £3.84bn in residual revenue</li>
+            <li><strong>2026/27:</strong> £7.52bn in residual revenue (+94%)</li>
+            <li><strong>2030/31:</strong> £11.75bn in residual revenue (forecast)</li>
+        </ul>
+
+        <div class="warning-box">
+            <p><strong>For households:</strong> The typical domestic TNUoS cost is forecast at <strong>£93 per year</strong> from April 2026—up from around £51 in 2025/26. This equates to roughly <strong>10% of an annual electricity bill</strong> and will be reflected primarily in higher standing charges.</p>
+        </div>
+
+        <h2>Impact on Different Customer Types</h2>
+
+        <p><strong>Households:</strong> The £93/year TNUoS cost translates to approximately <strong>26p per day</strong> added to electricity standing charges. This hits all customers equally regardless of consumption—meaning low users pay proportionally more as a percentage of their total bill.</p>
+
+        <p><strong>Businesses:</strong> The impact varies dramatically by size and connection type. TNUoS residual charges are banded by connection voltage and agreed capacity. Examples of annual increases by 2030/31:</p>
+
+        <ul>
+            <li><strong>Small businesses</strong> (holiday lets, kiosks): ~£70/year increase</li>
+            <li><strong>Small offices/hotels:</strong> ~£1,700/year increase</li>
+            <li><strong>Medium factories:</strong> ~£9,760/year increase</li>
+            <li><strong>High Voltage (HV3) sites:</strong> £85k → £144k/year</li>
+            <li><strong>Extra High Voltage (EHV4) sites:</strong> £2.4m → £4.1m/year</li>
+        </ul>
+
+        <div class="warning-box">
+            <p><strong>Critical for fixed contract customers:</strong> Most energy supply contracts treat TNUoS as a "pass-through cost." This means even if you have a fixed-rate contract, your supplier can increase standing charges mid-contract when TNUoS rates rise in April 2026. Check your contract terms carefully.</p>
+        </div>
+
+        <h2>Regional Variations in TNUoS</h2>
+        <p>Alongside the fixed residual charges, locational demand tariffs will also change—but not uniformly:</p>
+
+        <ul>
+            <li><strong>Northern GB:</strong> Currently pays £0 in locational demand charges and will continue to do so (renewable generation here offsets transmission costs)</li>
+            <li><strong>Southern GB:</strong> Average tariff of £3.22/kWh during Triad periods in 2026/27, rising to £5.12/kWh by 2030/31</li>
+            <li><strong>Midlands/South West:</strong> Increases up to 37%</li>
+            <li><strong>Eastern England/South Wales:</strong> Potential reductions up to 42% (reflecting local generation growth)</li>
+        </ul>
+
+        <p>This regional variation reflects the cost of transporting electricity. Areas near renewable generation (Scotland, offshore wind zones) contribute less to transmission costs, while distant demand centres (London, South East) pay more.</p>
+
+        <h2>The Bigger Picture: Long-Term Network Investment</h2>
+        <p>RIIO-3 represents the start of a decades-long infrastructure buildout. Electricity transmission alone may require <strong>£70bn+ in total investment</strong> during 2026-2031, with final spending dependent on project approvals and system needs.</p>
+
+        <p>Key investment areas include:</p>
+
+        <ul>
+            <li><strong>Offshore transmission:</strong> Connecting new North Sea and Scottish offshore wind farms to the grid</li>
+            <li><strong>Onshore reinforcement:</strong> Upgrading transmission corridors from Scotland to England, including controversial pylon projects</li>
+            <li><strong>Substations:</strong> Building capacity to handle renewable intermittency and bidirectional power flows</li>
+            <li><strong>Hydrogen-ready gas networks:</strong> Replacing metal pipes with plastic infrastructure capable of transporting hydrogen alongside natural gas</li>
+        </ul>
+
+        <div class="timeline">
+            <div class="chart-title">Key Dates for RIIO-3 Implementation</div>
+            <div class="chart-subtitle">When network cost increases take effect</div>
+            <div class="timeline-track">
+                <div class="timeline-point">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Jan 2026</div>
+                    <div class="timeline-label">Final TNUoS tariffs published</div>
+                </div>
+                <div class="timeline-point warning">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Apr 2026</div>
+                    <div class="timeline-label">RIIO-3 begins, TNUoS costs surge</div>
+                </div>
+                <div class="timeline-point">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2028</div>
+                    <div class="timeline-label">RIIO-ED3 for elec distribution starts</div>
+                </div>
+                <div class="timeline-point warning">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mar 2031</div>
+                    <div class="timeline-label">RIIO-3 period ends</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Affordability vs Investment: The Trade-Off</h2>
+        <p>RIIO-3 exposes a fundamental tension in energy policy: the UK needs massive grid investment to meet net-zero targets and ensure energy security, but front-loading this investment adds significant near-term costs to bills at a time when households are already struggling with elevated energy prices.</p>
+
+        <p>Ofgem has attempted to smooth the bill impact through <strong>revenue reprofiling</strong>—reducing allowed revenues in 2026/27 and 2027/28, then increasing them in later years. This means standing charge increases in April 2026 will be somewhat moderated, with steeper rises deferred until 2028-2031.</p>
+
+        <div class="danger-box">
+            <p>However, for the average household already paying ~£1,750/year for dual fuel, an additional £108 by 2031 represents a <strong>6% increase</strong> from network costs alone—on top of any changes in wholesale energy prices, policy costs, and supplier margins.</p>
+        </div>
+
+        <h2>What About the Promised Savings?</h2>
+        <p>Ofgem's case for RIIO-3 rests on long-term benefits offsetting near-term costs:</p>
+
+        <ul>
+            <li><strong>Lower constraint costs:</strong> By expanding transmission capacity, the grid can deliver cheaper renewable power from Scotland/offshore to demand centres, reducing expensive constraint payments (where generators are paid to switch off or local expensive generation is used instead)</li>
+            <li><strong>Reduced reliance on gas imports:</strong> Better renewable integration should reduce exposure to volatile international gas prices</li>
+            <li><strong>Industrial competitiveness:</strong> Energy-intensive industries could see bills 10-15% lower than without RIIO-3 investment, thanks to lower wholesale prices and government's "supercharger" mechanism</li>
+        </ul>
+
+        <p>The timeline matters: <strong>investment costs hit bills immediately</strong>, while benefits emerge gradually over 5-10 years as infrastructure comes online and system efficiency improves.</p>
+
+        <h2>Fixed Tariffs and Standing Charge Transparency</h2>
+        <p>The TNUoS increases create particular challenges for the retail energy market:</p>
+
+        <p><strong>Pass-through clauses:</strong> Most fixed-rate contracts explicitly allow suppliers to pass through changes in network charges. Look for terms like "non-commodity costs," "distribution and transmission charges," or direct references to TNUoS in your contract. These provisions mean your "fixed" rate isn't truly fixed—standing charges can rise mid-contract.</p>
+
+        <p><strong>Standing charge volatility:</strong> TNUoS increases will be delivered primarily through standing charges rather than unit rates. This means households cannot reduce exposure through energy efficiency or consumption reduction—the cost is unavoidable.</p>
+
+        <div class="highlight-box">
+            <p>When comparing tariffs in 2026, pay close attention to standing charge levels. A tariff with a slightly higher unit rate but lower standing charge may be better value if you're a low-to-medium consumer, especially as standing charges continue rising through RIIO-3.</p>
+        </div>
+
+        <h2>The Distribution Network Question</h2>
+        <p>RIIO-3 covers transmission and gas distribution, but <strong>electricity distribution networks</strong> (the local "poles and wires" delivering power to homes and businesses) will enter their own price control period, RIIO-ED3, in April 2028.</p>
+
+        <p>Distribution network costs already account for a larger portion of electricity bills than transmission costs. If RIIO-ED3 follows a similar pattern of significant investment allowances, households could face <strong>further standing charge increases</strong> from 2028 onwards.</p>
+
+        <h2>Business Implications: Planning Ahead</h2>
+        <p>For businesses, particularly those with multiple sites or high electricity demand, the TNUoS changes warrant immediate attention:</p>
+
+        <ul>
+            <li><strong>Review capacity settings:</strong> If your kVA capacity is set higher than necessary, you're in a higher charging band and overpaying. Many businesses waste £3,000-£10,000 annually on excess capacity</li>
+            <li><strong>Check contract terms:</strong> Understand whether your contract fixes TNUoS or allows pass-through. If renewing before April 2026, seek clarity on how 2026/27 increases will be handled</li>
+            <li><strong>Model exposure:</strong> Use NESO's published forecasts to calculate your site-specific cost increases and budget accordingly</li>
+            <li><strong>Explore flexibility:</strong> Battery storage and demand response can help offset higher network costs by shifting consumption away from peak periods and earning revenue through grid services</li>
+        </ul>
+
+        <div class="summary-section">
+            <div class="summary-title">In Summary</div>
+            <div class="summary-grid">
+                <div class="summary-item danger">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>£108 added to bills by 2031</strong> — £60 electricity, £48 gas network costs</span>
+                </div>
+                <div class="summary-item danger">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>TNUoS charges nearly double</strong> — from £51/year to £93/year for households from April 2026</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Standing charges will surge</strong> — hitting hardest on low-consumption households</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Fixed contracts aren't protected</strong> — most allow TNUoS pass-through mid-contract</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>£28bn initial investment approved</strong> — rising to £90bn by 2031 across all networks</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>£80 in offsetting savings expected</strong> — from lower constraint costs and wholesale prices</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Net bill increase ~£30/year by 2031</strong> — after accounting for system benefits</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Long-term energy security</strong> — investment supports renewable integration and grid resilience</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- CTA Section -->
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Stay ahead of network cost changes</h3>
+            <p>Join our waitlist for early access to free auto-switching and comprehensive bill breakdowns showing exactly where your money goes</p>
+            <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
+        </div>
+    </section>
+
+    <footer class="article-footer">
+        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations, National Energy System Operator (NESO) TNUoS Five-Year View, Cornwall Insight, Oxera, Professional Energy Services, various industry publications.</p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+</body>
+</html>

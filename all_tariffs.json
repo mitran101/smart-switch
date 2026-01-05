@@ -378,7 +378,7 @@
       "elec_day_rate_p": null,
       "elec_night_rate_p": null,
       "elec_standing_p": 55.43,
-      "gas_unit_rate_p": 20.76,
+      "gas_unit_rate_p": 6.02,
       "gas_standing_p": 31.03,
       "exit_fee_gbp": "\u00a350 per fuel",
       "contract_months": 12,

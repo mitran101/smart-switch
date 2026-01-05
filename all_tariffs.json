@@ -3462,7 +3462,7 @@
     "postcode": "PR4 2NB",
     "scraped_at": "2026-01-05T13:11:21.046672",
     "tariff_name": "Simply Fixed Feb27v3",
-    "elec_unit_rate_p": null,
+    "elec_unit_rate_p": 26.28,
     "elec_day_rate_p": null,
     "elec_night_rate_p": null,
     "elec_standing_p": 51.49,

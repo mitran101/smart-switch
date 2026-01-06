@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Energy Transformation Timelapse | 2012-2024</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7b2cbf 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.8;
+        }
+        
+        .timelapse-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .year-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .year-number {
+            font-size: 5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #7b2cbf 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 500px;
+            margin: 30px 0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            background: linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(123, 44, 191, 0.4);
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(123, 44, 191, 0.6);
+        }
+        
+        .control-btn:active {
+            transform: translateY(0);
+        }
+        
+        .control-btn.playing {
+            background: linear-gradient(135deg, #ff006e 0%, #c9184a 100%);
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        
+        .speed-control label {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        
+        .speed-control select {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .speed-control select option {
+            background: #16213e;
+            color: #e0e0e0;
+        }
+        
+        .timeline-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #7b2cbf 0%, #ff006e 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        
+        .timeline-thumb {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: #ff006e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box.highlight-coal {
+            border-color: #8b8b8b;
+            background: rgba(139, 139, 139, 0.15);
+        }
+        
+        .stat-box.highlight-renewables {
+            border-color: #95e1d3;
+            background: rgba(149, 225, 211, 0.15);
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 900;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box.highlight-coal .stat-value {
+            color: #8b8b8b;
+        }
+        
+        .stat-box.highlight-renewables .stat-value {
+            color: #95e1d3;
+        }
+        
+        .milestone-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #7b2cbf 0%, #c9184a 100%);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            max-width: 500px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .milestone-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .milestone-popup h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .milestone-popup p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .year-number {
+                font-size: 3em;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .control-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>UK Energy Transformation</h1>
+            <p>Watch coal collapse and renewables rise in real-time</p>
+        </div>
+        
+        <div class="timelapse-container">
+            <div class="year-display">
+                <div class="year-number" id="currentYear">2012</div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <canvas id="timelapseChart"></canvas>
+            </div>
+            
+            <div class="timeline-bar" id="timelineBar">
+                <div class="timeline-progress" id="timelineProgress">
+                    <div class="timeline-thumb"></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn" id="playBtn" onclick="togglePlay()">
+                    ▶ Play
+                </button>
+                <button class="control-btn" id="resetBtn" onclick="resetTimelapse()">
+                    ↻ Reset
+                </button>
+                <div class="speed-control">
+                    <label for="speed">Speed:</label>
+                    <select id="speed" onchange="changeSpeed()">
+                        <option value="1500">Slow</option>
+                        <option value="1000" selected>Normal</option>
+                        <option value="500">Fast</option>
+                        <option value="250">Very Fast</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box highlight-coal">
+                    <div class="stat-label">Coal</div>
+                    <div class="stat-value" id="coalStat">40%</div>
+                </div>
+                <div class="stat-box highlight-renewables">
+                    <div class="stat-label">Wind</div>
+                    <div class="stat-value" id="windStat">5%</div>
+                </div>
+                <div class="stat-box highlight-renewables">
+                    <div class="stat-label">Solar</div>
+                    <div class="stat-value" id="solarStat">0%</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Gas</div>
+                    <div class="stat-value" id="gasStat">28%</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Nuclear</div>
+                    <div class="stat-value" id="nuclearStat">19%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="milestone-popup" id="milestonePopup">
+        <h3 id="milestoneTitle"></h3>
+        <p id="milestoneText"></p>
+    </div>
+    
+    <script>
+        // Data for each year (2012-2024)
+        const yearData = [
+            { year: 2012, coal: 40, wind: 5, solar: 0.1, gas: 28, nuclear: 19, other: 7.9 },
+            { year: 2013, coal: 36, wind: 8, solar: 0.5, gas: 28, nuclear: 19, other: 8.5 },
+            { year: 2014, coal: 30, wind: 10, solar: 1.2, gas: 30, nuclear: 19, other: 9.8 },
+            { year: 2015, coal: 23, wind: 11, solar: 1.8, gas: 30, nuclear: 21, other: 13.2 },
+            { year: 2016, coal: 9, wind: 12, solar: 2.9, gas: 42, nuclear: 21, other: 13.1 },
+            { year: 2017, coal: 7, wind: 15, solar: 3.3, gas: 40, nuclear: 21, other: 13.7 },
+            { year: 2018, coal: 5, wind: 18, solar: 3.9, gas: 39, nuclear: 19, other: 15.1 },
+            { year: 2019, coal: 2, wind: 20, solar: 4.2, gas: 38, nuclear: 17, other: 18.8 },
+            { year: 2020, coal: 2, wind: 24, solar: 4.4, gas: 37, nuclear: 16, other: 16.6 },
+            { year: 2021, coal: 2, wind: 23, solar: 4.4, gas: 38, nuclear: 15, other: 17.6 },
+            { year: 2022, coal: 1.5, wind: 26, solar: 4.4, gas: 38, nuclear: 15, other: 15.1 },
+            { year: 2023, coal: 1, wind: 29, solar: 4.9, gas: 32, nuclear: 13, other: 20.1 },
+            { year: 2024, coal: 0, wind: 29, solar: 5.0, gas: 32, nuclear: 13, other: 21 }
+        ];
+        
+        // Milestones
+        const milestones = {
+            2013: { title: "Carbon Tax Begins", text: "£9/tonne carbon price floor introduced, making coal less competitive" },
+            2015: { title: "Tax Doubles & Last Mine Closes", text: "Carbon tax reaches £18/tonne. Kellingley Colliery, the last deep coal mine, shuts down" },
+            2017: { title: "First Coal-Free Day", text: "Britain goes 24 hours without coal power for the first time since 1882" },
+            2019: { title: "Coal-Free Fortnight", text: "UK achieves two consecutive weeks without burning any coal" },
+            2020: { title: "Renewables Overtake Fossils", text: "Clean energy sources generate more electricity than fossil fuels for the first time" },
+            2024: { title: "Coal Power Ends Forever", text: "Ratcliffe-on-Soar, the UK's last coal plant, closes on September 30th" }
+        };
+        
+        let currentIndex = 0;
+        let isPlaying = false;
+        let playInterval;
+        let speed = 1000;
+        let chart;
+        
+        // Initialize chart
+        const ctx = document.getElementById('timelapseChart').getContext('2d');
+        
+        function createChart() {
+            const data = yearData[currentIndex];
+            
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Coal', 'Wind', 'Solar', 'Gas', 'Nuclear', 'Other'],
+                    datasets: [{
+                        label: 'Share of Electricity Generation (%)',
+                        data: [data.coal, data.wind, data.solar, data.gas, data.nuclear, data.other],
+                        backgroundColor: [
+                            '#8b8b8b',  // Coal - grey
+                            '#48dbfb',  // Wind - bright blue
+                            '#ffd32a',  // Solar - yellow
+                            '#ff6b6b',  // Gas - red
+                            '#4ecdc4',  // Nuclear - teal
+                            '#95e1d3'   // Other - light green
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 800,
+                        easing: 'easeInOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 46, 0.95)',
+                            titleColor: '#ff006e',
+                            bodyColor: '#e0e0e0',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '% of electricity';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 45,
+                            ticks: {
+                                color: '#e0e0e0',
+                                font: {
+                                    size: 12
+                                },
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#e0e0e0',
+                                font: {
+                                    size: 13,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateChart() {
+            const data = yearData[currentIndex];
+            chart.data.datasets[0].data = [data.coal, data.wind, data.solar, data.gas, data.nuclear, data.other];
+            chart.update();
+            
+            // Update year display
+            document.getElementById('currentYear').textContent = data.year;
+            
+            // Update stats
+            document.getElementById('coalStat').textContent = data.coal + '%';
+            document.getElementById('windStat').textContent = data.wind + '%';
+            document.getElementById('solarStat').textContent = data.solar + '%';
+            document.getElementById('gasStat').textContent = data.gas + '%';
+            document.getElementById('nuclearStat').textContent = data.nuclear + '%';
+            
+            // Update timeline
+            const progress = (currentIndex / (yearData.length - 1)) * 100;
+            document.getElementById('timelineProgress').style.width = progress + '%';
+            
+            // Check for milestones
+            if (milestones[data.year]) {
+                showMilestone(data.year);
+            }
+        }
+        
+        function showMilestone(year) {
+            const popup = document.getElementById('milestonePopup');
+            const milestone = milestones[year];
+            
+            document.getElementById('milestoneTitle').textContent = milestone.title;
+            document.getElementById('milestoneText').textContent = milestone.text;
+            
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+        
+        function togglePlay() {
+            const btn = document.getElementById('playBtn');
+            
+            if (isPlaying) {
+                isPlaying = false;
+                clearInterval(playInterval);
+                btn.textContent = '▶ Play';
+                btn.classList.remove('playing');
+            } else {
+                isPlaying = true;
+                btn.textContent = '⏸ Pause';
+                btn.classList.add('playing');
+                
+                playInterval = setInterval(() => {
+                    currentIndex++;
+                    
+                    if (currentIndex >= yearData.length) {
+                        currentIndex = yearData.length - 1;
+                        togglePlay();
+                        return;
+                    }
+                    
+                    updateChart();
+                }, speed);
+            }
+        }
+        
+        function resetTimelapse() {
+            if (isPlaying) {
+                togglePlay();
+            }
+            
+            currentIndex = 0;
+            updateChart();
+        }
+        
+        function changeSpeed() {
+            speed = parseInt(document.getElementById('speed').value);
+            
+            if (isPlaying) {
+                clearInterval(playInterval);
+                playInterval = setInterval(() => {
+                    currentIndex++;
+                    
+                    if (currentIndex >= yearData.length) {
+                        currentIndex = yearData.length - 1;
+                        togglePlay();
+                        return;
+                    }
+                    
+                    updateChart();
+                }, speed);
+            }
+        }
+        
+        // Timeline bar click
+        document.getElementById('timelineBar').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const percentage = x / rect.width;
+            currentIndex = Math.round(percentage * (yearData.length - 1));
+            currentIndex = Math.max(0, Math.min(currentIndex, yearData.length - 1));
+            updateChart();
+        });
+        
+        // Initialize
+        createChart();
+        updateChart();
+    </script>
+</body>
+</html>

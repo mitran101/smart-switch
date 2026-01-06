@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         :root {
             --sp-slate: #1E293B;
@@ -638,11 +641,35 @@
         <div class="chart-section">
             <div class="chart-title">TNUoS Revenue Forecast (2025/26 to 2030/31)</div>
             <div class="chart-subtitle">Total transmission charges rising to fund RIIO-3 infrastructure investment</div>
-            <ul style="margin-top: 1rem; color: var(--sp-slate-light); font-size: 0.9rem;">
-                <li><strong>2025/26:</strong> £5.1bn total TNUoS revenue</li>
-                <li><strong>2026/27:</strong> £8.9bn total (+£3.8bn increase, +75%)</li>
-                <li><strong>2030/31:</strong> £13.6bn total (forecast)</li>
-            </ul>
+            <div style="height: 300px; margin-top: 1rem;">
+                <canvas id="tnuosRevenueChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-section" style="margin-top: 1.5rem;">
+            <div class="chart-title">Household TNUoS Cost: Before vs After April 2026</div>
+            <div class="chart-subtitle">Annual transmission charges nearly doubling overnight</div>
+            <div style="height: 280px; margin-top: 1rem;">
+                <canvas id="householdTnuosChart"></canvas>
+            </div>
+            <div style="display: flex; justify-content: space-around; margin-top: 1rem; padding: 1rem; background: #F1F5F9; border-radius: 8px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">2025/26</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-green);">£51/year</div>
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">14p/day</div>
+                </div>
+                <div style="text-align: center; font-size: 2rem; color: var(--sp-slate-light); padding-top: 0.5rem;">→</div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">2026/27</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-red);">£93/year</div>
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">26p/day</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">Change</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-amber);">+82%</div>
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">+£42/year</div>
+                </div>
+            </div>
         </div>
 
         <p>The <strong>fixed residual element</strong>, which affects all electricity customers, will increase dramatically:</p>
@@ -677,6 +704,37 @@
 
         <h2>Regional Variations in TNUoS</h2>
         <p>Alongside the fixed residual charges, locational demand tariffs will also change—but not uniformly:</p>
+
+        <div class="chart-section" style="margin: 1.5rem 0;">
+            <div class="chart-title">Network Cost Addition to Bills by 2031</div>
+            <div class="chart-subtitle">Where the £108 annual increase comes from</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 1rem;">
+                <div style="height: 250px;">
+                    <canvas id="networkBreakdownChart"></canvas>
+                </div>
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="width: 16px; height: 16px; background: #EF4444; border-radius: 4px;"></div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--sp-slate);">Electricity Networks</div>
+                            <div style="font-size: 0.85rem; color: var(--sp-slate-light);">£60/year — TNUoS transmission charges</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="width: 16px; height: 16px; background: #F59E0B; border-radius: 4px;"></div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--sp-slate);">Gas Networks</div>
+                            <div style="font-size: 0.85rem; color: var(--sp-slate-light);">£48/year — Distribution infrastructure</div>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; background: #F0FDF4; border-radius: 8px; border-left: 3px solid var(--sp-green); margin-top: 1.5rem;">
+                        <div style="font-size: 0.85rem; color: var(--sp-slate);">
+                            <strong>Offset savings:</strong> ~£80/year from reduced constraint costs and lower wholesale prices — net increase ~£30/year
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <ul>
             <li><strong>Northern GB:</strong> Currently pays £0 in locational demand charges and will continue to do so (renewable generation here offsets transmission costs)</li>
@@ -826,8 +884,157 @@
 
     <footer class="site-footer">
         <p>💌 Weekly energy insights delivered to your inbox</p>
-        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
-        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#d5b3b9bcb2bda1b6a7b0a295a6a2bca1b6bdf8a5bcb9baa1fbb6bab8"><span class="__cf_email__" data-cfemail="1e78727779766a7d6c7b695e6d69776a7d76336e7772728323076">[email&#160;protected]</span></a></p>
+        <p style="margin-top:1rem;">© 2026 SwitchPilot. Making energy bills make sense.</p>
     </footer>
+
+    <script>
+    // Initialize charts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // TNUoS Revenue Chart
+        const revenueCtx = document.getElementById('tnuosRevenueChart');
+        if (revenueCtx) {
+            new Chart(revenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
+                    datasets: [{
+                        label: 'TNUoS Revenue (£bn)',
+                        data: [5.1, 8.9, 10.2, 11.4, 12.5, 13.6],
+                        backgroundColor: [
+                            '#10B981',
+                            '#EF4444',
+                            '#F59E0B',
+                            '#F59E0B',
+                            '#F59E0B',
+                            '#F59E0B'
+                        ],
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            titleFont: { size: 14, weight: '600' },
+                            bodyFont: { size: 13 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return '£' + context.parsed.y.toFixed(1) + ' billion';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 16,
+                            grid: { color: '#E2E8F0' },
+                            ticks: {
+                                callback: function(value) { return '£' + value + 'bn'; },
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11, weight: '500' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Household TNUoS Chart
+        const householdCtx = document.getElementById('householdTnuosChart');
+        if (householdCtx) {
+            new Chart(householdCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
+                    datasets: [{
+                        label: 'Household TNUoS Cost (£/year)',
+                        data: [51, 93, 102, 108, 112, 115],
+                        backgroundColor: function(context) {
+                            const index = context.dataIndex;
+                            return index === 0 ? '#10B981' : '#EF4444';
+                        },
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            callbacks: {
+                                label: function(context) {
+                                    const dailyCost = (context.parsed.y / 365).toFixed(2);
+                                    return ['£' + context.parsed.y + '/year', dailyCost + 'p/day'];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 140,
+                            grid: { color: '#E2E8F0' },
+                            ticks: {
+                                callback: function(value) { return '£' + value; },
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11, weight: '500' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Network Breakdown Doughnut Chart
+        const breakdownCtx = document.getElementById('networkBreakdownChart');
+        if (breakdownCtx) {
+            new Chart(breakdownCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Electricity Networks (£60)', 'Gas Networks (£48)'],
+                    datasets: [{
+                        data: [60, 48],
+                        backgroundColor: ['#EF4444', '#F59E0B'],
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '55%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ' per year';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Articles | SwitchPilot</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0c1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            font-size: 1.3rem;
+        }
+        .back-home {
+            color: #a855f7;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid rgba(168,85,247,0.3);
+            border-radius: 25px;
+            transition: all 0.2s;
+        }
+        .back-home:hover {
+            background: rgba(168,85,247,0.1);
+            border-color: #a855f7;
+        }
+        
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 3rem 2rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* Articles Grid */
+        .articles-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        
+        .year-section {
+            margin-bottom: 3rem;
+        }
+        .year-label {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #a855f7;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(168,85,247,0.3);
+        }
+        
+        .article-card {
+            background: rgba(17,22,46,0.8);
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .article-card:hover {
+            border-color: #6366f1;
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(99,102,241,0.15);
+        }
+        .article-content {
+            flex: 1;
+        }
+        .article-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .article-card p {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            line-height: 1.5;
+        }
+        .article-date {
+            font-size: 0.85rem;
+            color: #a855f7;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* Footer */
+        .site-footer {
+            background: rgba(0,0,0,0.3);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .site-footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        .site-footer a {
+            color: #a855f7;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .article-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .article-date {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <span>✈️⚡</span>
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back Home</a>
+    </nav>
+    
+    <header class="page-header">
+        <h1>📚 All Articles</h1>
+        <p>Deep dives into energy bills, policy changes, and what they mean for your wallet</p>
+    </header>
+    
+    <main class="articles-container">
+        
+        <!-- 2026 -->
+        <section class="year-section">
+            <h2 class="year-label">2026</h2>
+            
+            <div class="article-card" onclick="window.open('TNUoS_Charges_Dec_Update.html','_blank')">
+                <div class="article-content">
+                    <h3>📉 TNUoS Update: 20% Lower Than Feared</h3>
+                    <p>Good news: December draft tariffs show network charges rising less than September forecasts. Households now facing £62/year vs £80 initially feared.</p>
+                </div>
+                <span class="article-date">8 Jan 2026</span>
+            </div>
+            
+            <div class="article-card" onclick="window.open('energy-debt-crisis.html','_blank')">
+                <div class="article-content">
+                    <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
+                    <p>Energy debt has hit £4.4bn — and you're paying £52/year extra on your bill because of it.</p>
+                </div>
+                <span class="article-date">7 Jan 2026</span>
+            </div>
+            
+            <div class="article-card" onclick="window.open('RIIO-3-TNUoS.html','_blank')">
+                <div class="article-content">
+                    <h3>⚡ RIIO-3 & TNUoS: Hidden Network Costs</h3>
+                    <p>Network charges nearly doubling in April — £51 to £93 for households. The £80bn grid upgrade you're paying for.</p>
+                </div>
+                <span class="article-date">6 Jan 2026</span>
+            </div>
+            
+            <div class="article-card" onclick="window.open('q2-26-budget-intervention.html','_blank')">
+                <div class="article-content">
+                    <h3>📊 Q2-26 Price Cap: Budget Intervention</h3>
+                    <p>The government says £150 off your bills — but £88 is just moving to general taxation. Here's what's really changing.</p>
+                </div>
+                <span class="article-date">3 Jan 2026</span>
+            </div>
+        </section>
+        
+        <!-- 2025 -->
+        <section class="year-section">
+            <h2 class="year-label">2025</h2>
+            
+            <div class="article-card" onclick="window.open('Q1-Cap.html','_blank')">
+                <div class="article-content">
+                    <h3>🔆 Q1-26 Price Cap Breakdown</h3>
+                    <p>Bills only rose £3 — but what's the deeper picture? Policy costs rising, wholesale costs fell, unit rates rose sharply.</p>
+                </div>
+                <span class="article-date">28 Nov 2025</span>
+            </div>
+            
+            <div class="article-card" onclick="window.open('nuclear-rab.html','_blank')">
+                <div class="article-content">
+                    <h3>⚛️ Nuclear RAB Charge</h3>
+                    <p>What's being added to bills from 2026 – and why you're paying for a nuclear plant before it's built.</p>
+                </div>
+                <span class="article-date">22 Nov 2025</span>
+            </div>
+            
+            <div class="article-card" onclick="window.open('article.html','_blank')">
+                <div class="article-content">
+                    <h3>🔆 Warm Home Discount Expansion</h3>
+                    <p>What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up.</p>
+                </div>
+                <span class="article-date">25 Oct 2025</span>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p>📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+</body>
+</html>

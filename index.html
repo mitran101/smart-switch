@@ -475,7 +475,7 @@ body { font-size:15px !important; }
 <div class="hero-text">
 <div class="badge">🚀 Building Together</div>
 <h1>Your Flight to Better Energy Deals</h1>
-<p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal on the market — for free. Plus a community that educates you on what you're actually paying for.</p>
+<p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal — for free. And a community that empowers you with the truth about your bills: where your money actually goes, the hidden costs no one explains, and weekly insider insights to keep you ahead.</p>
 </div>
 <div class="pilot-container">
 <div class="pilot-character">✈️</div>
@@ -485,6 +485,7 @@ body { font-size:15px !important; }
 
 <!-- ABOVE THE FOLD EMAIL CAPTURE -->
 <div style="max-width:550px;margin:2rem auto 3rem;padding:0 2rem;position:relative;z-index:10;">
+  <p style="text-align:center;margin:0 0 1rem 0;font-size:1.1rem;font-weight:600;color:#fff;">📬 Get weekly insights that decode your energy bill</p>
   <form onsubmit="handleHeroSubmit(event)" id="heroForm" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;justify-content:center;">
     <input type="email" id="heroEmail" placeholder="Enter your email" required style="flex:1;min-width:220px;padding:1rem 1.2rem;border-radius:12px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);font-size:1rem;color:#fff;backdrop-filter:blur(10px);" />
     <button type="submit" style="padding:1rem 1.8rem;border:none;border-radius:12px;font-size:1rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 8px 25px rgba(236,72,153,0.3);white-space:nowrap;">Get Early Access →</button>
@@ -800,6 +801,18 @@ body { font-size:15px !important; }
 <p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
 <div class="topics">
 
+<div class="topic" onclick="window.open('TNUoS_Charges_Dec_Update.html','_blank')">
+  <h3>📉 TNUoS Update: 20% Lower Than Feared</h3>
+  <p>Good news: December draft tariffs show network charges rising less than September forecasts. Households now facing £62/year vs £80 initially feared. Here's what changed.</p>
+  <p>📅 8 Jan 2026</p>
+</div>
+
+<div class="topic" onclick="window.open('energy-debt-crisis.html','_blank')">
+  <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
+  <p>Energy debt has hit £4.4bn — and you're paying £52/year extra on your bill because of it. The data behind the crisis suppliers don't want you to see.</p>
+  <p>📅 7 Jan 2026</p>
+</div>
+
 <div class="topic" onclick="window.open('RIIO-3-TNUoS.html','_blank')">
   <h3>⚡ RIIO-3 & TNUoS: Hidden Network Costs</h3>
   <p>Network charges nearly doubling in April — £51 to £93 for households. The £80bn grid upgrade you're paying for, and what it means for standing charges.</p>
@@ -824,13 +837,15 @@ body { font-size:15px !important; }
   <p>📅 22 Nov 2025</p>
 </div>
 
-<div class="topic" onclick="window.open('article.html','_blank')">
-  <h3>🔆 Warm Home Discount Expansion</h3>
-  <p>What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up</p>
-  <p>📅 25 Oct 2025</p>
 </div>
 
+<!-- Archive Link -->
+<div style="text-align:center;margin-top:2rem;">
+  <a href="archive.html" style="display:inline-flex;align-items:center;gap:0.5rem;color:#a855f7;font-weight:600;text-decoration:none;padding:0.8rem 1.5rem;border:2px solid rgba(168,85,247,0.3);border-radius:30px;transition:all 0.2s;">
+    📚 View All Articles <span style="font-size:1.2rem;">→</span>
+  </a>
 </div>
+
 </section>
 
 <section class="stats">

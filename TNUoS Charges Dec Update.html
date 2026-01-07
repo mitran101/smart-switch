@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNUoS Update: December Draft Tariffs Show 20% Reduction vs Earlier Forecasts | SwitchPilot</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Navigation Container */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+
+        .top-logo span:first-child {
+            font-size: 1.6rem;
+        }
+
+        .top-logo span:last-child {
+            font-size: 1.35rem;
+        }
+
+        /* Back Button */
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--sp-green);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 600px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        .update-badge {
+            background: var(--sp-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .comparison-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--sp-slate-light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .comparison-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-value.old {
+            color: var(--sp-amber);
+        }
+
+        .comparison-value.new {
+            color: var(--sp-green);
+        }
+
+        .comparison-desc {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+        }
+
+        ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: var(--sp-slate-light);
+        }
+
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            color: #fff;
+        }
+
+        .cta-box p {
+            font-size: 1.05rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.95;
+            color: #fff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #fff;
+            color: var(--sp-green-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .site-footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .site-footer a {
+            color: var(--sp-green);
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .top-nav {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .top-logo span:first-child {
+                font-size: 1.5rem;
+            }
+            .top-logo span:last-child {
+                font-size: 1.25rem;
+            }
+            
+            .back-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .cta-box {
+                margin: 1.5rem 1rem 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta-box h3 {
+                font-size: 1.3rem;
+            }
+            
+            .cta-box p {
+                font-size: 0.95rem;
+            }
+            
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <span>✈️⚡</span>
+            <span>SwitchPilot</span>
+        </a>
+        <a href="riio-3-tnuos-analysis.html" class="back-home">← Back to Full Article</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">✓ Good News Update</span>
+            <h1>TNUoS Charges: December Draft Shows ~20% Reduction vs September Forecast</h1>
+            <p class="subtitle">Following Ofgem's RIIO-3 Final Determinations, transmission network charges will still rise significantly—but less than feared. Here's what changed.</p>
+            <div class="article-meta">
+                <span class="update-badge">Update</span>
+                <span>January 2026</span>
+                <span>•</span>
+                <span>3 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <h2>What's Changed</h2>
+        <p>When NESO published its five-year TNUoS forecast in September 2025, the projections showed transmission charges nearly doubling for many customer types from April 2026. However, <strong>Ofgem's RIIO-3 Final Determinations</strong>, published in December 2025, provided lower allowed revenues for transmission operators than the Draft Determinations suggested.</p>
+        
+        <p>This resulted in NESO's December draft tariffs coming in approximately <strong>20% lower than the September forecasts</strong>, though increases remain substantial compared to current 2025/26 rates.</p>
+
+        <h2>The Numbers: Before and After</h2>
+        
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <div class="comparison-label">September Forecast</div>
+                <div class="comparison-value old">£7.52bn</div>
+                <div class="comparison-desc">Projected demand residual revenue for 2026/27</div>
+            </div>
+            <div class="comparison-card">
+                <div class="comparison-label">December Draft</div>
+                <div class="comparison-value new">~£6.0bn</div>
+                <div class="comparison-desc">Revised demand residual revenue (approx. 20% reduction)</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>For households:</strong> Ofgem now projects annual standing charges rising from around <strong>£42 today to £62 in April 2026</strong>—compared to the £80/year initially feared in the Draft Determinations. This represents a <strong>23% reduction</strong> from earlier projections.</p>
+        </div>
+
+        <h2>What This Means for Different Customer Types</h2>
+
+        <p><strong>Distribution-connected customers</strong> are now seeing average fixed TNUoS cost increases of around <strong>64%</strong> (vs the 94% originally forecast in September), though this varies significantly by voltage band:</p>
+
+        <ul>
+            <li><strong>Low Voltage Band 3 (LV3):</strong> ~41% increase (down from ~70%)</li>
+            <li><strong>Extra High Voltage Band 1 (EHV1):</strong> ~104% increase (down from ~141%)</li>
+        </ul>
+
+        <p><strong>Transmission-connected sites</strong> see even greater variation, ranging from 29% increases for some bands to 118% for others—still substantial, but more moderate than September's projections suggested.</p>
+
+        <div class="warning-box">
+            <p><strong>Important caveat:</strong> These December figures are <em>draft tariffs</em>. NESO will publish <strong>final tariffs by 31 January 2026</strong>, which may differ slightly. However, the direction is clear—increases will be material but less severe than initially feared.</p>
+        </div>
+
+        <h2>Why the Reduction?</h2>
+
+        <p>Ofgem's Final Determinations for RIIO-3 approved <strong>£28.1 billion in baseline investment</strong>—significantly lower than what transmission operators initially requested in their business plans. Ofgem cut baseline expenditure by around 15% from the Draft Determinations (which had already proposed a 25% reduction from what companies requested).</p>
+
+        <p>Key factors in the reduction:</p>
+
+        <ul>
+            <li><strong>Lower allowed returns:</strong> Ofgem set cost of equity at 6.1% (real, at 60% gearing) for transmission—more moderate than companies sought</li>
+            <li><strong>Efficiency challenges:</strong> Stricter scrutiny of proposed spending, requiring operators to demonstrate efficiency improvements as they scale up investment</li>
+            <li><strong>Revenue smoothing:</strong> Ofgem is "reprofiling" allowed revenues—reducing 2026/27 and 2027/28 charges, then increasing them in later years to smooth bill impacts</li>
+        </ul>
+
+        <h2>What Hasn't Changed</h2>
+
+        <p>Despite the reduction, the fundamental drivers behind rising TNUoS costs remain:</p>
+
+        <ul>
+            <li>Massive grid reinforcement needed to connect offshore wind and Scottish renewables</li>
+            <li>Aging transmission infrastructure requiring replacement and upgrades</li>
+            <li>Capacity expansion to support electrification and industrial demand growth</li>
+            <li>Regulatory framework (RIIO-3) running from April 2026 to March 2031</li>
+        </ul>
+
+        <p>The 64% average increase (for distribution-connected customers) still represents the <strong>largest single-year jump in transmission charges</strong> most businesses will have experienced, and charges are projected to continue rising through 2030/31.</p>
+
+        <h2>Next Steps and Timeline</h2>
+
+        <ul>
+            <li><strong>31 January 2026:</strong> NESO publishes final TNUoS tariffs for 2026/27</li>
+            <li><strong>1 April 2026:</strong> New charges take effect</li>
+            <li><strong>Ongoing:</strong> Monitor contract terms for TNUoS pass-through clauses; review site capacity settings; budget for continued increases through 2030/31</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>Action for businesses:</strong> Even with the reduction, now is the time to review your electricity contracts, validate your capacity banding, and model your exposure through to 2031. The increases are still material—just less extreme than September's forecast suggested.</p>
+        </div>
+
+        <h2>The Bigger Picture</h2>
+
+        <p>While the ~20% reduction is welcome news, it's important to maintain perspective. Households will still see standing charges increase by roughly <strong>48%</strong> (£42 to £62), and businesses face increases ranging from 41% to over 100% depending on their connection type and voltage band.</p>
+
+        <p>This remains a fundamental shift in how transmission costs are recovered, and the upward trajectory will continue through the RIIO-3 period as major infrastructure projects progress. The "good news" is relative—charges are rising less steeply than feared, but they're still rising significantly.</p>
+
+    </article>
+
+    <!-- CTA Section -->
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Stay informed on network costs</h3>
+            <p>Join our waitlist for early access to free auto-switching and detailed analysis of where your energy costs are heading</p>
+            <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
+        </div>
+    </section>
+
+    <footer class="article-footer">
+        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations (December 2025), NESO Draft TNUoS Tariffs (December 2025), Drax Energy Intelligence, industry analysis.</p>
+        <p class="footer-note" style="margin-top: 1rem;">
+            <strong>Read the full analysis:</strong> <a href="riio-3-tnuos-analysis.html" style="color: var(--sp-green); text-decoration: none;">RIIO-3 & TNUoS: The £108 Network Cost Addition Coming to Your Bill →</a>
+        </p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+</body>
+</html>

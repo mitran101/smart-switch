@@ -1,518 +1,1542 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNUoS Update: December Draft Tariffs Show 20% Reduction vs Earlier Forecasts | SwitchPilot</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --sp-slate: #1E293B;
-            --sp-slate-light: #475569;
-            --sp-green: #10B981;
-            --sp-green-dark: #059669;
-            --sp-green-light: #D1FAE5;
-            --sp-amber: #F59E0B;
-            --sp-bg: #F8FAFC;
-            --sp-card: #FFFFFF;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SwitchPilot - Free Auto-Switching Energy Service (Coming Soon)</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WEQ6VBT567');
+</script>
 
-        body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--sp-bg);
-            color: var(--sp-slate);
-            line-height: 1.7;
-            font-size: 17px;
-        }
+<style>
+html {scroll-behavior:smooth;}
+body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;scroll-padding-top:80px;}
 
-        /* Navigation Container */
-        .top-nav {
-            background: var(--sp-slate);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* STICKY NAV */
+.sticky-nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:rgba(12,14,31,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  padding:0.8rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:all 0.3s ease;
+}
+.sticky-nav.scrolled {
+  background:rgba(12,14,31,0.95);
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.nav-logo {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:#fff;
+}
+.nav-logo span:first-child {font-size:1.8rem;}
+.nav-logo span:last-child {font-size:1.4rem;font-weight:900;letter-spacing:-0.5px;}
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.nav-links a {
+  color:#fff;
+  text-decoration:none;
+  padding:0.5rem 1rem;
+  border-radius:10px;
+  font-size:0.9rem;
+  font-weight:600;
+  opacity:0.75;
+  transition:all 0.2s ease;
+}
+.nav-links a:hover {
+  opacity:1;
+  background:rgba(255,255,255,0.1);
+}
+.nav-links a.active {
+  opacity:1;
+  background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(236,72,153,0.3));
+}
+.nav-cta {
+  background:linear-gradient(135deg,#6366f1,#ec4899) !important;
+  opacity:1 !important;
+  box-shadow:0 4px 15px rgba(236,72,153,0.3);
+}
+.nav-cta:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(236,72,153,0.4);
+}
+.nav-toggle {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:5px;
+}
+.nav-toggle span {
+  width:24px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:all 0.3s ease;
+}
+@media (max-width: 900px) {
+  .nav-links {
+    position:fixed;
+    top:60px;
+    left:0;
+    right:0;
+    background:rgba(12,14,31,0.98);
+    backdrop-filter:blur(20px);
+    flex-direction:column;
+    padding:1.5rem;
+    gap:0.5rem;
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+    transition:all 0.3s ease;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-links.open {
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .nav-links a {
+    width:100%;
+    text-align:center;
+    padding:0.8rem 1rem;
+  }
+  .nav-toggle {display:flex;}
+  .nav-toggle.open span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
+  .nav-toggle.open span:nth-child(2) {opacity:0;}
+  .nav-toggle.open span:nth-child(3) {transform:rotate(-45deg) translate(5px,-5px);}
+}
 
-        /* Logo */
-        .top-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            color: white;
-            transition: opacity 0.2s;
-        }
+/* HERO */
+.hero {position:relative;padding:7rem 2rem 4rem;overflow:hidden;background:#0c0e1f;}
+.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
+@keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
+.floating-symbols {position:absolute;inset:0;pointer-events:none;}
+.symbol {position:absolute;font-size:3rem;opacity:.85;animation:drift 10s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 0 20px rgba(99,102,241,0.6));}
+@keyframes drift {0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(10px,-15px) rotate(5deg)}}
 
-        .top-logo:hover {
-            opacity: 0.8;
-        }
+/* Glowing pulse animation for energy symbols */
+.symbol:nth-child(1), .symbol:nth-child(4) {
+animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
+}
+@keyframes energyGlow {
+0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
+50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
+}
 
-        .top-logo span:first-child {
-            font-size: 1.6rem;
-        }
+.symbol:nth-child(1){left:55%;top:14%}
+.symbol:nth-child(2){left:70%;top:10%}
+.symbol:nth-child(3){left:50%;top:65%}
+.symbol:nth-child(4){left:85%;top:28%}
+.symbol:nth-child(5){left:50%;top:35%}
 
-        .top-logo span:last-child {
-            font-size: 1.35rem;
-        }
+.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;}
+.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);}
+.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
+.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
+.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;}
+.pilot-character {font-size:18rem;animation:pilotFloat 10s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));transform:translateX(-15px);}
+@keyframes pilotFloat {0%,100%{transform:translateX(-15px) translateY(0) rotate(-6deg)}50%{transform:translateX(-15px) translateY(-35px) rotate(6deg)}}
+.destination-tag {position:absolute;bottom:2rem;right:1rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;}
 
-        /* Back Button */
-        .back-home {
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-        }
+/* WAITLIST */
+.waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);}
+.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;}
+.waitlist-form p {opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;}
+.form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;}
+.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;}
 
-        .back-home:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+/* Signup counter animation */
+.signup-counter {
+animation: counterFadeIn 0.6s ease-out;
+}
+@keyframes counterFadeIn {
+0% { opacity: 0; transform: translateY(-10px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+#signupCount {
+display: inline-block;
+min-width: 2ch;
+}
 
-        .article-header {
-            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
-            color: white;
-            padding: 5rem 2rem 3rem;
-            position: relative;
-            overflow: hidden;
-        }
+/* INSIGHTS */
+.insights {background:#0f1329;padding:4.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
 
-        .article-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
+/* Animated circuit lines */
+.insights::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #6366f1, transparent);
+animation: scanline 3s linear infinite;
+}
+.insights::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #ec4899, transparent);
+animation: scanline 3s linear infinite reverse;
+}
+@keyframes scanline {
+0% { transform: translateX(-100%); }
+100% { transform: translateX(100%); }
+}
 
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
+.insights h2 {font-size:3rem;font-weight:900;margin-bottom:0.5rem;position:relative;z-index:2;}
+.topics {max-width:1200px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;padding:0 2rem;}
+.topic {background:#11162e;padding:2.5rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;text-align:left;}
 
-        .tag {
-            display: inline-block;
-            background: var(--sp-green);
-            color: white;
-            padding: 0.35rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1.25rem;
-        }
+/* Glowing edge on hover */
+.topic::before {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: 22px;
+padding: 2px;
+background: linear-gradient(135deg, #6366f1, #ec4899);
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+opacity: 0;
+transition: opacity 0.3s;
+}
+.topic:hover::before {
+opacity: 1;
+}
 
-        h1 {
-            font-family: 'DM Serif Display', Georgia, serif;
-            font-size: clamp(1.75rem, 5vw, 2.5rem);
-            font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 1.25rem;
-        }
+.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);}
+.topic h3 {font-size:1.5rem;margin-bottom:1rem;margin-top:0;line-height:1.3;font-weight:800;}
+.topic p {opacity:.85;line-height:1.6;font-size:1.05rem;margin:0 0 1.2rem 0;}
+.topic p:last-child {margin-bottom:0;font-size:0.9rem;opacity:0.6;margin-top:auto;padding-top:1rem;}
 
-        .subtitle {
-            font-size: 1.15rem;
-            color: #94A3B8;
-            max-width: 600px;
-        }
+/* STATS */
+.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;}
+.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-        .article-meta {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #94A3B8;
-        }
+/* CTA */
+.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;}
 
-        .update-badge {
-            background: var(--sp-green);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
+/* Animated grid overlay */
+.final-cta::before {
+content: '';
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+background-size: 50px 50px;
+animation: gridSlide 15s linear infinite;
+}
+@keyframes gridSlide {
+0% { transform: translate(0, 0); }
+100% { transform: translate(50px, 50px); }
+}
 
-        .article-body {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 2rem 1.5rem;
-        }
+.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;}
+.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;}
+.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;}
+.cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
 
-        h2 {
-            font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 1.65rem;
-            font-weight: 400;
-            margin: 2.5rem 0 1rem;
-            color: var(--sp-slate);
-        }
+/* Mid-page CTA */
+.mid-cta-btn {
+  display:inline-block;
+  padding:1rem 2.5rem;
+  background:#fff;
+  color:#6366f1;
+  text-decoration:none;
+  border-radius:15px;
+  font-weight:800;
+  font-size:1.05rem;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  transition:all 0.2s;
+}
+.mid-cta-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px rgba(0,0,0,0.3);
+}
 
-        h2:first-of-type {
-            margin-top: 0;
-        }
+/* MOBILE RESPONSIVE */
 
-        p {
-            margin-bottom: 1.25rem;
-            color: var(--sp-slate-light);
-        }
+@media (max-width: 968px) {
+.hero {padding:6rem 1.5rem 4rem;}
+.hero-content {grid-template-columns:1fr;gap:2rem;}
+.hero-text h1 {font-size:2.5rem;}
+.hero-text p {font-size:1.1rem;max-width:100%;}
+.pilot-character {font-size:10rem;}
+.destination-tag {position:static;margin:2rem auto 0;max-width:280px;text-align:center;}
 
-        strong {
-            color: var(--sp-slate);
-            font-weight: 600;
-        }
+.floating-symbols {display:none;}
 
-        .highlight-box {
-            background: var(--sp-green-light);
-            border-left: 4px solid var(--sp-green);
-            padding: 1.25rem 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
+.vision-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0 1.5rem !important;
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+}
 
-        .highlight-box p {
-            margin: 0;
-            color: var(--sp-slate);
-        }
+section[style*="max-width:900px"][style*="margin:3.5rem"] {
+    margin: 2.5rem auto 0 !important;
+    padding: 0 1.5rem !important;
+}
 
-        .warning-box {
-            background: #FEF3C7;
-            border-left: 4px solid var(--sp-amber);
-            padding: 1.25rem 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
+.waitlist-form {padding:2rem 1.5rem;margin:2rem 1.5rem;}
+.waitlist-form h3 {font-size:1.6rem;}
+.signup-counter {padding:1rem !important;}
+.signup-counter > div {flex-wrap:wrap;justify-content:center;text-align:center;}
 
-        .warning-box p {
-            margin: 0;
-            color: var(--sp-slate);
-        }
+.insights {padding:3.5rem 1.5rem !important;}
+.insights h2, .final-cta h2 {font-size:2rem;}
+.topics {grid-template-columns:1fr;gap:1.5rem;}
 
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
+.stats {grid-template-columns:1fr;gap:2rem;}
+.stat-number {font-size:2.5rem;}
 
-        .comparison-card {
-            background: var(--sp-card);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-        }
+#gameCanvas {max-width:100%;height:auto;}
 
-        .comparison-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--sp-slate-light);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
+/* Price cap section mobile */
+section[style*="max-width:1400px"] {
+    padding: 3rem 1.5rem !important;
+}
+section[style*="max-width:1400px"] > div {
+    padding: 2rem 1.5rem !important;
+}
+section[style*="max-width:1400px"] h2 {
+    font-size: 2rem !important;
+}
+section[style*="max-width:1400px"] div[style*="height:600px"] {
+    height: 400px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] {
+    min-width: 140px !important;
+    padding: 15px !important;
+}
+section[style*="max-width:1400px"] div[style*="gap:40px"] {
+    gap: 20px !important;
+}
 
-        .comparison-value {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
+.final-cta {padding:4rem 1.5rem;}
+.final-cta p {font-size:1rem;}
+.cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
+}
 
-        .comparison-value.old {
-            color: var(--sp-amber);
-        }
+@media (max-width: 480px) {
+.hero { padding:5.5rem 1rem 3rem !important; }
+.pilot-container { margin-top:1rem !important; }
+.destination-tag { margin-top:1rem !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
+.hero-text h1 { font-size:2rem !important; }
+.pilot-character { font-size:8rem !important; }
 
-        .comparison-value.new {
-            color: var(--sp-green);
-        }
+.vision-mission-grid {
+    padding: 0 1rem !important;
+    gap: 1rem !important;
+}
 
-        .comparison-desc {
-            font-size: 0.85rem;
-            color: var(--sp-slate-light);
-        }
+section[style*="max-width:900px"][style*="margin:3.5rem"] {
+    margin: 2rem auto 0 !important;
+    padding: 0 1rem !important;
+}
 
-        ul {
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
+section[style*="max-width:900px"] > div {
+    padding: 1.5rem 1rem !important;
+}
 
-        li {
-            margin-bottom: 0.75rem;
-            color: var(--sp-slate-light);
-        }
+.waitlist-form {
+    padding: 1.5rem 1rem !important;
+    margin: 1.5rem 1rem !important;
+}
 
-        .article-footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-top: 1px solid #E2E8F0;
-            text-align: center;
-        }
+/* Price cap section on small phones */
+section[style*="max-width:1400px"] {
+    padding: 2rem 1rem !important;
+}
+section[style*="max-width:1400px"] > div {
+    padding: 1.5rem 1rem !important;
+}
+section[style*="max-width:1400px"] h2 {
+    font-size: 1.6rem !important;
+}
+section[style*="max-width:1400px"] p[style*="font-size:1.1rem"] {
+    font-size: 0.95rem !important;
+}
+section[style*="max-width:1400px"] div[style*="height:600px"] {
+    height: 300px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 250px !important;
+    padding: 12px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:first-child {
+    font-size: 10px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:nth-child(2) {
+    font-size: 24px !important;
+}
+section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
+    font-size: 12px !important;
+}
 
-        .footer-note {
-            font-size: 0.8rem;
-            color: var(--sp-slate-light);
-        }
+.final-cta { padding: 3rem 1rem !important; }
+}
+.topic p { font-size:1rem !important; line-height:1.45 !important; }
+.price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
+.footer { padding:2.5rem 1rem !important; }
+body { font-size:15px !important; }
+.hero-text h1 {font-size:2rem;}
+.pilot-character {font-size:10rem;}
+.waitlist-form h3 {font-size:1.4rem;}
+.insights, .final-cta {padding:3rem 1rem;}
 
-        .cta-box {
-            max-width: 700px;
-            margin: 1.5rem auto 0;
-            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
-            text-align: center;
-        }
+}
 
-        .cta-box h3 {
-            font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin: 0 0 0.8rem 0;
-            color: #fff;
-        }
+/* Price Cap Tool Styles */
+.price-cap-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 5px;
+  background: #2c3e50;
+  color: white;
+}
 
-        .cta-box p {
-            font-size: 1.05rem;
-            margin: 0 0 1.5rem 0;
-            opacity: 0.95;
-            color: #fff;
-        }
+.price-cap-active {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: white;
+  font-weight: bold;
+}
+</style>
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: #fff;
-            color: var(--sp-green-dark);
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-        }
-
-        .site-footer {
-            background: var(--sp-slate);
-            text-align: center;
-            padding: 3rem 2rem;
-            color: white;
-            margin-top: 3rem;
-        }
-
-        .site-footer p {
-            opacity: 0.8;
-            margin: 0.5rem 0;
-            color: white;
-            font-size: 0.95rem;
-        }
-
-        .site-footer a {
-            color: var(--sp-green);
-            text-decoration: none;
-        }
-
-        .site-footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 700px) {
-            .top-nav {
-                padding: 1rem;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-
-            .top-logo span:first-child {
-                font-size: 1.5rem;
-            }
-            .top-logo span:last-child {
-                font-size: 1.25rem;
-            }
-            
-            .back-home {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-            
-            .cta-box {
-                margin: 1.5rem 1rem 0;
-                padding: 2rem 1.5rem;
-            }
-            
-            .cta-box h3 {
-                font-size: 1.3rem;
-            }
-            
-            .cta-box p {
-                font-size: 0.95rem;
-            }
-            
-            .cta-button {
-                padding: 0.9rem 2rem;
-                font-size: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="top-nav">
-        <a href="index.html" class="top-logo">
-            <span>✈️⚡</span>
-            <span>SwitchPilot</span>
-        </a>
-        <a href="riio-3-tnuos-analysis.html" class="back-home">← Back to Full Article</a>
-    </nav>
 
-    <header class="article-header">
-        <div class="header-content">
-            <span class="tag">✓ Good News Update</span>
-            <h1>TNUoS Charges: December Draft Shows ~20% Reduction vs September Forecast</h1>
-            <p class="subtitle">Following Ofgem's RIIO-3 Final Determinations, transmission network charges will still rise significantly—but less than feared. Here's what changed.</p>
-            <div class="article-meta">
-                <span class="update-badge">Update</span>
-                <span>January 2026</span>
-                <span>•</span>
-                <span>3 min read</span>
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <a href="#hero" class="nav-logo">
+    <span>✈️⚡</span>
+    <span>SwitchPilot</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#bill-breakdown">Bill Breakdown</a>
+    <a href="#tariffs">Tariff Tracker</a>
+    <a href="#community">Community</a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+<div class="energy-grid"></div>
+<div class="floating-symbols">
+<div class="symbol">⚡</div><div class="symbol">💷</div><div class="symbol">🔌</div><div class="symbol">💡</div><div class="symbol">📈</div>
+</div>
+<div class="hero-content">
+<div class="hero-text">
+<div class="badge">🚀 Building Together</div>
+<h1>Your Flight to Better Energy Deals</h1>
+<p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal — for free. And a community that empowers you with the truth about your bills: where your money actually goes, the hidden costs no one explains, and weekly insider insights to keep you ahead.</p>
+</div>
+<div class="pilot-container">
+<div class="pilot-character">✈️</div>
+<div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
+</div>
+</div>
+
+<!-- ABOVE THE FOLD EMAIL CAPTURE -->
+<div style="max-width:550px;margin:2rem auto 3rem;padding:0 2rem;position:relative;z-index:10;">
+  <p style="text-align:center;margin:0 0 1rem 0;font-size:1.1rem;font-weight:600;color:#fff;">📬 Get weekly insights that decode your energy bill</p>
+  <form onsubmit="handleHeroSubmit(event)" id="heroForm" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;justify-content:center;">
+    <input type="email" id="heroEmail" placeholder="Enter your email" required style="flex:1;min-width:220px;padding:1rem 1.2rem;border-radius:12px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);font-size:1rem;color:#fff;backdrop-filter:blur(10px);" />
+    <button type="submit" style="padding:1rem 1.8rem;border:none;border-radius:12px;font-size:1rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 8px 25px rgba(236,72,153,0.3);white-space:nowrap;">Get Early Access →</button>
+  </form>
+  <p id="heroSubtext" style="margin:0.8rem 0 0 0;font-size:0.85rem;color:rgba(255,255,255,0.6);text-align:center;">🔒 Free forever. Unsubscribe anytime.</p>
+  <p id="heroSuccess" style="display:none;margin:0.8rem 0 0 0;font-size:1rem;color:#fff;text-align:center;">✉️ <strong>Welcome aboard!</strong> Check your email for verification.</p>
+</div>
+
+<!-- Vision & Mission Boxes -->
+
+<div class="vision-mission-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:0 2rem;position:relative;z-index:5;">
+  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+      <span style="font-size:1.8rem;">🔮</span>
+      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Our Vision</h3>
+    </div>
+    <p style="margin:0;font-size:1.4rem;font-weight:700;line-height:1.4;margin-bottom:1rem;">Putting the power back in your hands</p>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.85;">An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
+  </div>
+  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(236,72,153,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
+      <span style="font-size:1.8rem;">🚀</span>
+      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">What We're Building</h3>
+    </div>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) — free to use, suppliers pay us, not you. Plus a community that educates you on where your money actually goes. We're not another comparison site. We're building this WITH you to challenge the status quo.</p>
+  </div>
+</div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section style="max-width:1000px;margin:2rem auto 0;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(236,72,153,0.12));padding:2.5rem;border-radius:22px;border:1px solid rgba(99,102,241,0.25);box-shadow:0 15px 50px rgba(0,0,0,0.3);text-align:center;">
+  <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.8rem;">65%</div>
+  <p style="font-size:1.3rem;font-weight:700;margin:0 0 1rem 0;opacity:0.95;">of UK households are stuck on expensive default tariffs</p>
+  <p style="font-size:1.1rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
+    And even those who switch often miss better deals — comparing tariffs is confusing, time-consuming, and easy to put off.
+  </p>
+  <p style="font-size:1.1rem;line-height:1.7;margin:0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
+    That's why we're building a service that does the hard work for you — while educating and empowering you to drive real change. When more people switch, suppliers compete. When more people question their bills, regulators listen. An informed, active market works better for <strong>everyone</strong>.
+  </p>
+</div>
+</section>
+
+<!-- WHO WE ARE -->
+
+<section id="about" style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    We work inside the UK energy industry — <strong>and what we've seen shocked us.</strong>
+  </p>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
+    So we're building something different.
+  </p>
+
+  <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
+    <p style="font-size:1rem;line-height:1.6;margin:0;opacity:0.95;">
+      Did you know you're paying wind farms to turn off when it's too windy (<strong>constraint payments</strong>), whilst funding them through <strong>CfDs</strong>? Or that <strong>your electricity prices are tied to gas prices</strong>—even when most power comes from cheap renewables, the last generator needed (usually gas) sets the price everyone gets paid (<strong>marginal pricing</strong>)? Or that through the <strong>Warm Home Discount</strong> scheme, you're subsidising other people's discounts even if you don't qualify.
+    </p>
+  </div>
+
+  <p style="font-size:1.1rem;line-height:1.7;margin-top:1.2rem;margin-bottom:1.5rem;opacity:0.9;">
+    None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, make switching effortless, and educate people on what they're actually paying for.
+  </p>
+
+  <div style="background:linear-gradient(135deg,rgba(236,72,153,0.1),rgba(99,102,241,0.1));padding:1.8rem;border-radius:18px;border:2px solid rgba(236,72,153,0.25);">
+    <p style="font-size:1.15rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.95;font-weight:600;">
+      That's why we're building two things:
+    </p>
+    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:0.8rem;">
+      <span style="font-size:1.3rem;">⚡</span>
+      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>A free auto-switching service</strong> that works in the background for you—finding and switching you to better deals automatically (with your consent)</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;">
+      <span style="font-size:1.3rem;">📚</span>
+      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>An educated community</strong> that actually understands what they're paying for—because informed customers create a more competitive market for everyone</p>
+    </div>
+    <p style="margin:0;font-size:1.1rem;line-height:1.6;opacity:0.95;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.1);">
+      <strong style="background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">The best part?</strong> You help us shape exactly what we build. We're not building FOR you—we're building WITH you. Your feedback, your frustrations, your ideas—they all matter.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<section style="max-width:900px;margin:3rem auto;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,#6366f1,#ec4899);padding:2rem 2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
+  <p style="font-size:1.2rem;font-weight:700;margin:0 0 1rem 0;color:#fff;">Ready to be part of this?</p>
+  <p style="font-size:1rem;margin:0 0 1.3rem 0;opacity:0.95;color:#fff;">Join the waitlist and help shape what we build</p>
+  <a href="#waitlist" class="mid-cta-btn">Get Early Access →</a>
+</div>
+</section>
+
+<!-- SURVEY STATS SHOWCASE -->
+<section id="survey" style="max-width:1200px;margin:4rem auto;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
+  <div style="font-size:2rem;margin-bottom:0.8rem;">📊</div>
+  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1rem;">We Asked 200 People About Energy Switching</h2>
+  <p style="font-size:1.1rem;line-height:1.6;opacity:0.85;margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;">
+    Before building anything, we surveyed real people. Here's what we found:
+  </p>
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-bottom:2rem;">
+    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">77.5%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Want auto-switching</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">3 in 4 people are ready for this</p>
+    </div>
+    
+    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">73%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Of "content" customers</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Still want switching when friction is removed</p>
+    </div>
+    
+    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">61%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Don't understand bills</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Education builds trust & empowerment</p>
+    </div>
+    
+    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
+      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">48%</div>
+      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Haven't switched in 5+ years</p>
+      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">The exact inertia suppliers profit from</p>
+    </div>
+  </div>
+  
+  <a href="survey-results.html" style="display:inline-block;padding:1rem 2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;text-decoration:none;border-radius:15px;font-weight:700;font-size:1rem;box-shadow:0 10px 30px rgba(236,72,153,0.3);transition:transform 0.2s;">
+    Read Full Survey Results →
+  </a>
+  
+  <p style="font-size:1rem;opacity:0.8;margin-top:2rem;max-width:650px;margin-left:auto;margin-right:auto;line-height:1.6;">
+    <strong>But surveys are just surveys.</strong> We want to build a community and listen to <strong>YOU</strong>—creating a product <strong>WITH</strong> you that actually works for you.
+  </p>
+</div>
+</section>
+
+<div id="waitlist" class="waitlist-form">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:1.5rem 2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);margin-bottom:1.5rem;text-align:center;">
+  <div style="font-size:1.3rem;font-weight:800;color:#1a1a2e;margin-bottom:0.5rem;">🎯 Join 5,000 Early Access Pilots</div>
+  <p style="margin:0;font-size:1rem;color:#1a1a2e;opacity:0.85;">Be part of the crew that shapes what we build—and get first access when we launch</p>
+</div>
+<div class="signup-counter" style="display:none;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
+  <!-- Counter hidden until signups reach 50+ -->
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1.5rem;">👥</span>
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">pilots</span>
+    </div>
+  </div>
+  <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
+    <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
+    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
+      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5,000</span>
+      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
+    </div>
+  </div>
+</div>
+<h3>Join the Flight Crew ✈️</h3>
+<p>Get weekly energy insights + early access to free auto-switching when we launch</p>
+<form onsubmit="handleSubmit(event)">
+<div class="form-group"><input type="email" placeholder="Your email address" required /></div>
+<button type="submit" class="submit-btn">Get Early Access</button>
+</form>
+<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
+</div>
+
+<!-- EMBEDDED PRICE CAP TOOL -->
+<section id="bill-breakdown" style="max-width:1400px;margin:3.5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <div style="text-align:center;margin-bottom:2rem;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Energy Price Cap Breakdown</h2>
+    <p style="font-size:1.1rem;opacity:0.85;max-width:800px;margin:0 auto;">
+      Ever wondered where your energy bill money actually goes? We've broken down the UK price cap into every single cost component.
+    </p>
+  </div>
+
+  <div style="margin-bottom:30px;text-align:center;">
+    <p style="font-size:14px;color:#bdc3c7;margin-bottom:10px;font-weight:500;">Payment Method:</p>
+    <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
+  </div>
+  
+  <div style="height:600px;margin-bottom:30px;">
+    <canvas id="priceCapChart"></canvas>
+  </div>
+  
+  <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:30px;">
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:rgba(44,62,80,0.5);">
+      <p style="font-size:12px;color:#bdc3c7;margin-bottom:5px;">Oct-Dec 2025</p>
+      <p id="priceCapPeriod1Total" style="font-size:32px;font-weight:bold;color:#ecf0f1;margin:0;">£1755</p>
+    </div>
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:linear-gradient(135deg,#6366f1,#ec4899);">
+      <p style="font-size:12px;color:#ecf0f1;margin-bottom:5px;">Jan-Mar 2026</p>
+      <p id="priceCapPeriod2Total" style="font-size:32px;font-weight:bold;color:white;margin:0;">£1758</p>
+      <p id="priceCapChangeAmount" style="font-size:14px;color:#ecf0f1;margin-top:5px;">+£3 (+0.2%)</p>
+    </div>
+  </div>
+  
+  <div style="margin-top:30px;padding:15px;background:rgba(44,62,80,0.3);border-left:4px solid #6366f1;font-size:12px;color:#bdc3c7;border-radius:5px;">
+    <p style="margin:0 0 5px 0;"><strong>Source:</strong> OFGEM (Office of Gas and Electricity Markets)</p>
+    <p style="margin:0 0 5px 0;"><strong>Typical Consumption:</strong> 2,700kWh electricity, 11,500kWh gas annually (UK average, rates vary by region)</p>
+    <p style="margin:5px 0 0 0;"><strong>Note:</strong> Hover over chart bars to see individual cost components and their values.</p>
+  </div>
+</div>
+</section>
+
+<!-- NEW BILLING VS CONSUMPTION INTERACTIVE -->
+<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
+  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">📚 Educational Tool</div>
+  <div style="font-size:3rem;margin-bottom:1rem;">💡</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Why Your Bill Doesn't Match Your Usage</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    Ever wonder why you pay the same in summer and winter, even though you use way more energy when it's cold? Explore our interactive tool to understand the disconnect between billing and consumption.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Direct Debit</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Monthly Smoothing</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Seasonal</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Consumption Patterns</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Interactive</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Visualizations</div>
+    </div>
+  </div>
+  <button onclick="window.open('billing-consumption-interactive.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Explore the Interactive Tool →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Understand how Direct Debit smoothing actually works</p>
+</div>
+</section>
+
+<!-- TARIFF TRACKER CALLOUT -->
+<section id="tariffs" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
+  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">⏳ While We Build Auto-Switching</div>
+  <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Live Tariff Tracker</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    We're not a comparison site — but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">7</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Live Tariffs</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">14</div>
+      <div style="font-size:0.9rem;opacity:0.8;">UK Regions</div>
+    </div>
+    <div style="text-align:center;">
+      <div id="trackerSavings" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">£165</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Avg. Savings/year</div>
+    </div>
+  </div>
+  <button onclick="window.open('tariff-tracker.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Compare Tariffs Now →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Updated weekly • While we build full automation • <a href="Switching-guide.html" style="color:#a855f7;text-decoration:none;">Read our switching guide</a></p>
+</div>
+</section>
+
+<!-- COMMUNITY CALLOUT -->
+<section id="community" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
+<div style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(99,102,241,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(236,72,153,0.3);box-shadow:0 20px 60px rgba(236,72,153,0.2);text-align:center;">
+  <div style="font-size:3rem;margin-bottom:1rem;">💬</div>
+  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Community Discussions</h2>
+  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
+    Help us shape the product, share experiences, ask questions, and learn what you're actually paying for. Together we can challenge the status quo.
+  </p>
+  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">🛠️</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Shape SwitchPilot</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">🔄</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Switching Tips</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">💷</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Bill Help</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:2.5rem;">💡</div>
+      <div style="font-size:0.9rem;opacity:0.8;">Money Saving</div>
+    </div>
+  </div>
+  <button onclick="window.open('community.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#ec4899,#6366f1);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
+    Join the Discussion →
+  </button>
+  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Share your ideas • Help others save</p>
+</div>
+</section>
+
+<section class="insights">
+<h2>Recent Insights</h2>
+<p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
+<div class="topics">
+
+<div class="topic" onclick="window.open('energy-debt-crisis.html','_blank')">
+  <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
+  <p>Energy debt has hit £4.4bn — and you're paying £52/year extra on your bill because of it. The data behind the crisis suppliers don't want you to see.</p>
+  <p>📅 7 Jan 2026</p>
+</div>
+
+<div class="topic" onclick="window.open('RIIO-3-TNUoS.html','_blank')">
+  <h3>⚡ RIIO-3 & TNUoS: Hidden Network Costs</h3>
+  <p>Network charges nearly doubling in April — £51 to £93 for households. The £80bn grid upgrade you're paying for, and what it means for standing charges.</p>
+  <p>📅 6 Jan 2026</p>
+</div>
+
+<div class="topic" onclick="window.open('q2-26-budget-intervention.html','_blank')">
+  <h3>📊 Q2-26 Price Cap: Budget Intervention</h3>
+  <p>The government says £150 off your bills — but £88 is just moving to general taxation. Here's what's really changing and why ECO ending matters.</p>
+  <p>📅 3 Jan 2026</p>
+</div>
+
+<div class="topic" onclick="window.open('Q1-Cap.html','_blank')">
+  <h3>🔆 Q1-26 Price Cap Breakdown</h3>
+  <p>Bills only rose £3 — but what's the deeper picture? Policy costs rising, wholesale costs fell, unit rates rose sharply. What does this mean for you?</p>
+  <p>📅 28 Nov 2025</p>
+</div>
+
+<div class="topic" onclick="window.open('nuclear-rab.html','_blank')">
+  <h3>⚛️ Nuclear RAB Charge</h3>
+  <p>What's being added to bills from 2026 – and why you're paying for a nuclear plant before it's built</p>
+  <p>📅 22 Nov 2025</p>
+</div>
+
+<div class="topic" onclick="window.open('article.html','_blank')">
+  <h3>🔆 Warm Home Discount Expansion</h3>
+  <p>What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up</p>
+  <p>📅 25 Oct 2025</p>
+</div>
+
+</div>
+</section>
+
+<section class="stats">
+<div>
+  <div class="stat-number">65%</div>
+  <div>of UK could save more</div>
+</div>
+<div>
+  <div class="stat-number" id="dynamicSavings">£200+</div>
+  <div>potential yearly savings</div>
+</div>
+<div>
+  <div class="stat-number">You</div>
+  <div>shape what we build</div>
+</div>
+</section>
+
+<!-- GAME SECTION -->
+
+<section id="game" style="max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;">
+<div style="background:#11162e;padding:3rem;border-radius:30px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
+
+  <!-- Animated background -->
+
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;">
+    <div style="font-size:3rem;margin-bottom:1rem;">✈️⚡💷</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
+    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
+
+<div id="gameStartScreen" style="margin-bottom:1.5rem;">
+  <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
+</div>
+
+<canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
+
+<div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
+    <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+  </div>
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
+    <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+  </div>
+</div>
+
+<div id="gameOverScreen" style="display:none;margin-top:2rem;">
+  <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
+  <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
+  <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
+</div>
+
+  </div>
+</div>
+</section>
+
+<section class="final-cta">
+<h2>We're Building This Together</h2>
+<p>65% of UK households are on Standard Variable Tariffs and could save <span id="dynamicSavingsText">£200+</span> per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you — but we need your input to build what actually works.</p>
+<button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Join the Community</button>
+</section>
+
+<footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
+<p>💌 Weekly energy insights delivered to your inbox</p>
+<p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
+<p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
+</footer>
+
+<script>
+// Google Apps Script URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
+
+// Target number for countdown
+const TARGET_SIGNUPS = 5000;
+
+// Initialize signup counter - fetch from Google Sheets
+let signupCount = 0;
+
+function updateCounterDisplay(count) {
+    const countElement = document.getElementById('signupCount');
+    const spotsElement = document.getElementById('spotsRemaining');
+    const progressBar = document.getElementById('progressBar');
+    
+    if (countElement) countElement.textContent = count.toLocaleString();
+    if (spotsElement) spotsElement.textContent = Math.max(0, TARGET_SIGNUPS - count).toLocaleString();
+    if (progressBar) progressBar.style.width = Math.min(100, (count / TARGET_SIGNUPS) * 100) + '%';
+}
+
+// Fetch ONLY verified count ("yes") from Apps Script
+fetch(SCRIPT_URL + '?getCount=1')
+    .then(response => response.json())
+    .then(data => {
+        signupCount = data.count || 0;
+        updateCounterDisplay(signupCount);
+    })
+    .catch(err => {
+        console.log('Could not fetch signup count:', err);
+        updateCounterDisplay(0);
+    });
+
+
+function animateCounter(element, newValue) {
+    element.style.transform = 'scale(1.3)';
+    element.style.transition = 'transform 0.3s ease';
+    element.textContent = newValue.toLocaleString();
+    setTimeout(() => {
+        element.style.transform = 'scale(1)';
+    }, 300);
+}
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    const form = e.target.closest('.waitlist-form');
+    
+    // Optimistically increment counter (immediate feedback)
+    signupCount++;
+    const counterElement = document.getElementById('signupCount');
+    if (counterElement) {
+        animateCounter(counterElement, signupCount);
+    }
+    updateCounterDisplay(signupCount);
+    
+    // Show loading
+    form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the flight crew...</p></div>';
+    
+    // Send to Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Check your email at <strong>${email}</strong> for verification and your welcome email.</p>
             </div>
-        </div>
-    </header>
+        `;
+    })
+    .catch(() => {
+        form.innerHTML = `
+            <div style="text-align:center;padding:2rem;">
+                <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <p style="color:#666;">Check your email at <strong>${email}</strong> for verification and your welcome email.</p>
+            </div>
+        `;
+    });
+}
 
-    <article class="article-body">
-        <h2>What's Changed</h2>
-        <p>When NESO published its five-year TNUoS forecast in September 2025, the projections showed transmission charges nearly doubling for many customer types from April 2026. However, <strong>Ofgem's RIIO-3 Final Determinations</strong>, published in December 2025, provided lower allowed revenues for transmission operators than the Draft Determinations suggested.</p>
+// Hero form handler
+function handleHeroSubmit(e) {
+    e.preventDefault();
+    var email = document.getElementById('heroEmail').value;
+    
+    // Increment counter
+    signupCount++;
+    var counterElement = document.getElementById('signupCount');
+    if (counterElement) animateCounter(counterElement, signupCount);
+    updateCounterDisplay(signupCount);
+    
+    // Send to Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    });
+    
+    // Show success
+    document.getElementById('heroForm').style.display = 'none';
+    document.getElementById('heroSubtext').style.display = 'none';
+    document.getElementById('heroSuccess').style.display = 'block';
+}
+
+// GAME CODE
+const gameCanvas = document.getElementById('gameCanvas');
+if (gameCanvas) {
+    const ctx = gameCanvas.getContext('2d');
+    
+    let gameRunning = false;
+    let gameScore = 0;
+    let gameHighScore = 0;
+    document.getElementById('gameHighScore').textContent = gameHighScore;
+    
+    const player = {
+        x: gameCanvas.width / 2,
+        y: gameCanvas.height - 80,
+        size: 35,
+        emoji: '✈️'
+    };
+    
+    const goodItems = ['⚡', '💷', '🔋', '💡'];
+    const badItems = ['💥', '🌩️'];
+    const items = [];
+    
+    let mouseX = player.x;
+    let mouseY = player.y;
+    
+    gameCanvas.addEventListener('mousemove', (e) => {
+        const rect = gameCanvas.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (e.clientY - rect.top) * (gameCanvas.height / rect.height);
+    });
+    
+    // Improved touch controls with finger offset
+    gameCanvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+    });
+    
+    gameCanvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+    });
+    
+    gameCanvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+    });
+    
+    function createItem() {
+        const isGood = Math.random() > 0.25;
+        const emoji = isGood 
+            ? goodItems[Math.floor(Math.random() * goodItems.length)]
+            : badItems[Math.floor(Math.random() * badItems.length)];
         
-        <p>This resulted in NESO's December draft tariffs coming in approximately <strong>20% lower than the September forecasts</strong>, though increases remain substantial compared to current 2025/26 rates.</p>
-
-        <h2>The Numbers: Before and After</h2>
+        items.push({
+            x: Math.random() * (gameCanvas.width - 40),
+            y: -40,
+            size: 30,
+            emoji: emoji,
+            speed: 2 + Math.random() * 2,
+            isGood: isGood
+        });
+    }
+    
+    function drawEmoji(emoji, x, y, size) {
+        ctx.font = `${size}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(emoji, x, y);
+    }
+    
+    function checkCollision(item) {
+        const dist = Math.sqrt(
+            Math.pow(player.x - item.x, 2) + 
+            Math.pow(player.y - item.y, 2)
+        );
+        return dist < (player.size + item.size) / 2;
+    }
+    
+    function updateGame() {
+        if (!gameRunning) return;
         
-        <div class="comparison-grid">
-            <div class="comparison-card">
-                <div class="comparison-label">September Forecast</div>
-                <div class="comparison-value old">£7.52bn</div>
-                <div class="comparison-desc">Projected demand residual revenue for 2026/27</div>
-            </div>
-            <div class="comparison-card">
-                <div class="comparison-label">December Draft</div>
-                <div class="comparison-value new">~£6.0bn</div>
-                <div class="comparison-desc">Revised demand residual revenue (approx. 20% reduction)</div>
-            </div>
-        </div>
+        ctx.fillStyle = '#0a0c1a';
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+        
+        player.x += (mouseX - player.x) * 0.15;
+        player.y += (mouseY - player.y) * 0.15;
+        
+        player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
+        player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
+        
+        drawEmoji(player.emoji, player.x, player.y, player.size);
+        
+        for (let i = items.length - 1; i >= 0; i--) {
+            const item = items[i];
+            item.y += item.speed;
+            
+            drawEmoji(item.emoji, item.x, item.y, item.size);
+            
+            if (checkCollision(item)) {
+                if (item.isGood) {
+                    gameScore += 10;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    
+                    ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
+                    ctx.beginPath();
+                    ctx.arc(item.x, item.y, 50, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    endGame();
+                }
+                items.splice(i, 1);
+            }
+            else if (item.y > gameCanvas.height + 40) {
+                items.splice(i, 1);
+            }
+        }
+        
+        if (Math.random() < 0.02) {
+            createItem();
+        }
+        
+        requestAnimationFrame(updateGame);
+    }
+    
+    function endGame() {
+        gameRunning = false;
+        
+        if (gameScore > gameHighScore) {
+            gameHighScore = gameScore;
+            document.getElementById('gameHighScore').textContent = gameHighScore;
+        }
+        
+        document.getElementById('finalGameScore').textContent = gameScore;
+        document.getElementById('gameOverScreen').style.display = 'block';
+        document.getElementById('gameCanvas').style.display = 'none';
+    }
+    
+    window.startMainGame = function() {
+        gameRunning = true;
+        gameScore = 0;
+        items.length = 0;
+        player.x = gameCanvas.width / 2;
+        player.y = gameCanvas.height - 80;
+        document.getElementById('gameScore').textContent = 0;
+        document.getElementById('gameStartScreen').style.display = 'none';
+        document.getElementById('gameCanvas').style.display = 'block';
+        updateGame();
+        
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createItem, i * 500);
+        }
+    };
+    
+    window.restartMainGame = function() {
+        document.getElementById('gameOverScreen').style.display = 'none';
+        startMainGame();
+    };
+}
 
-        <div class="highlight-box">
-            <p><strong>For households:</strong> Ofgem now projects annual standing charges rising from around <strong>£42 today to £62 in April 2026</strong>—compared to the £80/year initially feared in the Draft Determinations. This represents a <strong>23% reduction</strong> from earlier projections.</p>
-        </div>
+// PRICE CAP TOOL CODE
+const priceCapData = {
+  directDebit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 270, policy: 215, ebit: 42, headroom: 18, levelisation: 10, vat: 84, total: 1755 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 279, policy: 236, ebit: 44, headroom: 18, levelisation: 10, vat: 84, total: 1758 }
+  },
+  standardCredit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 406, policy: 215, ebit: 44, headroom: 20, levelisation: 0, vat: 90, total: 1890 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 415, policy: 236, ebit: 45, headroom: 20, levelisation: 0, vat: 90, total: 1894 }
+  },
+  prepayment: {
+    period1: { name: "Oct-Dec 2025", wholesale: 719, networks: 391, operating: 296, policy: 215, ebit: 42, headroom: 19, levelisation: -56, vat: 81, total: 1707 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 392, operating: 304, policy: 236, ebit: 44, headroom: 19, levelisation: -56, vat: 81, total: 1711 }
+  }
+};
 
-        <h2>What This Means for Different Customer Types</h2>
+const priceCapColors = {
+  wholesale: '#5DADE2',
+  networks: '#884EA0',
+  operating: '#E67E22',
+  policy: '#34495E',
+  ebit: '#A569BD',
+  headroom: '#7F8C8D',
+  levelisation: '#52796F',
+  vat: '#922B3E'
+};
 
-        <p><strong>Distribution-connected customers</strong> are now seeing average fixed TNUoS cost increases of around <strong>64%</strong> (vs the 94% originally forecast in September), though this varies significantly by voltage band:</p>
+const priceCapLabels = {
+  wholesale: 'Wholesale incl. CFD',
+  networks: 'Networks',
+  operating: 'Operating costs',
+  policy: 'Policy',
+  ebit: 'EBIT allowance',
+  headroom: 'Headroom',
+  levelisation: 'Levelisation',
+  vat: 'VAT'
+};
 
-        <ul>
-            <li><strong>Low Voltage Band 3 (LV3):</strong> ~41% increase (down from ~70%)</li>
-            <li><strong>Extra High Voltage Band 1 (EHV1):</strong> ~104% increase (down from ~141%)</li>
-        </ul>
+const priceCapDescriptions = {
+  wholesale: 'The cost of buying energy on wholesale markets, plus Contracts for Difference (CfD) payments to renewable generators',
+  networks: 'Charges for maintaining and operating the electricity and gas distribution networks that deliver energy to your home',
+  operating: 'Supplier costs including customer service, billing, meter reading, and debt management',
+  policy: 'Government policy costs: Renewables Obligation, Feed-in Tariffs, ECO scheme, Warm Home Discount, and Nuclear RAB charges',
+  ebit: 'Earnings Before Interest and Tax - the profit margin Ofgem allows suppliers to earn',
+  headroom: 'Additional allowance to protect suppliers from unexpected cost increases and reduce the risk of supplier failures',
+  levelisation: 'Adjustment that balances costs across different payment methods (can be negative for prepayment meters)',
+  vat: 'Value Added Tax charged at 5% on domestic energy bills'
+};
 
-        <p><strong>Transmission-connected sites</strong> see even greater variation, ranging from 29% increases for some bands to 118% for others—still substantial, but more moderate than September's projections suggested.</p>
+let currentPriceCapMethod = 'directDebit';
+let priceCapChart = null;
 
-        <div class="warning-box">
-            <p><strong>Important caveat:</strong> These December figures are <em>draft tariffs</em>. NESO will publish <strong>final tariffs by 31 January 2026</strong>, which may differ slightly. However, the direction is clear—increases will be material but less severe than initially feared.</p>
-        </div>
+function renderPriceCapChart() {
+  const data = priceCapData[currentPriceCapMethod];
+  const ctx = document.getElementById('priceCapChart');
+  
+  if (!ctx) return;
+  
+  if (priceCapChart) {
+    priceCapChart.destroy();
+  }
+  
+  const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
+  
+  priceCapChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [data.period1.name, data.period2.name],
+      datasets: components.map(comp => ({
+        label: priceCapLabels[comp],
+        data: [data.period1[comp], data.period2[comp]],
+        backgroundColor: priceCapColors[comp],
+        borderColor: priceCapColors[comp],
+        borderWidth: 1
+      }))
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
+        y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
+      },
+      plugins: {
+        datalabels: {
+          display: function(context) {
+            // Only show label if value is significant enough (> £50)
+            return context.dataset.data[context.dataIndex] > 50;
+          },
+          color: '#fff',
+          font: {
+            size: 10,
+            weight: 'bold'
+          },
+          anchor: 'center',
+          align: 'center',
+          formatter: function(value) {
+            return '£' + Math.round(value);
+          }
+        },
+        legend: { 
+          labels: { color: '#ecf0f1', padding: 15, font: { size: 12 } }
+        },
+        tooltip: {
+          enabled: true,
+          mode: 'nearest',
+          intersect: true,
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
+          titleColor: '#2c3e50',
+          bodyColor: '#34495e',
+          borderColor: '#6366f1',
+          borderWidth: 2,
+          padding: 15,
+          cornerRadius: 10,
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          boxPadding: 6,
+          usePointStyle: true,
+          displayColors: true,
+          callbacks: {
+            title: function(items) {
+              return items[0].dataset.label;
+            },
+            label: function(context) {
+              return '£' + context.parsed.y + ' per year';
+            },
+            afterLabel: function(context) {
+              const componentKey = components[context.datasetIndex];
+              const description = priceCapDescriptions[componentKey];
+              // Wrap text for mobile readability
+              const maxLength = window.innerWidth < 480 ? 50 : 80;
+              if (description.length > maxLength) {
+                const words = description.split(' ');
+                let lines = [];
+                let currentLine = '';
+                
+                words.forEach(word => {
+                  if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                  } else {
+                    currentLine += word + ' ';
+                  }
+                });
+                lines.push(currentLine.trim());
+                return '\n' + lines.join('\n');
+              }
+              return '\n' + description;
+            },
+            footer: function(items) {
+              const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
+              return '\nPeriod Total: £' + Math.round(total);
+            }
+          },
+          bodySpacing: 6,
+          footerMarginTop: 10,
+          footerFont: { size: 13, weight: 'bold' },
+          footerColor: '#6366f1'
+        }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: true
+      }
+    }
+  });
+  
+  updatePriceCapStats();
+}
 
-        <h2>Why the Reduction?</h2>
+function updatePriceCapStats() {
+  const data = priceCapData[currentPriceCapMethod];
+  const p1 = document.getElementById('priceCapPeriod1Total');
+  const p2 = document.getElementById('priceCapPeriod2Total');
+  const change = document.getElementById('priceCapChangeAmount');
+  
+  if (p1) p1.textContent = '£' + data.period1.total;
+  if (p2) p2.textContent = '£' + data.period2.total;
+  
+  if (change) {
+    const changeVal = data.period2.total - data.period1.total;
+    const percentChange = ((changeVal / data.period1.total) * 100).toFixed(1);
+    change.textContent = (changeVal >= 0 ? '+' : '') + '£' + changeVal + ' (' + (changeVal >= 0 ? '+' : '') + percentChange + '%)';
+  }
+}
 
-        <p>Ofgem's Final Determinations for RIIO-3 approved <strong>£28.1 billion in baseline investment</strong>—significantly lower than what transmission operators initially requested in their business plans. Ofgem cut baseline expenditure by around 15% from the Draft Determinations (which had already proposed a 25% reduction from what companies requested).</p>
+function setPriceCapMethod(method) {
+  currentPriceCapMethod = method;
+  document.querySelectorAll('.price-cap-btn').forEach(btn => {
+    btn.className = 'price-cap-btn';
+  });
+  event.target.className = 'price-cap-btn price-cap-active';
+  renderPriceCapChart();
+}
 
-        <p>Key factors in the reduction:</p>
+// Initialize price cap chart when page loads
+window.addEventListener('load', function() {
+  if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
+    renderPriceCapChart();
+  }
+  
+  // Load dynamic savings from tariff tracker
+  loadDynamicSavings();
+});
 
-        <ul>
-            <li><strong>Lower allowed returns:</strong> Ofgem set cost of equity at 6.1% (real, at 60% gearing) for transmission—more moderate than companies sought</li>
-            <li><strong>Efficiency challenges:</strong> Stricter scrutiny of proposed spending, requiring operators to demonstrate efficiency improvements as they scale up investment</li>
-            <li><strong>Revenue smoothing:</strong> Ofgem is "reprofiling" allowed revenues—reducing 2026/27 and 2027/28 charges, then increasing them in later years to smooth bill impacts</li>
-        </ul>
+// Fetch tariff data and calculate best savings
+async function loadDynamicSavings() {
+  try {
+    const response = await fetch('./all_tariffs.json');
+    if (!response.ok) return;
+    const data = await response.json();
+    
+    
+    // Validation function to filter out incomplete data
+    function isValidTariff(tariff) {
+      if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+      if (tariff.error) return false;
+      if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+      if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+      if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+      if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+      return true;
+    }
 
-        <h2>What Hasn't Changed</h2>
+    // Ofgem cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+    const capRatesByRegion = {
+      'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+      'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+      'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+      'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+      'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+      'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+      'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+      'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+      'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+      'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+      'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+      'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+      'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+      'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
+    };
+    
+    const typicalElec = 2700;
+    const typicalGas = 11500;
+    
+    // Calculate cap cost for each region and find the most expensive
+    let maxCapCost = 0;
+    let expensiveRegion = 'London';
+    
+    for (const [region, rates] of Object.entries(capRatesByRegion)) {
+      const capCost = (rates.elecStanding * 365 / 100) + (rates.elecUnit * typicalElec / 100) +
+                      (rates.gasStanding * 365 / 100) + (rates.gasUnit * typicalGas / 100);
+      if (capCost > maxCapCost) {
+        maxCapCost = capCost;
+        expensiveRegion = region;
+      }
+    }
+    
+    // Find cheapest dual fuel fixed tariff in that expensive region
+    const regionTariffs = data.tariffs
+      .filter(t => t.region === expensiveRegion)
+      .filter(t => isValidTariff(t))
+      .filter(t => {
+        const name = (t.tariff_name || '').toLowerCase();
+        return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
+      });
+    
+    let cheapestCost = Infinity;
+    regionTariffs.forEach(t => {
+      const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
+                   (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
+      if (cost < cheapestCost) cheapestCost = cost;
+    });
+    
+    // Calculate savings
+    const bestSavings = maxCapCost - cheapestCost;
+    
+    // Update the display if we found savings
+    if (bestSavings > 50) {
+      const savingsEl = document.getElementById('dynamicSavings');
+      if (savingsEl) {
+        savingsEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+      const savingsTextEl = document.getElementById('dynamicSavingsText');
+      if (savingsTextEl) {
+        savingsTextEl.textContent = '£' + Math.round(bestSavings) + '+';
+      }
+      const trackerEl = document.getElementById('trackerSavings');
+      if (trackerEl) {
+        trackerEl.textContent = '£' + Math.round(bestSavings);
+      }
+    }
+  } catch (e) {
+    console.log('Could not load dynamic savings:', e);
+  }
+}
 
-        <p>Despite the reduction, the fundamental drivers behind rising TNUoS costs remain:</p>
+// NAV FUNCTIONALITY
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const stickyNav = document.getElementById('stickyNav');
+const navLinksAll = document.querySelectorAll('.nav-links a');
 
-        <ul>
-            <li>Massive grid reinforcement needed to connect offshore wind and Scottish renewables</li>
-            <li>Aging transmission infrastructure requiring replacement and upgrades</li>
-            <li>Capacity expansion to support electrification and industrial demand growth</li>
-            <li>Regulatory framework (RIIO-3) running from April 2026 to March 2031</li>
-        </ul>
+// Mobile menu toggle
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
 
-        <p>The 64% average increase (for distribution-connected customers) still represents the <strong>largest single-year jump in transmission charges</strong> most businesses will have experienced, and charges are projected to continue rising through 2030/31.</p>
+// Close mobile menu when clicking a link
+navLinksAll.forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
 
-        <h2>Next Steps and Timeline</h2>
+// Scroll effects
+window.addEventListener('scroll', () => {
+  // Add shadow on scroll
+  if (window.scrollY > 50) {
+    stickyNav.classList.add('scrolled');
+  } else {
+    stickyNav.classList.remove('scrolled');
+  }
+  
+  // Update active link based on scroll position
+  const sections = document.querySelectorAll('section[id], div[id="waitlist"]');
+  let current = '';
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinksAll.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
 
-        <ul>
-            <li><strong>31 January 2026:</strong> NESO publishes final TNUoS tariffs for 2026/27</li>
-            <li><strong>1 April 2026:</strong> New charges take effect</li>
-            <li><strong>Ongoing:</strong> Monitor contract terms for TNUoS pass-through clauses; review site capacity settings; budget for continued increases through 2030/31</li>
-        </ul>
-
-        <div class="highlight-box">
-            <p><strong>Action for businesses:</strong> Even with the reduction, now is the time to review your electricity contracts, validate your capacity banding, and model your exposure through to 2031. The increases are still material—just less extreme than September's forecast suggested.</p>
-        </div>
-
-        <h2>The Bigger Picture</h2>
-
-        <p>While the ~20% reduction is welcome news, it's important to maintain perspective. Households will still see standing charges increase by roughly <strong>48%</strong> (£42 to £62), and businesses face increases ranging from 41% to over 100% depending on their connection type and voltage band.</p>
-
-        <p>This remains a fundamental shift in how transmission costs are recovered, and the upward trajectory will continue through the RIIO-3 period as major infrastructure projects progress. The "good news" is relative—charges are rising less steeply than feared, but they're still rising significantly.</p>
-
-    </article>
-
-    <!-- CTA Section -->
-    <section style="padding: 0 2rem;">
-        <div class="cta-box">
-            <h3>Stay informed on network costs</h3>
-            <p>Join our waitlist for early access to free auto-switching and detailed analysis of where your energy costs are heading</p>
-            <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
-        </div>
-    </section>
-
-    <footer class="article-footer">
-        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations (December 2025), NESO Draft TNUoS Tariffs (December 2025), Drax Energy Intelligence, industry analysis.</p>
-        <p class="footer-note" style="margin-top: 1rem;">
-            <strong>Read the full analysis:</strong> <a href="riio-3-tnuos-analysis.html" style="color: var(--sp-green); text-decoration: none;">RIIO-3 & TNUoS: The £108 Network Cost Addition Coming to Your Bill →</a>
-        </p>
-    </footer>
-
-    <footer class="site-footer">
-        <p>💌 Weekly energy insights delivered to your inbox</p>
-        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
-        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
-    </footer>
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
 </body>
 </html>

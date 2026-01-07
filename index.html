@@ -483,16 +483,6 @@ body { font-size:15px !important; }
 </div>
 </div>
 
-<!-- ABOVE THE FOLD EMAIL CAPTURE -->
-<div style="max-width:550px;margin:2rem auto 3rem;padding:0 2rem;position:relative;z-index:10;">
-  <form id="heroForm" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;justify-content:center;">
-    <input type="email" id="heroEmail" placeholder="Enter your email" required style="flex:1;min-width:220px;padding:1rem 1.2rem;border-radius:12px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);font-size:1rem;color:#fff;backdrop-filter:blur(10px);" />
-    <button type="submit" style="padding:1rem 1.8rem;border:none;border-radius:12px;font-size:1rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 8px 25px rgba(236,72,153,0.3);white-space:nowrap;">Get Early Access →</button>
-  </form>
-  <p id="heroSubtext" style="margin:0.8rem 0 0 0;font-size:0.85rem;color:rgba(255,255,255,0.6);text-align:center;">🔒 Free forever. Unsubscribe anytime.</p>
-  <p id="heroSuccess" style="display:none;margin:0.8rem 0 0 0;font-size:1rem;color:#fff;text-align:center;">✉️ <strong>Welcome aboard!</strong> Check your email for verification.</p>
-</div>
-
 <!-- Vision & Mission Boxes -->
 
 <div class="vision-mission-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:0 2rem;position:relative;z-index:5;">
@@ -509,7 +499,7 @@ body { font-size:15px !important; }
       <span style="font-size:1.8rem;">🚀</span>
       <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">What We're Building</h3>
     </div>
-    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) — free to use, suppliers pay us, not you. Plus a community that educates you on where your money actually goes. We're not another comparison site. We're building this WITH you to challenge the status quo.</p>
+    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) — no commission, no catch. Plus a community that educates you on where your money actually goes. We're not another comparison site. We're building this WITH you to challenge the status quo.</p>
   </div>
 </div>
 </section>
@@ -535,11 +525,11 @@ body { font-size:15px !important; }
   <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
 
   <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
-    We work inside the UK energy industry — <strong>and what we've seen shocked us.</strong>
+    We're just two people who've been working in the UK energy industry recently. Before this? <strong>Zero knowledge about energy bills.</strong>
   </p>
 
   <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
-    So we're building something different.
+    Now? We've learned things that shocked us. And we can't unsee them.
   </p>
 
   <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
@@ -630,8 +620,7 @@ body { font-size:15px !important; }
   <div style="font-size:1.3rem;font-weight:800;color:#1a1a2e;margin-bottom:0.5rem;">🎯 Join 5,000 Early Access Pilots</div>
   <p style="margin:0;font-size:1rem;color:#1a1a2e;opacity:0.85;">Be part of the crew that shapes what we build—and get first access when we launch</p>
 </div>
-<div class="signup-counter" style="display:none;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
-  <!-- Counter hidden until signups reach 50+ -->
+<div class="signup-counter" style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
   <div style="display:flex;align-items:center;gap:0.5rem;">
     <span style="font-size:1.5rem;">👥</span>
     <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
@@ -901,7 +890,7 @@ body { font-size:15px !important; }
 <p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Google Apps Script URL
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
 
@@ -969,47 +958,22 @@ function handleSubmit(e) {
     .then(() => {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
-                <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
                 <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-                <p style="color:#666;">Check your email at <strong>${email}</strong> for verification and your welcome email.</p>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
             </div>
         `;
     })
     .catch(() => {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
-                <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+                <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
                 <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-                <p style="color:#666;">Check your email at <strong>${email}</strong> for verification and your welcome email.</p>
+                <p style="color:#666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
             </div>
         `;
     });
 }
-
-// Hero form handler
-document.getElementById('heroForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('heroEmail').value;
-    
-    // Increment counter
-    signupCount++;
-    const counterElement = document.getElementById('signupCount');
-    if (counterElement) animateCounter(counterElement, signupCount);
-    updateCounterDisplay(signupCount);
-    
-    // Send to Google Sheets
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-    });
-    
-    // Show success
-    document.getElementById('heroForm').style.display = 'none';
-    document.getElementById('heroSubtext').style.display = 'none';
-    document.getElementById('heroSuccess').style.display = 'block';
-});
 
 // GAME CODE
 const gameCanvas = document.getElementById('gameCanvas');
@@ -1524,4 +1488,19 @@ window.addEventListener('scroll', () => {
 document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    const target = doc
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offsetTop = target.offsetTop - 70;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
+

@@ -484,15 +484,13 @@ body { font-size:15px !important; }
 </div>
 
 <!-- ABOVE THE FOLD EMAIL CAPTURE -->
-<div style="max-width:550px;margin:2rem auto 0;padding:0 2rem;position:relative;z-index:10;">
-  <form onsubmit="handleHeroSubmit(event)" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;justify-content:center;">
+<div style="max-width:550px;margin:2rem auto 3rem;padding:0 2rem;position:relative;z-index:10;">
+  <form id="heroForm" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;justify-content:center;">
     <input type="email" id="heroEmail" placeholder="Enter your email" required style="flex:1;min-width:220px;padding:1rem 1.2rem;border-radius:12px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);font-size:1rem;color:#fff;backdrop-filter:blur(10px);" />
     <button type="submit" style="padding:1rem 1.8rem;border:none;border-radius:12px;font-size:1rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 8px 25px rgba(236,72,153,0.3);white-space:nowrap;">Get Early Access →</button>
   </form>
-  <p style="margin:0.8rem 0 0 0;font-size:0.85rem;color:rgba(255,255,255,0.6);text-align:center;">🔒 Free forever. Unsubscribe anytime.</p>
-  <div id="heroSuccess" style="display:none;text-align:center;padding:1rem;background:rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(10px);">
-    <p style="margin:0;color:#fff;font-size:1rem;">✉️ <strong>Welcome aboard!</strong> Check your email for verification.</p>
-  </div>
+  <p id="heroSubtext" style="margin:0.8rem 0 0 0;font-size:0.85rem;color:rgba(255,255,255,0.6);text-align:center;">🔒 Free forever. Unsubscribe anytime.</p>
+  <p id="heroSuccess" style="display:none;margin:0.8rem 0 0 0;font-size:1rem;color:#fff;text-align:center;">✉️ <strong>Welcome aboard!</strong> Check your email for verification.</p>
 </div>
 
 <!-- Vision & Mission Boxes -->
@@ -988,20 +986,15 @@ function handleSubmit(e) {
     });
 }
 
-// Hero form handler (above the fold)
-function handleHeroSubmit(e) {
+// Hero form handler
+document.getElementById('heroForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const emailInput = document.getElementById('heroEmail');
-    const email = emailInput.value;
-    const form = e.target;
-    const successDiv = document.getElementById('heroSuccess');
+    const email = document.getElementById('heroEmail').value;
     
     // Increment counter
     signupCount++;
     const counterElement = document.getElementById('signupCount');
-    if (counterElement) {
-        animateCounter(counterElement, signupCount);
-    }
+    if (counterElement) animateCounter(counterElement, signupCount);
     updateCounterDisplay(signupCount);
     
     // Send to Google Sheets
@@ -1012,10 +1005,11 @@ function handleHeroSubmit(e) {
         body: JSON.stringify({ email: email })
     });
     
-    // Hide form, show success
-    form.style.display = 'none';
-    successDiv.style.display = 'block';
-}
+    // Show success
+    document.getElementById('heroForm').style.display = 'none';
+    document.getElementById('heroSubtext').style.display = 'none';
+    document.getElementById('heroSuccess').style.display = 'block';
+});
 
 // GAME CODE
 const gameCanvas = document.getElementById('gameCanvas');

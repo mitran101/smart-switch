@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNUoS Update: December Draft Tariffs Show 20% Reduction vs Earlier Forecasts | SwitchPilot</title>
+    <title>Network Charges Update: December Figures 20% Lower Than Feared | SwitchPilot</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,11 +68,12 @@
             opacity: 0.8;
         }
 
-        .top-logo span:first-child {
-            font-size: 1.6rem;
+        .top-logo img {
+            height: 1.6rem;
+            width: auto;
         }
 
-        .top-logo span:last-child {
+        .top-logo span {
             font-size: 1.35rem;
         }
 
@@ -355,10 +361,10 @@
                 gap: 0.5rem;
             }
 
-            .top-logo span:first-child {
-                font-size: 1.5rem;
+            .top-logo img {
+                height: 1.4rem;
             }
-            .top-logo span:last-child {
+            .top-logo span {
                 font-size: 1.25rem;
             }
             
@@ -391,17 +397,17 @@
     <!-- Navigation -->
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
-            <span>✈️⚡</span>
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
             <span>SwitchPilot</span>
         </a>
-        <a href="RIIO-3-TNUoS.html" class="back-home">← Back to Full Article</a>
+        <a href="riio-tnuos-simplified.html" class="back-home">← Back to Full Article</a>
     </nav>
 
     <header class="article-header">
         <div class="header-content">
             <span class="tag">✓ Good News Update</span>
-            <h1>TNUoS Charges: December Draft Shows ~20% Reduction vs September Forecast</h1>
-            <p class="subtitle">Following Ofgem's RIIO-3 Final Determinations, transmission network charges will still rise significantly—but less than feared. Here's what changed.</p>
+            <h1>Network Charges Update: December Figures ~20% Lower Than Feared</h1>
+            <p class="subtitle">The transmission fees hitting your bill from April 2026 will still rise significantly — but not as much as first predicted. Here's what changed.</p>
             <div class="article-meta">
                 <span class="update-badge">Update</span>
                 <span>January 2026</span>
@@ -413,9 +419,9 @@
 
     <article class="article-body">
         <h2>What's Changed</h2>
-        <p>When NESO published its five-year TNUoS forecast in September 2025, the projections showed transmission charges nearly doubling for many customer types from April 2026. However, <strong>Ofgem's RIIO-3 Final Determinations</strong>, published in December 2025, provided lower allowed revenues for transmission operators than the Draft Determinations suggested.</p>
+        <p>Back in September 2025, forecasts showed transmission charges (the fee for using the national grid) nearly doubling from April 2026. But Ofgem's final decision in December came in lower than expected.</p>
         
-        <p>This resulted in NESO's December draft tariffs coming in approximately <strong>20% lower than the September forecasts</strong>, though increases remain substantial compared to current 2025/26 rates.</p>
+        <p>The result: December's draft figures are about <strong>20% lower than September's forecasts</strong>. Still a big increase — just not as bad as feared.</p>
 
         <h2>The Numbers: Before and After</h2>
         
@@ -423,86 +429,83 @@
             <div class="comparison-card">
                 <div class="comparison-label">September Forecast</div>
                 <div class="comparison-value old">£7.52bn</div>
-                <div class="comparison-desc">Projected demand residual revenue for 2026/27</div>
+                <div class="comparison-desc">What grid operators expected to charge households</div>
             </div>
             <div class="comparison-card">
                 <div class="comparison-label">December Draft</div>
                 <div class="comparison-value new">~£6.0bn</div>
-                <div class="comparison-desc">Revised demand residual revenue (approx. 20% reduction)</div>
+                <div class="comparison-desc">Revised figure (~20% less)</div>
             </div>
         </div>
 
         <div class="highlight-box">
-            <p><strong>For households:</strong> Ofgem now projects annual standing charges rising from around <strong>£42 today to £62 in April 2026</strong>—compared to the £80/year initially feared in the Draft Determinations. This represents a <strong>23% reduction</strong> from earlier projections.</p>
+            <p><strong>For households:</strong> Standing charges now look like rising from around <strong>£42 to £62 per year</strong> from April 2026 — compared to the £80/year initially feared. That's a <strong>23% reduction</strong> from earlier projections.</p>
         </div>
 
         <!-- Interactive Chart -->
         <div class="chart-section" style="background: #fff; border-radius: 12px; padding: 1.75rem; margin: 2rem 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);">
-            <h3 style="font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--sp-slate); margin-bottom: 0.5rem;">September vs December Forecasts: % Increase by Customer Type</h3>
-            <p style="font-size: 0.85rem; color: var(--sp-slate-light); margin-bottom: 1.25rem;">Comparing original September forecasts with revised December draft tariffs</p>
+            <h3 style="font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--sp-slate); margin-bottom: 0.5rem;">September vs December: How Much Different Customers Face</h3>
+            <p style="font-size: 0.85rem; color: var(--sp-slate-light); margin-bottom: 1.25rem;">Comparing original September forecasts with revised December figures</p>
             <div style="position: relative; height: 300px;">
                 <canvas id="tnuosChart"></canvas>
             </div>
-            <p style="font-size: 0.75rem; color: #94A3B8; margin-top: 1rem; text-align: center;">Source: NESO TNUoS Forecasts (Sept 2025) and Draft Tariffs (Dec 2025)</p>
+            <p style="font-size: 0.75rem; color: #94A3B8; margin-top: 1rem; text-align: center;">Source: National Grid ESO forecasts (Sept 2025) and draft tariffs (Dec 2025)</p>
         </div>
 
-        <h2>What This Means for Different Customer Types</h2>
+        <h2>What This Means for Different Customers</h2>
 
-        <p><strong>Distribution-connected customers</strong> are now seeing average fixed TNUoS cost increases of around <strong>64%</strong> (vs the 94% originally forecast in September), though this varies significantly by voltage band:</p>
+        <p><strong>Most homes and small businesses</strong> are now looking at average increases of around <strong>64%</strong> (down from the 94% originally forecast). But it varies a lot depending on how you're connected:</p>
 
         <ul>
-            <li><strong>Low Voltage Band 3 (LV3):</strong> ~41% increase (down from ~70%)</li>
-            <li><strong>Extra High Voltage Band 1 (EHV1):</strong> ~104% increase (down from ~141%)</li>
+            <li><strong>Smaller connections:</strong> ~41% increase (down from ~70%)</li>
+            <li><strong>Larger industrial connections:</strong> ~104% increase (down from ~141%)</li>
         </ul>
 
-        <p><strong>Transmission-connected sites</strong> see even greater variation, ranging from 29% increases for some bands to 118% for others—still substantial, but more moderate than September's projections suggested.</p>
-
         <div class="warning-box">
-            <p><strong>Important caveat:</strong> These December figures are <em>draft tariffs</em>. NESO will publish <strong>final tariffs by 31 January 2026</strong>, which may differ slightly. However, the direction is clear—increases will be material but less severe than initially feared.</p>
+            <p><strong>Important:</strong> These December figures are still <em>drafts</em>. Final numbers come out <strong>31 January 2026</strong>. But the direction is clear — increases will be real but less severe than first feared.</p>
         </div>
 
         <h2>Why the Reduction?</h2>
 
-        <p>Ofgem's Final Determinations for RIIO-3 approved <strong>£28.1 billion in baseline investment</strong>—significantly lower than what transmission operators initially requested in their business plans. Ofgem cut baseline expenditure by around 15% from the Draft Determinations (which had already proposed a 25% reduction from what companies requested).</p>
+        <p>Ofgem approved <strong>£28.1 billion in grid investment</strong> — significantly less than what the grid operators asked for. They cut proposed spending by about 15%.</p>
 
-        <p>Key factors in the reduction:</p>
+        <p>Key reasons:</p>
 
         <ul>
-            <li><strong>Lower allowed returns:</strong> Ofgem set cost of equity at 6.1% (real, at 60% gearing) for transmission—more moderate than companies sought</li>
-            <li><strong>Efficiency challenges:</strong> Stricter scrutiny of proposed spending, requiring operators to demonstrate efficiency improvements as they scale up investment</li>
-            <li><strong>Revenue smoothing:</strong> Ofgem is "reprofiling" allowed revenues—reducing 2026/27 and 2027/28 charges, then increasing them in later years to smooth bill impacts</li>
+            <li><strong>Lower profits allowed:</strong> Grid companies won't make quite as much return as they wanted</li>
+            <li><strong>Tighter spending scrutiny:</strong> Ofgem challenged more of the proposed costs</li>
+            <li><strong>Spreading the pain:</strong> Some costs are being pushed to later years to soften the initial blow</li>
         </ul>
 
         <h2>What Hasn't Changed</h2>
 
-        <p>Despite the reduction, the fundamental drivers behind rising TNUoS costs remain:</p>
+        <p>The fundamental reasons for rising charges remain:</p>
 
         <ul>
-            <li>Massive grid reinforcement needed to connect offshore wind and Scottish renewables</li>
-            <li>Aging transmission infrastructure requiring replacement and upgrades</li>
-            <li>Capacity expansion to support electrification and industrial demand growth</li>
-            <li>Regulatory framework (RIIO-3) running from April 2026 to March 2031</li>
+            <li>Massive grid upgrades needed to connect offshore wind farms</li>
+            <li>Old infrastructure needs replacing</li>
+            <li>More capacity needed as we electrify heating and transport</li>
         </ul>
 
-        <p>The 64% average increase (for distribution-connected customers) still represents the <strong>largest single-year jump in transmission charges</strong> most businesses will have experienced, and charges are projected to continue rising through 2030/31.</p>
+        <p>A 64% average increase is still the <strong>largest single-year jump in transmission charges</strong> most people will have experienced. And charges will keep rising through 2031.</p>
 
-        <h2>Next Steps and Timeline</h2>
+        <h2>What Happens Next</h2>
 
         <ul>
-            <li><strong>31 January 2026:</strong> NESO publishes final TNUoS tariffs for 2026/27</li>
+            <li><strong>31 January 2026:</strong> Final tariff numbers published</li>
             <li><strong>1 April 2026:</strong> New charges take effect</li>
-            <li><strong>Ongoing:</strong> Monitor contract terms for TNUoS pass-through clauses; review site capacity settings; budget for continued increases through 2030/31</li>
+            <li><strong>2026–2031:</strong> Continued increases as grid investment ramps up</li>
         </ul>
 
         <div class="highlight-box">
-            <p><strong>Action for businesses:</strong> Even with the reduction, now is the time to review your electricity contracts, validate your capacity banding, and model your exposure through to 2031. The increases are still material—just less extreme than September's forecast suggested.</p>
+            <p><strong>What to do:</strong> Even with the reduction, check your energy contract — especially if you're on a fixed deal. Many contracts allow suppliers to pass through network cost increases. Your standing charge could rise even mid-contract.</p>
         </div>
 
         <h2>The Bigger Picture</h2>
 
-        <p>While the ~20% reduction is welcome news, it's important to maintain perspective. Households will still see standing charges increase by roughly <strong>48%</strong> (£42 to £62), and businesses face increases ranging from 41% to over 100% depending on their connection type and voltage band.</p>
+        <p>The ~20% reduction is welcome news. But let's be clear: households will still see standing charges rise by roughly <strong>48%</strong> (£42 to £62), and businesses face even bigger increases.</p>
 
-        <p>This remains a fundamental shift in how transmission costs are recovered, and the upward trajectory will continue through the RIIO-3 period as major infrastructure projects progress. The "good news" is relative—charges are rising less steeply than feared, but they're still rising significantly.</p>
+        <p>This is a fundamental shift in how we pay for the grid. The "good news" is relative — charges are rising less steeply than feared, but they're still rising significantly.</p>
 
     </article>
 
@@ -510,16 +513,17 @@
     <section style="padding: 0 2rem;">
         <div class="cta-box">
             <h3>Stay informed on network costs</h3>
-            <p>Join our waitlist for early access to free auto-switching and detailed analysis of where your energy costs are heading</p>
+            <p>Join our waitlist for plain-English updates on what's happening to your energy bills</p>
             <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
         </div>
     </section>
 
     <footer class="article-footer">
-        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations (December 2025), NESO Draft TNUoS Tariffs (December 2025), Drax Energy Intelligence, industry analysis.</p>
+        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations (December 2025), National Grid ESO Draft Tariffs (December 2025)</p>
         <p class="footer-note" style="margin-top: 1rem;">
-            <strong>Read the full analysis:</strong> <a href="RIIO-3-TNUoS.html" style="color: var(--sp-green); text-decoration: none;">RIIO-3 & TNUoS: The £108 Network Cost Addition Coming to Your Bill →</a>
+            <strong>Read the full analysis:</strong> <a href="riio-tnuos-simplified.html" style="color: var(--sp-green); text-decoration: none;">The Hidden Network Costs Coming to Your Bill →</a>
         </p>
+    </footer>
 
     <footer class="site-footer">
         <p>💌 Weekly energy insights delivered to your inbox</p>
@@ -533,7 +537,7 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Households\n(Standing Charge)', 'LV3\n(Low Voltage)', 'EHV1\n(Extra High Voltage)', 'Average\n(Distribution)'],
+                labels: ['Households', 'Small Connections', 'Large Industrial', 'Average'],
                 datasets: [
                     {
                         label: 'September Forecast',
@@ -590,7 +594,7 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: '% Increase from 2025/26',
+                            text: '% Increase from current rates',
                             font: { family: "'DM Sans', sans-serif", size: 12, weight: 600 },
                             color: '#475569'
                         },

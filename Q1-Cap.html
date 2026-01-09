@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Q1-26 Price Cap Breakdown - SwitchPilot</title>
 
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
 <script>
@@ -15,7 +20,7 @@
 </script>
 
 <style>
-/* GLOBAL – MATCH INDEX */
+/* GLOBAL */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -35,7 +40,7 @@ body {
   overflow: hidden;
 }
 
-/* GRID (SAME AS INDEX) */
+/* GRID */
 .energy-grid {
   position: absolute;
   inset: 0;
@@ -61,12 +66,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+.top-logo img {
+  height: 2.5rem;
+  width: auto;
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -80,7 +87,7 @@ body {
   z-index: 5;
 }
 
-/* Price cap themed icons on sides */
+/* Side icons */
 .article-inner::before {
   content: '💷';
   position: absolute;
@@ -100,7 +107,6 @@ body {
   animation: floatCap 10s ease-in-out infinite 3s;
 }
 
-/* Additional side icons */
 .article-card::after {
   content: '⚡';
   position: absolute;
@@ -208,6 +214,14 @@ body {
   margin-bottom: 0.7rem;
 }
 
+.highlight-box {
+  background: rgba(99,102,241,0.15);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #6366f1;
+}
+
 /* FOOTER */
 .footer {
   background: #0c0e1f;
@@ -226,7 +240,6 @@ body {
     padding: 6rem 1.5rem 4rem;
   }
   
-  /* Hide side icons on mobile/tablet */
   .article-inner::before,
   .article-inner::after,
   .article-card::after {
@@ -237,10 +250,10 @@ body {
     top: 25px;
     left: 20px;
   }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 2rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -275,10 +288,10 @@ body {
     left: 15px;
     gap: 6px;
   }
-  .top-logo span:first-child {
-    font-size: 1.5rem;
+  .top-logo img {
+    height: 1.6rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.3rem;
   }
   
@@ -331,10 +344,10 @@ body {
 <body>
 
 <!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
   <span>SwitchPilot</span>
-</div>
+</a>
 
 <section class="article-shell">
 
@@ -348,68 +361,73 @@ body {
       <div class="article-header">
         <div class="article-date"><span>28 November 2025</span></div>
 
-        <h1>🔆 Q1-26 Price Cap Breakdown: What's Changing and What It Means for Bills</h1>
+        <h1>📆 Q1 2026 Price Cap: What's Happening to Your Bills?</h1>
       </div>
 
       <div class="article-body">
 
-        <h2>Overview</h2>
-        <p>Ofgem has released the energy price cap for <strong>1 January – 31 March 2026</strong>, setting the typical dual-fuel Direct Debit bill at <strong>£1,758</strong>, an increase of just <strong>£3</strong> from the previous quarter (£1,755).</p>
+        <h2>The Short Version</h2>
+        <p>The government has set the maximum energy bill for <strong>January to March 2026</strong> at <strong>£1,758 per year</strong> for a typical household. That's only <strong>£3 more</strong> than last quarter.</p>
 
-        <p>While the headline rise looks tiny, the surprising truth is that <strong>actual energy costs fell by £29</strong>.</p>
+        <p>Sounds like good news, right? Here's the catch: <strong>the actual cost of energy went DOWN by £29</strong>.</p>
 
-        <p style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">➜ The drop in real energy costs is being completely wiped out by rising policy and structural costs.</p>
+        <div class="highlight-box">
+          <strong>➜ So where did that £29 saving go?</strong> It got swallowed up by taxes, green levies, and other charges the government adds to your bill.
+        </div>
 
-        <h2>Why It's Changing</h2>
+        <h2>Why Didn't Bills Fall?</h2>
         <ul>
-          <li><strong>Wholesale energy costs fell by £29</strong>.</li>
-          <li><strong>Policy costs increased by £21</strong>, due to Nuclear RAB + higher Warm Home Discount allocation.</li>
-          <li><strong>Operating & industry costs rose by £9</strong> due to benchmark electricity consumption dropping from 3.1 MWh → 2.7 MWh, raising the allowed unit rates.</li>
+          <li><strong>Energy got cheaper:</strong> The actual gas and electricity cost dropped by £29.</li>
+          <li><strong>But government charges went up:</strong> Things like funding for new nuclear plants and help for low-income households added £21.</li>
+          <li><strong>Running costs rose too:</strong> Because people are using less energy overall, the cost per unit goes up — adding another £9.</li>
         </ul>
 
-        <h2>Impact on Bills</h2>
+        <h2>What This Means For You</h2>
         <ul>
-          <li>Small headline change, but higher unit cost per MWh.</li>
-          <li>Policy costs continue to rise every quarter.</li>
-          <li>Fixed tariffs still offer value even with underlying cost pressures.</li>
+          <li>Your bill stays roughly the same, even though energy got cheaper.</li>
+          <li>Government charges keep rising every few months.</li>
+          <li>Locking in a fixed deal now could still save you money.</li>
         </ul>
 
-        <h2>Policy Cost Breakdown</h2>
+        <h2>The Hidden Charges on Your Bill</h2>
         <ul>
-          <li><strong>Policy cost allowance: £236/year</strong> (energy cost is only £690/year).</li>
-          <li>WHD allowance increases to <strong>£45.83/year</strong>.</li>
-          <li>Nuclear RAB adds ~<strong>£14</strong>.</li>
+          <li><strong>Government charges:</strong> £236 per year (that's a third of a typical bill!).</li>
+          <li><strong>Help for struggling households:</strong> £46 per year goes to fund support schemes.</li>
+          <li><strong>New nuclear plant funding:</strong> About £14 per year.</li>
+        </ul>
+        <p>The actual energy you use? Only costs about <strong>£690 per year</strong>. The rest is taxes and charges.</p>
+
+        <h2>What's Coming Next?</h2>
+        <ul>
+          <li>Network upgrade costs could add <strong>£20–£50</strong> from April 2026.</li>
+          <li>Bills could hit around <strong>£1,800</strong> by summer.</li>
+          <li>Fixed deals might look even better by then.</li>
         </ul>
 
-        <h2>What This Means for Your Bill</h2>
-        <ul>
-          <li>SVT customers pay more per MWh.</li>
-          <li>Network cost rises likely add <strong>£20–£50</strong> from April 2026.</li>
-          <li>Bills may reach <strong>~£1,800</strong>.</li>
-        </ul>
-
-        <h2>In Summary</h2>
-        <div style="background: rgba(99,102,241,0.15); padding: 1rem 1.2rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6366f1;">
+        <h2>Quick Summary</h2>
+        <div class="highlight-box">
           <ul style="margin: 0;">
-            <li>✓ Small cap rise: <strong>£1,755 → £1,758</strong></li>
-            <li>⚠ Policy-driven costs rising</li>
-            <li>⚠ Further rises expected Q2-26</li>
-            <li>📅 Valid Jan–Mar 2026</li>
+            <li>✔ Tiny rise: <strong>£1,755 → £1,758</strong></li>
+            <li>⚠ Government charges eating up savings</li>
+            <li>⚠ More rises expected in April</li>
+            <li>📅 This cap runs January–March 2026</li>
           </ul>
         </div>
 
-        <h2>💰 Best Price – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
+        <h2>💰 Best Deal Right Now</h2>
+        <p><strong>E.ON Next Fixed 18m v23 — £1,565/year</strong></p>
         <ul>
-          <li>Likely to outperform cap savings by £210+ by Q2-26.</li>
-          <li>Close competitor: EDF Simply Fixed Nov26v10 (£1,569.34).</li>
-          <li>Fuse now ~£1,619.</li>
+          <li>That's <strong>£193 less</strong> than the price cap.</li>
+          <li>Locks your rate for 18 months — no surprises.</li>
+          <li>Could save you over <strong>£210</strong> by summer when prices rise again.</li>
         </ul>
 
-        <h2>💎 Editor's Choice – E.ON Next Fixed 18m v23 (£1,564.89)</h2>
+        <h2>💎 Our Pick</h2>
+        <p><strong>E.ON Next Fixed 18m v23</strong> — best value right now.</p>
         <ul>
-          <li>Strong value with falling wholesale + rising structural costs.</li>
-          <li>Electricity standing charges: 34.55p/day (vs EDF 41.39p/day).</li>
-          <li>Gas standing charges slightly favour EDF – overall marginal difference.</li>
+          <li>Lower daily standing charge than most rivals.</li>
+          <li>Protects you from the price rises coming in April.</li>
+          <li>Runner-up: EDF Simply Fixed (£1,569) — almost as good.</li>
         </ul>
 
       </div>
@@ -417,8 +435,8 @@ body {
 
     <!-- CTA -->
     <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want weekly insights like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for early access to free auto-switching and more breakdowns of what you're actually paying for</p>
+      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want updates like this?</h3>
+      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for free auto-switching and plain-English breakdowns of what you're actually paying for.</p>
       <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
     </div>
   </div>

@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIIO-3 & TNUoS: The Hidden Network Costs Coming to Your Bill | SwitchPilot</title>
+    <title>Network Upgrade Costs: What's Coming to Your Bill | SwitchPilot</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -49,7 +54,7 @@
             font-size: 17px;
         }
 
-        /* Navigation Container */
+        /* Navigation */
         .top-nav {
             background: var(--sp-slate);
             padding: 1rem 2rem;
@@ -58,7 +63,6 @@
             align-items: center;
         }
 
-        /* Logo */
         .top-logo {
             display: flex;
             align-items: center;
@@ -73,15 +77,15 @@
             opacity: 0.8;
         }
 
-        .top-logo span:first-child {
-            font-size: 1.6rem;
+        .top-logo img {
+            height: 2rem;
+            width: auto;
         }
 
-        .top-logo span:last-child {
+        .top-logo span {
             font-size: 1.35rem;
         }
 
-        /* Back Button */
         .back-home {
             display: inline-block;
             padding: 10px 20px;
@@ -252,70 +256,35 @@
             margin-bottom: 1.25rem;
         }
 
-        /* Timeline */
-        .timeline {
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
             background: var(--sp-card);
             border-radius: 12px;
-            padding: 1.75rem;
-            margin: 2rem 0;
+            padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
         }
 
-        .timeline-track {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            margin-top: 1.5rem;
-            padding: 0 0.5rem;
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sp-green);
+            margin-bottom: 0.5rem;
         }
 
-        .timeline-track::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #E2E8F0;
-            border-radius: 2px;
-        }
+        .stat-value.warning { color: var(--sp-amber); }
+        .stat-value.danger { color: var(--sp-red); }
 
-        .timeline-point {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            flex: 1;
-        }
-
-        .timeline-dot {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--sp-green);
-            border: 4px solid var(--sp-green-light);
-            margin-bottom: 0.75rem;
-        }
-
-        .timeline-point.warning .timeline-dot {
-            background: var(--sp-amber);
-            border-color: #FEF3C7;
-        }
-
-        .timeline-date {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--sp-slate);
-            text-align: center;
-        }
-
-        .timeline-label {
-            font-size: 0.7rem;
+        .stat-label {
+            font-size: 0.85rem;
             color: var(--sp-slate-light);
-            text-align: center;
-            max-width: 90px;
-            margin-top: 0.25rem;
+            font-weight: 500;
         }
 
         /* Summary section */
@@ -364,42 +333,6 @@
         .summary-item.danger .summary-icon { color: var(--sp-red); }
         .summary-item.info .summary-icon { color: #60A5FA; }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .stat-card {
-            background: var(--sp-card);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--sp-green);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value.warning {
-            color: var(--sp-amber);
-        }
-
-        .stat-value.danger {
-            color: var(--sp-red);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--sp-slate-light);
-            font-weight: 500;
-        }
-
         /* Lists */
         ul {
             margin: 1.5rem 0;
@@ -408,20 +341,6 @@
 
         li {
             margin-bottom: 0.75rem;
-            color: var(--sp-slate-light);
-        }
-
-        /* Footer */
-        .article-footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-top: 1px solid #E2E8F0;
-            text-align: center;
-        }
-
-        .footer-note {
-            font-size: 0.8rem;
             color: var(--sp-slate-light);
         }
 
@@ -457,422 +376,258 @@
             background: #fff;
             color: var(--sp-green-dark);
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 30px;
             font-weight: 700;
             font-size: 1.05rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        /* Site Footer */
+        /* Footers */
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+        }
+
         .site-footer {
             background: var(--sp-slate);
             text-align: center;
             padding: 3rem 2rem;
             color: white;
-            margin-top: 3rem;
         }
 
         .site-footer p {
             opacity: 0.8;
             margin: 0.5rem 0;
             color: white;
-            font-size: 0.95rem;
         }
 
         .site-footer a {
-            color: var(--sp-green);
+            color: #a855f7;
             text-decoration: none;
         }
 
-        .site-footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 700px) {
+        /* Mobile responsive */
+        @media (max-width: 768px) {
             .top-nav {
                 padding: 1rem;
-                flex-wrap: wrap;
-                gap: 0.5rem;
             }
-
-            .top-logo span:first-child {
-                font-size: 1.5rem;
+            .top-logo img {
+                height: 1.6rem;
             }
-            .top-logo span:last-child {
-                font-size: 1.25rem;
+            .top-logo span {
+                font-size: 1.1rem;
             }
-            
             .back-home {
-                padding: 0.5rem 1rem;
+                padding: 8px 14px;
                 font-size: 0.8rem;
             }
-            
-            .cta-box {
-                margin: 1.5rem 1rem 0;
-                padding: 2rem 1.5rem;
+            .article-header {
+                padding: 3rem 1.5rem 2rem;
             }
-            
-            .cta-box h3 {
-                font-size: 1.3rem;
+            .article-body {
+                padding: 2rem 1.5rem 1rem;
             }
-            
-            .cta-box p {
-                font-size: 0.95rem;
+            h2 {
+                font-size: 1.4rem;
             }
-            
-            .cta-button {
-                padding: 0.9rem 2rem;
-                font-size: 1rem;
-            }
-            
-            .summary-grid {
-                grid-template-columns: 1fr;
-            }
-
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
             }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+            .stat-value {
+                font-size: 1.5rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .cta-box {
+                padding: 2rem 1.5rem;
+                margin: 1.5rem 1rem 0;
             }
-        }
-
-        .chart-section, .timeline, .summary-section, .stats-grid {
-            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
+
 <body>
+
     <!-- Navigation -->
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
-            <span>✈️⚡</span>
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
             <span>SwitchPilot</span>
         </a>
         <a href="index.html" class="back-home">← Back Home</a>
     </nav>
 
+    <!-- Article Header -->
     <header class="article-header">
         <div class="header-content">
-            <span class="tag">⚡ Network Infrastructure</span>
-            <h1>RIIO-3 & TNUoS: The £108 Network Cost Addition Coming to Your Bill</h1>
-            <p class="subtitle">From April 2026, Ofgem's new price controls unlock £28bn in network investment—but transmission charges will nearly double for many customers. Here's what's really happening to your electricity bill.</p>
+            <span class="tag">Deep Dive</span>
+            <h1>The Hidden Network Costs Coming to Your Bill</h1>
+            <p class="subtitle">Britain is spending billions upgrading power lines and gas pipes. Here's what it means for your energy bills from April 2026.</p>
             <div class="article-meta">
-                <span>January 2026</span>
+                <span>📅 January 2026</span>
                 <span>•</span>
-                <span>8 min read</span>
+                <span>⏱️ 8 min read</span>
             </div>
         </div>
     </header>
 
+    <!-- Article Body -->
     <article class="article-body">
-        <h2>Overview</h2>
-        <p>From <strong>1 April 2026</strong>, the UK enters a new five-year regulatory period for energy network operators known as RIIO-3 (Revenue = Incentives + Innovation + Outputs). This price control framework will determine how much network companies can charge customers to operate, maintain, and expand Britain's electricity and gas infrastructure until March 2031.</p>
-        
-        <p>Ofgem has approved <strong>£28.1 billion in initial investment</strong>—£10.3bn for electricity transmission and £17.8bn for gas networks. However, this could rise to <strong>£90 billion by 2031</strong> once all planned infrastructure upgrades are accounted for, with electricity transmission alone potentially requiring over £70bn in investment.</p>
 
-        <div class="danger-box">
-            <p><strong>The headline impact:</strong> Network charges will add <strong>£108 to typical household bills by 2031</strong>—£60 for electricity and £48 for gas. Transmission Network Use of System (TNUoS) charges, which fund the high-voltage grid, are forecast to nearly double from April 2026.</p>
+        <h2>The Short Version</h2>
+        <p>The government has approved a massive upgrade to Britain's electricity and gas networks. Good for the future, but it's going to cost you.</p>
+        
+        <p><strong>Your bills will rise by about £108 per year by 2031</strong> — split between electricity (£60) and gas (£48) networks. Most of this will hit your standing charge, not your unit rate.</p>
+
+        <div class="warning-box">
+            <p><strong>The biggest jump happens in April 2026.</strong> The transmission fee on your electricity bill will nearly double overnight — from £51/year to £93/year. That's an extra 12p on your daily standing charge.</p>
         </div>
 
-        <h2>What is RIIO-3?</h2>
-        <p>RIIO-3 is Ofgem's regulatory framework that sets the allowed revenues for monopoly network operators over 2026-2031. It covers three sectors:</p>
+        <h2>Why Is This Happening?</h2>
+        <p>Three big reasons:</p>
 
         <ul>
-            <li><strong>Electricity Transmission (ET):</strong> The high-voltage network carrying power across Great Britain, operated by National Grid, Scottish Power Transmission, and Scottish Hydro Electric Transmission</li>
-            <li><strong>Gas Transmission (GT):</strong> The high-pressure gas network operated by National Gas</li>
-            <li><strong>Gas Distribution (GD):</strong> Local gas networks operated by Cadent, Northern Gas Networks, SGN, and Wales & West Utilities</li>
+            <li><strong>Wind farms are in the wrong place.</strong> Most renewable energy is generated in Scotland and the North Sea, but most people live in the South. We need new power lines to move that electricity hundreds of miles.</li>
+            <li><strong>The grid is too small.</strong> Britain's electricity network was built for a different era. It can't handle all the new wind and solar power, so we're paying generators to switch off while firing up expensive backup power. Wasteful.</li>
+            <li><strong>Old pipes and cables are wearing out.</strong> Some infrastructure is decades old and needs replacing. Gas pipes are being swapped for plastic ones that could carry hydrogen in the future.</li>
         </ul>
-
-        <p>A separate price control, RIIO-ED3, will cover electricity distribution networks from 2028-2033.</p>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-value">£28bn</div>
-                <div class="stat-label">Initial investment approved (2026-2031)</div>
+                <div class="stat-label">Approved spending (2026-2031)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value warning">£108</div>
-                <div class="stat-label">Added to bills by 2031 (£60 elec + £48 gas)</div>
+                <div class="stat-label">Added to your bill by 2031</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value danger">94%</div>
-                <div class="stat-label">TNUoS fixed residual increase (2026/27 vs 2025/26)</div>
+                <div class="stat-value danger">+82%</div>
+                <div class="stat-label">Jump in transmission fees (April 2026)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value">£80</div>
-                <div class="stat-label">Estimated savings from grid expansion by 2031</div>
+                <div class="stat-label">Expected savings once upgrades complete</div>
             </div>
         </div>
 
-        <h2>Why Network Costs Are Surging</h2>
-        <p>The investment surge addresses three critical infrastructure challenges:</p>
+        <h2>What's the Transmission Fee?</h2>
+        <p>Every electricity bill includes a fee for using the national grid — the network of high-voltage power lines that carry electricity across the country. You've probably never noticed it because it's buried in your standing charge.</p>
 
-        <p><strong>1. Renewable energy integration</strong> — Offshore wind farms in Scotland and the North Sea generate power far from population centres in southern England. Connecting these renewable sources requires massive transmission infrastructure: new pylons, substations, and high-voltage cables to transport electricity hundreds of miles south.</p>
-
-        <p><strong>2. Grid capacity constraints</strong> — Britain's transmission network was designed for a different energy system. As renewable generation grows and industrial demand for electricity increases, the grid needs significant capacity upgrades to avoid bottlenecks and constraint costs—where the grid pays generators to reduce output or fires up expensive local generation because transmission capacity can't deliver cheaper power from elsewhere.</p>
-
-        <p><strong>3. Ageing infrastructure</strong> — Gas and electricity networks require ongoing maintenance and asset replacement. Metal gas pipes are being replaced with safer plastic alternatives that can also transport hydrogen. Transmission towers and cables are reaching the end of their operational lives and must be upgraded or replaced.</p>
-
-        <div class="highlight-box">
-            <p>Ofgem argues this investment will deliver long-term benefits: by 2031, grid expansion should reduce wholesale electricity prices and constraint costs by around <strong>£80</strong>, partially offsetting the £108 in network charges. The net increase to bills is therefore expected to be around <strong>£30 per year</strong>.</p>
-        </div>
-
-        <h2>Understanding TNUoS: The Transmission Charge</h2>
-        <p>Transmission Network Use of System (TNUoS) charges fund the operation, maintenance, and expansion of the high-voltage electricity network. These charges appear on electricity bills—often buried within the standing charge—and are set annually by the National Energy System Operator (NESO).</p>
-
-        <p>TNUoS has two main components:</p>
-
-        <ul>
-            <li><strong>Fixed residual charges:</strong> A flat £/site/day rate based on your connection voltage and capacity. This cannot be avoided by reducing consumption—it's charged regardless of how much electricity you use.</li>
-            <li><strong>Locational demand charges:</strong> Variable charges based on where in Britain you're located and when you use electricity (half-hourly settled demand pays based on consumption during Triad periods—the three half-hours of highest system demand each winter).</li>
-        </ul>
-
-        <h2>The TNUoS Increase: What's Changing</h2>
-        <p>According to NESO's latest five-year forecast, TNUoS revenue requirements are set to surge:</p>
+        <p>This fee is set to nearly double from April 2026:</p>
 
         <div class="chart-section">
-            <div class="chart-title">TNUoS Revenue Forecast (2025/26 to 2030/31)</div>
-            <div class="chart-subtitle">Total transmission charges rising to fund RIIO-3 infrastructure investment</div>
-            <div style="height: 300px; margin-top: 1rem;">
-                <canvas id="tnuosRevenueChart"></canvas>
-            </div>
-        </div>
-
-        <div class="chart-section" style="margin-top: 1.5rem;">
-            <div class="chart-title">Household TNUoS Cost: Before vs After April 2026</div>
-            <div class="chart-subtitle">Annual transmission charges nearly doubling overnight</div>
+            <div class="chart-title">How Much You'll Pay for the National Grid</div>
+            <div class="chart-subtitle">Transmission fees per household, 2025-2031</div>
             <div style="height: 280px; margin-top: 1rem;">
                 <canvas id="householdTnuosChart"></canvas>
             </div>
             <div style="display: flex; justify-content: space-around; margin-top: 1rem; padding: 1rem; background: #F1F5F9; border-radius: 8px;">
                 <div style="text-align: center;">
-                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">2025/26</div>
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">Now</div>
                     <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-green);">£51/year</div>
                     <div style="font-size: 0.75rem; color: var(--sp-slate-light);">14p/day</div>
                 </div>
                 <div style="text-align: center; font-size: 2rem; color: var(--sp-slate-light); padding-top: 0.5rem;">→</div>
                 <div style="text-align: center;">
-                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">2026/27</div>
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">April 2026</div>
                     <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-red);">£93/year</div>
                     <div style="font-size: 0.75rem; color: var(--sp-slate-light);">26p/day</div>
                 </div>
                 <div style="text-align: center;">
-                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">Change</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-amber);">+82%</div>
-                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">+£42/year</div>
+                    <div style="font-size: 0.8rem; color: var(--sp-slate-light);">Jump</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--sp-amber);">+£42</div>
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">per year</div>
                 </div>
             </div>
         </div>
 
-        <p>The <strong>fixed residual element</strong>, which affects all electricity customers, will increase dramatically:</p>
+        <h2>Who Gets Hit Hardest?</h2>
+        
+        <p><strong>Low energy users.</strong> These fees are fixed — you pay the same whether you use a lot of energy or a little. So if you're careful with energy, these charges make up a bigger chunk of your bill.</p>
 
-        <ul>
-            <li><strong>2025/26:</strong> £3.84bn in residual revenue</li>
-            <li><strong>2026/27:</strong> £7.52bn in residual revenue (+94%)</li>
-            <li><strong>2030/31:</strong> £11.75bn in residual revenue (forecast)</li>
-        </ul>
+        <p><strong>Businesses pay much more.</strong> The fees depend on how much electrical capacity your building has. A small office might see £1,700/year added to their bill. A supermarket or factory could face £10,000+ in extra costs.</p>
 
-        <div class="warning-box">
-            <p><strong>For households:</strong> The typical domestic TNUoS cost is forecast at <strong>£93 per year</strong> from April 2026—up from around £51 in 2025/26. This equates to roughly <strong>10% of an annual electricity bill</strong> and will be reflected primarily in higher standing charges.</p>
-        </div>
+        <p><strong>Where you live matters too.</strong> If you're in Scotland or near offshore wind farms, you'll pay less (because you're close to where power is generated). If you're in London or the South East, you'll pay more (because electricity has to travel further to reach you).</p>
 
-        <h2>Impact on Different Customer Types</h2>
+        <h2>Will My Fixed Tariff Protect Me?</h2>
+        <p><strong>Probably not.</strong> Most "fixed" energy deals only lock in the unit rate. Buried in the small print, you'll usually find a clause letting suppliers pass on network cost increases.</p>
 
-        <p><strong>Households:</strong> The £93/year TNUoS cost translates to approximately <strong>26p per day</strong> added to electricity standing charges. This hits all customers equally regardless of consumption—meaning low users pay proportionally more as a percentage of their total bill.</p>
-
-        <p><strong>Businesses:</strong> The impact varies dramatically by size and connection type. TNUoS residual charges are banded by connection voltage and agreed capacity. Examples of annual increases by 2030/31:</p>
-
-        <ul>
-            <li><strong>Small businesses</strong> (holiday lets, kiosks): ~£70/year increase</li>
-            <li><strong>Small offices/hotels:</strong> ~£1,700/year increase</li>
-            <li><strong>Medium factories:</strong> ~£9,760/year increase</li>
-            <li><strong>High Voltage (HV3) sites:</strong> £85k → £144k/year</li>
-            <li><strong>Extra High Voltage (EHV4) sites:</strong> £2.4m → £4.1m/year</li>
-        </ul>
-
-        <div class="warning-box">
-            <p><strong>Critical for fixed contract customers:</strong> Most energy supply contracts treat TNUoS as a "pass-through cost." This means even if you have a fixed-rate contract, your supplier can increase standing charges mid-contract when TNUoS rates rise in April 2026. Check your contract terms carefully.</p>
-        </div>
-
-        <h2>Regional Variations in TNUoS</h2>
-        <p>Alongside the fixed residual charges, locational demand tariffs will also change—but not uniformly:</p>
-
-        <div class="chart-section" style="margin: 1.5rem 0;">
-            <div class="chart-title">Network Cost Addition to Bills by 2031</div>
-            <div class="chart-subtitle">Where the £108 annual increase comes from</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 1rem;">
-                <div style="height: 250px;">
-                    <canvas id="networkBreakdownChart"></canvas>
-                </div>
-                <div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <div style="width: 16px; height: 16px; background: #EF4444; border-radius: 4px;"></div>
-                        <div>
-                            <div style="font-weight: 600; color: var(--sp-slate);">Electricity Networks</div>
-                            <div style="font-size: 0.85rem; color: var(--sp-slate-light);">£60/year — TNUoS transmission charges</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <div style="width: 16px; height: 16px; background: #F59E0B; border-radius: 4px;"></div>
-                        <div>
-                            <div style="font-weight: 600; color: var(--sp-slate);">Gas Networks</div>
-                            <div style="font-size: 0.85rem; color: var(--sp-slate-light);">£48/year — Distribution infrastructure</div>
-                        </div>
-                    </div>
-                    <div style="padding: 1rem; background: #F0FDF4; border-radius: 8px; border-left: 3px solid var(--sp-green); margin-top: 1.5rem;">
-                        <div style="font-size: 0.85rem; color: var(--sp-slate);">
-                            <strong>Offset savings:</strong> ~£80/year from reduced constraint costs and lower wholesale prices — net increase ~£30/year
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <ul>
-            <li><strong>Northern GB:</strong> Currently pays £0 in locational demand charges and will continue to do so (renewable generation here offsets transmission costs)</li>
-            <li><strong>Southern GB:</strong> Average tariff of £3.22/kWh during Triad periods in 2026/27, rising to £5.12/kWh by 2030/31</li>
-            <li><strong>Midlands/South West:</strong> Increases up to 37%</li>
-            <li><strong>Eastern England/South Wales:</strong> Potential reductions up to 42% (reflecting local generation growth)</li>
-        </ul>
-
-        <p>This regional variation reflects the cost of transporting electricity. Areas near renewable generation (Scotland, offshore wind zones) contribute less to transmission costs, while distant demand centres (London, South East) pay more.</p>
-
-        <h2>The Bigger Picture: Long-Term Network Investment</h2>
-        <p>RIIO-3 represents the start of a decades-long infrastructure buildout. Electricity transmission alone may require <strong>£70bn+ in total investment</strong> during 2026-2031, with final spending dependent on project approvals and system needs.</p>
-
-        <p>Key investment areas include:</p>
-
-        <ul>
-            <li><strong>Offshore transmission:</strong> Connecting new North Sea and Scottish offshore wind farms to the grid</li>
-            <li><strong>Onshore reinforcement:</strong> Upgrading transmission corridors from Scotland to England, including controversial pylon projects</li>
-            <li><strong>Substations:</strong> Building capacity to handle renewable intermittency and bidirectional power flows</li>
-            <li><strong>Hydrogen-ready gas networks:</strong> Replacing metal pipes with plastic infrastructure capable of transporting hydrogen alongside natural gas</li>
-        </ul>
-
-        <div class="timeline">
-            <div class="chart-title">Key Dates for RIIO-3 Implementation</div>
-            <div class="chart-subtitle">When network cost increases take effect</div>
-            <div class="timeline-track">
-                <div class="timeline-point">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Jan 2026</div>
-                    <div class="timeline-label">Final TNUoS tariffs published</div>
-                </div>
-                <div class="timeline-point warning">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Apr 2026</div>
-                    <div class="timeline-label">RIIO-3 begins, TNUoS costs surge</div>
-                </div>
-                <div class="timeline-point">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">2028</div>
-                    <div class="timeline-label">RIIO-ED3 for elec distribution starts</div>
-                </div>
-                <div class="timeline-point warning">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Mar 2031</div>
-                    <div class="timeline-label">RIIO-3 period ends</div>
-                </div>
-            </div>
-        </div>
-
-        <h2>Affordability vs Investment: The Trade-Off</h2>
-        <p>RIIO-3 exposes a fundamental tension in energy policy: the UK needs massive grid investment to meet net-zero targets and ensure energy security, but front-loading this investment adds significant near-term costs to bills at a time when households are already struggling with elevated energy prices.</p>
-
-        <p>Ofgem has attempted to smooth the bill impact through <strong>revenue reprofiling</strong>—reducing allowed revenues in 2026/27 and 2027/28, then increasing them in later years. This means standing charge increases in April 2026 will be somewhat moderated, with steeper rises deferred until 2028-2031.</p>
-
-        <div class="danger-box">
-            <p>However, for the average household already paying ~£1,750/year for dual fuel, an additional £108 by 2031 represents a <strong>6% increase</strong> from network costs alone—on top of any changes in wholesale energy prices, policy costs, and supplier margins.</p>
-        </div>
-
-        <h2>What About the Promised Savings?</h2>
-        <p>Ofgem's case for RIIO-3 rests on long-term benefits offsetting near-term costs:</p>
-
-        <ul>
-            <li><strong>Lower constraint costs:</strong> By expanding transmission capacity, the grid can deliver cheaper renewable power from Scotland/offshore to demand centres, reducing expensive constraint payments (where generators are paid to switch off or local expensive generation is used instead)</li>
-            <li><strong>Reduced reliance on gas imports:</strong> Better renewable integration should reduce exposure to volatile international gas prices</li>
-            <li><strong>Industrial competitiveness:</strong> Energy-intensive industries could see bills 10-15% lower than without RIIO-3 investment, thanks to lower wholesale prices and government's "supercharger" mechanism</li>
-        </ul>
-
-        <p>The timeline matters: <strong>investment costs hit bills immediately</strong>, while benefits emerge gradually over 5-10 years as infrastructure comes online and system efficiency improves.</p>
-
-        <h2>Fixed Tariffs and Standing Charge Transparency</h2>
-        <p>The TNUoS increases create particular challenges for the retail energy market:</p>
-
-        <p><strong>Pass-through clauses:</strong> Most fixed-rate contracts explicitly allow suppliers to pass through changes in network charges. Look for terms like "non-commodity costs," "distribution and transmission charges," or direct references to TNUoS in your contract. These provisions mean your "fixed" rate isn't truly fixed—standing charges can rise mid-contract.</p>
-
-        <p><strong>Standing charge volatility:</strong> TNUoS increases will be delivered primarily through standing charges rather than unit rates. This means households cannot reduce exposure through energy efficiency or consumption reduction—the cost is unavoidable.</p>
+        <p>Look for terms like "non-commodity costs" or "transmission charges" in your contract. If they're there, your standing charge can rise even on a fixed deal.</p>
 
         <div class="highlight-box">
-            <p>When comparing tariffs in 2026, pay close attention to standing charge levels. A tariff with a slightly higher unit rate but lower standing charge may be better value if you're a low-to-medium consumer, especially as standing charges continue rising through RIIO-3.</p>
+            <p><strong>Tip:</strong> When comparing tariffs from 2026 onwards, pay close attention to standing charges. A slightly higher unit rate with a lower standing charge might actually save you money — especially if you don't use much energy.</p>
         </div>
 
-        <h2>The Distribution Network Question</h2>
-        <p>RIIO-3 covers transmission and gas distribution, but <strong>electricity distribution networks</strong> (the local "poles and wires" delivering power to homes and businesses) will enter their own price control period, RIIO-ED3, in April 2028.</p>
-
-        <p>Distribution network costs already account for a larger portion of electricity bills than transmission costs. If RIIO-ED3 follows a similar pattern of significant investment allowances, households could face <strong>further standing charge increases</strong> from 2028 onwards.</p>
-
-        <h2>Business Implications: Planning Ahead</h2>
-        <p>For businesses, particularly those with multiple sites or high electricity demand, the TNUoS changes warrant immediate attention:</p>
+        <h2>Is There Any Good News?</h2>
+        <p>Yes, eventually. The government argues these upgrades will pay for themselves:</p>
 
         <ul>
-            <li><strong>Review capacity settings:</strong> If your kVA capacity is set higher than necessary, you're in a higher charging band and overpaying. Many businesses waste £3,000-£10,000 annually on excess capacity</li>
-            <li><strong>Check contract terms:</strong> Understand whether your contract fixes TNUoS or allows pass-through. If renewing before April 2026, seek clarity on how 2026/27 increases will be handled</li>
-            <li><strong>Model exposure:</strong> Use NESO's published forecasts to calculate your site-specific cost increases and budget accordingly</li>
-            <li><strong>Explore flexibility:</strong> Battery storage and demand response can help offset higher network costs by shifting consumption away from peak periods and earning revenue through grid services</li>
+            <li><strong>Less waste.</strong> Right now, we pay wind farms to switch off when the grid can't handle their power. Better infrastructure means less of this waste.</li>
+            <li><strong>Cheaper power.</strong> Once new power lines are built, cheap renewable energy from Scotland can flow to the rest of Britain, pushing down wholesale prices.</li>
+            <li><strong>Energy security.</strong> Less reliance on expensive imported gas means more stable bills long-term.</li>
+        </ul>
+
+        <p>The catch? <strong>You pay now, benefits come later.</strong> The £108 in extra costs hits your bill immediately. The estimated £80 in savings won't fully materialise until the late 2020s or early 2030s.</p>
+
+        <div class="danger-box">
+            <p><strong>Net impact:</strong> Even accounting for future savings, expect your bill to be about <strong>£30/year higher</strong> by 2031 due to network costs alone — on top of whatever happens to energy prices, taxes, and supplier charges.</p>
+        </div>
+
+        <h2>What Can You Do?</h2>
+        <ul>
+            <li><strong>Check your contract.</strong> Does it allow pass-through of network charges? If so, your standing charge could rise mid-contract.</li>
+            <li><strong>Compare standing charges.</strong> From 2026 onwards, these matter more. Don't just focus on unit rates.</li>
+            <li><strong>Use less at peak times.</strong> Some of these charges are based on when you use electricity. Avoiding 4-7pm in winter can help.</li>
+            <li><strong>Budget for it.</strong> Plan for roughly £50-60 extra on your annual electricity bill by April 2026, rising to £100+ by 2031.</li>
         </ul>
 
         <div class="summary-section">
-            <div class="summary-title">In Summary</div>
+            <div class="summary-title">Key Takeaways</div>
             <div class="summary-grid">
                 <div class="summary-item danger">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>£108 added to bills by 2031</strong> — £60 electricity, £48 gas network costs</span>
+                    <span><strong>£108 added to bills by 2031</strong> — £60 electricity, £48 gas</span>
                 </div>
                 <div class="summary-item danger">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>TNUoS charges nearly double</strong> — from £51/year to £93/year for households from April 2026</span>
+                    <span><strong>Transmission fees nearly double</strong> — from £51 to £93/year in April 2026</span>
                 </div>
                 <div class="summary-item warning">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>Standing charges will surge</strong> — hitting hardest on low-consumption households</span>
+                    <span><strong>Standing charges will jump</strong> — low users hit hardest</span>
                 </div>
                 <div class="summary-item warning">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>Fixed contracts aren't protected</strong> — most allow TNUoS pass-through mid-contract</span>
+                    <span><strong>Fixed deals won't protect you</strong> — most allow network charge pass-through</span>
                 </div>
                 <div class="summary-item info">
                     <span class="summary-icon">💡</span>
-                    <span><strong>£28bn initial investment approved</strong> — rising to £90bn by 2031 across all networks</span>
+                    <span><strong>£28 billion investment approved</strong> — to upgrade Britain's energy networks</span>
                 </div>
                 <div class="summary-item info">
                     <span class="summary-icon">💡</span>
-                    <span><strong>£80 in offsetting savings expected</strong> — from lower constraint costs and wholesale prices</span>
+                    <span><strong>£80 in future savings expected</strong> — from cheaper renewable energy</span>
                 </div>
                 <div class="summary-item positive">
                     <span class="summary-icon">✓</span>
-                    <span><strong>Net bill increase ~£30/year by 2031</strong> — after accounting for system benefits</span>
+                    <span><strong>Net increase ~£30/year by 2031</strong> — after accounting for savings</span>
                 </div>
                 <div class="summary-item positive">
                     <span class="summary-icon">✓</span>
-                    <span><strong>Long-term energy security</strong> — investment supports renewable integration and grid resilience</span>
+                    <span><strong>Long-term energy security</strong> — less reliance on imported gas</span>
                 </div>
             </div>
         </div>
@@ -881,14 +636,14 @@
     <!-- CTA Section -->
     <section style="padding: 0 2rem;">
         <div class="cta-box">
-            <h3>Stay ahead of network cost changes</h3>
-            <p>Join our waitlist for early access to free auto-switching and comprehensive bill breakdowns showing exactly where your money goes</p>
+            <h3>Stay ahead of these changes</h3>
+            <p>Join our waitlist for plain-English breakdowns of what's happening to energy bills — and find the best deals when they matter.</p>
             <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
         </div>
     </section>
 
     <footer class="article-footer">
-        <p class="footer-note">Data sources: Ofgem RIIO-3 Final Determinations, National Energy System Operator (NESO) TNUoS Five-Year View, Cornwall Insight, Oxera, Professional Energy Services, various industry publications.</p>
+        <p class="footer-note">Sources: Ofgem, National Energy System Operator, Cornwall Insight, industry publications.</p>
     </footer>
 
     <footer class="site-footer">
@@ -898,68 +653,8 @@
     </footer>
 
     <script>
-    // Initialize charts when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        // TNUoS Revenue Chart
-        const revenueCtx = document.getElementById('tnuosRevenueChart');
-        if (revenueCtx) {
-            new Chart(revenueCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
-                    datasets: [{
-                        label: 'TNUoS Revenue (£bn)',
-                        data: [5.1, 8.9, 10.2, 11.4, 12.5, 13.6],
-                        backgroundColor: [
-                            '#10B981',
-                            '#EF4444',
-                            '#F59E0B',
-                            '#F59E0B',
-                            '#F59E0B',
-                            '#F59E0B'
-                        ],
-                        borderRadius: 6,
-                        borderSkipped: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#1E293B',
-                            titleFont: { size: 14, weight: '600' },
-                            bodyFont: { size: 13 },
-                            padding: 12,
-                            cornerRadius: 8,
-                            callbacks: {
-                                label: function(context) {
-                                    return '£' + context.parsed.y.toFixed(1) + ' billion';
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 16,
-                            grid: { color: '#E2E8F0' },
-                            ticks: {
-                                callback: function(value) { return '£' + value + 'bn'; },
-                                font: { size: 11 }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { size: 11, weight: '500' } }
-                        }
-                    }
-                }
-            });
-        }
-
-        // Household TNUoS Chart
+        // Household Transmission Fee Chart
         const householdCtx = document.getElementById('householdTnuosChart');
         if (householdCtx) {
             new Chart(householdCtx, {
@@ -967,7 +662,7 @@
                 data: {
                     labels: ['2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
                     datasets: [{
-                        label: 'Household TNUoS Cost (£/year)',
+                        label: 'Annual transmission fee (£)',
                         data: [51, 93, 102, 108, 112, 115],
                         backgroundColor: function(context) {
                             const index = context.dataIndex;
@@ -986,8 +681,8 @@
                             backgroundColor: '#1E293B',
                             callbacks: {
                                 label: function(context) {
-                                    const dailyCost = (context.parsed.y / 365).toFixed(2);
-                                    return ['£' + context.parsed.y + '/year', dailyCost + 'p/day'];
+                                    const dailyCost = (context.parsed.y / 365).toFixed(0);
+                                    return ['£' + context.parsed.y + ' per year', dailyCost + 'p per day'];
                                 }
                             }
                         }
@@ -1010,40 +705,8 @@
                 }
             });
         }
-
-        // Network Breakdown Doughnut Chart
-        const breakdownCtx = document.getElementById('networkBreakdownChart');
-        if (breakdownCtx) {
-            new Chart(breakdownCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Electricity Networks (£60)', 'Gas Networks (£48)'],
-                    datasets: [{
-                        data: [60, 48],
-                        backgroundColor: ['#EF4444', '#F59E0B'],
-                        borderWidth: 0,
-                        hoverOffset: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '55%',
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#1E293B',
-                            callbacks: {
-                                label: function(context) {
-                                    return context.label + ' per year';
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
     });
     </script>
+
 </body>
 </html>

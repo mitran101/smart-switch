@@ -430,11 +430,11 @@ canvas {
 <body>
 
 <!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:2.3rem;width:auto;">
   <span>SwitchPilot</span>
-</div>
-<a href="/" class="home-link">← Home</a>
+</a>
+<a href="index.html" class="home-link">← Home</a>
 
 <div class="container">
   
@@ -611,9 +611,9 @@ canvas {
         </div>
       </div>
 
-      <!-- SVT RATES -->
+      <!-- STANDARD TARIFF RATES -->
       <div class="input-group">
-        <h3>📈 SVT Rates (Price Cap Q1 2026)</h3>
+        <h3>📈 Standard Variable Tariff (Price Cap)</h3>
         <label>Electricity Standing Charge (p/day)</label>
         <input type="number" id="svtElecSC" value="47.11" min="20" max="100" step="0.01">
         
@@ -746,7 +746,7 @@ canvas {
       
       <p><strong>The blue line (SVT Direct Debit)</strong> is your actual monthly payment if you're on a Standard Variable Tariff with Direct Debit. It stays flat all year — same payment every month.</p>
       
-      <p><strong>The green line (Fixed Tariff DD)</strong> is your monthly payment on a fixed deal. Also stays flat, but often lower than SVT.</p>
+      <p><strong>The green line (Fixed Tariff DD)</strong> is your monthly payment on a fixed deal. Also stays flat, but often lower than the standard tariff.</p>
       
       <p><strong>Why the gap matters:</strong></p>
       <ul>
@@ -885,7 +885,7 @@ function updateChart() {
   
   const savings = svtAnnual - fixedAnnual;
   document.getElementById('annualSavings').textContent = savings >= 0 ? '£' + Math.round(savings) : '-£' + Math.round(Math.abs(savings));
-  document.getElementById('savingsNote').textContent = savings >= 0 ? 'Save with fixed tariff' : 'SVT is cheaper';
+  document.getElementById('savingsNote').textContent = savings >= 0 ? 'Save with fixed tariff' : 'Standard tariff is cheaper';
   
   // Calculate max credit (difference between DD and actual cost in September - typically highest credit month)
   const sepCredit = (svtMonthly * 9) - actualMonthlyCosts.slice(0, 9).reduce((a, b) => a + b, 0);

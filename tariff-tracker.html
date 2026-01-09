@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Tariff Tracker | SwitchPilot</title>
 
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
 <script>
@@ -436,12 +441,11 @@
 <body>
     <div class="container">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <a href="/" class="top-logo">
-                <span>✈️</span>
-                <span style="color: #f97316;">⚡</span>
+            <a href="index.html" class="top-logo">
+                <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:1.8rem;width:auto;">
                 <span>SwitchPilot</span>
             </a>
-            <a href="/" class="home-link" style="color: #64748b; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
+            <a href="index.html" class="home-link" style="color: #64748b; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
                 ← Home
             </a>
         </div>
@@ -665,12 +669,12 @@
 
         <div class="footer">
             <p>Data updated weekly from supplier websites. Rates are indicative - always confirm with supplier.</p>
-            <p style="margin-top: 10px;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;">flightcrew@switch-pilot.com</a></p>
+            <p style="margin-top: 10px;">📧 Questions? <a href="/cdn-cgi/l/email-protection#accac0c5cbc4d8cfdec9dbecdfdbc5d8cfc481dcc5c0c3d882cfc3c1" style="color:#a855f7;"><span class="__cf_email__" data-cfemail="e482888d838c9087968193a497938d90878cc9948d888b90ca878b89">[email&#160;protected]</span></a></p>
             <p style="margin-top: 10px;">Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let tariffData = { tariffs: [], updated: null };
         let chart = null;
 
@@ -1176,12 +1180,4 @@
                 render();
             } else if (postcode.length >= 2) {
                 hint.style.color = '#eab308';
-                hint.textContent = 'Region not found - select manually below';
-            } else {
-                hint.style.color = '#64748b';
-                hint.textContent = 'Enter postcode to auto-detect region';
-            }
-        });
-    </script>
-</body>
-</html>
+                hi

@@ -56,11 +56,12 @@ body {
   text-decoration: none;
   color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
+.top-logo img {
+  height: 2.3rem;
+  width: auto;
   filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -956,10 +957,10 @@ body {
     top: 20px;
     left: 20px;
   }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 1.8rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -1005,10 +1006,10 @@ body {
     left: 15px;
     gap: 6px;
   }
-  .top-logo span:first-child {
-    font-size: 1.5rem;
+  .top-logo img {
+    height: 1.5rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.2rem;
   }
   
@@ -1057,7 +1058,7 @@ body {
 <body>
 
 <a href="index.html" class="top-logo">
-  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:2.3rem;width:auto;">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
   <span>SwitchPilot</span>
 </a>
 
@@ -1231,11 +1232,11 @@ body {
 
 <footer class="footer">
   <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#5e38323739362a3d2c3b291e2d29372a3d36732e3732312a703d3133" style="color:#a855f7;text-decoration:none;"><span class="__cf_email__" data-cfemail="9cfaf0f5fbf4e8ffeef9ebdcefebf5e8fff4b1ecf5f0f3e8b2fff3f1">[email&#160;protected]</span></a></p>
+  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
   <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const COMMUNITY_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYpZ_jBvchySFChMKVGCmQ-0l5oUKbtRva3aOttSesrlwgsn1Z48QEQLMaLwFSrd0SYw/exec';
 
 const STORAGE_KEY = 'switchpilot_discussions';
@@ -1363,8 +1364,8 @@ async function toggleUpvote(discussionId, event) {
   saveUserUpvotes(upvotes);
   saveDiscussionsLocal(discussions);
   
-  const btn = document.querySelector(`.upvote-btn[data-id="${discussionId}"]`);
-  const count = document.querySelector(`.upvote-count[data-id="${discussionId}"]`);
+  const btn = document.querySelector('.upvote-btn[data-id="' + discussionId + '"]');
+  const count = document.querySelector('.upvote-count[data-id="' + discussionId + '"]');
   
   if (btn) {
     btn.classList.toggle('upvoted', !alreadyUpvoted);
@@ -1401,8 +1402,8 @@ async function toggleReplyUpvote(discussionId, replyId, event) {
   saveUserReplyUpvotes(upvotes);
   saveDiscussionsLocal(discussions);
   
-  const btn = document.querySelector(`.reply-upvote-btn[data-reply-id="${replyId}"]`);
-  const count = document.querySelector(`.reply-upvote-count[data-reply-id="${replyId}"]`);
+  const btn = document.querySelector('.reply-upvote-btn[data-reply-id="' + replyId + '"]');
+  const count = document.querySelector('.reply-upvote-count[data-reply-id="' + replyId + '"]');
   
   if (btn) btn.classList.toggle('upvoted', !alreadyUpvoted);
   if (count) count.textContent = reply.upvotes || 0;
@@ -1521,9 +1522,9 @@ function formatTime(timestamp) {
   const days = Math.floor(diff / 86400000);
   
   if (minutes < 1) return 'Just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days < 7) return `${days}d ago`;
+  if (minutes < 60) return minutes + 'm ago';
+  if (hours < 24) return hours + 'h ago';
+  if (days < 7) return days + 'd ago';
   return formatDate(timestamp);
 }
 
@@ -1582,83 +1583,69 @@ function renderDiscussions() {
   filtered = sortDiscussions(filtered, currentSort);
   
   document.getElementById('discussionCount').textContent = 
-    `${filtered.length} discussion${filtered.length !== 1 ? 's' : ''}`;
+    filtered.length + ' discussion' + (filtered.length !== 1 ? 's' : '');
   
   if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">💬</div>
-        <h4>No discussions yet</h4>
-        <p>Be the first to start a conversation!</p>
-      </div>
-    `;
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💬</div><h4>No discussions yet</h4><p>Be the first to start a conversation!</p></div>';
     return;
   }
   
   const userUpvotes = getUserUpvotes();
   const userReplyUpvotes = getUserReplyUpvotes();
   
-  container.innerHTML = filtered.map(discussion => `
-    <div class="discussion-item ${discussion.pinned ? 'pinned' : ''}" data-id="${discussion.id}" onclick="toggleDiscussion('${discussion.id}')">
-      ${discussion.pinned ? '<div class="pinned-badge">📌 Pinned</div>' : ''}
-      <div class="discussion-header">
-        <div class="upvote-section" onclick="event.stopPropagation()">
-          <button class="upvote-btn ${userUpvotes.includes(discussion.id) ? 'upvoted' : ''}" 
-                  data-id="${discussion.id}" 
-                  onclick="toggleUpvote('${discussion.id}', event)"
-                  title="Upvote this discussion">
-            ▲
-          </button>
-          <span class="upvote-count" data-id="${discussion.id}">${discussion.upvotes || 0}</span>
-        </div>
-        <div class="discussion-avatar">${discussion.avatar || getInitials(discussion.name)}</div>
-        <div class="discussion-content">
-          <h4 class="discussion-title">${escapeHtml(discussion.title)}</h4>
-          <p class="discussion-preview">${escapeHtml(discussion.content)}</p>
-          <div class="discussion-meta">
-            <span class="category-tag ${discussion.category}">${getCategoryLabel(discussion.category)}</span>
-            <span class="meta-item">👤 ${escapeHtml(discussion.name)}</span>
-            <span class="meta-item">🕐 ${formatTime(discussion.timestamp)}</span>
-            <span class="meta-item">💬 ${discussion.replies?.length || 0}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="replies-section" id="replies-${discussion.id}">
-      <div class="full-content">${escapeHtml(discussion.content)}</div>
-      ${(discussion.replies || []).map(reply => `
-        <div class="reply-item">
-          <div class="reply-upvote">
-            <button class="reply-upvote-btn ${userReplyUpvotes.includes(reply.id) ? 'upvoted' : ''}" 
-                    data-reply-id="${reply.id}"
-                    onclick="toggleReplyUpvote('${discussion.id}', '${reply.id}', event)"
-                    title="Upvote this reply">
-              ▲
-            </button>
-            <span class="reply-upvote-count" data-reply-id="${reply.id}">${reply.upvotes || 0}</span>
-          </div>
-          <div class="reply-header">
-            <div class="reply-avatar">${reply.avatar || getInitials(reply.name)}</div>
-            <span class="reply-author">${escapeHtml(reply.name)}</span>
-            <span class="reply-time">${formatTime(reply.timestamp)}</span>
-          </div>
-          <p class="reply-text">${escapeHtml(reply.text)}</p>
-        </div>
-      `).join('')}
-      <div class="reply-input-wrapper">
-        <input type="text" placeholder="Write a reply..." id="reply-input-${discussion.id}" onkeypress="handleReplyKeypress(event, '${discussion.id}')" />
-        <button class="reply-btn" onclick="submitReply('${discussion.id}')">Reply</button>
-      </div>
-    </div>
-  `).join('');
+  container.innerHTML = filtered.map(discussion => {
+    const repliesHtml = (discussion.replies || []).map(reply => 
+      '<div class="reply-item">' +
+        '<div class="reply-upvote">' +
+          '<button class="reply-upvote-btn ' + (userReplyUpvotes.includes(reply.id) ? 'upvoted' : '') + '" data-reply-id="' + reply.id + '" onclick="toggleReplyUpvote(\'' + discussion.id + '\', \'' + reply.id + '\', event)" title="Upvote this reply">▲</button>' +
+          '<span class="reply-upvote-count" data-reply-id="' + reply.id + '">' + (reply.upvotes || 0) + '</span>' +
+        '</div>' +
+        '<div class="reply-header">' +
+          '<div class="reply-avatar">' + (reply.avatar || getInitials(reply.name)) + '</div>' +
+          '<span class="reply-author">' + escapeHtml(reply.name) + '</span>' +
+          '<span class="reply-time">' + formatTime(reply.timestamp) + '</span>' +
+        '</div>' +
+        '<p class="reply-text">' + escapeHtml(reply.text) + '</p>' +
+      '</div>'
+    ).join('');
+    
+    return '<div class="discussion-item ' + (discussion.pinned ? 'pinned' : '') + '" data-id="' + discussion.id + '" onclick="toggleDiscussion(\'' + discussion.id + '\')">' +
+      (discussion.pinned ? '<div class="pinned-badge">📌 Pinned</div>' : '') +
+      '<div class="discussion-header">' +
+        '<div class="upvote-section" onclick="event.stopPropagation()">' +
+          '<button class="upvote-btn ' + (userUpvotes.includes(discussion.id) ? 'upvoted' : '') + '" data-id="' + discussion.id + '" onclick="toggleUpvote(\'' + discussion.id + '\', event)" title="Upvote this discussion">▲</button>' +
+          '<span class="upvote-count" data-id="' + discussion.id + '">' + (discussion.upvotes || 0) + '</span>' +
+        '</div>' +
+        '<div class="discussion-avatar">' + (discussion.avatar || getInitials(discussion.name)) + '</div>' +
+        '<div class="discussion-content">' +
+          '<h4 class="discussion-title">' + escapeHtml(discussion.title) + '</h4>' +
+          '<p class="discussion-preview">' + escapeHtml(discussion.content) + '</p>' +
+          '<div class="discussion-meta">' +
+            '<span class="category-tag ' + discussion.category + '">' + getCategoryLabel(discussion.category) + '</span>' +
+            '<span class="meta-item">👤 ' + escapeHtml(discussion.name) + '</span>' +
+            '<span class="meta-item">🕐 ' + formatTime(discussion.timestamp) + '</span>' +
+            '<span class="meta-item">💬 ' + (discussion.replies?.length || 0) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="replies-section" id="replies-' + discussion.id + '">' +
+      '<div class="full-content">' + escapeHtml(discussion.content) + '</div>' +
+      repliesHtml +
+      '<div class="reply-input-wrapper">' +
+        '<input type="text" placeholder="Write a reply..." id="reply-input-' + discussion.id + '" onkeypress="handleReplyKeypress(event, \'' + discussion.id + '\')" />' +
+        '<button class="reply-btn" onclick="submitReply(\'' + discussion.id + '\')">Reply</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
 }
 
 function toggleDiscussion(id) {
-  const repliesSection = document.getElementById(`replies-${id}`);
-  const discussionItem = document.querySelector(`.discussion-item[data-id="${id}"]`);
+  const repliesSection = document.getElementById('replies-' + id);
+  const discussionItem = document.querySelector('.discussion-item[data-id="' + id + '"]');
   
   document.querySelectorAll('.replies-section.visible').forEach(section => {
-    if (section.id !== `replies-${id}`) {
+    if (section.id !== 'replies-' + id) {
       section.classList.remove('visible');
     }
   });
@@ -1758,7 +1745,7 @@ async function handleNewPost(e) {
 }
 
 async function submitReply(discussionId) {
-  const input = document.getElementById(`reply-input-${discussionId}`);
+  const input = document.getElementById('reply-input-' + discussionId);
   const text = input.value.trim();
   
   if (!text) return;
@@ -1813,8 +1800,8 @@ async function submitReply(discussionId) {
   updateStats();
   
   setTimeout(() => {
-    const repliesSection = document.getElementById(`replies-${discussionId}`);
-    const discussionItem = document.querySelector(`.discussion-item[data-id="${discussionId}"]`);
+    const repliesSection = document.getElementById('replies-' + discussionId);
+    const discussionItem = document.querySelector('.discussion-item[data-id="' + discussionId + '"]');
     repliesSection.classList.add('visible');
     discussionItem.classList.add('expanded');
   }, 0);
@@ -1863,16 +1850,16 @@ function updateActiveTopics() {
     return;
   }
   
-  container.innerHTML = sorted.map(d => `
-    <div class="active-topic" onclick="scrollToDiscussion('${d.id}')">
-      <div class="active-topic-title">${escapeHtml(d.title.slice(0, 45))}${d.title.length > 45 ? '...' : ''}</div>
-      <div class="active-topic-meta">▲ ${d.upvotes || 0} • 💬 ${d.replies?.length || 0}</div>
-    </div>
-  `).join('');
+  container.innerHTML = sorted.map(d => 
+    '<div class="active-topic" onclick="scrollToDiscussion(\'' + d.id + '\')">' +
+      '<div class="active-topic-title">' + escapeHtml(d.title.slice(0, 45)) + (d.title.length > 45 ? '...' : '') + '</div>' +
+      '<div class="active-topic-meta">▲ ' + (d.upvotes || 0) + ' • 💬 ' + (d.replies?.length || 0) + '</div>' +
+    '</div>'
+  ).join('');
 }
 
 function scrollToDiscussion(id) {
-  const element = document.querySelector(`.discussion-item[data-id="${id}"]`);
+  const element = document.querySelector('.discussion-item[data-id="' + id + '"]');
   if (element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     toggleDiscussion(id);
@@ -1911,12 +1898,7 @@ async function init() {
   const discussionsList = document.getElementById('discussionsList');
   
   discussionsList.setAttribute('aria-busy', 'true');
-  discussionsList.innerHTML = `
-    <div class="loading-state">
-      <div class="loading-spinner" role="status" aria-label="Loading"></div>
-      <p>Loading discussions...</p>
-    </div>
-  `;
+  discussionsList.innerHTML = '<div class="loading-state"><div class="loading-spinner" role="status" aria-label="Loading"></div><p>Loading discussions...</p></div>';
   
   discussions = await loadDiscussionsFromServer();
   
@@ -1927,4 +1909,17 @@ async function init() {
   updateActiveTopics();
   
   setInterval(async () => {
-    const ser
+    const serverDiscussions = await loadDiscussionsFromServer();
+    if (serverDiscussions) {
+      renderDiscussions();
+      updateStats();
+      updateActiveTopics();
+    }
+  }, 30000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

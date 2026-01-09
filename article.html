@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Warm Home Discount Expansion - SwitchPilot</title>
 
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
 <script>
@@ -15,7 +20,7 @@
 </script>
 
 <style>
-/* GLOBAL – MATCH INDEX */
+/* GLOBAL */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -35,7 +40,7 @@ body {
   overflow: hidden;
 }
 
-/* GRID (SAME AS INDEX) */
+/* GRID */
 .energy-grid {
   position: absolute;
   inset: 0;
@@ -61,12 +66,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+.top-logo img {
+  height: 2.5rem;
+  width: auto;
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -80,7 +87,7 @@ body {
   z-index: 5;
 }
 
-/* Warm home themed icons on sides - spaced further from card */
+/* Side icons */
 .article-inner::before {
   content: '🏠';
   position: absolute;
@@ -100,7 +107,6 @@ body {
   animation: floatWarm 10s ease-in-out infinite 3s;
 }
 
-/* Additional side icons */
 .article-card::after {
   content: '♨️';
   position: absolute;
@@ -207,6 +213,14 @@ body {
   margin-bottom: 0.7rem;
 }
 
+.highlight-box {
+  background: rgba(99,102,241,0.15);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #6366f1;
+}
+
 /* FOOTER */
 .footer {
   background: #0c0e1f;
@@ -225,7 +239,6 @@ body {
     padding: 6rem 1.5rem 4rem;
   }
   
-  /* Hide side icons on mobile/tablet */
   .article-inner::before,
   .article-inner::after,
   .article-card::after {
@@ -236,10 +249,10 @@ body {
     top: 25px;
     left: 20px;
   }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 2rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -274,10 +287,10 @@ body {
     left: 15px;
     gap: 6px;
   }
-  .top-logo span:first-child {
-    font-size: 1.5rem;
+  .top-logo img {
+    height: 1.6rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.3rem;
   }
   
@@ -330,10 +343,10 @@ body {
 <body>
 
 <!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
   <span>SwitchPilot</span>
-</div>
+</a>
 
 <section class="article-shell">
 
@@ -347,49 +360,53 @@ body {
       <div class="article-header">
         <div class="article-date"><span>25 October 2025</span></div>
 
-        <h1>🔆 Warm Home Discount Expansion: What's Changing and What It Means for Bills</h1>
+        <h1>📆 Warm Home Discount: More People Now Qualify (But Everyone Pays)</h1>
       </div>
 
       <div class="article-body">
 
-        <h2>Overview</h2>
-        <p>The UK Government has announced a major expansion of the Warm Home Discount (WHD) scheme from winter 2025–26, aiming to make energy bills more affordable for millions of low-income households. The WHD provides a £150 annual rebate on electricity bills to help with winter heating costs.</p>
+        <h2>What Is It?</h2>
+        <p>The Warm Home Discount is a <strong>£150 one-off payment</strong> taken off your electricity bill each winter. It's meant to help low-income households with heating costs.</p>
 
-        <h2>Why It's Changing</h2>
-        <p>The old system was criticised for being too restrictive and inconsistent, leaving some struggling families without help simply because their home wasn't classed as "expensive to heat." Removing this rule makes eligibility simpler, fairer, and automatic for those on qualifying benefits — ensuring help reaches those most in need, but also increasing the burden on other customers who ultimately subsidise these discounts through their energy bills.</p>
+        <p>From winter 2025–26, the government is expanding who qualifies — roughly <strong>6 million households</strong> will now get it, up from 3 million before.</p>
 
-        <h2>Impact on Bills</h2>
-        <p>The WHD is funded by energy suppliers and spread across all customer bills through Ofgem's Standard Variable Tariff (SVT) price cap, which will also be reflected in fixed tariffs. With the expansion doubling the number of recipients:</p>
+        <h2>Why Is It Changing?</h2>
+        <p>The old rules were complicated and unfair. You had to be on certain benefits AND live in a home classed as "expensive to heat." Many people who were struggling missed out simply because their home didn't tick that box.</p>
 
+        <p>The new rules are simpler: if you're on a qualifying benefit, you get the discount automatically. No more confusing eligibility checks.</p>
+
+        <h2>The Catch: Everyone Else Pays More</h2>
+        <p>Here's what they don't tell you upfront: <strong>the scheme is paid for by all energy customers</strong>. Energy companies add the cost to everyone's bills.</p>
+
+        <p>With double the people now receiving the discount:</p>
         <ul>
-          <li>The cost of running the scheme will rise.</li>
-          <li>This will add around £15 per year to the average dual-fuel household bill.</li>
-          <li>Including other related initiatives, the total increase is expected to be around £21–£22 per year.</li>
+          <li>The scheme costs more to run</li>
+          <li>Your bill goes up by around <strong>£15–£22 per year</strong> from October 2025</li>
+          <li>Another <strong>£10–£20</strong> could be added in April 2026 to cover supplier costs</li>
         </ul>
 
-        <p>These costs will start being recovered in bills from October 2025, through the Q4 2025 price cap period.</p>
+        <div class="highlight-box">
+          <strong>Bottom line:</strong> If you don't qualify for the discount, you're helping pay for those who do — around £20–£40 extra per year on your bill.
+        </div>
 
+        <h2>Does This Affect Fixed Deals Too?</h2>
+        <p>Yes. Most suppliers are building these extra costs into new fixed tariffs. So even if you switch to a fixed deal, you'll likely see the impact in the rates.</p>
+
+        <p>That said, there's still competition in the market. Suppliers like Fuse Energy are offering aggressive pricing that's pushing other suppliers to stay competitive. So while costs are going up, there are still good deals to be found.</p>
+
+        <h2>What Should You Do?</h2>
+        <p><strong>If you're on benefits:</strong> Check if you qualify — you might get £150 off automatically this winter. You don't need to apply if you're on Pension Credit (core group). For other benefits, check the government website.</p>
+
+        <p><strong>If you're not eligible:</strong> Locking into a fixed deal now could help you avoid further increases expected in April 2026.</p>
+
+        <h2>Quick Summary</h2>
         <ul>
-          <li>There is also likely to be a further increase from April 2026 to recover Energy supplier's shortfalls, as the expansion started mid–Warm Home Discount scheme year.</li>
-        </ul>
-
-        <h2>What This Means for Your Bill</h2>
-        <p>From October 2025, it's likely that most energy suppliers will price the cost of the WHD expansion into new fixed contracts. This means even customers switching to a fixed tariff could see the impact reflected in rates — not just those on the price cap.</p>
-
-        <p>However, as of 26 October 2025, there's a significant amount of price competition emerging in the residential energy market. Much of this is being driven by Fuse Energy, whose aggressively priced fixed deals are putting downward pressure on other suppliers' tariffs.</p>
-
-        <p>In practical terms, while the WHD expansion adds upward pressure on bills, competitive pricing — especially from newer entrants like Fuse — is helping to offset some of that impact. There are still good-value fixed options available even as policy costs drive up total bills.</p>
-
-        <p>If you fix now for one or two years, you could potentially avoid higher costs when the next WHD-related adjustment is added to bills next year.</p>
-
-        <h2>In Summary</h2>
-        <ul>
-          <li>✅ Eligibility widened – no more "high-cost-to-heat" rule in England & Wales</li>
-          <li>✅ Support doubles – from ~3 million to ~6 million households</li>
-          <li>✅ Rebate stays at £150</li>
-          <li>⚠️ Cost increase – around £15–£22 added to the average annual bill this winter</li>
-          <li>⚠️ Further cost increases – around £10–£20 added to the average annual bill likely in April 2026 to make up for supplier shortfall</li>
-          <li>💡 Effective from winter 2025–26, feeding into the Q4 2025 SVT cap</li>
+          <li>✅ More people qualify — 6 million households, up from 3 million</li>
+          <li>✅ Simpler rules — no more "expensive to heat" requirement in England & Wales</li>
+          <li>✅ Same £150 rebate on your electricity bill</li>
+          <li>⚠️ Everyone else pays more — around £15–£22 extra this winter</li>
+          <li>⚠️ More rises likely — another £10–£20 in April 2026</li>
+          <li>📅 Starts winter 2025–26</li>
         </ul>
 
       </div>
@@ -397,8 +414,8 @@ body {
 
     <!-- CTA -->
     <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want weekly insights like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for early access to free auto-switching and more breakdowns of what you're actually paying for</p>
+      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want updates like this?</h3>
+      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for plain-English breakdowns of what's happening to your energy bills.</p>
       <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
     </div>
   </div>

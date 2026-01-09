@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Community Discussions - SwitchPilot</title>
+
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <style>
 html {
   scroll-behavior: smooth;
@@ -1050,10 +1056,10 @@ body {
 
 <body>
 
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:2.3rem;width:auto;">
   <span>SwitchPilot</span>
-</div>
+</a>
 
 <div class="energy-grid"></div>
 
@@ -1225,11 +1231,11 @@ body {
 
 <footer class="footer">
   <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
+  <p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#5e38323739362a3d2c3b291e2d29372a3d36732e3732312a703d3133" style="color:#a855f7;text-decoration:none;"><span class="__cf_email__" data-cfemail="9cfaf0f5fbf4e8ffeef9ebdcefebf5e8fff4b1ecf5f0f3e8b2fff3f1">[email&#160;protected]</span></a></p>
   <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const COMMUNITY_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyYpZ_jBvchySFChMKVGCmQ-0l5oUKbtRva3aOttSesrlwgsn1Z48QEQLMaLwFSrd0SYw/exec';
 
 const STORAGE_KEY = 'switchpilot_discussions';
@@ -1921,17 +1927,4 @@ async function init() {
   updateActiveTopics();
   
   setInterval(async () => {
-    const serverDiscussions = await loadDiscussionsFromServer();
-    if (serverDiscussions) {
-      renderDiscussions();
-      updateStats();
-      updateActiveTopics();
-    }
-  }, 30000);
-}
-
-document.addEventListener('DOMContentLoaded', init);
-</script>
-
-</body>
-</html>
+    const ser

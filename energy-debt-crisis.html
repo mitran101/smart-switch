@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Silent Crisis: UK Energy Debt Triples Since 2021 | SwitchPilot</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -50,6 +56,11 @@
 
         .top-logo:hover {
             opacity: 0.8;
+        }
+
+        .top-logo img {
+            height: 2rem;
+            width: auto;
         }
 
         .back-home {
@@ -160,6 +171,16 @@
             font-weight: 600;
         }
 
+        ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            color: var(--sp-slate-light);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
         .highlight-box {
             background: var(--sp-green-light);
             border-left: 4px solid var(--sp-green);
@@ -213,24 +234,24 @@
         .chart-subtitle {
             font-size: 0.85rem;
             color: var(--sp-slate-light);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .chart-container {
             position: relative;
-            height: 400px;
+            height: 350px;
         }
 
         .data-source {
             font-size: 0.75rem;
             color: var(--sp-slate-light);
             margin-top: 1rem;
-            font-style: italic;
+            margin-bottom: 0;
         }
 
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
             margin: 2rem 0;
         }
@@ -241,13 +262,12 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-            border-left: 4px solid var(--sp-green);
         }
 
         .stat-number {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--sp-slate);
+            color: var(--sp-red);
             margin-bottom: 0.5rem;
         }
 
@@ -256,22 +276,11 @@
             color: var(--sp-slate-light);
         }
 
-        ul {
-            margin: 1rem 0 1.5rem 1.5rem;
-            color: var(--sp-slate-light);
-        }
-
-        ul li {
-            margin-bottom: 0.75rem;
-        }
-
         .cta-box {
-            max-width: 700px;
-            margin: 1.5rem auto 0;
             background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
-            padding: 2.5rem;
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            padding: 2.5rem;
+            margin: 3rem 0;
             text-align: center;
         }
 
@@ -279,24 +288,25 @@
             font-family: 'DM Serif Display', Georgia, serif;
             font-size: 1.5rem;
             font-weight: 400;
-            margin: 0 0 0.8rem 0;
-            color: #fff;
+            color: white;
+            margin-bottom: 0.75rem;
         }
 
         .cta-box p {
-            font-size: 1.05rem;
-            margin: 0 0 1.5rem 0;
-            opacity: 0.95;
-            color: #fff;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: #fff;
+            background: white;
             color: var(--sp-green-dark);
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 30px;
             font-weight: 700;
             font-size: 1.05rem;
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
@@ -347,7 +357,7 @@
             }
 
             .stat-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
 
             .chart-container {
@@ -359,7 +369,7 @@
 <body>
     <!-- LOGO -->
     <a href="index.html" class="top-logo">
-        <span>✈️⚡</span>
+        <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
         <span>SwitchPilot</span>
     </a>
 
@@ -368,9 +378,9 @@
 
     <header class="article-header">
         <div class="header-content">
-            <span class="tag">📊 Energy Market Analysis</span>
-            <h1>The Silent Crisis: UK Energy Debt Triples Since 2021</h1>
-            <p class="subtitle">As the price cap yo-yos, millions are trapped in a cycle of unmanageable debt</p>
+            <span class="tag">📊 Deep Dive</span>
+            <h1>The Silent Crisis: UK Energy Debt Has Tripled</h1>
+            <p class="subtitle">Bills went up, millions couldn't pay, and the debt keeps growing — even as prices come down</p>
             <div class="article-meta">
                 <span>January 2026</span>
                 <span>•</span>
@@ -380,97 +390,95 @@
     </header>
 
     <article class="article-body">
-        <h2>Overview</h2>
-        <p>While politicians celebrate marginal price cap reductions, a different story is unfolding in millions of UK homes. Energy debt has exploded to <strong>£4.43 billion</strong> — more than triple the £1.45 billion owed before the energy crisis began. Over a million households now owe money without any repayment plan in place.</p>
+        <h2>The Big Picture</h2>
+        <p>While politicians celebrate small bill reductions, a massive problem is building. The total amount UK households owe on energy bills has hit <strong>£4.43 billion</strong> — more than triple what it was before the energy crisis started.</p>
 
-        <p>The numbers tell a stark story. Between Q4 2020 and Q2 2025, energy debt has increased by <strong>205%</strong>, even as the price cap has fluctuated wildly. But it's not just the total that's alarming — it's how quickly things are deteriorating. In the first six months of 2025 alone, over <strong>£580 million</strong> in new debt was added.</p>
+        <p>Over a million households are now in debt with no plan to pay it back. And it's getting worse fast: in the first six months of 2025, another <strong>£580 million</strong> was added to the pile.</p>
 
         <div class="chart-section">
-            <div class="chart-title">The Debt-Price Cap Disconnect</div>
-            <div class="chart-subtitle">UK household energy debt vs quarterly price cap (2021-2025)</div>
+            <div class="chart-title">Debt Keeps Rising — Even as Bills Fall</div>
+            <div class="chart-subtitle">Total UK energy debt vs the price cap (2021-2025)</div>
             <div class="chart-container">
                 <canvas id="debtChart"></canvas>
             </div>
-            <p class="data-source">Sources: Ofgem debt and arrears data, Ofgem price cap levels (Direct Debit, typical dual-fuel household)</p>
+            <p class="data-source">Sources: Ofgem debt data, Ofgem price cap levels</p>
         </div>
 
-        <p>The graph reveals a troubling pattern. When the price cap spiked in 2022 following Russia's invasion of Ukraine, debt began climbing sharply. But here's the crucial detail: even as the price cap has started to fall from its 2022-2023 peaks, debt continues to rise relentlessly.</p>
+        <p>Here's what the graph shows: when energy prices spiked in 2022 after Russia invaded Ukraine, debt started climbing sharply. But here's the worrying part — <strong>even though prices have started falling, the debt keeps growing</strong>.</p>
 
         <div class="stat-grid">
             <div class="stat-card">
                 <div class="stat-number">£4.43bn</div>
-                <div class="stat-label">Total Energy Debt (Q2 2025)</div>
+                <div class="stat-label">Total Energy Debt (mid-2025)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">+205%</div>
-                <div class="stat-label">Increase Since Q4 2020</div>
+                <div class="stat-label">Increase Since Late 2020</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">1.1m+</div>
-                <div class="stat-label">Households in Debt (No Repayment Plan)</div>
+                <div class="stat-label">Households in Debt (No Plan to Repay)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">£1,568</div>
-                <div class="stat-label">Average Electricity Arrears</div>
+                <div class="stat-number">£2,892</div>
+                <div class="stat-label">Average Debt (£1,568 elec + £1,324 gas)</div>
             </div>
         </div>
 
-        <h2>Why Debt Keeps Rising Despite Lower Prices</h2>
+        <h2>Why Doesn't Falling Prices Fix It?</h2>
 
-        <p>The disconnect between falling price caps and rising debt isn't a paradox — it's a lag effect combined with structural affordability issues. When prices spiked, many households couldn't keep up with payments. They fell behind. Now, even with prices moderating, they're still trying to catch up on old debt while simultaneously paying current bills.</p>
+        <p>When prices shot up, many households simply couldn't keep up. They fell behind. Now, even with prices coming down, they're trying to pay off old debt <em>and</em> current bills at the same time.</p>
 
-        <p>Consider the arithmetic. The average household in arrears owes £1,568 for electricity and £1,324 for gas — that's <strong>£2,892 total</strong> for dual-fuel customers. With the current price cap at around £1,800 per year, these households are essentially trying to pay for two years of energy in one.</p>
+        <p>Think about it: the average household in debt owes nearly <strong>£3,000</strong>. With annual bills around £1,800, they're essentially trying to pay for two years of energy in one. It's impossible for most.</p>
 
         <div class="warning-box">
-            <p><strong>The Hidden Cost for Everyone:</strong> Energy debt doesn't just affect those who owe it. When customers can't pay, suppliers spread the cost across all billpayers. Current estimates suggest this adds up to <strong>£145 per year</strong> to the average household bill.</p>
-            <p>In effect, customers who pay on time are subsidizing the debt of those who can't — a system that feels increasingly unfair as living costs remain high for everyone.</p>
+            <p><strong>Here's the kicker — you're paying for it too.</strong></p>
+            <p>When customers can't pay, energy companies spread the cost across everyone else's bills. Estimates suggest this adds around <strong>£52 per year</strong> to your bill, whether you're in debt or not.</p>
         </div>
 
-        <h2>The Timeline of Crisis</h2>
-
-        <p>Looking at the quarterly progression reveals how quickly the situation deteriorated:</p>
+        <h2>How We Got Here</h2>
 
         <ul>
-            <li><strong>Q4 2020:</strong> £1.45bn in debt — the pre-crisis baseline</li>
-            <li><strong>Q1 2022:</strong> £1.81bn — early warning signs as wholesale prices began rising</li>
-            <li><strong>Q2 2024:</strong> £3.69bn — debt had already more than doubled</li>
-            <li><strong>Q4 2024:</strong> £3.85bn — despite government support measures</li>
-            <li><strong>Q2 2025:</strong> £4.43bn — the current record high</li>
+            <li><strong>Late 2020:</strong> £1.45bn in debt — this was normal</li>
+            <li><strong>Early 2022:</strong> £1.81bn — warning signs as gas prices started rising</li>
+            <li><strong>Mid-2024:</strong> £3.69bn — debt had more than doubled</li>
+            <li><strong>Late 2024:</strong> £3.85bn — despite government help</li>
+            <li><strong>Mid-2025:</strong> £4.43bn — the worst it's ever been</li>
         </ul>
 
-        <p>The price cap tells its own story. From a relatively stable £1,138 in Q4 2021, it exploded to £3,549 by Q1 2023 under the Energy Price Guarantee. Even with subsequent reductions, it now sits at £1,837 (Q1 2026) — still <strong>61% higher</strong> than pre-crisis levels.</p>
+        <p>Meanwhile, the maximum bill (the "price cap") went from about £1,138 in late 2021 to over £3,500 in 2023. Even now at around £1,800, it's still <strong>61% higher</strong> than before the crisis.</p>
 
-        <h2>Who's Being Hit Hardest?</h2>
+        <h2>Who's Struggling Most?</h2>
 
-        <p>The debt isn't spread evenly across society. Nearly one-in-five families in the poorest income quintile are behind on at least one priority bill. For many, energy debt represents an impossible choice between heating and eating — a phrase that's become depressingly common but no less accurate.</p>
+        <p>Nearly one in five families in the poorest fifth of households are behind on at least one essential bill. For many, it's a choice between heating and eating.</p>
 
-        <p>The Resolution Foundation found that energy debt is most concentrated among working-age families with children, particularly those on low-to-middle incomes who earn too much to qualify for benefits but not enough to absorb the shock of doubled energy costs.</p>
+        <p>The people hit hardest are often working families with children — earning too much to get benefits, but not enough to absorb energy bills that doubled overnight.</p>
 
         <div class="highlight-box">
-            <p><strong>The Prepayment Meter Problem:</strong> When households fall behind, suppliers often move them to prepayment meters. While this prevents further arrears, it creates a new problem: these households pay for energy at higher rates while also repaying old debt through their top-ups.</p>
-            <p>Ofgem reports that 1.7 million people were disconnected from electricity at least once a month in 2023 — often because they simply ran out of credit on their prepayment meters.</p>
+            <p><strong>The prepayment meter trap:</strong> When you fall behind, suppliers often switch you to a prepayment meter (where you top up credit before you use energy). But here's the problem — you pay higher rates AND have to pay off old debt through your top-ups.</p>
+            <p>1.7 million people were cut off from electricity at least once a month in 2023 — usually because they simply ran out of credit.</p>
         </div>
 
-        <h2>What Happens Next?</h2>
+        <h2>What's Being Done?</h2>
 
-        <p>Ofgem has announced plans to write off up to £500 million in debt for nearly 200,000 vulnerable households — those owing over £100 accrued between April 2022 and March 2024. It's a start, but it will be funded by adding approximately <strong>£5 to all energy bills from 2027</strong>.</p>
+        <p>Ofgem (the energy regulator) plans to write off up to <strong>£500 million</strong> in debt for about 200,000 vulnerable households. But here's the catch — it'll be paid for by adding about <strong>£5 to everyone's bills from 2027</strong>.</p>
 
-        <p>The End Fuel Poverty Coalition is calling for more comprehensive reform, including a debt relief scheme with automatic eligibility for households on means-tested benefits, an end to punitive late fees, and guaranteed protections for prepayment meter customers.</p>
+        <p>Charities are calling for bigger action: automatic debt relief for people on low incomes, an end to late payment fees, and better protection for prepayment meter customers.</p>
 
-        <p>But the fundamental problem remains: even with the price cap at current levels, energy is simply unaffordable for millions. The price cap may be £1,800 per year, but for households earning minimum wage or living on benefits, that's still an enormous burden.</p>
+        <p>But the fundamental problem remains: even at current levels, energy is simply unaffordable for millions. When you're on minimum wage or benefits, £1,800 a year for energy is still a massive burden.</p>
 
         <h2>The Bigger Picture</h2>
 
-        <p>Energy debt is a symptom of a broader cost-of-living crisis. Food insecurity rose from 4.7 million people in 2021-22 to 7.2 million in 2022-23. Council tax arrears have increased by almost half since 2019. The UK's dependency on fossil fuels has cost households an extra <strong>£59 billion</strong> in energy costs alone since 2021.</p>
+        <p>Energy debt is just one part of a wider cost-of-living crisis. Food insecurity has jumped from 4.7 million to 7.2 million people. Council tax debt has risen by nearly half since 2019.</p>
 
-        <p>While the upcoming Budget measures promise to reduce policy costs by around £150 per household (primarily by moving the Renewables Obligation from bills to general taxation), this offers little comfort to the million-plus households already drowning in debt.</p>
+        <p>The upcoming Budget promises to cut around £150 from bills by moving some green levies to general taxation. But for households already drowning in debt, that's not going to be enough.</p>
 
-        <p>The data is clear: we're not recovering from the energy crisis. For millions of households, we're still in it. Until energy becomes genuinely affordable — not just marginally less expensive — the debt mountain will continue to grow.</p>
+        <p><strong>The reality:</strong> we're not recovering from the energy crisis. For millions of households, we're still in it.</p>
 
         <div class="cta-box">
             <h3>Don't Let Debt Trap You</h3>
-            <p>Find out if you're on the best energy deal. Our comparison tool shows fixed tariffs that beat the price cap — helping you save money before debt becomes a problem.</p>
-            <a href="tariff-tracker.html" class="cta-button">Compare Tariffs Now →</a>
+            <p>Find out if you're on the best energy deal. Fixed tariffs that beat the price cap are available — they could help you save before debt becomes a problem.</p>
+            <a href="index.html#waitlist" class="cta-button">Compare Tariffs Now →</a>
         </div>
     </article>
 
@@ -490,22 +498,22 @@
             'Q1 2025', 'Q2 2025'
         ];
 
-        // Energy debt in billions (from Ofgem data)
+        // Energy debt in billions
         const debtData = [
-            1.45, 1.50, 1.55, 1.65, 1.75,  // 2020-2021 estimates
-            1.81, 2.15, 2.50, 2.90,        // 2022
-            3.10, 2.60, 2.75, 3.00,        // 2023
-            3.31, 3.69, 3.82, 3.85,        // 2024
-            4.15, 4.43                      // 2025
+            1.45, 1.50, 1.55, 1.65, 1.75,
+            1.81, 2.15, 2.50, 2.90,
+            3.10, 2.60, 2.75, 3.00,
+            3.31, 3.69, 3.82, 3.85,
+            4.15, 4.43
         ];
 
-        // Price cap data (Direct Debit, typical dual fuel, annual £)
+        // Price cap data
         const priceCapData = [
-            1042, 1138, 1138, 1277, 1277,  // 2020-2021
-            1971, 1971, 3549, 3549,        // 2022 (Q3-Q4 under EPG at £2,500)
-            3549, 2074, 1923, 1928,        // 2023
-            1690, 1568, 1717, 1837,        // 2024
-            1849, 1837                      // 2025
+            1042, 1138, 1138, 1277, 1277,
+            1971, 1971, 3549, 3549,
+            3549, 2074, 1923, 1928,
+            1690, 1568, 1717, 1837,
+            1849, 1837
         ];
 
         const ctx = document.getElementById('debtChart').getContext('2d');
@@ -544,7 +552,7 @@
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 interaction: {
                     mode: 'index',
                     intersect: false,
@@ -572,15 +580,6 @@
                         borderWidth: 1,
                         padding: 12,
                         displayColors: true,
-                        titleFont: {
-                            size: 13,
-                            family: "'DM Sans', sans-serif",
-                            weight: 600
-                        },
-                        bodyFont: {
-                            size: 12,
-                            family: "'DM Sans', sans-serif"
-                        },
                         callbacks: {
                             label: function(context) {
                                 let label = context.dataset.label || '';
@@ -588,10 +587,8 @@
                                     label += ': ';
                                 }
                                 if (context.datasetIndex === 0) {
-                                    // Debt data
                                     label += '£' + context.parsed.y.toFixed(2) + 'bn';
                                 } else {
-                                    // Price cap data
                                     label += '£' + context.parsed.y.toLocaleString();
                                 }
                                 return label;
@@ -621,7 +618,7 @@
                         position: 'left',
                         title: {
                             display: true,
-                            text: 'Total Debt (£ billions)',
+                            text: 'Total Debt (£bn)',
                             color: '#EF4444',
                             font: {
                                 size: 12,
@@ -669,7 +666,7 @@
                                 family: "'DM Sans', sans-serif"
                             },
                             callback: function(value) {
-                                return '£' + value.toLocaleString();
+                                return '£' + value;
                             }
                         }
                     }
@@ -677,5 +674,6 @@
             }
         });
     </script>
+
 </body>
 </html>

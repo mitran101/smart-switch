@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Billing vs Consumption: Interactive Tool - SwitchPilot</title>
 
-<!-- Favicons -->
-<link rel="icon" href="./favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-
 <style>
 body {
   margin: 0;
@@ -38,12 +33,15 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
+.top-logo img {
+  height: 2.3rem;
+  width: auto;
   filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -399,11 +397,11 @@ canvas {
     gap: 6px;
   }
   
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 1.8rem;
   }
   
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -432,11 +430,11 @@ canvas {
 <body>
 
 <!-- LOGO -->
-<a href="index.html" class="top-logo">
-  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:2.3rem;width:auto;">
+<div class="top-logo">
+  <span>✈️⚡</span>
   <span>SwitchPilot</span>
-</a>
-<a href="index.html" class="home-link">← Home</a>
+</div>
+<a href="/" class="home-link">← Home</a>
 
 <div class="container">
   
@@ -1115,4 +1113,9 @@ updateChart();
 
 <footer class="footer" style="background:#0c0e1f;text-align:center;padding:3rem 2rem;color:white;opacity:0.8;">
   <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#6d0b01040a05190e1f081a2d1e1a04190e05401d04010219430e0200" style="color:#a855f7;text-decoration:none;"><span class="__cf_email__" data-cfemail="f0969c9997988493829587b0838799849398dd80999c9f84de939f9d">[
+  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
+  <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
+</footer>
+
+</body>
+</html>

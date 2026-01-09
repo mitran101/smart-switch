@@ -46,6 +46,7 @@
             letter-spacing: -0.5px;
         }
         .top-logo:hover { opacity: 0.8; }
+        .top-logo img { height: 1.8rem; width: auto; }
 
         h1 {
             text-align: center;
@@ -442,7 +443,7 @@
     <div class="container">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <a href="index.html" class="top-logo">
-                <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:1.8rem;width:auto;">
+                <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
                 <span>SwitchPilot</span>
             </a>
             <a href="index.html" class="home-link" style="color: #64748b; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;">
@@ -669,12 +670,12 @@
 
         <div class="footer">
             <p>Data updated weekly from supplier websites. Rates are indicative - always confirm with supplier.</p>
-            <p style="margin-top: 10px;">📧 Questions? <a href="/cdn-cgi/l/email-protection#accac0c5cbc4d8cfdec9dbecdfdbc5d8cfc481dcc5c0c3d882cfc3c1" style="color:#a855f7;"><span class="__cf_email__" data-cfemail="e482888d838c9087968193a497938d90878cc9948d888b90ca878b89">[email&#160;protected]</span></a></p>
+            <p style="margin-top: 10px;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;">flightcrew@switch-pilot.com</a></p>
             <p style="margin-top: 10px;">Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         let tariffData = { tariffs: [], updated: null };
         let chart = null;
 
@@ -1180,4 +1181,12 @@
                 render();
             } else if (postcode.length >= 2) {
                 hint.style.color = '#eab308';
-                hi
+                hint.textContent = 'Region not found - select manually below';
+            } else {
+                hint.style.color = '#64748b';
+                hint.textContent = 'Enter postcode to auto-detect region';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Nuclear RAB Charge - SwitchPilot</title>
+<title>Nuclear Charge on Your Bill - SwitchPilot</title>
+
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -15,7 +20,7 @@
 </script>
 
 <style>
-/* GLOBAL – MATCH INDEX */
+/* GLOBAL */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -35,7 +40,7 @@ body {
   overflow: hidden;
 }
 
-/* GRID (SAME AS INDEX) */
+/* GRID */
 .energy-grid {
   position: absolute;
   inset: 0;
@@ -61,12 +66,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+.top-logo img {
+  height: 2.5rem;
+  width: auto;
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -80,7 +87,7 @@ body {
   z-index: 5;
 }
 
-/* Nuclear themed icons on sides */
+/* Side icons */
 .article-inner::before {
   content: '⚛️';
   position: absolute;
@@ -100,7 +107,6 @@ body {
   animation: floatNuclear 10s ease-in-out infinite 3s;
 }
 
-/* Additional side icons */
 .article-card::after {
   content: '🏭';
   position: absolute;
@@ -192,6 +198,13 @@ body {
   margin-top: 0.4rem;
 }
 
+.article-body h3 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin: 1.5rem 0 0.8rem;
+  font-weight: 700;
+}
+
 .article-body p, .article-body ul {
   font-size: 1.15rem;
   line-height: 1.9;
@@ -206,6 +219,14 @@ body {
 }
 .article-body li {
   margin-bottom: 0.7rem;
+}
+
+.highlight-box {
+  background: rgba(99,102,241,0.15);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border-left: 4px solid #6366f1;
 }
 
 /* FOOTER */
@@ -226,7 +247,6 @@ body {
     padding: 6rem 1.5rem 4rem;
   }
   
-  /* Hide side icons on mobile/tablet */
   .article-inner::before,
   .article-inner::after,
   .article-card::after {
@@ -237,10 +257,10 @@ body {
     top: 25px;
     left: 20px;
   }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 2rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -275,10 +295,10 @@ body {
     left: 15px;
     gap: 6px;
   }
-  .top-logo span:first-child {
-    font-size: 1.5rem;
+  .top-logo img {
+    height: 1.6rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.3rem;
   }
   
@@ -331,10 +351,10 @@ body {
 <body>
 
 <!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
   <span>SwitchPilot</span>
-</div>
+</a>
 
 <section class="article-shell">
 
@@ -348,63 +368,68 @@ body {
       <div class="article-header">
         <div class="article-date"><span>22 November 2025</span></div>
 
-        <h1>🔆 Nuclear RAB Charge: What's Being Added to Bills From 2026 — And Why</h1>
+        <h1>⚛️ You're Now Paying for a Nuclear Plant That Doesn't Exist Yet</h1>
       </div>
 
       <div class="article-body">
 
-        <h2>Overview</h2>
-        <p>From 1 January 2026, a brand-new cost called the Nuclear Regulated Asset Base (nRAB) allowance will be added to the Ofgem price cap. This charge funds the construction of the Sizewell C nuclear power station under a financing model that allows developers to recover some costs while the plant is still being built.</p>
+        <h2>What's Happening?</h2>
+        <p>From <strong>1 January 2026</strong>, a new charge is being added to your electricity bill. It's to help build Sizewell C — a nuclear power station in Suffolk that won't generate any electricity for years.</p>
 
-        <p>Ofgem first consulted on how to add these costs into the cap back in August 2025, and took its final decision on 21 November 2025 — but most households will not have followed that process closely. As we now get closer to January 2026, it is a good time to remind people that this new nuclear-related cost is about to be built into their bills.</p>
+        <p>Yes, you read that right. For the first time ever, part of your bill is going towards building a power plant <em>before</em> it actually produces any power.</p>
 
-        <p>The allowance will apply to all households on Standard Variable Tariffs (SVTs), and suppliers are expected to reflect it in fixed deals too. For the first time, part of your electricity bill will go toward building a nuclear plant before it generates any power.</p>
+        <div class="highlight-box">
+          <strong>How much?</strong> About <strong>£13–14 per year</strong> for a typical household. Not huge, but it's another charge on top of everything else.
+        </div>
 
-        <h2>Why It's Being Introduced</h2>
-        <p>The Government decided in July 2025 to finance Sizewell C using the nRAB model — where consumers contribute small amounts during construction. This lowers long-term financing costs, reduces investor risk, and brings nuclear investment forward sooner.</p>
+        <h2>Why Are We Paying Now?</h2>
+        <p>Building nuclear plants is incredibly expensive — we're talking tens of billions of pounds. The government decided that if customers chip in small amounts during construction, it reduces the overall cost in the long run.</p>
 
-        <p>The Nuclear Energy (Financing) Act 2022 put this framework into law, and after the Government confirmed Sizewell C's allowed revenue for its first charging year in October 2025, Ofgem was required to add the charge into the price cap so suppliers could recover the nuclear levy they must pay.</p>
-
-        <p>Because suppliers begin paying nuclear levy costs in December 2025, Ofgem needed to adjust the cap so they could recover these costs fairly — without overcharging customers.</p>
-
-        <h2>Impact on Bills</h2>
-        <p>Ofgem's final decision adds the following increases for a typical dual-fuel household on a default tariff:</p>
-
-        <h3 style="font-size: 1.5rem; color: #1a1a2e; margin: 1.5rem 0 0.8rem; font-weight: 700;">January – March 2026</h3>
-        <p><strong>£14 per year added to bills</strong></p>
-        <p>This includes a one-off recovery of December 2025 costs suppliers incur before the allowance takes effect.</p>
-
-        <h3 style="font-size: 1.5rem; color: #1a1a2e; margin: 1.5rem 0 0.8rem; font-weight: 700;">From April 2026 onwards</h3>
-        <p>The allowance drops to around <strong>£13 per year</strong>, based on current levy rates. It is expected to stay around this level throughout 2026.</p>
-
-        <h3 style="font-size: 1.5rem; color: #1a1a2e; margin: 1.5rem 0 0.8rem; font-weight: 700;">How the cost is recovered</h3>
+        <p>The idea is:</p>
         <ul>
-          <li>It is charged through your electricity unit rate, not a separate line on the bill</li>
-          <li>The allowance is updated every six months within Annex 4 of the price cap, alongside other policy costs like Renewables Obligation, FiTs, ECO and GBIS</li>
+          <li>Lower risk for investors = cheaper financing</li>
+          <li>Cheaper financing = lower bills when the plant eventually opens</li>
+          <li>Nuclear provides reliable power that doesn't depend on wind or sun</li>
         </ul>
 
-        <h3 style="font-size: 1.5rem; color: #1a1a2e; margin: 1.5rem 0 0.8rem; font-weight: 700;">Why the first quarter costs more</h3>
-        <p>Suppliers argued that spreading December 2025's levy costs over 12 months would put pressure on their cash flow and create risk if customers switched away before costs were recovered. Several respondents asked for a shorter recovery window.</p>
+        <p>Whether you agree with that logic or not, the decision has been made. The charge is now law.</p>
 
-        <p>Ofgem ultimately agreed to a three-month recovery period, meaning all December 2025 nRAB-related levy and operational costs are recouped during Q1 2026, raising the short-term figure from around £13 to £14 for that first period.</p>
+        <h2>How Much Will It Add?</h2>
 
-        <h2>What This Means for Your Bill</h2>
-        <p>From January 2026, most suppliers will incorporate the RAB allowance into both SVT and fixed tariffs. The increase is relatively small — around £13–£14 per year for a typical household — but it is now a standing feature of electricity pricing for as long as the Sizewell C construction-phase RAB charges apply.</p>
+        <h3>January – March 2026</h3>
+        <p><strong>£14 per year</strong> added to bills</p>
+        <p>Slightly higher because it includes catching up on costs from December 2025.</p>
 
-        <p>This sits alongside other policy costs already built into the cap (such as Contracts for Difference and energy efficiency schemes). Taken together, these small allowances add up and form a visible part of why bills don't just track wholesale prices.</p>
+        <h3>April 2026 onwards</h3>
+        <p><strong>~£13 per year</strong></p>
+        <p>This is expected to stay roughly the same through 2026.</p>
 
-        <p>The positive side is that competitive pricing from newer suppliers — particularly those offering aggressively priced fixed deals — is still helping to offset some of this upward pressure. Even with the nRAB allowance added, there are good-value fixed tariffs available.</p>
+        <h3>Where does it appear on your bill?</h3>
+        <p>You won't see a separate line item. It's rolled into your electricity unit rate — so your price per kWh goes up slightly. It's part of the maximum price suppliers can charge (the "price cap"), which gets updated every 6 months.</p>
 
-        <p>If you lock into a one- or two-year fix ahead of further policy and cap adjustments in 2026, you may be able to shield yourself from incremental increases tied to RAB updates or other future cost allowances.</p>
+        <h2>Does This Affect Fixed Deals Too?</h2>
+        <p>Yes. Most suppliers will build this cost into both standard rates AND fixed tariffs. So switching to a fixed deal won't necessarily avoid it.</p>
 
-        <h2>In Summary</h2>
+        <p>That said, there are still competitive deals out there. If you lock in a good fixed rate now, you could protect yourself from future increases — not just from nuclear charges, but from all the other costs that keep getting added to bills.</p>
+
+        <h2>The Bigger Picture</h2>
+        <p>This is just one of several "policy costs" on your bill. You're already paying for things like:</p>
         <ul>
-          <li>✅ New nuclear-related charge added to bills from 1 January 2026</li>
-          <li>✅ Funds construction of Sizewell C via the nuclear Regulated Asset Base (nRAB) model</li>
-          <li>⚠️ £14/year added to a typical dual-fuel bill for Jan–Mar 2026 (includes recovery of December 2025 supplier costs)</li>
-          <li>⚠️ ~£13/year added from April 2026 onwards, expected to remain at that level through 2026</li>
-          <li>💡 Cost recovered through electricity unit rates within Ofgem's SVT cap, updated every 6 months</li>
-          <li>💡 First consulted on in August 2025 and decided on 21 November 2025 — but many households may only notice it when their bills change in January 2026</li>
+          <li>Subsidies for wind and solar farms</li>
+          <li>Grants for home insulation</li>
+          <li>Support for low-income households</li>
+        </ul>
+
+        <p>These add up. They're part of why your bill doesn't just track the actual cost of gas and electricity — there's a whole layer of government programmes built in.</p>
+
+        <h2>Quick Summary</h2>
+        <ul>
+          <li>✅ New nuclear charge starts <strong>1 January 2026</strong></li>
+          <li>✅ Pays for building Sizewell C nuclear plant</li>
+          <li>⚠️ <strong>£14/year</strong> added Jan–Mar 2026</li>
+          <li>⚠️ <strong>~£13/year</strong> from April 2026 onwards</li>
+          <li>💡 Rolled into your electricity unit rate — no separate line on bill</li>
+          <li>💡 Applies to standard and fixed tariffs</li>
         </ul>
 
       </div>
@@ -412,8 +437,8 @@ body {
 
     <!-- CTA -->
     <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want weekly insights like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for early access to free auto-switching and more breakdowns of what you're actually paying for</p>
+      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want updates like this?</h3>
+      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for plain-English breakdowns of what's really on your energy bill.</p>
       <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
     </div>
   </div>

@@ -158,10 +158,10 @@ animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
 .hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
 .hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
 .pilot-container {position:relative;display:flex;justify-content:center;align-items:center;}
-.pilot-character {font-size:18rem;animation:pilotFloat 10s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));transform:translateX(-15px);}
-@keyframes pilotFloat {0%,100%{transform:translateX(-15px) translateY(0) rotate(-6deg)}50%{transform:translateX(-15px) translateY(-35px) rotate(6deg)}}
-.destination-tag {position:absolute;bottom:2rem;right:1rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
-.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;}
+.pilot-character {width:350px;height:auto;animation:pilotFloat 10s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));}
+@keyframes pilotFloat {0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-35px) rotate(6deg)}}
+.destination-tag {position:absolute;bottom:-20px;right:0;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:0.8rem 1.2rem;border-radius:15px;font-weight:700;font-size:0.85rem;box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+.destination-tag strong {font-size:1.2rem;color:#6366f1;display:block;margin-top:.2rem;}
 
 /* WAITLIST */
 .waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);}
@@ -292,7 +292,7 @@ animation: gridSlide 15s linear infinite;
 .hero-content {grid-template-columns:1fr;gap:2rem;}
 .hero-text h1 {font-size:2.5rem;}
 .hero-text p {font-size:1.1rem;max-width:100%;}
-.pilot-character {font-size:10rem;}
+.pilot-character {width:280px;}
 .destination-tag {position:static;margin:2rem auto 0;max-width:280px;text-align:center;}
 
 .floating-symbols {display:none;}
@@ -355,7 +355,7 @@ section[style*="max-width:1400px"] div[style*="gap:40px"] {
 .pilot-container { margin-top:1rem !important; }
 .destination-tag { margin-top:1rem !important; margin-left:auto !important; margin-right:auto !important; text-align:center !important; }
 .hero-text h1 { font-size:2rem !important; }
-.pilot-character { font-size:8rem !important; }
+.pilot-character { width:180px !important; }
 
 .vision-mission-grid {
     padding: 0 1rem !important;
@@ -415,7 +415,7 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 .footer { padding:2.5rem 1rem !important; }
 body { font-size:15px !important; }
 .hero-text h1 {font-size:2rem;}
-.pilot-character {font-size:10rem;}
+.pilot-character {width:200px;}
 .waitlist-form h3 {font-size:1.4rem;}
 .insights, .final-cta {padding:3rem 1rem;}
 
@@ -451,7 +451,7 @@ body { font-size:15px !important; }
 <!-- STICKY NAV -->
 <nav class="sticky-nav" id="stickyNav">
   <a href="#hero" class="nav-logo">
-    <span>✈️⚡</span>
+    <img src="logo.png" alt="" style="height:2rem;width:auto;vertical-align:middle;">
     <span>SwitchPilot</span>
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -478,7 +478,7 @@ body { font-size:15px !important; }
 <p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal — for free. And a community that empowers you with the truth about your bills: where your money actually goes, the hidden costs no one explains, and weekly insider insights to keep you ahead.</p>
 </div>
 <div class="pilot-container">
-<div class="pilot-character">✈️</div>
+<img src="logo.png" alt="SwitchPilot" class="pilot-character">
 <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
 </div>
 </div>

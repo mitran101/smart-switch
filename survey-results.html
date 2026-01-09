@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Survey Results: Why 3 in 4 People Want Auto-Switching | SwitchPilot</title>
 
+<!-- Favicons -->
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
 <script>
@@ -31,12 +36,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
-.top-logo span:first-child {
-  font-size: 2.3rem;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+.top-logo img {
+  height: 2.3rem;
+  width: auto;
 }
-.top-logo span:last-child {
+.top-logo span {
   font-size: 1.9rem;
   font-weight: 900;
   letter-spacing: -0.5px;
@@ -278,10 +285,10 @@ li {
     padding-bottom: 15px;
     padding-right: 20px;
   }
-  .top-logo span:first-child {
-    font-size: 1.8rem;
+  .top-logo img {
+    height: 1.8rem;
   }
-  .top-logo span:last-child {
+  .top-logo span {
     font-size: 1.5rem;
   }
   
@@ -298,11 +305,11 @@ li {
 <body>
 
 <!-- LOGO -->
-<div class="top-logo">
-  <span>✈️⚡</span>
+<a href="index.html" class="top-logo">
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
   <span>SwitchPilot</span>
-</div>
-<a href="/" class="home-link">← Home</a>
+</a>
+<a href="index.html" class="home-link">← Home</a>
 
 <div class="header">
   <div class="header-content">
@@ -342,19 +349,19 @@ li {
     
     <p>We asked what tariff people were on:</p>
     <ul>
-      <li><strong>40 people (26%)</strong> → Standard Variable Tariff (SVT)</li>
-      <li><strong>26 people (17%)</strong> → Don't Know (likely disengaged)</li>
+      <li><strong>40 people (26%)</strong> → Standard variable tariff (the expensive default)</li>
+      <li><strong>26 people (17%)</strong> → Don't know (likely disengaged)</li>
       <li><strong>83 people (54%)</strong> → Fixed tariff</li>
       <li>Remainder → Other</li>
     </ul>
     
     <div class="stat-highlight">
-      <strong>43% (66 out of 155)</strong> are either on SVT or don't know their tariff.
+      <strong>43% (66 out of 155)</strong> are either on the expensive default or don't know their tariff.
     </div>
     
     <div class="insight-box">
       <div class="label">💡 What This Means:</div>
-      <p>Nearly half of interested customers are prime auto-switch candidates—they're already overpaying or completely disengaged. Even those on fixed tariffs miss renewal windows and roll onto expensive SVTs.</p>
+      <p>Nearly half of interested customers are prime auto-switch candidates—they're already overpaying or completely disengaged. Even those on fixed tariffs miss renewal windows and roll onto expensive default rates.</p>
     </div>
   </div>
 
@@ -420,7 +427,7 @@ li {
     
     <div class="insight-box">
       <div class="label">💡 What This Means:</div>
-      <p>This is the <strong>exact SVT-style stickiness suppliers target</strong>. Nearly half of people interested in auto-switching are stuck in long-term inertia. They want to switch but won't do it manually.</p>
+      <p>This is the <strong>exact stickiness suppliers rely on</strong>. Nearly half of people interested in auto-switching are stuck in long-term inertia. They want to switch but won't do it manually.</p>
     </div>
   </div>
 
@@ -477,7 +484,7 @@ li {
       
       <div class="takeaway-card">
         <div class="number">2</div>
-        <p><strong>Target pool is disengaged.</strong> 43% on SVT/Don't Know; 48% haven't switched in 5+ years.</p>
+        <p><strong>Target pool is disengaged.</strong> 43% on default tariff or don't know; 48% haven't switched in 5+ years.</p>
       </div>
       
       <div class="takeaway-card">
@@ -504,7 +511,7 @@ li {
     <p>These results validate our entire approach:</p>
     
     <h3>✅ Education First</h3>
-    <p>61% of people don't fully understand their bills. By explaining hidden costs like constraint payments, CfD charges, and Nuclear RAB—we build trust and show why switching matters.</p>
+    <p>61% of people don't fully understand their bills. By explaining the hidden charges and government levies buried in your bill, we build trust and show why switching matters.</p>
     
     <h3>✅ Automation Removes Friction</h3>
     <p>52% cite "content with provider" as their reason for not switching, yet 73% of them still want auto-switching. The problem isn't satisfaction—it's inertia. Automation solves that.</p>

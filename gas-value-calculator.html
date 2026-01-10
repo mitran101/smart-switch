@@ -52,7 +52,10 @@
         .top-logo {
             display: flex;
             align-items: center;
+            gap: 8px;
             text-decoration: none;
+            font-weight: 700;
+            color: white;
             transition: opacity 0.2s;
         }
 
@@ -61,8 +64,12 @@
         }
 
         .top-logo img {
-            height: 40px;
+            height: 2rem;
             width: auto;
+        }
+
+        .top-logo span {
+            font-size: 1.35rem;
         }
 
         /* Back Button */
@@ -495,7 +502,8 @@
     <!-- Navigation -->
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
-            <img src="switchpilot-logo.png" alt="SwitchPilot">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
         </a>
         <a href="index.html" class="back-home">← Back to Home</a>
     </nav>

@@ -102,13 +102,14 @@ def send_welcome_email(to_email):
     msg = MIMEMultipart('alternative')
     msg['From'] = f"SwitchPilot Flight Crew <flightcrew@switch-pilot.com>"
     msg['To'] = to_email
-    msg['Subject'] = "Welcome to SwitchPilot ✈️⚡"
+    msg['Subject'] = "You're in — here's how UK energy really works"
     
     html = f"""
     <html>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
         <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 35px 20px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; font-size: 1.8rem; margin: 0;">✈️⚡ Welcome to SwitchPilot</h1>
+          <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" style="height: 50px; margin-bottom: 15px;">
+          <h1 style="color: white; font-size: 1.8rem; margin: 0;">Welcome to SwitchPilot</h1>
         </div>
         
         <div style="padding: 35px 25px; background: #ffffff; border-radius: 0 0 10px 10px;">
@@ -125,15 +126,11 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            When we joined, we didn't understand energy bills. At all.
-          </p>
-          
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            Now? We can't unsee what we've learned.
+            When we joined, we didn't understand much. But now we've learned things that have shocked us.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            Did you know you're paying wind farms to turn off? Or subsidising other people's energy discounts even if you don't qualify? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
+            Did you know you're paying wind farms to turn off? Or covering other people's bad debts through your bill? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
@@ -213,7 +210,7 @@ def send_welcome_email(to_email):
           </div>
           
           <p style="color: #6366f1; font-size: 1.1rem; margin-top: 30px; font-weight: 600;">
-            ⚡✈️ The SwitchPilot Team
+            The SwitchPilot Team
           </p>
           
           <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 20px; font-style: italic;">

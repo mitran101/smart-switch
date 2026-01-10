@@ -132,8 +132,12 @@ def send_welcome_email(to_email):
             Did you know you're paying wind farms to turn off? Or covering other people's bad debts through your bill? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
           </p>
           
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
             Most people don't know what they're paying for. We didn't either until we got inside the industry.
+          </p>
+          
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
+            It shocked us. And it sparked a mission — to create more transparency and give power back to consumers.
           </p>
           
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>

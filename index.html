@@ -1382,15 +1382,13 @@ window.addEventListener('load', function() {
   loadDynamicSavings();
 });
 
-// Fetch tariff data and calculate best savings
+// Fetch tariff data and calculate average savings across all regions
 async function loadDynamicSavings() {
   try {
     const response = await fetch('./all_tariffs.json');
     if (!response.ok) return;
     const data = await response.json();
     
-    
-    // Validation function to filter out incomplete data
     function isValidTariff(tariff) {
       if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
       if (tariff.error) return false;
@@ -1422,51 +1420,47 @@ async function loadDynamicSavings() {
     const typicalElec = 2700;
     const typicalGas = 11500;
     
-    // Calculate cap cost for each region and find the most expensive
-    let maxCapCost = 0;
-    let expensiveRegion = 'London';
+    // Calculate savings for EACH region, then average
+    const savingsByRegion = [];
     
     for (const [region, rates] of Object.entries(capRatesByRegion)) {
       const capCost = (rates.elecStanding * 365 / 100) + (rates.elecUnit * typicalElec / 100) +
                       (rates.gasStanding * 365 / 100) + (rates.gasUnit * typicalGas / 100);
-      if (capCost > maxCapCost) {
-        maxCapCost = capCost;
-        expensiveRegion = region;
-      }
+      
+      const regionTariffs = data.tariffs
+        .filter(t => t.region === region)
+        .filter(t => isValidTariff(t))
+        .filter(t => {
+          const name = (t.tariff_name || '').toLowerCase();
+          return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
+        });
+      
+      if (regionTariffs.length === 0) continue;
+      
+      let cheapestCost = Infinity;
+      regionTariffs.forEach(t => {
+        const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
+                     (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
+        if (cost < cheapestCost) cheapestCost = cost;
+      });
+      
+      const savings = capCost - cheapestCost;
+      if (savings > 0) savingsByRegion.push(savings);
     }
     
-    // Find cheapest dual fuel fixed tariff in that expensive region
-    const regionTariffs = data.tariffs
-      .filter(t => t.region === expensiveRegion)
-      .filter(t => isValidTariff(t))
-      .filter(t => {
-        const name = (t.tariff_name || '').toLowerCase();
-        return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
-      });
-    
-    let cheapestCost = Infinity;
-    regionTariffs.forEach(t => {
-      const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
-                   (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
-      if (cost < cheapestCost) cheapestCost = cost;
-    });
-    
-    // Calculate savings
-    const bestSavings = maxCapCost - cheapestCost;
-    
-    // Update the display if we found savings
-    if (bestSavings > 50) {
-      const savingsEl = document.getElementById('dynamicSavings');
-      if (savingsEl) {
-        savingsEl.textContent = '£' + Math.round(bestSavings) + '+';
-      }
-      const savingsTextEl = document.getElementById('dynamicSavingsText');
-      if (savingsTextEl) {
-        savingsTextEl.textContent = '£' + Math.round(bestSavings) + '+';
-      }
-      const trackerEl = document.getElementById('trackerSavings');
-      if (trackerEl) {
-        trackerEl.textContent = '£' + Math.round(bestSavings);
+    // Average across all regions
+    if (savingsByRegion.length > 0) {
+      const avgSavings = savingsByRegion.reduce((a, b) => a + b, 0) / savingsByRegion.length;
+      
+      if (avgSavings > 20) {
+        const savingsEl = document.getElementById('dynamicSavings');
+        if (savingsEl) savingsEl.textContent = '£' + Math.round(avgSavings) + '+';
+        
+        const savingsTextEl = document.getElementById('dynamicSavingsText');
+        if (savingsTextEl) savingsTextEl.textContent = '£' + Math.round(avgSavings) + '+';
+        
+        const trackerEl = document.getElementById('trackerSavings');
+        if (trackerEl) trackerEl.textContent = '£' + Math.round(avgSavings);
       }
     }
   } catch (e) {
@@ -1535,5 +1529,3 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
-
-

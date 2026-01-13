@@ -1,385 +1,511 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Nuclear Charge on Your Bill - SwitchPilot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuclear Charge: You're Paying for a Plant That Doesn't Exist | SwitchPilot</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-red: #EF4444;
+            --sp-blue: #60A5FA;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
 
-<!-- Favicons -->
-<link rel="icon" href="./favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WEQ6VBT567');
-</script>
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
 
-<style>
-/* GLOBAL */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0c0e1f;
-  color: #fff;
-  overflow-x: hidden;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-}
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-/* ARTICLE SHELL */
-.article-shell {
-  position: relative;
-  padding: 7.5rem 2rem 5rem;
-  overflow: hidden;
-}
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        .top-logo:hover { opacity: 0.8; }
+        .top-logo img { height: 2rem; width: auto; }
+        .top-logo span { font-size: 1.35rem; }
 
-/* GRID */
-.energy-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-  opacity: .10;
-  animation: energyGridMove 18s linear infinite;
-  pointer-events: none;
-}
-@keyframes energyGridMove {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(60px); }
-}
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .back-home:hover { background: rgba(255, 255, 255, 0.2); }
 
-/* LOGO */
-.top-logo {
-  position: absolute;
-  top: 45px;
-  left: 32px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #fff;
-}
-.top-logo img {
-  height: 2.5rem;
-  width: auto;
-}
-.top-logo span {
-  font-size: 1.9rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* ARTICLE LAYOUT */
-.article-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 5;
-}
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2360A5FA' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
 
-/* Side icons */
-.article-inner::before {
-  content: '⚛️';
-  position: absolute;
-  top: 15%;
-  left: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatNuclear 8s ease-in-out infinite;
-}
-.article-inner::after {
-  content: '⚡';
-  position: absolute;
-  top: 45%;
-  right: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatNuclear 10s ease-in-out infinite 3s;
-}
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-.article-card::after {
-  content: '🏭';
-  position: absolute;
-  bottom: 20%;
-  left: -190px;
-  font-size: 4.5rem;
-  opacity: 0.85;
-  animation: floatNuclear 9s ease-in-out infinite 1.5s;
-  z-index: -2;
-}
+        .tag {
+            display: inline-block;
+            background: var(--sp-blue);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
 
-@keyframes floatNuclear {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(5deg); }
-}
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
 
-/* BACK LINK */
-.back-home {
-  display: inline-block;
-  margin-bottom: 1.4rem;
-  padding: 0.6rem 1.4rem;
-  background: rgba(255,255,255,0.14);
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e5e7ff;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: .3s;
-}
-.back-home:hover {
-  background: rgba(255,255,255,0.2);
-}
+        .subtitle {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 600px;
+        }
 
-/* CARD */
-.article-card {
-  margin-top: 1.8rem;
-  background: #ffffff;
-  color: #1a1a2e;
-  border-radius: 28px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  overflow: visible;
-  position: relative;
-}
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
 
-/* HEADER */
-.article-header {
-  padding: 2.2rem 3rem 1.3rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
 
-.article-date span {
-  background: linear-gradient(135deg, #dbeafe, #e0e7ff);
-  color: #1e40af;
-  padding: 0.7rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  position: relative;
-  z-index: 2;
-}
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+        h2:first-of-type { margin-top: 0; }
 
-.article-header h1 {
-  margin: 0;
-  margin-top: 1rem;
-  line-height: 1.18;
-  font-size: 2.7rem;
-  font-weight: 900;
-  position: relative;
-  z-index: 2;
-}
+        h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.6rem;
+            color: var(--sp-slate);
+        }
 
-/* BODY */
-.article-body {
-  padding: 1.1rem 3rem 2.8rem;
-}
-.article-body h2 {
-  font-size: 2rem;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 2rem 0 1.2rem;
-  font-weight: 800;
-}
-.article-body h2:first-child {
-  margin-top: 0.4rem;
-}
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
 
-.article-body h3 {
-  font-size: 1.5rem;
-  color: #1a1a2e;
-  margin: 1.5rem 0 0.8rem;
-  font-weight: 700;
-}
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
 
-.article-body p, .article-body ul {
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: #444;
-}
-.article-body p {
-  margin-bottom: 1.5rem;
-}
-.article-body ul {
-  margin-left: 2rem;
-  margin-bottom: 1.5rem;
-}
-.article-body li {
-  margin-bottom: 0.7rem;
-}
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .highlight-box p { margin: 0; color: var(--sp-slate); }
 
-.highlight-box {
-  background: rgba(99,102,241,0.15);
-  padding: 1rem 1.2rem;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-  border-left: 4px solid #6366f1;
-}
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .warning-box p { margin: 0; color: var(--sp-slate); }
 
-/* FOOTER */
-.footer {
-  background: #0c0e1f;
-  text-align: center;
-  padding: 3rem 2rem;
-  color: white;
-}
-.footer p {
-  opacity: 0.8;
-  margin: 0.5rem 0;
-}
+        .info-box {
+            background: #DBEAFE;
+            border-left: 4px solid var(--sp-blue);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .info-box p { margin: 0; color: var(--sp-slate); }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 968px) {
-  .article-shell {
-    padding: 6rem 1.5rem 4rem;
-  }
-  
-  .article-inner::before,
-  .article-inner::after,
-  .article-card::after {
-    display: none;
-  }
-  
-  .top-logo {
-    top: 25px;
-    left: 20px;
-  }
-  .top-logo img {
-    height: 2rem;
-  }
-  .top-logo span {
-    font-size: 1.5rem;
-  }
-  
-  .article-header {
-    padding: 2rem 2rem 1rem;
-  }
-  .article-header h1 {
-    font-size: 2rem;
-  }
-  
-  .article-body {
-    padding: 1rem 2rem 2rem;
-  }
-  .article-body h2 {
-    font-size: 1.6rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1.05rem;
-  }
-  .article-body ul {
-    margin-left: 1.5rem;
-  }
-}
+        .chart-section {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
 
-@media (max-width: 480px) {
-  .article-shell {
-    padding: 5rem 1rem 3rem;
-  }
-  
-  .top-logo {
-    top: 20px;
-    left: 15px;
-    gap: 6px;
-  }
-  .top-logo img {
-    height: 1.6rem;
-  }
-  .top-logo span {
-    font-size: 1.3rem;
-  }
-  
-  .back-home {
-    font-size: 0.85rem;
-    padding: 0.5rem 1.2rem;
-  }
-  
-  .article-card {
-    border-radius: 20px;
-  }
-  
-  .article-header {
-    padding: 1.5rem 1.5rem 0.8rem;
-  }
-  .article-date span {
-    font-size: 0.85rem;
-    padding: 0.6rem 1.2rem;
-  }
-  .article-header h1 {
-    font-size: 1.6rem;
-    margin-top: 0.8rem;
-  }
-  
-  .article-body {
-    padding: 0.8rem 1.5rem 1.8rem;
-  }
-  .article-body h2 {
-    font-size: 1.4rem;
-    margin: 1.5rem 0 1rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-  .article-body ul {
-    margin-left: 1.2rem;
-  }
-  
-  .footer {
-    padding: 2.5rem 1.5rem;
-  }
-  .footer p {
-    font-size: 0.9rem;
-  }
-}
-</style>
+        .chart-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--sp-slate);
+            margin-bottom: 0.35rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sp-green);
+            margin-bottom: 0.5rem;
+        }
+        .stat-value.warning { color: var(--sp-amber); }
+        .stat-value.danger { color: var(--sp-red); }
+        .stat-value.info { color: var(--sp-blue); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            font-weight: 500;
+        }
+
+        .summary-section {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0 0;
+            color: white;
+        }
+
+        .summary-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+        .summary-item strong { color: #fff; font-weight: 700; }
+
+        .summary-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .summary-item.positive .summary-icon { color: var(--sp-green); }
+        .summary-item.warning .summary-icon { color: var(--sp-amber); }
+        .summary-item.info .summary-icon { color: #60A5FA; }
+
+        ul { margin: 1.5rem 0; padding-left: 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--sp-slate-light); }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            color: #fff;
+        }
+
+        .cta-box p {
+            font-size: 1.05rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.95;
+            color: #fff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #fff;
+            color: var(--sp-green-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0.4rem;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .cta-button.secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .cta-button.secondary:hover { background: rgba(255,255,255,0.25); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--sp-amber), var(--sp-blue), var(--sp-green));
+            border-radius: 3px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 55px;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: 12px;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--sp-amber);
+        }
+        .timeline-item:nth-child(2) .timeline-dot { border-color: var(--sp-blue); }
+        .timeline-item:nth-child(3) .timeline-dot { border-color: var(--sp-green); }
+        .timeline-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--sp-slate-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .timeline-title {
+            font-weight: 700;
+            color: var(--sp-slate);
+            margin: 0.25rem 0;
+        }
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--sp-slate-light);
+            margin: 0;
+        }
+
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+        .footer-note { font-size: 0.8rem; color: var(--sp-slate-light); }
+
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+        }
+        .site-footer p { opacity: 0.8; margin: 0.5rem 0; color: white; }
+        .site-footer a { color: #a855f7; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 1.6rem; }
+            .top-logo span { font-size: 1.1rem; }
+            .back-home { padding: 8px 14px; font-size: 0.8rem; }
+            .article-header { padding: 3rem 1.5rem 2rem; }
+            .article-body { padding: 2rem 1.5rem 1rem; }
+            h2 { font-size: 1.4rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .stat-value { font-size: 1.5rem; }
+            .cta-box { padding: 2rem 1.5rem; margin: 1.5rem 1rem 0; }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- LOGO -->
-<a href="index.html" class="top-logo">
-  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
-  <span>SwitchPilot</span>
-</a>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back Home</a>
+    </nav>
 
-<section class="article-shell">
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">New Charge</span>
+            <h1>You're Now Paying for a Nuclear Plant That Doesn't Exist Yet</h1>
+            <p class="subtitle">From January 2026, a new charge is being added to your bill to fund Sizewell C — years before it generates any power.</p>
+            <div class="article-meta">
+                <span>📅 22 November 2025</span>
+                <span>•</span>
+                <span>⏱️ 5 min read</span>
+            </div>
+        </div>
+    </header>
 
-  <div class="energy-grid"></div>
-
-  <div class="article-inner">
-
-    <a href="index.html" class="back-home">← Back Home</a>
-
-    <div class="article-card">
-      <div class="article-header">
-        <div class="article-date"><span>22 November 2025</span></div>
-
-        <h1>⚛️ You're Now Paying for a Nuclear Plant That Doesn't Exist Yet</h1>
-      </div>
-
-      <div class="article-body">
+    <article class="article-body">
 
         <h2>What's Happening?</h2>
         <p>From <strong>1 January 2026</strong>, a new charge is being added to your electricity bill. It's to help build Sizewell C — a nuclear power station in Suffolk that won't generate any electricity for years.</p>
 
         <p>Yes, you read that right. For the first time ever, part of your bill is going towards building a power plant <em>before</em> it actually produces any power.</p>
 
-        <div class="highlight-box">
-          <strong>How much?</strong> About <strong>£13–14 per year</strong> for a typical household. Not huge, but it's another charge on top of everything else.
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value warning">£14</div>
+                <div class="stat-label">Added per year (Jan-Mar 2026)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value warning">£13</div>
+                <div class="stat-label">Per year from April 2026</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value info">2030s</div>
+                <div class="stat-label">When plant might open</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value info">£20bn+</div>
+                <div class="stat-label">Total project cost</div>
+            </div>
+        </div>
+
+        <!-- Timeline Visual -->
+        <div class="chart-section">
+            <div class="chart-title">The Sizewell C Timeline</div>
+            <div class="chart-subtitle">You pay now, power comes later</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">January 2026</div>
+                    <div class="timeline-title">Charges start appearing on your bill</div>
+                    <p class="timeline-desc">~£14/year added to electricity bills</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026–2034</div>
+                    <div class="timeline-title">Construction phase</div>
+                    <p class="timeline-desc">You keep paying while the plant is built</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mid-2030s (estimated)</div>
+                    <div class="timeline-title">Plant starts generating power</div>
+                    <p class="timeline-desc">Finally produces electricity for the grid</p>
+                </div>
+            </div>
         </div>
 
         <h2>Why Are We Paying Now?</h2>
@@ -387,68 +513,170 @@ body {
 
         <p>The idea is:</p>
         <ul>
-          <li>Lower risk for investors = cheaper financing</li>
-          <li>Cheaper financing = lower bills when the plant eventually opens</li>
-          <li>Nuclear provides reliable power that doesn't depend on wind or sun</li>
+            <li>Lower risk for investors = cheaper financing</li>
+            <li>Cheaper financing = lower bills when the plant eventually opens</li>
+            <li>Nuclear provides reliable power that doesn't depend on wind or sun</li>
         </ul>
 
         <p>Whether you agree with that logic or not, the decision has been made. The charge is now law.</p>
 
         <h2>How Much Will It Add?</h2>
 
+        <!-- Cost Over Time Chart -->
+        <div class="chart-section">
+            <div class="chart-title">Nuclear Charge on Your Bill</div>
+            <div class="chart-subtitle">Expected annual cost per household</div>
+            <div style="height: 220px; margin-top: 1rem;">
+                <canvas id="nuclearCostChart"></canvas>
+            </div>
+        </div>
+
         <h3>January – March 2026</h3>
-        <p><strong>£14 per year</strong> added to bills</p>
-        <p>Slightly higher because it includes catching up on costs from December 2025.</p>
+        <p><strong>£14 per year</strong> added to bills. Slightly higher because it includes catching up on costs from December 2025.</p>
 
         <h3>April 2026 onwards</h3>
-        <p><strong>~£13 per year</strong></p>
-        <p>This is expected to stay roughly the same through 2026.</p>
+        <p><strong>~£13 per year</strong>. This is expected to stay roughly the same through 2026, but could rise as construction progresses.</p>
 
-        <h3>Where does it appear on your bill?</h3>
-        <p>You won't see a separate line item. It's rolled into your electricity unit rate — so your price per kWh goes up slightly. It's part of the maximum price suppliers can charge (the "price cap"), which gets updated every 6 months.</p>
+        <div class="info-box">
+            <p><strong>Where does it appear on your bill?</strong> You won't see a separate line item. It's rolled into your electricity unit rate — so your price per kWh goes up slightly.</p>
+        </div>
+
+        <h2>The Bigger Picture: Policy Costs on Your Bill</h2>
+        <p>This is just one of several "policy costs" on your bill. You're already paying for things like:</p>
+
+        <!-- Policy Costs Breakdown -->
+        <div class="chart-section">
+            <div class="chart-title">Policy Costs Already on Your Bill</div>
+            <div class="chart-subtitle">Government programmes funded through energy bills (£/year)</div>
+            <div style="height: 220px; margin-top: 1rem;">
+                <canvas id="policyCostsChart"></canvas>
+            </div>
+        </div>
+
+        <ul>
+            <li><strong>Renewables subsidies:</strong> Funding for wind and solar farms</li>
+            <li><strong>Energy efficiency:</strong> Grants for home insulation</li>
+            <li><strong>Warm Home Discount:</strong> Support for low-income households</li>
+            <li><strong>Nuclear RAB (new):</strong> Building Sizewell C</li>
+        </ul>
+
+        <p>These add up. They're part of why your bill doesn't just track the actual cost of gas and electricity — there's a whole layer of government programmes built in.</p>
 
         <h2>Does This Affect Fixed Deals Too?</h2>
         <p>Yes. Most suppliers will build this cost into both standard rates AND fixed tariffs. So switching to a fixed deal won't necessarily avoid it.</p>
 
         <p>That said, there are still competitive deals out there. If you lock in a good fixed rate now, you could protect yourself from future increases — not just from nuclear charges, but from all the other costs that keep getting added to bills.</p>
 
-        <h2>The Bigger Picture</h2>
-        <p>This is just one of several "policy costs" on your bill. You're already paying for things like:</p>
-        <ul>
-          <li>Subsidies for wind and solar farms</li>
-          <li>Grants for home insulation</li>
-          <li>Support for low-income households</li>
-        </ul>
+        <div class="summary-section">
+            <div class="summary-title">Key Takeaways</div>
+            <div class="summary-grid">
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>New charge starts</strong> 1 January 2026</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">⚛️</span>
+                    <span><strong>Pays for building</strong> Sizewell C nuclear plant</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>£14/year added</strong> Jan–Mar 2026</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>~£13/year</strong> from April 2026 onwards</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>Rolled into unit rate</strong> — no separate line on bill</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>Applies to</strong> standard and fixed tariffs</span>
+                </div>
+            </div>
+        </div>
+    </article>
 
-        <p>These add up. They're part of why your bill doesn't just track the actual cost of gas and electricity — there's a whole layer of government programmes built in.</p>
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Find the best deal despite rising costs</h3>
+            <p>Compare fixed tariffs on our tracker — or join the waitlist for automatic switching when better rates appear.</p>
+            <a href="tariff-tracker.html" class="cta-button">Compare Tariffs →</a>
+            <a href="index.html#waitlist" class="cta-button secondary">Join Waitlist</a>
+        </div>
+    </section>
 
-        <h2>Quick Summary</h2>
-        <ul>
-          <li>✅ New nuclear charge starts <strong>1 January 2026</strong></li>
-          <li>✅ Pays for building Sizewell C nuclear plant</li>
-          <li>⚠️ <strong>£14/year</strong> added Jan–Mar 2026</li>
-          <li>⚠️ <strong>~£13/year</strong> from April 2026 onwards</li>
-          <li>💡 Rolled into your electricity unit rate — no separate line on bill</li>
-          <li>💡 Applies to standard and fixed tariffs</li>
-        </ul>
+    <footer class="article-footer">
+        <p class="footer-note">Sources: Department for Energy Security and Net Zero, Great British Nuclear, Ofgem.</p>
+    </footer>
 
-      </div>
-    </div>
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
+        <p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
 
-    <!-- CTA -->
-    <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want updates like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for plain-English breakdowns of what's really on your energy bill.</p>
-      <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
-    </div>
-  </div>
-</section>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Nuclear Cost Chart
+        new Chart(document.getElementById('nuclearCostChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026', '2027 (est)', '2028 (est)'],
+                datasets: [{
+                    label: 'Annual cost (£)',
+                    data: [14, 13, 13, 13, 15, 17],
+                    backgroundColor: ['#F59E0B', '#60A5FA', '#60A5FA', '#60A5FA', '#94A3B8', '#94A3B8'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 25,
+                        grid: { color: '#E2E8F0' },
+                        ticks: { callback: v => '£' + v }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
 
-<footer class="footer">
-  <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
-  <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
-</footer>
+        // Policy Costs Chart
+        new Chart(document.getElementById('policyCostsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Renewables', 'Energy Efficiency', 'Warm Home Discount', 'Nuclear RAB (new)', 'Other'],
+                datasets: [{
+                    label: 'Cost per year (£)',
+                    data: [120, 45, 46, 14, 11],
+                    backgroundColor: ['#10B981', '#60A5FA', '#F59E0B', '#EF4444', '#94A3B8'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 150,
+                        grid: { color: '#E2E8F0' },
+                        ticks: { callback: v => '£' + v }
+                    },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+    });
+    </script>
 
 </body>
 </html>

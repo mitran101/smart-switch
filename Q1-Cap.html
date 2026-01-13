@@ -1,452 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q1-26 Price Cap Breakdown - SwitchPilot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q1 2026 Price Cap: What's Happening to Your Bills | SwitchPilot</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-red: #EF4444;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
 
-<!-- Favicons -->
-<link rel="icon" href="./favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WEQ6VBT567');
-</script>
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
 
-<style>
-/* GLOBAL */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0c0e1f;
-  color: #fff;
-  overflow-x: hidden;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-}
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-/* ARTICLE SHELL */
-.article-shell {
-  position: relative;
-  padding: 7.5rem 2rem 5rem;
-  overflow: hidden;
-}
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        .top-logo:hover { opacity: 0.8; }
+        .top-logo img { height: 2rem; width: auto; }
+        .top-logo span { font-size: 1.35rem; }
 
-/* GRID */
-.energy-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
-  background-size: 70px 70px;
-  opacity: .10;
-  animation: energyGridMove 18s linear infinite;
-  pointer-events: none;
-}
-@keyframes energyGridMove {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(60px); }
-}
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .back-home:hover { background: rgba(255, 255, 255, 0.2); }
 
-/* LOGO */
-.top-logo {
-  position: absolute;
-  top: 45px;
-  left: 32px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: #fff;
-}
-.top-logo img {
-  height: 2.5rem;
-  width: auto;
-}
-.top-logo span {
-  font-size: 1.9rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* ARTICLE LAYOUT */
-.article-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 5;
-}
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
 
-/* Side icons */
-.article-inner::before {
-  content: '💷';
-  position: absolute;
-  top: 15%;
-  left: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatCap 8s ease-in-out infinite;
-}
-.article-inner::after {
-  content: '📊';
-  position: absolute;
-  top: 45%;
-  right: -180px;
-  font-size: 5rem;
-  opacity: 0.85;
-  animation: floatCap 10s ease-in-out infinite 3s;
-}
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-.article-card::after {
-  content: '⚡';
-  position: absolute;
-  bottom: 20%;
-  left: -190px;
-  font-size: 4.5rem;
-  opacity: 0.85;
-  animation: floatCap 9s ease-in-out infinite 1.5s;
-  z-index: -2;
-}
+        .tag {
+            display: inline-block;
+            background: var(--sp-amber);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
 
-@keyframes floatCap {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(5deg); }
-}
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
 
-/* BACK LINK */
-.back-home {
-  display: inline-block;
-  margin-bottom: 1.4rem;
-  padding: 0.6rem 1.4rem;
-  background: rgba(255,255,255,0.14);
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e5e7ff;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: .3s;
-}
-.back-home:hover {
-  background: rgba(255,255,255,0.2);
-}
+        .subtitle {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 600px;
+        }
 
-/* CARD */
-.article-card {
-  margin-top: 1.8rem;
-  background: #ffffff;
-  color: #1a1a2e;
-  border-radius: 28px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  overflow: visible;
-  position: relative;
-}
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
 
-/* HEADER */
-.article-header {
-  padding: 2.2rem 3rem 1.3rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
 
-.article-date span {
-  background: linear-gradient(135deg, #fef3c7, #dbeafe);
-  color: #92400e;
-  padding: 0.7rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  position: relative;
-  z-index: 2;
-}
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+        h2:first-of-type { margin-top: 0; }
 
-.article-header h1 {
-  margin: 0;
-  margin-top: 1rem;
-  line-height: 1.18;
-  font-size: 2.7rem;
-  font-weight: 900;
-  position: relative;
-  z-index: 2;
-}
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
 
-/* BODY */
-.article-body {
-  padding: 1.1rem 3rem 2.8rem;
-}
-.article-body h2 {
-  font-size: 2rem;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 2rem 0 1.2rem;
-  font-weight: 800;
-}
-.article-body h2:first-child {
-  margin-top: 0.4rem;
-}
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
 
-.article-body p, .article-body ul {
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: #444;
-}
-.article-body p {
-  margin-bottom: 1.5rem;
-}
-.article-body ul {
-  margin-left: 2rem;
-  margin-bottom: 1.5rem;
-}
-.article-body li {
-  margin-bottom: 0.7rem;
-}
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .highlight-box p { margin: 0; color: var(--sp-slate); }
 
-.highlight-box {
-  background: rgba(99,102,241,0.15);
-  padding: 1rem 1.2rem;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-  border-left: 4px solid #6366f1;
-}
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .warning-box p { margin: 0; color: var(--sp-slate); }
 
-/* FOOTER */
-.footer {
-  background: #0c0e1f;
-  text-align: center;
-  padding: 3rem 2rem;
-  color: white;
-}
-.footer p {
-  opacity: 0.8;
-  margin: 0.5rem 0;
-}
+        .chart-section {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 968px) {
-  .article-shell {
-    padding: 6rem 1.5rem 4rem;
-  }
-  
-  .article-inner::before,
-  .article-inner::after,
-  .article-card::after {
-    display: none;
-  }
-  
-  .top-logo {
-    top: 25px;
-    left: 20px;
-  }
-  .top-logo img {
-    height: 2rem;
-  }
-  .top-logo span {
-    font-size: 1.5rem;
-  }
-  
-  .article-header {
-    padding: 2rem 2rem 1rem;
-  }
-  .article-header h1 {
-    font-size: 2rem;
-  }
-  
-  .article-body {
-    padding: 1rem 2rem 2rem;
-  }
-  .article-body h2 {
-    font-size: 1.6rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1.05rem;
-  }
-  .article-body ul {
-    margin-left: 1.5rem;
-  }
-}
+        .chart-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--sp-slate);
+            margin-bottom: 0.35rem;
+        }
 
-@media (max-width: 480px) {
-  .article-shell {
-    padding: 5rem 1rem 3rem;
-  }
-  
-  .top-logo {
-    top: 20px;
-    left: 15px;
-    gap: 6px;
-  }
-  .top-logo img {
-    height: 1.6rem;
-  }
-  .top-logo span {
-    font-size: 1.3rem;
-  }
-  
-  .back-home {
-    font-size: 0.85rem;
-    padding: 0.5rem 1.2rem;
-  }
-  
-  .article-card {
-    border-radius: 20px;
-  }
-  
-  .article-header {
-    padding: 1.5rem 1.5rem 0.8rem;
-  }
-  .article-date span {
-    font-size: 0.85rem;
-    padding: 0.6rem 1.2rem;
-  }
-  .article-header h1 {
-    font-size: 1.6rem;
-    margin-top: 0.8rem;
-  }
-  
-  .article-body {
-    padding: 0.8rem 1.5rem 1.8rem;
-  }
-  .article-body h2 {
-    font-size: 1.4rem;
-    margin: 1.5rem 0 1rem;
-  }
-  .article-body p, .article-body ul {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-  .article-body ul {
-    margin-left: 1.2rem;
-  }
-  
-  .footer {
-    padding: 2.5rem 1.5rem;
-  }
-  .footer p {
-    font-size: 0.9rem;
-  }
-}
-</style>
+        .chart-subtitle {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sp-green);
+            margin-bottom: 0.5rem;
+        }
+        .stat-value.warning { color: var(--sp-amber); }
+        .stat-value.danger { color: var(--sp-red); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            font-weight: 500;
+        }
+
+        .summary-section {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0 0;
+            color: white;
+        }
+
+        .summary-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+        .summary-item strong { color: #fff; font-weight: 700; }
+
+        .summary-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .summary-item.positive .summary-icon { color: var(--sp-green); }
+        .summary-item.warning .summary-icon { color: var(--sp-amber); }
+        .summary-item.info .summary-icon { color: #60A5FA; }
+
+        ul { margin: 1.5rem 0; padding-left: 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--sp-slate-light); }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            color: #fff;
+        }
+
+        .cta-box p {
+            font-size: 1.05rem;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.95;
+            color: #fff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #fff;
+            color: var(--sp-green-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0.4rem;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .cta-button.secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .cta-button.secondary:hover { background: rgba(255,255,255,0.25); }
+
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+            text-align: center;
+        }
+        .footer-note { font-size: 0.8rem; color: var(--sp-slate-light); }
+
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+        }
+        .site-footer p { opacity: 0.8; margin: 0.5rem 0; color: white; }
+        .site-footer a { color: #a855f7; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 1.6rem; }
+            .top-logo span { font-size: 1.1rem; }
+            .back-home { padding: 8px 14px; font-size: 0.8rem; }
+            .article-header { padding: 3rem 1.5rem 2rem; }
+            .article-body { padding: 2rem 1.5rem 1rem; }
+            h2 { font-size: 1.4rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .stat-value { font-size: 1.5rem; }
+            .cta-box { padding: 2rem 1.5rem; margin: 1.5rem 1rem 0; }
+            .pie-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- LOGO -->
-<a href="index.html" class="top-logo">
-  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
-  <span>SwitchPilot</span>
-</a>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back Home</a>
+    </nav>
 
-<section class="article-shell">
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">Price Cap Update</span>
+            <h1>Q1 2026 Price Cap: What's Happening to Your Bills?</h1>
+            <p class="subtitle">The price cap barely moved, but your energy got cheaper. Here's where that saving actually went.</p>
+            <div class="article-meta">
+                <span>📅 28 November 2025</span>
+                <span>•</span>
+                <span>⏱️ 5 min read</span>
+            </div>
+        </div>
+    </header>
 
-  <div class="energy-grid"></div>
-
-  <div class="article-inner">
-
-    <a href="index.html" class="back-home">← Back Home</a>
-
-    <div class="article-card">
-      <div class="article-header">
-        <div class="article-date"><span>28 November 2025</span></div>
-
-        <h1>📆 Q1 2026 Price Cap: What's Happening to Your Bills?</h1>
-      </div>
-
-      <div class="article-body">
+    <article class="article-body">
 
         <h2>The Short Version</h2>
         <p>The government has set the maximum energy bill for <strong>January to March 2026</strong> at <strong>£1,758 per year</strong> for a typical household. That's only <strong>£3 more</strong> than last quarter.</p>
 
         <p>Sounds like good news, right? Here's the catch: <strong>the actual cost of energy went DOWN by £29</strong>.</p>
 
-        <div class="highlight-box">
-          <strong>➜ So where did that £29 saving go?</strong> It got swallowed up by taxes, green levies, and other charges the government adds to your bill.
+        <div class="warning-box">
+            <p><strong>So where did that £29 saving go?</strong> It got swallowed up by taxes, green levies, and other charges the government adds to your bill.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">£1,758</div>
+                <div class="stat-label">Q1 2026 Price Cap</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">+£3</div>
+                <div class="stat-label">Change from Q4 2025</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value warning">-£29</div>
+                <div class="stat-label">Energy cost drop (absorbed)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value danger">+£21</div>
+                <div class="stat-label">Government charges increase</div>
+            </div>
+        </div>
+
+        <!-- Price Cap History Chart -->
+        <div class="chart-section">
+            <div class="chart-title">Price Cap Over Time</div>
+            <div class="chart-subtitle">Quarterly price cap for typical household (£/year)</div>
+            <div style="height: 280px; margin-top: 1rem;">
+                <canvas id="priceCapChart"></canvas>
+            </div>
         </div>
 
         <h2>Why Didn't Bills Fall?</h2>
         <ul>
-          <li><strong>Energy got cheaper:</strong> The actual gas and electricity cost dropped by £29.</li>
-          <li><strong>But government charges went up:</strong> Things like funding for new nuclear plants and help for low-income households added £21.</li>
-          <li><strong>Running costs rose too:</strong> Because people are using less energy overall, the cost per unit goes up — adding another £9.</li>
+            <li><strong>Energy got cheaper:</strong> The actual gas and electricity cost dropped by £29.</li>
+            <li><strong>But government charges went up:</strong> Things like funding for new nuclear plants and help for low-income households added £21.</li>
+            <li><strong>Running costs rose too:</strong> Because people are using less energy overall, the cost per unit goes up — adding another £9.</li>
         </ul>
 
-        <h2>What This Means For You</h2>
-        <ul>
-          <li>Your bill stays roughly the same, even though energy got cheaper.</li>
-          <li>Government charges keep rising every few months.</li>
-          <li>Locking in a fixed deal now could still save you money.</li>
-        </ul>
-
-        <h2>The Hidden Charges on Your Bill</h2>
-        <ul>
-          <li><strong>Government charges:</strong> £236 per year (that's a third of a typical bill!).</li>
-          <li><strong>Help for struggling households:</strong> £46 per year goes to fund support schemes.</li>
-          <li><strong>New nuclear plant funding:</strong> About £14 per year.</li>
-        </ul>
-        <p>The actual energy you use? Only costs about <strong>£690 per year</strong>. The rest is taxes and charges.</p>
-
-        <h2>What's Coming Next?</h2>
-        <ul>
-          <li>Network upgrade costs could add <strong>£20–£50</strong> from April 2026.</li>
-          <li>Bills could hit around <strong>£1,800</strong> by summer.</li>
-          <li>Fixed deals might look even better by then.</li>
-        </ul>
-
-        <h2>Quick Summary</h2>
-        <div class="highlight-box">
-          <ul style="margin: 0;">
-            <li>✔ Tiny rise: <strong>£1,755 → £1,758</strong></li>
-            <li>⚠ Government charges eating up savings</li>
-            <li>⚠ More rises expected in April</li>
-            <li>📅 This cap runs January–March 2026</li>
-          </ul>
+        <!-- Bill Breakdown Chart -->
+        <div class="chart-section">
+            <div class="chart-title">What's Actually In Your £1,758 Bill?</div>
+            <div class="chart-subtitle">Breakdown of a typical annual energy bill</div>
+            <div class="pie-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 1rem;">
+                <div style="height: 220px;">
+                    <canvas id="billBreakdownChart"></canvas>
+                </div>
+                <div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="width: 12px; height: 12px; background: #10B981; border-radius: 2px;"></span>
+                            <span style="font-weight: 600; color: var(--sp-slate);">Wholesale Energy</span>
+                        </div>
+                        <span style="font-size: 1.4rem; font-weight: 800; color: #10B981;">£690</span>
+                        <span style="color: var(--sp-slate-light); font-size: 0.85rem;"> (39%)</span>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="width: 12px; height: 12px; background: #F59E0B; border-radius: 2px;"></span>
+                            <span style="font-weight: 600; color: var(--sp-slate);">Network Costs</span>
+                        </div>
+                        <span style="font-size: 1.4rem; font-weight: 800; color: #F59E0B;">£467</span>
+                        <span style="color: var(--sp-slate-light); font-size: 0.85rem;"> (27%)</span>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="width: 12px; height: 12px; background: #EF4444; border-radius: 2px;"></span>
+                            <span style="font-weight: 600; color: var(--sp-slate);">Policy Costs</span>
+                        </div>
+                        <span style="font-size: 1.4rem; font-weight: 800; color: #EF4444;">£236</span>
+                        <span style="color: var(--sp-slate-light); font-size: 0.85rem;"> (13%)</span>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span style="width: 12px; height: 12px; background: #60A5FA; border-radius: 2px;"></span>
+                            <span style="font-weight: 600; color: var(--sp-slate);">Operating & Other</span>
+                        </div>
+                        <span style="font-size: 1.4rem; font-weight: 800; color: #60A5FA;">£365</span>
+                        <span style="color: var(--sp-slate-light); font-size: 0.85rem;"> (21%)</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>💰 Best Deal Right Now</h2>
-        <p><strong>E.ON Next Fixed 18m v23 — £1,565/year</strong></p>
+        <h2>The Hidden Charges on Your Bill</h2>
+        <p>That £236 in "policy costs" includes:</p>
         <ul>
-          <li>That's <strong>£193 less</strong> than the price cap.</li>
-          <li>Locks your rate for 18 months — no surprises.</li>
-          <li>Could save you over <strong>£210</strong> by summer when prices rise again.</li>
+            <li><strong>Help for struggling households:</strong> £46 per year goes to fund support schemes like the Warm Home Discount.</li>
+            <li><strong>New nuclear plant funding:</strong> About £14 per year to build Sizewell C.</li>
+            <li><strong>Green levies:</strong> Subsidies for renewable energy and energy efficiency programmes.</li>
+        </ul>
+        <p>The actual energy you use? Only costs about <strong>£690 per year</strong>. The rest is taxes, network fees, and charges.</p>
+
+        <h2>What's Coming Next?</h2>
+
+        <!-- Future Outlook Chart -->
+        <div class="chart-section">
+            <div class="chart-title">Where Bills Are Heading</div>
+            <div class="chart-subtitle">Forecast price cap through 2026</div>
+            <div style="height: 220px; margin-top: 1rem;">
+                <canvas id="forecastChart"></canvas>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; padding: 1rem; background: #F1F5F9; border-radius: 8px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Q1 2026</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--sp-green);">£1,758</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Q2 2026 (est)</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--sp-amber);">£1,800</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Q3 2026 (est)</div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--sp-red);">£1,850</div>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+            <li>Network upgrade costs could add <strong>£20–£50</strong> from April 2026.</li>
+            <li>Bills could hit around <strong>£1,800</strong> by summer.</li>
+            <li>Fixed deals might look even better by then.</li>
         </ul>
 
-        <h2>💎 Our Pick</h2>
-        <p><strong>E.ON Next Fixed 18m v23</strong> — best value right now.</p>
-        <ul>
-          <li>Lower daily standing charge than most rivals.</li>
-          <li>Protects you from the price rises coming in April.</li>
-          <li>Runner-up: EDF Simply Fixed (£1,569) — almost as good.</li>
-        </ul>
+        <div class="highlight-box">
+            <p><strong>Good news:</strong> Fixed deals are currently beating the price cap by £100–200. Locking in now could save you money before April increases hit.</p>
+        </div>
 
-      </div>
-    </div>
+        <div class="summary-section">
+            <div class="summary-title">Key Takeaways</div>
+            <div class="summary-grid">
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Tiny rise:</strong> £1,755 → £1,758</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Government charges</strong> eating up savings</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>More rises expected</strong> in April 2026</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">📅</span>
+                    <span><strong>This cap runs</strong> January–March 2026</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">💰</span>
+                    <span><strong>Fixed deals</strong> beating the cap by £100-200</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">📊</span>
+                    <span><strong>Only 39%</strong> of your bill is actual energy</span>
+                </div>
+            </div>
+        </div>
+    </article>
 
-    <!-- CTA -->
-    <div style="max-width:700px;margin:3rem auto 0;background:linear-gradient(135deg,#6366f1,#ec4899);padding:2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-      <h3 style="font-size:1.5rem;font-weight:800;margin:0 0 0.8rem 0;color:#fff;">Want updates like this?</h3>
-      <p style="font-size:1.05rem;margin:0 0 1.5rem 0;opacity:0.95;color:#fff;">Join our waitlist for free auto-switching and plain-English breakdowns of what you're actually paying for.</p>
-      <a href="index.html#waitlist" style="display:inline-block;padding:1rem 2.5rem;background:#fff;color:#6366f1;text-decoration:none;border-radius:15px;font-weight:800;font-size:1.05rem;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.2s;">Join Waitlist →</a>
-    </div>
-  </div>
-</section>
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Find a cheaper deal today</h3>
+            <p>Use our tariff tracker to compare the best fixed deals — or join the waitlist for automatic switching when better rates appear.</p>
+            <a href="tariff-tracker.html" class="cta-button">Compare Tariffs →</a>
+            <a href="index.html#waitlist" class="cta-button secondary">Join Waitlist</a>
+        </div>
+    </section>
 
-<footer class="footer">
-  <p>💌 Weekly energy insights delivered to your inbox</p>
-  <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">flightcrew@switch-pilot.com</a></p>
-  <p>© 2025 SwitchPilot. Making energy bills make sense.</p>
-</footer>
+    <footer class="article-footer">
+        <p class="footer-note">Sources: Ofgem Price Cap announcement, November 2025. Cornwall Insight forecasts.</p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:flightcrew@switch-pilot.com">flightcrew@switch-pilot.com</a></p>
+        <p style="margin-top:1rem;">© 2025 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Price Cap History Chart
+        new Chart(document.getElementById('priceCapChart'), {
+            type: 'line',
+            data: {
+                labels: ['Q1 24', 'Q2 24', 'Q3 24', 'Q4 24', 'Q1 25', 'Q2 25', 'Q3 25', 'Q4 25', 'Q1 26'],
+                datasets: [{
+                    label: 'Price Cap (£/year)',
+                    data: [1928, 1690, 1568, 1738, 1738, 1690, 1568, 1755, 1758],
+                    borderColor: '#10B981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: ctx => ctx.dataIndex === 8 ? '#10B981' : '#fff',
+                    pointBorderColor: '#10B981',
+                    pointRadius: ctx => ctx.dataIndex === 8 ? 8 : 4,
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: false, min: 1400, max: 2100, grid: { color: '#E2E8F0' }, ticks: { callback: v => '£' + v } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Bill Breakdown Pie Chart
+        new Chart(document.getElementById('billBreakdownChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Wholesale Energy', 'Network Costs', 'Policy Costs', 'Operating & Other'],
+                datasets: [{ data: [690, 467, 236, 365], backgroundColor: ['#10B981', '#F59E0B', '#EF4444', '#60A5FA'], borderWidth: 0 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Forecast Chart
+        new Chart(document.getElementById('forecastChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Q4 25', 'Q1 26', 'Q2 26 (est)', 'Q3 26 (est)'],
+                datasets: [{
+                    data: [1755, 1758, 1800, 1850],
+                    backgroundColor: ['#94A3B8', '#10B981', '#F59E0B', '#EF4444'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: false, min: 1600, max: 1950, grid: { color: '#E2E8F0' }, ticks: { callback: v => '£' + v } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    });
+    </script>
 
 </body>
 </html>

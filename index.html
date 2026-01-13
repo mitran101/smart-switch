@@ -891,7 +891,7 @@ body { font-size:15px !important; }
   <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="font-size:3rem;margin-bottom:1rem;">✈️⚡💷</div>
+    <div style="font-size:3rem;margin-bottom:1rem;"><img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:3rem;width:auto;vertical-align:middle;margin-right:0.3rem;">💷</div>
     <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
     <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
 
@@ -1054,12 +1054,17 @@ if (gameCanvas) {
     let gameHighScore = 0;
     document.getElementById('gameHighScore').textContent = gameHighScore;
     
-    const player = {
-        x: gameCanvas.width / 2,
-        y: gameCanvas.height - 80,
-        size: 35,
-        emoji: '✈️'
-    };
+// Preload logo for player
+const logoImg = new Image();
+logoImg.src = 'https://mitran101.github.io/smart-switch/logo.png';
+let logoLoaded = false;
+logoImg.onload = () => { logoLoaded = true; };
+
+const player = {
+    x: gameCanvas.width / 2,
+    y: gameCanvas.height - 80,
+    size: 40
+};
     
     const goodItems = ['⚡', '💷', '🔋', '💡'];
     const badItems = ['💥', '🌩️'];
@@ -1138,7 +1143,9 @@ if (gameCanvas) {
         player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
         player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
         
-        drawEmoji(player.emoji, player.x, player.y, player.size);
+        if (logoLoaded) {
+    ctx.drawImage(logoImg, player.x - player.size/2, player.y - player.size/2, player.size, player.size);
+}
         
         for (let i = items.length - 1; i >= 0; i--) {
             const item = items[i];
@@ -1560,6 +1567,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

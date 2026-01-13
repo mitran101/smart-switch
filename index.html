@@ -1144,7 +1144,7 @@ const player = {
         player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
         
 if (logoLoaded) {
-    const w = player.size * 1.5;
+    const w = player.size * 1.8;
     const h = player.size;
     ctx.drawImage(logoImg, player.x - w/2, player.y - h/2, w, h);
 }
@@ -1569,6 +1569,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

@@ -1085,7 +1085,7 @@ const player = {
         const rect = gameCanvas.getBoundingClientRect();
         const touch = e.touches[0];
         mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
-        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 100;
     });
     
     gameCanvas.addEventListener('touchmove', (e) => {
@@ -1093,7 +1093,7 @@ const player = {
         const rect = gameCanvas.getBoundingClientRect();
         const touch = e.touches[0];
         mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
-        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60;
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 100;
     });
     
     gameCanvas.addEventListener('touchend', (e) => {
@@ -1567,6 +1567,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

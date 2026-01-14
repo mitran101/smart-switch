@@ -143,7 +143,7 @@ def send_welcome_email(to_email):
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We're building a <strong>free auto-switching service</strong> that puts you on the best deal possible based on your preferences (and consent, of course!). But more than that, we're building a <strong>community that educates and empowers consumers</strong>.
+            We're building a <strong>free auto-switching service</strong> that puts you on the best deal possible based on your preferences (and consent, of course!). But more than that, we're building a <strong>movement that educates and empowers consumers</strong>.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
@@ -205,10 +205,10 @@ def send_welcome_email(to_email):
           
           <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #6366f1; margin: 25px 0;">
             <p style="color: #1a1a2e; line-height: 1.6; margin: 0 0 0.5rem 0; font-weight: 600;">
-              What Frustrates YOU About Energy Bills?
+              Got Questions or Feedback?
             </p>
             <p style="color: #4a5568; line-height: 1.6; margin: 0;">
-              <a href="https://switch-pilot.com/community.html" style="color: #6366f1; text-decoration: none; font-weight: 600;">Join our Community Forum</a> to discuss what frustrates you, learn from other energy switchers, share your experiences, and help us shape what we build — or simply reply to this email. We read everything.
+              Just reply to this email. We read everything and love hearing what frustrates you about energy bills.
             </p>
           </div>
           

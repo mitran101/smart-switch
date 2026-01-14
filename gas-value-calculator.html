@@ -528,7 +528,7 @@
         <p>This tool helps you understand exactly what different amounts of gas money can power in your household. Whether you're budgeting, comparing tariffs, or just curious about where your money goes, seeing these breakdowns in real terms makes gas consumption much clearer.</p>
 
         <div class="highlight-box">
-            <p><strong>Current gas prices (January 2025):</strong> Most households pay around 6.24p for each unit (kWh) of gas under the Ofgem price cap. You can adjust this in the calculator if you're on a different tariff.</p>
+            <p><strong>Current gas prices (January 2026):</strong> Most households pay around 5.93p for each unit (kWh) of gas under the Ofgem price cap (Jan-Mar 2026). You can adjust this in the calculator if you're on a different tariff.</p>
         </div>
 
         <h2>Calculate Your Gas Value</h2>
@@ -543,8 +543,8 @@
 
             <div class="input-group">
                 <label for="unitRate">Your gas price (pence per kWh)</label>
-                <input type="number" id="unitRate" value="6.24" min="1" max="15" step="0.01">
-                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Average price cap rate: 6.24p/kWh</small>
+                <input type="number" id="unitRate" value="5.93" min="1" max="15" step="0.01">
+                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Average price cap rate: 5.93p/kWh (Jan-Mar 2026)</small>
             </div>
 
             <div class="input-group">
@@ -575,7 +575,7 @@
         </div>
 
         <h2>What £10 of Gas Gets You</h2>
-        <p>Here's what £10 can power across different household activities, based on current gas prices:</p>
+        <p>Here's what £10 can power across different household activities, based on the current price cap rate of 5.93p/kWh (Jan-Mar 2026):</p>
         
         <div class="comparison-grid" id="comparisonGrid">
             <!-- Will be populated by JavaScript -->
@@ -640,7 +640,7 @@
             <li><strong>Gas Tumble Dryer:</strong> One complete drying cycle (about 2 hours)</li>
         </ul>
 
-        <p>We use the January 2025 Ofgem price cap rate of 6.24p per unit as the default price. Your actual costs may vary based on your specific tariff, your boiler's efficiency, and how you use your appliances.</p>
+        <p>We use the January 2026 Ofgem price cap rate of 5.93p per unit as the default price. Your actual costs may vary based on your specific tariff, your boiler's efficiency, and how you use your appliances.</p>
 
     </article>
 
@@ -654,7 +654,7 @@
     </section>
 
     <footer class="article-footer">
-        <p class="footer-note">All calculations based on Ofgem price cap rates (January 2025) and typical appliance usage. Your actual consumption will vary based on your appliances, how you use them, and your household circumstances. This tool is for educational purposes only.</p>
+        <p class="footer-note">All calculations based on Ofgem price cap rates (January 2026: 5.93p/kWh) and typical appliance usage. Your actual consumption will vary based on your appliances, how you use them, and your household circumstances. This tool is for educational purposes only.</p>
     </footer>
 
     <footer class="site-footer">
@@ -833,7 +833,7 @@
         }
 
         function populateComparisons() {
-            const unitRate = 6.24;
+            const unitRate = 5.93;
             const gasAmount = 10;
             const totalKWh = (gasAmount / unitRate) * 100;
             

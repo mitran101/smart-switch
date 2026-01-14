@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recreate Your Energy Bill | SwitchPilot</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,66 +29,147 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f7;
-            color: #1d1d1f;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
             line-height: 1.6;
-            padding: 20px;
+            padding: 0;
             min-height: 100vh;
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation matching TNUoS style */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+
+        .top-logo span:first-child {
+            font-size: 1.6rem;
+        }
+
+        .top-logo span:last-child {
+            font-size: 1.35rem;
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         header {
-            text-align: center;
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
             margin-bottom: 40px;
-            padding: 30px 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: white;
         }
 
         .subtitle {
-            font-size: 1.1em;
-            color: #6e6e73;
+            font-size: 1.15rem;
+            color: #94A3B8;
             margin-bottom: 10px;
         }
 
         .intro {
-            background: #f0e7ff;
-            border-left: 4px solid #a855f7;
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 30px;
         }
 
         .fuel-section {
-            background: white;
+            background: var(--sp-card);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .fuel-sections-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1000px) {
+            .fuel-sections-wrapper {
+                grid-template-columns: 1fr;
+            }
         }
 
         .fuel-section h2 {
-            color: #a855f7;
+            color: var(--sp-slate);
             margin-bottom: 20px;
             font-size: 1.8em;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 700;
         }
 
         .fuel-icon {
@@ -207,42 +305,43 @@
         }
 
         .summary {
-            background: linear-gradient(135deg, #f0e7ff 0%, #fce7f3 100%);
+            background: var(--sp-card);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
-            border: 2px solid #e9d5ff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .summary h2 {
-            color: #a855f7;
+            color: var(--sp-slate);
             margin-bottom: 20px;
             font-size: 1.8em;
+            font-weight: 700;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
             padding: 15px 0;
-            border-bottom: 1px solid #e9d5ff;
+            border-bottom: 1px solid #E2E8F0;
         }
 
         .summary-row:last-child {
             border-bottom: none;
             padding-top: 20px;
             margin-top: 10px;
-            border-top: 2px solid #c084fc;
+            border-top: 2px solid var(--sp-green);
         }
 
         .summary-label {
             font-size: 1.1em;
-            color: #1d1d1f;
+            color: var(--sp-slate);
         }
 
         .summary-value {
             font-size: 1.2em;
             font-weight: 600;
-            color: #ec4899;
+            color: var(--sp-green);
         }
 
         .total-row .summary-label,
@@ -252,7 +351,7 @@
         }
 
         .total-row .summary-value {
-            color: #a855f7;
+            color: var(--sp-green-dark);
         }
 
         .period-selector {
@@ -265,22 +364,23 @@
         .period-btn {
             padding: 10px 20px;
             background: white;
-            border: 1px solid #d2d2d7;
+            border: 1px solid #E2E8F0;
             border-radius: 8px;
-            color: #1d1d1f;
+            color: var(--sp-slate);
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 1em;
+            font-weight: 600;
         }
 
         .period-btn:hover {
-            background: #f9f9fb;
-            border-color: #a855f7;
+            background: var(--sp-green-light);
+            border-color: var(--sp-green);
         }
 
         .period-btn.active {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-            border-color: transparent;
+            background: var(--sp-green);
+            border-color: var(--sp-green);
             color: white;
         }
 
@@ -310,11 +410,24 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>⚡ Recreate Your Energy Bill</h1>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <span>⚡</span>
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>Recreate Your Energy Bill</h1>
             <p class="subtitle">See exactly how your daily usage adds up to your monthly bill</p>
-        </header>
+        </div>
+    </header>
+
+    <div class="container">
 
         <div class="intro">
             <p><strong>Ever wondered where your energy bill actually comes from?</strong> This tool lets you recreate your typical energy usage with both gas and electricity. Adjust the sliders to match your daily routine and watch your bill build up in real-time.</p>
@@ -327,8 +440,8 @@
         </div>
 
         <div style="text-align: center; margin-bottom: 20px;">
-            <button class="period-btn" id="funToggle" onclick="toggleFunAppliances()" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%); color: white; border: none;">
-                🎉 Show Fun Additions
+            <button class="period-btn" id="funToggle" onclick="toggleFunAppliances()" style="background: var(--sp-green); color: white; border: none;">
+                🎉 Show Essential Additions
             </button>
         </div>
 
@@ -357,44 +470,53 @@
             </div>
         </div>
 
-        <!-- ELECTRICITY SECTION -->
-        <div class="fuel-section">
-            <h2><span class="fuel-icon">⚡</span> Electricity Usage</h2>
-            
-            <div class="rate-inputs">
-                <div class="input-group">
-                    <label for="elecRate">Electricity Unit Rate (p/kWh)</label>
-                    <input type="number" id="elecRate" value="24.50" step="0.01" min="0" oninput="calculateAll()">
-                </div>
-                <div class="input-group">
-                    <label for="elecStanding">Electricity Standing Charge (p/day)</label>
-                    <input type="number" id="elecStanding" value="60.99" step="0.01" min="0" oninput="calculateAll()">
-                </div>
-            </div>
-
-            <div id="elecAppliances"></div>
-
-            <div id="funNote" style="display: none; background: linear-gradient(135deg, #fef3f2 0%, #f0e7ff 100%); border-left: 4px solid #ec4899; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                <strong>🎉 Fun Additions:</strong> These are quirky, unusual, or high-consumption appliances you might have. From crypto mining rigs to hot tubs, see how they impact your bill!
-            </div>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="tariff-tracker.html" style="display: inline-block; padding: 12px 24px; background: var(--sp-green); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#059669'" onmouseout="this.style.transform='translateY(0)'; this.style.background='#10B981'">
+                📊 View Current Tariff Rates
+            </a>
         </div>
 
-        <!-- GAS SECTION -->
-        <div class="fuel-section">
-            <h2><span class="fuel-icon">🔥</span> Gas Usage</h2>
-            
-            <div class="rate-inputs">
-                <div class="input-group">
-                    <label for="gasRate">Gas Unit Rate (p/kWh)</label>
-                    <input type="number" id="gasRate" value="6.24" step="0.01" min="0" oninput="calculateAll()">
+        <!-- FUEL SECTIONS SIDE BY SIDE -->
+        <div class="fuel-sections-wrapper">
+            <!-- ELECTRICITY SECTION -->
+            <div class="fuel-section">
+                <h2><span class="fuel-icon">⚡</span> Electricity Usage</h2>
+                
+                <div class="rate-inputs">
+                    <div class="input-group">
+                        <label for="elecRate">Electricity Unit Rate (p/kWh)</label>
+                        <input type="number" id="elecRate" value="24.50" step="0.01" min="0" oninput="calculateAll()">
+                    </div>
+                    <div class="input-group">
+                        <label for="elecStanding">Electricity Standing Charge (p/day)</label>
+                        <input type="number" id="elecStanding" value="60.99" step="0.01" min="0" oninput="calculateAll()">
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="gasStanding">Gas Standing Charge (p/day)</label>
-                    <input type="number" id="gasStanding" value="31.48" step="0.01" min="0" oninput="calculateAll()">
+
+                <div id="elecAppliances"></div>
+
+                <div id="funNote" style="display: none; background: linear-gradient(135deg, #fef3f2 0%, #f0e7ff 100%); border-left: 4px solid #ec4899; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>🎉 Essential Additions:</strong> These are additional appliances you might have in your home. From crypto mining rigs to hot tubs, see how they impact your bill!
                 </div>
             </div>
 
-            <div id="gasAppliances"></div>
+            <!-- GAS SECTION -->
+            <div class="fuel-section">
+                <h2><span class="fuel-icon">🔥</span> Gas Usage</h2>
+                
+                <div class="rate-inputs">
+                    <div class="input-group">
+                        <label for="gasRate">Gas Unit Rate (p/kWh)</label>
+                        <input type="number" id="gasRate" value="6.24" step="0.01" min="0" oninput="calculateAll()">
+                    </div>
+                    <div class="input-group">
+                        <label for="gasStanding">Gas Standing Charge (p/day)</label>
+                        <input type="number" id="gasStanding" value="31.48" step="0.01" min="0" oninput="calculateAll()">
+                    </div>
+                </div>
+
+                <div id="gasAppliances"></div>
+            </div>
         </div>
 
         <div class="note">
@@ -412,6 +534,15 @@
             </ul>
             Power ratings represent typical UK household appliances as of January 2025. Individual appliance specifications may vary by model, age, and efficiency rating.
         </div>
+
+        <footer style="text-align: center; margin-top: 50px; padding: 30px 20px; background: var(--sp-slate); color: white; border-radius: 0;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                <span style="font-size: 1.6rem;">⚡</span>
+                <span style="font-size: 1.35rem; font-weight: 700;">SwitchPilot</span>
+            </div>
+            <p style="color: #94A3B8; margin-bottom: 5px; font-weight: 500;">Putting the power back in your hands</p>
+            <p style="color: #64748B; font-size: 0.9em;">Transparent energy education for UK households</p>
+        </footer>
     </div>
 
     <script>
@@ -445,7 +576,7 @@
             { name: 'Electric Blanket', power: 0.1, unit: 'hours/day', max: 12, default: 0, id: 'blanket', note: '', isFun: true },
             { name: 'Arcade Machine', power: 0.3, unit: 'hours/day', max: 24, default: 0, id: 'arcade', note: '', isFun: true },
             { name: 'Christmas Lights', power: 0.025, unit: 'hours/day', max: 24, default: 0, id: 'xmaslights', note: '', isFun: true },
-            { name: 'Beer Fridge', power: 0.1, unit: 'hours/day', max: 24, default: 0, id: 'beerfridge', note: '', isFun: true },
+            { name: 'Beer/Wine Fridge', power: 0.1, unit: 'hours/day', max: 24, default: 0, id: 'beerfridge', note: '', isFun: true },
             { name: 'Electric Dehumidifier', power: 0.5, unit: 'hours/day', max: 24, default: 0, id: 'dehumidifier', isFun: true }
         ];
 
@@ -520,10 +651,10 @@
 
             if (showFunAppliances) {
                 toggleBtn.textContent = '😎 Hide Essential Additions';
-                toggleBtn.style.background = 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)';
+                toggleBtn.style.background = '#059669';
             } else {
                 toggleBtn.textContent = '🎉 Show Essential Additions';
-                toggleBtn.style.background = 'linear-gradient(135deg, #ec4899 0%, #a855f7 100%)';
+                toggleBtn.style.background = '#10B981';
             }
         }
 

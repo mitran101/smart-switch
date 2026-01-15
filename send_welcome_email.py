@@ -100,7 +100,7 @@ def send_welcome_email(to_email):
         """
     
     msg = MIMEMultipart('alternative')
-    msg['From'] = f"SwitchPilot Flight Crew <flightcrew@switch-pilot.com>"
+    msg['From'] = f"SwitchPilot Crew <crew@switch-pilot.com>"
     msg['To'] = to_email
     msg['Subject'] = "You're in — here's how UK energy really works"
     
@@ -108,7 +108,7 @@ def send_welcome_email(to_email):
     <html>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
         <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 35px 20px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; font-size: 1.8rem; margin: 0;">✈️⚡ Welcome to SwitchPilot</h1>
+          <h1 style="color: white; font-size: 1.8rem; margin: 0;">🚀⚡ Welcome to SwitchPilot</h1>
         </div>
         
         <div style="padding: 35px 25px; background: #ffffff; border-radius: 0 0 10px 10px;">
@@ -147,7 +147,7 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            You're part of <strong>5,000 early access pilots</strong> who will help us shape SwitchPilot and fly us to our destination: smarter switching for everyone.
+            You're part of <strong>5,000 early access pilots</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
@@ -213,7 +213,7 @@ def send_welcome_email(to_email):
           </div>
           
           <p style="color: #6366f1; font-size: 1.1rem; margin-top: 30px; font-weight: 600;">
-            The SwitchPilot Team ✈️⚡
+            The SwitchPilot Team 🚀⚡
           </p>
           
           <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 20px; font-style: italic;">

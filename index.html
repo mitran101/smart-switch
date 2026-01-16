@@ -405,7 +405,6 @@ section[style*="max-width:900px"] > div {
     padding: 1.5rem 1rem !important;
     margin: 1.5rem 1rem !important;
 }
-}
 
 /* Price cap section on small phones */
 section[style*="max-width:1400px"] {
@@ -440,16 +439,13 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 }
 
 .final-cta { padding: 3rem 1rem !important; }
-}
 .topic p { font-size:1rem !important; line-height:1.45 !important; }
 .price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
 .footer { padding:2.5rem 1rem !important; }
-body { font-size:15px !important; }
 .hero-text h1 {font-size:2rem;}
 .pilot-character {width:260px;}
 .waitlist-form h3 {font-size:1.4rem;}
 .insights, .final-cta {padding:3rem 1rem;}
-
 }
 
 /* Price Cap Tool Styles */
@@ -1292,7 +1288,9 @@ function renderPriceCapChart() {
         data: [data.period1[comp], data.period2[comp]],
         backgroundColor: priceCapColors[comp],
         borderColor: priceCapColors[comp],
-        borderWidth: 1
+        borderWidth: 1,
+        barPercentage: 0.9,
+        categoryPercentage: 0.5
       }))
     },
     plugins: [ChartDataLabels],
@@ -1306,7 +1304,6 @@ function renderPriceCapChart() {
       plugins: {
         datalabels: {
           display: function(context) {
-            // Only show label if value is significant enough (> £50)
             return context.dataset.data[context.dataIndex] > 50;
           },
           color: '#fff',
@@ -1321,15 +1318,15 @@ function renderPriceCapChart() {
           }
         },
         legend: { 
-  position: 'top',
-  labels: { 
-    color: '#ecf0f1', 
-    padding: 8, 
-    font: { size: 11 }, 
-    boxWidth: 12,
-    usePointStyle: true
-  }
-},
+          position: 'top',
+          labels: { 
+            color: '#ecf0f1', 
+            padding: 8, 
+            font: { size: 11 }, 
+            boxWidth: 12,
+            usePointStyle: true
+          }
+        },
         tooltip: {
           enabled: true,
           mode: 'nearest',
@@ -1356,7 +1353,6 @@ function renderPriceCapChart() {
             afterLabel: function(context) {
               const componentKey = components[context.datasetIndex];
               const description = priceCapDescriptions[componentKey];
-              // Wrap text for mobile readability
               const maxLength = window.innerWidth < 480 ? 50 : 80;
               if (description.length > maxLength) {
                 const words = description.split(' ');
@@ -1579,12 +1575,3 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-

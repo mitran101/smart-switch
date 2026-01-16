@@ -615,8 +615,8 @@
 
             <div class="input-group">
                 <label for="unitRate">Your gas price (pence per kWh)</label>
-                <input type="number" id="unitRate" value="6.03" min="1" max="15" step="0.01">
-                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Default: Price cap rate (6.03p/kWh, Jan-Mar 2026)</small>
+                <input type="number" id="unitRate" value="5.93" min="1" max="15" step="0.01">
+                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Default: Price Cap Rate, UK average (5.93p/kWh, Jan-Mar 2026)</small>
                 
                 <!-- Tariff Helper -->
                 <div class="tariff-helper">
@@ -628,7 +628,7 @@
                     <div id="tariffHelperContent" class="tariff-helper-content">
                         <div class="input-group" style="margin-bottom: 0.75rem;">
                             <select id="helperSupplier" onchange="onSupplierChange()">
-                                <option value="price_cap">Price Cap (UK Average)</option>
+                                <option value="price_cap">Price Cap</option>
                                 <option value="fuse_energy">Fuse Energy - Fixed 13m</option>
                                 <option value="eon_next">E.ON Next - Fixed 18m</option>
                                 <option value="octopus">Octopus - 12M Fixed</option>

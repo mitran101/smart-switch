@@ -163,32 +163,101 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 .hero {position:relative;padding:7rem 2rem 4rem;overflow:hidden;background:#0c0e1f;}
 .energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
 @keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
-.floating-symbols {position:absolute;inset:0;pointer-events:none;}
-.symbol {position:absolute;font-size:3rem;opacity:.85;animation:drift 10s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 0 20px rgba(99,102,241,0.6));}
-@keyframes drift {0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(10px,-15px) rotate(5deg)}}
 
-/* Glowing pulse animation for energy symbols */
-.symbol:nth-child(1), .symbol:nth-child(4) {
-animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
-}
-@keyframes energyGlow {
-0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
-50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
-}
-
-.symbol:nth-child(1){left:55%;top:14%}
-.symbol:nth-child(2){left:70%;top:10%}
-.symbol:nth-child(3){left:85%;top:28%}
-.symbol:nth-child(4){left:52%;top:32%}
+/* Floating symbols - hidden on mobile, shown on desktop */
+.floating-symbols {display:none;}
 
 .hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;}
 .badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);}
 .hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
 .hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
-.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;}
-.pilot-character {width:500px;height:auto;animation:pilotFloat 10s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));}
+
+/* PILOT CONTAINER */
+.pilot-container {
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:450px;
+}
+
+/* Floating icons around pilot - positioned at corners */
+.pilot-icons {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.pilot-icon {
+  position:absolute;
+  font-size:2.2rem;
+  filter:drop-shadow(0 0 15px rgba(99,102,241,0.5));
+  animation: iconFloat 5s ease-in-out infinite, iconGlow 3s ease-in-out infinite;
+}
+
+/* Position each icon at a corner - avoiding bottom-right where destination tag is */
+.pilot-icon:nth-child(1) { 
+  top: 5%; 
+  left: 5%; 
+  animation-delay: 0s;
+}
+.pilot-icon:nth-child(2) { 
+  top: 0%; 
+  right: 15%; 
+  animation-delay: 0.8s;
+}
+.pilot-icon:nth-child(3) { 
+  bottom: 25%; 
+  left: 0%; 
+  animation-delay: 1.6s;
+}
+.pilot-icon:nth-child(4) { 
+  top: 50%; 
+  right: 0%; 
+  animation-delay: 2.4s;
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.08); }
+}
+
+@keyframes iconGlow {
+  0%, 100% { 
+    opacity: 0.75; 
+    filter: drop-shadow(0 0 12px rgba(99,102,241,0.5)); 
+  }
+  50% { 
+    opacity: 1; 
+    filter: drop-shadow(0 0 25px rgba(236,72,153,0.7)); 
+  }
+}
+
+.pilot-character {
+  position:relative;
+  z-index:2;
+  width:380px;
+  height:auto;
+  animation:pilotFloat 10s infinite ease-in-out;
+  filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));
+}
+
 @keyframes pilotFloat {0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-35px) rotate(6deg)}}
-.destination-tag {position:absolute;bottom:-20px;right:0;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:0.8rem 1.2rem;border-radius:15px;font-weight:700;font-size:0.85rem;box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+
+.destination-tag {
+  position:absolute;
+  bottom: -10px;
+  right: -30px;
+  z-index:3;
+  background:rgba(255,255,255,0.95);
+  color:#1a1a2e;
+  padding:0.8rem 1.2rem;
+  border-radius:15px;
+  font-weight:700;
+  font-size:0.85rem;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
 .destination-tag strong {font-size:1.2rem;color:#6366f1;display:block;margin-top:.2rem;}
 
 /* WAITLIST */
@@ -320,10 +389,18 @@ animation: gridSlide 15s linear infinite;
 .hero-content {grid-template-columns:1fr;gap:2rem;}
 .hero-text h1 {font-size:2.5rem;}
 .hero-text p {font-size:1.1rem;max-width:100%;}
-.pilot-character {width:380px;}
-.destination-tag {position:static;margin:2rem auto 0;max-width:280px;text-align:center;}
 
-.floating-symbols {display:none;}
+/* Adjust icons for tablet */
+.pilot-container {min-height:380px;}
+.pilot-character {width:300px;}
+.pilot-icons {display:block;}
+.pilot-icon {font-size:1.8rem;}
+.pilot-icon:nth-child(1) { top: 10%; left: 10%; }
+.pilot-icon:nth-child(2) { top: 5%; right: 20%; }
+.pilot-icon:nth-child(3) { bottom: 30%; left: 5%; }
+.pilot-icon:nth-child(4) { top: 55%; right: 5%; }
+
+.destination-tag {position:static;margin:1.5rem auto 0;max-width:280px;text-align:center;}
 
 .vision-mission-grid {
     grid-template-columns: 1fr !important;
@@ -380,10 +457,14 @@ section[style*="max-width:1400px"] div[style*="gap:40px"] {
 
 @media (max-width: 480px) {
 .hero { padding:5.5rem 1rem 3rem !important; }
-.pilot-container { flex-direction:column !important; align-items:center !important; }
+
+/* Hide icons on mobile - too cluttered */
+.pilot-container { min-height:280px; flex-direction:column !important; align-items:center !important; }
+.pilot-character { width:220px !important; }
+.pilot-icons { display:none; }
+
 .destination-tag { position:static !important; margin:1rem auto 0 !important; right:auto !important; }
 .hero-text h1 { font-size:2rem !important; }
-.pilot-character { width:280px !important; }
 .sticky-nav { justify-content: flex-start !important; padding-left: 0.5rem !important; }
 .nav-toggle { margin-left: auto !important; }
   
@@ -443,7 +524,6 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 .price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
 .footer { padding:2.5rem 1rem !important; }
 .hero-text h1 {font-size:2rem;}
-.pilot-character {width:260px;}
 .waitlist-form h3 {font-size:1.4rem;}
 .insights, .final-cta {padding:3rem 1rem;}
 }
@@ -495,9 +575,6 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 
 <section class="hero" id="hero">
 <div class="energy-grid"></div>
-<div class="floating-symbols">
-<div class="symbol">⚡</div><div class="symbol">💷</div><div class="symbol">💡</div><div class="symbol">📈</div>
-</div>
 <div class="hero-content">
 <div class="hero-text">
 <div class="badge">🚀 Building Together</div>
@@ -505,8 +582,15 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 <p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal — for free. Plus weekly insider insights that show you where your money actually goes, the hidden costs no one explains, and what's really happening in the energy market.</p>
 </div>
 <div class="pilot-container">
-<img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
-<div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
+  <!-- Floating icons around pilot -->
+  <div class="pilot-icons">
+    <div class="pilot-icon">⚡</div>
+    <div class="pilot-icon">💷</div>
+    <div class="pilot-icon">📈</div>
+    <div class="pilot-icon">💡</div>
+  </div>
+  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
+  <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
 </div>
 </div>
 
@@ -1575,8 +1659,3 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
-
-
-
-
-

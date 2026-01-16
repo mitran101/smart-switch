@@ -916,20 +916,31 @@
             
             try {
                 const response = await fetch('./all_tariffs.json');
+                console.log('Fetch response:', response.status, response.ok);
                 
                 if (!response.ok) {
                     if (supplier !== 'price_cap') {
-                        note.textContent = 'Using default rates (tracker unavailable)';
+                        note.textContent = 'Could not load rates - check all_tariffs.json exists';
                     }
                     return;
                 }
                 
                 const data = await response.json();
+                console.log('JSON data:', data);
+                
+                // Handle different JSON structures
+                let tariffs = data.tariffs || data;
+                if (!Array.isArray(tariffs)) {
+                    console.error('Expected tariffs array, got:', typeof tariffs);
+                    note.textContent = 'Error: Invalid JSON structure';
+                    return;
+                }
+                
                 const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
                 
                 // Populate rates for all regions/suppliers
                 let found = 0;
-                data.tariffs.forEach(t => {
+                tariffs.forEach(t => {
                     if (suppliers.includes(t.supplier) && !t.error && t.gas_unit_rate_p) {
                         if (!gasRates[t.supplier][t.region]) {
                             gasRates[t.supplier][t.region] = t.gas_unit_rate_p;
@@ -939,17 +950,21 @@
                 });
                 
                 console.log(`Loaded ${found} gas rates from tracker`);
+                console.log('gasRates:', gasRates);
                 
                 if (supplier === 'price_cap') {
                     note.textContent = 'Price Cap average: ~6.03p/kWh';
+                } else if (found > 0) {
+                    const updated = data.updated ? new Date(data.updated).toLocaleDateString() : 'recently';
+                    note.textContent = `Rates updated ${updated}`;
                 } else {
-                    note.textContent = `Rates updated ${new Date(data.updated).toLocaleDateString()}`;
+                    note.textContent = 'No gas rates found in tracker';
                 }
                 
             } catch (e) {
                 console.error('Could not load tariff data:', e);
                 if (supplier !== 'price_cap') {
-                    note.textContent = 'Using default rates';
+                    note.textContent = 'Error loading rates: ' + e.message;
                 }
             }
         }
@@ -960,19 +975,25 @@
             const unitRateInput = document.getElementById('unitRate');
             let rate;
             
+            console.log('Applying rate for supplier:', supplier);
+            console.log('Current gasRates:', gasRates);
+            
             if (supplier === 'price_cap') {
                 // Use average price cap rate
                 rate = 6.03;
             } else {
                 const region = document.getElementById('helperRegion').value;
+                console.log('Looking for region:', region);
+                console.log('Rates for supplier:', gasRates[supplier]);
                 rate = gasRates[supplier]?.[region];
                 
                 if (!rate) {
-                    document.getElementById('tariffHelperNote').textContent = `No gas rate available for ${supplierNames[supplier]} in ${region}`;
+                    document.getElementById('tariffHelperNote').textContent = `No gas rate for ${supplierNames[supplier]} in ${region} - check console`;
                     return;
                 }
             }
             
+            console.log('Applying rate:', rate);
             unitRateInput.value = rate.toFixed(2);
             
             // Close the helper

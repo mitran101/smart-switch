@@ -891,15 +891,17 @@
         // Show/hide region based on supplier selection
         function onSupplierChange() {
             const supplier = document.getElementById('helperSupplier').value;
-            const regionContainer = document.getElementById('regionContainer');
+            const regionWrapper = document.getElementById('regionWrapper');
             const note = document.getElementById('tariffHelperNote');
             
             if (supplier === 'price_cap') {
-                regionContainer.style.display = 'none';
+                regionWrapper.style.display = 'none';
                 note.textContent = 'Price Cap average: ~6.03p/kWh';
             } else {
-                regionContainer.style.display = 'block';
+                regionWrapper.style.display = 'block';
                 note.textContent = 'Select your region for accurate rates';
+                // Load rates when a fixed tariff is selected
+                loadTariffRates();
             }
         }
 

@@ -628,7 +628,7 @@
                     <div id="tariffHelperContent" class="tariff-helper-content">
                         <div class="input-group" style="margin-bottom: 0.75rem;">
                             <select id="helperSupplier" onchange="onSupplierChange()">
-                                <option value="price_cap">Price Cap (SVT) ~6p/kWh</option>
+                                <option value="price_cap">Price Cap (UK Average)</option>
                                 <option value="fuse_energy">Fuse Energy - Fixed 13m</option>
                                 <option value="eon_next">E.ON Next - Fixed 18m</option>
                                 <option value="octopus">Octopus - 12M Fixed</option>
@@ -638,7 +638,7 @@
                                 <option value="ovo">OVO - 1 Year Fixed</option>
                             </select>
                         </div>
-                        <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem; display: none;">
+                        <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem;">
                             <select id="helperRegion">
                                 <option value="London">London</option>
                                 <option value="South East">South East</option>
@@ -657,7 +657,7 @@
                             </select>
                         </div>
                         <button class="tariff-helper-btn" onclick="applyTariffRate()">Use this rate</button>
-                        <p class="tariff-helper-note" id="tariffHelperNote">Select a tariff above</p>
+                        <p class="tariff-helper-note" id="tariffHelperNote">Select your region above</p>
                     </div>
                 </div>
             </div>
@@ -862,7 +862,7 @@
         };
 
         const supplierNames = {
-            price_cap: "Price Cap (SVT)",
+            price_cap: "Price Cap",
             fuse_energy: "Fuse Energy",
             eon_next: "E.ON Next",
             octopus: "Octopus 12M Fixed",
@@ -883,26 +883,15 @@
             } else {
                 content.classList.add('active');
                 arrow.textContent = '▲';
-                // Load rates when opened
+                // Show region and load rates when opened
+                document.getElementById('regionWrapper').style.display = 'block';
                 loadTariffRates();
             }
         }
 
-        // Show/hide region based on supplier selection
+        // Handle supplier change
         function onSupplierChange() {
-            const supplier = document.getElementById('helperSupplier').value;
-            const regionWrapper = document.getElementById('regionWrapper');
-            const note = document.getElementById('tariffHelperNote');
-            
-            if (supplier === 'price_cap') {
-                regionWrapper.style.display = 'none';
-                note.textContent = 'Price Cap average: ~6.03p/kWh';
-            } else {
-                regionWrapper.style.display = 'block';
-                note.textContent = 'Select your region for accurate rates';
-                // Load rates when a fixed tariff is selected
-                loadTariffRates();
-            }
+            document.getElementById('tariffHelperNote').textContent = 'Select your region above';
         }
 
         // Load tariff rates from JSON
@@ -910,13 +899,8 @@
             const note = document.getElementById('tariffHelperNote');
             const supplier = document.getElementById('helperSupplier').value;
             
-            if (supplier === 'price_cap') {
-                note.textContent = 'Price Cap average: ~6.03p/kWh';
-                return;
-            }
-            
-            // If we already have rates for this supplier, don't reload
-            if (Object.keys(gasRates[supplier] || {}).length > 0) {
+            // If we already have rates loaded, don't reload
+            if (Object.keys(gasRates.fuse_energy || {}).length > 0) {
                 note.textContent = 'Select your region above';
                 return;
             }
@@ -952,8 +936,7 @@
                     }
                 });
                 
-                const updated = data.updated ? new Date(data.updated).toLocaleDateString() : 'recently';
-                note.textContent = `Select your region above`;
+                note.textContent = 'Select your region above';
                 
             } catch (e) {
                 console.error('Could not load tariff data:', e);
@@ -964,19 +947,14 @@
         // Apply selected tariff rate to the main input
         function applyTariffRate() {
             const supplier = document.getElementById('helperSupplier').value;
+            const region = document.getElementById('helperRegion').value;
             const unitRateInput = document.getElementById('unitRate');
-            let rate;
             
-            if (supplier === 'price_cap') {
-                rate = 6.03;
-            } else {
-                const region = document.getElementById('helperRegion').value;
-                rate = gasRates[supplier]?.[region];
-                
-                if (!rate) {
-                    document.getElementById('tariffHelperNote').textContent = `No gas rate for ${supplierNames[supplier]} in ${region}`;
-                    return;
-                }
+            const rate = gasRates[supplier]?.[region];
+            
+            if (!rate) {
+                document.getElementById('tariffHelperNote').textContent = `No gas rate for ${supplierNames[supplier]} in ${region}`;
+                return;
             }
             
             unitRateInput.value = rate.toFixed(2);

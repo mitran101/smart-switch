@@ -793,7 +793,7 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
     </p>
   </div>
 
-  <div style="margin-bottom:30px;text-align:center;">
+  <div style="margin-bottom:10px;text-align:center;">
     <p style="font-size:14px;color:#bdc3c7;margin-bottom:10px;font-weight:500;">Payment Method:</p>
     <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
     <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
@@ -1381,6 +1381,12 @@ function renderPriceCapChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: {
+        padding: {
+          top: 0,
+          bottom: 0
+        }
+      },
       scales: {
         x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
         y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
@@ -1402,13 +1408,21 @@ function renderPriceCapChart() {
           }
         },
         legend: { 
-          position: 'top',
+          position: 'bottom',
+          align: 'center',
           labels: { 
             color: '#ecf0f1', 
-            padding: 8, 
-            font: { size: 11 }, 
-            boxWidth: 12,
-            usePointStyle: true
+            padding: 12, 
+            font: { size: 10 }, 
+            boxWidth: 10,
+            boxHeight: 10,
+            usePointStyle: true,
+            pointStyle: 'rectRounded'
+          },
+          title: {
+            display: true,
+            padding: 15,
+            text: ''
           }
         },
         tooltip: {

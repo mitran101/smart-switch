@@ -301,6 +301,74 @@
             margin-top: 0.5rem;
         }
 
+        /* Tariff Helper */
+        .tariff-helper {
+            background: #F1F5F9;
+            border: 1px dashed #CBD5E1;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-top: 0.75rem;
+        }
+
+        .tariff-helper-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--sp-slate-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .tariff-helper-toggle:hover {
+            color: var(--sp-green-dark);
+        }
+
+        .tariff-helper-content {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .tariff-helper-content.active {
+            display: block;
+        }
+
+        .tariff-helper-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tariff-helper select {
+            padding: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .tariff-helper-btn {
+            background: var(--sp-green);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tariff-helper-btn:hover {
+            background: var(--sp-green-dark);
+        }
+
+        .tariff-helper-note {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.5rem;
+        }
+
         /* Comparison Grid */
         .comparison-grid {
             display: grid;
@@ -495,6 +563,10 @@
                 padding: 0.9rem 2rem;
                 font-size: 1rem;
             }
+
+            .tariff-helper-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -528,7 +600,7 @@
         <p>This tool helps you understand exactly what different amounts of gas money can power in your household. Whether you're budgeting, comparing tariffs, or just curious about where your money goes, seeing these breakdowns in real terms makes gas consumption much clearer.</p>
 
         <div class="highlight-box">
-            <p><strong>Current gas prices (January 2026):</strong> Most households pay around 5.93p for each unit (kWh) of gas under the Ofgem price cap (Jan-Mar 2026). You can adjust this in the calculator if you're on a different tariff.</p>
+            <p><strong>Current gas prices (January 2026):</strong> Most households pay around 6p for each unit (kWh) of gas under the Ofgem price cap (Jan-Mar 2026). You can adjust this in the calculator if you're on a different tariff.</p>
         </div>
 
         <h2>Calculate Your Gas Value</h2>
@@ -543,8 +615,51 @@
 
             <div class="input-group">
                 <label for="unitRate">Your gas price (pence per kWh)</label>
-                <input type="number" id="unitRate" value="5.93" min="1" max="15" step="0.01">
-                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Average price cap rate: 5.93p/kWh (Jan-Mar 2026)</small>
+                <input type="number" id="unitRate" value="6.03" min="1" max="15" step="0.01">
+                <small style="color: var(--sp-slate-light); display: block; margin-top: 0.5rem;">Default: Price cap rate (6.03p/kWh, Jan-Mar 2026)</small>
+                
+                <!-- Tariff Helper -->
+                <div class="tariff-helper">
+                    <div class="tariff-helper-toggle" onclick="toggleTariffHelper()">
+                        <span>💡</span>
+                        <span>Don't know your rate? Try a fixed tariff from our tracker</span>
+                        <span id="tariffArrow">▼</span>
+                    </div>
+                    <div id="tariffHelperContent" class="tariff-helper-content">
+                        <div class="input-group" style="margin-bottom: 0.75rem;">
+                            <select id="helperSupplier" onchange="onSupplierChange()">
+                                <option value="price_cap">Price Cap (SVT) ~6p/kWh</option>
+                                <option value="fuse_energy">Fuse Energy - Fixed 13m</option>
+                                <option value="eon_next">E.ON Next - Fixed 18m</option>
+                                <option value="octopus">Octopus - 12M Fixed</option>
+                                <option value="edf">EDF - Simply Fixed</option>
+                                <option value="british_gas">British Gas - Fixed Jan27</option>
+                                <option value="scottish_power">Scottish Power - 1 Year Fixed</option>
+                                <option value="ovo">OVO - 1 Year Fixed</option>
+                            </select>
+                        </div>
+                        <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem; display: none;">
+                            <select id="helperRegion">
+                                <option value="London">London</option>
+                                <option value="South East">South East</option>
+                                <option value="Southern">Southern</option>
+                                <option value="South West">South West</option>
+                                <option value="South Wales">South Wales</option>
+                                <option value="Eastern">Eastern</option>
+                                <option value="East Midlands">East Midlands</option>
+                                <option value="West Midlands">West Midlands</option>
+                                <option value="North West">North West</option>
+                                <option value="North East">North East</option>
+                                <option value="Yorkshire">Yorkshire</option>
+                                <option value="North Wales & Merseyside">North Wales & Merseyside</option>
+                                <option value="South Scotland">South Scotland</option>
+                                <option value="North Scotland">North Scotland</option>
+                            </select>
+                        </div>
+                        <button class="tariff-helper-btn" onclick="applyTariffRate()">Use this rate</button>
+                        <p class="tariff-helper-note" id="tariffHelperNote">Select a tariff above</p>
+                    </div>
+                </div>
             </div>
 
             <div class="input-group">
@@ -575,7 +690,7 @@
         </div>
 
         <h2>What £10 of Gas Gets You</h2>
-        <p>Here's what £10 can power across different household activities, based on the current price cap rate of 5.93p/kWh (Jan-Mar 2026):</p>
+        <p>Here's what £10 can power across different household activities, based on the current price cap rate (Jan-Mar 2026):</p>
         
         <div class="comparison-grid" id="comparisonGrid">
             <!-- Will be populated by JavaScript -->
@@ -640,7 +755,7 @@
             <li><strong>Gas Tumble Dryer:</strong> One complete drying cycle (about 2 hours)</li>
         </ul>
 
-        <p>We use the January 2026 Ofgem price cap rate of 5.93p per unit as the default price. Your actual costs may vary based on your specific tariff, your boiler's efficiency, and how you use your appliances.</p>
+        <p>We use the January 2026 Ofgem price cap rate as the default price. Your actual costs may vary based on your specific tariff, your boiler's efficiency, and how you use your appliances.</p>
 
     </article>
 
@@ -654,7 +769,7 @@
     </section>
 
     <footer class="article-footer">
-        <p class="footer-note">All calculations based on Ofgem price cap rates (January 2026: 5.93p/kWh) and typical appliance usage. Your actual consumption will vary based on your appliances, how you use them, and your household circumstances. This tool is for educational purposes only.</p>
+        <p class="footer-note">All calculations based on Ofgem price cap rates (January 2026) and typical appliance usage. Your actual consumption will vary based on your appliances, how you use them, and your household circumstances. This tool is for educational purposes only.</p>
     </footer>
 
     <footer class="site-footer">
@@ -725,6 +840,158 @@
         };
 
         let chart = null;
+
+        // Default Price Cap rates (fallback)
+        const defaultPriceCapRates = {
+            "London": 6.03, "South East": 5.83, "Southern": 6.00, "South West": 6.15,
+            "South Wales": 6.11, "Eastern": 5.87, "East Midlands": 5.79, "West Midlands": 5.85,
+            "North West": 5.89, "North East": 5.93, "Yorkshire": 5.90,
+            "North Wales & Merseyside": 5.94, "South Scotland": 5.89, "North Scotland": 5.89
+        };
+
+        // Gas rates - populated from JSON
+        let gasRates = {
+            price_cap: { ...defaultPriceCapRates },
+            fuse_energy: {},
+            eon_next: {},
+            octopus: {},
+            edf: {},
+            british_gas: {},
+            scottish_power: {},
+            ovo: {}
+        };
+
+        const supplierNames = {
+            price_cap: "Price Cap (SVT)",
+            fuse_energy: "Fuse Energy",
+            eon_next: "E.ON Next",
+            octopus: "Octopus 12M Fixed",
+            edf: "EDF Simply Fixed",
+            british_gas: "British Gas Fixed",
+            scottish_power: "Scottish Power",
+            ovo: "OVO 1 Year Fixed"
+        };
+
+        // Toggle tariff helper visibility
+        function toggleTariffHelper() {
+            const content = document.getElementById('tariffHelperContent');
+            const arrow = document.getElementById('tariffArrow');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                arrow.textContent = '▲';
+                // Load rates when opened
+                loadTariffRates();
+            }
+        }
+
+        // Show/hide region based on supplier selection
+        function onSupplierChange() {
+            const supplier = document.getElementById('helperSupplier').value;
+            const regionContainer = document.getElementById('regionContainer');
+            const note = document.getElementById('tariffHelperNote');
+            
+            if (supplier === 'price_cap') {
+                regionContainer.style.display = 'none';
+                note.textContent = 'Price Cap average: ~6.03p/kWh';
+            } else {
+                regionContainer.style.display = 'block';
+                note.textContent = 'Select your region for accurate rates';
+            }
+        }
+
+        // Load tariff rates from JSON
+        async function loadTariffRates() {
+            const note = document.getElementById('tariffHelperNote');
+            const supplier = document.getElementById('helperSupplier').value;
+            
+            if (supplier === 'price_cap') {
+                note.textContent = 'Price Cap average: ~6.03p/kWh';
+            } else {
+                note.textContent = 'Loading rates...';
+            }
+            
+            try {
+                const response = await fetch('./all_tariffs.json');
+                
+                if (!response.ok) {
+                    if (supplier !== 'price_cap') {
+                        note.textContent = 'Using default rates (tracker unavailable)';
+                    }
+                    return;
+                }
+                
+                const data = await response.json();
+                const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
+                
+                // Populate rates for all regions/suppliers
+                let found = 0;
+                data.tariffs.forEach(t => {
+                    if (suppliers.includes(t.supplier) && !t.error && t.gas_unit_rate_p) {
+                        if (!gasRates[t.supplier][t.region]) {
+                            gasRates[t.supplier][t.region] = t.gas_unit_rate_p;
+                            found++;
+                        }
+                    }
+                });
+                
+                console.log(`Loaded ${found} gas rates from tracker`);
+                
+                if (supplier === 'price_cap') {
+                    note.textContent = 'Price Cap average: ~6.03p/kWh';
+                } else {
+                    note.textContent = `Rates updated ${new Date(data.updated).toLocaleDateString()}`;
+                }
+                
+            } catch (e) {
+                console.error('Could not load tariff data:', e);
+                if (supplier !== 'price_cap') {
+                    note.textContent = 'Using default rates';
+                }
+            }
+        }
+
+        // Apply selected tariff rate to the main input
+        function applyTariffRate() {
+            const supplier = document.getElementById('helperSupplier').value;
+            const unitRateInput = document.getElementById('unitRate');
+            let rate;
+            
+            if (supplier === 'price_cap') {
+                // Use average price cap rate
+                rate = 6.03;
+            } else {
+                const region = document.getElementById('helperRegion').value;
+                rate = gasRates[supplier]?.[region];
+                
+                if (!rate) {
+                    document.getElementById('tariffHelperNote').textContent = `No gas rate available for ${supplierNames[supplier]} in ${region}`;
+                    return;
+                }
+            }
+            
+            unitRateInput.value = rate.toFixed(2);
+            
+            // Close the helper
+            document.getElementById('tariffHelperContent').classList.remove('active');
+            document.getElementById('tariffArrow').textContent = '▼';
+            
+            // Flash the input to show it changed
+            unitRateInput.style.borderColor = 'var(--sp-green)';
+            unitRateInput.style.background = 'var(--sp-green-light)';
+            setTimeout(() => {
+                unitRateInput.style.borderColor = '#E2E8F0';
+                unitRateInput.style.background = 'var(--sp-bg)';
+            }, 1000);
+            
+            // Recalculate if results are showing
+            if (document.getElementById('results').classList.contains('active')) {
+                calculateGasValue();
+            }
+        }
 
         function calculateGasValue() {
             const gasAmount = parseFloat(document.getElementById('gasAmount').value);
@@ -833,11 +1100,12 @@
         }
 
         function populateComparisons() {
-            const unitRate = 5.93;
+            const unitRate = parseFloat(document.getElementById('unitRate').value) || 6.00;
             const gasAmount = 10;
             const totalKWh = (gasAmount / unitRate) * 100;
             
             const grid = document.getElementById('comparisonGrid');
+            grid.innerHTML = '';
             
             Object.entries(applianceData).forEach(([id, data]) => {
                 const numberOfUses = totalKWh / data.kwh;

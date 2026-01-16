@@ -437,6 +437,18 @@
             <button class="period-btn active" onclick="setPeriod('day')">Daily Bill</button>
             <button class="period-btn" onclick="setPeriod('week')">Weekly Bill</button>
             <button class="period-btn" onclick="setPeriod('month')">Monthly Bill</button>
+            <button class="period-btn" onclick="setPeriod('year')">Annual Bill</button>
+        </div>
+
+        <div class="period-selector" id="seasonToggle" style="margin-top: 10px;">
+            <button class="period-btn season-btn active" onclick="setSeason('summer')" id="summerBtn">☀️ Summer Period</button>
+            <button class="period-btn season-btn" onclick="setSeason('winter')" id="winterBtn">❄️ Winter Period</button>
+        </div>
+
+        <div id="seasonNote" style="text-align: center; margin-bottom: 20px; margin-top: 10px;">
+            <p style="font-size: 0.9em; color: var(--sp-slate-light);">
+                Viewing <strong id="seasonLabel">Summer</strong> heating costs | Annual bill combines both seasons
+            </p>
         </div>
 
         <div style="text-align: center; margin-bottom: 20px;">
@@ -470,6 +482,46 @@
             </div>
         </div>
 
+        <!-- ANNUAL BILLING COMPARISON -->
+        <div class="summary" style="margin-top: 30px;">
+            <h2>Annual Direct Debit Comparison</h2>
+            <p style="color: var(--sp-slate-light); margin-bottom: 20px; font-size: 0.95em;">
+                See how your fixed monthly Direct Debit compares to actual seasonal consumption. This shows why you build up credit in summer and use it in winter.
+            </p>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--sp-slate); font-weight: 600;">Set Your Monthly Direct Debit Amount</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span style="font-size: 1.2em; color: var(--sp-slate);">£</span>
+                    <input type="number" id="ddAmount" value="150" step="1" min="0" 
+                           style="width: 120px; padding: 10px; border: 2px solid var(--sp-green); border-radius: 8px; font-size: 1.1em; font-weight: 600;"
+                           oninput="calculateAnnualComparison()">
+                    <span style="color: var(--sp-slate-light);">per month</span>
+                </div>
+            </div>
+
+            <div style="background: var(--sp-bg); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Annual DD Payments</div>
+                        <div style="font-size: 1.5em; font-weight: 700; color: var(--sp-slate);" id="annualDD">£1,800</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Estimated Annual Usage</div>
+                        <div style="font-size: 1.5em; font-weight: 700; color: var(--sp-green);" id="annualUsage">£0</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Year-End Balance</div>
+                        <div style="font-size: 1.5em; font-weight: 700;" id="yearEndBalance">£0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--sp-green-light); border-left: 4px solid var(--sp-green); padding: 15px; border-radius: 8px; font-size: 0.9em;">
+                <strong>💡 Understanding Your Direct Debit:</strong> Energy suppliers set your monthly DD to cover your average annual usage. In summer, when you use less energy, you build up credit. In winter, when heating kicks in, you use that credit. This explains why your DD stays the same but your usage varies dramatically by season.
+            </div>
+        </div>
+
         <div style="text-align: center; margin-bottom: 30px;">
             <a href="tariff-tracker.html" style="display: inline-block; padding: 12px 24px; background: var(--sp-green); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#059669'" onmouseout="this.style.transform='translateY(0)'; this.style.background='#10B981'">
                 📊 View Current Tariff Rates
@@ -485,11 +537,11 @@
                 <div class="rate-inputs">
                     <div class="input-group">
                         <label for="elecRate">Electricity Unit Rate (p/kWh)</label>
-                        <input type="number" id="elecRate" value="24.50" step="0.01" min="0" oninput="calculateAll()">
+                        <input type="number" id="elecRate" value="27.69" step="0.01" min="0" oninput="calculateAll()">
                     </div>
                     <div class="input-group">
                         <label for="elecStanding">Electricity Standing Charge (p/day)</label>
-                        <input type="number" id="elecStanding" value="60.99" step="0.01" min="0" oninput="calculateAll()">
+                        <input type="number" id="elecStanding" value="54.75" step="0.01" min="0" oninput="calculateAll()">
                     </div>
                 </div>
 
@@ -507,11 +559,11 @@
                 <div class="rate-inputs">
                     <div class="input-group">
                         <label for="gasRate">Gas Unit Rate (p/kWh)</label>
-                        <input type="number" id="gasRate" value="6.24" step="0.01" min="0" oninput="calculateAll()">
+                        <input type="number" id="gasRate" value="5.90" step="0.01" min="0" oninput="calculateAll()">
                     </div>
                     <div class="input-group">
                         <label for="gasStanding">Gas Standing Charge (p/day)</label>
-                        <input type="number" id="gasStanding" value="31.48" step="0.01" min="0" oninput="calculateAll()">
+                        <input type="number" id="gasStanding" value="35.10" step="0.01" min="0" oninput="calculateAll()">
                     </div>
                 </div>
 
@@ -520,7 +572,7 @@
         </div>
 
         <div class="note">
-            <strong>Note:</strong> This calculator uses typical appliance power ratings and your estimated usage patterns. Actual costs may vary based on appliance efficiency, usage patterns, and your specific tariff rates. Default rates shown are based on the January 2025 Ofgem price cap.
+            <strong>Note:</strong> This calculator uses typical appliance power ratings and your estimated usage patterns. Actual costs may vary based on appliance efficiency, usage patterns, and your specific tariff rates. Default rates shown are based on the January 2026 Ofgem price cap.
         </div>
 
         <div class="note">
@@ -549,9 +601,9 @@
         const gasAppliances = [
             { name: 'Gas Hob', power: 2.0, unit: 'hours/day', max: 4, default: 0.5, id: 'hob' },
             { name: 'Gas Oven', power: 2.5, unit: 'hours/day', max: 4, default: 0.5, id: 'oven' },
-            { name: 'Kettle (Gas)', power: 2.0, unit: 'boils/day', max: 20, default: 4, id: 'kettle' },
             { name: 'Gas Shower', power: 10.0, unit: 'minutes/day', max: 120, default: 20, id: 'shower' },
-            { name: 'Gas Central Heating', power: 15.0, unit: 'hours/day', max: 24, default: 6, id: 'heating' }
+            { name: 'Gas Central Heating (Winter)', power: 15.0, unit: 'hours/day', max: 24, default: 4, id: 'heatingWinter', seasonal: 'winter', note: '❄️' },
+            { name: 'Gas Central Heating (Summer)', power: 15.0, unit: 'hours/day', max: 24, default: 0.5, id: 'heatingSummer', seasonal: 'summer', note: '☀️' }
         ];
 
         const elecAppliances = [
@@ -562,9 +614,9 @@
             { name: 'Phone Charging', power: 0.012, unit: 'charges/day', max: 10, default: 2, id: 'phone', isFun: false },
             { name: 'Washing Machine', power: 1.5, unit: 'loads/week', max: 14, default: 4, id: 'washing', isFun: false },
             { name: 'Dishwasher', power: 1.2, unit: 'loads/week', max: 14, default: 3, id: 'dishwasher', isFun: false },
-            { name: 'Microwave', power: 0.8, unit: 'uses/day', max: 10, default: 2, id: 'microwave', isFun: false },
+            { name: 'Microwave', power: 0.8, unit: 'uses/day', max: 10, default: 0, id: 'microwave', isFun: false },
             { name: 'Kettle (Electric)', power: 0.15, unit: 'boils/day', max: 20, default: 4, id: 'ekettle', isFun: false },
-            { name: 'Immersion Heater', power: 3.0, unit: 'hours/day', max: 12, default: 2, id: 'immersion', isFun: false },
+            { name: 'Immersion Heater', power: 3.0, unit: 'hours/day', max: 12, default: 0, id: 'immersion', isFun: false },
             { name: 'Electric Heating', power: 2.0, unit: 'hours/day', max: 24, default: 0, id: 'eheating', isFun: false },
             { name: 'Electric Shower', power: 1.5, unit: 'minutes/day', max: 120, default: 0, id: 'eshower', isFun: false },
             { name: 'EV Charger', power: 7.0, unit: 'hours/week', max: 50, default: 0, id: 'evcharger', note: '', isFun: false },
@@ -583,6 +635,33 @@
         let currentPeriod = 'day';
         let periodMultiplier = 1;
         let showFunAppliances = false;
+        let currentSeason = 'summer'; // Which season to display for daily/weekly/monthly
+
+        function formatCurrency(amount) {
+            const formatted = amount.toFixed(2);
+            const parts = formatted.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return `£${parts.join('.')}`;
+        }
+
+        function setSeason(season) {
+            currentSeason = season;
+            
+            // Update button states
+            document.querySelectorAll('.season-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (season === 'summer') {
+                document.getElementById('summerBtn').classList.add('active');
+                document.getElementById('seasonLabel').textContent = 'Summer';
+            } else {
+                document.getElementById('winterBtn').classList.add('active');
+                document.getElementById('seasonLabel').textContent = 'Winter';
+            }
+            
+            calculateAll();
+        }
 
         function createAppliances() {
             const gasContainer = document.getElementById('gasAppliances');
@@ -591,9 +670,10 @@
             gasAppliances.forEach(app => {
                 const div = document.createElement('div');
                 div.className = 'appliance';
+                const noteText = app.note || '';
                 div.innerHTML = `
                     <div class="appliance-header">
-                        <span class="appliance-name">${app.name}</span>
+                        <span class="appliance-name">${app.name} ${noteText}</span>
                         <span class="appliance-power">${app.power} kWh per ${app.unit.split('/')[0]}</span>
                     </div>
                     <div class="slider-container">
@@ -662,7 +742,7 @@
             currentPeriod = period;
             
             // Update button states
-            document.querySelectorAll('.period-btn').forEach(btn => {
+            document.querySelectorAll('.period-btn:not(.season-btn)').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
@@ -671,6 +751,21 @@
             if (period === 'day') periodMultiplier = 1;
             else if (period === 'week') periodMultiplier = 7;
             else if (period === 'month') periodMultiplier = 30;
+            else if (period === 'year') periodMultiplier = 365;
+
+            // Show/hide season toggle
+            const seasonToggle = document.getElementById('seasonToggle');
+            const seasonNote = document.getElementById('seasonNote');
+            
+            if (period === 'year') {
+                // Hide season toggle for annual view
+                seasonToggle.style.display = 'none';
+                seasonNote.style.display = 'none';
+            } else {
+                // Show season toggle for daily/weekly/monthly
+                seasonToggle.style.display = 'flex';
+                seasonNote.style.display = 'block';
+            }
 
             calculateAll();
         }
@@ -697,11 +792,34 @@
                     dailyKwh = value * app.power;
                 }
 
-                const periodKwh = dailyKwh * periodMultiplier;
+                let periodKwh = 0;
+                
+                // Handle seasonal heating
+                if (app.seasonal) {
+                    if (currentPeriod === 'year') {
+                        // Annual: include this season's contribution
+                        if (app.seasonal === 'winter') {
+                            periodKwh = dailyKwh * 120; // 4 months
+                        } else {
+                            periodKwh = dailyKwh * 245; // 8 months
+                        }
+                    } else {
+                        // Daily/Weekly/Monthly: only show if this matches current season
+                        if (app.seasonal === currentSeason) {
+                            periodKwh = dailyKwh * periodMultiplier;
+                        } else {
+                            periodKwh = 0; // Don't count the other season
+                        }
+                    }
+                } else {
+                    // Non-seasonal appliances: always use standard calculation
+                    periodKwh = dailyKwh * periodMultiplier;
+                }
+                
                 const cost = periodKwh * gasRate;
                 totalGasUsage += cost;
 
-                document.getElementById(`${app.id}-cost`).textContent = `£${cost.toFixed(2)}`;
+                document.getElementById(`${app.id}-cost`).textContent = formatCurrency(cost);
             });
 
             // Calculate electricity appliances
@@ -724,7 +842,7 @@
                 const cost = periodKwh * elecRate;
                 totalElecUsage += cost;
 
-                document.getElementById(`${app.id}-cost`).textContent = `£${cost.toFixed(2)}`;
+                document.getElementById(`${app.id}-cost`).textContent = formatCurrency(cost);
             });
 
             // Calculate standing charges
@@ -732,13 +850,94 @@
             const elecStandingTotal = elecStanding * periodMultiplier;
 
             // Update summary
-            document.getElementById('gasUsageCost').textContent = `£${totalGasUsage.toFixed(2)}`;
-            document.getElementById('gasStandingCost').textContent = `£${gasStandingTotal.toFixed(2)}`;
-            document.getElementById('elecUsageCost').textContent = `£${totalElecUsage.toFixed(2)}`;
-            document.getElementById('elecStandingCost').textContent = `£${elecStandingTotal.toFixed(2)}`;
+            document.getElementById('gasUsageCost').textContent = formatCurrency(totalGasUsage);
+            document.getElementById('gasStandingCost').textContent = formatCurrency(gasStandingTotal);
+            document.getElementById('elecUsageCost').textContent = formatCurrency(totalElecUsage);
+            document.getElementById('elecStandingCost').textContent = formatCurrency(elecStandingTotal);
 
             const grandTotal = totalGasUsage + gasStandingTotal + totalElecUsage + elecStandingTotal;
-            document.getElementById('totalCost').textContent = `£${grandTotal.toFixed(2)}`;
+            document.getElementById('totalCost').textContent = formatCurrency(grandTotal);
+
+            // Calculate annual usage for Direct Debit comparison (always based on daily usage)
+            calculateAnnualComparison();
+        }
+
+        function calculateAnnualComparison() {
+            const gasRate = parseFloat(document.getElementById('gasRate').value) / 100;
+            const gasStanding = parseFloat(document.getElementById('gasStanding').value) / 100;
+            const elecRate = parseFloat(document.getElementById('elecRate').value) / 100;
+            const elecStanding = parseFloat(document.getElementById('elecStanding').value) / 100;
+            
+            const ddAmount = parseFloat(document.getElementById('ddAmount').value) || 0;
+            const annualDD = ddAmount * 12;
+            
+            // Calculate daily totals from appliances
+            let dailyGasUsage = 0;
+            let dailyElecUsage = 0;
+            
+            gasAppliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id).value);
+                let dailyKwh = 0;
+                if (app.unit.includes('hours')) {
+                    dailyKwh = value * app.power;
+                } else if (app.unit.includes('minutes')) {
+                    dailyKwh = (value / 60) * app.power;
+                } else if (app.unit.includes('boils') || app.unit.includes('uses')) {
+                    dailyKwh = value * app.power;
+                }
+                
+                // For seasonal heating, calculate based on their seasonal duration
+                let annualKwh = 0;
+                if (app.seasonal === 'winter') {
+                    annualKwh = dailyKwh * 120; // 4 months = 120 days
+                } else if (app.seasonal === 'summer') {
+                    annualKwh = dailyKwh * 245; // 8 months = 245 days
+                } else {
+                    annualKwh = dailyKwh * 365;
+                }
+                
+                dailyGasUsage += (annualKwh / 365) * gasRate;
+            });
+            
+            elecAppliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id).value);
+                let dailyKwh = 0;
+                if (app.unit.includes('week')) {
+                    dailyKwh = (value / 7) * app.power;
+                } else if (app.unit.includes('hours')) {
+                    dailyKwh = value * app.power;
+                } else if (app.unit.includes('minutes')) {
+                    dailyKwh = (value / 60) * app.power;
+                } else if (app.unit.includes('charges') || app.unit.includes('boils') || app.unit.includes('uses')) {
+                    dailyKwh = value * app.power;
+                }
+                dailyElecUsage += dailyKwh * elecRate;
+            });
+            
+            // Calculate annual usage based on daily usage × 365
+            const annualUsage = (dailyGasUsage + dailyElecUsage) * 365;
+            const annualStanding = (gasStanding + elecStanding) * 365;
+            const estimatedAnnualUsage = annualUsage + annualStanding;
+            
+            // Calculate year-end balance
+            const yearEndBalance = annualDD - estimatedAnnualUsage;
+            
+            // Update display
+            document.getElementById('annualDD').textContent = formatCurrency(annualDD).replace('.00', '');
+            document.getElementById('annualUsage').textContent = formatCurrency(estimatedAnnualUsage).replace('.00', '');
+            
+            const balanceElement = document.getElementById('yearEndBalance');
+            
+            if (yearEndBalance > 0) {
+                balanceElement.style.color = 'var(--sp-green)';
+                balanceElement.textContent = '+' + formatCurrency(yearEndBalance).replace('.00', '');
+            } else if (yearEndBalance < 0) {
+                balanceElement.style.color = '#EF4444';
+                balanceElement.textContent = '-' + formatCurrency(Math.abs(yearEndBalance)).replace('.00', '');
+            } else {
+                balanceElement.style.color = 'var(--sp-slate)';
+                balanceElement.textContent = formatCurrency(0).replace('.00', '');
+            }
         }
 
         // Initialize

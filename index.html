@@ -1327,25 +1327,25 @@ const priceCapColors = {
 };
 
 const priceCapLabels = {
-  wholesale: 'Buying the energy',
-  networks: 'Pipes & wires',
-  operating: 'Running the company',
-  policy: 'Government schemes',
-  ebit: 'Supplier profit',
-  headroom: 'Safety buffer',
-  levelisation: 'Payment adjustment',
-  vat: 'Tax (VAT)'
+  wholesale: 'Wholesale Energy (Actual Energy Cost)',
+  networks: 'Network Costs',
+  operating: 'Operating Costs',
+  policy: 'Govt. Policy Costs & Green Levies',
+  ebit: 'Supplier Profit',
+  headroom: 'Safety Buffer',
+  levelisation: 'Payment Adjustment',
+  vat: 'VAT (5%)'
 };
 
 const priceCapDescriptions = {
-  wholesale: 'What your supplier pays to buy gas and electricity from power stations, wind farms, etc. This is the actual energy you use.',
-  networks: 'The cost of the pipes and cables that deliver energy to your home. Think of it like paying for the roads that deliver your post.',
-  operating: 'What it costs to run an energy company — call centres, sending bills, reading meters, and chasing unpaid bills.',
-  policy: 'Government add-ons for things like: helping insulate homes, supporting renewable energy, giving discounts to vulnerable people.',
-  ebit: 'The profit your energy company is allowed to make. Yes, there\'s a set amount of profit baked into your bill.',
-  headroom: 'Extra padding so energy companies don\'t go bust if costs suddenly spike. Basically a "just in case" fund.',
-  levelisation: 'An adjustment based on how you pay. Prepayment meter customers get a discount here because they can\'t build up debt.',
-  vat: 'Government tax on energy — 5% on home energy bills (lower than the normal 20% VAT on most things).'
+  wholesale: 'The cost of buying gas and electricity on the wholesale market — from power stations, wind farms, and gas suppliers. This is what the actual energy you use costs.',
+  networks: 'Charges for maintaining and operating the national grid, plus the local pipes and cables that deliver energy to your home. Think of it as delivery fees.',
+  operating: 'What it costs suppliers to run their business — customer service, billing systems, meter reading, and managing unpaid debts.',
+  policy: 'Government-mandated costs for environmental and social programmes: renewable energy subsidies, home insulation schemes, and support for vulnerable customers.',
+  ebit: 'The regulated profit margin suppliers are allowed to earn. Ofgem sets this to ensure companies remain financially viable while protecting consumers.',
+  headroom: 'A buffer built into the cap to protect suppliers from unexpected cost increases. Helps prevent companies going bust if wholesale prices spike.',
+  levelisation: 'An adjustment based on your payment method. Prepayment customers get a credit here because they pay upfront and can\'t accumulate debt.',
+  vat: 'Value Added Tax charged at 5% on domestic energy — a reduced rate compared to the standard 20% VAT on most goods and services.'
 };
 
 let currentPriceCapMethod = 'directDebit';

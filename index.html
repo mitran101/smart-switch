@@ -1530,13 +1530,17 @@ function renderPriceCapChart() {
     }
   });
   
-  // Show close button on mobile when chart is touched
+  // Show close button on mobile only when tooltip is actually visible
   if (isMobileDevice) {
-    ctx.addEventListener('touchstart', function() {
+    ctx.addEventListener('click', function() {
       setTimeout(function() {
         const btn = document.getElementById('chartCloseBtn');
-        if (btn) btn.classList.add('visible');
-      }, 100);
+        if (btn && priceCapChart && priceCapChart.tooltip._active && priceCapChart.tooltip._active.length > 0) {
+          btn.classList.add('visible');
+        } else if (btn) {
+          btn.classList.remove('visible');
+        }
+      }, 150);
     });
   }
   

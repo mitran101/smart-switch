@@ -460,7 +460,7 @@ section[style*="max-width:1400px"] div[style*="gap:40px"] {
 
 /* Bigger logo on mobile */
 .pilot-container { min-height:320px; flex-direction:column !important; align-items:center !important; }
-.pilot-character { width:280px !important; }
+.pilot-character { width:320px !important; }
 .pilot-icons { display:none; }
 
 .destination-tag { position:static !important; margin:1rem auto 0 !important; right:auto !important; }
@@ -471,6 +471,12 @@ section[style*="max-width:1400px"] div[style*="gap:40px"] {
 .vision-mission-grid {
     padding: 0 1rem !important;
     gap: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Reduce gap above 65% section on mobile */
+section[style*="max-width:1000px"] {
+    margin-top: 1rem !important;
 }
 
 section[style*="max-width:900px"][style*="margin:3.5rem"] {
@@ -519,9 +525,6 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
     font-size: 12px !important;
 }
 
-/* Show mobile explainer instead of tooltips */
-.mobile-chart-explainer { display: block !important; }
-
 .final-cta { padding: 3rem 1rem !important; }
 .topic p { font-size:1rem !important; line-height:1.45 !important; }
 .price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
@@ -531,54 +534,70 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 .insights, .final-cta {padding:3rem 1rem;}
 }
 
-/* Mobile explainer - hidden on desktop */
-.mobile-chart-explainer {
-  display: none;
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(44,62,80,0.3);
+/* Custom Chart Tooltip */
+#chartjs-tooltip {
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid #6366f1;
   border-radius: 12px;
-  text-align: left;
+  padding: 15px;
+  max-width: 280px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
 }
-.mobile-chart-explainer h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  color: #ecf0f1;
+#chartjs-tooltip .tooltip-content {
+  position: relative;
 }
-.mobile-chart-explainer .explainer-item {
+#chartjs-tooltip .tooltip-close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.4);
 }
-.mobile-chart-explainer .explainer-item:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
+#chartjs-tooltip .tooltip-close:hover {
+  background: #ec4899;
 }
-.mobile-chart-explainer .color-dot {
+#chartjs-tooltip .tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-right: 25px;
+}
+#chartjs-tooltip .tooltip-header strong {
+  color: #2c3e50;
+  font-size: 14px;
+}
+#chartjs-tooltip .tooltip-color {
   width: 12px;
   height: 12px;
   border-radius: 3px;
   flex-shrink: 0;
-  margin-top: 3px;
 }
-.mobile-chart-explainer .explainer-text {
+#chartjs-tooltip .tooltip-value {
+  color: #6366f1;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+#chartjs-tooltip .tooltip-desc {
+  color: #5a6a7a;
   font-size: 12px;
-  line-height: 1.4;
-  color: #bdc3c7;
-}
-.mobile-chart-explainer .explainer-text strong {
-  color: #ecf0f1;
-  display: block;
-  margin-bottom: 2px;
-}
-
-/* Hide desktop tip on mobile */
-@media (max-width: 480px) {
-  .desktop-tip { display: none; }
+  line-height: 1.5;
 }
 
 /* Price Cap Tool Styles */
@@ -873,44 +892,7 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
     <p style="margin:0 0 8px 0;font-size:13px;"><strong>💡 What's the "Price Cap"?</strong> It's the maximum amount energy companies can charge you per unit of energy. Set by Ofgem (the energy regulator) and changes every 3 months.</p>
     <p style="margin:0 0 5px 0;"><strong>Source:</strong> Ofgem (the UK energy regulator)</p>
     <p style="margin:0 0 5px 0;"><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
-    <p class="desktop-tip" style="margin:5px 0 0 0;"><strong>Tip:</strong> Hover over the bars to see what each cost actually is!</p>
-  </div>
-  
-  <!-- Mobile explainer - shows on mobile instead of hover tooltips -->
-  <div class="mobile-chart-explainer">
-    <h4>📖 What each cost means:</h4>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#5DADE2;"></div>
-      <div class="explainer-text"><strong>Actual Energy Cost</strong>The cost of buying gas and electricity on the wholesale market — this is what the energy you actually use costs.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#884EA0;"></div>
-      <div class="explainer-text"><strong>Network Costs</strong>Charges for the pipes and cables that deliver energy to your home. Think of it as delivery fees.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#E67E22;"></div>
-      <div class="explainer-text"><strong>Operating Costs</strong>What it costs suppliers to run their business — customer service, billing, meter reading.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#34495E;"></div>
-      <div class="explainer-text"><strong>Govt. Policy Costs & Green Levies</strong>Government-mandated costs for renewable energy, home insulation schemes, and support for vulnerable customers.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#A569BD;"></div>
-      <div class="explainer-text"><strong>Supplier Profit</strong>The regulated profit margin suppliers are allowed to earn.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#7F8C8D;"></div>
-      <div class="explainer-text"><strong>Safety Buffer</strong>A buffer to protect suppliers from unexpected cost spikes.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#52796F;"></div>
-      <div class="explainer-text"><strong>Payment Adjustment</strong>Adjustment based on your payment method. Prepayment customers get a credit here.</div>
-    </div>
-    <div class="explainer-item">
-      <div class="color-dot" style="background:#922B3E;"></div>
-      <div class="explainer-text"><strong>VAT (5%)</strong>Tax on energy at a reduced rate (standard VAT is 20%).</div>
-    </div>
+    <p style="margin:5px 0 0 0;"><strong>Tip:</strong> Tap on the bars to see what each cost means!</p>
   </div>
 </div>
 </section>
@@ -1516,59 +1498,58 @@ function renderPriceCapChart() {
           }
         },
         tooltip: {
-          enabled: true,
-          mode: 'nearest',
-          intersect: true,
-          backgroundColor: 'rgba(255, 255, 255, 0.98)',
-          titleColor: '#2c3e50',
-          bodyColor: '#34495e',
-          borderColor: '#6366f1',
-          borderWidth: 2,
-          padding: 15,
-          cornerRadius: 10,
-          titleFont: { size: 14, weight: 'bold' },
-          bodyFont: { size: 12 },
-          boxPadding: 6,
-          usePointStyle: true,
-          displayColors: true,
-          callbacks: {
-            title: function(items) {
-              return items[0].dataset.label;
-            },
-            label: function(context) {
-              return '£' + context.parsed.y + ' per year';
-            },
-            afterLabel: function(context) {
-              const componentKey = components[context.datasetIndex];
-              const description = priceCapDescriptions[componentKey];
-              const maxLength = window.innerWidth < 480 ? 50 : 80;
-              if (description.length > maxLength) {
-                const words = description.split(' ');
-                let lines = [];
-                let currentLine = '';
-                
-                words.forEach(word => {
-                  if ((currentLine + word).length > maxLength) {
-                    lines.push(currentLine.trim());
-                    currentLine = word + ' ';
-                  } else {
-                    currentLine += word + ' ';
-                  }
-                });
-                lines.push(currentLine.trim());
-                return '\n' + lines.join('\n');
-              }
-              return '\n' + description;
-            },
-            footer: function(items) {
-              const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
-              return '\nPeriod Total: £' + Math.round(total);
+          enabled: false,
+          external: function(context) {
+            // Get or create tooltip element
+            let tooltipEl = document.getElementById('chartjs-tooltip');
+            if (!tooltipEl) {
+              tooltipEl = document.createElement('div');
+              tooltipEl.id = 'chartjs-tooltip';
+              tooltipEl.innerHTML = '<div class="tooltip-content"></div>';
+              document.body.appendChild(tooltipEl);
             }
-          },
-          bodySpacing: 6,
-          footerMarginTop: 10,
-          footerFont: { size: 13, weight: 'bold' },
-          footerColor: '#6366f1'
+
+            const tooltipModel = context.tooltip;
+            
+            // Hide if no tooltip
+            if (tooltipModel.opacity === 0) {
+              tooltipEl.style.opacity = 0;
+              tooltipEl.style.pointerEvents = 'none';
+              return;
+            }
+
+            // Set content
+            if (tooltipModel.body) {
+              const dataIndex = tooltipModel.dataPoints[0].datasetIndex;
+              const componentKey = components[dataIndex];
+              const value = tooltipModel.dataPoints[0].parsed.y;
+              const label = priceCapLabels[componentKey];
+              const description = priceCapDescriptions[componentKey];
+              const color = priceCapColors[componentKey];
+              
+              const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+              
+              let html = '';
+              if (isMobile) {
+                html += '<button class="tooltip-close" onclick="document.getElementById(\'chartjs-tooltip\').style.opacity=0;document.getElementById(\'chartjs-tooltip\').style.pointerEvents=\'none\';">✕</button>';
+              }
+              html += '<div class="tooltip-header"><span class="tooltip-color" style="background:' + color + ';"></span><strong>' + label + '</strong></div>';
+              html += '<div class="tooltip-value">£' + value + ' per year</div>';
+              html += '<div class="tooltip-desc">' + description + '</div>';
+              
+              tooltipEl.querySelector('.tooltip-content').innerHTML = html;
+            }
+
+            // Position
+            const position = context.chart.canvas.getBoundingClientRect();
+            tooltipEl.style.opacity = 1;
+            tooltipEl.style.pointerEvents = 'auto';
+            tooltipEl.style.position = 'fixed';
+            tooltipEl.style.left = position.left + window.scrollX + tooltipModel.caretX + 'px';
+            tooltipEl.style.top = position.top + window.scrollY + tooltipModel.caretY + 'px';
+            tooltipEl.style.transform = 'translate(-50%, -100%)';
+            tooltipEl.style.marginTop = '-10px';
+          }
         }
       },
       interaction: {

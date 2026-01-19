@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Calculated If Mining Bitcoin at Home Is Worth It in 2026 (Spoiler: Barely) | SwitchPilot</title>
+    <meta name="description" content="Can you mine Bitcoin at home and use the heat to warm your flat? We did the maths with UK electricity prices. The results might surprise you.">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="We Calculated If Mining Bitcoin at Home Is Worth It in 2026">
+    <meta property="og:description" content="Can you mine Bitcoin and use the heat to warm your flat? We did the maths with UK electricity prices.">
+    <meta property="og:type" content="article">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-amber-light: #FEF3C7;
+            --sp-red: #EF4444;
+            --sp-red-light: #FEE2E2;
+            --sp-orange: #F97316;
+            --sp-blue: #3B82F6;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+        
+        .top-logo img {
+            height: 3.2rem;
+            width: auto;
+            margin-right: -15px;
+        }
+        
+        .top-logo span {
+            font-size: 1.35rem;
+        }
+        
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Header */
+        .article-header {
+            background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+        
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+        
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Article Body */
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+        
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+        
+        h2:first-of-type {
+            margin-top: 0;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 2rem 0 0.75rem;
+            color: var(--sp-slate);
+        }
+        
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+        
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+        
+        .lead-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--sp-slate);
+            margin-bottom: 2rem;
+        }
+        
+        ul {
+            margin: 1.25rem 0 1.5rem 1.5rem;
+            color: var(--sp-slate-light);
+        }
+        
+        ul li {
+            margin-bottom: 0.65rem;
+        }
+        
+        /* Boxes */
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+        
+        .warning-box {
+            background: var(--sp-amber-light);
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        
+        .warning-box p, .warning-box h4 {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+        
+        .warning-box h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .orange-box {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
+            border-left: 4px solid var(--sp-orange);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        
+        .orange-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+        
+        /* Data Cards */
+        .data-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .data-card h3, .data-card h4 {
+            color: var(--sp-slate);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-box {
+            background: var(--sp-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--sp-slate);
+        }
+        
+        .stat-subtext {
+            font-size: 0.75rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.25rem;
+        }
+        
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        .comparison-table th {
+            background: var(--sp-bg);
+            font-weight: 600;
+            color: var(--sp-slate);
+        }
+        
+        .comparison-table td {
+            color: var(--sp-slate-light);
+        }
+        
+        /* Calculator */
+        .calculator-section {
+            background: linear-gradient(135deg, var(--sp-orange) 0%, #EA580C 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            color: white;
+            box-shadow: 0 10px 40px rgba(249, 115, 22, 0.3);
+        }
+        
+        .calculator-section h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .calculator-section .calc-subtitle {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calc-input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .calc-input-group input, .calc-input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+        
+        .calc-input-group input:focus, .calc-input-group select:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.25);
+        }
+        
+        .calc-input-group input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .calc-input-group select option {
+            background: var(--sp-orange);
+            color: white;
+        }
+        
+        .calc-results {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .calc-result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .calc-result-item {
+            text-align: center;
+        }
+        
+        .calc-result-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .calc-result-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-top: 0.25rem;
+        }
+        
+        .calc-result-value.positive {
+            color: #86EFAC;
+        }
+        
+        .calc-result-value.negative {
+            color: #FCA5A5;
+        }
+        
+        .calc-result-value.neutral {
+            color: white;
+        }
+        
+        .calc-verdict {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+        
+        .calc-verdict-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Chart Container */
+        .chart-section {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-section h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--sp-slate);
+        }
+        
+        .chart-section .chart-subtitle {
+            color: var(--sp-slate-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        /* Verdict Box */
+        .verdict-box {
+            background: linear-gradient(135deg, var(--sp-amber) 0%, #D97706 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
+        }
+        
+        .verdict-box h2 {
+            color: white;
+            margin: 0 0 1rem 0;
+        }
+        
+        .verdict-box p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        
+        .verdict-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Disclaimer */
+        .disclaimer {
+            background: var(--sp-bg);
+            padding: 1rem 1.5rem;
+            border-left: 3px solid var(--sp-blue);
+            margin: 2rem 0;
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            line-height: 1.6;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            max-width: 700px;
+            margin: 3rem auto 0;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            color: #fff;
+        }
+        
+        .cta-box p {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--sp-green-dark);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+            margin-top: 3rem;
+        }
+        
+        .site-footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+            color: white;
+            font-size: 0.95rem;
+        }
+        
+        .site-footer a {
+            color: var(--sp-orange);
+            text-decoration: none;
+        }
+        
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* TLDR Box */
+        .tldr-box {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: white;
+        }
+        
+        .tldr-box h3 {
+            color: var(--sp-orange);
+            margin: 0 0 1rem 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tldr-box ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .tldr-box li {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 700px) {
+            .top-nav {
+                padding: 1rem;
+            }
+            
+            .top-logo img {
+                height: 2.5rem;
+            }
+            
+            .top-logo span {
+                font-size: 1.25rem;
+            }
+            
+            .back-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calc-result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">⛏️ Energy Analysis</span>
+            <h1>We Calculated If Mining Bitcoin at Home Is Worth It in 2026 (Spoiler: Barely)</h1>
+            <p class="subtitle">
+                The pitch: mine Bitcoin, heat your flat for free, profit. The reality? We ran the numbers with UK electricity prices.
+            </p>
+            <div class="article-meta">
+                <span>19 January 2026</span>
+                <span>•</span>
+                <span>8 min read</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="article-body">
+        
+        <p class="lead-text">
+            You've probably heard the pitch: "Mine Bitcoin, and the heat warms your flat. It's free heating that pays for itself!" Sounds genius. But is it? We did the maths with January 2026 UK electricity prices. <strong>Disclaimer upfront:</strong> this is not financial advice - it's a fun exploration of the numbers.
+        </p>
+
+        <!-- TL;DR Box -->
+        <div class="tldr-box">
+            <h3>⚡ TL;DR</h3>
+            <ul>
+                <li><strong>Annual profit:</strong> ~£350 (before tax, if everything goes perfectly)</li>
+                <li><strong>Electricity cost:</strong> £648/month (£7,776/year)</li>
+                <li><strong>Heating offset:</strong> ~£240/year (winter only)</li>
+                <li><strong>Noise level:</strong> 75dB (vacuum cleaner running 24/7)</li>
+                <li><strong>Verdict:</strong> Technically profitable, practically painful</li>
+            </ul>
+        </div>
+        
+        <h2>The proposition</h2>
+        <p>
+            The idea sounds brilliant on paper. Bitcoin mining rigs consume electricity and generate heat. During winter, you need heating anyway. So theoretically, you could mine Bitcoin, heat your home, and end up with profit (or at least break even).
+        </p>
+        <p>
+            But crypto mining in 2026 is a very different beast than Bitcoin's early days. Let's see if this actually makes financial sense in a UK flat.
+        </p>
+        
+        <h2>The hardware reality check</h2>
+        <p>
+            First, let's be clear: <strong>GPU mining for Bitcoin is dead</strong>. You need an ASIC (basically a purpose-built Bitcoin mining machine). The most common consumer model is the <strong>Bitmain Antminer S19</strong>.
+        </p>
+        
+        <div class="data-card">
+            <h3>Antminer S19 specs</h3>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">Power draw</div>
+                    <div class="stat-value">3,250W</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Hash rate</div>
+                    <div class="stat-value">95 TH/s</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Noise level</div>
+                    <div class="stat-value">75 dB</div>
+                    <div class="stat-subtext">Like a vacuum cleaner</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Cost (used)</div>
+                    <div class="stat-value">~£1,500</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="warning-box">
+            <h4>⚠️ Reality check for flat dwellers</h4>
+            <p>
+                An ASIC miner is <strong>loud</strong> (think industrial fan 24/7), generates intense heat, and draws 3,250W continuously - more than most UK sockets can handle (13A = 3,000W max). You'd need a dedicated circuit installed by an electrician (£300-500).
+            </p>
+        </div>
+
+        <!-- Interactive Calculator -->
+        <div class="calculator-section">
+            <h3>🧮 Bitcoin Mining Profitability Calculator</h3>
+            <p class="calc-subtitle">Adjust the inputs to see your potential profit (or loss)</p>
+            
+            <div class="calc-grid">
+                <div class="calc-input-group">
+                    <label for="btcPrice">Bitcoin price (£)</label>
+                    <input type="number" id="btcPrice" value="85000" min="10000" max="500000" step="1000">
+                </div>
+                <div class="calc-input-group">
+                    <label for="electricityRate">Electricity rate (p/kWh)</label>
+                    <input type="number" id="electricityRate" value="24.50" min="5" max="50" step="0.01">
+                </div>
+                <div class="calc-input-group">
+                    <label for="hashRate">Hash rate (TH/s)</label>
+                    <input type="number" id="hashRate" value="95" min="10" max="200" step="1">
+                </div>
+                <div class="calc-input-group">
+                    <label for="powerDraw">Power draw (W)</label>
+                    <input type="number" id="powerDraw" value="3250" min="500" max="5000" step="50">
+                </div>
+            </div>
+            
+            <div class="calc-results">
+                <div class="calc-result-grid">
+                    <div class="calc-result-item">
+                        <div class="calc-result-label">Daily BTC mined</div>
+                        <div class="calc-result-value neutral" id="dailyBtc">0.00035</div>
+                    </div>
+                    <div class="calc-result-item">
+                        <div class="calc-result-label">Daily revenue</div>
+                        <div class="calc-result-value positive" id="dailyRevenue">£29.75</div>
+                    </div>
+                    <div class="calc-result-item">
+                        <div class="calc-result-label">Daily elec. cost</div>
+                        <div class="calc-result-value negative" id="dailyCost">£19.11</div>
+                    </div>
+                    <div class="calc-result-item">
+                        <div class="calc-result-label">Daily profit</div>
+                        <div class="calc-result-value" id="dailyProfit">£10.64</div>
+                    </div>
+                </div>
+                
+                <div class="calc-verdict">
+                    <div class="calc-result-label">Annual profit (before other costs)</div>
+                    <div class="calc-result-value" id="annualProfit" style="font-size: 2.25rem;">£3,884</div>
+                    <p class="calc-verdict-text" id="verdictText" style="margin-top: 0.5rem; opacity: 0.9;">
+                        Looking good on paper...
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <h2>The electricity bill shock</h2>
+        <p>
+            Let's calculate the real electricity cost. The January 2026 price cap rate is <strong>24.50p/kWh</strong>.
+        </p>
+        
+        <div class="data-card">
+            <h3>Monthly running costs</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Calculation</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Daily consumption</strong></td>
+                        <td>3.25 kW × 24 hours</td>
+                        <td>78 kWh/day</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monthly consumption</strong></td>
+                        <td>78 kWh × 30 days</td>
+                        <td>2,340 kWh/month</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monthly cost</strong></td>
+                        <td>2,340 kWh × £0.245</td>
+                        <td><strong>£573/month</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Annual cost</strong></td>
+                        <td>£573 × 12</td>
+                        <td><strong>£6,883/year</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="orange-box">
+            <p><strong>Perspective check:</strong> The average UK household uses about 2,700 kWh of electricity <em>per year</em>. A single Bitcoin miner uses that much in just <strong>35 days</strong>.</p>
+        </div>
+        
+        <h2>The heat argument - does it actually work?</h2>
+        <p>
+            Here's where it gets interesting. Every watt consumed becomes heat - 100% of it. So a 3,250W miner produces exactly 3,250W of heat output. That's equivalent to about <strong>3 electric heaters</strong> running simultaneously.
+        </p>
+        
+        <div class="data-card">
+            <h4>🌡️ The reality of concentrated heat</h4>
+            <ul>
+                <li><strong>0-2m from miner:</strong> Uncomfortably hot (25-28°C)</li>
+                <li><strong>Same room:</strong> Pleasant warmth in winter (20-22°C)</li>
+                <li><strong>Other rooms:</strong> Minimal heat unless doors open + fans</li>
+                <li><strong>Overall:</strong> One hot room, others potentially still cold</li>
+            </ul>
+        </div>
+
+        <h3>The seasonal mismatch problem</h3>
+        <p>
+            Your heating needs vary by season. The miner's output doesn't. It runs 24/7 or it's not profitable.
+        </p>
+        
+        <div class="data-card">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Season</th>
+                        <th>Heat needed</th>
+                        <th>Miner output</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dec-Feb</strong></td>
+                        <td>3-4 kW</td>
+                        <td>3.25 kW</td>
+                        <td style="color: var(--sp-green); font-weight: 600;">✓ Useful</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mar-Apr, Oct-Nov</strong></td>
+                        <td>1-2 kW</td>
+                        <td>3.25 kW</td>
+                        <td style="color: var(--sp-amber); font-weight: 600;">⚠ Too much</td>
+                    </tr>
+                    <tr>
+                        <td><strong>May-Sep</strong></td>
+                        <td>0 kW</td>
+                        <td>3.25 kW</td>
+                        <td style="color: var(--sp-red); font-weight: 600;">✗ Overheating</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>
+            For 5 months of the year, you're paying £573/month to make your flat unbearably hot. You might even need to run a fan or portable AC - adding more costs.
+        </p>
+
+        <!-- P&L Chart -->
+        <div class="chart-section">
+            <h3>📊 Annual profit breakdown</h3>
+            <p class="chart-subtitle">Where your money actually goes</p>
+            <div class="chart-container">
+                <canvas id="plChart"></canvas>
+            </div>
+        </div>
+        
+        <h2>The final P&L: does it actually work?</h2>
+        
+        <div class="data-card">
+            <h3>Annual profit & loss (realistic scenario)</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bitcoin revenue</strong></td>
+                        <td style="color: var(--sp-green); font-weight: 600;">+£10,860</td>
+                        <td>0.00035 BTC/day × £85k × 365</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Electricity cost</strong></td>
+                        <td style="color: var(--sp-red); font-weight: 600;">-£6,883</td>
+                        <td>2,340 kWh/month × 12</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hardware (amortised)</strong></td>
+                        <td style="color: var(--sp-red); font-weight: 600;">-£500</td>
+                        <td>£1,500 over 3 years</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Heating offset</strong></td>
+                        <td style="color: var(--sp-green); font-weight: 600;">+£240</td>
+                        <td>£40/month × 6 winter months</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pool fees (3%)</strong></td>
+                        <td style="color: var(--sp-red); font-weight: 600;">-£326</td>
+                        <td>Mining pool cut</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maintenance</strong></td>
+                        <td style="color: var(--sp-red); font-weight: 600;">-£200</td>
+                        <td>Fan replacements, downtime</td>
+                    </tr>
+                    <tr style="border-top: 3px solid var(--sp-orange);">
+                        <td><strong>NET PROFIT</strong></td>
+                        <td style="color: var(--sp-green); font-weight: 700; font-size: 1.2rem;">+£3,191</td>
+                        <td>Before tax</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Breakeven Chart -->
+        <div class="chart-section">
+            <h3>📉 Breakeven: What BTC price do you need?</h3>
+            <p class="chart-subtitle">Profit/loss at different Bitcoin prices (at 24.50p/kWh)</p>
+            <div class="chart-container">
+                <canvas id="breakevenChart"></canvas>
+            </div>
+        </div>
+
+        <h2>The "what if Bitcoin moons?" argument</h2>
+        <p>
+            Common counterargument: "But if Bitcoin hits £150k, I'd make way more!"
+        </p>
+        <p>
+            True - but that's gambling, not a business model. If you believe Bitcoin will moon, you'd be better off:
+        </p>
+        <ul>
+            <li><strong>Just buying Bitcoin directly</strong> - no hardware, electricity, or noise</li>
+            <li><strong>Dollar-cost averaging</strong> - put that £573/month into BTC instead</li>
+            <li><strong>Investing in a Bitcoin ETF</strong> - easier to liquidate, no maintenance</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <p><strong>The smarter play:</strong> If you have £1,500 for hardware + £573/month for electricity, you could instead buy £573 of Bitcoin monthly. Over a year, that's £6,876 of Bitcoin - with zero noise, zero heat problems, and you'd own more BTC than mining gives you.</p>
+        </div>
+        
+        <h2>When does home mining actually make sense?</h2>
+        <p>
+            It <em>might</em> work if:
+        </p>
+        <ul>
+            <li>You have <strong>very cheap electricity</strong> (&lt;15p/kWh) - solar panels, Economy 7</li>
+            <li>You live in a <strong>detached property</strong> where 75dB noise isn't an issue</li>
+            <li>You're in a <strong>cold climate</strong> and need year-round heating</li>
+            <li>You already own hardware and can run it at <strong>zero marginal cost</strong></li>
+            <li>You're doing it as a <strong>hobby</strong>, not expecting profit</li>
+        </ul>
+        <p>
+            For most UK flat dwellers? Probably not worth it.
+        </p>
+        
+        <div class="verdict-box">
+            <h2>The verdict: profitable on paper, painful in practice</h2>
+            <p>
+                At £85k Bitcoin and 24.50p/kWh electricity, you could make ~£3,000/year profit on paper. But that's before the noise drives you (or your neighbours) insane, the summer heat makes your flat unbearable, and the constant maintenance headaches.
+            </p>
+            <p>
+                The "free heating" angle only works 6 months, offsetting maybe £240/year. Meanwhile, a heat pump would give you the same heating for 70% less electricity with zero noise.
+            </p>
+            <p style="font-weight: 600;">
+                If you want Bitcoin exposure, just buy Bitcoin. If you want cheaper heating, get a heat pump. Mining at home in 2026 is more hobby than business.
+            </p>
+        </div>
+        
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This analysis uses January 2026 market conditions (Bitcoin ~£85k, electricity at 24.50p/kWh). Bitcoin mining profitability is highly volatile - BTC traded above £126k in October 2025 but fell to £85-95k by January 2026. Mining income may be subject to capital gains tax. This is educational content, not financial advice.
+        </div>
+        
+        <div class="cta-box">
+            <h3>Want to actually save on energy?</h3>
+            <p>
+                Join SwitchPilot for free auto-switching - we'll automatically move you to cheaper deals so you never overpay.
+            </p>
+            <a href="index.html#waitlist" class="cta-button">
+                Join the Waitlist →
+            </a>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        function calculateMining() {
+            const btcPrice = parseFloat(document.getElementById('btcPrice').value) || 85000;
+            const electricityRate = parseFloat(document.getElementById('electricityRate').value) || 24.50;
+            const hashRate = parseFloat(document.getElementById('hashRate').value) || 95;
+            const powerDraw = parseFloat(document.getElementById('powerDraw').value) || 3250;
+            
+            // Mining calculations (simplified - based on current network difficulty ~90T)
+            const networkDifficulty = 90000000000000; // 90T
+            const blockReward = 3.125; // Post-halving
+            const dailyBlocks = 144;
+            
+            // Daily BTC = (hashrate * 86400 * blockReward) / (difficulty * 2^32)
+            const dailyBtc = (hashRate * 1e12 * 86400 * blockReward) / (networkDifficulty * Math.pow(2, 32));
+            
+            const dailyRevenue = dailyBtc * btcPrice;
+            const dailyCost = (powerDraw / 1000) * 24 * (electricityRate / 100);
+            const dailyProfit = dailyRevenue - dailyCost;
+            const annualProfit = dailyProfit * 365;
+            
+            // Update display
+            document.getElementById('dailyBtc').textContent = dailyBtc.toFixed(5);
+            document.getElementById('dailyRevenue').textContent = '£' + dailyRevenue.toFixed(2);
+            document.getElementById('dailyCost').textContent = '£' + dailyCost.toFixed(2);
+            
+            const dailyProfitEl = document.getElementById('dailyProfit');
+            dailyProfitEl.textContent = (dailyProfit >= 0 ? '£' : '-£') + Math.abs(dailyProfit).toFixed(2);
+            dailyProfitEl.className = 'calc-result-value ' + (dailyProfit >= 0 ? 'positive' : 'negative');
+            
+            const annualProfitEl = document.getElementById('annualProfit');
+            annualProfitEl.textContent = (annualProfit >= 0 ? '£' : '-£') + Math.abs(annualProfit).toFixed(0);
+            annualProfitEl.className = 'calc-result-value ' + (annualProfit >= 0 ? 'positive' : 'negative');
+            
+            // Verdict text
+            const verdictEl = document.getElementById('verdictText');
+            if (annualProfit > 5000) {
+                verdictEl.textContent = "Solid profit - but factor in noise, heat & maintenance";
+            } else if (annualProfit > 1000) {
+                verdictEl.textContent = "Marginal profit - is it worth the hassle?";
+            } else if (annualProfit > 0) {
+                verdictEl.textContent = "Barely breaking even - probably not worth it";
+            } else {
+                verdictEl.textContent = "You're losing money - don't do this";
+            }
+        }
+        
+        // Add event listeners
+        ['btcPrice', 'electricityRate', 'hashRate', 'powerDraw'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateMining);
+        });
+        
+        // Initial calculation
+        calculateMining();
+        
+        // Charts
+        Chart.defaults.font.family = "'DM Sans', sans-serif";
+        Chart.defaults.color = '#475569';
+        
+        // P&L Chart
+        const plCtx = document.getElementById('plChart').getContext('2d');
+        new Chart(plCtx, {
+            type: 'bar',
+            data: {
+                labels: ['BTC Revenue', 'Electricity', 'Hardware', 'Heating Offset', 'Pool Fees', 'Maintenance', 'NET PROFIT'],
+                datasets: [{
+                    data: [10860, -6883, -500, 240, -326, -200, 3191],
+                    backgroundColor: [
+                        '#10B981', '#EF4444', '#EF4444', '#10B981', '#EF4444', '#EF4444', '#F97316'
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const val = ctx.raw;
+                                return (val >= 0 ? '+' : '') + '£' + val.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: '#E2E8F0' },
+                        ticks: {
+                            callback: (val) => '£' + (val/1000) + 'k'
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 10 }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Breakeven Chart
+        const beCtx = document.getElementById('breakevenChart').getContext('2d');
+        const btcPrices = [50000, 60000, 70000, 80000, 90000, 100000, 120000, 150000];
+        const profits = btcPrices.map(price => {
+            const dailyBtc = 0.00035;
+            const dailyRevenue = dailyBtc * price;
+            const dailyCost = (3250 / 1000) * 24 * 0.245;
+            return (dailyRevenue - dailyCost) * 365 - 500 - 326 - 200 + 240; // Annual with all costs
+        });
+        
+        new Chart(beCtx, {
+            type: 'line',
+            data: {
+                labels: btcPrices.map(p => '£' + (p/1000) + 'k'),
+                datasets: [{
+                    label: 'Annual Profit',
+                    data: profits,
+                    borderColor: '#F97316',
+                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: profits.map(p => p >= 0 ? '#10B981' : '#EF4444'),
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const val = ctx.raw;
+                                return (val >= 0 ? 'Profit: +' : 'Loss: ') + '£' + Math.abs(val).toLocaleString();
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: 0,
+                                yMax: 0,
+                                borderColor: '#94A3B8',
+                                borderWidth: 2,
+                                borderDash: [5, 5]
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: '#E2E8F0' },
+                        ticks: {
+                            callback: (val) => (val >= 0 ? '+' : '') + '£' + (val/1000).toFixed(1) + 'k'
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

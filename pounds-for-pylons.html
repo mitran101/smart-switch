@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>£250 Off Energy Bills for Living Near Pylons? We Check the Facts | SwitchPilot</title>
+    <meta name="description" content="The government says you can get £250/year off your energy bill for living near new pylons. Sounds great - but who's actually paying for it? We dig into the details.">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-purple: #A855F7;
+            --sp-pink: #EC4899;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Navigation Container */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+
+        .top-logo img {
+            height: 3.2rem;
+            width: auto;
+            margin-right: -15px;
+        }
+
+        .top-logo span {
+            font-size: 1.35rem;
+        }
+
+        /* Back Button */
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        .purple-box {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .purple-box p {
+            margin: 0;
+            color: var(--sp-slate);
+        }
+
+        /* Jargon explainer inline */
+        .jargon {
+            border-bottom: 2px dotted var(--sp-purple);
+            cursor: help;
+            position: relative;
+        }
+
+        .jargon-tip {
+            display: inline-block;
+            background: var(--sp-purple);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+            vertical-align: super;
+            font-weight: 600;
+        }
+
+        ul {
+            margin: 1.25rem 0 1.5rem 1.5rem;
+            color: var(--sp-slate-light);
+        }
+
+        ul li {
+            margin-bottom: 0.65rem;
+        }
+
+        /* Chart Container */
+        .chart-section {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .chart-section h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--sp-slate);
+        }
+
+        .chart-section .chart-subtitle {
+            color: var(--sp-slate-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .chart-container-small {
+            position: relative;
+            height: 280px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive Calculator */
+        .calculator-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3);
+        }
+
+        .calculator-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .calc-description {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .input-group select option {
+            background: var(--sp-purple);
+            color: white;
+        }
+
+        .calc-result {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-top: 1.5rem;
+        }
+
+        .calc-result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .calc-result-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .calc-result-label {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .calc-result-value {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: white;
+        }
+
+        .calc-result-value.highlight {
+            color: #FDE68A;
+            font-size: 1.3rem;
+        }
+
+        .calc-note {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.5;
+            background: rgba(0,0,0,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--sp-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--sp-slate-light);
+            font-size: 0.9rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--sp-purple), var(--sp-pink));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.35rem;
+            width: 12px;
+            height: 12px;
+            background: var(--sp-purple);
+            border-radius: 50%;
+            border: 3px solid var(--sp-bg);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--sp-purple);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content {
+            color: var(--sp-slate-light);
+        }
+
+        /* Article Footer */
+        .article-footer {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding: 2rem;
+            background: #F1F5F9;
+            border-radius: 12px;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            line-height: 1.6;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 700px;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--sp-purple);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .site-footer {
+            background: var(--sp-slate);
+            text-align: center;
+            padding: 3rem 2rem;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .site-footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .site-footer a {
+            color: var(--sp-purple);
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .top-nav {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .top-logo img {
+                height: 2.5rem;
+            }
+            
+            .top-logo span {
+                font-size: 1.25rem;
+            }
+            
+            .back-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .cta-box {
+                margin: 1.5rem 1rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .cta-box h3 {
+                font-size: 1.3rem;
+            }
+            
+            .cta-box p {
+                font-size: 0.95rem;
+            }
+            
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calc-result-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .chart-container {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">🔌 Network Charges</span>
+            <h1>£250 Off Energy Bills for Living Near Pylons? We Check the Facts</h1>
+            <p class="subtitle">The government's new scheme offers £250/year off energy bills for homes near pylons. Sounds great - until you realise who's actually paying for it.</p>
+            <div class="article-meta">
+                <span>19 January 2026</span>
+                <span>•</span>
+                <span>6 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <p>There's a new government scheme starting in <strong>2026</strong> that could save you £250 a year on your energy bill. The catch? You need to live within 500 metres of a brand new electricity pylon.</p>
+
+        <p>It's called <strong>"Pounds for Pylons"</strong>, and on the surface, it sounds like a win-win: communities hosting vital grid infrastructure get compensated, and the UK accelerates its path to clean energy. But here's what the headlines don't tell you: <strong>every electricity customer in the country is paying for those discounts through higher charges on their bill.</strong></p>
+
+        <h2>What is "Pounds for Pylons"?</h2>
+
+        <p>The scheme, announced by the government in March 2025, offers households living within 500 metres of new or upgraded electricity infrastructure:</p>
+
+        <ul>
+            <li><strong>£250 per year off energy bills</strong> (paid as £125 every six months)</li>
+            <li><strong>For 10 years</strong> = £2,500 total per household</li>
+            <li><strong>Community benefits:</strong> up to £200,000 per kilometre of overhead cables, and £530,000 per substation for local projects</li>
+        </ul>
+
+        <p>The scheme only applies to <strong>new</strong> pylons and power lines. If you already live near existing ones, you won't qualify - this is designed to overcome opposition to <em>new</em> infrastructure projects.</p>
+
+        <div class="purple-box">
+            <p><strong>Why does this scheme exist?</strong> The UK needs to <strong>double</strong> its electricity network by 2030 to connect all the new wind farms, solar plants, and nuclear stations being built. But local communities have been blocking new pylons for years. The government hopes that offering cash will help get these projects moving faster.</p>
+        </div>
+
+        <h2>Here's the bit they don't advertise...</h2>
+
+        <p>Those £250 discounts have to come from somewhere. And that "somewhere" is <strong>every electricity customer's bill.</strong></p>
+
+        <p>Buried in your energy bill is something called a <strong>"network charge"</strong> - this pays for the pylons, cables, and substations that carry electricity around the country. When the government adds new costs (like pylon discounts), they get added to these network charges, which get added to your bill.</p>
+
+        <!-- Interactive Chart: Who Pays vs Who Benefits -->
+        <div class="chart-section">
+            <h3>📊 Who pays vs who benefits</h3>
+            <p class="chart-subtitle">The scheme benefits about 100,000 households while 30 million pay for it</p>
+            <div class="chart-grid">
+                <div class="chart-container-small">
+                    <canvas id="beneficiariesChart"></canvas>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <div class="stat-card" style="margin-bottom: 1rem; border-color: var(--sp-purple);">
+                        <div class="stat-value">~100k</div>
+                        <div class="stat-label">Households get £250/year discount</div>
+                    </div>
+                    <div class="stat-card" style="border-color: var(--sp-pink);">
+                        <div class="stat-value">30m</div>
+                        <div class="stat-label">Households paying for it</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>Here's how the money flows:</p>
+
+        <ul>
+            <li>The energy regulator sets network charges each year</li>
+            <li>Energy suppliers pay these charges</li>
+            <li>Suppliers pass the costs to you through your bill</li>
+            <li><strong>Everyone pays</strong> - whether you live near a pylon or not</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>In plain English:</strong> The £250 discount for households near new pylons is funded by adding a few pounds to <em>everyone else's</em> energy bills. Most of us pay a little more so a small number of people pay less.</p>
+        </div>
+
+        <h2>The bigger picture: network charges are exploding</h2>
+
+        <p>The "Pounds for Pylons" scheme itself costs about <strong>£1.5 billion</strong> over its lifetime. Spread across 30 million households, that's roughly <strong>£5-10 per year</strong> each.</p>
+
+        <p>That sounds manageable. But it's being added <strong>on top of</strong> a massive increase in network charges that was already coming:</p>
+
+        <!-- Interactive Chart: Network Charges Growth -->
+        <div class="chart-section">
+            <h3>📈 Network charges are nearly tripling</h3>
+            <p class="chart-subtitle">Total UK network charges (what all electricity customers pay together)</p>
+            <div class="chart-container">
+                <canvas id="tnuosChart"></canvas>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">£3.8bn</div>
+                <div class="stat-label">Network charges<br>2025/26</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">£6.0bn</div>
+                <div class="stat-label">Network charges<br>2026/27</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">£11.8bn</div>
+                <div class="stat-label">Projected<br>2030/31</div>
+            </div>
+        </div>
+
+        <p>That's right: network charges are set to nearly <strong>triple by 2031</strong>. This means <strong>your standing charge (the daily fee just to be connected) is about to jump significantly.</strong></p>
+
+        <div class="warning-box">
+            <p><strong>Why the spike?</strong> The UK is investing billions to upgrade its electricity network - reinforcing aging infrastructure, connecting offshore wind farms, building new cables from Scotland to England, and expanding capacity for electric cars and heat pumps. All necessary for reaching net zero, but customers are footing the bill.</p>
+        </div>
+
+        <h2>What this means for your bill</h2>
+
+        <p>Let's break it down:</p>
+
+        <!-- Interactive Chart: Standing Charge Breakdown -->
+        <div class="chart-section">
+            <h3>💷 What's inside your standing charge (2026/27)</h3>
+            <p class="chart-subtitle">The daily fee you pay just to be connected to the grid</p>
+            <div class="chart-container-small" style="max-width: 350px;">
+                <canvas id="standingChargeChart"></canvas>
+            </div>
+        </div>
+
+        <ul>
+            <li><strong>Discount beneficiaries:</strong> About 100,000 households near new pylons get £250/year off</li>
+            <li><strong>Everyone else:</strong> All 30 million electricity customers see higher standing charges</li>
+            <li><strong>Pylon scheme cost to you:</strong> About £5-10/year</li>
+            <li><strong>Total standing charge increase:</strong> From ~£42/year (2025) to ~£62/year (2026) = <strong>£20/year more</strong></li>
+        </ul>
+
+        <p>So while a small number of households save £250/year, <strong>everyone else is paying an extra £20/year in standing charges</strong> - mostly driven by the grid expansion, with a small slice for pylon discounts.</p>
+
+        <div class="purple-box">
+            <p><strong>The political trick:</strong> This is classic policy design - give visible benefits to a small group (£250 discount), and spread the costs invisibly across millions of bills. Most people won't connect their rising standing charge to the pylon discount scheme because it's buried in complex charges. But it's there.</p>
+        </div>
+
+        <h2>See how much your standing charge is rising</h2>
+
+        <p>Network charges vary by region - typically adding £40-£93/year to your standing charge. Use this calculator to see the expected impact for your area:</p>
+
+        <div class="calculator-box">
+            <h3>🧮 Standing Charge Calculator</h3>
+            <p class="calc-description">Network charges hit your <strong>standing charge</strong> (the fixed daily fee on your bill) - not your usage. Select your region to see the expected impact:</p>
+            
+            <div class="input-group">
+                <label for="currentStandingCharge">Your current standing charge (£/year):</label>
+                <input type="number" id="currentStandingCharge" placeholder="e.g., 42" value="42" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="regionSelect">Your region:</label>
+                <select id="regionSelect">
+                    <option value="70">Scotland & North (lower network costs)</option>
+                    <option value="85" selected>Midlands & most of England (average)</option>
+                    <option value="91">South & London (higher network costs)</option>
+                </select>
+            </div>
+
+            <div class="calc-result">
+                <div class="calc-result-row">
+                    <span class="calc-result-label">Your current standing charge:</span>
+                    <span class="calc-result-value" id="currentCharge">£42.00</span>
+                </div>
+                <div class="calc-result-row">
+                    <span class="calc-result-label">Expected increase (April 2026):</span>
+                    <span class="calc-result-value" id="increaseAmount">+£20.00</span>
+                </div>
+                <div class="calc-result-row">
+                    <span class="calc-result-label">New standing charge:</span>
+                    <span class="calc-result-value highlight" id="newStandingCharge">£62.00</span>
+                </div>
+                <div style="border-top: 2px solid rgba(255,255,255,0.3); margin: 1rem 0; padding-top: 1rem;">
+                    <div class="calc-result-row">
+                        <span class="calc-result-label">Network portion now:</span>
+                        <span class="calc-result-value" id="currentTnuosAmount">~£51/year</span>
+                    </div>
+                    <div class="calc-result-row">
+                        <span class="calc-result-label">Network portion after April 2026:</span>
+                        <span class="calc-result-value highlight" id="newTnuosAmount">~£85/year</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="calc-note">
+                <strong>Note:</strong> Network charges vary by location - southern areas pay more because they're further from where most electricity is generated (Scotland/offshore wind). Final figures will be confirmed on 31 January 2026.
+            </p>
+        </div>
+
+        <h2>What happens next?</h2>
+
+        <p>If you're not living near new pylons (which is about 99.7% of households), here's what to expect:</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">31 January 2026</div>
+                <div class="timeline-content">Final network charges published (confirming exact standing charge increases)</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">April 2026</div>
+                <div class="timeline-content">New charges take effect - standing charges jump across the board</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2026-2031</div>
+                <div class="timeline-content">Continued increases as grid investment ramps up</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">By 2031</div>
+                <div class="timeline-content">Standing charges could rise from £42/year to over £100/year</div>
+            </div>
+        </div>
+
+        <p>The pylon discount is a tiny fraction of this - maybe £5-10 of it. <strong>The bigger story is that network charges are going up dramatically for everyone, whether or not you're near a pylon.</strong></p>
+
+        <!-- Standing Charge Projection Chart -->
+        <div class="chart-section">
+            <h3>📉 Your standing charge: 2024-2031 projection</h3>
+            <p class="chart-subtitle">Average household electricity standing charge (£/year)</p>
+            <div class="chart-container">
+                <canvas id="projectionChart"></canvas>
+            </div>
+        </div>
+
+        <h2>Is this a bad thing?</h2>
+
+        <p>Not necessarily. The UK genuinely needs to upgrade its electricity network to hit climate targets, connect renewables, and keep the lights on. <strong>Someone has to pay for it.</strong></p>
+
+        <p>The pylon discount scheme also makes sense: it helps overcome local opposition that has delayed critical projects for years. If £250 discounts help get pylons built faster, that might actually <em>save</em> money in the long run.</p>
+
+        <p>But here's what matters: <strong>transparency.</strong></p>
+
+        <div class="highlight-box">
+            <p><strong>The issue isn't whether the scheme is good or bad - it's whether you understand what's happening.</strong> When the government says "£250 off for homes near pylons," it sounds like free money. But it's actually a cost shift: everyone pays more so a few people pay less. That's a political choice, and you deserve to know about it.</p>
+        </div>
+
+        <h2>The bottom line</h2>
+
+        <p>When you see your standing charge spike in April 2026, now you know why. Some of it is funding the massive grid expansion the UK needs. A small slice is funding discounts for people near new pylons. But all of it comes from customers like you.</p>
+
+        <p>"Pounds for Pylons" isn't inherently bad - it's a tool to speed up infrastructure. But the framing matters. It's not a "free" discount; it's a <strong>cost shift from all customers to a select few.</strong> And as your bills rise, you deserve to know where the money's going.</p>
+
+        <div class="purple-box">
+            <p><strong>Final thought:</strong> Grid investment is necessary, but the lack of transparency around who pays is a problem. Most people won't connect their rising standing charge to schemes like this because it's buried in jargon. Our goal at SwitchPilot is to make this stuff visible - so you can understand your bill, compare tariffs fairly, and make informed choices.</p>
+        </div>
+
+    </article>
+
+    <!-- CTA Section -->
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Understand your energy bill</h3>
+            <p>Join our waitlist for free tools that break down exactly where your money goes - and get early access to our auto-switching service.</p>
+            <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
+        </div>
+    </section>
+
+    <footer class="article-footer">
+        <p class="footer-note"><strong>Sources:</strong> UK Government Planning and Infrastructure Bill (March 2025), NESO Network Charge Forecasts (September & December 2025), Ofgem Final Determinations (December 2025). <strong>Note:</strong> Final network charges for 2026/27 will be published on 31 January 2026.</p>
+        <p class="footer-note" style="margin-top: 1rem;">
+            <strong>Related:</strong> <a href="standing-charge-increase-2026.html" style="color: var(--sp-purple); text-decoration: none;">Why Your Standing Charge Keeps Going Up →</a>
+        </p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+        // Chart.js default styling
+        Chart.defaults.font.family = "'DM Sans', sans-serif";
+        Chart.defaults.color = '#475569';
+
+        // 1. Network Charges Growth Chart
+        const tnuosCtx = document.getElementById('tnuosChart').getContext('2d');
+        new Chart(tnuosCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2024/25', '2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
+                datasets: [{
+                    label: 'Network Charges (£bn)',
+                    data: [3.2, 3.84, 6.0, 7.5, 9.0, 10.5, 11.75],
+                    backgroundColor: (context) => {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+                        if (!chartArea) return '#A855F7';
+                        const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                        gradient.addColorStop(0, '#A855F7');
+                        gradient.addColorStop(1, '#EC4899');
+                        return gradient;
+                    },
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        titleColor: '#A855F7',
+                        bodyColor: '#F8FAFC',
+                        padding: 12,
+                        displayColors: false,
+                        callbacks: {
+                            label: (ctx) => `£${ctx.parsed.y.toFixed(2)} billion`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#E2E8F0' },
+                        ticks: {
+                            callback: (value) => '£' + value + 'bn'
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Who Benefits Chart (Doughnut) - Better colors
+        const beneficiariesCtx = document.getElementById('beneficiariesChart').getContext('2d');
+        new Chart(beneficiariesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Households paying (30m)', 'Households getting discount (~100k)'],
+                datasets: [{
+                    data: [29900000, 100000],
+                    backgroundColor: ['#EC4899', '#A855F7'],
+                    borderWidth: 3,
+                    borderColor: '#fff',
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { 
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        callbacks: {
+                            label: (ctx) => {
+                                const value = ctx.raw;
+                                if (value >= 1000000) {
+                                    return ` ${(value/1000000).toFixed(1)}m households`;
+                                }
+                                return ` ${(value/1000).toFixed(0)}k households`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. Standing Charge Breakdown (Pie) - Better colors
+        const standingCtx = document.getElementById('standingChargeChart').getContext('2d');
+        new Chart(standingCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Network (transmission)', 'Network (local)', 'Metering', 'Other'],
+                datasets: [{
+                    data: [85, 45, 15, 12],
+                    backgroundColor: ['#A855F7', '#EC4899', '#F59E0B', '#10B981'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 12,
+                            usePointStyle: true,
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        callbacks: {
+                            label: (ctx) => ` £${ctx.raw}/year`
+                        }
+                    }
+                }
+            }
+        });
+
+        // 4. Standing Charge Projection (Line)
+        const projectionCtx = document.getElementById('projectionChart').getContext('2d');
+        new Chart(projectionCtx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'],
+                datasets: [{
+                    label: 'Standing Charge (£/year)',
+                    data: [38, 42, 62, 72, 82, 90, 97, 105],
+                    borderColor: '#A855F7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#A855F7',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        titleColor: '#A855F7',
+                        bodyColor: '#F8FAFC',
+                        padding: 12,
+                        displayColors: false,
+                        callbacks: {
+                            label: (ctx) => `£${ctx.parsed.y}/year`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 30,
+                        grid: { color: '#E2E8F0' },
+                        ticks: {
+                            callback: (value) => '£' + value
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Calculator functionality
+        function calculateCharges() {
+            const currentStandingCharge = parseFloat(document.getElementById('currentStandingCharge').value) || 42;
+            const regionTnuos = parseFloat(document.getElementById('regionSelect').value) || 85;
+            
+            const expectedIncrease = 20;
+            const newStandingCharge = currentStandingCharge + expectedIncrease;
+            
+            const currentTnuos = 51;
+            const newTnuos = regionTnuos;
+            
+            document.getElementById('currentCharge').textContent = `£${currentStandingCharge.toFixed(2)}`;
+            document.getElementById('increaseAmount').textContent = `+£${expectedIncrease.toFixed(2)}`;
+            document.getElementById('newStandingCharge').textContent = `£${newStandingCharge.toFixed(2)}`;
+            document.getElementById('currentTnuosAmount').textContent = `~£${currentTnuos}/year`;
+            document.getElementById('newTnuosAmount').textContent = `~£${newTnuos}/year`;
+        }
+        
+        document.getElementById('currentStandingCharge').addEventListener('input', calculateCharges);
+        document.getElementById('regionSelect').addEventListener('change', calculateCharges);
+        
+        // Initial calculation
+        calculateCharges();
+    </script>
+</body>
+</html>

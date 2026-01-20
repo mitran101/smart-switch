@@ -820,12 +820,19 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
   <div class="form-group" style="margin-bottom:1rem;">
     <input type="email" id="emailAddress" placeholder="Email Address" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
   </div>
-  <div class="form-group" style="margin-bottom:1rem;">
+<div class="form-group" style="margin-bottom:1rem;">
     <div style="display:flex;gap:0.5rem;">
       <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
-      <button type="button" onclick="lookupPostcode()" style="padding:1rem 1.5rem;border:none;border-radius:15px;background:#6366f1;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;">Find Address</button>
+      <button type="button" onclick="lookupPostcode()" id="findAddressBtn" style="padding:1rem 1.5rem;border:none;border-radius:15px;background:#6366f1;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;">Find Address</button>
     </div>
     <p id="postcodeError" style="color:#ec4899;font-size:0.85rem;margin:0.5rem 0 0 0;display:none;"></p>
+  </div>
+  <div id="addressDropdownWrapper" style="display:none;margin-bottom:1rem;">
+    <label style="font-size:0.85rem;color:#666;display:block;margin-bottom:0.4rem;">Select your address:</label>
+    <select id="addressDropdown" onchange="selectAddress()" style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #6366f1;background:#fff;font-size:1rem;color:#1a1a2e;box-sizing:border-box;cursor:pointer;">
+      <option value="">-- Select your address --</option>
+    </select>
+    <p style="font-size:0.75rem;color:#888;margin:0.4rem 0 0 0;">Can't find your address? <a href="#" onclick="showManualEntry();return false;" style="color:#6366f1;">Enter manually</a></p>
   </div>
   <div id="addressFields" style="display:none;">
     <div class="form-group" style="margin-bottom:1rem;">
@@ -1153,11 +1160,16 @@ function animateCounter(element, newValue) {
         element.style.transform = 'scale(1)';
     }, 300);
 }
-// Postcodes.io lookup function
+// Ideal Postcodes API
+const IDEAL_POSTCODES_API_KEY = 'ak_mkmkogpnZZ5AR83WNyoK3DW1EOxNS';
+let addressList = [];
+
 async function lookupPostcode() {
   const postcodeInput = document.getElementById('postcode');
   const postcodeError = document.getElementById('postcodeError');
-  const addressFields = document.getElementById('addressFields');
+  const addressDropdownWrapper = document.getElementById('addressDropdownWrapper');
+  const addressDropdown = document.getElementById('addressDropdown');
+  const findBtn = document.getElementById('findAddressBtn');
   
   let postcode = postcodeInput.value.trim().replace(/\s+/g, '').toUpperCase();
   
@@ -1168,69 +1180,168 @@ async function lookupPostcode() {
   }
   
   postcodeError.style.display = 'none';
+  findBtn.textContent = 'Searching...';
+  findBtn.disabled = true;
   
   try {
-    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
+    const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${postcode}?api_key=${IDEAL_POSTCODES_API_KEY}`);
     const data = await response.json();
     
-    if (data.status === 200 && data.result) {
-      const result = data.result;
-      
-      // Auto-fill city and region
-      document.getElementById('city').value = result.admin_district || result.parish || '';
-      document.getElementById('region').value = result.region || result.country || '';
-      
-      // Map to energy region (DNO regions)
-      const energyRegionMap = {
-        'North West England': 'North West',
-        'North East England': 'North East',
-        'Yorkshire and The Humber': 'Yorkshire',
-        'Scotland': result.admin_district && result.admin_district.includes('Highland') ? 'North Scotland' : 'South Scotland',
-        'South East England': 'South East',
-        'London': 'London',
-        'East of England': 'Eastern',
-        'East Midlands': 'East Midlands',
-        'West Midlands': 'West Midlands',
-        'South West England': 'South West',
-        'Wales': result.admin_district && (result.admin_district.includes('Flint') || result.admin_district.includes('Wrexham') || result.admin_district.includes('Denbigh')) ? 'North Wales & Merseyside' : 'South Wales'
-      };
-      
-      let energyRegion = energyRegionMap[result.region] || result.region || 'Unknown';
-      
-      // Special case for Merseyside (part of North Wales & Merseyside DNO)
-      if (result.admin_district && (result.admin_district.includes('Liverpool') || result.admin_district.includes('Wirral') || result.admin_district.includes('Sefton') || result.admin_district.includes('Knowsley') || result.admin_district.includes('St. Helens'))) {
-        energyRegion = 'North Wales & Merseyside';
-      }
-      
-      // Southern region detection
-      if (result.region === 'South East England' && result.admin_district && (result.admin_district.includes('Southampton') || result.admin_district.includes('Portsmouth') || result.admin_district.includes('Hampshire') || result.admin_district.includes('Isle of Wight') || result.admin_district.includes('West Sussex') || result.admin_district.includes('Brighton'))) {
-        energyRegion = 'Southern';
-      }
-      
-      document.getElementById('energyRegion').value = energyRegion;
-      
-      // Show address fields
-      addressFields.style.display = 'block';
-      document.getElementById('houseNumber').focus();
-      // Show usage fields too
-document.getElementById('usageFields').style.display = 'block';
+    if (data.code === 2000 && data.result && data.result.length > 0) {
+      addressList = data.result;
       
       // Format postcode nicely
       if (postcode.length > 4) {
-        const formatted = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
-        postcodeInput.value = formatted;
+        postcodeInput.value = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
       }
       
-    } else {
-      postcodeError.textContent = 'Invalid postcode. Please check and try again.';
+      // Populate dropdown
+      addressDropdown.innerHTML = '<option value="">-- Select your address --</option>';
+      addressList.forEach((addr, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = addr.line_1 + (addr.line_2 ? ', ' + addr.line_2 : '') + ', ' + addr.post_town;
+        addressDropdown.appendChild(option);
+      });
+      
+      addressDropdownWrapper.style.display = 'block';
+      document.getElementById('addressFields').style.display = 'none';
+      
+    } else if (data.code === 4040) {
+      postcodeError.textContent = 'Postcode not found. Please check and try again.';
       postcodeError.style.display = 'block';
-      addressFields.style.display = 'none';
+      addressDropdownWrapper.style.display = 'none';
+    } else {
+      postcodeError.textContent = 'Error looking up postcode. Please try again.';
+      postcodeError.style.display = 'block';
+      addressDropdownWrapper.style.display = 'none';
     }
   } catch (error) {
     postcodeError.textContent = 'Error looking up postcode. Please try again.';
     postcodeError.style.display = 'block';
     console.error('Postcode lookup error:', error);
   }
+  
+  findBtn.textContent = 'Find Address';
+  findBtn.disabled = false;
+}
+
+function selectAddress() {
+  const dropdown = document.getElementById('addressDropdown');
+  const index = dropdown.value;
+  
+  if (index === '') return;
+  
+  const addr = addressList[index];
+  
+  // Fill in the fields
+  document.getElementById('houseNumber').value = addr.building_number || addr.sub_building_name || addr.building_name || '';
+  document.getElementById('street').value = addr.thoroughfare || addr.dependant_locality || '';
+  document.getElementById('city').value = addr.post_town || '';
+  document.getElementById('region').value = addr.county || addr.post_town || '';
+  
+  // Map to energy region
+  const energyRegion = mapToEnergyRegion(addr.county, addr.post_town, addr.postcode);
+  document.getElementById('energyRegion').value = energyRegion;
+  
+  // Show fields and usage section
+  document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
+}
+
+function showManualEntry() {
+  document.getElementById('addressDropdownWrapper').style.display = 'none';
+  document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
+  document.getElementById('houseNumber').focus();
+  
+  // Still try to get region from postcode for energy region mapping
+  const postcode = document.getElementById('postcode').value.trim().toUpperCase();
+  const energyRegion = mapToEnergyRegionFromPostcode(postcode);
+  document.getElementById('energyRegion').value = energyRegion;
+}
+
+function mapToEnergyRegion(county, town, postcode) {
+  const pc = (postcode || '').toUpperCase().replace(/\s+/g, '');
+  const countyLower = (county || '').toLowerCase();
+  const townLower = (town || '').toLowerCase();
+  
+  // London
+  if (townLower === 'london' || ['E','EC','N','NW','SE','SW','W','WC'].some(p => pc.startsWith(p) && pc.length > 2 && !pc.startsWith('EX') && !pc.startsWith('EN') && !pc.startsWith('NE') && !pc.startsWith('WA') && !pc.startsWith('WN') && !pc.startsWith('WR') && !pc.startsWith('WS') && !pc.startsWith('WV') && !pc.startsWith('WF'))) {
+    return 'London';
+  }
+  
+  // Scotland
+  if (countyLower.includes('highland') || countyLower.includes('aberdeen') || pc.startsWith('AB') || pc.startsWith('IV') || pc.startsWith('KW') || pc.startsWith('PH') || pc.startsWith('DD') || pc.startsWith('ZE') || pc.startsWith('HS')) {
+    return 'North Scotland';
+  }
+  if (countyLower.includes('scotland') || pc.startsWith('EH') || pc.startsWith('FK') || pc.startsWith('G') || pc.startsWith('KA') || pc.startsWith('KY') || pc.startsWith('ML') || pc.startsWith('PA') || pc.startsWith('TD') || pc.startsWith('DG')) {
+    return 'South Scotland';
+  }
+  
+  // Wales
+  if (pc.startsWith('LL') || pc.startsWith('CH') || (countyLower.includes('flint') || countyLower.includes('wrexham') || countyLower.includes('denbigh'))) {
+    return 'North Wales & Merseyside';
+  }
+  if (pc.startsWith('CF') || pc.startsWith('NP') || pc.startsWith('SA') || countyLower.includes('wales')) {
+    return 'South Wales';
+  }
+  
+  // Merseyside
+  if (townLower.includes('liverpool') || townLower.includes('wirral') || townLower.includes('sefton') || townLower.includes('knowsley') || pc.startsWith('L') && !pc.startsWith('LA') && !pc.startsWith('LE') && !pc.startsWith('LN') && !pc.startsWith('LS') && !pc.startsWith('LU')) {
+    return 'North Wales & Merseyside';
+  }
+  
+  // North East
+  if (pc.startsWith('NE') || pc.startsWith('DH') || pc.startsWith('SR') || pc.startsWith('TS') || pc.startsWith('DL')) {
+    return 'North East';
+  }
+  
+  // North West
+  if (pc.startsWith('M') || pc.startsWith('BL') || pc.startsWith('BB') || pc.startsWith('PR') || pc.startsWith('FY') || pc.startsWith('LA') || pc.startsWith('CA') || pc.startsWith('WA') || pc.startsWith('WN') || pc.startsWith('OL') || pc.startsWith('SK') || pc.startsWith('CW')) {
+    return 'North West';
+  }
+  
+  // Yorkshire
+  if (pc.startsWith('LS') || pc.startsWith('BD') || pc.startsWith('HG') || pc.startsWith('HX') || pc.startsWith('WF') || pc.startsWith('HD') || pc.startsWith('HU') || pc.startsWith('YO') || pc.startsWith('DN') || pc.startsWith('S')) {
+    return 'Yorkshire';
+  }
+  
+  // East Midlands
+  if (pc.startsWith('DE') || pc.startsWith('NG') || pc.startsWith('LE') || pc.startsWith('LN') || pc.startsWith('NN') || pc.startsWith('PE')) {
+    return 'East Midlands';
+  }
+  
+  // West Midlands
+  if (pc.startsWith('B') || pc.startsWith('CV') || pc.startsWith('DY') || pc.startsWith('WS') || pc.startsWith('WV') || pc.startsWith('WR') || pc.startsWith('ST') || pc.startsWith('TF') || pc.startsWith('HR')) {
+    return 'West Midlands';
+  }
+  
+  // Eastern
+  if (pc.startsWith('CB') || pc.startsWith('CO') || pc.startsWith('IP') || pc.startsWith('NR') || pc.startsWith('CM') || pc.startsWith('SS') || pc.startsWith('SG') || pc.startsWith('AL') || pc.startsWith('EN') || pc.startsWith('LU') || pc.startsWith('MK')) {
+    return 'Eastern';
+  }
+  
+  // Southern
+  if (pc.startsWith('SO') || pc.startsWith('PO') || pc.startsWith('BN') || pc.startsWith('RH') || pc.startsWith('GU') || pc.startsWith('RG') || pc.startsWith('SP') || pc.startsWith('HP') || pc.startsWith('OX') || pc.startsWith('SL')) {
+    return 'Southern';
+  }
+  
+  // South East
+  if (pc.startsWith('CT') || pc.startsWith('ME') || pc.startsWith('DA') || pc.startsWith('BR') || pc.startsWith('TN') || pc.startsWith('KT') || pc.startsWith('CR') || pc.startsWith('SM') || pc.startsWith('TW')) {
+    return 'South East';
+  }
+  
+  // South West
+  if (pc.startsWith('EX') || pc.startsWith('PL') || pc.startsWith('TQ') || pc.startsWith('TR') || pc.startsWith('TA') || pc.startsWith('BA') || pc.startsWith('BS') || pc.startsWith('GL') || pc.startsWith('SN') || pc.startsWith('DT') || pc.startsWith('BH')) {
+    return 'South West';
+  }
+  
+  return 'Unknown';
+}
+
+function mapToEnergyRegionFromPostcode(postcode) {
+  return mapToEnergyRegion('', '', postcode);
 }
 // Usage preset buttons
 document.querySelectorAll('.usage-preset').forEach(btn => {
@@ -1262,11 +1373,11 @@ const gasUsage = document.getElementById('gasUsage').value;
     
     const form = e.target.closest('.waitlist-form');
     
-    // Check address fields are filled
-    if (!houseNumber || !street) {
-        alert('Please complete your address details');
-        return;
-    }
+// Check address fields are filled
+if (!houseNumber && !street) {
+    alert('Please find your address using the postcode lookup');
+    return;
+}
     
     // Optimistically increment counter
     signupCount++;
@@ -1910,6 +2021,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

@@ -1279,24 +1279,22 @@ const gasUsage = document.getElementById('gasUsage').value;
     // Show loading
     form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the crew...</p></div>';
     
-    // Send to Google Sheets with all fields
+// Send to Google Sheets with all fields
     fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-body: JSON.stringify({ 
-    name: fullName,
-    email: email,
-    postcode: postcode,
-    houseNumber: houseNumber,
-    street: street,
-    city: city,
-    region: region,
-    energyRegion: energyRegion,
-    elecUsage: elecUsage,
-    gasUsage: gasUsage
-})
+            name: fullName,
+            email: email,
+            postcode: postcode,
+            houseNumber: houseNumber,
+            street: street,
+            city: city,
+            region: region,
+            energyRegion: energyRegion,
+            elecUsage: elecUsage,
+            gasUsage: gasUsage
         })
     })
     .then(() => {
@@ -1912,6 +1910,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

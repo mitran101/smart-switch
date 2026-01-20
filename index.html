@@ -813,12 +813,35 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 </div>
 <h3>Join the Crew 🚀</h3>
 <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
-<form onsubmit="handleSubmit(event)">
-<div class="form-group"><input type="email" placeholder="Your email address" required /></div>
-<button type="submit" class="submit-btn">Get Early Access</button>
+<form onsubmit="handleSubmit(event)" id="waitlistForm">
+  <div class="form-group" style="margin-bottom:1rem;">
+    <input type="text" id="fullName" placeholder="Full Name" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+  </div>
+  <div class="form-group" style="margin-bottom:1rem;">
+    <input type="email" id="emailAddress" placeholder="Email Address" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+  </div>
+  <div class="form-group" style="margin-bottom:1rem;">
+    <div style="display:flex;gap:0.5rem;">
+      <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+      <button type="button" onclick="lookupPostcode()" style="padding:1rem 1.5rem;border:none;border-radius:15px;background:#6366f1;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;">Find Address</button>
+    </div>
+    <p id="postcodeError" style="color:#ec4899;font-size:0.85rem;margin:0.5rem 0 0 0;display:none;"></p>
+  </div>
+  <div id="addressFields" style="display:none;">
+    <div class="form-group" style="margin-bottom:1rem;">
+      <input type="text" id="houseNumber" placeholder="House/Flat Number" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    </div>
+    <div class="form-group" style="margin-bottom:1rem;">
+      <input type="text" id="street" placeholder="Street Name" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    </div>
+    <div class="form-group" style="margin-bottom:1rem;display:flex;gap:0.5rem;">
+      <input type="text" id="city" placeholder="City" readonly style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#e8e8e8;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+      <input type="text" id="region" placeholder="Region" readonly style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#e8e8e8;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    </div>
+  </div>
+  <input type="hidden" id="energyRegion" value="" />
+  <button type="submit" class="submit-btn">Get Early Access</button>
 </form>
-<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
-</div>
 
 <!-- EMBEDDED PRICE CAP TOOL -->
 <section id="bill-breakdown" style="max-width:1400px;margin:3.5rem auto 0;padding:0 2rem;">
@@ -1109,13 +1132,104 @@ function animateCounter(element, newValue) {
         element.style.transform = 'scale(1)';
     }, 300);
 }
-
+// Postcodes.io lookup function
+async function lookupPostcode() {
+  const postcodeInput = document.getElementById('postcode');
+  const postcodeError = document.getElementById('postcodeError');
+  const addressFields = document.getElementById('addressFields');
+  
+  let postcode = postcodeInput.value.trim().replace(/\s+/g, '').toUpperCase();
+  
+  if (!postcode) {
+    postcodeError.textContent = 'Please enter a postcode';
+    postcodeError.style.display = 'block';
+    return;
+  }
+  
+  postcodeError.style.display = 'none';
+  
+  try {
+    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
+    const data = await response.json();
+    
+    if (data.status === 200 && data.result) {
+      const result = data.result;
+      
+      // Auto-fill city and region
+      document.getElementById('city').value = result.admin_district || result.parish || '';
+      document.getElementById('region').value = result.region || result.country || '';
+      
+      // Map to energy region (DNO regions)
+      const energyRegionMap = {
+        'North West England': 'North West',
+        'North East England': 'North East',
+        'Yorkshire and The Humber': 'Yorkshire',
+        'Scotland': result.admin_district && result.admin_district.includes('Highland') ? 'North Scotland' : 'South Scotland',
+        'South East England': 'South East',
+        'London': 'London',
+        'East of England': 'Eastern',
+        'East Midlands': 'East Midlands',
+        'West Midlands': 'West Midlands',
+        'South West England': 'South West',
+        'Wales': result.admin_district && (result.admin_district.includes('Flint') || result.admin_district.includes('Wrexham') || result.admin_district.includes('Denbigh')) ? 'North Wales & Merseyside' : 'South Wales'
+      };
+      
+      let energyRegion = energyRegionMap[result.region] || result.region || 'Unknown';
+      
+      // Special case for Merseyside (part of North Wales & Merseyside DNO)
+      if (result.admin_district && (result.admin_district.includes('Liverpool') || result.admin_district.includes('Wirral') || result.admin_district.includes('Sefton') || result.admin_district.includes('Knowsley') || result.admin_district.includes('St. Helens'))) {
+        energyRegion = 'North Wales & Merseyside';
+      }
+      
+      // Southern region detection
+      if (result.region === 'South East England' && result.admin_district && (result.admin_district.includes('Southampton') || result.admin_district.includes('Portsmouth') || result.admin_district.includes('Hampshire') || result.admin_district.includes('Isle of Wight') || result.admin_district.includes('West Sussex') || result.admin_district.includes('Brighton'))) {
+        energyRegion = 'Southern';
+      }
+      
+      document.getElementById('energyRegion').value = energyRegion;
+      
+      // Show address fields
+      addressFields.style.display = 'block';
+      document.getElementById('houseNumber').focus();
+      
+      // Format postcode nicely
+      if (postcode.length > 4) {
+        const formatted = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
+        postcodeInput.value = formatted;
+      }
+      
+    } else {
+      postcodeError.textContent = 'Invalid postcode. Please check and try again.';
+      postcodeError.style.display = 'block';
+      addressFields.style.display = 'none';
+    }
+  } catch (error) {
+    postcodeError.textContent = 'Error looking up postcode. Please try again.';
+    postcodeError.style.display = 'block';
+    console.error('Postcode lookup error:', error);
+  }
+}
 function handleSubmit(e) {
     e.preventDefault();
-    const email = e.target.querySelector('input').value;
+    
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('emailAddress').value;
+    const postcode = document.getElementById('postcode').value;
+    const houseNumber = document.getElementById('houseNumber').value;
+    const street = document.getElementById('street').value;
+    const city = document.getElementById('city').value;
+    const region = document.getElementById('region').value;
+    const energyRegion = document.getElementById('energyRegion').value;
+    
     const form = e.target.closest('.waitlist-form');
     
-    // Optimistically increment counter (immediate feedback)
+    // Check address fields are filled
+    if (!houseNumber || !street) {
+        alert('Please complete your address details');
+        return;
+    }
+    
+    // Optimistically increment counter
     signupCount++;
     const counterElement = document.getElementById('signupCount');
     if (counterElement) {
@@ -1126,18 +1240,27 @@ function handleSubmit(e) {
     // Show loading
     form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the crew...</p></div>';
     
-    // Send to Google Sheets
+    // Send to Google Sheets with all fields
     fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ 
+            name: fullName,
+            email: email,
+            postcode: postcode,
+            houseNumber: houseNumber,
+            street: street,
+            city: city,
+            region: region,
+            energyRegion: energyRegion
+        })
     })
     .then(() => {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
-                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
+                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard, ${fullName.split(' ')[0]}!</h3>
                 <p style="color:#666;">Check your email at <strong>${email}</strong> for your welcome email.</p>
             </div>
         `;
@@ -1147,7 +1270,7 @@ function handleSubmit(e) {
             <div style="text-align:center;padding:2rem;">
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
                 <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-                <p style="color:#666;">Check your email at <strong>${email}</strong> for verification and your welcome email.</p>
+                <p style="color:#666;">Check your email at <strong>${email}</strong> for your welcome email.</p>
             </div>
         `;
     });
@@ -1746,6 +1869,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

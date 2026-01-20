@@ -692,19 +692,17 @@
         <div class="chart-section">
             <h3>📊 Who pays vs who benefits</h3>
             <p class="chart-subtitle">The scheme benefits about 100,000 households while 30 million pay for it</p>
-            <div class="chart-grid">
-                <div class="chart-container-small">
-                    <canvas id="beneficiariesChart"></canvas>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                <div class="stat-card" style="border-color: var(--sp-pink); flex: 1; min-width: 200px; max-width: 280px;">
+                    <div class="stat-value" style="font-size: 2.5rem;">30m</div>
+                    <div class="stat-label">Households paying for it</div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--sp-pink); margin-top: 0.5rem;">99.7%</div>
                 </div>
-                <div style="display: flex; flex-direction: column; justify-content: center;">
-                    <div class="stat-card" style="margin-bottom: 1rem; border-color: var(--sp-purple);">
-                        <div class="stat-value">~100k</div>
-                        <div class="stat-label">Households get £250/year discount</div>
-                    </div>
-                    <div class="stat-card" style="border-color: var(--sp-pink);">
-                        <div class="stat-value">30m</div>
-                        <div class="stat-label">Households paying for it</div>
-                    </div>
+                <div style="font-size: 2rem; color: var(--sp-slate-light);">vs</div>
+                <div class="stat-card" style="border-color: var(--sp-purple); flex: 1; min-width: 200px; max-width: 280px;">
+                    <div class="stat-value" style="font-size: 2.5rem;">~100k</div>
+                    <div class="stat-label">Households get £250/year discount</div>
+                    <div style="font-size: 2rem; font-weight: 800; color: var(--sp-purple); margin-top: 0.5rem;">0.3%</div>
                 </div>
             </div>
         </div>
@@ -917,28 +915,19 @@
     </footer>
 
     <script>
-        // Chart.js default styling
         Chart.defaults.font.family = "'DM Sans', sans-serif";
         Chart.defaults.color = '#475569';
 
-        // 1. Network Charges Growth Chart
+        // 1. Network Charges Growth (Bar Chart)
         const tnuosCtx = document.getElementById('tnuosChart').getContext('2d');
         new Chart(tnuosCtx, {
             type: 'bar',
             data: {
-                labels: ['2024/25', '2025/26', '2026/27', '2027/28', '2028/29', '2029/30', '2030/31'],
+                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'],
                 datasets: [{
-                    label: 'Network Charges (£bn)',
-                    data: [3.2, 3.84, 6.0, 7.5, 9.0, 10.5, 11.75],
-                    backgroundColor: (context) => {
-                        const chart = context.chart;
-                        const {ctx, chartArea} = chart;
-                        if (!chartArea) return '#A855F7';
-                        const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-                        gradient.addColorStop(0, '#A855F7');
-                        gradient.addColorStop(1, '#EC4899');
-                        return gradient;
-                    },
+                    label: 'Network charges (£bn)',
+                    data: [3.8, 4.2, 5.1, 6.2, 7.4, 8.8, 10.2, 11.8],
+                    backgroundColor: '#A855F7',
                     borderRadius: 6,
                     borderSkipped: false
                 }]
@@ -950,12 +939,8 @@
                     legend: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(30, 41, 59, 0.95)',
-                        titleColor: '#A855F7',
-                        bodyColor: '#F8FAFC',
-                        padding: 12,
-                        displayColors: false,
                         callbacks: {
-                            label: (ctx) => `£${ctx.parsed.y.toFixed(2)} billion`
+                            label: (ctx) => '£' + ctx.raw + ' billion'
                         }
                     }
                 },
@@ -974,26 +959,26 @@
             }
         });
 
-        // 2. Who Benefits Chart (Doughnut) - Better colors
-        const beneficiariesCtx = document.getElementById('beneficiariesChart').getContext('2d');
-        new Chart(beneficiariesCtx, {
-            type: 'doughnut',
+        // 2. Who Benefits - no chart needed, using stat cards instead
+
+        // 3. Standing Charge Breakdown (Pie)
+        const standingChargeCtx = document.getElementById('standingChargeChart').getContext('2d');
+        new Chart(standingChargeCtx, {
+            type: 'pie',
             data: {
-                labels: ['Households paying (30m)', 'Households getting discount (~100k)'],
+                labels: ['Network transmission', 'Local network', 'Metering', 'Other'],
                 datasets: [{
-                    data: [29900000, 100000],
-                    backgroundColor: ['#EC4899', '#A855F7'],
-                    borderWidth: 3,
-                    borderColor: '#fff',
-                    hoverOffset: 10
+                    data: [85, 45, 15, 12],
+                    backgroundColor: ['#A855F7', '#EC4899', '#F472B6', '#C084FC'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '65%',
                 plugins: {
-                    legend: { 
+                    legend: {
                         display: true,
                         position: 'bottom',
                         labels: {
@@ -1005,48 +990,7 @@
                     tooltip: {
                         backgroundColor: 'rgba(30, 41, 59, 0.95)',
                         callbacks: {
-                            label: (ctx) => {
-                                const value = ctx.raw;
-                                if (value >= 1000000) {
-                                    return ` ${(value/1000000).toFixed(1)}m households`;
-                                }
-                                return ` ${(value/1000).toFixed(0)}k households`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        // 3. Standing Charge Breakdown (Pie) - Better colors
-        const standingCtx = document.getElementById('standingChargeChart').getContext('2d');
-        new Chart(standingCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Network (transmission)', 'Network (local)', 'Metering', 'Other'],
-                datasets: [{
-                    data: [85, 45, 15, 12],
-                    backgroundColor: ['#A855F7', '#EC4899', '#F59E0B', '#10B981'],
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 12,
-                            usePointStyle: true,
-                            font: { size: 11 }
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
-                        callbacks: {
-                            label: (ctx) => ` £${ctx.raw}/year`
+                            label: (ctx) => ' £' + ctx.raw + '/year'
                         }
                     }
                 }
@@ -1058,10 +1002,10 @@
         new Chart(projectionCtx, {
             type: 'line',
             data: {
-                labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'],
+                labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'],
                 datasets: [{
-                    label: 'Standing Charge (£/year)',
-                    data: [38, 42, 62, 72, 82, 90, 97, 105],
+                    label: 'Standing charge (£/year)',
+                    data: [26, 28, 32, 36, 38, 42, 62, 72, 82, 90, 98, 105],
                     borderColor: '#A855F7',
                     backgroundColor: 'rgba(168, 85, 247, 0.1)',
                     borderWidth: 3,
@@ -1070,8 +1014,7 @@
                     pointBackgroundColor: '#A855F7',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 8
+                    pointRadius: 4
                 }]
             },
             options: {
@@ -1081,19 +1024,15 @@
                     legend: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(30, 41, 59, 0.95)',
-                        titleColor: '#A855F7',
-                        bodyColor: '#F8FAFC',
-                        padding: 12,
-                        displayColors: false,
                         callbacks: {
-                            label: (ctx) => `£${ctx.parsed.y}/year`
+                            label: (ctx) => '£' + ctx.raw + '/year'
                         }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: false,
-                        min: 30,
+                        min: 20,
                         grid: { color: '#E2E8F0' },
                         ticks: {
                             callback: (value) => '£' + value
@@ -1116,18 +1055,19 @@
             
             const currentTnuos = 51;
             const newTnuos = regionTnuos;
+            const tnuosIncrease = newTnuos - currentTnuos;
             
-            document.getElementById('currentCharge').textContent = `£${currentStandingCharge.toFixed(2)}`;
-            document.getElementById('increaseAmount').textContent = `+£${expectedIncrease.toFixed(2)}`;
-            document.getElementById('newStandingCharge').textContent = `£${newStandingCharge.toFixed(2)}`;
-            document.getElementById('currentTnuosAmount').textContent = `~£${currentTnuos}/year`;
-            document.getElementById('newTnuosAmount').textContent = `~£${newTnuos}/year`;
+            document.getElementById('currentCharge').textContent = '£' + currentStandingCharge.toFixed(2);
+            document.getElementById('increaseAmount').textContent = '+£' + expectedIncrease.toFixed(2);
+            document.getElementById('newStandingCharge').textContent = '£' + newStandingCharge.toFixed(2);
+            document.getElementById('currentTnuosAmount').textContent = '~£' + currentTnuos;
+            document.getElementById('newTnuosAmount').textContent = '~£' + newTnuos;
+            document.getElementById('tnuosIncrease').textContent = '~£' + tnuosIncrease;
         }
         
         document.getElementById('currentStandingCharge').addEventListener('input', calculateCharges);
         document.getElementById('regionSelect').addEventListener('change', calculateCharges);
         
-        // Initial calculation
         calculateCharges();
     </script>
 </body>

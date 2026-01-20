@@ -1235,7 +1235,8 @@ function selectAddress() {
   const addr = addressList[index];
   
   // Fill in the fields
-  document.getElementById('houseNumber').value = addr.building_number || addr.sub_building_name || addr.building_name || '';
+ const parts = [addr.sub_building_name, addr.building_number, addr.building_name].filter(Boolean);
+document.getElementById('houseNumber').value = parts.join(', ') || '';
   document.getElementById('street').value = addr.thoroughfare || addr.dependant_locality || '';
   document.getElementById('city').value = addr.post_town || '';
   document.getElementById('region').value = addr.county || addr.post_town || '';
@@ -2021,6 +2022,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
 </script>
 </body>
 </html>
+
 
 
 

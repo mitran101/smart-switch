@@ -785,27 +785,9 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 </div>
 </section>
 
-<div class="signup-counter" style="display:none;flex-direction:column;align-items:center;gap:0.8rem;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(236,72,153,0.1));border-radius:15px;border:2px solid rgba(99,102,241,0.2);">
-  <!-- Counter hidden until signups reach 50+ -->
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <span style="font-size:1.5rem;">👥</span>
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Already on board:</span>
-    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
-      <span id="signupCount" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0</span>
-      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">Pilots</span>
-    </div>
-  </div>
-  <div style="width:100%;background:rgba(99,102,241,0.15);border-radius:10px;height:12px;overflow:hidden;">
-    <div id="progressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:10px;transition:width 0.5s ease;"></div>
-  </div>
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">🎯 Only</span>
-    <div style="display:inline-flex;align-items:center;gap:0.3rem;">
-      <span id="spotsRemaining" style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10,000</span>
-      <span style="font-size:1rem;color:#1a1a2e;opacity:0.8;">spots left for early access</span>
-    </div>
-  </div>
-</div>
+</section>
+
+<div id="waitlist" class="waitlist-form">
 <h3>Join the Crew 🚀</h3>
 <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
 <p style="font-size:0.95rem;color:#555;margin-bottom:1.5rem;">We just need a few details to find the best deals for you 👇</p>
@@ -2098,6 +2080,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 

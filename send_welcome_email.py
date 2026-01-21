@@ -102,7 +102,7 @@ def send_welcome_email(to_email):
     msg = MIMEMultipart('alternative')
     msg['From'] = f"SwitchPilot Crew <crew@switch-pilot.com>"
     msg['To'] = to_email
-    msg['Subject'] = "You're in — here's how UK energy really works"
+    msg['Subject'] = "You're in - here's how UK energy really works"
     
     html = f"""
     <html>
@@ -137,7 +137,7 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            It shocked us. And it sparked a mission — to create more transparency and give power back to consumers.
+            It shocked us. And it sparked a mission - to create more transparency and give power back to consumers.
           </p>
           
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
@@ -164,7 +164,7 @@ def send_welcome_email(to_email):
           </div>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            But surveys are just surveys. We want to build this <strong>WITH you</strong> — not just based on numbers, but through real conversations, shared frustrations, and your input every step of the way.
+            But surveys are just surveys. We want to build this <strong>WITH you</strong> - not just based on numbers, but through real conversations, shared frustrations, and your input every step of the way.
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">

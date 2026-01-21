@@ -884,7 +884,7 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
   <!-- Credit Check - More Compelling -->
   <div style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(34,197,94,0.08));padding:1.2rem;border-radius:12px;border:2px solid rgba(34,197,94,0.25);">
     <label style="font-size:0.95rem;color:#1a1a2e;display:block;margin-bottom:0.4rem;font-weight:700;">💰 Want access to exclusive cashback & cheaper tariffs?</label>
-    <p style="font-size:0.8rem;color:#555;margin:0 0 0.8rem 0;line-height:1.5;">Suppliers offer their <strong>best deals</strong> to customers with good payment history. Bad debt costs the industry billions - so reliable payers get rewarded with cashback and lower rates. A soft credit check <strong>doesn't affect your credit score</strong>.</p>
+    <p style="font-size:0.8rem;color:#555;margin:0 0 0.8rem 0;line-height:1.5;">Suppliers are willing to offer their <strong>best deals</strong> to customers with good payment history. Bad debt costs the industry billions - so reliable payers get rewarded with cashback and lower rates. A soft credit check <strong>doesn't affect your credit score</strong>.</p>
     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
       <button type="button" class="credit-check-btn" data-value="yes" style="flex:1;min-width:100px;padding:0.9rem;border:2px solid #22c55e;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-radius:10px;cursor:pointer;font-size:0.85rem;color:#166534;font-weight:700;">💸 Yes, get me better deals!</button>
       <button type="button" class="credit-check-btn" data-value="no" style="flex:1;min-width:80px;padding:0.9rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#666;font-weight:600;">No thanks</button>
@@ -1264,9 +1264,16 @@ function selectAddress() {
   const addr = addressList[index];
   
   // Fill in the fields
- const parts = [addr.sub_building_name, addr.building_number, addr.building_name].filter(Boolean);
-document.getElementById('houseNumber').value = parts.join(', ') || '';
-  document.getElementById('street').value = addr.thoroughfare || addr.dependant_locality || '';
+  // For flats: sub_building_name (Flat 41) + building_name (Kinver House) only
+  // building_number goes with street
+  const flatParts = [addr.sub_building_name, addr.building_name].filter(Boolean);
+  document.getElementById('houseNumber').value = flatParts.length > 0 ? flatParts.join(', ') : (addr.building_number || '');
+  
+  // Street: include building_number if we have flat details (e.g., "42 Elthorne Road")
+  const street = addr.thoroughfare || addr.dependant_locality || '';
+  const streetWithNumber = (flatParts.length > 0 && addr.building_number) ? addr.building_number + ' ' + street : street;
+  document.getElementById('street').value = streetWithNumber;
+  
   document.getElementById('city').value = addr.post_town || '';
   document.getElementById('region').value = addr.county || addr.post_town || '';
   
@@ -2084,6 +2091,7 @@ document.querySelectorAll('.credit-check-btn').forEach(btn => {
 </script>
 </body>
 </html>
+
 
 
 

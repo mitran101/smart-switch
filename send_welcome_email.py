@@ -147,8 +147,8 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            You're part of <strong>5,000 early access pilots</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
-          </p>
+  You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
+</p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
             We surveyed 200 people. Here's what we found:

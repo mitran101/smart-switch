@@ -909,19 +909,6 @@
                 })
                 .sort((a, b) => a.annualCost - b.annualCost);
 
-            // Update stats
-            document.getElementById('capPrice').textContent = `£${Math.round(capCost)}`;
-            document.getElementById('capLabel').textContent = `Cap (${region.length > 10 ? region.substring(0, 8) + '...' : region})`;
-            document.getElementById('tariffCount').textContent = filtered.length;
-            
-            if (filtered.length > 0) {
-                document.getElementById('bestPrice').textContent = `£${Math.round(filtered[0].annualCost)}`;
-                document.getElementById('savingsAmount').textContent = `£${Math.round(filtered[0].savings)}/yr`;
-            } else {
-                document.getElementById('bestPrice').textContent = '-';
-                document.getElementById('savingsAmount').textContent = '-';
-            }
-
             // Update chart
             updateChart(filtered.slice(0, 10), capCost);
 

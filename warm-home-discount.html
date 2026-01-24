@@ -222,8 +222,8 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             margin: 2rem 0;
         }
 
@@ -232,6 +232,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            text-align: center;
         }
 
         .stat-value {
@@ -247,6 +248,99 @@
             font-size: 0.85rem;
             color: var(--sp-slate-light);
             font-weight: 500;
+        }
+
+        /* Who Pays Grid */
+        .who-pays-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .who-pays-chart {
+            height: 200px;
+        }
+
+        .who-pays-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .legend-dot.green { background: #10B981; }
+        .legend-dot.red { background: #EF4444; }
+
+        .legend-label {
+            font-weight: 600;
+            color: var(--sp-slate);
+            font-size: 0.9rem;
+        }
+
+        .legend-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .legend-value.green { color: #10B981; }
+        .legend-value.red { color: #EF4444; }
+
+        .legend-desc {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-top: 2px;
+        }
+
+        /* Expansion Stats */
+        .expansion-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #F1F5F9;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .expansion-stat {
+            text-align: center;
+        }
+
+        .expansion-stat-label {
+            font-size: 0.75rem;
+            color: var(--sp-slate-light);
+        }
+
+        .expansion-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .expansion-stat-value.grey { color: #94A3B8; }
+        .expansion-stat-value.green { color: var(--sp-green); }
+        .expansion-stat-value.amber { color: var(--sp-amber); }
+
+        .expansion-arrow {
+            font-size: 1.5rem;
+            color: var(--sp-slate-light);
+            display: flex;
+            align-items: center;
         }
 
         .summary-section {
@@ -265,7 +359,7 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
 
@@ -357,6 +451,13 @@
         .site-footer p { opacity: 0.8; margin: 0.5rem 0; color: white; }
         .site-footer a { color: #a855f7; text-decoration: none; }
 
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .top-nav { padding: 1rem; }
             .top-logo img { height: 1.6rem; }
@@ -365,9 +466,119 @@
             .article-header { padding: 3rem 1.5rem 2rem; }
             .article-body { padding: 2rem 1.5rem 1rem; }
             h2 { font-size: 1.4rem; }
-            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-            .stat-value { font-size: 1.5rem; }
-            .cta-box { padding: 2rem 1.5rem; margin: 1.5rem 1rem 0; }
+            
+            .stats-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 0.75rem; 
+            }
+            .stat-card { padding: 1rem; }
+            .stat-value { font-size: 1.4rem; }
+            .stat-label { font-size: 0.75rem; }
+            
+            .chart-section { padding: 1.25rem; }
+            
+            .who-pays-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .who-pays-chart {
+                height: 180px;
+                max-width: 220px;
+                margin: 0 auto;
+            }
+            .who-pays-legend {
+                flex-direction: row;
+                justify-content: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .legend-item {
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+            .legend-dot {
+                margin-top: 0;
+            }
+            
+            .expansion-stats {
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                background: transparent;
+            }
+            .expansion-stat {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                background: #F1F5F9;
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                text-align: left;
+            }
+            .expansion-stat-label {
+                order: 1;
+            }
+            .expansion-stat-value {
+                order: 2;
+            }
+            .expansion-arrow {
+                display: none;
+            }
+            
+            .summary-grid { 
+                grid-template-columns: 1fr; 
+                gap: 0.75rem; 
+            }
+            
+            .cta-box { 
+                padding: 2rem 1.5rem; 
+                margin: 1.5rem 1rem 0; 
+            }
+            .cta-box h3 { font-size: 1.3rem; }
+            .cta-button { 
+                display: block; 
+                margin: 0.5rem 0; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-header { padding: 2.5rem 1rem 1.5rem; }
+            .article-body { padding: 1.5rem 1rem 1rem; }
+            
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.25rem; }
+            .subtitle { font-size: 1rem; }
+            
+            .stats-grid { gap: 0.5rem; }
+            .stat-card { padding: 0.85rem 0.5rem; }
+            .stat-value { font-size: 1.2rem; }
+            .stat-label { font-size: 0.7rem; line-height: 1.3; }
+            
+            .chart-section { padding: 1rem; margin: 1.5rem 0; }
+            .chart-title { font-size: 0.95rem; }
+            .chart-subtitle { font-size: 0.8rem; }
+            
+            .who-pays-chart {
+                height: 160px;
+                max-width: 180px;
+            }
+            .legend-value { font-size: 1.1rem; }
+            .legend-desc { font-size: 0.8rem; }
+            
+            .highlight-box, .warning-box, .danger-box {
+                padding: 1rem 1.25rem;
+            }
+            
+            .summary-section { padding: 1.5rem 1.25rem; }
+            .summary-title { font-size: 1.2rem; }
+            .summary-item { font-size: 0.85rem; }
+            
+            .cta-box { padding: 1.5rem 1.25rem; }
+            .cta-box p { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -428,19 +639,19 @@
             <div style="height: 220px; margin-top: 1rem;">
                 <canvas id="eligibilityChart"></canvas>
             </div>
-            <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 1rem; padding: 1rem; background: #F1F5F9; border-radius: 8px;">
-                <div style="text-align: center;">
-                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Before</div>
-                    <div style="font-size: 1.3rem; font-weight: 700; color: #94A3B8;">3 million</div>
+            <div class="expansion-stats">
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Before</div>
+                    <div class="expansion-stat-value grey">3 million</div>
                 </div>
-                <div style="text-align: center; font-size: 1.5rem; color: var(--sp-slate-light); padding-top: 0.3rem;">→</div>
-                <div style="text-align: center;">
-                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Now</div>
-                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--sp-green);">6 million</div>
+                <div class="expansion-arrow">→</div>
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Now</div>
+                    <div class="expansion-stat-value green">6 million</div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 0.75rem; color: var(--sp-slate-light);">Increase</div>
-                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--sp-amber);">+100%</div>
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Increase</div>
+                    <div class="expansion-stat-value amber">+100%</div>
                 </div>
             </div>
         </div>
@@ -457,26 +668,26 @@
         <div class="chart-section">
             <div class="chart-title">Who Pays for the Warm Home Discount?</div>
             <div class="chart-subtitle">The cost is spread across all 28 million UK households</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 1rem;">
-                <div style="height: 200px;">
+            <div class="who-pays-grid">
+                <div class="who-pays-chart">
                     <canvas id="whoPaysPie"></canvas>
                 </div>
-                <div>
-                    <div style="margin-bottom: 1.25rem;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span style="width: 12px; height: 12px; background: #10B981; border-radius: 2px;"></span>
-                            <span style="font-weight: 600; color: var(--sp-slate);">Recipients</span>
+                <div class="who-pays-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot green"></span>
+                        <div>
+                            <div class="legend-label">Recipients</div>
+                            <div class="legend-value green">6m households</div>
+                            <div class="legend-desc">Get £150 off their bill</div>
                         </div>
-                        <span style="font-size: 1.3rem; font-weight: 800; color: #10B981;">6m households</span>
-                        <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--sp-slate-light);">Get £150 off their bill</p>
                     </div>
-                    <div>
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span style="width: 12px; height: 12px; background: #EF4444; border-radius: 2px;"></span>
-                            <span style="font-weight: 600; color: var(--sp-slate);">Everyone Else</span>
+                    <div class="legend-item">
+                        <span class="legend-dot red"></span>
+                        <div>
+                            <div class="legend-label">Everyone Else</div>
+                            <div class="legend-value red">22m households</div>
+                            <div class="legend-desc">Pay ~£40/year extra</div>
                         </div>
-                        <span style="font-size: 1.3rem; font-weight: 800; color: #EF4444;">22m households</span>
-                        <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--sp-slate-light);">Pay ~£40/year extra</p>
                     </div>
                 </div>
             </div>

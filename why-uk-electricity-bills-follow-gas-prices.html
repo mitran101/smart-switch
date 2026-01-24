@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why UK Electricity Bills Follow Gas Prices (Even With Record Renewables) | SwitchPilot</title>
     
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="You're paying for wind farms through levies on your bill. They generate over half our electricity at near-zero cost. So why are bills still 45% higher than 2021? Because of marginal pricing - a system that guarantees you pay gas prices for wind power.">
+    <meta name="keywords" content="UK energy bills, electricity prices, gas prices, marginal pricing, renewables, wind power, energy market, price cap, wholesale electricity">
+    <meta name="author" content="SwitchPilot">
+    <link rel="canonical" href="https://www.switch-pilot.com/why-uk-electricity-bills-follow-gas-prices.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.switch-pilot.com/why-uk-electricity-bills-follow-gas-prices.html">
+    <meta property="og:title" content="Why UK Electricity Bills Follow Gas Prices (Even With Record Renewables)">
+    <meta property="og:description" content="You're paying for wind farms. You'll never see cheaper bills. Here's how marginal pricing guarantees you pay gas prices for wind power - no matter how many renewables we build.">
+    <meta property="og:image" content="https://www.switch-pilot.com/images/marginal-pricing-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="SwitchPilot">
+    <meta property="article:published_time" content="2026-01-24">
+    <meta property="article:author" content="SwitchPilot">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.switch-pilot.com/why-uk-electricity-bills-follow-gas-prices.html">
+    <meta name="twitter:title" content="Why UK Electricity Bills Follow Gas Prices (Even With Record Renewables)">
+    <meta name="twitter:description" content="You're paying for wind farms. You'll never see cheaper bills. Here's how marginal pricing guarantees you pay gas prices for wind power.">
+    <meta name="twitter:image" content="https://www.switch-pilot.com/images/marginal-pricing-og.png">
+    <meta name="twitter:site" content="@SwitchPilotUK">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +79,7 @@
             color: var(--sp-slate);
             line-height: 1.7;
             font-size: 17px;
+            overflow-x: hidden;
         }
 
         /* Navigation Container */
@@ -674,6 +716,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 3rem 2rem 1.5rem;
+            overflow-x: hidden;
         }
 
         h2 {
@@ -1066,6 +1109,12 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
                 margin-top: -1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Reduce gap before TL;DR */
+            .tldr-box {
+                margin-top: 1rem !important;
             }
 
             .hero-stat-number {
@@ -1075,21 +1124,26 @@
             .timeline-points {
                 flex-direction: column;
                 gap: 1.5rem;
+                align-items: center;
+                padding-left: 0;
             }
 
             .timeline::before {
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                right: auto;
-                width: 4px;
-                height: 100%;
-                transform: translateX(-50%);
+                display: none;
             }
 
             .timeline-point {
                 flex-direction: row;
                 gap: 1rem;
+                position: relative;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .timeline-dot {
+                position: relative;
+                left: auto;
+                flex-shrink: 0;
             }
 
             .timeline-content {
@@ -1129,6 +1183,331 @@
                 width: 100%;
                 text-align: center;
                 margin-top: 0.5rem;
+            }
+
+            /* Explainer box mobile */
+            .explainer-box {
+                padding: 1.25rem;
+            }
+
+            .explainer-title {
+                font-size: 1.1rem;
+            }
+
+            .explainer-step {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+
+            .step-content strong {
+                font-size: 0.95rem;
+            }
+
+            .step-content p {
+                font-size: 0.9rem;
+            }
+
+            .explainer-result {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Context box mobile */
+            .context-box {
+                padding: 1.25rem;
+            }
+
+            .context-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .context-skip {
+                font-size: 0.8rem;
+            }
+
+            .context-box > p {
+                font-size: 0.9rem;
+            }
+
+            /* Timeline inside context box */
+            .context-box .timeline-section {
+                padding: 1rem !important;
+            }
+
+            .context-box .timeline-title {
+                font-size: 1rem !important;
+            }
+
+            .context-box .timeline::before {
+                display: none !important;
+            }
+
+            .context-box .timeline-points {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                align-items: center !important;
+            }
+
+            .context-box .timeline-point {
+                flex-direction: row !important;
+                gap: 1rem;
+                align-items: center;
+                padding-left: 0 !important;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .context-box .timeline-dot {
+                position: relative !important;
+                left: auto !important;
+                flex-shrink: 0;
+            }
+
+            .context-box .timeline-content {
+                text-align: left !important;
+                margin-top: 0 !important;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+
+            /* TL;DR box mobile */
+            .tldr-box {
+                padding: 1.25rem;
+            }
+
+            .tldr-title {
+                font-size: 1.1rem;
+            }
+
+            .tldr-list {
+                gap: 0.75rem;
+            }
+
+            .tldr-item {
+                font-size: 0.9rem;
+                padding: 0.6rem 0.8rem;
+            }
+
+            /* Influence meter mobile */
+            .influence-meter-section {
+                padding: 1.25rem;
+            }
+
+            .influence-meter-title {
+                font-size: 1.1rem;
+            }
+
+            .meter-stat-value {
+                font-size: 2.5rem;
+            }
+
+            .meter-step {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .meter-comparison-text {
+                font-size: 0.9rem;
+            }
+
+            /* Note box mobile */
+            .note-box {
+                padding: 1rem 1.25rem;
+            }
+
+            .note-box p {
+                font-size: 0.9rem;
+            }
+
+            /* Purple box mobile */
+            .purple-box {
+                padding: 1.25rem;
+            }
+
+            .purple-box p {
+                font-size: 0.9rem;
+            }
+
+            /* Tweetable quote mobile */
+            .tweetable-quote {
+                padding: 1.25rem;
+            }
+
+            .tweetable-quote-text {
+                font-size: 1rem;
+            }
+
+            /* Highlight box mobile */
+            .highlight-box {
+                padding: 1rem 1.25rem;
+            }
+
+            .highlight-box p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .article-header {
+                padding: 2.5rem 1rem 1.5rem;
+            }
+
+            .article-body {
+                padding: 1.5rem 1rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                padding: 0 1rem;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-stat-card {
+                padding: 1rem;
+            }
+
+            .hero-stat-number {
+                font-size: 2rem;
+            }
+
+            .hero-stat-label {
+                font-size: 0.8rem;
+            }
+
+            /* Fix gap before TL;DR box */
+            .tldr-box {
+                margin-top: 0.5rem !important;
+            }
+
+            .explainer-box,
+            .context-box,
+            .tldr-box,
+            .influence-meter-section,
+            .purple-box,
+            .note-box,
+            .tweetable-quote,
+            .highlight-box,
+            .cta-box {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .explainer-title,
+            .tldr-title,
+            .influence-meter-title {
+                font-size: 1rem;
+            }
+
+            .step-content strong {
+                font-size: 0.9rem;
+            }
+
+            .step-content p,
+            .explainer-result,
+            .tldr-item,
+            .meter-step,
+            .context-box > p,
+            .note-box p,
+            .purple-box p {
+                font-size: 0.85rem;
+            }
+
+            .meter-stat-value {
+                font-size: 2rem;
+            }
+
+            .tweetable-quote-text {
+                font-size: 0.95rem;
+            }
+
+            .cta-box h3 {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Fix timeline on mobile - simple grid layout */
+            .context-box .timeline-section {
+                padding: 1rem 0 !important;
+                overflow: visible;
+            }
+
+            .context-box .timeline::before {
+                display: none !important;
+            }
+
+            .context-box .timeline-points {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+                flex-direction: unset !important;
+                justify-items: center !important;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+
+            .context-box .timeline-point {
+                flex-direction: column !important;
+                align-items: center !important;
+                padding-left: 0 !important;
+                width: 100%;
+                max-width: 140px;
+            }
+
+            .context-box .timeline-dot {
+                position: relative !important;
+                left: auto !important;
+                margin-bottom: 0.5rem;
+            }
+
+            .context-box .timeline-content {
+                text-align: center !important;
+            }
+
+            .context-box .timeline-year {
+                font-size: 0.85rem;
+            }
+
+            .context-box .timeline-label {
+                font-size: 0.7rem;
+            }
+
+            .context-box .timeline-price {
+                font-size: 0.8rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            /* 5th item spans full width */
+            .context-box .timeline-point:nth-child(5) {
+                grid-column: 1 / -1;
+                max-width: 140px;
             }
         }
 

@@ -39,45 +39,45 @@
             font-size: 17px;
         }
 
-        .top-logo {
-            position: absolute;
-            top: 1.5rem;
-            left: 2rem;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
+        .top-nav {
+    background: var(--sp-slate);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .top-logo:hover {
-            opacity: 0.8;
-        }
+.top-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
 
-        .top-logo img {
-            height: 2rem;
-            width: auto;
-        }
+.top-logo:hover {
+    opacity: 0.8;
+}
 
-        .back-home {
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            z-index: 100;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: opacity 0.2s;
-        }
+.top-logo img {
+    height: 2rem;
+    width: auto;
+}
 
-        .back-home:hover {
-            opacity: 0.8;
-        }
+.back-home {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.back-home:hover {
+    opacity: 0.8;
+}
 
         .article-header {
             background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
@@ -343,10 +343,9 @@
         }
 
         @media (max-width: 768px) {
-            .top-logo, .back-home {
-                position: static;
-                margin: 1rem;
-            }
+    .top-nav {
+        padding: 1rem;
+    }
 
             .article-header {
                 padding: 3rem 1.5rem 2rem;
@@ -367,14 +366,14 @@
     </style>
 </head>
 <body>
-<!-- LOGO -->
-<a href="index.html" class="top-logo">
-    <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:3.2rem;width:auto;margin-right:-15px;">
-    <span>SwitchPilot</span>
-</a>
-
-    <!-- BACK BUTTON -->
+    
+<nav class="top-nav">
+    <a href="index.html" class="top-logo">
+        <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:3.2rem;width:auto;margin-right:-15px;">
+        <span>SwitchPilot</span>
+    </a>
     <a href="index.html" class="back-home">← Back Home</a>
+</nav>
 
     <header class="article-header">
         <div class="header-content">

@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why UK Electricity Bills Follow Gas Prices (Even With Record Renewables) | SwitchPilot</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-purple: #A855F7;
+            --sp-pink: #EC4899;
+            --sp-red: #EF4444;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Navigation Container */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover {
+            opacity: 0.8;
+        }
+
+        .top-logo img {
+            height: 3.2rem;
+            width: auto;
+            margin-right: -15px;
+        }
+
+        .top-logo span {
+            font-size: 1.35rem;
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ===== NEW: Hero Stats Section ===== */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: -2rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .hero-stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* ===== NEW: TL;DR Box ===== */
+        .tldr-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: 5px solid var(--sp-amber);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .tldr-title {
+            font-weight: 800;
+            color: var(--sp-slate);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tldr-content {
+            color: var(--sp-slate);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .tldr-content strong {
+            color: var(--sp-slate);
+        }
+
+        /* ===== NEW: Gas Influence Meter ===== */
+        .influence-meter {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .influence-meter-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sp-slate);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .meter-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .meter-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .meter-label-text {
+            font-weight: 600;
+            color: var(--sp-slate);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meter-label-value {
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .meter-bar {
+            height: 24px;
+            background: #E2E8F0;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        .meter-fill.gas-gen {
+            background: linear-gradient(90deg, #FCD34D 0%, var(--sp-amber) 100%);
+            width: 26%;
+        }
+
+        .meter-fill.gas-price {
+            background: linear-gradient(90deg, #F87171 0%, var(--sp-red) 100%);
+            width: 97%;
+        }
+
+        .meter-fill.renewables {
+            background: linear-gradient(90deg, #6EE7B7 0%, var(--sp-green) 100%);
+            width: 50%;
+        }
+
+        .meter-comparison {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #E2E8F0;
+        }
+
+        .meter-comparison-text {
+            font-size: 1.1rem;
+            color: var(--sp-slate-light);
+        }
+
+        .meter-comparison-text strong {
+            color: var(--sp-red);
+        }
+
+        /* ===== NEW: Timeline Visual ===== */
+        .timeline-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .timeline-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--sp-slate);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sp-green) 0%, var(--sp-amber) 25%, var(--sp-red) 50%, var(--sp-amber) 75%, var(--sp-purple) 100%);
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+
+        .timeline-points {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-point:nth-child(1) .timeline-dot { border-color: var(--sp-green); }
+        .timeline-point:nth-child(2) .timeline-dot { border-color: var(--sp-amber); }
+        .timeline-point:nth-child(3) .timeline-dot { border-color: var(--sp-red); }
+        .timeline-point:nth-child(4) .timeline-dot { border-color: var(--sp-amber); }
+        .timeline-point:nth-child(5) .timeline-dot { border-color: var(--sp-purple); }
+
+        .timeline-content {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .timeline-year {
+            font-weight: 800;
+            color: var(--sp-slate);
+            font-size: 1rem;
+        }
+
+        .timeline-label {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.25rem;
+        }
+
+        .timeline-price {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .timeline-point:nth-child(1) .timeline-price { background: var(--sp-green-light); color: var(--sp-green-dark); }
+        .timeline-point:nth-child(2) .timeline-price { background: #FEF3C7; color: #B45309; }
+        .timeline-point:nth-child(3) .timeline-price { background: #FEE2E2; color: #DC2626; }
+        .timeline-point:nth-child(4) .timeline-price { background: #FEF3C7; color: #B45309; }
+        .timeline-point:nth-child(5) .timeline-price { background: #F3E8FF; color: #7C3AED; }
+
+        /* ===== NEW: Comparison Cards ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .comparison-card {
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .comparison-card.before {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border: 2px solid var(--sp-green);
+        }
+
+        .comparison-card.after {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border: 2px solid var(--sp-red);
+        }
+
+        .comparison-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-card.before .comparison-label { color: var(--sp-green-dark); }
+        .comparison-card.after .comparison-label { color: var(--sp-red); }
+
+        .comparison-title {
+            font-size: 0.95rem;
+            color: var(--sp-slate);
+            margin-bottom: 1rem;
+        }
+
+        .comparison-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .comparison-card.before .comparison-value { color: var(--sp-green-dark); }
+        .comparison-card.after .comparison-value { color: var(--sp-red); }
+
+        .comparison-sublabel {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== NEW: Tweetable Quote ===== */
+        .tweetable-quote {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #334155 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tweetable-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 150px;
+            font-family: Georgia, serif;
+            color: rgba(255,255,255,0.1);
+            line-height: 1;
+        }
+
+        .tweetable-quote-text {
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tweetable-quote-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .tweetable-quote-cta:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ===== NEW: Merit Order Visual ===== */
+        .merit-order-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .merit-order-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sp-slate);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .merit-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .merit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .merit-item:hover {
+            transform: translateX(5px);
+        }
+
+        .merit-item.wind { background: linear-gradient(90deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); border-left: 4px solid var(--sp-green); }
+        .merit-item.nuclear { background: linear-gradient(90deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%); border-left: 4px solid var(--sp-amber); }
+        .merit-item.biomass { background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%); border-left: 4px solid #8B5CF6; }
+        .merit-item.gas { background: linear-gradient(90deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%); border-left: 4px solid var(--sp-red); }
+
+        .merit-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .merit-info {
+            flex: 1;
+        }
+
+        .merit-name {
+            font-weight: 700;
+            color: var(--sp-slate);
+        }
+
+        .merit-desc {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+        }
+
+        .merit-price {
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .merit-item.wind .merit-price { color: var(--sp-green); }
+        .merit-item.nuclear .merit-price { color: var(--sp-amber); }
+        .merit-item.biomass .merit-price { color: #8B5CF6; }
+        .merit-item.gas .merit-price { color: var(--sp-red); }
+
+        .merit-explainer {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .merit-explainer-text {
+            font-weight: 600;
+            color: var(--sp-red);
+        }
+
+        /* ===== NEW: Progress to 2030 ===== */
+        .progress-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sp-slate);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar-bg {
+            height: 40px;
+            background: #E2E8F0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sp-green) 0%, var(--sp-purple) 100%);
+            border-radius: 20px;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            transition: width 1.5s ease-out;
+        }
+
+        .progress-current {
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .progress-target {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 700;
+            color: var(--sp-slate-light);
+            font-size: 0.9rem;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+        }
+
+        .progress-label {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+        }
+
+        .progress-label strong {
+            color: var(--sp-slate);
+        }
+
+        /* ===== Article Body (existing styles) ===== */
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1.25rem;
+            color: var(--sp-slate);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .highlight-box p {
+            color: rgba(255,255,255,0.95);
+            margin: 0;
+        }
+
+        .purple-box {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.75rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .purple-box p {
+            color: var(--sp-slate-light);
+            margin: 0;
+        }
+
+        /* Context Box - Skippable */
+        .context-box {
+            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+            border: 1px solid #CBD5E1;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .context-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .context-label {
+            font-weight: 700;
+            color: var(--sp-slate);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .context-skip {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            font-style: italic;
+        }
+
+        .context-box > p {
+            color: var(--sp-slate-light);
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Explainer Box */
+        .explainer-box {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .explainer-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .explainer-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--sp-purple);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content strong {
+            color: white;
+            font-size: 1rem;
+        }
+
+        .step-content p {
+            color: rgba(255,255,255,0.8);
+            margin: 0.25rem 0 0 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .explainer-result {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-top: 1.5rem;
+            color: white;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .explainer-result strong {
+            color: #FCA5A5;
+        }
+
+        /* Note Box */
+        .note-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-left: 4px solid var(--sp-slate);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .note-box p {
+            color: var(--sp-slate-light);
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .note-box a {
+            color: var(--sp-purple);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .note-box a:hover {
+            text-decoration: underline;
+        }
+
+        .info-box {
+            background: var(--sp-card);
+            border: 2px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .chart-container {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--sp-slate);
+            text-align: center;
+        }
+
+        .calculator-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin: 2.5rem 0;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .calculator-box h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .calc-description {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .calc-result {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .calc-result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .calc-result-label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .calc-result-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .calc-result-value.highlight {
+            color: var(--sp-amber);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 700px;
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.75rem;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--sp-purple);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .article-footer {
+            max-width: 800px;
+            margin: 3rem auto 1rem;
+            padding: 2rem;
+            background: var(--sp-card);
+            border-radius: 12px;
+            border: 2px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            line-height: 1.6;
+        }
+
+        .site-footer {
+            background: var(--sp-slate);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .site-footer a {
+            color: var(--sp-purple);
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 1rem;
+            }
+
+            .top-logo img {
+                height: 2.5rem;
+            }
+
+            .top-logo span {
+                font-size: 1.25rem;
+            }
+
+            .back-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: -1.5rem;
+            }
+
+            .hero-stat-number {
+                font-size: 2.5rem;
+            }
+
+            .timeline-points {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .timeline::before {
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                right: auto;
+                width: 4px;
+                height: 100%;
+                transform: translateX(-50%);
+            }
+
+            .timeline-point {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .timeline-content {
+                text-align: left;
+                margin-top: 0;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-header {
+                padding: 3rem 1.5rem 2rem;
+            }
+
+            .article-body {
+                padding: 2rem 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .calculator-box, .cta-box {
+                padding: 1.5rem;
+            }
+
+            .merit-item {
+                flex-wrap: wrap;
+            }
+
+            .merit-price {
+                width: 100%;
+                text-align: center;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-stat-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .hero-stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .hero-stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .hero-stat-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">Energy Market Explained</span>
+            <h1>You're Paying for Wind Farms. You'll Never See Cheaper Bills. Here's Why.</h1>
+            <p class="subtitle">Over half of UK electricity now comes from renewables that cost almost nothing to run. So why is your bill still so high? The answer is a system designed to keep it that way.</p>
+            <div class="article-meta">
+                <span>📅 January 2026</span>
+                <span>⏱️ 12 min read</span>
+                <span>📊 Interactive</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Stats -->
+    <section class="hero-stats">
+        <div class="hero-stat-card">
+            <div class="hero-stat-number">97%</div>
+            <div class="hero-stat-label">How often gas sets electricity prices</div>
+        </div>
+        <div class="hero-stat-card">
+            <div class="hero-stat-number">50%+</div>
+            <div class="hero-stat-label">UK electricity from renewables</div>
+        </div>
+        <div class="hero-stat-card">
+            <div class="hero-stat-number">45%</div>
+            <div class="hero-stat-label">Bills still above 2021 levels</div>
+        </div>
+    </section>
+
+    <!-- Article Body -->
+    <article class="article-body">
+
+        <!-- TL;DR Box -->
+        <div class="tldr-box">
+            <div class="tldr-title">TL;DR - The Trap Explained</div>
+            <div class="tldr-content">
+                <strong>The simple version:</strong> You're paying levies on your bill to fund wind farms. Those wind farms now generate over half our electricity at near-zero cost. But because of how the market works, gas still sets the price for ALL electricity - including the cheap wind power. So you're funding renewables but never seeing the savings. And under the current system, you never will.
+            </div>
+        </div>
+
+        <p>Wind power just hit a record. 37% of UK electricity in November 2025. Coal is finished. Renewables are generating more power than ever.</p>
+
+        <p>Your bill? Still 45% higher than 2021. Still spiking every time gas prices move. Still unpredictable.</p>
+
+        <p>Here's what most people don't realise: <strong>you've been paying levies on your bill for over a decade to fund these wind farms.</strong> They're working. They're generating cheap power. And you're not seeing a penny of the savings.</p>
+
+        <p>Why? Three words: <strong>marginal pricing system.</strong></p>
+
+        <p>It's how the UK electricity market works. And it mathematically guarantees that you will never benefit from cheap renewables - no matter how many wind farms we build.</p>
+
+        <p>This isn't a conspiracy theory. It's simply how the market is structured. Let us explain.</p>
+
+        <!-- Gas Influence Meter -->
+        <div class="influence-meter">
+            <div class="influence-meter-title">🔥 The Gas Paradox: Generation vs Price Influence</div>
+            
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">🌱 Renewables share of generation</span>
+                    <span class="meter-label-value" style="color: var(--sp-green);">50%+</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill renewables"></div>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">🔥 Gas share of generation</span>
+                    <span class="meter-label-value" style="color: var(--sp-amber);">~26%</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill gas-gen"></div>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">💷 How often gas sets the price</span>
+                    <span class="meter-label-value" style="color: var(--sp-red);">97%</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill gas-price"></div>
+                </div>
+            </div>
+
+            <div class="meter-comparison">
+                <div class="meter-comparison-text">
+                    Gas generates just 26% of electricity but controls <strong>97% of prices</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Context Box - Skippable -->
+        <div class="context-box">
+            <div class="context-header">
+                <span class="context-label">Quick Context</span>
+                <span class="context-skip">Already know this? Skip to the next section ↓</span>
+            </div>
+            <p>In 2022, gas prices went through the roof after Russia invaded Ukraine. Bills spiked. The government stepped in with the Energy Price Guarantee to stop bills hitting £4,279. Since then, prices have come down - but they're still 45% higher than 2021. The question is: with renewables now generating over half our electricity, why haven't bills fallen further?</p>
+            
+            <!-- Timeline Visual -->
+            <div class="timeline-section" style="margin: 1.5rem 0 0; padding: 1.5rem; box-shadow: none; background: transparent;">
+                <div class="timeline-title" style="font-size: 1.1rem;">Price Cap Journey (Typical Household)</div>
+                <div class="timeline">
+                    <div class="timeline-points">
+                        <div class="timeline-point">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-year">2021</div>
+                                <div class="timeline-label">Pre-crisis</div>
+                                <div class="timeline-price">£1,138</div>
+                            </div>
+                        </div>
+                        <div class="timeline-point">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-year">Apr 2022</div>
+                                <div class="timeline-label">Crisis begins</div>
+                                <div class="timeline-price">£1,971</div>
+                            </div>
+                        </div>
+                        <div class="timeline-point">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-year">Oct 2022</div>
+                                <div class="timeline-label">EPG cap</div>
+                                <div class="timeline-price">£2,500</div>
+                            </div>
+                        </div>
+                        <div class="timeline-point">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-year">Jul 2024</div>
+                                <div class="timeline-label">Recovery</div>
+                                <div class="timeline-price">£1,568</div>
+                            </div>
+                        </div>
+                        <div class="timeline-point">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-year">Q1 2026</div>
+                                <div class="timeline-label">Today</div>
+                                <div class="timeline-price">£1,758</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>The Pricing System That Keeps Your Bills High</h2>
+
+        <p>This is the important part. Once you understand this, everything else makes sense.</p>
+
+        <!-- Explainer Box -->
+        <div class="explainer-box">
+            <div class="explainer-title">How UK Electricity Pricing Actually Works</div>
+            
+            <div class="explainer-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Every 30 minutes, the grid needs to balance supply and demand.</strong>
+                    <p>The National Grid works out how much electricity the country needs right now, and asks power generators to bid for the work.</p>
+                </div>
+            </div>
+
+            <div class="explainer-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Generators bid based on their costs.</strong>
+                    <p>Wind farms bid low (£0-10/MWh) because wind is free. Nuclear bids medium (£60/MWh). Gas bids high (£90-150/MWh) because fuel is expensive.</p>
+                </div>
+            </div>
+
+            <div class="explainer-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>The grid accepts bids from cheapest to most expensive.</strong>
+                    <p>Wind first, then nuclear, then gas - until there's enough power to meet demand.</p>
+                </div>
+            </div>
+
+            <div class="explainer-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Here's the catch: EVERYONE gets paid the highest accepted bid.</strong>
+                    <p>If gas is needed at all - even just 10% - then wind, nuclear, AND gas all get paid the gas price. This is called "marginal pricing."</p>
+                </div>
+            </div>
+
+            <div class="explainer-result">
+                <strong>The result?</strong> Wind farms that cost almost nothing to run get paid £90/MWh because that's what gas costs. You're paying gas prices for wind power.
+            </div>
+        </div>
+
+        <p>Think about what that means. A wind farm generates electricity for nearly free. But because the grid also needs some gas to meet demand, that wind farm gets paid the same rate as gas. The wind farm owner pockets the difference. You pay the high price.</p>
+
+        <!-- Tweetable Quote -->
+        <div class="tweetable-quote">
+            <div class="tweetable-quote-text">
+                "Even if 90% of your electricity comes from wind, if the grid needs just 10% from gas to keep the lights on, you pay gas prices for ALL of it."
+            </div>
+            <a href="https://twitter.com/intent/tweet?text=Even%20if%2090%25%20of%20your%20electricity%20comes%20from%20wind%2C%20if%20the%20grid%20needs%20just%2010%25%20from%20gas%20to%20keep%20the%20lights%20on%2C%20you%20pay%20gas%20prices%20for%20ALL%20of%20it.&url=https://switch-pilot.com" class="tweetable-quote-cta" target="_blank">
+                Share this
+            </a>
+        </div>
+
+        <h3>Wait, Why Would Anyone Design It This Way?</h3>
+
+        <p>Fair question. The official reasons:</p>
+
+        <ol>
+            <li><strong>It reflects scarcity</strong> - when we need expensive gas, electricity IS more valuable</li>
+            <li><strong>It encourages investment</strong> - high prices attract new generators</li>
+            <li><strong>It's hard to game</strong> - alternatives lead to manipulation</li>
+        </ol>
+
+        <p>Here's what they don't say: <strong>this system was designed in the 1990s when gas was cheap and wind farms barely existed.</strong></p>
+
+        <p>It made sense then. Now? Renewables are over 50% of generation. The system is 30 years out of date. And you're paying the price.</p>
+
+        <h2>The Number That Explains Everything</h2>
+
+        <p>Gas generates just 26% of UK electricity.</p>
+
+        <p>But it sets the price <strong>97% of the time.</strong></p>
+
+        <p>Consider that for a moment. Wind and solar generate MORE than half our power. Gas generates barely a quarter. Yet gas controls what you pay for everything.</p>
+
+        <div class="highlight-box">
+            <p><strong>In one sentence:</strong> You're paying gas prices for wind power because gas is still needed to keep the lights on - and the market pays everyone the price of that last resort.</p>
+        </div>
+
+        <!-- NEW: The Trap Section -->
+        <h2>The Trap: Why You'll Never See Lower Bills</h2>
+
+        <p>Follow the money. See where it goes.</p>
+
+        <div class="influence-meter">
+            <div class="influence-meter-title">The Vicious Cycle</div>
+            
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">1️⃣ You pay levies to fund renewables</span>
+                    <span class="meter-label-value" style="color: var(--sp-red);">~£200/yr</span>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">2️⃣ Renewables now generate 50%+ of electricity</span>
+                    <span class="meter-label-value" style="color: var(--sp-green);">✓ Working</span>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">3️⃣ Wind costs almost nothing to run</span>
+                    <span class="meter-label-value" style="color: var(--sp-green);">~£0-10/MWh</span>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">4️⃣ But gas STILL sets your price</span>
+                    <span class="meter-label-value" style="color: var(--sp-red);">97% of time</span>
+                </div>
+            </div>
+
+            <div class="meter-row">
+                <div class="meter-label">
+                    <span class="meter-label-text">5️⃣ So you pay gas prices for wind power</span>
+                    <span class="meter-label-value" style="color: var(--sp-red);">£90/MWh</span>
+                </div>
+            </div>
+
+            <div class="meter-comparison">
+                <div class="meter-comparison-text">
+                    <strong>Result:</strong> You funded the cheap power. You don't get the cheap price. This cycle repeats.
+                </div>
+            </div>
+        </div>
+
+        <p>Can you see the problem now?</p>
+
+        <ul>
+            <li><strong>You paid for the wind farms</strong> - through levies on your bill for over 15 years</li>
+            <li><strong>The wind farms are working</strong> - generating record amounts of near-free power</li>
+            <li><strong>But you're charged gas prices anyway</strong> - because that's how the system works</li>
+            <li><strong>Wind farm owners keep the difference</strong> - paid £90/MWh for power that costs them almost nothing to produce</li>
+        </ul>
+
+        <p>You funded it. They profit from it. You don't benefit.</p>
+
+        <p>And here's the crucial point: <strong>building MORE wind farms doesn't fix this.</strong></p>
+
+        <p>Even if we reached 80% renewables, as long as we need even 1% from gas, gas STILL sets the price for everything else. The mathematics of the system guarantees it.</p>
+
+        <div class="tweetable-quote">
+            <div class="tweetable-quote-text">
+                "You're paying to build the wind farms. The wind farms generate cheap power. But you still get charged gas prices. The system is designed so you never benefit."
+            </div>
+            <a href="https://twitter.com/intent/tweet?text=You%27re%20paying%20to%20build%20the%20wind%20farms.%20The%20wind%20farms%20generate%20cheap%20power.%20But%20you%20still%20get%20charged%20gas%20prices.%20The%20system%20is%20designed%20so%20you%20never%20benefit.&url=https://switch-pilot.com" class="tweetable-quote-cta" target="_blank">
+                Share this
+            </a>
+        </div>
+
+        <h2>But Do Renewables Help At All?</h2>
+
+        <p><strong>Yes, but nowhere near as much as you'd expect given what you've paid.</strong></p>
+
+        <p>Analysts estimate that without our wind capacity, wholesale prices would be roughly £25/MWh higher. So renewables ARE helping - they're squeezing out the most expensive gas plants and reducing the average price somewhat.</p>
+
+        <p>But consider this: you've paid billions in levies over many years to build those wind farms. And your reward is... slightly less expensive bills than they would otherwise be? Not actually cheap electricity. Just less bad.</p>
+
+        <div class="purple-box">
+            <p><strong>What you were promised:</strong> "Pay for renewables now, enjoy cheap clean energy later."</p>
+            <p style="margin-top: 0.75rem;"><strong>What you got:</strong> "Pay for renewables indefinitely. Get charged gas prices anyway. Watch the cycle repeat."</p>
+        </div>
+
+        <p>Your bills still swing with global gas markets. The wind can be blowing, the sun can be shining, and a pipeline problem in Russia can spike your bill overnight.</p>
+
+        <p>That's not cheap clean energy. That's a system that doesn't work for consumers.</p>
+
+        <h2>The Path Forward: Breaking the Gas Link</h2>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <div class="progress-title">🎯 UK Clean Power Progress (Target: 95% by 2030)</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill">
+                        <span class="progress-current">50%</span>
+                    </div>
+                    <span class="progress-target">95%</span>
+                </div>
+            </div>
+            <div class="progress-labels">
+                <span class="progress-label"><strong>Today:</strong> 50%+ renewable</span>
+                <span class="progress-label"><strong>2030 Goal:</strong> 95% clean</span>
+            </div>
+        </div>
+
+        <p>Breaking the gas-electricity price link requires addressing the fundamental issue: we need firm, flexible, low-carbon power to replace gas as the marginal generator.</p>
+
+        <p>Options include:</p>
+
+        <ul>
+            <li><strong>Massive battery storage:</strong> Store cheap daytime solar and use it during evening peaks. Current UK battery capacity is tiny (~3GW) but growing rapidly. We'd need 50-100x more to make a dent.</li>
+            <li><strong>More nuclear capacity:</strong> Provides steady, low-carbon baseload but doesn't help with flexibility</li>
+            <li><strong>Interconnectors:</strong> Import cheap hydropower from Norway or nuclear from France during tight periods</li>
+            <li><strong>Demand-side flexibility:</strong> Smart appliances, EV charging, industrial demand response</li>
+            <li><strong>Green hydrogen:</strong> Use excess renewable electricity to produce hydrogen for flexible backup</li>
+        </ul>
+
+        <!-- Another Tweetable Quote -->
+        <div class="tweetable-quote">
+            <div class="tweetable-quote-text">
+                "As long as we need flexible backup generation and don't have massive electricity storage, gas will likely remain the marginal price-setter."
+            </div>
+            <a href="https://twitter.com/intent/tweet?text=As%20long%20as%20we%20need%20flexible%20backup%20generation%20and%20don%E2%80%99t%20have%20massive%20electricity%20storage%2C%20gas%20will%20likely%20remain%20the%20marginal%20price-setter.&url=https://switch-pilot.com" class="tweetable-quote-cta" target="_blank">
+                Share this
+            </a>
+        </div>
+
+        <h2>So What Can Be Done?</h2>
+
+        <p>Let's be direct about the situation:</p>
+
+        <ul>
+            <li><strong>You've paid levies for over 15 years</strong> to fund renewable energy</li>
+            <li><strong>It worked</strong> - renewables now generate half our electricity at near-zero cost</li>
+            <li><strong>You're still paying gas prices</strong> because that's how the market is structured</li>
+            <li><strong>And you'll keep paying gas prices</strong> until someone changes the rules</li>
+        </ul>
+
+        <p>The government knows this is a problem. They launched a review. Their conclusion? "It'll sort itself out as we build more renewables."</p>
+
+        <p><strong>That's simply not true.</strong> We've just shown you why. Even at 95% renewables, if we need 5% from gas, gas sets the price for the other 95%.</p>
+
+        <p>The only genuine solutions are:</p>
+
+        <ul>
+            <li><strong>Massive battery storage</strong> - so we never need gas as backup</li>
+            <li><strong>Significant overcapacity</strong> - build enough renewable generation that we're never short</li>
+            <li><strong>Change the market rules</strong> - decouple renewable prices from gas</li>
+        </ul>
+
+        <p>None of these are happening quickly enough.</p>
+
+        <p>So for now, you're in a difficult position. Funding renewables through your bill. Not benefiting from them. Watching your costs follow gas prices.</p>
+
+        <div class="tweetable-quote">
+            <div class="tweetable-quote-text">
+                "The UK electricity market is structured so that no matter how much cheap wind power we build, gas will always control your bill. It's not a bug - it's how the system works."
+            </div>
+            <a href="https://twitter.com/intent/tweet?text=The%20UK%20electricity%20market%20is%20structured%20so%20that%20no%20matter%20how%20much%20cheap%20wind%20power%20we%20build%2C%20gas%20will%20always%20control%20your%20bill.%20It%27s%20not%20a%20bug%20-%20it%27s%20how%20the%20system%20works.&url=https://switch-pilot.com" class="tweetable-quote-cta" target="_blank">
+                Share this
+            </a>
+        </div>
+
+        <div class="purple-box">
+            <p><strong>What can you do?</strong> You can't change the system alone. But you can understand it, consider fixed tariffs to reduce exposure to volatility, shift your usage to cheaper times if you're on a time-of-use tariff, and ask harder questions of politicians who promise cheap green energy without explaining how marginal pricing actually works.</p>
+            <p style="margin-top: 0.75rem;">Knowledge is power. Now you have it.</p>
+        </div>
+
+        <!-- Grid investment note -->
+        <div class="note-box">
+            <p><strong>One more thing:</strong> Renewables need a better grid to work properly - the old infrastructure wasn't built for wind and solar. And guess who's funding that upgrade? You. Through your standing charge, which keeps rising regardless of how much energy you use. <a href="https://www.switch-pilot.com/standing-charge-increase-2026.html">Read more about standing charge increases →</a></p>
+        </div>
+
+    </article>
+
+    <!-- CTA Section -->
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Stop Overpaying for Energy</h3>
+            <p>Join the waitlist for early access to SwitchPilot - a free auto-switching service that automatically moves you to cheaper deals. Plus get weekly insights like this and useful tools to understand your bills.</p>
+            <a href="index.html#waitlist" class="cta-button">Join the Waitlist</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+        <p class="footer-note"><strong>Methodology & Sources:</strong> This article uses data from UK Government Energy Trends (December 2025), Ofgem wholesale market indicators, National Grid ESO generation data, House of Commons Library research briefings on energy prices and clean power targets (January 2026), Cornwall Insight market analysis, Energy and Climate Intelligence Unit reports, Institute for Government electricity market explainers, and analysis from academic research including Zakeri & Staffell (2023) on marginal pricing in European markets.</p>
+        <p class="footer-note" style="margin-top: 1rem;">
+            <strong>Related reading:</strong> <a href="pounds-for-pylons.html" style="color: var(--sp-purple); text-decoration: none;">Understanding the "Pounds for Pylons" scheme →</a> | <a href="tnuos-update-december-2025.html" style="color: var(--sp-purple); text-decoration: none;">TNUoS transmission charges explained →</a>
+        </p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💡 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top:1rem;">📧 Questions? <a href="/cdn-cgi/l/email-protection#fe98929799968a9d8c9b89be8d89978a9d96d38e9792918ad09d9193"><span class="__cf_email__" data-cfemail="e98f85808e819d8a9b8c9ea99a9e809d8a81c4998085869dc78a8684">[email&#160;protected]</span></a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Animate meters on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.ta

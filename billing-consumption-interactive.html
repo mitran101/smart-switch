@@ -388,14 +388,14 @@ select option {
 .explanation {
     background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
     border-left: 4px solid var(--sp-purple);
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-top: 2rem;
 }
 
 .explanation h3 {
-    margin: 0 0 1rem 0;
-    color: var(--sp-text);
+    margin: 0 0 0.75rem 0 !important;
+    color: var(--sp-text) !important;
     font-size: 1.3rem;
     font-weight: 700;
 }
@@ -429,14 +429,14 @@ select option {
 .green-box {
     background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
     border-left: 4px solid #10B981;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-top: 1.5rem;
 }
 
 .green-box h3 {
-    margin: 0 0 1rem 0;
-    color: #065F46;
+    margin: 0 0 0.75rem 0 !important;
+    color: #065F46 !important;
     font-size: 1.2rem;
     font-weight: 700;
 }
@@ -457,84 +457,116 @@ select option {
     line-height: 1.8;
 }
 
+.green-box ul:last-child {
+    margin-bottom: 0;
+}
+
 .green-box li {
     margin-bottom: 0.5rem;
 }
 
+.green-box li strong {
+    color: #064E3B;
+}
+
 .green-box strong {
-    color: #065F46;
+    color: #064E3B;
 }
 
 /* Yellow Info Box */
 .yellow-box {
     background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
     border-left: 4px solid #F59E0B;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 2rem;
 }
 
 .yellow-box h3 {
-    margin: 0 0 1rem 0;
-    color: #92400E;
+    margin: 0 0 0.75rem 0 !important;
+    color: #78350F !important;
     font-size: 1.2rem;
     font-weight: 700;
 }
 
 .yellow-box p {
     margin: 0 0 0.75rem 0;
-    color: #475569;
+    color: #374151;
     line-height: 1.7;
+}
+
+.yellow-box p:last-child {
+    margin-bottom: 0;
 }
 
 .yellow-box ul {
     margin: 0 0 0.75rem 1.5rem;
-    color: #475569;
+    color: #374151;
     line-height: 1.7;
+}
+
+.yellow-box ul:last-child {
+    margin-bottom: 0;
 }
 
 .yellow-box li {
     margin-bottom: 0.5rem;
 }
 
+.yellow-box li strong {
+    color: #111827;
+}
+
 .yellow-box strong {
-    color: #1E293B;
+    color: #111827;
 }
 
 /* Red Warning Box */
 .red-box {
     background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
     border-left: 4px solid #EF4444;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 12px;
     margin-bottom: 2rem;
 }
 
 .red-box h3 {
-    margin: 0 0 1rem 0;
-    color: #991B1B;
+    margin: 0 0 0.75rem 0 !important;
+    color: #7F1D1D !important;
     font-size: 1.2rem;
     font-weight: 700;
 }
 
 .red-box p {
     margin: 0 0 0.75rem 0;
-    color: #475569;
+    color: #374151;
     line-height: 1.7;
+}
+
+.red-box p:last-child {
+    margin-bottom: 0;
 }
 
 .red-box ul {
     margin: 0 0 0.75rem 1.5rem;
-    color: #475569;
+    color: #374151;
     line-height: 1.7;
+}
+
+.red-box ul:last-child {
+    margin-bottom: 0;
 }
 
 .red-box li {
     margin-bottom: 0.5rem;
 }
 
+.red-box li strong {
+    color: #111827;
+}
+
 .red-box strong {
-    color: #1E293B;
+    color: #111827;
 }
 
 /* DD Explainer Section */
@@ -1411,7 +1443,8 @@ async function loadSupplierRates() {
 
 function toggleDDExplainer() {
   const explainer = document.getElementById('ddExplainer');
-  if (explainer.style.display === 'none') {
+  const isHidden = window.getComputedStyle(explainer).display === 'none';
+  if (isHidden) {
     explainer.style.display = 'block';
     explainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } else {

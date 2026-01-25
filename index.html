@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -26,11 +25,6 @@
 <meta name="twitter:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 <meta name="twitter:description" content="Stop overpaying for energy. Free auto-switching service coming soon.">
 <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
-
-<link rel="icon" href="./favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
   
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -41,182 +35,325 @@
   gtag('config', 'G-WEQ6VBT567');
 </script>
 
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
 <style>
-  .topics .topic:nth-child(n+7) {
+:root {
+  --sp-slate: #1E293B;
+  --sp-slate-dark: #0F172A;
+  --sp-slate-light: #94A3B8;
+  --sp-green: #10B981;
+  --sp-green-dark: #059669;
+  --sp-green-light: #D1FAE5;
+  --sp-amber: #F59E0B;
+  --sp-purple: #A855F7;
+  --sp-pink: #EC4899;
+  --sp-red: #EF4444;
+  --sp-bg: #F8FAFC;
+  --sp-card: #1E293B;
+  --sp-card-border: rgba(255,255,255,0.08);
+  --sp-text: #F1F5F9;
+  --sp-text-muted: #94A3B8;
+}
+
+.topics .topic:nth-child(n+7) {
   display: none;
 }
-html {scroll-behavior:smooth;}
-body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;scroll-padding-top:80px;}
+
+html { scroll-behavior: smooth; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--sp-slate-dark);
+  color: var(--sp-text);
+  overflow-x: hidden;
+  scroll-padding-top: 80px;
+  line-height: 1.6;
+  background-image: 
+    linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.06) 1px, transparent 1px);
+  background-size: 70px 70px;
+}
+
+/* Glow animation keyframes */
+@keyframes borderGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(168,85,247,0.3), 0 10px 40px rgba(0,0,0,0.2);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(236,72,153,0.4), 0 15px 50px rgba(0,0,0,0.25);
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glowing border mixin style */
+.glow-card {
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+  animation: gradientShift 3s ease infinite;
+}
+
+.glow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(168,85,247,0.3), 0 20px 50px rgba(0,0,0,0.3);
+}
 
 /* STICKY NAV */
 .sticky-nav {
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:9999;
-  background:rgba(12,14,31,0.85);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid transparent;
-  padding:0.8rem 2rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  transition:all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--sp-slate);
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
 }
+
 .sticky-nav.scrolled {
-  background:rgba(12,14,31,0.95);
-  box-shadow:0 10px 40px rgba(0,0,0,0.3);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
+
 .nav-logo {
-  display:flex;
-  align-items:center;
-  gap:0;
-  text-decoration:none;
-  color:#fff;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+  color: #fff;
 }
-.nav-logo span:first-child {font-size:1.8rem;}
-.nav-logo span:last-child {font-size:1.4rem;font-weight:900;letter-spacing:-0.5px;}
+
+.nav-logo img { height: 3.2rem; width: auto; margin-right: -12px; }
+.nav-logo span { font-size: 1.35rem; font-weight: 700; }
+
 .nav-links {
-  display:flex;
-  align-items:center;
-  gap:0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
+
 .nav-links a {
-  color:#fff;
-  text-decoration:none;
-  padding:0.5rem 1rem;
-  border-radius:10px;
-  font-size:0.9rem;
-  font-weight:600;
-  opacity:0.75;
-  transition:all 0.2s ease;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.75;
+  transition: all 0.2s ease;
 }
+
 .nav-links a:hover {
-  opacity:1;
-  background:rgba(255,255,255,0.1);
+  opacity: 1;
+  background: rgba(255,255,255,0.1);
 }
+
 .nav-links a.active {
-  opacity:1;
-  background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(236,72,153,0.3));
+  opacity: 1;
+  background: rgba(255,255,255,0.15);
 }
+
 .nav-cta {
-  background:linear-gradient(135deg,#6366f1,#ec4899) !important;
-  opacity:1 !important;
-  box-shadow:0 4px 15px rgba(236,72,153,0.3);
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink)) !important;
+  opacity: 1 !important;
+  box-shadow: 0 4px 15px rgba(236,72,153,0.3);
 }
+
 .nav-cta:hover {
-  transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(236,72,153,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(236,72,153,0.4);
 }
+
 .nav-toggle {
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  background:none;
-  border:none;
-  cursor:pointer;
-  padding:5px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
 }
+
 .nav-toggle span {
-  width:24px;
-  height:2px;
-  background:#fff;
-  border-radius:2px;
-  transition:all 0.3s ease;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
+
 @media (max-width: 900px) {
   .nav-links {
-    position:fixed;
-    top:60px;
-    left:0;
-    right:0;
-    background:rgba(12,14,31,0.98);
-    backdrop-filter:blur(20px);
-    flex-direction:column;
-    padding:1.5rem;
-    gap:0.5rem;
-    transform:translateY(-100%);
-    opacity:0;
-    pointer-events:none;
-    transition:all 0.3s ease;
-    border-bottom:1px solid rgba(255,255,255,0.08);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--sp-slate);
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 0.5rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .nav-links.open {
-    transform:translateY(0);
-    opacity:1;
-    pointer-events:auto;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
   .nav-links a {
-    width:100%;
-    text-align:center;
-    padding:0.8rem 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem 1rem;
   }
-  .nav-toggle {display:flex;}
-  .nav-toggle.open span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
-  .nav-toggle.open span:nth-child(2) {opacity:0;}
-  .nav-toggle.open span:nth-child(3) {transform:rotate(-45deg) translate(5px,-5px);}
+  .nav-toggle { display: flex; }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 }
 
 /* HERO */
-.hero {position:relative;padding:7rem 2rem 4rem;overflow:hidden;background:#0c0e1f;}
-.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
-@keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
+.hero {
+  position: relative;
+  padding: 7rem 2rem 4rem;
+  overflow: hidden;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(168,85,247,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(236,72,153,0.2) 0%, transparent 50%),
+    linear-gradient(135deg, var(--sp-slate-dark) 0%, var(--sp-slate) 50%, var(--sp-slate-dark) 100%);
+  color: white;
+}
 
-/* Floating symbols - hidden on mobile, shown on desktop */
-.floating-symbols {display:none;}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(168,85,247,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridSlide 25s linear infinite;
+}
 
-.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;}
-.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);}
-.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
-.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
+@keyframes gridSlide {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+  top: -100px;
+  right: -150px;
+  animation: subtleFloat 8s ease-in-out infinite;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  backdrop-filter: blur(10px);
+}
+
+.hero-text h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  margin: 0 0 1.5rem;
+  line-height: 1.15;
+}
+
+.hero-text p {
+  font-size: 1.15rem;
+  opacity: 0.9;
+  line-height: 1.7;
+  max-width: 90%;
+}
 
 /* PILOT CONTAINER */
 .pilot-container {
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:450px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
 }
 
-/* Floating icons around pilot - positioned at corners */
 .pilot-icons {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .pilot-icon {
-  position:absolute;
-  font-size:2.2rem;
-  filter:drop-shadow(0 0 15px rgba(99,102,241,0.5));
+  position: absolute;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
   animation: iconFloat 5s ease-in-out infinite, iconGlow 3s ease-in-out infinite;
 }
 
-/* Position each icon at a corner - avoiding bottom-right where destination tag is */
-.pilot-icon:nth-child(1) { 
-  top: 5%; 
-  left: 5%; 
-  animation-delay: 0s;
-}
-.pilot-icon:nth-child(2) { 
-  top: 0%; 
-  right: 15%; 
-  animation-delay: 0.8s;
-}
-.pilot-icon:nth-child(3) { 
-  bottom: 25%; 
-  left: 0%; 
-  animation-delay: 1.6s;
-}
-.pilot-icon:nth-child(4) { 
-  top: 50%; 
-  right: 0%; 
-  animation-delay: 2.4s;
-}
+.pilot-icon:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
+.pilot-icon:nth-child(2) { top: 0%; right: 15%; animation-delay: 0.8s; }
+.pilot-icon:nth-child(3) { bottom: 25%; left: 0%; animation-delay: 1.6s; }
+.pilot-icon:nth-child(4) { top: 50%; right: 0%; animation-delay: 2.4s; }
 
 @keyframes iconFloat {
   0%, 100% { transform: translateY(0) scale(1); }
@@ -224,324 +361,998 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 }
 
 @keyframes iconGlow {
-  0%, 100% { 
-    opacity: 0.75; 
-    filter: drop-shadow(0 0 12px rgba(99,102,241,0.5)); 
-  }
-  50% { 
-    opacity: 1; 
-    filter: drop-shadow(0 0 25px rgba(236,72,153,0.7)); 
-  }
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
 }
 
 .pilot-character {
-  position:relative;
-  z-index:2;
-  width:380px;
-  height:auto;
-  animation:pilotFloat 10s infinite ease-in-out;
-  filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));
+  position: relative;
+  z-index: 2;
+  width: 340px;
+  height: auto;
+  animation: pilotFloat 10s infinite ease-in-out;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
 }
 
-@keyframes pilotFloat {0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-35px) rotate(6deg)}}
+@keyframes pilotFloat {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-25px) rotate(4deg); }
+}
 
 .destination-tag {
-  position:absolute;
+  position: absolute;
   bottom: -10px;
   right: -30px;
-  z-index:3;
-  background:rgba(255,255,255,0.95);
-  color:#1a1a2e;
-  padding:0.8rem 1.2rem;
-  border-radius:15px;
-  font-weight:700;
-  font-size:0.85rem;
-  box-shadow:0 15px 40px rgba(0,0,0,0.4);
-}
-.destination-tag strong {font-size:1.2rem;color:#6366f1;display:block;margin-top:.2rem;}
-
-/* WAITLIST */
-.waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);}
-.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;}
-.waitlist-form p {opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;}
-.form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;}
-.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;}
-
-/* Signup counter animation */
-.signup-counter {
-animation: counterFadeIn 0.6s ease-out;
-}
-@keyframes counterFadeIn {
-0% { opacity: 0; transform: translateY(-10px); }
-100% { opacity: 1; transform: translateY(0); }
-}
-#signupCount {
-display: inline-block;
-min-width: 2ch;
+  z-index: 3;
+  background: white;
+  color: var(--sp-slate);
+  padding: 0.8rem 1.2rem;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
-/* INSIGHTS */
-.insights {background:#0f1329;padding:4.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
-
-/* Animated circuit lines */
-.insights::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 2px;
-background: linear-gradient(90deg, transparent, #6366f1, transparent);
-animation: scanline 3s linear infinite;
-}
-.insights::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-height: 2px;
-background: linear-gradient(90deg, transparent, #ec4899, transparent);
-animation: scanline 3s linear infinite reverse;
-}
-@keyframes scanline {
-0% { transform: translateX(-100%); }
-100% { transform: translateX(100%); }
+.destination-tag strong {
+  font-size: 1.2rem;
+  color: var(--sp-purple);
+  display: block;
+  margin-top: 0.2rem;
 }
 
-.insights h2 {font-size:3rem;font-weight:900;margin-bottom:0.5rem;position:relative;z-index:2;}
-.topics {max-width:1200px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem;padding:0 2rem;}
-.topic {background:#11162e;padding:2.5rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;text-align:left;}
-
-/* Glowing edge on hover */
-.topic::before {
-content: '';
-position: absolute;
-inset: 0;
-border-radius: 22px;
-padding: 2px;
-background: linear-gradient(135deg, #6366f1, #ec4899);
--webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
--webkit-mask-composite: xor;
-mask-composite: exclude;
-opacity: 0;
-transition: opacity 0.3s;
-}
-.topic:hover::before {
-opacity: 1;
+/* HERO CTA */
+.hero-cta {
+  max-width: 550px;
+  margin: 2rem auto 3rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 10;
+  text-align: center;
 }
 
-.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);}
-.topic h3 {font-size:1.5rem;margin-bottom:1rem;margin-top:0;line-height:1.3;font-weight:800;}
-.topic p {opacity:.85;line-height:1.6;font-size:1.05rem;margin:0 0 1.2rem 0;}
-.topic p:last-child {margin-bottom:0;font-size:0.9rem;opacity:0.6;margin-top:auto;padding-top:1rem;}
+.hero-cta p { margin: 0 0 1.2rem 0; font-size: 1.1rem; font-weight: 600; color: #fff; }
 
-/* STATS */
-.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;}
-.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-
-/* CTA */
-.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;}
-
-/* Animated grid overlay */
-.final-cta::before {
-content: '';
-position: absolute;
-inset: 0;
-background-image:
-linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
-linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
-background-size: 50px 50px;
-animation: gridSlide 15s linear infinite;
-}
-@keyframes gridSlide {
-0% { transform: translate(0, 0); }
-100% { transform: translate(50px, 50px); }
+.hero-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: #fff;
+  color: var(--sp-purple);
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;}
-.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;}
-.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;}
-.cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
 
-/* Mid-page CTA */
+.hero-cta .subtext {
+  margin: 1rem 0 0 0;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.tracker-link {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.2rem;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.tracker-link p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+
+.tracker-link a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* VISION MISSION BOXES */
+.vision-mission-grid {
+  max-width: 1100px;
+  margin: -2rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.vision-box {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.3);
+  box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 10px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.vision-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+  animation: gradientShift 4s ease infinite;
+}
+
+.vision-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.vision-box:hover::before {
+  opacity: 1;
+}
+
+.vision-box.purple { border-color: rgba(168,85,247,0.4); }
+.vision-box.pink { border-color: rgba(236,72,153,0.4); }
+.vision-box.purple::before { background: linear-gradient(135deg, var(--sp-purple), #6366f1, var(--sp-purple)); background-size: 200% 200%; }
+.vision-box.pink::before { background: linear-gradient(135deg, var(--sp-pink), var(--sp-purple), var(--sp-pink)); background-size: 200% 200%; }
+
+.vision-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.vision-box-header span { font-size: 1.6rem; }
+
+.vision-box-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vision-box h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+
+.vision-box p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--sp-text-muted);
+}
+
+.vision-box strong { color: var(--sp-text); }
+
+/* WHY IT MATTERS */
+.stat-hero {
+  max-width: 1000px;
+  margin: 3rem auto 0;
+  padding: 0 2rem;
+}
+
+.stat-hero-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  animation: borderGlow 4s ease-in-out infinite;
+}
+
+.stat-hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  animation: gradientShift 4s ease infinite;
+}
+
+.stat-hero-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 50px rgba(168,85,247,0.4), 0 25px 60px rgba(0,0,0,0.3);
+}
+
+.stat-hero-card:hover::before {
+  opacity: 1;
+}
+
+.stat-hero-number {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.stat-hero-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--sp-text);
+}
+
+.stat-hero-card p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+  color: var(--sp-text-muted);
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ABOUT SECTION */
+.about-section {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  padding: 0 2rem;
+}
+
+.about-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.3);
+  box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 10px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  animation: gradientShift 6s ease infinite;
+}
+
+.about-card h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--sp-text);
+}
+
+.about-card > p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  color: var(--sp-text-muted);
+}
+
+.about-card strong { color: var(--sp-text); }
+
+.insight-box {
+  background: rgba(168,85,247,0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--sp-purple);
+  margin: 1.5rem 0;
+}
+
+.insight-box p { color: var(--sp-text-muted); font-size: 1rem; margin: 0 0 1rem 0; font-weight: 600; }
+.insight-box p:last-child { margin-bottom: 0; }
+
+.insight-item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.insight-item:last-child { margin-bottom: 0; }
+.insight-item span { font-size: 1.2rem; }
+.insight-item p { margin: 0; font-size: 0.95rem; line-height: 1.6; font-weight: 400; }
+.insight-item strong { color: var(--sp-text); }
+
+.building-box {
+  background: rgba(236,72,153,0.1);
+  padding: 1.8rem;
+  border-radius: 16px;
+  border: 1px solid rgba(236,72,153,0.25);
+  margin-top: 1.5rem;
+}
+
+.building-box p { color: var(--sp-text-muted); font-size: 1.05rem; margin: 0 0 1rem 0; font-weight: 600; }
+
+.building-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.building-item span { font-size: 1.3rem; }
+.building-item p { margin: 0; font-size: 1rem; line-height: 1.6; font-weight: 400; color: var(--sp-text-muted); }
+.building-item strong { color: var(--sp-text); }
+
+.best-part {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.best-part p { color: var(--sp-text-muted); }
+
+.best-part strong {
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* MID CTA */
+.mid-cta {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.mid-cta-card {
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 50px rgba(168,85,247,0.3);
+  text-align: center;
+}
+
+.mid-cta-card p { font-size: 1.1rem; margin: 0 0 1rem 0; color: #fff; }
+.mid-cta-card p:first-child { font-weight: 700; font-size: 1.2rem; }
+
 .mid-cta-btn {
-  display:inline-block;
-  padding:1rem 2.5rem;
-  background:#fff;
-  color:#6366f1;
-  text-decoration:none;
-  border-radius:15px;
-  font-weight:800;
-  font-size:1.05rem;
-  box-shadow:0 8px 25px rgba(0,0,0,0.2);
-  transition:all 0.2s;
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: #fff;
+  color: var(--sp-purple);
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transition: all 0.2s;
 }
+
 .mid-cta-btn:hover {
-  transform:translateY(-2px);
-  box-shadow:0 12px 35px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
 }
 
-/* MOBILE RESPONSIVE */
-
-@media (max-width: 968px) {
-.hero {padding:6rem 1.5rem 4rem;}
-.hero-content {grid-template-columns:1fr;gap:2rem;}
-.hero-text h1 {font-size:2.5rem;}
-.hero-text p {font-size:1.1rem;max-width:100%;}
-
-/* Adjust icons for tablet */
-.pilot-container {min-height:380px;}
-.pilot-character {width:320px;}
-.pilot-icons {display:block;}
-.pilot-icon {font-size:1.8rem;}
-.pilot-icon:nth-child(1) { top: 10%; left: 10%; }
-.pilot-icon:nth-child(2) { top: 5%; right: 20%; }
-.pilot-icon:nth-child(3) { bottom: 30%; left: 5%; }
-.pilot-icon:nth-child(4) { top: 55%; right: 5%; }
-
-.destination-tag {position:static;margin:1.5rem auto 0;max-width:280px;text-align:center;}
-
-.vision-mission-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-    padding: 0 1.5rem !important;
-    margin-top: 3rem !important;
-    margin-bottom: 3rem !important;
+/* SURVEY STATS */
+.survey-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
 }
 
-section[style*="max-width:900px"][style*="margin:3.5rem"] {
-    margin: 2.5rem auto 0 !important;
-    padding: 0 1.5rem !important;
+.survey-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.waitlist-form {padding:2rem 1.5rem;margin:2rem 1.5rem;}
-.waitlist-form h3 {font-size:1.6rem;}
-.signup-counter {padding:1rem !important;}
-.signup-counter > div {flex-wrap:wrap;justify-content:center;text-align:center;}
-
-.insights {padding:3.5rem 1.5rem !important;}
-.insights h2, .final-cta h2 {font-size:2rem;}
-.topics {grid-template-columns:1fr;gap:1.5rem;}
-
-.stats {grid-template-columns:1fr;gap:2rem;}
-.stat-number {font-size:2.5rem;}
-
-#gameCanvas {max-width:100%;height:auto;}
-
-/* Price cap section mobile */
-section[style*="max-width:1400px"] {
-    padding: 3rem 1.5rem !important;
-}
-section[style*="max-width:1400px"] > div {
-    padding: 2rem 1.5rem !important;
-}
-section[style*="max-width:1400px"] h2 {
-    font-size: 2rem !important;
-}
-section[style*="max-width:1400px"] div[style*="height:600px"] {
-    height: 500px !important;
-}
-section[style*="max-width:1400px"] div[style*="min-width:200px"] {
-    min-width: 140px !important;
-    padding: 15px !important;
-}
-section[style*="max-width:1400px"] div[style*="gap:40px"] {
-    gap: 20px !important;
+.survey-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: gradientShift 4s ease infinite;
 }
 
-.final-cta {padding:4rem 1.5rem;}
-.final-cta p {font-size:1rem;}
-.cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
+/* Animated scanline */
+.survey-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
+  animation: scanline 3s linear infinite;
 }
 
-@media (max-width: 480px) {
-.hero { padding:5.5rem 1rem 3rem !important; }
+.survey-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
 
-/* Bigger logo on mobile */
-.pilot-container { min-height:320px; flex-direction:column !important; align-items:center !important; }
-.pilot-character { width:320px !important; }
-.pilot-icons { display:none; }
-
-.destination-tag { position:static !important; margin:1rem auto 0 !important; right:auto !important; }
-.hero-text h1 { font-size:2rem !important; }
-.sticky-nav { justify-content: flex-start !important; padding-left: 0.5rem !important; }
-.nav-toggle { margin-left: auto !important; }
-  
-.vision-mission-grid {
-    padding: 0 1rem !important;
-    gap: 1rem !important;
-    margin-bottom: 1rem !important;
+.survey-card h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
 }
 
-/* Reduce gap above 65% section on mobile */
-section[style*="max-width:1000px"] {
-    margin-top: 1rem !important;
+.survey-card > p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--sp-text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-section[style*="max-width:900px"][style*="margin:3.5rem"] {
-    margin: 2rem auto 0 !important;
-    padding: 0 1rem !important;
+.survey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-section[style*="max-width:900px"] > div {
-    padding: 1.5rem 1rem !important;
+.survey-stat {
+  background: rgba(255,255,255,0.05);
+  padding: 1.75rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
+.survey-stat.purple { 
+  border-color: rgba(168,85,247,0.4); 
+  background: rgba(168,85,247,0.1);
+  box-shadow: 0 0 15px rgba(168,85,247,0.15);
+}
+.survey-stat.pink { 
+  border-color: rgba(236,72,153,0.4); 
+  background: rgba(236,72,153,0.1);
+  box-shadow: 0 0 15px rgba(236,72,153,0.15);
+}
+
+.survey-stat:hover {
+  transform: translateY(-3px);
+}
+
+.survey-stat.purple:hover {
+  box-shadow: 0 0 25px rgba(168,85,247,0.3);
+}
+
+.survey-stat.pink:hover {
+  box-shadow: 0 0 25px rgba(236,72,153,0.3);
+}
+
+.survey-stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.25rem;
+  line-height: 1;
+}
+
+.survey-stat h4 { font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: var(--sp-text); }
+.survey-stat p { font-size: 0.85rem; margin: 0; color: var(--sp-text-muted); }
+
+.survey-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+  transition: transform 0.2s;
+}
+
+.survey-btn:hover { transform: translateY(-2px); }
+
+.survey-card .footnote {
+  font-size: 1rem;
+  color: var(--sp-text-muted);
+  margin-top: 2rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.survey-card .footnote strong { color: var(--sp-text); }
+
+/* WAITLIST FORM */
 .waitlist-form {
-    padding: 1.5rem 1rem !important;
-    margin: 1.5rem 1rem !important;
+  max-width: 700px;
+  margin: 3.5rem auto 4rem;
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 30px rgba(168,85,247,0.2), 0 15px 50px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+  animation: borderGlow 5s ease-in-out infinite;
 }
 
-/* Price cap section on small phones - TALLER chart */
-section[style*="max-width:1400px"] {
-    padding: 2rem 1rem !important;
-}
-section[style*="max-width:1400px"] > div {
-    padding: 1.5rem 1rem !important;
-}
-section[style*="max-width:1400px"] h2 {
-    font-size: 1.6rem !important;
-}
-section[style*="max-width:1400px"] p[style*="font-size:1.1rem"] {
-    font-size: 0.95rem !important;
-}
-section[style*="max-width:1400px"] div[style*="height:600px"] {
-    height: 450px !important;
-}
-section[style*="max-width:1400px"] div[style*="min-width:200px"] {
-    min-width: 0 !important;
-    width: 100% !important;
-    max-width: 250px !important;
-    padding: 12px !important;
-}
-section[style*="max-width:1400px"] div[style*="min-width:200px"] p:first-child {
-    font-size: 10px !important;
-}
-section[style*="max-width:1400px"] div[style*="min-width:200px"] p:nth-child(2) {
-    font-size: 24px !important;
-}
-section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
-    font-size: 12px !important;
+.waitlist-form::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: gradientShift 4s ease infinite;
 }
 
-.final-cta { padding: 3rem 1rem !important; }
-.topic p { font-size:1rem !important; line-height:1.45 !important; }
-.price-cap-btn { width:32% !important; font-size:11px !important; padding:7px 0 !important; }
-.footer { padding:2.5rem 1rem !important; }
-.hero-text h1 {font-size:2rem;}
-.waitlist-form h3 {font-size:1.4rem;}
-.insights, .final-cta {padding:3rem 1rem;}
+/* Scanline effect */
+.waitlist-form::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
+  animation: scanline 3s linear infinite;
 }
 
-/* Mobile tooltip close button */
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.waitlist-form h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  color: var(--sp-text);
+  position: relative;
+  z-index: 2;
+}
+
+.waitlist-form > p {
+  color: var(--sp-text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  position: relative;
+  z-index: 2;
+}
+
+.waitlist-form .form-info {
+  font-size: 0.95rem;
+  color: var(--sp-text-muted);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.form-group { margin-bottom: 1rem; position: relative; z-index: 2; }
+
+.form-group input {
+  width: 100%;
+  padding: 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--sp-text);
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.form-group input::placeholder { color: var(--sp-text-muted); }
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--sp-purple);
+  background: rgba(255,255,255,0.12);
+}
+
+.find-address-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.find-address-row input { flex: 1; }
+
+.find-address-btn {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--sp-purple);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+#postcodeError {
+  color: #F87171;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0 0;
+  display: none;
+}
+
+#addressDropdownWrapper { margin-bottom: 1rem; }
+#addressDropdownWrapper label { font-size: 0.85rem; color: var(--sp-text-muted); display: block; margin-bottom: 0.4rem; }
+
+#addressDropdown {
+  width: 100%;
+  padding: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid var(--sp-purple);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--sp-text);
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+#addressDropdown option { background: var(--sp-slate); color: var(--sp-text); }
+
+#addressDropdownWrapper .manual-link { font-size: 0.75rem; color: var(--sp-text-muted); margin: 0.4rem 0 0 0; }
+#addressDropdownWrapper .manual-link a { color: var(--sp-purple); }
+
+.address-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.address-row input { flex: 1; }
+
+/* Usage Fields */
+#usageFields { margin-top: 1.5rem; }
+
+.usage-title {
+  color: var(--sp-text);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.usage-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.usage-input-group {
+  flex: 1;
+}
+
+.usage-input-group label {
+  font-size: 0.8rem;
+  color: var(--sp-text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.usage-input-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--sp-text);
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.usage-presets-label {
+  color: var(--sp-text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.usage-presets {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.usage-preset {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.6rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--sp-text-muted);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.usage-preset.active {
+  border-color: var(--sp-purple);
+  background: rgba(168,85,247,0.2);
+  color: var(--sp-text);
+  box-shadow: 0 0 15px rgba(168,85,247,0.2);
+}
+
+/* Extra Fields */
+#extraFields { margin-top: 1.5rem; position: relative; z-index: 2; }
+
+.extra-title {
+  color: var(--sp-text);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.smart-meter-section { margin-bottom: 1.2rem; }
+.smart-meter-section label { font-size: 0.9rem; color: var(--sp-text); display: block; margin-bottom: 0.5rem; font-weight: 500; }
+
+.smart-meter-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.smart-meter-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--sp-text-muted);
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.smart-meter-btn.active {
+  border-color: var(--sp-purple);
+  background: rgba(168,85,247,0.2);
+  color: var(--sp-text);
+  box-shadow: 0 0 15px rgba(168,85,247,0.2);
+}
+
+.credit-check-section {
+  margin-bottom: 1rem;
+  background: rgba(16,185,129,0.1);
+  padding: 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(16,185,129,0.25);
+}
+
+.credit-check-section label {
+  font-size: 0.95rem;
+  color: var(--sp-text);
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.credit-check-section .description {
+  font-size: 0.8rem;
+  color: var(--sp-text-muted);
+  margin: 0 0 0.8rem 0;
+  line-height: 1.5;
+}
+
+.credit-check-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.credit-check-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--sp-text-muted);
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.credit-check-btn.active {
+  border-color: var(--sp-purple);
+  background: rgba(168,85,247,0.2);
+  color: var(--sp-text);
+  box-shadow: 0 0 15px rgba(168,85,247,0.2);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(168,85,247,0.4), 0 10px 30px rgba(168,85,247,0.3);
+  margin-top: 1rem;
+  font-family: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 2;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(168,85,247,0.5), 0 15px 40px rgba(168,85,247,0.4);
+}
+
+.waitlist-form .privacy-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+}
+
+/* PRICE CAP SECTION */
+.price-cap-section {
+  max-width: 1400px;
+  margin: 3.5rem auto 0;
+  padding: 0 2rem;
+}
+
+.price-cap-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.price-cap-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: gradientShift 5s ease infinite;
+}
+
+.price-cap-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.price-cap-header .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+.price-cap-header h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
+}
+
+.price-cap-header p {
+  font-size: 1.05rem;
+  color: var(--sp-text-muted);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.price-cap-controls {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.price-cap-controls p {
+  font-size: 14px;
+  color: var(--sp-text-muted);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.price-cap-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 5px;
+  background: rgba(255,255,255,0.08);
+  color: var(--sp-text-muted);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-family: inherit;
+}
+
+.price-cap-active {
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: white;
+  border-color: transparent;
+}
+
+.price-cap-chart-container {
+  height: 600px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
 .chart-close-btn {
   display: none;
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #6366f1, #ec4899);
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
   color: white;
   border: none;
   padding: 14px 28px;
@@ -549,36 +1360,838 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 25px rgba(99,102,241,0.5);
+  box-shadow: 0 6px 25px rgba(168,85,247,0.5);
   z-index: 9999;
   animation: fadeInUp 0.2s ease;
+  font-family: inherit;
 }
-.chart-close-btn.visible {
-  display: block;
-}
+
+.chart-close-btn.visible { display: block; }
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateX(-50%) translateY(10px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* Price Cap Tool Styles */
-.price-cap-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s;
-  margin: 5px;
-  background: #2c3e50;
-  color: white;
+.price-cap-totals {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
 
-.price-cap-active {
-  background: linear-gradient(135deg, #6366f1, #ec4899);
+.price-cap-total {
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 200px;
+}
+
+.price-cap-total.previous { background: rgba(255,255,255,0.08); }
+.price-cap-total.current { background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink)); color: white; }
+
+.price-cap-total p:first-child { font-size: 12px; margin-bottom: 5px; opacity: 0.8; color: var(--sp-text-muted); }
+.price-cap-total.current p:first-child { color: rgba(255,255,255,0.8); }
+.price-cap-total p:nth-child(2) { font-size: 32px; font-weight: bold; margin: 0; }
+.price-cap-total.previous p:nth-child(2) { color: var(--sp-text); }
+.price-cap-total p:last-child { font-size: 14px; margin-top: 5px; opacity: 0.9; }
+
+.price-cap-footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: rgba(255,255,255,0.05);
+  border-left: 4px solid var(--sp-purple);
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  border-radius: 0 8px 8px 0;
+}
+
+.price-cap-footer p { margin: 0 0 8px 0; }
+.price-cap-footer p:last-child { margin: 0; }
+.price-cap-footer strong { color: var(--sp-text); }
+
+/* BILLING INTERACTIVE */
+.billing-section {
+  max-width: 1200px;
+  margin: 3.5rem auto 4.5rem;
+  padding: 0 2rem;
+}
+
+.billing-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.billing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: gradientShift 4s ease infinite;
+}
+
+.billing-card:hover {
+  box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.billing-card:hover::before {
+  opacity: 0.8;
+}
+
+.billing-card .tag {
+  display: inline-block;
+  background: rgba(251,191,36,0.2);
+  color: #FCD34D;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.billing-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.billing-card h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
+}
+
+.billing-card > p {
+  font-size: 1.15rem;
+  color: var(--sp-text-muted);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.billing-stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.billing-stat { text-align: center; }
+
+.billing-stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.billing-stat-label {
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+}
+
+.billing-btn {
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+  font-family: inherit;
+  transition: transform 0.2s;
+}
+
+.billing-btn:hover { transform: translateY(-2px); }
+
+.billing-card .footnote {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+}
+
+/* TARIFF TRACKER */
+.tariff-section {
+  max-width: 1200px;
+  margin: 3.5rem auto 4.5rem;
+  padding: 0 2rem;
+}
+
+.tariff-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(236,72,153,0.4);
+  box-shadow: 0 0 25px rgba(236,72,153,0.2), 0 10px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.tariff-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-pink), var(--sp-purple), var(--sp-pink));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  animation: gradientShift 4s ease infinite;
+}
+
+.tariff-card:hover {
+  box-shadow: 0 0 40px rgba(236,72,153,0.35), 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.tariff-card:hover::before {
+  opacity: 0.8;
+}
+
+.tariff-card .tag {
+  display: inline-block;
+  background: rgba(251,191,36,0.2);
+  color: #FCD34D;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.tariff-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.tariff-card h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
+}
+
+.tariff-card > p {
+  font-size: 1.15rem;
+  color: var(--sp-text-muted);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.tariff-stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.tariff-stat { text-align: center; }
+
+.tariff-stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tariff-stat-label {
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+}
+
+.tariff-btn {
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+  font-family: inherit;
+  transition: transform 0.2s;
+}
+
+.tariff-btn:hover { transform: translateY(-2px); }
+
+.tariff-card .footnote {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+}
+
+.tariff-card .footnote a { color: var(--sp-purple); text-decoration: none; }
+
+/* INSIGHTS SECTION */
+.insights {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 4.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated grid background */
+.insights::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(168,85,247,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridSlide 20s linear infinite;
+}
+
+@keyframes gridSlide {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* Top scanline */
+.insights::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sp-purple), transparent);
+  animation: scanline 3s linear infinite;
+}
+
+.insights h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: var(--sp-text);
+  position: relative;
+  z-index: 2;
+}
+
+.insights > p {
+  color: var(--sp-text-muted);
+  margin-top: 0.3rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.15rem;
+  position: relative;
+  z-index: 2;
+}
+
+.topics {
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.topic {
+  background: rgba(15,23,42,0.8);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.25);
+  box-shadow: 0 0 15px rgba(168,85,247,0.1), 0 4px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* Glowing border on hover */
+.topic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradientShift 4s ease infinite;
+}
+
+.topic:hover::before {
+  opacity: 1;
+}
+
+.topic:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+  background: rgba(30,41,59,0.95);
+}
+
+.topic h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+
+.topic p {
+  color: var(--sp-text-muted);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+.topic p:last-child {
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  color: var(--sp-text-muted);
+  opacity: 0.7;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.archive-link {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.archive-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--sp-purple);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid rgba(168,85,247,0.3);
+  border-radius: 30px;
+  transition: all 0.2s;
+}
+
+.archive-link a:hover {
+  background: rgba(168,85,247,0.15);
+  border-color: var(--sp-purple);
+}
+
+/* STATS SECTION */
+.stats {
+  max-width: 1200px;
+  margin: 4rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.3);
+  box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 4px 20px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradientShift 4s ease infinite;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(168,85,247,0.3), 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: var(--sp-text-muted);
+  font-size: 1rem;
+}
+
+/* GAME SECTION */
+.game-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.game-card {
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(168,85,247,0.4);
+  box-shadow: 0 0 30px rgba(168,85,247,0.25), 0 10px 40px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Animated grid inside game card */
+.game-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(168,85,247,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236,72,153,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.game-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
+
+.game-card h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
+  position: relative;
+  z-index: 2;
+}
+
+.game-card > p {
+  font-size: 1.05rem;
+  color: var(--sp-text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+}
+
+#gameStartScreen { margin-bottom: 1.5rem; position: relative; z-index: 2; }
+
+.game-start-btn {
+  padding: 1.3rem 3rem;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(168,85,247,0.4);
+  font-family: inherit;
+}
+
+#gameCanvas {
+  border: 3px solid var(--sp-purple);
+  border-radius: 15px;
+  background: var(--sp-slate-dark);
+  max-width: 100%;
+  cursor: none;
+  display: none;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(168,85,247,0.3);
+}
+
+.game-scores {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.game-score-card {
+  padding: 1rem 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(168,85,247,0.35);
+  box-shadow: 0 0 15px rgba(168,85,247,0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.game-score-card .label {
+  font-size: 0.9rem;
+  color: var(--sp-text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.game-score-card .value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#gameOverScreen {
+  display: none;
+  margin-top: 2rem;
+}
+
+#gameOverScreen h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--sp-pink);
+}
+
+#gameOverScreen p {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--sp-text);
+}
+
+#gameOverScreen #finalGameScore {
+  color: var(--sp-purple);
+  font-weight: 900;
+}
+
+.game-restart-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* FINAL CTA */
+.final-cta {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
   color: white;
-  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%; height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.final-cta h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.final-cta p {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-btn {
+  padding: 1.3rem 3rem;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: #fff;
+  color: var(--sp-purple);
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+  position: relative;
+  z-index: 2;
+  font-family: inherit;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--sp-slate);
+  color: rgba(255,255,255,0.7);
+}
+
+.footer p { margin: 0 0 1rem 0; }
+.footer p:last-child { margin: 0; }
+.footer a { color: var(--sp-purple); text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 968px) {
+  .hero { padding: 6rem 1.5rem 4rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-text h1 { font-size: 2.2rem; }
+  .hero-text p { font-size: 1.05rem; max-width: 100%; }
+
+  .pilot-container { min-height: 350px; }
+  .pilot-character { width: 280px; }
+  .pilot-icons { display: block; }
+  .pilot-icon { font-size: 1.8rem; }
+
+  .destination-tag { position: static; margin: 1.5rem auto 0; max-width: 280px; text-align: center; }
+
+  .vision-mission-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1.5rem; margin-top: -1rem; }
+  .stat-hero { margin-top: 2rem; }
+  .about-section { margin-top: 2rem; padding: 0 1.5rem; }
+  .about-card { padding: 2rem 1.5rem; }
+
+  .waitlist-form { padding: 2rem 1.5rem; margin: 2rem 1.5rem; }
+  .waitlist-form h3 { font-size: 1.5rem; }
+
+  .insights { padding: 3.5rem 1.5rem; }
+  .insights h2, .final-cta h2 { font-size: 2rem; }
+  .topics { grid-template-columns: 1fr; gap: 1.5rem; }
+
+  .stats { grid-template-columns: 1fr; gap: 1.5rem; }
+  .stat-number { font-size: 2.5rem; }
+
+  .price-cap-section, .billing-section, .tariff-section { padding: 0 1.5rem; }
+  .price-cap-card, .billing-card, .tariff-card { padding: 2rem 1.5rem; }
+  .price-cap-header h2, .billing-card h2, .tariff-card h2 { font-size: 1.75rem; }
+  .price-cap-chart-container { height: 500px; }
+  .price-cap-totals { gap: 20px; }
+  .price-cap-total { min-width: 140px; padding: 15px; }
+
+  .final-cta { padding: 4rem 1.5rem; }
+  .final-cta p { font-size: 1rem; }
+  .cta-btn { padding: 1rem 2rem; font-size: 1.1rem; width: 100%; max-width: 300px; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 5.5rem 1rem 3rem; }
+  .pilot-container { min-height: 300px; flex-direction: column; align-items: center; }
+  .pilot-character { width: 280px; }
+  .pilot-icons { display: none; }
+  .destination-tag { position: static; margin: 1rem auto 0; right: auto; }
+  .hero-text h1 { font-size: 1.75rem; }
+  
+  .sticky-nav { justify-content: flex-start; padding-left: 0.5rem; }
+  .nav-toggle { margin-left: auto; }
+
+  .vision-mission-grid { padding: 0 1rem; gap: 1rem; margin-bottom: 1rem; }
+  .vision-box { padding: 1.5rem; }
+
+  .stat-hero { margin-top: 1.5rem; padding: 0 1rem; }
+  .stat-hero-card { padding: 1.5rem; }
+  .stat-hero-number { font-size: 3rem; }
+
+  .about-section { margin-top: 1.5rem; padding: 0 1rem; }
+  .about-card { padding: 1.5rem 1rem; }
+
+  .mid-cta { padding: 0 1rem; }
+  .mid-cta-card { padding: 1.5rem; }
+
+  .survey-section { padding: 0 1rem; }
+  .survey-card { padding: 2rem 1rem; }
+  .survey-grid { gap: 1rem; }
+
+  .waitlist-form { padding: 1.5rem 1rem; margin: 1.5rem 1rem; }
+
+  .price-cap-section, .billing-section, .tariff-section { padding: 0 1rem; }
+  .price-cap-card, .billing-card, .tariff-card { padding: 1.5rem 1rem; }
+  .price-cap-header h2, .billing-card h2, .tariff-card h2 { font-size: 1.5rem; }
+  .price-cap-chart-container { height: 450px; }
+  .price-cap-total { min-width: 0; width: 100%; max-width: 250px; padding: 12px; }
+  .price-cap-total p:first-child { font-size: 10px; }
+  .price-cap-total p:nth-child(2) { font-size: 24px; }
+  .price-cap-total p:last-child { font-size: 12px; }
+  .price-cap-btn { width: 32%; font-size: 11px; padding: 7px 0; }
+
+  .insights, .final-cta { padding: 3rem 1rem; }
+  .topic p { font-size: 0.95rem; line-height: 1.5; }
+
+  .game-section { padding: 0 1rem; }
+  .game-card { padding: 2rem 1rem; }
+
+  .footer { padding: 2.5rem 1rem; }
 }
 </style>
 
@@ -607,528 +2220,440 @@ section[style*="max-width:1400px"] div[style*="min-width:200px"] p:last-child {
 </nav>
 
 <section class="hero" id="hero">
-<div class="energy-grid"></div>
-<div class="hero-content">
-<div class="hero-text">
-<div class="badge">🚀 Building Together</div>
-<h1>Your Launchpad to Better Energy Deals</h1>
-<p style="font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;">We're building a service that automatically switches you to the best energy deal - for free. Plus weekly insider insights that show you where your money actually goes, the hidden costs no one explains, and what's really happening in the energy market.</p>
-</div>
-<div class="pilot-container">
-  <!-- Floating icons around pilot -->
-  <div class="pilot-icons">
-    <div class="pilot-icon">⚡</div>
-    <div class="pilot-icon">💷</div>
-    <div class="pilot-icon">📈</div>
-    <div class="pilot-icon">💡</div>
-  </div>
-  <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
-  <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
-</div>
-</div>
-
-<!-- ABOVE THE FOLD CTA -->
-<div style="max-width:550px;margin:2rem auto 3rem;padding:0 2rem;position:relative;z-index:10;text-align:center;">
-  <p style="margin:0 0 1.2rem 0;font-size:1.1rem;font-weight:600;color:#fff;">📬 Get weekly insights and early access to our free auto-switcher when we launch</p>
-  <a href="#waitlist" style="display:inline-block;padding:1rem 2.5rem;border:none;border-radius:12px;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 8px 25px rgba(236,72,153,0.3);text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;">Join the Crew →</a>
-  <p style="margin:1rem 0 0 0;font-size:0.85rem;color:rgba(255,255,255,0.6);">🔒 Unsubscribe anytime.</p>
-  
-  <!-- Proof of value - Tariff Tracker link -->
-  <div style="margin-top:1.5rem;padding:0.8rem 1.2rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;backdrop-filter:blur(10px);">
-    <p style="margin:0;font-size:0.9rem;color:rgba(255,255,255,0.85);">⚡ While we build auto-switching: <a href="tariff-tracker.html" style="color:#a855f7;font-weight:700;text-decoration:none;">Check our live Tariff Tracker →</a></p>
-  </div>
-</div>
-
-<!-- Vision & Mission Boxes -->
-
-<div class="vision-mission-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:0 2rem;position:relative;z-index:5;">
-  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
-    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
-      <span style="font-size:1.8rem;">🔮</span>
-      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Our Vision</h3>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="badge">🚀 Building Together</div>
+      <h1>Your Launchpad to Better Energy Deals</h1>
+      <p>We're building a service that automatically switches you to the best energy deal - for free. Plus weekly insider insights that show you where your money actually goes, the hidden costs no one explains, and what's really happening in the energy market.</p>
     </div>
-    <p style="margin:0;font-size:1.4rem;font-weight:700;line-height:1.4;margin-bottom:1rem;">Putting the power back in your hands</p>
-    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.85;">An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
-  </div>
-  <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(236,72,153,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
-    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
-      <span style="font-size:1.8rem;">🛠️</span>
-      <h3 style="margin:0;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">What We're Building</h3>
+    <div class="pilot-container">
+      <div class="pilot-icons">
+        <div class="pilot-icon">⚡</div>
+        <div class="pilot-icon">💷</div>
+        <div class="pilot-icon">📈</div>
+        <div class="pilot-icon">💡</div>
+      </div>
+      <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
+      <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
     </div>
-    <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;">A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) - free to use, suppliers pay us, not you. Plus weekly insider insights that cut through the noise and tell you what's really happening with your energy bills.</p>
   </div>
-</div>
+
+  <div class="hero-cta">
+    <p>📬 Get weekly insights and early access to our free auto-switcher when we launch</p>
+    <a href="#waitlist" class="hero-btn">Join the Crew →</a>
+    <p class="subtext">🔒 Unsubscribe anytime.</p>
+    
+    <div class="tracker-link">
+      <p>⚡ While we build auto-switching: <a href="tariff-tracker.html">Check our live Tariff Tracker →</a></p>
+    </div>
+  </div>
 </section>
 
-<!-- WHY IT MATTERS -->
-<section style="max-width:1000px;margin:2rem auto 0;padding:0 2rem;">
-<div style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(236,72,153,0.12));padding:2.5rem;border-radius:22px;border:1px solid rgba(99,102,241,0.25);box-shadow:0 15px 50px rgba(0,0,0,0.3);text-align:center;">
-  <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.8rem;">65%</div>
-  <p style="font-size:1.3rem;font-weight:700;margin:0 0 1rem 0;opacity:0.95;">of UK households are paying more than they need to</p>
-  <p style="font-size:1.1rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
-    Most people are on their supplier's "default" tariff - basically the most expensive option. And even those who do switch often miss better deals because comparing tariffs is confusing, time-consuming, and easy to put off.
-  </p>
-  <p style="font-size:1.1rem;line-height:1.7;margin:0;opacity:0.85;max-width:750px;margin-left:auto;margin-right:auto;">
-    That's why we're building something that does the hard work for you - and keeping you informed on what you're actually paying for. Because when people understand their bills and switch more often, energy companies have to compete harder. Everyone wins.
-  </p>
+<!-- Vision & Mission Boxes -->
+<div class="vision-mission-grid">
+  <div class="vision-box purple">
+    <div class="vision-box-header">
+      <span>🔮</span>
+      <h3>Our Vision</h3>
+    </div>
+    <h4>Putting the power back in your hands</h4>
+    <p>An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
+  </div>
+  <div class="vision-box pink">
+    <div class="vision-box-header">
+      <span>🛠️</span>
+      <h3>What We're Building</h3>
+    </div>
+    <p>A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market based on your preferences (with your consent of course!) - free to use, suppliers pay us, not you. Plus weekly insider insights that cut through the noise and tell you what's really happening with your energy bills.</p>
+  </div>
 </div>
+
+<!-- WHY IT MATTERS -->
+<section class="stat-hero">
+  <div class="stat-hero-card">
+    <div class="stat-hero-number">65%</div>
+    <h3>of UK households are paying more than they need to</h3>
+    <p>Most people are on their supplier's "default" tariff - basically the most expensive option. And even those who do switch often miss better deals because comparing tariffs is confusing, time-consuming, and easy to put off.</p>
+    <p style="margin-top: 1rem;">That's why we're building something that does the hard work for you - and keeping you informed on what you're actually paying for. Because when people understand their bills and switch more often, energy companies have to compete harder. Everyone wins.</p>
+  </div>
 </section>
 
 <!-- WHO WE ARE -->
+<section id="about" class="about-section">
+  <div class="about-card">
+    <h2>Who We Are</h2>
 
-<section id="about" style="max-width:900px;margin:3.5rem auto 0;padding:0 2rem;">
-<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
-  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
+    <p>We work inside the UK energy industry - <strong>and what we've seen shocked us.</strong></p>
+    <p>So we're building something different.</p>
 
-  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
-    We work inside the UK energy industry - <strong>and what we've seen shocked us.</strong>
-  </p>
-
-  <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
-    So we're building something different.
-  </p>
-
-  <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
-    <p style="font-size:1.05rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.95;font-weight:600;">
-      Here's the kind of stuff hidden in your bill that nobody explains:
-    </p>
-    <div style="display:flex;flex-direction:column;gap:0.8rem;">
-      <div style="display:flex;gap:0.8rem;align-items:flex-start;">
-        <span style="font-size:1.2rem;">💨</span>
-        <p style="margin:0;font-size:1rem;line-height:1.6;"><strong>You pay wind farms to switch OFF</strong> when it's too windy. Yes, really - the grid can't handle too much power at once, so we pay them to stop generating.</p>
+    <div class="insight-box">
+      <p>Here's the kind of stuff hidden in your bill that nobody explains:</p>
+      <div class="insight-item">
+        <span>💨</span>
+        <p><strong>You pay wind farms to switch OFF</strong> when it's too windy. Yes, really - the grid can't handle too much power at once, so we pay them to stop generating.</p>
       </div>
-      <div style="display:flex;gap:0.8rem;align-items:flex-start;">
-        <span style="font-size:1.2rem;">⛽</span>
-        <p style="margin:0;font-size:1rem;line-height:1.6;"><strong>Your electricity price is set by gas</strong> - even when half our power comes from cheap wind and solar. It's like paying steak prices for a salad because someone else at the restaurant ordered steak.</p>
+      <div class="insight-item">
+        <span>⛽</span>
+        <p><strong>Your electricity price is set by gas</strong> - even when half our power comes from cheap wind and solar. It's like paying steak prices for a salad because someone else at the restaurant ordered steak.</p>
       </div>
-      <div style="display:flex;gap:0.8rem;align-items:flex-start;">
-        <span style="font-size:1.2rem;">💸</span>
-        <p style="margin:0;font-size:1rem;line-height:1.6;"><strong>You're paying for other people's unpaid bills</strong> - when customers don't pay, energy companies add the cost to everyone else's bills. UK energy debt just hit £4.4 billion, and you're picking up the tab.</p>
+      <div class="insight-item">
+        <span>💸</span>
+        <p><strong>You're paying for other people's unpaid bills</strong> - when customers don't pay, energy companies add the cost to everyone else's bills. UK energy debt just hit £4.4 billion, and you're picking up the tab.</p>
       </div>
+    </div>
+
+    <p>None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, and make switching effortless.</p>
+
+    <div class="building-box">
+      <p>That's why we're building two things:</p>
+      <div class="building-item">
+        <span>⚡</span>
+        <p><strong>A free auto-switching service</strong> that works in the background for you - finding and switching you to better deals automatically (with your consent)</p>
+      </div>
+      <div class="building-item">
+        <span>📚</span>
+        <p><strong>Weekly insider insights</strong> that cut through the jargon and tell you what's actually happening - because informed consumers create a more competitive market for everyone</p>
+      </div>
+      <p class="best-part"><strong>The best part?</strong> Your feedback shapes what we build. We're not building FOR you - we're building WITH you.</p>
     </div>
   </div>
-
-  <p style="font-size:1.1rem;line-height:1.7;margin-top:1.2rem;margin-bottom:1.5rem;opacity:0.9;">
-    None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, and make switching effortless.
-  </p>
-
-  <div style="background:linear-gradient(135deg,rgba(236,72,153,0.1),rgba(99,102,241,0.1));padding:1.8rem;border-radius:18px;border:2px solid rgba(236,72,153,0.25);">
-    <p style="font-size:1.15rem;line-height:1.7;margin:0 0 1rem 0;opacity:0.95;font-weight:600;">
-      That's why we're building two things:
-    </p>
-    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:0.8rem;">
-      <span style="font-size:1.3rem;">⚡</span>
-      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>A free auto-switching service</strong> that works in the background for you-finding and switching you to better deals automatically (with your consent)</p>
-    </div>
-    <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;">
-      <span style="font-size:1.3rem;">📚</span>
-      <p style="margin:0;font-size:1.05rem;line-height:1.6;opacity:0.9;"><strong>Weekly insider insights</strong> that cut through the jargon and tell you what's actually happening-because informed consumers create a more competitive market for everyone</p>
-    </div>
-    <p style="margin:0;font-size:1.1rem;line-height:1.6;opacity:0.95;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.1);">
-      <strong style="background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">The best part?</strong> Your feedback shapes what we build. We're not building FOR you-we're building WITH you.
-    </p>
-  </div>
-</div>
 </section>
 
 <!-- MID-PAGE CTA -->
-<section style="max-width:900px;margin:3rem auto;padding:0 2rem;">
-<div style="background:linear-gradient(135deg,#6366f1,#ec4899);padding:2rem 2.5rem;border-radius:22px;box-shadow:0 20px 60px rgba(99,102,241,0.4);text-align:center;">
-  <p style="font-size:1.2rem;font-weight:700;margin:0 0 1rem 0;color:#fff;">Ready to be part of this?</p>
-  <p style="font-size:1rem;margin:0 0 1.3rem 0;opacity:0.95;color:#fff;">Get weekly insights and early access when we launch</p>
-  <a href="#waitlist" class="mid-cta-btn">Get Early Access →</a>
-</div>
+<section class="mid-cta">
+  <div class="mid-cta-card">
+    <p>Ready to be part of this?</p>
+    <p style="font-weight: 400;">Get weekly insights and early access when we launch</p>
+    <a href="#waitlist" class="mid-cta-btn">Get Early Access →</a>
+  </div>
 </section>
 
 <!-- SURVEY STATS SHOWCASE -->
-<section id="survey" style="max-width:1200px;margin:4rem auto;padding:0 2rem;">
-<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);text-align:center;">
-  <div style="font-size:2rem;margin-bottom:0.8rem;">📊</div>
-  <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1rem;">We Asked 200 People About Energy Switching</h2>
-  <p style="font-size:1.1rem;line-height:1.6;opacity:0.85;margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;">
-    Before building anything, we surveyed real people. Here's what we found:
-  </p>
-  
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-bottom:2rem;">
-    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
-      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">77.5%</div>
-      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Want auto-switching</p>
-      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">3 in 4 people are ready for this</p>
+<section id="survey" class="survey-section">
+  <div class="survey-card">
+    <div class="icon">📊</div>
+    <h2>We Asked 200 People About Energy Switching</h2>
+    <p>Before building anything, we surveyed real people. Here's what we found:</p>
+    
+    <div class="survey-grid">
+      <div class="survey-stat purple">
+        <div class="survey-stat-number">77.5%</div>
+        <h4>Want auto-switching</h4>
+        <p>3 in 4 people are ready for this</p>
+      </div>
+      
+      <div class="survey-stat pink">
+        <div class="survey-stat-number">73%</div>
+        <h4>Of "happy" customers</h4>
+        <p>Would still switch if it was easy and automatic</p>
+      </div>
+      
+      <div class="survey-stat purple">
+        <div class="survey-stat-number">61%</div>
+        <h4>Don't understand bills</h4>
+        <p>That's why we explain what you're paying for</p>
+      </div>
+      
+      <div class="survey-stat pink">
+        <div class="survey-stat-number">48%</div>
+        <h4>Haven't switched in 5+ years</h4>
+        <p>Energy companies love this - it's free money for them</p>
+      </div>
     </div>
     
-    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
-      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">73%</div>
-      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Of "happy" customers</p>
-      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Would still switch if it was easy and automatic</p>
-    </div>
+    <a href="survey-results.html" class="survey-btn">Read Full Survey Results →</a>
     
-    <div style="background:rgba(99,102,241,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(99,102,241,0.3);">
-      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">61%</div>
-      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Don't understand bills</p>
-      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">That's why we explain what you're paying for</p>
-    </div>
-    
-    <div style="background:rgba(236,72,153,0.1);padding:2rem;border-radius:18px;border:2px solid rgba(236,72,153,0.3);">
-      <div style="font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;">48%</div>
-      <p style="font-size:1.05rem;font-weight:600;margin:0;opacity:0.95;">Haven't switched in 5+ years</p>
-      <p style="font-size:0.9rem;margin:0.5rem 0 0 0;opacity:0.7;">Energy companies love this - it's free money for them</p>
-    </div>
+    <p class="footnote"><strong>But surveys are just surveys.</strong> We want to hear from <strong>YOU</strong> - your feedback shapes what we build.</p>
   </div>
-  
-  <a href="survey-results.html" style="display:inline-block;padding:1rem 2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;text-decoration:none;border-radius:15px;font-weight:700;font-size:1rem;box-shadow:0 10px 30px rgba(236,72,153,0.3);transition:transform 0.2s;">
-    Read Full Survey Results →
-  </a>
-  
-  <p style="font-size:1rem;opacity:0.8;margin-top:2rem;max-width:650px;margin-left:auto;margin-right:auto;line-height:1.6;">
-    <strong>But surveys are just surveys.</strong> We want to hear from <strong>YOU</strong>-your feedback shapes what we build.
-  </p>
-</div>
-</section>
-
 </section>
 
 <div id="waitlist" class="waitlist-form">
-<h3 style="margin-top:0;">Join the Crew 🚀</h3>
-<p>Get weekly energy insights + early access to free auto-switching when we launch</p>
-<p style="font-size:0.95rem;color:#555;margin-bottom:1.5rem;">We just need a few details to find the best deals for you 👇</p>
-<form onsubmit="handleSubmit(event)" id="waitlistForm">
-  <div class="form-group" style="margin-bottom:1rem;">
-    <input type="text" id="fullName" placeholder="Full Name" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
-  </div>
-  <div class="form-group" style="margin-bottom:1rem;">
-    <input type="email" id="emailAddress" placeholder="Email Address" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
-  </div>
-<div class="form-group" style="margin-bottom:1rem;">
-    <div style="display:flex;gap:0.5rem;">
-      <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
-      <button type="button" onclick="lookupPostcode()" id="findAddressBtn" style="padding:1rem 1.5rem;border:none;border-radius:15px;background:#6366f1;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;">Find Address</button>
+  <h3>Join the Crew 🚀</h3>
+  <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
+  <p class="form-info">We just need a few details to find the best deals for you 👇</p>
+  <form onsubmit="handleSubmit(event)" id="waitlistForm">
+    <div class="form-group">
+      <input type="text" id="fullName" placeholder="Full Name" required />
     </div>
-    <p id="postcodeError" style="color:#ec4899;font-size:0.85rem;margin:0.5rem 0 0 0;display:none;"></p>
-  </div>
-  <div id="addressDropdownWrapper" style="display:none;margin-bottom:1rem;">
-    <label style="font-size:0.85rem;color:#666;display:block;margin-bottom:0.4rem;">Select your address:</label>
-    <select id="addressDropdown" onchange="selectAddress()" style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #6366f1;background:#fff;font-size:1rem;color:#1a1a2e;box-sizing:border-box;cursor:pointer;">
-      <option value="">-- Select your address --</option>
-    </select>
-    <p style="font-size:0.75rem;color:#888;margin:0.4rem 0 0 0;">Can't find your address? <a href="#" onclick="showManualEntry();return false;" style="color:#6366f1;">Enter manually</a></p>
-  </div>
-  <div id="addressFields" style="display:none;">
-    <div class="form-group" style="margin-bottom:1rem;">
-      <input type="text" id="houseNumber" placeholder="House/Flat Number" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    <div class="form-group">
+      <input type="email" id="emailAddress" placeholder="Email Address" required />
     </div>
-    <div class="form-group" style="margin-bottom:1rem;">
-      <input type="text" id="street" placeholder="Street Name" required style="width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    <div class="form-group">
+      <div class="find-address-row">
+        <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required />
+        <button type="button" onclick="lookupPostcode()" id="findAddressBtn" class="find-address-btn">Find Address</button>
+      </div>
+      <p id="postcodeError"></p>
     </div>
-    <div class="form-group" style="margin-bottom:1rem;display:flex;gap:0.5rem;">
-      <input type="text" id="city" placeholder="City" readonly style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#e8e8e8;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
-      <input type="text" id="region" placeholder="Region" readonly style="flex:1;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#e8e8e8;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    <div id="addressDropdownWrapper" style="display:none;">
+      <label>Select your address:</label>
+      <select id="addressDropdown" onchange="selectAddress()">
+        <option value="">-- Select your address --</option>
+      </select>
+      <p class="manual-link">Can't find your address? <a href="#" onclick="showManualEntry();return false;">Enter manually</a></p>
     </div>
-  </div>
-<div id="usageFields" style="display:none;">
-  <p style="color:#1a1a2e;font-weight:600;margin-bottom:0.8rem;font-size:0.95rem;">⚡ Your Energy Usage</p>
-  <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-    <div style="flex:1;">
-      <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:0.3rem;">Electricity (kWh/year)</label>
-      <input type="number" id="elecUsage" value="2700" style="width:100%;padding:1rem;border-radius:12px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    <div id="addressFields" style="display:none;">
+      <div class="form-group">
+        <input type="text" id="houseNumber" placeholder="House/Flat Number" required />
+      </div>
+      <div class="form-group">
+        <input type="text" id="street" placeholder="Street Name" required />
+      </div>
+      <div class="form-group address-row">
+        <input type="text" id="city" placeholder="City" readonly style="background:#E2E8F0;" />
+        <input type="text" id="region" placeholder="Region" readonly style="background:#E2E8F0;" />
+      </div>
     </div>
-    <div style="flex:1;">
-      <label style="font-size:0.8rem;color:#666;display:block;margin-bottom:0.3rem;">Gas (kWh/year)</label>
-      <input type="number" id="gasUsage" value="11500" style="width:100%;padding:1rem;border-radius:12px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;" />
+    <div id="usageFields" style="display:none;">
+      <p class="usage-title">⚡ Your Energy Usage</p>
+      <div class="usage-inputs">
+        <div class="usage-input-group">
+          <label>Electricity (kWh/year)</label>
+          <input type="number" id="elecUsage" value="2700" />
+        </div>
+        <div class="usage-input-group">
+          <label>Gas (kWh/year)</label>
+          <input type="number" id="gasUsage" value="11500" />
+        </div>
+      </div>
+      <p class="usage-presets-label">Or pick your household size:</p>
+      <div class="usage-presets">
+        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>(1-2 bed)</button>
+        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>(typical)</button>
+        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>(4+ bed)</button>
+      </div>
     </div>
-  </div>
-  <p style="color:#666;font-size:0.8rem;margin-bottom:0.8rem;">Or pick your household size:</p>
-  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-    <button type="button" class="usage-preset" data-elec="1800" data-gas="7500" style="flex:1;min-width:80px;padding:0.6rem;border:1px solid #ddd;background:#f5f5f5;border-radius:8px;cursor:pointer;font-size:0.75rem;color:#333;">🏢 Small<br>(1-2 bed)</button>
-    <button type="button" class="usage-preset" data-elec="2700" data-gas="11500" style="flex:1;min-width:80px;padding:0.6rem;border:2px solid #6366f1;background:#f0f0ff;border-radius:8px;cursor:pointer;font-size:0.75rem;color:#333;">🏠 Medium<br>(typical)</button>
-    <button type="button" class="usage-preset" data-elec="4300" data-gas="17000" style="flex:1;min-width:80px;padding:0.6rem;border:1px solid #ddd;background:#f5f5f5;border-radius:8px;cursor:pointer;font-size:0.75rem;color:#333;">🏡 Large<br>(4+ bed)</button>
-  </div>
-</div>
 
-<div id="extraFields" style="display:none;">
-  <p style="color:#1a1a2e;font-weight:600;margin-bottom:0.8rem;font-size:0.95rem;margin-top:1.5rem;">📊 Two quick questions</p>
-  
-  <!-- Smart Meter -->
-  <div style="margin-bottom:1.2rem;">
-    <label style="font-size:0.9rem;color:#333;display:block;margin-bottom:0.5rem;font-weight:500;">Do you have a smart meter?</label>
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-      <button type="button" class="smart-meter-btn" data-value="yes" style="flex:1;min-width:80px;padding:0.8rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#333;font-weight:600;">✅ Yes</button>
-      <button type="button" class="smart-meter-btn" data-value="no" style="flex:1;min-width:80px;padding:0.8rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#333;font-weight:600;">❌ No</button>
-      <button type="button" class="smart-meter-btn" data-value="unsure" style="flex:1;min-width:80px;padding:0.8rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#333;font-weight:600;">🤷 Not sure</button>
+    <div id="extraFields" style="display:none;">
+      <p class="extra-title">📊 Two quick questions</p>
+      
+      <div class="smart-meter-section">
+        <label>Do you have a smart meter?</label>
+        <div class="smart-meter-btns">
+          <button type="button" class="smart-meter-btn" data-value="yes">✅ Yes</button>
+          <button type="button" class="smart-meter-btn" data-value="no">❌ No</button>
+          <button type="button" class="smart-meter-btn" data-value="unsure">🤷 Not sure</button>
+        </div>
+        <input type="hidden" id="smartMeter" value="" />
+      </div>
+      
+      <div class="credit-check-section">
+        <label>💰 Want access to exclusive cashback & cheaper tariffs?</label>
+        <p class="description">Suppliers offer their best deals to customers with good payment history. Bad debt costs the industry billions - so reliable payers get rewarded with lower rates and cashback. If you consent to a soft credit check, you could unlock higher savings - and it won't affect your credit score.</p>
+        <div class="credit-check-btns">
+          <button type="button" class="credit-check-btn" data-value="yes">💸 Yes, get me better deals!</button>
+          <button type="button" class="credit-check-btn" data-value="no">No thanks</button>
+          <button type="button" class="credit-check-btn" data-value="maybe">Maybe later</button>
+        </div>
+        <input type="hidden" id="creditCheck" value="" />
+      </div>
     </div>
-    <input type="hidden" id="smartMeter" value="" />
-  </div>
-  
-  <!-- Credit Check - More Compelling -->
-  <div style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(34,197,94,0.08));padding:1.2rem;border-radius:12px;border:2px solid rgba(34,197,94,0.25);">
-    <label style="font-size:0.95rem;color:#1a1a2e;display:block;margin-bottom:0.4rem;font-weight:700;">💰 Want access to exclusive cashback & cheaper tariffs?</label>
-    <p style="font-size:0.8rem;color:#555;margin:0 0 0.8rem 0;line-height:1.5;">Suppliers offer their best deals to customers with good payment history. Bad debt costs the industry billions - so reliable payers get rewarded with lower rates and cashback. If you consent to a soft credit check, you could unlock higher savings - and it won't affect your credit score.</p>
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-     <button type="button" class="credit-check-btn" data-value="yes" style="flex:1;min-width:100px;padding:0.9rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#333;font-weight:600;">💸 Yes, get me better deals!</button>
-      <button type="button" class="credit-check-btn" data-value="no" style="flex:1;min-width:80px;padding:0.9rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#666;font-weight:600;">No thanks</button>
-      <button type="button" class="credit-check-btn" data-value="maybe" style="flex:1;min-width:80px;padding:0.9rem;border:2px solid #ddd;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:0.85rem;color:#666;font-weight:600;">Maybe later</button>
-    </div>
-    <input type="hidden" id="creditCheck" value="" />
-  </div>
-</div>
 
-<input type="hidden" id="energyRegion" value="" />
-<button type="submit" class="submit-btn">Get Early Access</button>
-</form>
-<p style="margin-top:1rem;font-size:.9rem;opacity:.6;">🔒 Unsubscribe anytime. We respect your inbox.</p>
+    <input type="hidden" id="energyRegion" value="" />
+    <button type="submit" class="submit-btn">Get Early Access</button>
+  </form>
+  <p class="privacy-note">🔒 Unsubscribe anytime. We respect your inbox.</p>
 </div>
 
 <!-- EMBEDDED PRICE CAP TOOL -->
-<section id="bill-breakdown" style="max-width:1400px;margin:3.5rem auto 0;padding:0 2rem;">
-<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
-  <div style="text-align:center;margin-bottom:2rem;">
-    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
-    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Where Does Your Money Actually Go?</h2>
-    <p style="font-size:1.1rem;opacity:0.85;max-width:800px;margin:0 auto;">
-      Your energy bill isn't just paying for gas and electricity. There are dozens of hidden costs - network fees, green levies, supplier profits, and more. We've broken it all down so you can see exactly where every pound goes.
-    </p>
-  </div>
+<section id="bill-breakdown" class="price-cap-section">
+  <div class="price-cap-card">
+    <div class="price-cap-header">
+      <div class="icon">📊</div>
+      <h2>Where Does Your Money Actually Go?</h2>
+      <p>Your energy bill isn't just paying for gas and electricity. There are dozens of hidden costs - network fees, green levies, supplier profits, and more. We've broken it all down so you can see exactly where every pound goes.</p>
+    </div>
 
-  <div style="margin-bottom:10px;text-align:center;">
-    <p style="font-size:14px;color:#bdc3c7;margin-bottom:10px;font-weight:500;">Payment Method:</p>
-    <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
-    <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
-    <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
-  </div>
-  
-  <div style="height:600px;margin-bottom:30px;position:relative;">
-    <canvas id="priceCapChart"></canvas>
-    <button id="chartCloseBtn" class="chart-close-btn" onclick="hideChartTooltip()">✕ Close</button>
-  </div>
-  
-  <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:30px;">
-    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:rgba(44,62,80,0.5);">
-      <p style="font-size:12px;color:#bdc3c7;margin-bottom:5px;">Oct-Dec 2025</p>
-      <p id="priceCapPeriod1Total" style="font-size:32px;font-weight:bold;color:#ecf0f1;margin:0;">£1755</p>
+    <div class="price-cap-controls">
+      <p>Payment Method:</p>
+      <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
+      <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
+      <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
     </div>
-    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:linear-gradient(135deg,#6366f1,#ec4899);">
-      <p style="font-size:12px;color:#ecf0f1;margin-bottom:5px;">Jan-Mar 2026</p>
-      <p id="priceCapPeriod2Total" style="font-size:32px;font-weight:bold;color:white;margin:0;">£1758</p>
-      <p id="priceCapChangeAmount" style="font-size:14px;color:#ecf0f1;margin-top:5px;">+£3 (+0.2%)</p>
+    
+    <div class="price-cap-chart-container">
+      <canvas id="priceCapChart"></canvas>
+      <button id="chartCloseBtn" class="chart-close-btn" onclick="hideChartTooltip()">✕ Close</button>
+    </div>
+    
+    <div class="price-cap-totals">
+      <div class="price-cap-total previous">
+        <p>Oct-Dec 2025</p>
+        <p id="priceCapPeriod1Total">£1755</p>
+      </div>
+      <div class="price-cap-total current">
+        <p>Jan-Mar 2026</p>
+        <p id="priceCapPeriod2Total">£1758</p>
+        <p id="priceCapChangeAmount">+£3 (+0.2%)</p>
+      </div>
+    </div>
+    
+    <div class="price-cap-footer">
+      <p><strong>💡 What's the "Price Cap"?</strong> It's the maximum amount energy companies can charge you per unit of energy. Set by Ofgem (the energy regulator) and changes every 3 months.</p>
+      <p><strong>Source:</strong> Ofgem (the UK energy regulator)</p>
+      <p><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
+      <p><strong>Tip:</strong> Hover or tap on the bars to see what each cost means!</p>
     </div>
   </div>
-  
-  <div style="margin-top:30px;padding:15px;background:rgba(44,62,80,0.3);border-left:4px solid #6366f1;font-size:12px;color:#bdc3c7;border-radius:5px;">
-    <p style="margin:0 0 8px 0;font-size:13px;"><strong>💡 What's the "Price Cap"?</strong> It's the maximum amount energy companies can charge you per unit of energy. Set by Ofgem (the energy regulator) and changes every 3 months.</p>
-    <p style="margin:0 0 5px 0;"><strong>Source:</strong> Ofgem (the UK energy regulator)</p>
-    <p style="margin:0 0 5px 0;"><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
-    <p style="margin:5px 0 0 0;"><strong>Tip:</strong> Hover or tap on the bars to see what each cost means!</p>
-  </div>
-</div>
 </section>
 
-<!-- NEW BILLING VS CONSUMPTION INTERACTIVE -->
-<section style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
-<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
-  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">📚 Interactive Explainer</div>
-  <div style="font-size:3rem;margin-bottom:1rem;">💡</div>
-  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Why You Pay the Same Every Month (Even When You Use Way More)</h2>
-  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
-    In winter, you blast the heating. In summer, barely anything. So why is your bill roughly the same every month? It's called "Direct Debit smoothing" - and this tool shows you exactly how it works.
-  </p>
-  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
-    <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Same Bill</div>
-      <div style="font-size:0.9rem;opacity:0.8;">Every Month</div>
+<!-- BILLING VS CONSUMPTION INTERACTIVE -->
+<section class="billing-section">
+  <div class="billing-card">
+    <span class="tag">📚 Interactive Explainer</span>
+    <div class="icon">💡</div>
+    <h2>Why You Pay the Same Every Month (Even When You Use Way More)</h2>
+    <p>In winter, you blast the heating. In summer, barely anything. So why is your bill roughly the same every month? It's called "Direct Debit smoothing" - and this tool shows you exactly how it works.</p>
+    <div class="billing-stats">
+      <div class="billing-stat">
+        <div class="billing-stat-value">Same Bill</div>
+        <div class="billing-stat-label">Every Month</div>
+      </div>
+      <div class="billing-stat">
+        <div class="billing-stat-value">Different Usage</div>
+        <div class="billing-stat-label">Summer vs Winter</div>
+      </div>
+      <div class="billing-stat">
+        <div class="billing-stat-value">See Why</div>
+        <div class="billing-stat-label">Interactive Charts</div>
+      </div>
     </div>
-    <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Different Usage</div>
-      <div style="font-size:0.9rem;opacity:0.8;">Summer vs Winter</div>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">See Why</div>
-      <div style="font-size:0.9rem;opacity:0.8;">Interactive Charts</div>
-    </div>
+    <button onclick="window.open('billing-consumption-interactive.html','_blank')" class="billing-btn">Play With the Numbers →</button>
+    <p class="footnote">Finally understand why your bill doesn't match your meter</p>
   </div>
-  <button onclick="window.open('billing-consumption-interactive.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
-    Play With the Numbers →
-  </button>
-  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Finally understand why your bill doesn't match your meter</p>
-</div>
 </section>
 
 <!-- TARIFF TRACKER CALLOUT -->
-<section id="tariffs" style="max-width:1200px;margin:3.5rem auto 4.5rem;padding:0 2rem;">
-<div style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(236,72,153,0.15));padding:3rem;border-radius:22px;border:1px solid rgba(168,85,247,0.3);box-shadow:0 20px 60px rgba(99,102,241,0.2);text-align:center;">
-  <div style="display:inline-block;background:rgba(251,191,36,0.2);color:#fde68a;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:1rem;">⏳ While We Build Auto-Switching</div>
-  <div style="font-size:3rem;margin-bottom:1rem;">⚡</div>
-  <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Live Tariff Tracker</h2>
-  <p style="font-size:1.2rem;opacity:0.9;max-width:700px;margin:0 auto 2rem;line-height:1.6;">
-    We're not a comparison site - but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.
-  </p>
-  <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0;">
-    <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">7</div>
-      <div style="font-size:0.9rem;opacity:0.8;">Live Tariffs</div>
+<section id="tariffs" class="tariff-section">
+  <div class="tariff-card">
+    <span class="tag">⏳ While We Build Auto-Switching</span>
+    <div class="icon">⚡</div>
+    <h2>Live Tariff Tracker</h2>
+    <p>We're not a comparison site - but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.</p>
+    <div class="tariff-stats">
+      <div class="tariff-stat">
+        <div class="tariff-stat-value">7</div>
+        <div class="tariff-stat-label">Live Tariffs</div>
+      </div>
+      <div class="tariff-stat">
+        <div class="tariff-stat-value">14</div>
+        <div class="tariff-stat-label">UK Regions</div>
+      </div>
+      <div class="tariff-stat">
+        <div id="trackerSavings" class="tariff-stat-value">£165</div>
+        <div class="tariff-stat-label">Avg. Savings/year</div>
+      </div>
     </div>
-    <div style="text-align:center;">
-      <div style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">14</div>
-      <div style="font-size:0.9rem;opacity:0.8;">UK Regions</div>
-    </div>
-    <div style="text-align:center;">
-      <div id="trackerSavings" style="font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">£165</div>
-      <div style="font-size:0.9rem;opacity:0.8;">Avg. Savings/year</div>
-    </div>
+    <button onclick="window.open('tariff-tracker.html','_blank')" class="tariff-btn">Compare Tariffs Now →</button>
+    <p class="footnote">Updated weekly • While we build full automation • <a href="Switching-guide.html">Read our switching guide</a></p>
   </div>
-  <button onclick="window.open('tariff-tracker.html','_blank')" style="padding:1.2rem 2.5rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.4);transition:0.3s;">
-    Compare Tariffs Now →
-  </button>
-  <p style="margin-top:1.5rem;font-size:0.9rem;opacity:0.7;">Updated weekly • While we build full automation • <a href="Switching-guide.html" style="color:#a855f7;text-decoration:none;">Read our switching guide</a></p>
-</div>
 </section>
 
 <section id="insights" class="insights">
-<h2>Plain English Explainers</h2>
-<p style="opacity:.85;margin-top:.3rem;margin-bottom:2.5rem;font-size:1.2rem;position:relative;z-index:2;">Energy bills are confusing on purpose. We break them down so anyone can understand.</p>
-<div class="topics">
+  <h2>Plain English Explainers</h2>
+  <p>Energy bills are confusing on purpose. We break them down so anyone can understand.</p>
+  <div class="topics">
 
-  <div class="topic" onclick="window.open('why-uk-electricity-bills-follow-gas-prices.html','_blank')">
-  <h3>⚡ Why UK Electricity Bills Follow Gas Prices</h3>
-  <p>You're paying for wind farms. You'll never see cheaper bills. Here's how marginal pricing guarantees you pay gas prices for wind power - no matter how many renewables we build.</p>
-  <p>📅 24 Jan 2026</p>
-</div>
+    <div class="topic" onclick="window.open('why-uk-electricity-bills-follow-gas-prices.html','_blank')">
+      <h3>⚡ Why UK Electricity Bills Follow Gas Prices</h3>
+      <p>You're paying for wind farms. You'll never see cheaper bills. Here's how marginal pricing guarantees you pay gas prices for wind power - no matter how many renewables we build.</p>
+      <p>📅 24 Jan 2026</p>
+    </div>
 
-  <div class="topic" onclick="window.open('crypto-mining-energy-analysis.html','_blank')">
-  <h3>⛏️ We Calculated If Mining Bitcoin at Home Is Worth It in 2026</h3>
-  <p>Can you mine BTC and heat your flat for free? We ran the numbers with UK electricity prices. Spoiler: it's barely worth it. Interactive calculator included.</p>
-  <p>📅 19 Jan 2026</p>
-</div>
+    <div class="topic" onclick="window.open('crypto-mining-energy-analysis.html','_blank')">
+      <h3>⛏️ We Calculated If Mining Bitcoin at Home Is Worth It in 2026</h3>
+      <p>Can you mine BTC and heat your flat for free? We ran the numbers with UK electricity prices. Spoiler: it's barely worth it. Interactive calculator included.</p>
+      <p>📅 19 Jan 2026</p>
+    </div>
 
-<div class="topic" onclick="window.open('pounds-for-pylons.html','_blank')">
-  <h3>🔌 £250 Off for Living Near Pylons? We Check the Facts</h3>
-  <p>The government's "Pounds for Pylons" scheme offers £250/year off energy bills. Sounds great - until you realise who's actually paying for it. Interactive calculator included.</p>
-  <p>📅 19 Jan 2026</p>
-</div>
+    <div class="topic" onclick="window.open('pounds-for-pylons.html','_blank')">
+      <h3>🔌 £250 Off for Living Near Pylons? We Check the Facts</h3>
+      <p>The government's "Pounds for Pylons" scheme offers £250/year off energy bills. Sounds great - until you realise who's actually paying for it. Interactive calculator included.</p>
+      <p>📅 19 Jan 2026</p>
+    </div>
 
-<div class="topic" onclick="window.open('gas-value-calculator.html','_blank')">
-  <h3>🔥 How Long Does £10 of Gas Last?</h3>
-  <p>Ever wonder how quickly a tenner disappears when you turn on the heating? From hot showers to cooking dinner, see exactly what your gas money buys. Interactive calculator included.</p>
-  <p>📅 10 Jan 2026</p>
-</div>  
+    <div class="topic" onclick="window.open('gas-value-calculator.html','_blank')">
+      <h3>🔥 How Long Does £10 of Gas Last?</h3>
+      <p>Ever wonder how quickly a tenner disappears when you turn on the heating? From hot showers to cooking dinner, see exactly what your gas money buys. Interactive calculator included.</p>
+      <p>📅 10 Jan 2026</p>
+    </div>
 
-<div class="topic" onclick="window.open('network-charges-update-2026.html','_blank')">
-  <h3>📉 Good News: Network Charges Lower Than Expected</h3>
-  <p>The fee you pay for using the electricity grid (it's buried in your bill) is rising less than we feared. Originally looking at £80/year extra, now it's £62. Small win, but we'll take it.</p>
-  <p>📅 8 Jan 2026</p>
-</div>
+    <div class="topic" onclick="window.open('network-charges-update-2026.html','_blank')">
+      <h3>📉 Good News: Network Charges Lower Than Expected</h3>
+      <p>The fee you pay for using the electricity grid (it's buried in your bill) is rising less than we feared. Originally looking at £80/year extra, now it's £62. Small win, but we'll take it.</p>
+      <p>📅 8 Jan 2026</p>
+    </div>
 
-<div class="topic" onclick="window.open('energy-debt-crisis.html','_blank')">
-  <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
-  <p>Energy debt has hit £4.4bn - and you're paying £52/year extra on your bill because of it. The data behind the crisis suppliers don't want you to see.</p>
-  <p>📅 7 Jan 2026</p>
-</div>
+    <div class="topic" onclick="window.open('energy-debt-crisis.html','_blank')">
+      <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
+      <p>Energy debt has hit £4.4bn - and you're paying £52/year extra on your bill because of it. The data behind the crisis suppliers don't want you to see.</p>
+      <p>📅 7 Jan 2026</p>
+    </div>
 
-<div class="topic" onclick="window.open('standing-charge-increase-2026.html','_blank')">
-  <h3>⚡ Why Your Standing Charge Keeps Going Up</h3>
-  <p>There's an £80 billion project to upgrade the UK's electricity grid - and guess who's paying? You. Your "standing charge" (the daily fee just to be connected) is nearly doubling from April. Here's why.</p>
-  <p>📅 6 Jan 2026</p>
-</div>
+  </div>
 
-<div class="topic" onclick="window.open('energy-bill-rebate-april-2026.html','_blank')">
-  <h3>📊 The £150 "Discount" That's Not Really £150</h3>
-  <p>The government says they're cutting £150 from your energy bill. But £88 of that is just being moved to your taxes instead. It's not a cut - it's an accounting trick. Here's what's actually changing.</p>
-  <p>📅 3 Jan 2026</p>
-</div>
-
-<div class="topic" onclick="window.open('price-cap-january-2026.html','_blank')">
-  <h3>🔆 Bills Only Rose £3... But Here's the Catch</h3>
-  <p>Sounds like good news, right? But dig deeper: the cost of actual energy went DOWN, while all the extra fees and charges went UP. Your bill stayed flat, but what you're paying for changed completely.</p>
-  <p>📅 28 Nov 2025</p>
-</div>
-
-<div class="topic" onclick="window.open('sizewell-c-nuclear-charge.html','_blank')">
-  <h3>⚛️ Paying for a Power Station That Doesn't Exist Yet</h3>
-  <p>From 2026, you'll start paying for a new nuclear plant - before it's even built. It's like paying for a house while they're still pouring the foundation. Here's why and what it adds to your bill.</p>
-  <p>📅 22 Nov 2025</p>
-</div>
-  
-<div class="topic" onclick="window.open('warm-home-discount.html','_blank')">
-  <h3>🔆 Warm Home Discount Expansion</h3>
-  <p>What's changing from winter 2025-26 and how it affects your bills – plus why competition is heating up.</p>
-  <p>📅 25 Oct 2025</p>
-</div>
-  
-</div>
-
-<!-- Archive Link -->
-<div style="text-align:center;margin-top:2rem;">
-  <a href="archive.html" style="display:inline-flex;align-items:center;gap:0.5rem;color:#a855f7;font-weight:600;text-decoration:none;padding:0.8rem 1.5rem;border:2px solid rgba(168,85,247,0.3);border-radius:30px;transition:all 0.2s;">
-    📚 View All Articles <span style="font-size:1.2rem;">→</span>
-  </a>
-</div>
-
+  <div class="archive-link">
+    <a href="archive.html">📚 View All Articles <span>→</span></a>
+  </div>
 </section>
 
 <section class="stats">
-<div>
-  <div class="stat-number">65%</div>
-  <div>are overpaying right now</div>
-</div>
-<div>
-  <div class="stat-number" id="dynamicSavings">£200+</div>
-  <div>you could save per year</div>
-</div>
-<div>
-  <div class="stat-number">You</div>
-  <div>help us build this</div>
-</div>
+  <div class="stat-card">
+    <div class="stat-number">65%</div>
+    <div class="stat-label">are overpaying right now</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number" id="dynamicSavings">£200+</div>
+    <div class="stat-label">you could save per year</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">You</div>
+    <div class="stat-label">help us build this</div>
+  </div>
 </section>
 
 <!-- GAME SECTION -->
+<section id="game" class="game-section">
+  <div class="game-card">
+    <div class="icon"><img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:4rem;width:auto;vertical-align:middle;margin-right:-1rem;">💷</div>
+    <h2>Whilst We Build You a Service That Works for YOU</h2>
+    <p>Why not play a fun game? Move your mouse to pilot the rocket, catch energy savings, and avoid obstacles!</p>
 
-<section id="game" style="max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;">
-<div style="background:#11162e;padding:3rem;border-radius:30px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
+    <div id="gameStartScreen">
+      <button onclick="startMainGame()" class="game-start-btn">🎮 Play Now</button>
+    </div>
 
-  <!-- Animated background -->
+    <canvas id="gameCanvas" width="700" height="400"></canvas>
 
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
+    <div class="game-scores">
+      <div class="game-score-card">
+        <div class="label">Score</div>
+        <div id="gameScore" class="value">0</div>
+      </div>
+      <div class="game-score-card">
+        <div class="label">High Score</div>
+        <div id="gameHighScore" class="value">0</div>
+      </div>
+    </div>
 
-  <div style="position:relative;z-index:2;">
-    <div style="font-size:3rem;margin-bottom:1rem;"><img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:5rem;width:auto;vertical-align:middle;margin-right:-1.8rem;">💷</div>
-    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
-    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the rocket, catch energy savings, and avoid obstacles!</p>
-
-<div id="gameStartScreen" style="margin-bottom:1.5rem;">
-  <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
-</div>
-
-<canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
-
-<div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
-  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
-    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
-    <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+    <div id="gameOverScreen">
+      <h3>Game Over! 💥</h3>
+      <p>Final Score: <span id="finalGameScore">0</span></p>
+      <button onclick="restartMainGame()" class="game-restart-btn">Play Again</button>
+    </div>
   </div>
-  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
-    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
-    <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
-  </div>
-</div>
-
-<div id="gameOverScreen" style="display:none;margin-top:2rem;">
-  <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
-  <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
-  <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
-</div>
-
-  </div>
-</div>
 </section>
 
 <section class="final-cta">
-<h2>Stop Overpaying. Start Understanding.</h2>
-<p>Most people are on their supplier's most expensive tariff without even knowing it. We're building a free service that finds you better deals automatically - and we'll keep you informed every step of the way with weekly insider insights.</p>
-<button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Get Early Access</button>
+  <h2>Stop Overpaying. Start Understanding.</h2>
+  <p>Most people are on their supplier's most expensive tariff without even knowing it. We're building a free service that finds you better deals automatically - and we'll keep you informed every step of the way with weekly insider insights.</p>
+  <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Get Early Access</button>
 </section>
 
-<footer class="footer" style="text-align:center;padding:3rem 2rem;background:#0c0e1f;color:#fff;opacity:0.8;">
-<p>💌 Weekly energy insights delivered to your inbox</p>
-<p style="margin-top:1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com" style="color:#a855f7;text-decoration:none;">crew@switch-pilot.com</a></p>
-<p style="margin-top:1rem;">© 2026 SwitchPilot. Making energy bills make sense.</p>
+<footer class="footer">
+  <p>💌 Weekly energy insights delivered to your inbox</p>
+  <p>📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+  <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
 </footer>
 
 <script>
@@ -1172,6 +2697,7 @@ function animateCounter(element, newValue) {
         element.style.transform = 'scale(1)';
     }, 300);
 }
+
 // Ideal Postcodes API
 const IDEAL_POSTCODES_API_KEY = 'ak_mkmkogpnZZ5AR83WNyoK3DW1EOxNS';
 let addressList = [];
@@ -1202,12 +2728,10 @@ async function lookupPostcode() {
     if (data.code === 2000 && data.result && data.result.length > 0) {
       addressList = data.result;
       
-      // Format postcode nicely
       if (postcode.length > 4) {
         postcodeInput.value = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
       }
       
-      // Populate dropdown
       addressDropdown.innerHTML = '<option value="">-- Select your address --</option>';
       addressList.forEach((addr, index) => {
         const option = document.createElement('option');
@@ -1246,13 +2770,9 @@ function selectAddress() {
   
   const addr = addressList[index];
   
-  // Fill in the fields
-  // For flats: sub_building_name (Flat 41) + building_name (Kinver House) only
-  // building_number goes with street
   const flatParts = [addr.sub_building_name, addr.building_name].filter(Boolean);
   document.getElementById('houseNumber').value = flatParts.length > 0 ? flatParts.join(', ') : (addr.building_number || '');
   
-  // Street: include building_number if we have flat details (e.g., "42 Elthorne Road")
   const street = addr.thoroughfare || addr.dependant_locality || '';
   const streetWithNumber = (flatParts.length > 0 && addr.building_number) ? addr.building_number + ' ' + street : street;
   document.getElementById('street').value = streetWithNumber;
@@ -1260,11 +2780,9 @@ function selectAddress() {
   document.getElementById('city').value = addr.post_town || '';
   document.getElementById('region').value = addr.county || addr.post_town || '';
   
-  // Map to energy region
   const energyRegion = mapToEnergyRegion(addr.county, addr.post_town, addr.postcode);
   document.getElementById('energyRegion').value = energyRegion;
   
-  // Show fields and usage section
   document.getElementById('addressFields').style.display = 'block';
   document.getElementById('usageFields').style.display = 'block';
   document.getElementById('extraFields').style.display = 'block';
@@ -1277,7 +2795,6 @@ function showManualEntry() {
   document.getElementById('extraFields').style.display = 'block';
   document.getElementById('houseNumber').focus();
   
-  // Still try to get region from postcode for energy region mapping
   const postcode = document.getElementById('postcode').value.trim().toUpperCase();
   const energyRegion = mapToEnergyRegionFromPostcode(postcode);
   document.getElementById('energyRegion').value = energyRegion;
@@ -1288,12 +2805,10 @@ function mapToEnergyRegion(county, town, postcode) {
   const countyLower = (county || '').toLowerCase();
   const townLower = (town || '').toLowerCase();
   
-  // London
   if (townLower === 'london' || ['E','EC','N','NW','SE','SW','W','WC'].some(p => pc.startsWith(p) && pc.length > 2 && !pc.startsWith('EX') && !pc.startsWith('EN') && !pc.startsWith('NE') && !pc.startsWith('WA') && !pc.startsWith('WN') && !pc.startsWith('WR') && !pc.startsWith('WS') && !pc.startsWith('WV') && !pc.startsWith('WF'))) {
     return 'London';
   }
   
-  // Scotland
   if (countyLower.includes('highland') || countyLower.includes('aberdeen') || pc.startsWith('AB') || pc.startsWith('IV') || pc.startsWith('KW') || pc.startsWith('PH') || pc.startsWith('DD') || pc.startsWith('ZE') || pc.startsWith('HS')) {
     return 'North Scotland';
   }
@@ -1301,7 +2816,6 @@ function mapToEnergyRegion(county, town, postcode) {
     return 'South Scotland';
   }
   
-  // Wales
   if (pc.startsWith('LL') || pc.startsWith('CH') || (countyLower.includes('flint') || countyLower.includes('wrexham') || countyLower.includes('denbigh'))) {
     return 'North Wales & Merseyside';
   }
@@ -1309,52 +2823,42 @@ function mapToEnergyRegion(county, town, postcode) {
     return 'South Wales';
   }
   
-  // Merseyside
   if (townLower.includes('liverpool') || townLower.includes('wirral') || townLower.includes('sefton') || townLower.includes('knowsley') || pc.startsWith('L') && !pc.startsWith('LA') && !pc.startsWith('LE') && !pc.startsWith('LN') && !pc.startsWith('LS') && !pc.startsWith('LU')) {
     return 'North Wales & Merseyside';
   }
   
-  // North East
   if (pc.startsWith('NE') || pc.startsWith('DH') || pc.startsWith('SR') || pc.startsWith('TS') || pc.startsWith('DL')) {
     return 'North East';
   }
   
-  // North West
   if (pc.startsWith('M') || pc.startsWith('BL') || pc.startsWith('BB') || pc.startsWith('PR') || pc.startsWith('FY') || pc.startsWith('LA') || pc.startsWith('CA') || pc.startsWith('WA') || pc.startsWith('WN') || pc.startsWith('OL') || pc.startsWith('SK') || pc.startsWith('CW')) {
     return 'North West';
   }
   
-  // Yorkshire
   if (pc.startsWith('LS') || pc.startsWith('BD') || pc.startsWith('HG') || pc.startsWith('HX') || pc.startsWith('WF') || pc.startsWith('HD') || pc.startsWith('HU') || pc.startsWith('YO') || pc.startsWith('DN') || pc.startsWith('S')) {
     return 'Yorkshire';
   }
   
-  // East Midlands
   if (pc.startsWith('DE') || pc.startsWith('NG') || pc.startsWith('LE') || pc.startsWith('LN') || pc.startsWith('NN') || pc.startsWith('PE')) {
     return 'East Midlands';
   }
   
-  // West Midlands
   if (pc.startsWith('B') || pc.startsWith('CV') || pc.startsWith('DY') || pc.startsWith('WS') || pc.startsWith('WV') || pc.startsWith('WR') || pc.startsWith('ST') || pc.startsWith('TF') || pc.startsWith('HR')) {
     return 'West Midlands';
   }
   
-  // Eastern
   if (pc.startsWith('CB') || pc.startsWith('CO') || pc.startsWith('IP') || pc.startsWith('NR') || pc.startsWith('CM') || pc.startsWith('SS') || pc.startsWith('SG') || pc.startsWith('AL') || pc.startsWith('EN') || pc.startsWith('LU') || pc.startsWith('MK')) {
     return 'Eastern';
   }
   
-  // Southern
   if (pc.startsWith('SO') || pc.startsWith('PO') || pc.startsWith('BN') || pc.startsWith('RH') || pc.startsWith('GU') || pc.startsWith('RG') || pc.startsWith('SP') || pc.startsWith('HP') || pc.startsWith('OX') || pc.startsWith('SL')) {
     return 'Southern';
   }
   
-  // South East
   if (pc.startsWith('CT') || pc.startsWith('ME') || pc.startsWith('DA') || pc.startsWith('BR') || pc.startsWith('TN') || pc.startsWith('KT') || pc.startsWith('CR') || pc.startsWith('SM') || pc.startsWith('TW')) {
     return 'South East';
   }
   
-  // South West
   if (pc.startsWith('EX') || pc.startsWith('PL') || pc.startsWith('TQ') || pc.startsWith('TR') || pc.startsWith('TA') || pc.startsWith('BA') || pc.startsWith('BS') || pc.startsWith('GL') || pc.startsWith('SN') || pc.startsWith('DT') || pc.startsWith('BH')) {
     return 'South West';
   }
@@ -1365,20 +2869,17 @@ function mapToEnergyRegion(county, town, postcode) {
 function mapToEnergyRegionFromPostcode(postcode) {
   return mapToEnergyRegion('', '', postcode);
 }
+
 // Usage preset buttons
 document.querySelectorAll('.usage-preset').forEach(btn => {
   btn.addEventListener('click', function() {
     document.getElementById('elecUsage').value = this.dataset.elec;
     document.getElementById('gasUsage').value = this.dataset.gas;
-    // Update button styles
-    document.querySelectorAll('.usage-preset').forEach(b => {
-      b.style.border = '1px solid #ddd';
-      b.style.background = '#f5f5f5';
-    });
-    this.style.border = '2px solid #6366f1';
-    this.style.background = '#f0f0ff';
+    document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
   });
 });
+
 function handleSubmit(e) {
     e.preventDefault();
     
@@ -1397,25 +2898,21 @@ function handleSubmit(e) {
     
     const form = e.target.closest('.waitlist-form');
     
-    // Check address fields are filled
     if (!houseNumber && !street) {
         alert('Please find your address using the postcode lookup');
         return;
     }
     
-    // Check smart meter selection
     if (!smartMeter) {
         alert('Please let us know if you have a smart meter');
         return;
     }
     
-    // Check credit check selection
     if (!creditCheck) {
         alert('Please let us know if you\'d like access to exclusive deals');
         return;
     }
     
-    // Optimistically increment counter
     signupCount++;
     const counterElement = document.getElementById('signupCount');
     if (counterElement) {
@@ -1423,10 +2920,8 @@ function handleSubmit(e) {
     }
     updateCounterDisplay(signupCount);
     
-    // Show loading
-    form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:#666;font-size:1.1rem;">Adding you to the crew...</p></div>';
+    form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:var(--sp-text-muted);font-size:1.1rem;">Adding you to the crew...</p></div>';
     
-    // Send to Google Sheets with all fields
     fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -1450,8 +2945,8 @@ function handleSubmit(e) {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
-                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard, ${fullName.split(' ')[0]}!</h3>
-                <p style="color:#666;">Check your email at <strong>${email}</strong> for your welcome email.</p>
+                <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard, ${fullName.split(' ')[0]}!</h3>
+                <p style="color:#94A3B8;">Check your email at <strong style="color:#F1F5F9;">${email}</strong> for your welcome email.</p>
             </div>
         `;
     })
@@ -1459,36 +2954,11 @@ function handleSubmit(e) {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
-                <h3 style="color:#6366f1;margin-bottom:0.5rem;font-size:1.8rem;">Welcome Aboard!</h3>
-                <p style="color:#666;">Check your email at <strong>${email}</strong> for your welcome email.</p>
+                <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard!</h3>
+                <p style="color:#94A3B8;">Check your email at <strong style="color:#F1F5F9;">${email}</strong> for your welcome email.</p>
             </div>
         `;
     });
-}
-
-// Hero form handler
-function handleHeroSubmit(e) {
-    e.preventDefault();
-    var email = document.getElementById('heroEmail').value;
-    
-    // Increment counter
-    signupCount++;
-    var counterElement = document.getElementById('signupCount');
-    if (counterElement) animateCounter(counterElement, signupCount);
-    updateCounterDisplay(signupCount);
-    
-    // Send to Google Sheets
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-    });
-    
-    // Show success
-    document.getElementById('heroForm').style.display = 'none';
-    document.getElementById('heroSubtext').style.display = 'none';
-    document.getElementById('heroSuccess').style.display = 'block';
 }
 
 // GAME CODE
@@ -1501,17 +2971,16 @@ if (gameCanvas) {
     let gameHighScore = 0;
     document.getElementById('gameHighScore').textContent = gameHighScore;
     
-// Preload logo for player
-const logoImg = new Image();
-logoImg.src = 'https://mitran101.github.io/smart-switch/logo.png';
-let logoLoaded = false;
-logoImg.onload = () => { logoLoaded = true; };
+    const logoImg = new Image();
+    logoImg.src = 'https://mitran101.github.io/smart-switch/logo.png';
+    let logoLoaded = false;
+    logoImg.onload = () => { logoLoaded = true; };
 
-const player = {
-    x: gameCanvas.width / 2,
-    y: gameCanvas.height - 80,
-    size: 55
-};
+    const player = {
+        x: gameCanvas.width / 2,
+        y: gameCanvas.height - 80,
+        size: 55
+    };
     
     const goodItems = ['⚡', '💷', '🔋', '💡'];
     const badItems = ['💥', '🌩️'];
@@ -1526,7 +2995,6 @@ const player = {
         mouseY = (e.clientY - rect.top) * (gameCanvas.height / rect.height);
     });
     
-    // Improved touch controls with finger offset
     gameCanvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
         const rect = gameCanvas.getBoundingClientRect();
@@ -1581,7 +3049,7 @@ const player = {
     function updateGame() {
         if (!gameRunning) return;
         
-        ctx.fillStyle = '#0a0c1a';
+        ctx.fillStyle = '#1E293B';
         ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
         
         player.x += (mouseX - player.x) * 0.15;
@@ -1590,11 +3058,11 @@ const player = {
         player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
         player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
         
-if (logoLoaded) {
-    const w = player.size * 1.8;
-    const h = player.size;
-    ctx.drawImage(logoImg, player.x - w/2, player.y - h/2, w, h);
-}
+        if (logoLoaded) {
+            const w = player.size * 1.8;
+            const h = player.size;
+            ctx.drawImage(logoImg, player.x - w/2, player.y - h/2, w, h);
+        }
         
         for (let i = items.length - 1; i >= 0; i--) {
             const item = items[i];
@@ -1607,7 +3075,7 @@ if (logoLoaded) {
                     gameScore += 10;
                     document.getElementById('gameScore').textContent = gameScore;
                     
-                    ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
+                    ctx.fillStyle = 'rgba(168, 85, 247, 0.3)';
                     ctx.beginPath();
                     ctx.arc(item.x, item.y, 50, 0, Math.PI * 2);
                     ctx.fill();
@@ -1715,7 +3183,6 @@ const priceCapDescriptions = {
 let currentPriceCapMethod = 'directDebit';
 let priceCapChart = null;
 
-// Mobile close button for chart tooltip
 const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 function hideChartTooltip() {
@@ -1764,8 +3231,8 @@ function renderPriceCapChart() {
         }
       },
       scales: {
-        x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
-        y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
+        x: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' } },
+        y: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' }, title: { display: true, text: 'Cost (£)', color: '#94A3B8' } }
       },
       plugins: {
         datalabels: {
@@ -1787,7 +3254,7 @@ function renderPriceCapChart() {
           position: 'bottom',
           align: 'center',
           labels: { 
-            color: '#ecf0f1', 
+            color: '#94A3B8', 
             padding: 12, 
             font: { size: 10 }, 
             boxWidth: 10,
@@ -1806,9 +3273,9 @@ function renderPriceCapChart() {
           mode: 'nearest',
           intersect: true,
           backgroundColor: 'rgba(255, 255, 255, 0.98)',
-          titleColor: '#2c3e50',
-          bodyColor: '#34495e',
-          borderColor: '#6366f1',
+          titleColor: '#1E293B',
+          bodyColor: '#475569',
+          borderColor: '#A855F7',
           borderWidth: 2,
           padding: 15,
           cornerRadius: 10,
@@ -1850,7 +3317,7 @@ function renderPriceCapChart() {
           bodySpacing: 6,
           footerMarginTop: 10,
           footerFont: { size: 13, weight: 'bold' },
-          footerColor: '#6366f1'
+          footerColor: '#A855F7'
         }
       },
       interaction: {
@@ -1860,7 +3327,6 @@ function renderPriceCapChart() {
     }
   });
   
-  // Show close button on mobile only when tooltip is actually visible
   if (isMobileDevice) {
     ctx.addEventListener('click', function() {
       setTimeout(function() {
@@ -1896,23 +3362,20 @@ function updatePriceCapStats() {
 function setPriceCapMethod(method) {
   currentPriceCapMethod = method;
   document.querySelectorAll('.price-cap-btn').forEach(btn => {
-    btn.className = 'price-cap-btn';
+    btn.classList.remove('price-cap-active');
   });
-  event.target.className = 'price-cap-btn price-cap-active';
+  event.target.classList.add('price-cap-active');
   renderPriceCapChart();
 }
 
-// Initialize price cap chart when page loads
 window.addEventListener('load', function() {
   if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
     renderPriceCapChart();
   }
   
-  // Load dynamic savings from tariff tracker
   loadDynamicSavings();
 });
 
-// Fetch tariff data and calculate average savings across all regions
 async function loadDynamicSavings() {
   try {
     const response = await fetch('./all_tariffs.json');
@@ -1929,7 +3392,6 @@ async function loadDynamicSavings() {
       return true;
     }
 
-    // Ofgem cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
     const capRatesByRegion = {
       'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
       'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
@@ -1950,7 +3412,6 @@ async function loadDynamicSavings() {
     const typicalElec = 2700;
     const typicalGas = 11500;
     
-    // Calculate savings for EACH region, then average
     const savingsByRegion = [];
     
     for (const [region, rates] of Object.entries(capRatesByRegion)) {
@@ -1978,7 +3439,6 @@ async function loadDynamicSavings() {
       if (savings > 0) savingsByRegion.push(savings);
     }
     
-    // Average across all regions
     if (savingsByRegion.length > 0) {
       const avgSavings = savingsByRegion.reduce((a, b) => a + b, 0) / savingsByRegion.length;
       
@@ -2004,13 +3464,11 @@ const navLinks = document.getElementById('navLinks');
 const stickyNav = document.getElementById('stickyNav');
 const navLinksAll = document.querySelectorAll('.nav-links a');
 
-// Mobile menu toggle
 navToggle.addEventListener('click', () => {
   navToggle.classList.toggle('open');
   navLinks.classList.toggle('open');
 });
 
-// Close mobile menu when clicking a link
 navLinksAll.forEach(link => {
   link.addEventListener('click', () => {
     navToggle.classList.remove('open');
@@ -2018,16 +3476,13 @@ navLinksAll.forEach(link => {
   });
 });
 
-// Scroll effects
 window.addEventListener('scroll', () => {
-  // Add shadow on scroll
   if (window.scrollY > 50) {
     stickyNav.classList.add('scrolled');
   } else {
     stickyNav.classList.remove('scrolled');
   }
   
-  // Update active link based on scroll position
   const sections = document.querySelectorAll('section[id], div[id="waitlist"]');
   let current = '';
   
@@ -2046,7 +3501,6 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Smooth scroll for nav links
 document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
@@ -2057,41 +3511,23 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Smart meter button handlers - using event delegation
+// Smart meter button handlers
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('smart-meter-btn')) {
     document.getElementById('smartMeter').value = e.target.dataset.value;
-    document.querySelectorAll('.smart-meter-btn').forEach(b => {
-      b.style.border = '2px solid #ddd';
-      b.style.background = '#f5f5f5';
-    });
-    e.target.style.border = '2px solid #6366f1';
-    e.target.style.background = '#f0f0ff';
+    document.querySelectorAll('.smart-meter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
   }
 });
 
-// Credit check button handlers - using event delegation
+// Credit check button handlers
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('credit-check-btn')) {
     document.getElementById('creditCheck').value = e.target.dataset.value;
-    document.querySelectorAll('.credit-check-btn').forEach(b => {
-      b.style.border = '2px solid #ddd';
-      b.style.background = '#f5f5f5';
-    });
-    e.target.style.border = '2px solid #6366f1';
-    e.target.style.background = '#e0e7ff';
+    document.querySelectorAll('.credit-check-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
   }
 });
-  
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-

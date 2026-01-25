@@ -796,6 +796,7 @@ body {
   mask-composite: exclude;
   opacity: 0.5;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 /* Animated scanline */
@@ -808,6 +809,7 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
   animation: scanline 3s linear infinite;
+  pointer-events: none;
 }
 
 .survey-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
@@ -937,6 +939,7 @@ body {
   mask-composite: exclude;
   opacity: 0.5;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 /* Scanline effect */
@@ -949,6 +952,7 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
   animation: scanline 3s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes scanline {
@@ -1031,7 +1035,7 @@ body {
   display: none;
 }
 
-#addressDropdownWrapper { margin-bottom: 1rem; }
+#addressDropdownWrapper { margin-bottom: 1rem; position: relative; z-index: 2; }
 #addressDropdownWrapper label { font-size: 0.85rem; color: var(--sp-text-muted); display: block; margin-bottom: 0.4rem; }
 
 #addressDropdown {
@@ -1045,12 +1049,26 @@ body {
   box-sizing: border-box;
   cursor: pointer;
   font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23A855F7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+#addressDropdown:focus {
+  outline: none;
+  border-color: var(--sp-pink);
+  box-shadow: 0 0 15px rgba(168,85,247,0.3);
 }
 
 #addressDropdown option { background: var(--sp-slate); color: var(--sp-text); }
 
 #addressDropdownWrapper .manual-link { font-size: 0.75rem; color: var(--sp-text-muted); margin: 0.4rem 0 0 0; }
 #addressDropdownWrapper .manual-link a { color: var(--sp-purple); }
+
+#addressFields { position: relative; z-index: 2; }
 
 .address-row {
   display: flex;
@@ -1282,11 +1300,14 @@ body {
   mask-composite: exclude;
   opacity: 0.5;
   animation: gradientShift 5s ease infinite;
+  pointer-events: none;
 }
 
 .price-cap-header {
   text-align: center;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .price-cap-header .icon { font-size: 2.5rem; margin-bottom: 1rem; }
@@ -1310,6 +1331,8 @@ body {
 .price-cap-controls {
   margin-bottom: 10px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .price-cap-controls p {
@@ -1344,6 +1367,7 @@ body {
   height: 600px;
   margin-bottom: 30px;
   position: relative;
+  z-index: 2;
 }
 
 .chart-close-btn {
@@ -1470,6 +1494,7 @@ body {
   mask-composite: exclude;
   opacity: 0.5;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .billing-card:hover {
@@ -1489,9 +1514,11 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
-.billing-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+.billing-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
 
 .billing-card h2 {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -1499,6 +1526,8 @@ body {
   font-weight: 400;
   margin-bottom: 1rem;
   color: var(--sp-text);
+  position: relative;
+  z-index: 2;
 }
 
 .billing-card > p {
@@ -1507,6 +1536,8 @@ body {
   max-width: 700px;
   margin: 0 auto 2rem;
   line-height: 1.6;
+  position: relative;
+  z-index: 2;
 }
 
 .billing-stats {
@@ -1515,6 +1546,8 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   margin: 2rem 0;
+  position: relative;
+  z-index: 2;
 }
 
 .billing-stat { text-align: center; }
@@ -1545,6 +1578,8 @@ body {
   box-shadow: 0 10px 30px rgba(168,85,247,0.3);
   font-family: inherit;
   transition: transform 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
 .billing-btn:hover { transform: translateY(-2px); }
@@ -1553,6 +1588,8 @@ body {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   color: var(--sp-text-muted);
+  position: relative;
+  z-index: 2;
 }
 
 /* TARIFF TRACKER */
@@ -1587,6 +1624,7 @@ body {
   mask-composite: exclude;
   opacity: 0.5;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .tariff-card:hover {
@@ -1606,9 +1644,11 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
-.tariff-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+.tariff-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
 
 .tariff-card h2 {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -1616,6 +1656,8 @@ body {
   font-weight: 400;
   margin-bottom: 1rem;
   color: var(--sp-text);
+  position: relative;
+  z-index: 2;
 }
 
 .tariff-card > p {
@@ -1624,6 +1666,8 @@ body {
   max-width: 700px;
   margin: 0 auto 2rem;
   line-height: 1.6;
+  position: relative;
+  z-index: 2;
 }
 
 .tariff-stats {
@@ -1632,6 +1676,8 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   margin: 2rem 0;
+  position: relative;
+  z-index: 2;
 }
 
 .tariff-stat { text-align: center; }
@@ -1662,6 +1708,8 @@ body {
   box-shadow: 0 10px 30px rgba(168,85,247,0.3);
   font-family: inherit;
   transition: transform 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
 .tariff-btn:hover { transform: translateY(-2px); }
@@ -1670,6 +1718,8 @@ body {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   color: var(--sp-text-muted);
+  position: relative;
+  z-index: 2;
 }
 
 .tariff-card .footnote a { color: var(--sp-purple); text-decoration: none; }
@@ -2427,8 +2477,8 @@ body {
         <input type="text" id="street" placeholder="Street Name" required />
       </div>
       <div class="form-group address-row">
-        <input type="text" id="city" placeholder="City" readonly style="background:#E2E8F0;" />
-        <input type="text" id="region" placeholder="Region" readonly style="background:#E2E8F0;" />
+        <input type="text" id="city" placeholder="City" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
+        <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
       </div>
     </div>
     <div id="usageFields" style="display:none;">

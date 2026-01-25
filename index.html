@@ -497,6 +497,7 @@ body {
   opacity: 0.5;
   transition: opacity 0.4s ease;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .vision-box:hover {
@@ -581,6 +582,7 @@ body {
   mask-composite: exclude;
   opacity: 0.6;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .stat-hero-card:hover {
@@ -650,6 +652,7 @@ body {
   mask-composite: exclude;
   opacity: 0.4;
   animation: gradientShift 6s ease infinite;
+  pointer-events: none;
 }
 
 .about-card h2 {
@@ -1743,6 +1746,7 @@ body {
     linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: gridSlide 20s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes gridSlide {
@@ -1760,6 +1764,7 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--sp-purple), transparent);
   animation: scanline 3s linear infinite;
+  pointer-events: none;
 }
 
 .insights h2 {
@@ -1823,6 +1828,7 @@ body {
   opacity: 0;
   transition: opacity 0.4s ease;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .topic:hover::before {
@@ -1863,6 +1869,8 @@ body {
 .archive-link {
   text-align: center;
   margin-top: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .archive-link a {
@@ -1876,6 +1884,8 @@ body {
   border: 2px solid rgba(168,85,247,0.3);
   border-radius: 30px;
   transition: all 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
 .archive-link a:hover {
@@ -1919,6 +1929,7 @@ body {
   opacity: 0;
   transition: opacity 0.4s ease;
   animation: gradientShift 4s ease infinite;
+  pointer-events: none;
 }
 
 .stat-card:hover {
@@ -1977,6 +1988,7 @@ body {
   mask-composite: exclude;
   opacity: 0.6;
   animation: gradientShift 3s ease infinite;
+  pointer-events: none;
 }
 
 /* Animated grid inside game card */

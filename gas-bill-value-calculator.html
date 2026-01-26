@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Long Does £10 of Gas Last? - Gas Usage Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-dark: #1E40AF;
+            --primary-light: #DBEAFE;
+            --bg: #FFFFFF;
+            --card: #F9FAFB;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            color: var(--text);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-light);
+        }
+
+        strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        .calculator-section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        select option {
+            background: white;
+            color: var(--text);
+        }
+
+        .calc-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+        }
+
+        .calc-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .results-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .results-box.active {
+            display: block;
+        }
+
+        .result-big {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0.5rem 0;
+        }
+
+        .result-detail {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .tariff-helper {
+            background: #F1F5F9;
+            border: 1px dashed #CBD5E1;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-top: 0.75rem;
+        }
+
+        .tariff-helper-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .tariff-helper-toggle:hover {
+            color: var(--primary-dark);
+        }
+
+        .tariff-helper-content {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .tariff-helper-content.active {
+            display: block;
+        }
+
+        .tariff-helper-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .comparison-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .comparison-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-cost {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .chart-container {
+            margin: 2rem 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        ul {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-light);
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .note {
+            background: #F9FAFB;
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .tariff-helper-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="tag">💡 Energy Education</span>
+            <h1>How Long Does £10 of Gas Last?</h1>
+            <p class="subtitle">From heating your home to cooking dinner, understand exactly what your gas spending powers in the real world.</p>
+            <div class="meta">
+                <span>January 2026</span>
+                <span>•</span>
+                <span>Interactive Tool</span>
+            </div>
+        </div>
+
+        <h2>Understanding Gas Value</h2>
+        
+        <p>Ever wondered how quickly £10 worth of gas disappears in your home? The answer varies dramatically depending on what you're using it for. Running your central heating for an hour costs vastly different to taking a hot shower, yet both draw from the same gas supply.</p>
+
+        <p>This tool helps you understand exactly what different amounts of gas money can power in your household. Whether you're budgeting, comparing tariffs, or just curious about where your money goes, seeing these breakdowns in real terms makes gas consumption much clearer.</p>
+
+        <div class="highlight-box">
+            <p><strong>Current gas prices (January 2026):</strong> Most households pay around 6p for each unit (kWh) of gas under the Ofgem price cap (Jan-Mar 2026). You can adjust this in the calculator if you're on a different tariff.</p>
+        </div>
+
+        <h2>Calculate Your Gas Value</h2>
+        
+        <div class="calculator-section">
+            <h3>🔥 Interactive Calculator</h3>
+            
+            <div class="input-group">
+                <label for="gasAmount">How much gas do you want to calculate? (£)</label>
+                <input type="number" id="gasAmount" value="10" min="1" max="100" step="1">
+            </div>
+
+            <div class="input-group">
+                <label for="unitRate">Your gas price (pence per kWh)</label>
+                <input type="number" id="unitRate" value="5.93" min="1" max="15" step="0.01">
+                <small style="color: var(--text-light); display: block; margin-top: 0.5rem;">Default: Price Cap Rate, UK average (5.93p/kWh, Jan-Mar 2026)</small>
+                
+                <div class="tariff-helper">
+                    <div class="tariff-helper-toggle" onclick="toggleTariffHelper()">
+                        <span>💡</span>
+                        <span>Don't know your rate? Try a fixed tariff</span>
+                        <span id="tariffArrow">▼</span>
+                    </div>
+                    <div id="tariffHelperContent" class="tariff-helper-content">
+                        <div class="input-group" style="margin-bottom: 0.75rem;">
+                            <select id="helperSupplier" onchange="onSupplierChange()">
+                                <option value="price_cap">Price Cap</option>
+                                <option value="fuse_energy">Fuse Energy - Fixed 13m</option>
+                                <option value="eon_next">E.ON Next - Fixed 18m</option>
+                                <option value="octopus">Octopus - 12M Fixed</option>
+                                <option value="edf">EDF - Simply Fixed</option>
+                                <option value="british_gas">British Gas - Fixed Jan27</option>
+                                <option value="scottish_power">Scottish Power - 1 Year Fixed</option>
+                                <option value="ovo">OVO - 1 Year Fixed</option>
+                            </select>
+                        </div>
+                        <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem;">
+                            <select id="helperRegion">
+                                <option value="London">London</option>
+                                <option value="South East">South East</option>
+                                <option value="Southern">Southern</option>
+                                <option value="South West">South West</option>
+                                <option value="South Wales">South Wales</option>
+                                <option value="Eastern">Eastern</option>
+                                <option value="East Midlands">East Midlands</option>
+                                <option value="West Midlands">West Midlands</option>
+                                <option value="North West">North West</option>
+                                <option value="North East">North East</option>
+                                <option value="Yorkshire">Yorkshire</option>
+                                <option value="North Wales & Merseyside">North Wales & Merseyside</option>
+                                <option value="South Scotland">South Scotland</option>
+                                <option value="North Scotland">North Scotland</option>
+                            </select>
+                        </div>
+                        <button onclick="applyTariffRate()" style="background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%;">Use this rate</button>
+                        <small id="tariffHelperNote" style="display: block; margin-top: 0.75rem; color: var(--text-light);">Select your region above</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="appliance">Select an appliance or activity:</label>
+                <select id="appliance">
+                    <option value="heating">Central Heating (24kW boiler)</option>
+                    <option value="water_tank">Hot Water (Heating a tank)</option>
+                    <option value="shower">Hot Shower (8 minutes)</option>
+                    <option value="bath">Hot Bath (Full 80L tub)</option>
+                    <option value="oven">Gas Oven (180°C)</option>
+                    <option value="hob">Gas Hob (All 4 burners)</option>
+                    <option value="kettle">Boiling Water (Kettle equivalent)</option>
+                    <option value="dryer">Gas Tumble Dryer</option>
+                </select>
+            </div>
+
+            <button class="calc-button" onclick="calculateGasValue()">Calculate Usage</button>
+
+            <div id="results" class="results-box">
+                <p style="font-weight: 600; color: var(--text);">With <span id="resultAmount"></span> of gas, you can power:</p>
+                <div class="result-big" id="mainResult"></div>
+                <div class="result-detail">
+                    <strong>Total energy:</strong> <span id="totalKWh"></span><br>
+                    <strong>Cost per use:</strong> <span id="costPerUse"></span>
+                </div>
+            </div>
+        </div>
+
+        <h2>What £10 of Gas Gets You</h2>
+        <p>Here's what £10 can power across different household activities, based on the current price cap rate (Jan-Mar 2026):</p>
+        
+        <div class="comparison-grid" id="comparisonGrid"></div>
+
+        <div class="chart-container">
+            <canvas id="usageChart"></canvas>
+        </div>
+
+        <h2>The Heating Reality</h2>
+        
+        <p>The most striking revelation for most households is how quickly gas disappears when heating your home. A typical combi boiler running at full capacity uses approximately <strong>£1.50 per hour</strong> at current prices. This means:</p>
+
+        <ul>
+            <li>Running your heating for a full day (24 hours) would cost around <strong>£36</strong></li>
+            <li>A typical winter day with heating on for 8 hours costs approximately <strong>£12</strong></li>
+            <li>That £10 top-up gives you just <strong>6-7 hours of heating</strong></li>
+        </ul>
+
+        <p>Of course, boilers don't run continuously—they cycle on and off to maintain temperature. In a well-insulated home, the boiler might only actually fire up for 30-50% of the time your heating is "on", significantly reducing costs. But these figures show why heating dominates winter gas bills.</p>
+
+        <h2>Hot Water Costs</h2>
+        
+        <p>Hot water consumption offers better value than continuous heating, but still represents a significant portion of gas use:</p>
+
+        <p><strong>Showers vs Baths:</strong> An 8-minute shower typically costs around <strong>5p</strong>, while filling a full bath costs approximately <strong>25p</strong>. That's a 5x difference—something to consider if you're looking to reduce gas consumption.</p>
+
+        <p>For a family of four taking one shower each per day, that's around <strong>£1.40 per week</strong> or about <strong>£73 per year</strong> just on showering. Heating water for washing up, laundry, and general use adds considerably more.</p>
+
+        <h2>Cooking Costs</h2>
+        
+        <p>Gas cooking is relatively economical compared to heating:</p>
+
+        <ul>
+            <li><strong>Gas oven:</strong> Running at 180°C costs approximately <strong>16p per hour</strong></li>
+            <li><strong>Gas hob:</strong> All four burners on high costs around <strong>44p per hour</strong></li>
+            <li><strong>Boiling water:</strong> About <strong>1.1p per litre</strong> (kettle equivalent)</li>
+        </ul>
+
+        <p>Even heavy cookers typically spend less than £10-15 per month on cooking gas, making it a relatively small portion of overall gas consumption for most households.</p>
+
+        <div class="warning-box">
+            <p><strong>Important note:</strong> These calculations give you a good estimate, but your actual usage will vary. Things like how efficient your appliances are, how old your boiler is, how well insulated your home is, and your personal habits all make a difference. Always check your own meter readings for accurate information about your gas use.</p>
+        </div>
+
+        <h2>Getting More From Your Gas</h2>
+        
+        <p>Understanding these costs helps you see where you can make the biggest savings:</p>
+
+        <ul>
+            <li><strong>Better insulation:</strong> This offers the biggest potential savings, since heating dominates gas use in most homes</li>
+            <li><strong>Hot water habits:</strong> Shorter showers instead of baths, and turning down your water temperature can significantly reduce consumption</li>
+            <li><strong>Boiler servicing:</strong> A well-maintained boiler runs more efficiently, potentially saving 10-15% on heating costs</li>
+            <li><strong>Smart cooking:</strong> Using lids on pans, matching pan size to burner size, and using the right size burner all reduce waste</li>
+        </ul>
+
+        <h2>How We Calculate This</h2>
+        
+        <p>These calculations are based on typical gas usage for common household appliances:</p>
+
+        <ul>
+            <li><strong>Central Heating:</strong> A typical combi boiler running at full power</li>
+            <li><strong>Hot Water Tank:</strong> Heating a 150-litre tank from cold</li>
+            <li><strong>Hot Shower:</strong> A typical 8-minute shower</li>
+            <li><strong>Hot Bath:</strong> Filling and heating an 80-litre bath</li>
+            <li><strong>Gas Oven:</strong> Cooking at 180°C</li>
+            <li><strong>Gas Hob:</strong> All four burners running on high</li>
+            <li><strong>Boiling Water:</strong> Per litre (kettle equivalent)</li>
+            <li><strong>Gas Tumble Dryer:</strong> One complete drying cycle (about 2 hours)</li>
+        </ul>
+
+        <p>We use the January 2026 Ofgem price cap rate as the default price. Your actual costs may vary based on your specific tariff, your boiler's efficiency, and how you use your appliances.</p>
+
+        <div class="note">
+            <strong>Disclaimer:</strong> All calculations based on Ofgem price cap rates (January 2026) and typical appliance usage. Your actual consumption will vary based on your appliances, how you use them, and your household circumstances. This tool is for educational purposes only.
+        </div>
+    </div>
+
+    <script>
+        const applianceData = {
+            heating: {
+                name: "Central Heating",
+                icon: "🏠",
+                kwh: 24,
+                unit: "hour",
+                description: "Running your heating at full power"
+            },
+            water_tank: {
+                name: "Hot Water Tank",
+                icon: "🚿",
+                kwh: 5,
+                unit: "full tank",
+                description: "Heating 150L from cold"
+            },
+            shower: {
+                name: "Hot Shower",
+                icon: "🚿",
+                kwh: 0.8,
+                unit: "shower",
+                description: "8-minute shower"
+            },
+            bath: {
+                name: "Hot Bath",
+                icon: "🛁",
+                kwh: 4,
+                unit: "bath",
+                description: "Full 80L tub"
+            },
+            oven: {
+                name: "Gas Oven",
+                icon: "🍳",
+                kwh: 2.5,
+                unit: "hour",
+                description: "Cooking at 180°C"
+            },
+            hob: {
+                name: "Gas Hob",
+                icon: "🔥",
+                kwh: 7,
+                unit: "hour",
+                description: "All 4 burners on high"
+            },
+            kettle: {
+                name: "Boiling Water",
+                icon: "☕",
+                kwh: 0.18,
+                unit: "litre",
+                description: "Kettle equivalent"
+            },
+            dryer: {
+                name: "Gas Tumble Dryer",
+                icon: "👕",
+                kwh: 3.2,
+                unit: "cycle",
+                description: "Full drying cycle (~2 hours)"
+            }
+        };
+
+        let gasRates = {
+            price_cap: {
+                gas: 5.93
+            }
+        };
+
+        const supplierNames = {
+            price_cap: "Price Cap",
+            fuse_energy: "Fuse Energy",
+            eon_next: "E.ON Next",
+            octopus: "Octopus",
+            edf: "EDF",
+            british_gas: "British Gas",
+            scottish_power: "Scottish Power",
+            ovo: "OVO"
+        };
+
+        function toggleTariffHelper() {
+            const content = document.getElementById('tariffHelperContent');
+            const arrow = document.getElementById('tariffArrow');
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('active');
+                arrow.textContent = '▲';
+                loadTariffData();
+            }
+        }
+
+        function onSupplierChange() {
+            const supplier = document.getElementById('helperSupplier').value;
+            const regionWrapper = document.getElementById('regionWrapper');
+            
+            if (supplier === 'price_cap') {
+                regionWrapper.style.display = 'none';
+                document.getElementById('tariffHelperNote').textContent = 'Price cap rate: 5.93p/kWh (Jan-Mar 2026)';
+            } else {
+                regionWrapper.style.display = 'block';
+                document.getElementById('tariffHelperNote').textContent = 'Select your region above';
+            }
+        }
+
+        async function loadTariffData() {
+            const note = document.getElementById('tariffHelperNote');
+            
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/mitran101/smart-switch/main/tariff-data.json');
+                const data = await response.json();
+                
+                let tariffs = data.tariffs || data;
+                if (!Array.isArray(tariffs)) {
+                    note.textContent = 'Error: Invalid JSON structure';
+                    return;
+                }
+                
+                const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
+                
+                tariffs.forEach(t => {
+                    if (suppliers.includes(t.supplier) && !t.error && t.gas_unit_rate_p) {
+                        if (!gasRates[t.supplier]) gasRates[t.supplier] = {};
+                        if (!gasRates[t.supplier][t.region]) {
+                            gasRates[t.supplier][t.region] = t.gas_unit_rate_p;
+                        }
+                    }
+                });
+                
+                note.textContent = 'Select your region above';
+                
+            } catch (e) {
+                console.error('Could not load tariff data:', e);
+                note.textContent = 'Error loading rates: ' + e.message;
+            }
+        }
+
+        function applyTariffRate() {
+            const supplier = document.getElementById('helperSupplier').value;
+            const region = document.getElementById('helperRegion').value;
+            const unitRateInput = document.getElementById('unitRate');
+            
+            if (supplier === 'price_cap') {
+                unitRateInput.value = '5.93';
+                document.getElementById('tariffHelperNote').textContent = 'Applied Price Cap rate';
+            } else {
+                const rate = gasRates[supplier]?.[region];
+                
+                if (!rate) {
+                    document.getElementById('tariffHelperNote').textContent = `No gas rate for ${supplierNames[supplier]} in ${region}`;
+                    return;
+                }
+                
+                unitRateInput.value = rate.toFixed(2);
+            }
+            
+            document.getElementById('tariffHelperContent').classList.remove('active');
+            document.getElementById('tariffArrow').textContent = '▼';
+            
+            unitRateInput.style.borderColor = 'var(--primary-color)';
+            unitRateInput.style.background = 'var(--primary-light)';
+            setTimeout(() => {
+                unitRateInput.style.borderColor = 'var(--border)';
+                unitRateInput.style.background = 'white';
+            }, 1000);
+            
+            if (document.getElementById('results').classList.contains('active')) {
+                calculateGasValue();
+            }
+        }
+
+        function calculateGasValue() {
+            const gasAmount = parseFloat(document.getElementById('gasAmount').value);
+            const unitRate = parseFloat(document.getElementById('unitRate').value);
+            const applianceId = document.getElementById('appliance').value;
+            const appliance = applianceData[applianceId];
+
+            const totalKWh = (gasAmount / unitRate) * 100;
+            const numberOfUses = totalKWh / appliance.kwh;
+            const costPerUse = (appliance.kwh * unitRate) / 100;
+
+            document.getElementById('totalKWh').textContent = `${totalKWh.toFixed(1)} kWh`;
+            document.getElementById('mainResult').textContent = `${appliance.icon} ${numberOfUses.toFixed(1)} ${appliance.unit}${numberOfUses > 1.5 ? 's' : ''}`;
+            document.getElementById('costPerUse').textContent = `£${costPerUse.toFixed(3)} per ${appliance.unit}`;
+            document.getElementById('resultAmount').textContent = `£${gasAmount}`;
+
+            document.getElementById('results').classList.add('active');
+        }
+
+        function populateComparisons() {
+            const unitRate = parseFloat(document.getElementById('unitRate').value) || 6.00;
+            const gasAmount = 10;
+            const totalKWh = (gasAmount / unitRate) * 100;
+            
+            const grid = document.getElementById('comparisonGrid');
+            grid.innerHTML = '';
+            
+            Object.entries(applianceData).forEach(([id, data]) => {
+                const numberOfUses = totalKWh / data.kwh;
+                const costPerUse = (data.kwh * unitRate) / 100;
+                
+                const card = document.createElement('div');
+                card.className = 'comparison-card';
+                card.innerHTML = `
+                    <div class="comparison-label">${data.icon} ${data.name}</div>
+                    <div class="comparison-value">${numberOfUses.toFixed(1)} ${data.unit}${numberOfUses > 1.5 ? 's' : ''}</div>
+                    <div class="comparison-desc">${data.description}</div>
+                    <div class="comparison-cost">£${costPerUse.toFixed(3)} per ${data.unit}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function createChart() {
+            const ctx = document.getElementById('usageChart').getContext('2d');
+            const unitRate = parseFloat(document.getElementById('unitRate').value) || 6.00;
+            const gasAmount = 10;
+            const totalKWh = (gasAmount / unitRate) * 100;
+
+            const labels = [];
+            const dataPoints = [];
+            
+            Object.entries(applianceData).forEach(([id, data]) => {
+                labels.push(data.name);
+                dataPoints.push((totalKWh / data.kwh).toFixed(1));
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Uses',
+                        data: dataPoints,
+                        backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                        borderColor: 'rgba(37, 99, 235, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: '£10 of Gas - Usage Comparison',
+                            font: {
+                                size: 16,
+                                weight: '600'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                            borderColor: 'rgba(37, 99, 235, 1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.parsed.y} uses`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#6B7280'
+                            },
+                            grid: {
+                                color: '#E5E7EB'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6B7280',
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: {
+                                color: '#E5E7EB'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            populateComparisons();
+            createChart();
+            calculateGasValue();
+        });
+    </script>
+</body>
+</html>

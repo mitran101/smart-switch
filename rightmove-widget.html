@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Energy Estimator | SwitchPilot</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --sp-slate: #1a1625;
+            --sp-purple: #8b5cf6;
+            --sp-purple-dark: #7c3aed;
+            --sp-purple-light: #ede9fe;
+            --sp-green: #10b981;
+            --sp-green-dark: #059669;
+            --sp-red: #ef4444;
+            --sp-bg: #f8fafc;
+            --sp-card: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.6;
+        }
+
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+        }
+
+        .top-logo span:first-child { font-size: 1.6rem; }
+        .top-logo span:last-child { font-size: 1.35rem; }
+
+        .nav-badge {
+            background: var(--sp-green);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p { color: #94a3b8; font-size: 1rem; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 25px 20px;
+        }
+
+        .card {
+            background: var(--sp-card);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .property-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--sp-purple);
+            box-shadow: 0 0 0 3px var(--sp-purple-light);
+        }
+
+        .postcode-wrapper {
+            position: relative;
+        }
+
+        .postcode-wrapper input {
+            padding-left: 38px;
+            text-transform: uppercase;
+        }
+
+        .postcode-wrapper::before {
+            content: "📍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .region-hint {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: var(--sp-green-dark);
+            font-weight: 500;
+        }
+
+        .region-hint.error { color: var(--sp-red); }
+
+        .calc-btn {
+            grid-column: 1 / -1;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-purple-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.35);
+        }
+
+        .calc-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .loading-text {
+            text-align: center;
+            padding: 10px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .results {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .results.show { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bill-display {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .bill-display {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .bill-vs { display: none; }
+        }
+
+        .bill-card {
+            text-align: center;
+            padding: 25px 20px;
+            border-radius: 15px;
+        }
+
+        .bill-card.selected {
+            background: linear-gradient(135deg, var(--sp-purple-light) 0%, #ddd6fe 100%);
+            border: 2px solid var(--sp-purple);
+        }
+
+        .bill-card.svt {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+        }
+
+        .bill-card .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .bill-card.selected .label { color: var(--sp-purple); }
+        .bill-card.svt .label { color: var(--sp-red); }
+
+        .bill-card .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .bill-card.selected .amount { color: var(--sp-purple-dark); }
+        .bill-card.svt .amount { color: #b91c1c; }
+
+        .bill-card .tariff-name {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .bill-vs {
+            font-weight: 700;
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        .savings-banner {
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .savings-banner .amount {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .savings-banner .note {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .tariff-selector-section {
+            background: var(--sp-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .tariff-selector-section h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tariff-dropdown {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
+        .tariff-dropdown:focus {
+            outline: none;
+            border-color: var(--sp-purple);
+        }
+
+        .rate-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .rate-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .rate-card {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .rate-card .label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 3px;
+        }
+
+        .rate-card .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sp-purple);
+        }
+
+        .chart-section {
+            margin-bottom: 25px;
+        }
+
+        .chart-section h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+
+        .chart-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        .usage-info {
+            background: var(--sp-purple-light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .usage-info strong { color: var(--sp-purple-dark); }
+
+        .warning-box {
+            background: #fffbeb;
+            border: 2px solid #fcd34d;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .warning-box .icon { font-size: 1.3rem; }
+
+        .warning-box .content h4 {
+            font-size: 0.95rem;
+            color: #92400e;
+            margin-bottom: 3px;
+        }
+
+        .warning-box .content p {
+            font-size: 0.85rem;
+            color: #78350f;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .cta-section p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: var(--sp-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: var(--sp-green-dark);
+            transform: translateY(-2px);
+        }
+
+        .powered-by {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: var(--sp-slate);
+            color: white;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .footer p { color: #94a3b8; font-size: 0.85rem; }
+
+        /* Embeddable mode */
+        .embed-mode .top-nav,
+        .embed-mode .footer { display: none; }
+        .embed-mode .header { padding: 1.5rem; }
+        .embed-mode .container { padding: 15px; }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <span>⚡</span>
+            <span>SwitchPilot</span>
+        </a>
+        <span class="nav-badge">For Property Listings</span>
+    </nav>
+
+    <header class="header">
+        <h1>What Will Energy Cost Here?</h1>
+        <p>Estimate energy bills based on property size and see the best deals in your area</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>🏠 Property Details</h2>
+            
+            <div class="property-form">
+                <div class="form-group">
+                    <label>Postcode</label>
+                    <div class="postcode-wrapper">
+                        <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" maxlength="8">
+                    </div>
+                    <div id="regionHint" class="region-hint"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <select id="propertyType">
+                        <option value="flat">Flat / Apartment</option>
+                        <option value="terraced">Terraced House</option>
+                        <option value="semi" selected>Semi-Detached</option>
+                        <option value="detached">Detached House</option>
+                        <option value="bungalow">Bungalow</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Bedrooms</label>
+                    <select id="bedrooms">
+                        <option value="1">1 Bedroom</option>
+                        <option value="2">2 Bedrooms</option>
+                        <option value="3" selected>3 Bedrooms</option>
+                        <option value="4">4 Bedrooms</option>
+                        <option value="5">5+ Bedrooms</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>EPC Rating</label>
+                    <select id="epc">
+                        <option value="A">A (Most Efficient)</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D" selected>D (Average)</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G (Least Efficient)</option>
+                        <option value="unknown">Don't Know</option>
+                    </select>
+                </div>
+
+                <button class="calc-btn" id="calcBtn" onclick="calculateEstimate()" disabled>
+                    Loading tariffs...
+                </button>
+            </div>
+            
+            <div id="loadingText" class="loading-text">Fetching latest tariff data...</div>
+        </div>
+
+        <div id="results" class="results">
+            <div class="card">
+                <div class="bill-display">
+                    <div class="bill-card selected">
+                        <div class="label">✓ Best Deal</div>
+                        <div class="amount" id="selectedBill">£0</div>
+                        <div class="tariff-name" id="selectedSupplierName">-</div>
+                    </div>
+                    <div class="bill-vs">vs</div>
+                    <div class="bill-card svt">
+                        <div class="label">⚠️ Standard Rate</div>
+                        <div class="amount" id="svtBill">£0</div>
+                        <div class="tariff-name">What most movers pay</div>
+                    </div>
+                </div>
+
+                <div class="savings-banner" id="savingsBanner">
+                    <div class="amount" id="savingsAmount">Save £0/year</div>
+                    <div class="note" id="savingsNote">by switching from SVT</div>
+                </div>
+
+                <div class="tariff-selector-section">
+                    <h3>🔄 Compare Suppliers</h3>
+                    <select class="tariff-dropdown" id="supplierSelect" onchange="selectSupplier()">
+                    </select>
+                    
+                    <div class="rate-cards">
+                        <div class="rate-card">
+                            <div class="label">⚡ Elec Rate</div>
+                            <div class="value" id="elecRate">-</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="label">🔥 Gas Rate</div>
+                            <div class="value" id="gasRate">-</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="label">⚡ Standing</div>
+                            <div class="value" id="elecStanding">-</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="label">🔥 Standing</div>
+                            <div class="value" id="gasStanding">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="usage-info">
+                    <strong>📊 Estimated annual usage:</strong> <span id="usageEstimate">-</span>
+                    <br>Based on property type, size, and EPC rating.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="chart-section">
+                    <h3>💰 Best Deals in <span id="regionName">Your Area</span></h3>
+                    <div class="chart-container">
+                        <canvas id="dealsChart"></canvas>
+                    </div>
+                    <p class="chart-hint">👆 Click a bar to select that supplier</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <div class="icon">💡</div>
+                <div class="content">
+                    <h4>Don't fall into the mover's trap</h4>
+                    <p>80% of people who move home stay on expensive standard rates. The average overpayment is £300/year. Switch before you move in.</p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>Never overpay for energy again</h3>
+                <p>SwitchPilot automatically moves you to the best deal — set it and forget it.</p>
+                <a href="#waitlist" class="cta-btn">Join the Waitlist →</a>
+                <div class="powered-by">Powered by SwitchPilot • Free energy switching service</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <span>⚡</span>
+            <span>SwitchPilot</span>
+        </div>
+        <p>Putting the power back in your hands</p>
+    </footer>
+
+    <script>
+        // SVT Price Cap (Jan 2026)
+        const SVT = { elec_unit: 24.50, elec_standing: 53.56, gas_unit: 6.24, gas_standing: 31.66 };
+
+        const supplierColors = {
+            'octopus': '#ec4899',
+            'fuse_energy': '#3b82f6',
+            'eon_next': '#f59e0b',
+            'british_gas': '#6366f1',
+            'ovo': '#10b981',
+            'scottish_power': '#8b5cf6',
+            'edf': '#06b6d4',
+            'svt': '#ef4444'
+        };
+
+        const supplierNames = {
+            'octopus': 'Octopus Energy',
+            'fuse_energy': 'Fuse Energy',
+            'eon_next': 'E.ON Next',
+            'british_gas': 'British Gas',
+            'ovo': 'OVO Energy',
+            'scottish_power': 'Scottish Power',
+            'edf': 'EDF'
+        };
+
+        const postcodeRegions = {
+            'IP': 'Eastern', 'NR': 'Eastern', 'CB': 'Eastern', 'CO': 'Eastern', 'CM': 'Eastern', 'SG': 'Eastern', 'AL': 'Eastern', 'EN': 'Eastern', 'SS': 'Eastern', 'RM': 'Eastern',
+            'DE': 'East Midlands', 'NG': 'East Midlands', 'LE': 'East Midlands', 'LN': 'East Midlands', 'PE': 'East Midlands', 'NN': 'East Midlands',
+            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+            'L': 'North Wales & Merseyside', 'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside', 'WA': 'North Wales & Merseyside',
+            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands', 'SY': 'West Midlands', 'WR': 'West Midlands', 'HR': 'West Midlands',
+            'NE': 'North East', 'DH': 'North East', 'SR': 'North East', 'TS': 'North East', 'DL': 'North East',
+            'M': 'North West', 'OL': 'North West', 'BL': 'North West', 'SK': 'North West', 'WN': 'North West', 'PR': 'North West', 'BB': 'North West', 'FY': 'North West', 'LA': 'North West', 'CA': 'North West', 'CW': 'North West',
+            'BN': 'South East', 'RH': 'South East', 'TN': 'South East', 'CT': 'South East', 'ME': 'South East', 'DA': 'South East', 'BR': 'South East', 'CR': 'South East', 'KT': 'South East', 'SM': 'South East', 'SL': 'South East', 'HP': 'South East', 'MK': 'South East', 'LU': 'South East', 'OX': 'South East', 'RG': 'South East', 'GU': 'South East',
+            'BH': 'Southern', 'SO': 'Southern', 'PO': 'Southern', 'SP': 'Southern',
+            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales',
+            'PL': 'South West', 'TR': 'South West', 'EX': 'South West', 'TQ': 'South West', 'DT': 'South West', 'BA': 'South West', 'TA': 'South West', 'BS': 'South West', 'GL': 'South West', 'SN': 'South West',
+            'YO': 'Yorkshire', 'HU': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire', 'HD': 'Yorkshire', 'HX': 'Yorkshire', 'WF': 'Yorkshire', 'LS': 'Yorkshire', 'BD': 'Yorkshire', 'HG': 'Yorkshire',
+            'AB': 'North Scotland', 'IV': 'North Scotland', 'PH': 'North Scotland', 'KW': 'North Scotland', 'DD': 'North Scotland', 'FK': 'North Scotland',
+            'G': 'South Scotland', 'PA': 'South Scotland', 'KA': 'South Scotland', 'ML': 'South Scotland', 'EH': 'South Scotland', 'KY': 'South Scotland', 'TD': 'South Scotland', 'DG': 'South Scotland'
+        };
+
+        const consumptionData = {
+            flat: { 1: { elec: 1800, gas: 7500 }, 2: { elec: 2400, gas: 9500 }, 3: { elec: 2900, gas: 11000 }, 4: { elec: 3400, gas: 12500 }, 5: { elec: 3900, gas: 14000 } },
+            terraced: { 1: { elec: 2100, gas: 10000 }, 2: { elec: 2700, gas: 12000 }, 3: { elec: 3100, gas: 13500 }, 4: { elec: 3600, gas: 15500 }, 5: { elec: 4100, gas: 17500 } },
+            semi: { 1: { elec: 2300, gas: 11000 }, 2: { elec: 2900, gas: 13000 }, 3: { elec: 3300, gas: 15000 }, 4: { elec: 3900, gas: 17500 }, 5: { elec: 4500, gas: 20000 } },
+            detached: { 1: { elec: 2600, gas: 13000 }, 2: { elec: 3200, gas: 15000 }, 3: { elec: 3800, gas: 18000 }, 4: { elec: 4500, gas: 21000 }, 5: { elec: 5200, gas: 25000 } },
+            bungalow: { 1: { elec: 2200, gas: 11500 }, 2: { elec: 2800, gas: 13500 }, 3: { elec: 3300, gas: 16000 }, 4: { elec: 3800, gas: 18500 }, 5: { elec: 4300, gas: 21000 } }
+        };
+
+        const epcMultipliers = { A: 0.7, B: 0.8, C: 0.9, D: 1.0, E: 1.15, F: 1.3, G: 1.5, unknown: 1.0 };
+
+        let allTariffs = [];
+        let currentRegion = null;
+        let currentConsumption = { elec: 0, gas: 0 };
+        let regionalTariffs = [];
+        let selectedTariff = null;
+        let dealsChart = null;
+
+        // Load tariff data on page load
+        document.addEventListener('DOMContentLoaded', loadTariffData);
+
+        async function loadTariffData() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/mitran101/smart-switch/main/tariff-data.json');
+                const data = await response.json();
+                
+                allTariffs = (data.tariffs || data).filter(t => 
+                    !t.error && 
+                    t.elec_unit_rate_p && 
+                    t.gas_unit_rate_p &&
+                    supplierNames[t.supplier]
+                );
+
+                document.getElementById('loadingText').style.display = 'none';
+                document.getElementById('calcBtn').disabled = false;
+                document.getElementById('calcBtn').textContent = '⚡ Get Energy Estimate';
+                
+            } catch (e) {
+                console.error('Failed to load tariff data:', e);
+                document.getElementById('loadingText').textContent = 'Failed to load tariffs. Please refresh.';
+                document.getElementById('loadingText').style.color = 'var(--sp-red)';
+            }
+        }
+
+        // Postcode detection
+        document.getElementById('postcode').addEventListener('input', function() {
+            const postcode = this.value.replace(/\s/g, '').toUpperCase();
+            const hint = document.getElementById('regionHint');
+            
+            if (postcode.length >= 2) {
+                const region = detectRegion(postcode);
+                if (region) {
+                    currentRegion = region;
+                    hint.textContent = `✓ Region: ${region}`;
+                    hint.className = 'region-hint';
+                } else {
+                    currentRegion = null;
+                    hint.textContent = '⚠ Could not detect region';
+                    hint.className = 'region-hint error';
+                }
+            } else {
+                hint.textContent = '';
+            }
+        });
+
+        function detectRegion(postcode) {
+            for (let len = 3; len >= 1; len--) {
+                const prefix = postcode.substring(0, len);
+                if (postcodeRegions[prefix]) return postcodeRegions[prefix];
+            }
+            return null;
+        }
+
+        function calculateAnnualCost(tariff, elecKwh, gasKwh) {
+            return ((elecKwh * tariff.elec_unit_rate_p) + 
+                    (gasKwh * tariff.gas_unit_rate_p) +
+                    (tariff.elec_standing_p * 365) +
+                    (tariff.gas_standing_p * 365)) / 100;
+        }
+
+        function calculateEstimate() {
+            if (!currentRegion) {
+                alert('Please enter a valid UK postcode');
+                return;
+            }
+
+            const propertyType = document.getElementById('propertyType').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const epc = document.getElementById('epc').value;
+
+            // Calculate consumption
+            const base = consumptionData[propertyType][bedrooms];
+            const multiplier = epcMultipliers[epc];
+            currentConsumption.elec = Math.round(base.elec * multiplier);
+            currentConsumption.gas = Math.round(base.gas * multiplier);
+
+            // Get best tariff per supplier for this region
+            regionalTariffs = [];
+            const seenSuppliers = new Set();
+            
+            allTariffs
+                .filter(t => t.region === currentRegion)
+                .forEach(t => {
+                    t.annualCost = calculateAnnualCost(t, currentConsumption.elec, currentConsumption.gas);
+                });
+
+            allTariffs
+                .filter(t => t.region === currentRegion)
+                .sort((a, b) => a.annualCost - b.annualCost)
+                .forEach(t => {
+                    if (!seenSuppliers.has(t.supplier)) {
+                        seenSuppliers.add(t.supplier);
+                        regionalTariffs.push(t);
+                    }
+                });
+
+            // Select cheapest
+            selectedTariff = regionalTariffs[0];
+
+            // SVT cost
+            const svtCost = ((currentConsumption.elec * SVT.elec_unit) + 
+                            (currentConsumption.gas * SVT.gas_unit) +
+                            (SVT.elec_standing * 365) +
+                            (SVT.gas_standing * 365)) / 100;
+
+            updateDisplay(svtCost);
+            populateSupplierDropdown();
+            updateChart(svtCost);
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function updateDisplay(svtCost) {
+            document.getElementById('selectedBill').textContent = `£${Math.round(selectedTariff.annualCost)}`;
+            document.getElementById('selectedSupplierName').textContent = supplierNames[selectedTariff.supplier];
+            document.getElementById('svtBill').textContent = `£${Math.round(svtCost)}`;
+
+            const savings = svtCost - selectedTariff.annualCost;
+            const banner = document.getElementById('savingsBanner');
+            
+            if (savings > 0) {
+                banner.style.background = 'linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%)';
+                document.getElementById('savingsAmount').textContent = `Save £${Math.round(savings)}/year`;
+                document.getElementById('savingsNote').textContent = `That's £${Math.round(savings/12)}/month vs SVT`;
+            } else {
+                banner.style.background = 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)';
+                document.getElementById('savingsAmount').textContent = `£${Math.round(Math.abs(savings))}/year more`;
+                document.getElementById('savingsNote').textContent = 'than the price cap';
+            }
+
+            document.getElementById('elecRate').textContent = `${selectedTariff.elec_unit_rate_p.toFixed(2)}p`;
+            document.getElementById('gasRate').textContent = `${selectedTariff.gas_unit_rate_p.toFixed(2)}p`;
+            document.getElementById('elecStanding').textContent = `${selectedTariff.elec_standing_p.toFixed(1)}p`;
+            document.getElementById('gasStanding').textContent = `${selectedTariff.gas_standing_p.toFixed(1)}p`;
+
+            document.getElementById('usageEstimate').textContent = 
+                `${currentConsumption.elec.toLocaleString()} kWh electricity + ${currentConsumption.gas.toLocaleString()} kWh gas`;
+
+            document.getElementById('regionName').textContent = currentRegion;
+        }
+
+        function populateSupplierDropdown() {
+            const select = document.getElementById('supplierSelect');
+            select.innerHTML = regionalTariffs.map((t, i) => 
+                `<option value="${i}" ${t === selectedTariff ? 'selected' : ''}>
+                    ${supplierNames[t.supplier]} — £${Math.round(t.annualCost)}/yr
+                </option>`
+            ).join('');
+        }
+
+        function selectSupplier() {
+            const index = document.getElementById('supplierSelect').value;
+            selectedTariff = regionalTariffs[index];
+
+            const svtCost = ((currentConsumption.elec * SVT.elec_unit) + 
+                            (currentConsumption.gas * SVT.gas_unit) +
+                            (SVT.elec_standing * 365) +
+                            (SVT.gas_standing * 365)) / 100;
+
+            updateDisplay(svtCost);
+            updateChartHighlight();
+        }
+
+        function updateChart(svtCost) {
+            const ctx = document.getElementById('dealsChart').getContext('2d');
+            
+            const chartData = [...regionalTariffs.map(t => ({
+                supplier: t.supplier,
+                name: supplierNames[t.supplier],
+                cost: t.annualCost,
+                tariff: t
+            })), {
+                supplier: 'svt',
+                name: 'SVT Price Cap',
+                cost: svtCost,
+                tariff: null
+            }].sort((a, b) => a.cost - b.cost);
+
+            if (dealsChart) dealsChart.destroy();
+
+            dealsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.map(d => d.name),
+                    datasets: [{
+                        data: chartData.map(d => Math.round(d.cost)),
+                        backgroundColor: chartData.map(d => 
+                            d.tariff === selectedTariff ? supplierColors[d.supplier] : 
+                            d.supplier === 'svt' ? '#fecaca' :
+                            supplierColors[d.supplier] + '60'
+                        ),
+                        borderColor: chartData.map(d => 
+                            d.tariff === selectedTariff ? supplierColors[d.supplier] : 'transparent'
+                        ),
+                        borderWidth: chartData.map(d => d.tariff === selectedTariff ? 3 : 0),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { label: ctx => `£${ctx.raw}/year` }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { callback: v => `£${v}` }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12 } }
+                        }
+                    },
+                    onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const item = chartData[elements[0].index];
+                            if (item.tariff) {
+                                selectedTariff = item.tariff;
+                                const tariffIndex = regionalTariffs.indexOf(item.tariff);
+                                document.getElementById('supplierSelect').value = tariffIndex;
+                                selectSupplier();
+                            }
+                        }
+                    }
+                }
+            });
+
+            dealsChart.chartData = chartData;
+        }
+
+        function updateChartHighlight() {
+            if (!dealsChart) return;
+            
+            const chartData = dealsChart.chartData;
+            dealsChart.data.datasets[0].backgroundColor = chartData.map(d => 
+                d.tariff === selectedTariff ? supplierColors[d.supplier] : 
+                d.supplier === 'svt' ? '#fecaca' :
+                supplierColors[d.supplier] + '60'
+            );
+            dealsChart.data.datasets[0].borderColor = chartData.map(d => 
+                d.tariff === selectedTariff ? supplierColors[d.supplier] : 'transparent'
+            );
+            dealsChart.data.datasets[0].borderWidth = chartData.map(d => 
+                d.tariff === selectedTariff ? 3 : 0
+            );
+            dealsChart.update();
+        }
+    </script>
+</body>
+</html>

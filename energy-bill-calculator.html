@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Bill Calculator | SwitchPilot</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,15 +26,19 @@
     
     <style>
         :root {
-            --sp-slate: #1a1625;
+            --sp-slate: #1E293B;
+            --sp-slate-light: #94A3B8;
             --sp-purple: #8b5cf6;
             --sp-purple-dark: #7c3aed;
             --sp-purple-light: #ede9fe;
             --sp-green: #10b981;
             --sp-green-dark: #059669;
+            --sp-pink: #EC4899;
             --sp-red: #ef4444;
+            --sp-amber: #F59E0B;
             --sp-bg: #f8fafc;
             --sp-card: #ffffff;
+            --sp-border: rgba(148, 163, 184, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,6 +50,7 @@
             line-height: 1.6;
         }
 
+        /* Top Navigation - Matching Tracker */
         .top-nav {
             background: var(--sp-slate);
             padding: 1rem 2rem;
@@ -49,8 +68,8 @@
             color: white;
         }
 
-        .top-logo span:first-child { font-size: 1.6rem; }
-        .top-logo span:last-child { font-size: 1.35rem; }
+        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
+        .top-logo span { font-size: 1.35rem; }
 
         .back-home {
             padding: 10px 20px;
@@ -65,21 +84,35 @@
 
         .back-home:hover { background: rgba(255,255,255,0.2); }
 
+        /* Hero Header - Matching Tracker */
         .header {
-            background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
             color: white;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 3rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
 
         .header h1 {
             font-family: 'DM Serif Display', Georgia, serif;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 400;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .header p { color: #94a3b8; font-size: 1.1rem; }
+        .header p { color: rgba(255,255,255,0.9); font-size: 1.1rem; }
 
         .main-container {
             max-width: 1400px;
@@ -99,6 +132,7 @@
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--sp-border);
         }
 
         .card h2 {
@@ -230,6 +264,7 @@
             cursor: pointer;
             font-size: 0.85rem;
             transition: background 0.2s;
+            font-family: inherit;
         }
 
         .period-tab.active {
@@ -382,6 +417,7 @@
             cursor: pointer;
             text-align: center;
             transition: all 0.2s;
+            font-family: inherit;
         }
 
         .fuel-tab.active {
@@ -390,47 +426,59 @@
             color: var(--sp-purple);
         }
 
+        /* CTA Section - Matching Tracker */
         .cta-section {
-            background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
             color: white;
             grid-column: 1 / -1;
+            flex-wrap: wrap;
         }
+
+        .cta-section .icon { font-size: 2.5rem; }
+
+        .cta-section .content { flex: 1; min-width: 250px; }
 
         .cta-section h3 {
             font-family: 'DM Serif Display', Georgia, serif;
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
         }
 
         .cta-section p {
-            color: #94a3b8;
-            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+            margin: 0;
         }
 
         .cta-btn {
             display: inline-block;
             padding: 14px 35px;
-            background: var(--sp-green);
-            color: white;
+            background: white;
+            color: var(--sp-purple);
             text-decoration: none;
             border-radius: 30px;
             font-weight: 700;
-            transition: transform 0.2s, background 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
         }
 
         .cta-btn:hover {
-            background: var(--sp-green-dark);
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
+        /* Footer - Matching Tracker */
         .footer {
-            text-align: center;
-            padding: 30px 20px;
             background: var(--sp-slate);
-            color: white;
+            border-top: 1px solid var(--sp-border);
+            color: var(--sp-slate-light);
+            text-align: center;
+            padding: 3rem 2rem;
         }
 
         .footer-logo {
@@ -441,25 +489,50 @@
             margin-bottom: 10px;
         }
 
-        .footer p { color: #94a3b8; font-size: 0.9rem; }
+        .footer-logo img { height: 2.5rem; width: auto; margin-right: -10px; }
+        .footer-logo span { font-size: 1.25rem; font-weight: 700; color: white; }
+
+        .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
+        .footer a { color: var(--sp-purple); text-decoration: none; }
 
         .appliances-grid::-webkit-scrollbar { width: 6px; }
         .appliances-grid::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
         .appliances-grid::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 2.5rem; }
+            .top-logo span { font-size: 1.25rem; }
+            .back-home { padding: 0.5rem 1rem; font-size: 0.8rem; }
+
+            .header { padding: 3rem 1.5rem 2.5rem; }
+
+            .cta-section { flex-direction: column; text-align: center; padding: 1.5rem; }
+            .cta-section .content { text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 2.5rem 1rem 2rem; }
+            .header h1 { font-size: 1.75rem; }
+            .main-container { padding: 20px 15px; }
+        }
     </style>
 </head>
 <body>
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
-            <span>⚡</span>
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
             <span>SwitchPilot</span>
         </a>
         <a href="index.html" class="back-home">← Back to Home</a>
     </nav>
 
     <header class="header">
-        <h1>Energy Bill Calculator</h1>
-        <p>See exactly how your usage adds up and compare tariffs in real-time</p>
+        <div class="header-content">
+            <h1>⚡ Energy Bill Calculator</h1>
+            <p>See exactly how your usage adds up and compare tariffs in real-time</p>
+        </div>
     </header>
 
     <div class="region-bar">
@@ -558,18 +631,22 @@
         </div>
 
         <div class="cta-section">
-            <h3>Stop overpaying for energy</h3>
-            <p>SwitchPilot automatically moves you to the best deal — set it and forget it.</p>
-            <a href="#waitlist" class="cta-btn">Join the Waitlist →</a>
+            <div class="icon">😩</div>
+            <div class="content">
+                <h3>Tired of comparing tariffs every few months?</h3>
+                <p>We're building a free auto-switcher that does this for you — automatically. Sign up for early access and never overpay again.</p>
+            </div>
+            <a href="index.html#waitlist" class="cta-btn">Get Early Access →</a>
         </div>
     </div>
 
     <footer class="footer">
         <div class="footer-logo">
-            <span>⚡</span>
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
             <span>SwitchPilot</span>
         </div>
         <p>Putting the power back in your hands</p>
+        <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
     </footer>
 
     <script>

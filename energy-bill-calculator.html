@@ -344,7 +344,7 @@
         .appliances-grid {
             display: grid;
             gap: 12px;
-            max-height: 600px;
+            max-height: 500px;
             overflow-y: auto;
             padding-right: 10px;
         }
@@ -424,6 +424,40 @@
             border-color: var(--sp-purple);
             background: var(--sp-purple-light);
             color: var(--sp-purple);
+        }
+
+        /* Home size presets */
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: var(--sp-slate);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--sp-purple);
+            background: var(--sp-purple-light);
+        }
+
+        .preset-btn.active {
+            border-color: var(--sp-purple);
+            background: var(--sp-purple);
+            color: white;
         }
 
         /* CTA Section - Matching Tracker */
@@ -510,6 +544,8 @@
 
             .cta-section { flex-direction: column; text-align: center; padding: 1.5rem; }
             .cta-section .content { text-align: center; }
+            
+            .preset-buttons { flex-direction: column; }
         }
 
         @media (max-width: 480px) {
@@ -621,13 +657,46 @@
         <div class="card">
             <h2>🔌 Your Usage</h2>
             
-            <div class="fuel-tabs">
-                <button class="fuel-tab active" id="elecTab" onclick="showFuel('elec')">⚡ Electricity</button>
-                <button class="fuel-tab" id="gasTab" onclick="showFuel('gas')">🔥 Gas</button>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 15px;">Select your home size to estimate usage, or enter your actual kWh from a bill.</p>
+            
+            <!-- Home Size Selection -->
+            <div class="preset-buttons">
+                <button class="preset-btn" onclick="setPreset('small')">🏢 Small<br><span style="font-weight: 400; font-size: 0.8rem;">1-2 bed</span></button>
+                <button class="preset-btn active" onclick="setPreset('medium')">🏠 Medium<br><span style="font-weight: 400; font-size: 0.8rem;">3 bed</span></button>
+                <button class="preset-btn" onclick="setPreset('large')">🏡 Large<br><span style="font-weight: 400; font-size: 0.8rem;">4+ bed</span></button>
             </div>
+            
+            <!-- Editable Usage Estimates -->
+            <div style="background: var(--sp-purple-light); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--sp-purple-dark);">⚡ Electricity (kWh/year)</label>
+                        <input type="number" id="elecKwhInput" value="2900" min="0" max="20000" step="100" 
+                               oninput="updateFromKwh()"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd6fe; border-radius: 8px; font-size: 1.1rem; font-weight: 600; font-family: inherit; text-align: center;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--sp-purple-dark);">🔥 Gas (kWh/year)</label>
+                        <input type="number" id="gasKwhInput" value="12000" min="0" max="50000" step="100" 
+                               oninput="updateFromKwh()"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd6fe; border-radius: 8px; font-size: 1.1rem; font-weight: 600; font-family: inherit; text-align: center;">
+                    </div>
+                </div>
+                <p style="margin-top: 12px; font-size: 0.8rem; color: #64748b; text-align: center;">💡 Find your actual usage on a recent energy bill</p>
+            </div>
+            
+            <!-- Appliances Breakdown -->
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 5px;">
+                <p style="font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">🔧 Fine-tune by appliance</p>
+                
+                <div class="fuel-tabs">
+                    <button class="fuel-tab active" id="elecTab" onclick="showFuel('elec')">⚡ Electricity</button>
+                    <button class="fuel-tab" id="gasTab" onclick="showFuel('gas')">🔥 Gas</button>
+                </div>
 
-            <div id="elecAppliances" class="appliances-grid"></div>
-            <div id="gasAppliances" class="appliances-grid" style="display: none;"></div>
+                <div id="elecAppliances" class="appliances-grid"></div>
+                <div id="gasAppliances" class="appliances-grid" style="display: none;"></div>
+            </div>
         </div>
 
         <div class="cta-section">
@@ -672,6 +741,29 @@
             'ovo': 'OVO Energy',
             'scottish_power': 'Scottish Power',
             'edf': 'EDF'
+        };
+
+        // Home size presets - annual kWh estimates
+        const homePresets = {
+            small: { elec: 1800, gas: 8000 },
+            medium: { elec: 2900, gas: 12000 },
+            large: { elec: 4200, gas: 17000 }
+        };
+
+        // Appliance defaults per home size (for the fine-tune section)
+        const applianceDefaults = {
+            small: {
+                fridge: 24, lights: 4, tv: 3, computer: 4, washing: 2, dishwasher: 2, kettle: 3, microwave: 1, eshower: 0, eheating: 0, evcharger: 0,
+                hob: 0.3, oven: 0.3, gshower: 10, heating: 2, hotwater: 0
+            },
+            medium: {
+                fridge: 24, lights: 6, tv: 4, computer: 6, washing: 4, dishwasher: 3, kettle: 4, microwave: 2, eshower: 0, eheating: 0, evcharger: 0,
+                hob: 0.5, oven: 0.5, gshower: 15, heating: 4, hotwater: 0
+            },
+            large: {
+                fridge: 24, lights: 10, tv: 6, computer: 8, washing: 7, dishwasher: 5, kettle: 6, microwave: 3, eshower: 0, eheating: 0, evcharger: 0,
+                hob: 1, oven: 1, gshower: 25, heating: 6, hotwater: 0
+            }
         };
 
         const elecAppliances = [
@@ -730,6 +822,7 @@
         let currentPeriod = 'month';
         let periodMultiplier = 30;
         let tariffChart = null;
+        let currentPreset = 'medium';
 
         document.addEventListener('DOMContentLoaded', () => {
             createAppliances();
@@ -759,6 +852,37 @@
                 }
             });
         });
+
+        function setPreset(size) {
+            currentPreset = size;
+            const preset = homePresets[size];
+            const appDefaults = applianceDefaults[size];
+            
+            // Update kWh inputs
+            document.getElementById('elecKwhInput').value = preset.elec;
+            document.getElementById('gasKwhInput').value = preset.gas;
+            
+            // Update appliance sliders too
+            [...elecAppliances, ...gasAppliances].forEach(app => {
+                const slider = document.getElementById(app.id);
+                const valueDisplay = document.getElementById(`${app.id}-value`);
+                if (slider && appDefaults[app.id] !== undefined) {
+                    slider.value = appDefaults[app.id];
+                    valueDisplay.textContent = parseFloat(appDefaults[app.id]).toFixed(1);
+                }
+            });
+            
+            // Update button states
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.preset-btn').classList.add('active');
+            
+            calculateAll();
+        }
+        
+        function updateFromKwh() {
+            // When user manually edits kWh, recalculate bill
+            calculateAll();
+        }
 
         async function loadTariffData() {
             try {
@@ -906,47 +1030,44 @@
         function updateAppliance(id) {
             const value = document.getElementById(id).value;
             document.getElementById(`${id}-value`).textContent = parseFloat(value).toFixed(1);
+            
+            // Recalculate total kWh from all appliances and update inputs
+            let totalElecDaily = 0;
+            let totalGasDaily = 0;
+            
+            elecAppliances.forEach(app => {
+                const val = parseFloat(document.getElementById(app.id).value);
+                if (app.unit.includes('week')) totalElecDaily += (val / 7) * app.power;
+                else if (app.unit.includes('mins')) totalElecDaily += (val / 60) * app.power;
+                else totalElecDaily += val * app.power;
+            });
+            
+            gasAppliances.forEach(app => {
+                const val = parseFloat(document.getElementById(app.id).value);
+                if (app.unit.includes('week')) totalGasDaily += (val / 7) * app.power;
+                else if (app.unit.includes('mins')) totalGasDaily += (val / 60) * app.power;
+                else totalGasDaily += val * app.power;
+            });
+            
+            // Update kWh inputs with annual totals
+            document.getElementById('elecKwhInput').value = Math.round(totalElecDaily * 365);
+            document.getElementById('gasKwhInput').value = Math.round(totalGasDaily * 365);
+            
             calculateAll();
-        }
-
-        function calculateDailyKwh(appliances, type) {
-            let total = 0;
-            const rate = type === 'elec' ? currentTariff.elec_unit_rate_p : currentTariff.gas_unit_rate_p;
-
-            appliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id).value);
-                let dailyKwh = 0;
-
-                if (app.unit.includes('week')) dailyKwh = (value / 7) * app.power;
-                else if (app.unit.includes('mins')) dailyKwh = (value / 60) * app.power;
-                else dailyKwh = value * app.power;
-
-                const periodCost = (dailyKwh * periodMultiplier * rate) / 100;
-                document.getElementById(`${app.id}-cost`).textContent = `£${periodCost.toFixed(2)}`;
-                
-                total += dailyKwh;
-            });
-
-            return total;
-        }
-
-        function calculateDailyKwhRaw(appliances) {
-            let total = 0;
-            appliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id)?.value || app.default);
-                if (app.unit.includes('week')) total += (value / 7) * app.power;
-                else if (app.unit.includes('mins')) total += (value / 60) * app.power;
-                else total += value * app.power;
-            });
-            return total;
         }
 
         function calculateAll() {
             if (!currentTariff) return;
 
-            const elecKwhDaily = calculateDailyKwh(elecAppliances, 'elec');
-            const gasKwhDaily = calculateDailyKwh(gasAppliances, 'gas');
+            // Get annual kWh from inputs
+            const elecKwhAnnual = parseFloat(document.getElementById('elecKwhInput').value) || 0;
+            const gasKwhAnnual = parseFloat(document.getElementById('gasKwhInput').value) || 0;
+            
+            // Convert to daily for calculations
+            const elecKwhDaily = elecKwhAnnual / 365;
+            const gasKwhDaily = gasKwhAnnual / 365;
 
+            // Calculate costs for the selected period
             const elecUsageCost = (elecKwhDaily * periodMultiplier * currentTariff.elec_unit_rate_p) / 100;
             const gasUsageCost = (gasKwhDaily * periodMultiplier * currentTariff.gas_unit_rate_p) / 100;
             const elecStandingCost = (currentTariff.elec_standing_p * periodMultiplier) / 100;
@@ -960,13 +1081,13 @@
                 `Elec: £${elecUsageCost.toFixed(0)} | Gas: £${gasUsageCost.toFixed(0)} | Standing: £${(elecStandingCost + gasStandingCost).toFixed(0)}`;
 
             // Annual comparison
-            const annualCurrent = calcAnnualCost(currentTariff, elecKwhDaily, gasKwhDaily);
-            const annualSVT = calcAnnualCost({
+            const annualCurrent = calcAnnualCostFromKwh(currentTariff, elecKwhAnnual, gasKwhAnnual);
+            const annualSVT = calcAnnualCostFromKwh({
                 elec_unit_rate_p: SVT.elec_unit,
                 gas_unit_rate_p: SVT.gas_unit,
                 elec_standing_p: SVT.elec_standing,
                 gas_standing_p: SVT.gas_standing
-            }, elecKwhDaily, gasKwhDaily);
+            }, elecKwhAnnual, gasKwhAnnual);
 
             document.getElementById('currentTariffCost').textContent = `£${Math.round(annualCurrent)}/yr`;
             document.getElementById('svtCost').textContent = `£${Math.round(annualSVT)}/yr`;
@@ -984,7 +1105,41 @@
                 savingsBadge.style.background = '#94a3b8';
             }
 
-            updateChart();
+            // Update appliance costs display (for the fine-tune section)
+            updateApplianceCosts();
+            
+            updateChart(elecKwhAnnual, gasKwhAnnual);
+        }
+        
+        function calcAnnualCostFromKwh(tariff, elecKwhAnnual, gasKwhAnnual) {
+            return ((elecKwhAnnual * tariff.elec_unit_rate_p) + 
+                   (gasKwhAnnual * tariff.gas_unit_rate_p) +
+                   (tariff.elec_standing_p * 365) +
+                   (tariff.gas_standing_p * 365)) / 100;
+        }
+        
+        function updateApplianceCosts() {
+            if (!currentTariff) return;
+            
+            elecAppliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id).value);
+                let dailyKwh = 0;
+                if (app.unit.includes('week')) dailyKwh = (value / 7) * app.power;
+                else if (app.unit.includes('mins')) dailyKwh = (value / 60) * app.power;
+                else dailyKwh = value * app.power;
+                const periodCost = (dailyKwh * periodMultiplier * currentTariff.elec_unit_rate_p) / 100;
+                document.getElementById(`${app.id}-cost`).textContent = `£${periodCost.toFixed(2)}`;
+            });
+            
+            gasAppliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id).value);
+                let dailyKwh = 0;
+                if (app.unit.includes('week')) dailyKwh = (value / 7) * app.power;
+                else if (app.unit.includes('mins')) dailyKwh = (value / 60) * app.power;
+                else dailyKwh = value * app.power;
+                const periodCost = (dailyKwh * periodMultiplier * currentTariff.gas_unit_rate_p) / 100;
+                document.getElementById(`${app.id}-cost`).textContent = `£${periodCost.toFixed(2)}`;
+            });
         }
 
         function calcAnnualCost(tariff, elecKwhDaily, gasKwhDaily) {
@@ -995,14 +1150,14 @@
         }
 
         function findCheapestIndex() {
-            const elecKwhDaily = calculateDailyKwhRaw(elecAppliances);
-            const gasKwhDaily = calculateDailyKwhRaw(gasAppliances);
+            const elecKwhAnnual = parseFloat(document.getElementById('elecKwhInput')?.value) || 2900;
+            const gasKwhAnnual = parseFloat(document.getElementById('gasKwhInput')?.value) || 12000;
 
             let cheapestIdx = 0;
             let lowestCost = Infinity;
 
             regionalTariffs.forEach((t, i) => {
-                const cost = calcAnnualCost(t, elecKwhDaily, gasKwhDaily);
+                const cost = calcAnnualCostFromKwh(t, elecKwhAnnual, gasKwhAnnual);
                 if (cost < lowestCost) {
                     lowestCost = cost;
                     cheapestIdx = i;
@@ -1012,14 +1167,14 @@
             return cheapestIdx;
         }
 
-        function updateChart() {
-            const elecKwhDaily = calculateDailyKwhRaw(elecAppliances);
-            const gasKwhDaily = calculateDailyKwhRaw(gasAppliances);
+        function updateChart(elecKwhAnnual, gasKwhAnnual) {
+            elecKwhAnnual = elecKwhAnnual || parseFloat(document.getElementById('elecKwhInput')?.value) || 2900;
+            gasKwhAnnual = gasKwhAnnual || parseFloat(document.getElementById('gasKwhInput')?.value) || 12000;
 
             const chartData = regionalTariffs.map(t => ({
                 supplier: t.supplier,
                 name: supplierNames[t.supplier],
-                cost: calcAnnualCost(t, elecKwhDaily, gasKwhDaily),
+                cost: calcAnnualCostFromKwh(t, elecKwhAnnual, gasKwhAnnual),
                 tariff: t
             }));
 
@@ -1027,12 +1182,12 @@
             chartData.push({
                 supplier: 'svt',
                 name: 'SVT Price Cap',
-                cost: calcAnnualCost({
+                cost: calcAnnualCostFromKwh({
                     elec_unit_rate_p: SVT.elec_unit,
                     gas_unit_rate_p: SVT.gas_unit,
                     elec_standing_p: SVT.elec_standing,
                     gas_standing_p: SVT.gas_standing
-                }, elecKwhDaily, gasKwhDaily),
+                }, elecKwhAnnual, gasKwhAnnual),
                 tariff: null
             });
 

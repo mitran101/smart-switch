@@ -48,6 +48,13 @@
             background: var(--sp-bg);
             color: var(--sp-slate);
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-wrapper {
+            flex: 1;
         }
 
         .top-nav {
@@ -112,8 +119,6 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 25px 20px;
-            background: var(--sp-bg);
-            min-height: calc(100vh - 280px);
         }
 
         .card {
@@ -528,6 +533,7 @@
     </style>
 </head>
 <body>
+    <div class="main-wrapper">
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
             <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
@@ -679,6 +685,7 @@
                 <a href="index.html#waitlist" class="cta-btn">Get Early Access →</a>
             </div>
         </div>
+    </div>
     </div>
 
     <footer class="footer">

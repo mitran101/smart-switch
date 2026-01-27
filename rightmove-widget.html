@@ -50,7 +50,6 @@
             line-height: 1.6;
         }
 
-        /* Top Navigation - Matching Tracker */
         .top-nav {
             background: var(--sp-slate);
             padding: 1rem 2rem;
@@ -80,7 +79,6 @@
             font-weight: 600;
         }
 
-        /* Hero Header - Matching Tracker */
         .header {
             background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
             color: white;
@@ -439,7 +437,6 @@
             color: #78350f;
         }
 
-        /* CTA Section - Matching Tracker */
         .cta-section {
             background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
             border-radius: 16px;
@@ -485,7 +482,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        /* Footer - Matching Tracker */
         .footer {
             background: var(--sp-slate);
             border-top: 1px solid var(--sp-border);
@@ -508,20 +504,16 @@
         .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
         .footer a { color: var(--sp-purple); text-decoration: none; }
 
-        /* Embeddable mode */
         .embed-mode .top-nav,
         .embed-mode .footer { display: none; }
         .embed-mode .header { padding: 1.5rem; }
         .embed-mode .container { padding: 15px; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .top-nav { padding: 1rem; }
             .top-logo img { height: 2.5rem; }
             .top-logo span { font-size: 1.25rem; }
-
             .header { padding: 2.5rem 1.5rem; }
-
             .cta-section { flex-direction: column; text-align: center; padding: 1.5rem; }
             .cta-section .content { text-align: center; }
         }
@@ -697,8 +689,33 @@
     </footer>
 
     <script>
-        // SVT Price Cap (Jan 2026)
-        const SVT = { elec_unit: 24.50, elec_standing: 53.56, gas_unit: 6.24, gas_standing: 31.66 };
+        // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+        const capRatesByRegion = {
+            'London': { elecUnit: 27.00, elecStanding: 47.11, gasUnit: 6.03, gasStanding: 35.63 },
+            'South East': { elecUnit: 28.27, elecStanding: 48.66, gasUnit: 5.83, gasStanding: 34.68 },
+            'Southern': { elecUnit: 27.83, elecStanding: 45.70, gasUnit: 6.00, gasStanding: 34.56 },
+            'South West': { elecUnit: 28.16, elecStanding: 55.11, gasUnit: 6.15, gasStanding: 34.71 },
+            'South Wales': { elecUnit: 28.18, elecStanding: 52.75, gasUnit: 6.11, gasStanding: 35.35 },
+            'Eastern': { elecUnit: 27.88, elecStanding: 49.33, gasUnit: 5.87, gasStanding: 34.74 },
+            'East Midlands': { elecUnit: 26.89, elecStanding: 50.17, gasUnit: 5.79, gasStanding: 34.82 },
+            'West Midlands': { elecUnit: 26.99, elecStanding: 54.08, gasUnit: 5.85, gasStanding: 35.12 },
+            'North West': { elecUnit: 28.45, elecStanding: 52.22, gasUnit: 5.89, gasStanding: 35.23 },
+            'North East': { elecUnit: 26.75, elecStanding: 60.93, gasUnit: 5.93, gasStanding: 35.21 },
+            'Yorkshire': { elecUnit: 26.69, elecStanding: 59.72, gasUnit: 5.90, gasStanding: 35.18 },
+            'North Wales & Merseyside': { elecUnit: 29.09, elecStanding: 71.01, gasUnit: 5.94, gasStanding: 35.49 },
+            'South Scotland': { elecUnit: 27.18, elecStanding: 57.62, gasUnit: 5.89, gasStanding: 35.30 },
+            'North Scotland': { elecUnit: 28.36, elecStanding: 62.07, gasUnit: 5.89, gasStanding: 35.28 }
+        };
+        
+        function getSVT() {
+            const rates = capRatesByRegion[currentRegion] || capRatesByRegion['London'];
+            return {
+                elec_unit: rates.elecUnit,
+                elec_standing: rates.elecStanding,
+                gas_unit: rates.gasUnit,
+                gas_standing: rates.gasStanding
+            };
+        }
 
         const supplierColors = {
             'fuse_energy': '#ffb366',
@@ -755,7 +772,6 @@
         let selectedTariff = null;
         let dealsChart = null;
 
-        // Load tariff data on page load
         document.addEventListener('DOMContentLoaded', loadTariffData);
 
         async function loadTariffData() {
@@ -781,7 +797,6 @@
             }
         }
 
-        // Postcode detection
         document.getElementById('postcode').addEventListener('input', function() {
             const postcode = this.value.replace(/\s/g, '').toUpperCase();
             const hint = document.getElementById('regionHint');
@@ -816,6 +831,14 @@
                     (tariff.elec_standing_p * 365) +
                     (tariff.gas_standing_p * 365)) / 100;
         }
+        
+        function calculateSVTCost(elecKwh, gasKwh) {
+            const svt = getSVT();
+            return ((elecKwh * svt.elec_unit) + 
+                    (gasKwh * svt.gas_unit) +
+                    (svt.elec_standing * 365) +
+                    (svt.gas_standing * 365)) / 100;
+        }
 
         function calculateEstimate() {
             if (!currentRegion) {
@@ -827,13 +850,11 @@
             const bedrooms = document.getElementById('bedrooms').value;
             const epc = document.getElementById('epc').value;
 
-            // Calculate consumption
             const base = consumptionData[propertyType][bedrooms];
             const multiplier = epcMultipliers[epc];
             currentConsumption.elec = Math.round(base.elec * multiplier);
             currentConsumption.gas = Math.round(base.gas * multiplier);
 
-            // Get best tariff per supplier for this region
             regionalTariffs = [];
             const seenSuppliers = new Set();
             
@@ -853,14 +874,9 @@
                     }
                 });
 
-            // Select cheapest
             selectedTariff = regionalTariffs[0];
 
-            // SVT cost
-            const svtCost = ((currentConsumption.elec * SVT.elec_unit) + 
-                            (currentConsumption.gas * SVT.gas_unit) +
-                            (SVT.elec_standing * 365) +
-                            (SVT.gas_standing * 365)) / 100;
+            const svtCost = calculateSVTCost(currentConsumption.elec, currentConsumption.gas);
 
             updateDisplay(svtCost);
             populateSupplierDropdown();
@@ -912,10 +928,7 @@
             const index = document.getElementById('supplierSelect').value;
             selectedTariff = regionalTariffs[index];
 
-            const svtCost = ((currentConsumption.elec * SVT.elec_unit) + 
-                            (currentConsumption.gas * SVT.gas_unit) +
-                            (SVT.elec_standing * 365) +
-                            (SVT.gas_standing * 365)) / 100;
+            const svtCost = calculateSVTCost(currentConsumption.elec, currentConsumption.gas);
 
             updateDisplay(svtCost);
             updateChartHighlight();

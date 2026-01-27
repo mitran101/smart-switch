@@ -3,50 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recreate Your Energy Bill | SwitchPilot</title>
+    <title>Energy Bill Calculator | SwitchPilot</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
             --sp-slate: #1a1625;
-            --sp-slate-light: #3d3451;
             --sp-purple: #8b5cf6;
             --sp-purple-dark: #7c3aed;
             --sp-purple-light: #ede9fe;
-            --sp-green: #8b5cf6;
-            --sp-green-dark: #7c3aed;
-            --sp-green-light: #ede9fe;
-            --sp-amber: #f59e0b;
-            --sp-bg: #f5f3ff;
-            --sp-card: #faf9fc;
+            --sp-green: #10b981;
+            --sp-green-dark: #059669;
+            --sp-red: #ef4444;
+            --sp-bg: #f8fafc;
+            --sp-card: #ffffff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--sp-bg);
             color: var(--sp-slate);
             line-height: 1.6;
-            padding: 0;
-            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Navigation matching TNUoS style */
         .top-nav {
             background: var(--sp-slate);
             padding: 1rem 2rem;
@@ -62,358 +47,408 @@
             text-decoration: none;
             font-weight: 700;
             color: white;
-            transition: opacity 0.2s;
         }
 
-        .top-logo:hover {
-            opacity: 0.8;
-        }
-
-        .top-logo span:first-child {
-            font-size: 1.6rem;
-        }
-
-        .top-logo span:last-child {
-            font-size: 1.35rem;
-        }
+        .top-logo span:first-child { font-size: 1.6rem; }
+        .top-logo span:last-child { font-size: 1.35rem; }
 
         .back-home {
-            display: inline-block;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: all 0.2s;
             font-size: 0.9rem;
+            transition: background 0.2s;
         }
 
-        .back-home:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .back-home:hover { background: rgba(255,255,255,0.2); }
 
-        header {
+        .header {
             background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
             color: white;
-            padding: 4rem 2rem 3rem;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 40px;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b5cf6' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .header-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+            padding: 3rem 2rem;
             text-align: center;
         }
 
-        h1 {
+        .header h1 {
             font-family: 'DM Serif Display', Georgia, serif;
-            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
             font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: white;
+            margin-bottom: 0.5rem;
         }
 
-        .subtitle {
-            font-size: 1.15rem;
-            color: #94A3B8;
-            margin-bottom: 10px;
-        }
+        .header p { color: #94a3b8; font-size: 1.1rem; }
 
-        .intro {
-            background: var(--sp-green-light);
-            border-left: 4px solid var(--sp-green);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        .fuel-section {
-            background: var(--sp-card);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .fuel-sections-wrapper {
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-bottom: 30px;
         }
 
-        @media (max-width: 1000px) {
-            .fuel-sections-wrapper {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1100px) {
+            .main-container { grid-template-columns: 1fr; }
         }
 
-        .fuel-section h2 {
-            color: var(--sp-slate);
+        .card {
+            background: var(--sp-card);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
             margin-bottom: 20px;
-            font-size: 1.8em;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 700;
         }
 
-        .fuel-icon {
-            font-size: 1.2em;
-        }
-
-        .rate-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .region-bar {
+            background: var(--sp-card);
+            padding: 20px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
             gap: 20px;
-            margin-bottom: 30px;
-            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .region-bar label { font-weight: 600; }
+
+        .region-bar select {
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            min-width: 200px;
+            cursor: pointer;
+        }
+
+        .region-bar select:focus {
+            outline: none;
+            border-color: var(--sp-purple);
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top-color: var(--sp-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .supplier-selector select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .supplier-selector select:focus {
+            outline: none;
+            border-color: var(--sp-purple);
+            box-shadow: 0 0 0 3px var(--sp-purple-light);
+        }
+
+        .current-rates {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .rate-box {
             background: var(--sp-bg);
+            padding: 14px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .rate-box .label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .rate-box .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--sp-purple);
+        }
+
+        .rate-box .value span {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .bill-summary {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-purple-dark) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .period-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .period-tab {
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .period-tab.active {
+            background: white;
+            color: var(--sp-purple);
+        }
+
+        .bill-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .bill-amount span { font-size: 1.5rem; }
+
+        .bill-breakdown {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .comparison-banner {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 15px;
             border-radius: 10px;
         }
 
-        .input-group {
-            margin-bottom: 25px;
+        .comparison-item.current { background: var(--sp-purple-light); }
+        .comparison-item.svt { background: #fef2f2; }
+
+        .comparison-item .label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 5px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #6e6e73;
-            font-size: 0.95em;
+        .comparison-item .amount {
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            background: var(--sp-card);
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            color: var(--sp-slate);
-            font-size: 1em;
+        .comparison-item.current .amount { color: var(--sp-purple); }
+        .comparison-item.svt .amount { color: var(--sp-red); }
+
+        .comparison-vs { font-weight: 700; color: #94a3b8; }
+
+        .savings-badge {
+            background: var(--sp-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1.1rem;
         }
 
-        input[type="number"]:focus {
-            outline: none;
-            border-color: var(--sp-green);
-            box-shadow: 0 0 0 3px var(--sp-green-light);
+        .chart-container {
+            position: relative;
+            height: 320px;
+            margin-bottom: 15px;
+        }
+
+        .chart-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .appliances-grid {
+            display: grid;
+            gap: 12px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
         .appliance {
             background: var(--sp-bg);
-            padding: 20px;
+            padding: 14px;
             border-radius: 10px;
-            margin-bottom: 15px;
             border: 1px solid #e8e8ed;
-        }
-
-        .fun-appliance {
-            background: linear-gradient(135deg, var(--sp-purple-light) 0%, #f3e8ff 100%);
-            border: 2px solid var(--sp-purple);
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .appliance-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .appliance-name {
             font-weight: 600;
-            color: #1d1d1f;
-            font-size: 1.1em;
+            font-size: 0.95rem;
         }
 
-        .appliance-power {
-            color: #6e6e73;
-            font-size: 0.9em;
-        }
-
-        .slider-container {
-            margin-bottom: 10px;
+        .appliance-cost {
+            font-weight: 700;
+            color: var(--sp-purple);
+            font-size: 1rem;
         }
 
         input[type="range"] {
             width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: #E2E8F0;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
             outline: none;
             -webkit-appearance: none;
+            margin: 8px 0;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            background: var(--sp-green);
+            background: var(--sp-purple);
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 2px 6px rgba(139, 92, 246, 0.4);
         }
 
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--sp-green);
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
-        }
-
-        .usage-display {
+        .appliance-usage {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            color: #6e6e73;
-            font-size: 0.9em;
+            font-size: 0.85rem;
+            color: #64748b;
         }
 
-        .cost-display {
-            color: #ec4899;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .summary {
-            background: var(--sp-card);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .summary h2 {
-            color: var(--sp-slate);
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            font-weight: 700;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #E2E8F0;
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-            padding-top: 20px;
-            margin-top: 10px;
-            border-top: 2px solid var(--sp-green);
-        }
-
-        .summary-label {
-            font-size: 1.1em;
-            color: var(--sp-slate);
-        }
-
-        .summary-value {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--sp-green);
-        }
-
-        .total-row .summary-label,
-        .total-row .summary-value {
-            font-size: 1.4em;
-            font-weight: 700;
-        }
-
-        .total-row .summary-value {
-            color: var(--sp-green-dark);
-        }
-
-        .period-selector {
+        .fuel-tabs {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
+            margin-bottom: 15px;
         }
 
-        .period-btn {
-            padding: 10px 20px;
+        .fuel-tab {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
             background: white;
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            color: var(--sp-slate);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
+            border-radius: 10px;
             font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
         }
 
-        .period-btn:hover {
-            background: var(--sp-green-light);
-            border-color: var(--sp-green);
+        .fuel-tab.active {
+            border-color: var(--sp-purple);
+            background: var(--sp-purple-light);
+            color: var(--sp-purple);
         }
 
-        .period-btn.active {
+        .cta-section {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0a0612 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .cta-section h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-section p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 35px;
             background: var(--sp-green);
-            border-color: var(--sp-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: var(--sp-green-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--sp-slate);
             color: white;
         }
 
-        .note {
-            background: var(--sp-bg);
-            border-left: 4px solid var(--sp-green);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: var(--sp-slate-light);
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
+        .footer p { color: #94a3b8; font-size: 0.9rem; }
 
-            .fuel-section {
-                padding: 20px;
-            }
-
-            .rate-inputs {
-                grid-template-columns: 1fr;
-            }
-        }
+        .appliances-grid::-webkit-scrollbar { width: 6px; }
+        .appliances-grid::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
+        .appliances-grid::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
     </style>
 </head>
 <body>
-    <!-- Top Navigation -->
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
             <span>⚡</span>
@@ -422,530 +457,574 @@
         <a href="index.html" class="back-home">← Back to Home</a>
     </nav>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <h1>Recreate Your Energy Bill</h1>
-            <p class="subtitle">See exactly how your daily usage adds up to your monthly bill</p>
-        </div>
+    <header class="header">
+        <h1>Energy Bill Calculator</h1>
+        <p>See exactly how your usage adds up and compare tariffs in real-time</p>
     </header>
 
-    <div class="container">
-
-        <div class="intro">
-            <p><strong>Ever wondered where your energy bill actually comes from?</strong> This tool lets you recreate your typical energy usage with both gas and electricity. Adjust the sliders to match your daily routine and watch your bill build up in real-time.</p>
-        </div>
-
-        <div class="period-selector">
-            <button class="period-btn active" onclick="setPeriod('day')">Daily Bill</button>
-            <button class="period-btn" onclick="setPeriod('week')">Weekly Bill</button>
-            <button class="period-btn" onclick="setPeriod('month')">Monthly Bill</button>
-            <button class="period-btn" onclick="setPeriod('year')">Annual Bill</button>
-        </div>
-
-        <div class="period-selector" id="seasonToggle" style="margin-top: 10px;">
-            <button class="period-btn season-btn active" onclick="setSeason('summer')" id="summerBtn">☀️ Summer Period</button>
-            <button class="period-btn season-btn" onclick="setSeason('winter')" id="winterBtn">❄️ Winter Period</button>
-        </div>
-
-        <div id="seasonNote" style="text-align: center; margin-bottom: 20px; margin-top: 10px;">
-            <p style="font-size: 0.9em; color: var(--sp-slate-light);">
-                Viewing <strong id="seasonLabel">Summer</strong> heating costs | Annual bill combines both seasons
-            </p>
-        </div>
-
-        <div style="text-align: center; margin-bottom: 20px;">
-            <button class="period-btn" id="funToggle" onclick="toggleFunAppliances()" style="background: var(--sp-green); color: white; border: none;">
-                🎉 Show Essential Additions
-            </button>
-        </div>
-
-        <!-- SUMMARY -->
-        <div class="summary">
-            <h2>Your Bill Breakdown</h2>
-            <div class="summary-row">
-                <span class="summary-label">Electricity Usage</span>
-                <span class="summary-value" id="elecUsageCost">£0.00</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Electricity Standing Charge</span>
-                <span class="summary-value" id="elecStandingCost">£0.00</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Gas Usage</span>
-                <span class="summary-value" id="gasUsageCost">£0.00</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Gas Standing Charge</span>
-                <span class="summary-value" id="gasStandingCost">£0.00</span>
-            </div>
-            <div class="summary-row total-row">
-                <span class="summary-label">Total Energy Bill</span>
-                <span class="summary-value" id="totalCost">£0.00</span>
-            </div>
-        </div>
-
-        <!-- ANNUAL BILLING COMPARISON -->
-        <div class="summary" style="margin-top: 30px;">
-            <h2>Annual Direct Debit Comparison</h2>
-            <p style="color: var(--sp-slate-light); margin-bottom: 20px; font-size: 0.95em;">
-                See how your fixed monthly Direct Debit compares to actual seasonal consumption. This shows why you build up credit in summer and use it in winter.
-            </p>
-            
-            <div style="margin-bottom: 25px;">
-                <label style="display: block; margin-bottom: 8px; color: var(--sp-slate); font-weight: 600;">Set Your Monthly Direct Debit Amount</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <span style="font-size: 1.2em; color: var(--sp-slate);">£</span>
-                    <input type="number" id="ddAmount" value="150" step="1" min="0" 
-                           style="width: 120px; padding: 10px; border: 2px solid var(--sp-green); border-radius: 8px; font-size: 1.1em; font-weight: 600;"
-                           oninput="calculateAnnualComparison()">
-                    <span style="color: var(--sp-slate-light);">per month</span>
-                </div>
-            </div>
-
-            <div style="background: var(--sp-bg); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                    <div>
-                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Annual DD Payments</div>
-                        <div style="font-size: 1.5em; font-weight: 700; color: var(--sp-slate);" id="annualDD">£1,800</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Estimated Annual Usage</div>
-                        <div style="font-size: 1.5em; font-weight: 700; color: var(--sp-green);" id="annualUsage">£0</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.9em; color: var(--sp-slate-light); margin-bottom: 5px;">Year-End Balance</div>
-                        <div style="font-size: 1.5em; font-weight: 700;" id="yearEndBalance">£0</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: var(--sp-green-light); border-left: 4px solid var(--sp-green); padding: 15px; border-radius: 8px; font-size: 0.9em;">
-                <strong>💡 Understanding Your Direct Debit:</strong> Energy suppliers set your monthly DD to cover your average annual usage. In summer, when you use less energy, you build up credit. In winter, when heating kicks in, you use that credit. This explains why your DD stays the same but your usage varies dramatically by season.
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-bottom: 30px;">
-            <a href="tariff-tracker.html" style="display: inline-block; padding: 12px 24px; background: var(--sp-green); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#059669'" onmouseout="this.style.transform='translateY(0)'; this.style.background='#10B981'">
-                📊 View Current Tariff Rates
-            </a>
-        </div>
-
-        <!-- FUEL SECTIONS SIDE BY SIDE -->
-        <div class="fuel-sections-wrapper">
-            <!-- ELECTRICITY SECTION -->
-            <div class="fuel-section">
-                <h2><span class="fuel-icon">⚡</span> Electricity Usage</h2>
-                
-                <div class="rate-inputs">
-                    <div class="input-group">
-                        <label for="elecRate">Electricity Unit Rate (p/kWh)</label>
-                        <input type="number" id="elecRate" value="27.69" step="0.01" min="0" oninput="calculateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label for="elecStanding">Electricity Standing Charge (p/day)</label>
-                        <input type="number" id="elecStanding" value="54.75" step="0.01" min="0" oninput="calculateAll()">
-                    </div>
-                </div>
-
-                <div id="elecAppliances"></div>
-
-                <div id="funNote" style="display: none; background: linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%); border-left: 4px solid #8b5cf6; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                    <strong>🎉 Essential Additions:</strong> These are additional appliances you might have in your home. From crypto mining rigs to hot tubs, see how they impact your bill!
-                </div>
-            </div>
-
-            <!-- GAS SECTION -->
-            <div class="fuel-section">
-                <h2><span class="fuel-icon">🔥</span> Gas Usage</h2>
-                
-                <div class="rate-inputs">
-                    <div class="input-group">
-                        <label for="gasRate">Gas Unit Rate (p/kWh)</label>
-                        <input type="number" id="gasRate" value="5.90" step="0.01" min="0" oninput="calculateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label for="gasStanding">Gas Standing Charge (p/day)</label>
-                        <input type="number" id="gasStanding" value="35.10" step="0.01" min="0" oninput="calculateAll()">
-                    </div>
-                </div>
-
-                <div id="gasAppliances"></div>
-            </div>
-        </div>
-
-        <div class="note">
-            <strong>Note:</strong> This calculator uses typical appliance power ratings and your estimated usage patterns. Actual costs may vary based on appliance efficiency, usage patterns, and your specific tariff rates. Default rates shown are based on the January 2026 Ofgem price cap.
-        </div>
-
-        <div class="note">
-            <strong>Verification of Consumption Values:</strong> All power consumption figures used in this calculator have been verified against multiple authoritative UK sources including:
-            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
-                <li>Ofgem (UK energy regulator) - typical domestic consumption values</li>
-                <li>Energy Saving Trust - appliance energy efficiency data</li>
-                <li>UK government Department for Business, Energy & Industrial Strategy (BEIS)</li>
-                <li>Centre for Sustainable Energy</li>
-                <li>Multiple UK energy suppliers (British Gas, OVO Energy, etc.)</li>
-            </ul>
-            Power ratings represent typical UK household appliances as of January 2025. Individual appliance specifications may vary by model, age, and efficiency rating.
-        </div>
-
-        <footer style="text-align: center; margin-top: 50px; padding: 30px 20px; background: var(--sp-slate); color: white; border-radius: 0;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                <span style="font-size: 1.6rem;">⚡</span>
-                <span style="font-size: 1.35rem; font-weight: 700;">SwitchPilot</span>
-            </div>
-            <p style="color: #94A3B8; margin-bottom: 5px; font-weight: 500;">Putting the power back in your hands</p>
-            <p style="color: #64748B; font-size: 0.9em;">Transparent energy education for UK households</p>
-        </footer>
+    <div class="region-bar">
+        <label for="postcodeInput">📍 Your Postcode:</label>
+        <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" maxlength="8" style="
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            width: 150px;
+            text-transform: uppercase;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        " onfocus="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 0 0 3px #ede9fe';" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none';">
+        <span id="regionHint" style="color: #64748b; font-size: 0.9rem;">Enter postcode to detect region</span>
     </div>
 
+    <div class="main-container">
+        <div class="card">
+            <h2>📊 Tariff Comparison</h2>
+            
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading tariff data...</p>
+            </div>
+
+            <div id="tariffContent" style="display: none;">
+                <div class="supplier-selector">
+                    <select id="supplierSelect" onchange="changeSupplier()">
+                        <option value="svt">⚠️ SVT Price Cap</option>
+                    </select>
+                </div>
+
+                <div class="current-rates">
+                    <div class="rate-box">
+                        <div class="label">⚡ Electricity</div>
+                        <div class="value" id="elecRateDisplay">24.50<span>p/kWh</span></div>
+                    </div>
+                    <div class="rate-box">
+                        <div class="label">🔥 Gas</div>
+                        <div class="value" id="gasRateDisplay">6.24<span>p/kWh</span></div>
+                    </div>
+                    <div class="rate-box">
+                        <div class="label">⚡ Standing</div>
+                        <div class="value" id="elecStandingDisplay">53.56<span>p/day</span></div>
+                    </div>
+                    <div class="rate-box">
+                        <div class="label">🔥 Standing</div>
+                        <div class="value" id="gasStandingDisplay">31.66<span>p/day</span></div>
+                    </div>
+                </div>
+
+                <div class="bill-summary">
+                    <div class="period-tabs">
+                        <button class="period-tab" onclick="setPeriod('day')">Daily</button>
+                        <button class="period-tab" onclick="setPeriod('week')">Weekly</button>
+                        <button class="period-tab active" onclick="setPeriod('month')">Monthly</button>
+                        <button class="period-tab" onclick="setPeriod('year')">Annual</button>
+                    </div>
+                    <div class="bill-amount" id="totalBill">£0<span>/mo</span></div>
+                    <div class="bill-breakdown" id="billBreakdown">Elec: £0 | Gas: £0 | Standing: £0</div>
+                </div>
+
+                <div class="comparison-banner">
+                    <div class="comparison-item current">
+                        <div class="label">Selected Tariff</div>
+                        <div class="amount" id="currentTariffCost">£0/yr</div>
+                    </div>
+                    <div class="comparison-vs">vs</div>
+                    <div class="comparison-item svt">
+                        <div class="label">SVT Price Cap</div>
+                        <div class="amount" id="svtCost">£0/yr</div>
+                    </div>
+                </div>
+                <div class="savings-badge" id="savingsBadge">You're saving £0/year</div>
+
+                <h2 style="margin-top: 25px;">💰 Best Deals in <span id="regionDisplay">London</span></h2>
+                <div class="chart-container">
+                    <canvas id="tariffChart"></canvas>
+                </div>
+                <p class="chart-hint">👆 Click a bar to select that supplier</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔌 Your Usage</h2>
+            
+            <div class="fuel-tabs">
+                <button class="fuel-tab active" id="elecTab" onclick="showFuel('elec')">⚡ Electricity</button>
+                <button class="fuel-tab" id="gasTab" onclick="showFuel('gas')">🔥 Gas</button>
+            </div>
+
+            <div id="elecAppliances" class="appliances-grid"></div>
+            <div id="gasAppliances" class="appliances-grid" style="display: none;"></div>
+        </div>
+
+        <div class="cta-section">
+            <h3>Stop overpaying for energy</h3>
+            <p>SwitchPilot automatically moves you to the best deal — set it and forget it.</p>
+            <a href="#waitlist" class="cta-btn">Join the Waitlist →</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <span>⚡</span>
+            <span>SwitchPilot</span>
+        </div>
+        <p>Putting the power back in your hands</p>
+    </footer>
+
     <script>
+        // SVT Price Cap (Jan 2026)
+        const SVT = { elec_unit: 24.50, elec_standing: 53.56, gas_unit: 6.24, gas_standing: 31.66 };
+
+        const supplierColors = {
+            'fuse_energy': '#ffb366',
+            'edf': '#ff8c00',
+            'eon_next': '#e4002b',
+            'scottish_power': '#7dd87d',
+            'ovo': '#00dc64',
+            'british_gas': '#0066cc',
+            'octopus': '#a855f7',
+            'svt': '#ef4444'
+        };
+
+        const supplierNames = {
+            'octopus': 'Octopus Energy',
+            'fuse_energy': 'Fuse Energy',
+            'eon_next': 'E.ON Next',
+            'british_gas': 'British Gas',
+            'ovo': 'OVO Energy',
+            'scottish_power': 'Scottish Power',
+            'edf': 'EDF'
+        };
+
+        const elecAppliances = [
+            { name: 'Fridge/Freezer', power: 0.15, unit: 'hours/day', max: 24, default: 24, id: 'fridge' },
+            { name: 'LED Lights', power: 0.06, unit: 'hours/day', max: 24, default: 6, id: 'lights' },
+            { name: 'TV', power: 0.1, unit: 'hours/day', max: 24, default: 4, id: 'tv' },
+            { name: 'Laptop/Computer', power: 0.075, unit: 'hours/day', max: 24, default: 6, id: 'computer' },
+            { name: 'Washing Machine', power: 1.5, unit: 'loads/week', max: 14, default: 4, id: 'washing' },
+            { name: 'Dishwasher', power: 1.2, unit: 'loads/week', max: 14, default: 3, id: 'dishwasher' },
+            { name: 'Kettle', power: 0.15, unit: 'boils/day', max: 20, default: 4, id: 'kettle' },
+            { name: 'Microwave', power: 0.8, unit: 'uses/day', max: 10, default: 2, id: 'microwave' },
+            { name: 'Electric Shower', power: 1.5, unit: 'mins/day', max: 60, default: 0, id: 'eshower' },
+            { name: 'Electric Heating', power: 2.0, unit: 'hours/day', max: 24, default: 0, id: 'eheating' },
+            { name: 'EV Charger', power: 7.0, unit: 'hours/week', max: 50, default: 0, id: 'evcharger' }
+        ];
+
         const gasAppliances = [
             { name: 'Gas Hob', power: 2.0, unit: 'hours/day', max: 4, default: 0.5, id: 'hob' },
             { name: 'Gas Oven', power: 2.5, unit: 'hours/day', max: 4, default: 0.5, id: 'oven' },
-            { name: 'Gas Shower', power: 10.0, unit: 'minutes/day', max: 120, default: 20, id: 'shower' },
-            { name: 'Gas Central Heating (Winter)', power: 15.0, unit: 'hours/day', max: 24, default: 4, id: 'heatingWinter', seasonal: 'winter', note: '❄️' },
-            { name: 'Gas Central Heating (Summer)', power: 15.0, unit: 'hours/day', max: 24, default: 0.5, id: 'heatingSummer', seasonal: 'summer', note: '☀️' }
+            { name: 'Gas Shower (Combi)', power: 10.0, unit: 'mins/day', max: 60, default: 15, id: 'gshower' },
+            { name: 'Central Heating (Winter)', power: 15.0, unit: 'hours/day', max: 24, default: 4, id: 'heating' },
+            { name: 'Hot Water (Non-Combi)', power: 3.0, unit: 'hours/day', max: 8, default: 0, id: 'hotwater' }
         ];
 
-        const elecAppliances = [
-            { name: 'Fridge/Freezer', power: 0.15, unit: 'hours/day', max: 24, default: 24, id: 'fridge', note: '(always on)', isFun: false },
-            { name: 'LED Lights', power: 0.06, unit: 'hours/day', max: 24, default: 6, id: 'lights', isFun: false },
-            { name: 'TV', power: 0.1, unit: 'hours/day', max: 24, default: 4, id: 'tv', isFun: false },
-            { name: 'Laptop/Computer', power: 0.075, unit: 'hours/day', max: 24, default: 6, id: 'computer', isFun: false },
-            { name: 'Phone Charging', power: 0.012, unit: 'charges/day', max: 10, default: 2, id: 'phone', isFun: false },
-            { name: 'Washing Machine', power: 1.5, unit: 'loads/week', max: 14, default: 4, id: 'washing', isFun: false },
-            { name: 'Dishwasher', power: 1.2, unit: 'loads/week', max: 14, default: 3, id: 'dishwasher', isFun: false },
-            { name: 'Microwave', power: 0.8, unit: 'uses/day', max: 10, default: 0, id: 'microwave', isFun: false },
-            { name: 'Kettle (Electric)', power: 0.15, unit: 'boils/day', max: 20, default: 4, id: 'ekettle', isFun: false },
-            { name: 'Immersion Heater', power: 3.0, unit: 'hours/day', max: 12, default: 0, id: 'immersion', isFun: false },
-            { name: 'Electric Heating', power: 2.0, unit: 'hours/day', max: 24, default: 0, id: 'eheating', isFun: false },
-            { name: 'Electric Shower', power: 1.5, unit: 'minutes/day', max: 120, default: 0, id: 'eshower', isFun: false },
-            { name: 'EV Charger', power: 7.0, unit: 'hours/week', max: 50, default: 0, id: 'evcharger', note: '', isFun: false },
-            // Essential additions
-            { name: 'Crypto Mining Rig', power: 3.5, unit: 'hours/day', max: 24, default: 0, id: 'crypto', note: '', isFun: true },
-            { name: 'Gaming PC Setup', power: 0.5, unit: 'hours/day', max: 24, default: 0, id: 'gamingpc', note: '(RTX 4090)', isFun: true },
-            { name: 'Hot Tub', power: 7.5, unit: 'hours/day', max: 24, default: 0, id: 'hottub', note: '', isFun: true },
-            { name: 'Aquarium with Heater', power: 0.15, unit: 'hours/day', max: 24, default: 0, id: 'aquarium', note: '', isFun: true },
-            { name: 'Electric Blanket', power: 0.1, unit: 'hours/day', max: 12, default: 0, id: 'blanket', note: '', isFun: true },
-            { name: 'Arcade Machine', power: 0.3, unit: 'hours/day', max: 24, default: 0, id: 'arcade', note: '', isFun: true },
-            { name: 'Christmas Lights', power: 0.025, unit: 'hours/day', max: 24, default: 0, id: 'xmaslights', note: '', isFun: true },
-            { name: 'Beer/Wine Fridge', power: 0.1, unit: 'hours/day', max: 24, default: 0, id: 'beerfridge', note: '', isFun: true },
-            { name: 'Electric Dehumidifier', power: 0.5, unit: 'hours/day', max: 24, default: 0, id: 'dehumidifier', isFun: true }
-        ];
+        // Postcode to region mapping
+        const postcodeRegions = {
+            'AB': 'North Scotland', 'IV': 'North Scotland', 'KW': 'North Scotland', 'PH': 'North Scotland', 'DD': 'North Scotland', 'FK': 'North Scotland',
+            'G': 'South Scotland', 'PA': 'South Scotland', 'KA': 'South Scotland', 'ML': 'South Scotland', 'EH': 'South Scotland', 'KY': 'South Scotland', 'TD': 'South Scotland', 'DG': 'South Scotland',
+            'NE': 'North East', 'DH': 'North East', 'SR': 'North East', 'TS': 'North East', 'DL': 'North East',
+            'YO': 'Yorkshire', 'HU': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire', 'HD': 'Yorkshire', 'HX': 'Yorkshire', 'WF': 'Yorkshire', 'LS': 'Yorkshire', 'BD': 'Yorkshire', 'HG': 'Yorkshire',
+            'M': 'North West', 'OL': 'North West', 'BL': 'North West', 'SK': 'North West', 'WN': 'North West', 'PR': 'North West', 'BB': 'North West', 'FY': 'North West', 'LA': 'North West', 'CA': 'North West', 'CW': 'North West',
+            'L': 'North Wales & Merseyside', 'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside', 'WA': 'North Wales & Merseyside',
+            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales',
+            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands', 'SY': 'West Midlands', 'WR': 'West Midlands', 'HR': 'West Midlands',
+            'DE': 'East Midlands', 'NG': 'East Midlands', 'LE': 'East Midlands', 'LN': 'East Midlands', 'PE': 'East Midlands', 'NN': 'East Midlands',
+            'IP': 'Eastern', 'NR': 'Eastern', 'CB': 'Eastern', 'CO': 'Eastern', 'CM': 'Eastern', 'SG': 'Eastern', 'AL': 'Eastern', 'EN': 'Eastern', 'SS': 'Eastern', 'RM': 'Eastern',
+            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+            'BN': 'South East', 'RH': 'South East', 'TN': 'South East', 'CT': 'South East', 'ME': 'South East', 'DA': 'South East', 'BR': 'South East', 'CR': 'South East', 'KT': 'South East', 'SM': 'South East', 'SL': 'South East', 'HP': 'South East', 'MK': 'South East', 'LU': 'South East', 'OX': 'South East', 'RG': 'South East', 'GU': 'South East',
+            'BH': 'Southern', 'SO': 'Southern', 'PO': 'Southern', 'SP': 'Southern',
+            'PL': 'South West', 'TR': 'South West', 'EX': 'South West', 'TQ': 'South West', 'DT': 'South West', 'BA': 'South West', 'TA': 'South West', 'BS': 'South West', 'GL': 'South West', 'SN': 'South West'
+        };
 
-        let currentPeriod = 'day';
-        let periodMultiplier = 1;
-        let showFunAppliances = false;
-        let currentSeason = 'summer'; // Which season to display for daily/weekly/monthly
-
-        function formatCurrency(amount) {
-            const formatted = amount.toFixed(2);
-            const parts = formatted.split('.');
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            return `£${parts.join('.')}`;
+        function detectRegion(postcode) {
+            const cleaned = postcode.replace(/\s/g, '').toUpperCase();
+            for (let len = 3; len >= 1; len--) {
+                const prefix = cleaned.substring(0, len);
+                if (postcodeRegions[prefix]) return postcodeRegions[prefix];
+            }
+            return null;
         }
 
-        function setSeason(season) {
-            currentSeason = season;
+        let allTariffs = [];
+        let regionalTariffs = [];
+        let currentRegion = 'London';
+        let currentTariff = null;
+        let currentPeriod = 'month';
+        let periodMultiplier = 30;
+        let tariffChart = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createAppliances();
+            loadTariffData();
             
-            // Update button states
-            document.querySelectorAll('.season-btn').forEach(btn => {
-                btn.classList.remove('active');
+            // Postcode input listener
+            document.getElementById('postcodeInput').addEventListener('input', function() {
+                const postcode = this.value;
+                const hint = document.getElementById('regionHint');
+                const region = detectRegion(postcode);
+                
+                if (region) {
+                    currentRegion = region;
+                    hint.textContent = '✓ ' + region;
+                    hint.style.color = '#10b981';
+                    
+                    // Re-filter tariffs for new region
+                    if (allTariffs.length > 0) {
+                        changeRegion();
+                    }
+                } else if (postcode.length >= 2) {
+                    hint.textContent = '⚠ Region not found';
+                    hint.style.color = '#ef4444';
+                } else {
+                    hint.textContent = 'Enter postcode to detect region';
+                    hint.style.color = '#64748b';
+                }
             });
-            
-            if (season === 'summer') {
-                document.getElementById('summerBtn').classList.add('active');
-                document.getElementById('seasonLabel').textContent = 'Summer';
-            } else {
-                document.getElementById('winterBtn').classList.add('active');
-                document.getElementById('seasonLabel').textContent = 'Winter';
+        });
+
+        async function loadTariffData() {
+            try {
+                const response = await fetch('./all_tariffs.json');
+                const data = await response.json();
+                
+                allTariffs = (data.tariffs || data).filter(t => 
+                    !t.error && 
+                    t.elec_unit_rate_p && 
+                    t.gas_unit_rate_p &&
+                    supplierNames[t.supplier]
+                );
+
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('tariffContent').style.display = 'block';
+                
+                // Set default region and load
+                currentRegion = 'London';
+                changeRegion();
+            } catch (e) {
+                console.error('Failed to load tariff data:', e);
+                document.getElementById('loadingState').innerHTML = `
+                    <p style="color: var(--sp-red);">Failed to load tariff data. Please refresh.</p>
+                `;
             }
+        }
+
+        function createAppliances() {
+            const elecContainer = document.getElementById('elecAppliances');
+            const gasContainer = document.getElementById('gasAppliances');
+
+            elecAppliances.forEach(app => {
+                elecContainer.innerHTML += createApplianceHTML(app);
+            });
+
+            gasAppliances.forEach(app => {
+                gasContainer.innerHTML += createApplianceHTML(app);
+            });
+        }
+
+        function createApplianceHTML(app) {
+            return `
+                <div class="appliance">
+                    <div class="appliance-header">
+                        <span class="appliance-name">${app.name}</span>
+                        <span class="appliance-cost" id="${app.id}-cost">£0.00</span>
+                    </div>
+                    <input type="range" id="${app.id}" min="0" max="${app.max}" value="${app.default}" step="0.5" 
+                           oninput="updateAppliance('${app.id}')">
+                    <div class="appliance-usage">
+                        <span><span id="${app.id}-value">${app.default}</span> ${app.unit}</span>
+                        <span>${app.power} kWh/${app.unit.split('/')[0]}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showFuel(fuel) {
+            document.getElementById('elecAppliances').style.display = fuel === 'elec' ? 'grid' : 'none';
+            document.getElementById('gasAppliances').style.display = fuel === 'gas' ? 'grid' : 'none';
+            document.getElementById('elecTab').classList.toggle('active', fuel === 'elec');
+            document.getElementById('gasTab').classList.toggle('active', fuel === 'gas');
+        }
+
+        function changeRegion() {
+            // Update region display
+            document.getElementById('regionDisplay').textContent = currentRegion;
+            
+            // Get best tariff per supplier for this region
+            regionalTariffs = [];
+            const seenSuppliers = new Set();
+            
+            allTariffs
+                .filter(t => t.region === currentRegion)
+                .sort((a, b) => a.elec_unit_rate_p - b.elec_unit_rate_p)
+                .forEach(t => {
+                    if (!seenSuppliers.has(t.supplier)) {
+                        seenSuppliers.add(t.supplier);
+                        regionalTariffs.push(t);
+                    }
+                });
+
+            populateSuppliers();
+            calculateAll();
+        }
+
+        function populateSuppliers() {
+            const select = document.getElementById('supplierSelect');
+            select.innerHTML = '<option value="svt">⚠️ SVT Price Cap</option>';
+            
+            regionalTariffs.forEach((t, i) => {
+                select.innerHTML += `<option value="${i}">${supplierNames[t.supplier]}</option>`;
+            });
+
+            // Auto-select cheapest
+            if (regionalTariffs.length > 0) {
+                select.value = findCheapestIndex();
+            }
+            
+            changeSupplier();
+        }
+
+        function changeSupplier() {
+            const value = document.getElementById('supplierSelect').value;
+            
+            if (value === 'svt') {
+                currentTariff = {
+                    supplier: 'svt',
+                    elec_unit_rate_p: SVT.elec_unit,
+                    elec_standing_p: SVT.elec_standing,
+                    gas_unit_rate_p: SVT.gas_unit,
+                    gas_standing_p: SVT.gas_standing
+                };
+            } else {
+                currentTariff = regionalTariffs[parseInt(value)];
+            }
+
+            updateRatesDisplay();
+            calculateAll();
+        }
+
+        function updateRatesDisplay() {
+            if (!currentTariff) return;
+            
+            document.getElementById('elecRateDisplay').innerHTML = 
+                `${currentTariff.elec_unit_rate_p.toFixed(2)}<span>p/kWh</span>`;
+            document.getElementById('gasRateDisplay').innerHTML = 
+                `${currentTariff.gas_unit_rate_p.toFixed(2)}<span>p/kWh</span>`;
+            document.getElementById('elecStandingDisplay').innerHTML = 
+                `${currentTariff.elec_standing_p.toFixed(1)}<span>p/day</span>`;
+            document.getElementById('gasStandingDisplay').innerHTML = 
+                `${currentTariff.gas_standing_p.toFixed(1)}<span>p/day</span>`;
+        }
+
+        function setPeriod(period) {
+            currentPeriod = period;
+            periodMultiplier = { day: 1, week: 7, month: 30, year: 365 }[period];
+
+            document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
             
             calculateAll();
         }
 
-        function createAppliances() {
-            const gasContainer = document.getElementById('gasAppliances');
-            const elecContainer = document.getElementById('elecAppliances');
-
-            gasAppliances.forEach(app => {
-                const div = document.createElement('div');
-                div.className = 'appliance';
-                const noteText = app.note || '';
-                div.innerHTML = `
-                    <div class="appliance-header">
-                        <span class="appliance-name">${app.name} ${noteText}</span>
-                        <span class="appliance-power">${app.power} kWh per ${app.unit.split('/')[0]}</span>
-                    </div>
-                    <div class="slider-container">
-                        <input type="range" id="${app.id}" min="0" max="${app.max}" value="${app.default}" step="0.1" oninput="updateAppliance('${app.id}', 'gas')">
-                    </div>
-                    <div class="usage-display">
-                        <span><span id="${app.id}-value">${app.default}</span> ${app.unit}</span>
-                        <span class="cost-display" id="${app.id}-cost">£0.00</span>
-                    </div>
-                `;
-                gasContainer.appendChild(div);
-            });
-
-            elecAppliances.forEach(app => {
-                const div = document.createElement('div');
-                div.className = app.isFun ? 'appliance fun-appliance' : 'appliance';
-                if (app.isFun) {
-                    div.style.display = 'none';
-                }
-                const noteText = app.note || '';
-                div.innerHTML = `
-                    <div class="appliance-header">
-                        <span class="appliance-name">${app.name} ${noteText}</span>
-                        <span class="appliance-power">${app.power} kWh per ${app.unit.split('/')[0]}</span>
-                    </div>
-                    <div class="slider-container">
-                        <input type="range" id="${app.id}" min="0" max="${app.max}" value="${app.default}" step="0.1" oninput="updateAppliance('${app.id}', 'elec')">
-                    </div>
-                    <div class="usage-display">
-                        <span><span id="${app.id}-value">${app.default}</span> ${app.unit}</span>
-                        <span class="cost-display" id="${app.id}-cost">£0.00</span>
-                    </div>
-                `;
-                elecContainer.appendChild(div);
-            });
-        }
-
-        function updateAppliance(id, type) {
+        function updateAppliance(id) {
             const value = document.getElementById(id).value;
             document.getElementById(`${id}-value`).textContent = parseFloat(value).toFixed(1);
             calculateAll();
         }
 
-        function toggleFunAppliances() {
-            showFunAppliances = !showFunAppliances;
-            const funAppliances = document.querySelectorAll('.fun-appliance');
-            const toggleBtn = document.getElementById('funToggle');
-            const funNote = document.getElementById('funNote');
-            
-            funAppliances.forEach(appliance => {
-                appliance.style.display = showFunAppliances ? 'block' : 'none';
+        function calculateDailyKwh(appliances, type) {
+            let total = 0;
+            const rate = type === 'elec' ? currentTariff.elec_unit_rate_p : currentTariff.gas_unit_rate_p;
+
+            appliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id).value);
+                let dailyKwh = 0;
+
+                if (app.unit.includes('week')) dailyKwh = (value / 7) * app.power;
+                else if (app.unit.includes('mins')) dailyKwh = (value / 60) * app.power;
+                else dailyKwh = value * app.power;
+
+                const periodCost = (dailyKwh * periodMultiplier * rate) / 100;
+                document.getElementById(`${app.id}-cost`).textContent = `£${periodCost.toFixed(2)}`;
+                
+                total += dailyKwh;
             });
 
-            funNote.style.display = showFunAppliances ? 'block' : 'none';
-
-            if (showFunAppliances) {
-                toggleBtn.textContent = '😎 Hide Essential Additions';
-                toggleBtn.style.background = '#059669';
-            } else {
-                toggleBtn.textContent = '🎉 Show Essential Additions';
-                toggleBtn.style.background = '#10B981';
-            }
+            return total;
         }
 
-        function setPeriod(period) {
-            currentPeriod = period;
-            
-            // Update button states
-            document.querySelectorAll('.period-btn:not(.season-btn)').forEach(btn => {
-                btn.classList.remove('active');
+        function calculateDailyKwhRaw(appliances) {
+            let total = 0;
+            appliances.forEach(app => {
+                const value = parseFloat(document.getElementById(app.id)?.value || app.default);
+                if (app.unit.includes('week')) total += (value / 7) * app.power;
+                else if (app.unit.includes('mins')) total += (value / 60) * app.power;
+                else total += value * app.power;
             });
-            event.target.classList.add('active');
-
-            // Set multiplier
-            if (period === 'day') periodMultiplier = 1;
-            else if (period === 'week') periodMultiplier = 7;
-            else if (period === 'month') periodMultiplier = 30;
-            else if (period === 'year') periodMultiplier = 365;
-
-            // Show/hide season toggle
-            const seasonToggle = document.getElementById('seasonToggle');
-            const seasonNote = document.getElementById('seasonNote');
-            
-            if (period === 'year') {
-                // Hide season toggle for annual view
-                seasonToggle.style.display = 'none';
-                seasonNote.style.display = 'none';
-            } else {
-                // Show season toggle for daily/weekly/monthly
-                seasonToggle.style.display = 'flex';
-                seasonNote.style.display = 'block';
-            }
-
-            calculateAll();
+            return total;
         }
 
         function calculateAll() {
-            const gasRate = parseFloat(document.getElementById('gasRate').value) / 100;
-            const gasStanding = parseFloat(document.getElementById('gasStanding').value) / 100;
-            const elecRate = parseFloat(document.getElementById('elecRate').value) / 100;
-            const elecStanding = parseFloat(document.getElementById('elecStanding').value) / 100;
+            if (!currentTariff) return;
 
-            let totalGasUsage = 0;
-            let totalElecUsage = 0;
+            const elecKwhDaily = calculateDailyKwh(elecAppliances, 'elec');
+            const gasKwhDaily = calculateDailyKwh(gasAppliances, 'gas');
 
-            // Calculate gas appliances
-            gasAppliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id).value);
-                let dailyKwh = 0;
+            const elecUsageCost = (elecKwhDaily * periodMultiplier * currentTariff.elec_unit_rate_p) / 100;
+            const gasUsageCost = (gasKwhDaily * periodMultiplier * currentTariff.gas_unit_rate_p) / 100;
+            const elecStandingCost = (currentTariff.elec_standing_p * periodMultiplier) / 100;
+            const gasStandingCost = (currentTariff.gas_standing_p * periodMultiplier) / 100;
 
-                if (app.unit.includes('hours')) {
-                    dailyKwh = value * app.power;
-                } else if (app.unit.includes('minutes')) {
-                    dailyKwh = (value / 60) * app.power;
-                } else if (app.unit.includes('boils') || app.unit.includes('uses')) {
-                    dailyKwh = value * app.power;
+            const totalCost = elecUsageCost + gasUsageCost + elecStandingCost + gasStandingCost;
+
+            const periodSuffix = { day: '/day', week: '/wk', month: '/mo', year: '/yr' }[currentPeriod];
+            document.getElementById('totalBill').innerHTML = `£${totalCost.toFixed(0)}<span>${periodSuffix}</span>`;
+            document.getElementById('billBreakdown').textContent = 
+                `Elec: £${elecUsageCost.toFixed(0)} | Gas: £${gasUsageCost.toFixed(0)} | Standing: £${(elecStandingCost + gasStandingCost).toFixed(0)}`;
+
+            // Annual comparison
+            const annualCurrent = calcAnnualCost(currentTariff, elecKwhDaily, gasKwhDaily);
+            const annualSVT = calcAnnualCost({
+                elec_unit_rate_p: SVT.elec_unit,
+                gas_unit_rate_p: SVT.gas_unit,
+                elec_standing_p: SVT.elec_standing,
+                gas_standing_p: SVT.gas_standing
+            }, elecKwhDaily, gasKwhDaily);
+
+            document.getElementById('currentTariffCost').textContent = `£${Math.round(annualCurrent)}/yr`;
+            document.getElementById('svtCost').textContent = `£${Math.round(annualSVT)}/yr`;
+
+            const savings = annualSVT - annualCurrent;
+            const savingsBadge = document.getElementById('savingsBadge');
+            if (savings > 0) {
+                savingsBadge.textContent = `✓ You're saving £${Math.round(savings)}/year vs SVT`;
+                savingsBadge.style.background = 'var(--sp-green)';
+            } else if (savings < 0) {
+                savingsBadge.textContent = `⚠️ £${Math.round(Math.abs(savings))}/year more than SVT`;
+                savingsBadge.style.background = 'var(--sp-red)';
+            } else {
+                savingsBadge.textContent = `Same as SVT`;
+                savingsBadge.style.background = '#94a3b8';
+            }
+
+            updateChart();
+        }
+
+        function calcAnnualCost(tariff, elecKwhDaily, gasKwhDaily) {
+            return ((elecKwhDaily * 365 * tariff.elec_unit_rate_p) + 
+                   (gasKwhDaily * 365 * tariff.gas_unit_rate_p) +
+                   (tariff.elec_standing_p * 365) +
+                   (tariff.gas_standing_p * 365)) / 100;
+        }
+
+        function findCheapestIndex() {
+            const elecKwhDaily = calculateDailyKwhRaw(elecAppliances);
+            const gasKwhDaily = calculateDailyKwhRaw(gasAppliances);
+
+            let cheapestIdx = 0;
+            let lowestCost = Infinity;
+
+            regionalTariffs.forEach((t, i) => {
+                const cost = calcAnnualCost(t, elecKwhDaily, gasKwhDaily);
+                if (cost < lowestCost) {
+                    lowestCost = cost;
+                    cheapestIdx = i;
                 }
+            });
 
-                let periodKwh = 0;
-                
-                // Handle seasonal heating
-                if (app.seasonal) {
-                    if (currentPeriod === 'year') {
-                        // Annual: include this season's contribution
-                        if (app.seasonal === 'winter') {
-                            periodKwh = dailyKwh * 120; // 4 months
-                        } else {
-                            periodKwh = dailyKwh * 245; // 8 months
+            return cheapestIdx;
+        }
+
+        function updateChart() {
+            const elecKwhDaily = calculateDailyKwhRaw(elecAppliances);
+            const gasKwhDaily = calculateDailyKwhRaw(gasAppliances);
+
+            const chartData = regionalTariffs.map(t => ({
+                supplier: t.supplier,
+                name: supplierNames[t.supplier],
+                cost: calcAnnualCost(t, elecKwhDaily, gasKwhDaily),
+                tariff: t
+            }));
+
+            // Add SVT
+            chartData.push({
+                supplier: 'svt',
+                name: 'SVT Price Cap',
+                cost: calcAnnualCost({
+                    elec_unit_rate_p: SVT.elec_unit,
+                    gas_unit_rate_p: SVT.gas_unit,
+                    elec_standing_p: SVT.elec_standing,
+                    gas_standing_p: SVT.gas_standing
+                }, elecKwhDaily, gasKwhDaily),
+                tariff: null
+            });
+
+            chartData.sort((a, b) => a.cost - b.cost);
+
+            const ctx = document.getElementById('tariffChart').getContext('2d');
+            
+            if (tariffChart) tariffChart.destroy();
+
+            tariffChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.map(d => d.name),
+                    datasets: [{
+                        data: chartData.map(d => Math.round(d.cost)),
+                        backgroundColor: chartData.map(d => 
+                            d.tariff === currentTariff || (d.supplier === 'svt' && currentTariff?.supplier === 'svt')
+                                ? supplierColors[d.supplier] 
+                                : supplierColors[d.supplier] + '60'
+                        ),
+                        borderColor: chartData.map(d => 
+                            d.tariff === currentTariff || (d.supplier === 'svt' && currentTariff?.supplier === 'svt')
+                                ? supplierColors[d.supplier] 
+                                : 'transparent'
+                        ),
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { label: ctx => `£${ctx.raw}/year` }
                         }
-                    } else {
-                        // Daily/Weekly/Monthly: only show if this matches current season
-                        if (app.seasonal === currentSeason) {
-                            periodKwh = dailyKwh * periodMultiplier;
-                        } else {
-                            periodKwh = 0; // Don't count the other season
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { callback: v => `£${v}` }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12 } }
+                        }
+                    },
+                    onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const item = chartData[elements[0].index];
+                            const select = document.getElementById('supplierSelect');
+                            
+                            if (item.supplier === 'svt') {
+                                select.value = 'svt';
+                            } else {
+                                const idx = regionalTariffs.indexOf(item.tariff);
+                                select.value = idx;
+                            }
+                            changeSupplier();
                         }
                     }
-                } else {
-                    // Non-seasonal appliances: always use standard calculation
-                    periodKwh = dailyKwh * periodMultiplier;
                 }
-                
-                const cost = periodKwh * gasRate;
-                totalGasUsage += cost;
-
-                document.getElementById(`${app.id}-cost`).textContent = formatCurrency(cost);
             });
 
-            // Calculate electricity appliances
-            elecAppliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id).value);
-                let dailyKwh = 0;
-
-                if (app.unit.includes('week')) {
-                    // Weekly usage items
-                    dailyKwh = (value / 7) * app.power;
-                } else if (app.unit.includes('hours')) {
-                    dailyKwh = value * app.power;
-                } else if (app.unit.includes('minutes')) {
-                    dailyKwh = (value / 60) * app.power;
-                } else if (app.unit.includes('charges') || app.unit.includes('boils') || app.unit.includes('uses')) {
-                    dailyKwh = value * app.power;
-                }
-
-                const periodKwh = dailyKwh * periodMultiplier;
-                const cost = periodKwh * elecRate;
-                totalElecUsage += cost;
-
-                document.getElementById(`${app.id}-cost`).textContent = formatCurrency(cost);
-            });
-
-            // Calculate standing charges
-            const gasStandingTotal = gasStanding * periodMultiplier;
-            const elecStandingTotal = elecStanding * periodMultiplier;
-
-            // Update summary
-            document.getElementById('gasUsageCost').textContent = formatCurrency(totalGasUsage);
-            document.getElementById('gasStandingCost').textContent = formatCurrency(gasStandingTotal);
-            document.getElementById('elecUsageCost').textContent = formatCurrency(totalElecUsage);
-            document.getElementById('elecStandingCost').textContent = formatCurrency(elecStandingTotal);
-
-            const grandTotal = totalGasUsage + gasStandingTotal + totalElecUsage + elecStandingTotal;
-            document.getElementById('totalCost').textContent = formatCurrency(grandTotal);
-
-            // Calculate annual usage for Direct Debit comparison (always based on daily usage)
-            calculateAnnualComparison();
+            tariffChart.chartData = chartData;
         }
-
-        function calculateAnnualComparison() {
-            const gasRate = parseFloat(document.getElementById('gasRate').value) / 100;
-            const gasStanding = parseFloat(document.getElementById('gasStanding').value) / 100;
-            const elecRate = parseFloat(document.getElementById('elecRate').value) / 100;
-            const elecStanding = parseFloat(document.getElementById('elecStanding').value) / 100;
-            
-            const ddAmount = parseFloat(document.getElementById('ddAmount').value) || 0;
-            const annualDD = ddAmount * 12;
-            
-            // Calculate daily totals from appliances
-            let dailyGasUsage = 0;
-            let dailyElecUsage = 0;
-            
-            gasAppliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id).value);
-                let dailyKwh = 0;
-                if (app.unit.includes('hours')) {
-                    dailyKwh = value * app.power;
-                } else if (app.unit.includes('minutes')) {
-                    dailyKwh = (value / 60) * app.power;
-                } else if (app.unit.includes('boils') || app.unit.includes('uses')) {
-                    dailyKwh = value * app.power;
-                }
-                
-                // For seasonal heating, calculate based on their seasonal duration
-                let annualKwh = 0;
-                if (app.seasonal === 'winter') {
-                    annualKwh = dailyKwh * 120; // 4 months = 120 days
-                } else if (app.seasonal === 'summer') {
-                    annualKwh = dailyKwh * 245; // 8 months = 245 days
-                } else {
-                    annualKwh = dailyKwh * 365;
-                }
-                
-                dailyGasUsage += (annualKwh / 365) * gasRate;
-            });
-            
-            elecAppliances.forEach(app => {
-                const value = parseFloat(document.getElementById(app.id).value);
-                let dailyKwh = 0;
-                if (app.unit.includes('week')) {
-                    dailyKwh = (value / 7) * app.power;
-                } else if (app.unit.includes('hours')) {
-                    dailyKwh = value * app.power;
-                } else if (app.unit.includes('minutes')) {
-                    dailyKwh = (value / 60) * app.power;
-                } else if (app.unit.includes('charges') || app.unit.includes('boils') || app.unit.includes('uses')) {
-                    dailyKwh = value * app.power;
-                }
-                dailyElecUsage += dailyKwh * elecRate;
-            });
-            
-            // Calculate annual usage based on daily usage × 365
-            const annualUsage = (dailyGasUsage + dailyElecUsage) * 365;
-            const annualStanding = (gasStanding + elecStanding) * 365;
-            const estimatedAnnualUsage = annualUsage + annualStanding;
-            
-            // Calculate year-end balance
-            const yearEndBalance = annualDD - estimatedAnnualUsage;
-            
-            // Update display
-            document.getElementById('annualDD').textContent = formatCurrency(annualDD).replace('.00', '');
-            document.getElementById('annualUsage').textContent = formatCurrency(estimatedAnnualUsage).replace('.00', '');
-            
-            const balanceElement = document.getElementById('yearEndBalance');
-            
-            if (yearEndBalance > 0) {
-                balanceElement.style.color = 'var(--sp-green)';
-                balanceElement.textContent = '+' + formatCurrency(yearEndBalance).replace('.00', '');
-            } else if (yearEndBalance < 0) {
-                balanceElement.style.color = '#EF4444';
-                balanceElement.textContent = '-' + formatCurrency(Math.abs(yearEndBalance)).replace('.00', '');
-            } else {
-                balanceElement.style.color = 'var(--sp-slate)';
-                balanceElement.textContent = formatCurrency(0).replace('.00', '');
-            }
-        }
-
-        // Initialize
-        createAppliances();
-        calculateAll();
     </script>
 </body>
 </html>

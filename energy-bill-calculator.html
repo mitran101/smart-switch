@@ -719,8 +719,34 @@
     </footer>
 
     <script>
-        // SVT Price Cap (Jan 2026)
-        const SVT = { elec_unit: 24.50, elec_standing: 53.56, gas_unit: 6.24, gas_standing: 31.66 };
+        // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
+        const capRatesByRegion = {
+            'London': { elecUnit: 27.00, elecStanding: 47.11, gasUnit: 6.03, gasStanding: 35.63 },
+            'South East': { elecUnit: 28.27, elecStanding: 48.66, gasUnit: 5.83, gasStanding: 34.68 },
+            'Southern': { elecUnit: 27.83, elecStanding: 45.70, gasUnit: 6.00, gasStanding: 34.56 },
+            'South West': { elecUnit: 28.16, elecStanding: 55.11, gasUnit: 6.15, gasStanding: 34.71 },
+            'South Wales': { elecUnit: 28.18, elecStanding: 52.75, gasUnit: 6.11, gasStanding: 35.35 },
+            'Eastern': { elecUnit: 27.88, elecStanding: 49.33, gasUnit: 5.87, gasStanding: 34.74 },
+            'East Midlands': { elecUnit: 26.89, elecStanding: 50.17, gasUnit: 5.79, gasStanding: 34.82 },
+            'West Midlands': { elecUnit: 26.99, elecStanding: 54.08, gasUnit: 5.85, gasStanding: 35.12 },
+            'North West': { elecUnit: 28.45, elecStanding: 52.22, gasUnit: 5.89, gasStanding: 35.23 },
+            'North East': { elecUnit: 26.75, elecStanding: 60.93, gasUnit: 5.93, gasStanding: 35.21 },
+            'Yorkshire': { elecUnit: 26.69, elecStanding: 59.72, gasUnit: 5.90, gasStanding: 35.18 },
+            'North Wales & Merseyside': { elecUnit: 29.09, elecStanding: 71.01, gasUnit: 5.94, gasStanding: 35.49 },
+            'South Scotland': { elecUnit: 27.18, elecStanding: 57.62, gasUnit: 5.89, gasStanding: 35.30 },
+            'North Scotland': { elecUnit: 28.36, elecStanding: 62.07, gasUnit: 5.89, gasStanding: 35.28 }
+        };
+        
+        // Helper to get current region's SVT rates
+        function getSVT() {
+            const rates = capRatesByRegion[currentRegion] || capRatesByRegion['London'];
+            return {
+                elec_unit_rate_p: rates.elecUnit,
+                elec_standing_p: rates.elecStanding,
+                gas_unit_rate_p: rates.gasUnit,
+                gas_standing_p: rates.gasStanding
+            };
+        }
 
         const supplierColors = {
             'fuse_energy': '#ffb366',
@@ -989,12 +1015,10 @@
             const value = document.getElementById('supplierSelect').value;
             
             if (value === 'svt') {
+                const svt = getSVT();
                 currentTariff = {
                     supplier: 'svt',
-                    elec_unit_rate_p: SVT.elec_unit,
-                    elec_standing_p: SVT.elec_standing,
-                    gas_unit_rate_p: SVT.gas_unit,
-                    gas_standing_p: SVT.gas_standing
+                    ...svt
                 };
             } else {
                 currentTariff = regionalTariffs[parseInt(value)];
@@ -1082,12 +1106,7 @@
 
             // Annual comparison
             const annualCurrent = calcAnnualCostFromKwh(currentTariff, elecKwhAnnual, gasKwhAnnual);
-            const annualSVT = calcAnnualCostFromKwh({
-                elec_unit_rate_p: SVT.elec_unit,
-                gas_unit_rate_p: SVT.gas_unit,
-                elec_standing_p: SVT.elec_standing,
-                gas_standing_p: SVT.gas_standing
-            }, elecKwhAnnual, gasKwhAnnual);
+            const annualSVT = calcAnnualCostFromKwh(getSVT(), elecKwhAnnual, gasKwhAnnual);
 
             document.getElementById('currentTariffCost').textContent = `£${Math.round(annualCurrent)}/yr`;
             document.getElementById('svtCost').textContent = `£${Math.round(annualSVT)}/yr`;
@@ -1182,12 +1201,7 @@
             chartData.push({
                 supplier: 'svt',
                 name: 'SVT Price Cap',
-                cost: calcAnnualCostFromKwh({
-                    elec_unit_rate_p: SVT.elec_unit,
-                    gas_unit_rate_p: SVT.gas_unit,
-                    elec_standing_p: SVT.elec_standing,
-                    gas_standing_p: SVT.gas_standing
-                }, elecKwhAnnual, gasKwhAnnual),
+                cost: calcAnnualCostFromKwh(getSVT(), elecKwhAnnual, gasKwhAnnual),
                 tariff: null
             });
 

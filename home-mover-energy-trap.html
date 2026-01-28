@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Home Mover's Energy Trap: Why Millions Overpay After Moving House | SwitchPilot</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-purple: #8b5cf6;
+            --sp-purple-dark: #7c3aed;
+            --sp-pink: #EC4899;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+            --sp-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+        }
+
+        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
+        .top-logo span { font-size: 1.35rem; }
+
+        .back-home {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            color: var(--sp-slate);
+            margin: 1.75rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--sp-purple);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Stat */
+        .hero-stat {
+            background: var(--sp-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid var(--sp-purple);
+        }
+
+        .hero-stat-number {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 1.25rem;
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        .hero-stat-sublabel {
+            font-size: 1rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.5rem;
+        }
+
+        .stat-box {
+            background: var(--sp-card);
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.75rem 2rem;
+            margin: 1.75rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--sp-purple);
+            margin-bottom: 0.5rem;
+            font-family: 'DM Serif Display', Georgia, serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--sp-slate-light);
+            line-height: 1.5;
+        }
+
+        /* Chart containers */
+        .chart-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .chart-card h4 {
+            font-size: 1.1rem;
+            color: var(--sp-slate);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 180px;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.75rem 0;
+        }
+
+        .warning-box h4 {
+            color: #b45309;
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .warning-box p {
+            color: var(--sp-slate);
+            margin-bottom: 0.75rem;
+        }
+
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning-box ul {
+            color: var(--sp-slate);
+        }
+
+        .tip-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.75rem 0;
+        }
+
+        .tip-box h4 {
+            color: var(--sp-green-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .tip-box p {
+            color: var(--sp-slate);
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-box ul {
+            color: var(--sp-slate);
+        }
+
+        ul, ol {
+            margin: 1.25rem 0 1.5rem 1.5rem;
+            color: var(--sp-slate-light);
+        }
+
+        li {
+            margin-bottom: 0.65rem;
+        }
+
+        .step-container {
+            background: var(--sp-card);
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .step-container h3 {
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .step-container ul {
+            color: var(--sp-slate-light);
+        }
+
+        .step-container p {
+            color: var(--sp-slate-light);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.75rem 0;
+        }
+
+        .comparison-card {
+            background: var(--sp-card);
+            padding: 1.75rem;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .comparison-card h4 {
+            color: var(--sp-purple);
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .comparison-card p {
+            color: var(--sp-slate-light);
+        }
+
+        .comparison-card ul {
+            color: var(--sp-slate-light);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+            text-decoration: none;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 1.75rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--sp-purple);
+            border: 3px solid var(--sp-bg);
+        }
+
+        .timeline-item h3 {
+            color: var(--sp-slate);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-item p {
+            color: var(--sp-slate-light);
+            margin-bottom: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #E2E8F0;
+            margin: 3rem 0 2rem;
+        }
+
+        .sources {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--sp-slate);
+            color: #94a3b8;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo img { height: 2.5rem; width: auto; margin-right: -10px; }
+        .footer-logo span { font-size: 1.25rem; font-weight: 700; color: white; }
+
+        .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
+        .footer a { color: var(--sp-purple); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 2.5rem; }
+            .top-logo span { font-size: 1.25rem; }
+            .back-home { padding: 0.5rem 1rem; font-size: 0.8rem; }
+
+            .article-header {
+                padding: 3rem 1.5rem 2rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2.25rem;
+            }
+
+            .hero-stat-number {
+                font-size: 3.5rem;
+            }
+
+            .meta {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-content">
+            <span class="tag">Consumer Education</span>
+            <h1>The Home Mover's Energy Trap: Why Millions Overpay After Moving House</h1>
+            <p class="subtitle">Understanding deemed contracts, new build supplier inertia, and how moving house could be costing you hundreds</p>
+            <div class="meta">
+                <span>📅 January 2026</span>
+                <span>⏱️ 8 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <p>Moving house is consistently ranked as one of life's most stressful events. Between coordinating removal vans, updating your address with countless organisations, and actually unpacking everything, it's no wonder that energy bills often fall to the bottom of the priority list. But this understandable oversight is costing UK households millions of pounds every year.</p>
+
+        <p>The problem? When you move into a new property, you automatically inherit the previous occupant's energy supplier on an expensive "deemed contract" – and the vast majority of people simply never get around to switching.</p>
+
+        <h2>The Scale of the Problem</h2>
+
+        <p>While precise statistics on home mover switching rates are difficult to pin down, industry data paints a concerning picture of widespread supplier inertia:</p>
+
+        <div class="stat-box">
+            <div class="stat-number">£200-250</div>
+            <div class="stat-label">Typical annual savings available by switching from SVT/deemed contracts to the best fixed deals on the market</div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.75rem; margin-bottom: 0;"><strong>Note:</strong> Based on Ofgem's typical dual fuel household (2,700 kWh electricity, 11,500 kWh gas). Larger households using more energy would save proportionally more.</p>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-number">17-21 days</div>
+            <div class="stat-label">Time it takes to complete a switch to a better tariff – but most home movers never start the process</div>
+        </div>
+
+        <p>In 2024, approximately 3 million UK customers voluntarily switched electricity suppliers across the entire year. However, according to the UK government, there are roughly <strong>1.2 million residential property transactions annually</strong> in England and Wales alone. Even accounting for the fact that some movers do switch, the disparity suggests that a substantial proportion of home movers remain with their inherited supplier on expensive default rates.</p>
+
+        <h2>What Happens When You Move: The "Deemed Contract" Trap</h2>
+
+        <p>Here's what actually happens from an energy supply perspective when you move into a property:</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Day 1: Moving In</h3>
+                <p>You take ownership or start your tenancy. The property already has an energy supplier – whoever the previous occupant used.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Immediately</h3>
+                <p>You're automatically placed on a "deemed contract" with that supplier. This is their <strong>default or standard variable tariff</strong>, which is almost always more expensive than deals they actively market to new customers.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>First Bill</h3>
+                <p>You receive your first bill based on SVT rates – the price cap maximum. Most people simply pay it without realising they could be on a cheaper fixed deal.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Months Later</h3>
+                <p>The intention to "sort out energy" remains on the mental to-do list, but never quite makes it to the top. Meanwhile, you're missing out on savings of £200-250 annually.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Why Deemed Contracts Cost More</h4>
+            <p>When you move in without actively choosing a supplier, you're placed on a "deemed contract." Since 2019, these have been capped at the same level as Standard Variable Tariffs (SVT) – currently £1,758/year for typical usage (January 2026).</p>
+            <p>While this cap prevents extreme overcharging, you're still paying significantly more than you need to. Competitive fixed deals are typically £200-250/year cheaper than the cap. The difference? You have to actively choose them – and most home movers never do.</p>
+        </div>
+
+        <h2>The New Build Scenario: An Even Bigger Problem</h2>
+
+        <p>If you're buying a newly built property, the situation is often worse. Developers typically arrange bulk energy supply contracts with specific suppliers during the construction phase. Common suppliers for new builds include British Gas, E.ON, Scottish Hydro (now part of OVO), and others who negotiate developer contracts.</p>
+
+        <h3>Why New Build Energy Setups Are Problematic</h3>
+
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <h4>The Developer's Perspective</h4>
+                <p>Developers choose suppliers based on what's cheapest and easiest for <em>them</em> during construction. They typically opt for whoever offers:</p>
+                <ul>
+                    <li>Lowest upfront connection costs</li>
+                    <li>Simplest bulk contracting terms</li>
+                    <li>Fastest connection timeline</li>
+                </ul>
+                <p>The developer has zero incentive to secure good ongoing rates for future homeowners – they won't be paying the bills.</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>Your Situation</h4>
+                <p>You inherit whatever arrangement the developer made, which means:</p>
+                <ul>
+                    <li>No competitive rate negotiation</li>
+                    <li>Automatic deemed contract from day one</li>
+                    <li>Possible complications with independent gas transporters (IGTs)</li>
+                </ul>
+                <p>You're starting from a position of maximum expense with minimum choice.</p>
+            </div>
+        </div>
+
+        <h3>The Independent Gas Transporter (IGT) Complication</h3>
+
+        <p>Many new build developments use Independent Gas Transporters rather than the National Grid to connect properties to the gas network. While this reduces upfront costs for developers, it creates ongoing problems for homeowners:</p>
+
+        <ul>
+            <li><strong>Higher standing charges:</strong> IGTs recoup their lower upfront costs through permanently higher standing charges – sometimes 50-100% more than National Grid-connected properties</li>
+            <li><strong>Switching difficulties:</strong> Not all suppliers work with all IGTs, which can limit your switching options</li>
+            <li><strong>Database delays:</strong> New postcodes and meter reference numbers may not be recognised by switching services for weeks or months</li>
+            <li><strong>Limited supplier choice:</strong> Only British Gas and SSE (now part of OVO) don't pass IGT surcharges directly to customers, making them disproportionately attractive for new build properties</li>
+        </ul>
+
+        <div class="warning-box">
+            <h4>⚠️ Real Cost Example</h4>
+            <p>A typical new build homeowner on an IGT network stuck on the default SVT could be paying:</p>
+            <ul>
+                <li>£240/year – Extra cost of SVT vs best fixed deals</li>
+                <li>£80/year – IGT surcharge premium (if not with BG/SSE)</li>
+                <li><strong>£320/year</strong> total extra cost compared to optimal tariff</li>
+            </ul>
+            <p>Over a typical 5-year fixed mortgage period, that's <strong>£1,600</strong> in unnecessary energy costs.</p>
+        </div>
+
+        <div class="chart-card">
+            <h4>📊 5-Year Cost: Fixing vs Staying on SVT</h4>
+            <div class="chart-container">
+                <canvas id="fiveYearChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;"><strong>Note:</strong> SVT rates change quarterly with the price cap. If prices rise (as they did during the 2022 crisis when the cap hit £4,279), staying on SVT could cost significantly more. Fixing locks in your rate for 12-18 months, protecting you from spikes.</p>
+        </div>
+
+        <h2>Why Don't People Switch?</h2>
+
+        <p>Despite the clear financial incentive, home mover switching rates remain stubbornly low. Research and industry experience point to several key barriers:</p>
+
+        <h3>1. Cognitive Overload</h3>
+        <p>Moving house involves coordinating dozens of tasks across multiple weeks. According to Citizens Advice guidance, home movers need to update their address with at least 15-20 different organisations. Energy switching, despite its financial importance, simply gets lost in the chaos.</p>
+
+        <h3>2. Lack of Immediate Urgency</h3>
+        <p>Unlike cancelling your old council tax or setting up new internet (which have hard deadlines), energy just "works" when you move in. There's no immediate penalty for inaction – the overpayment accumulates silently through slightly higher monthly direct debits.</p>
+
+        <h3>3. Perceived Complexity</h3>
+        <p>Many people assume switching energy suppliers is complicated or risky. Concerns about supply interruption (which cannot actually happen during a legitimate switch) or administrative hassle deter people from taking action.</p>
+
+        <h3>4. Information Asymmetry</h3>
+        <p>New homeowners, particularly first-time buyers, often don't realise they're on a deemed contract. The supplier sends bills with no indication that these are premium rates. Without historical data for the property or an understanding of typical costs, it's difficult to recognise you're overpaying.</p>
+
+        <h3>5. The "Later" Trap</h3>
+        <p>Perhaps the biggest factor: the intention to switch "once we're settled" becomes a permanent state of postponement. After a few months, the energy setup feels established, and the inertia becomes even harder to overcome.</p>
+
+        <h2>What You Should Do When Moving House</h2>
+
+        <div class="tip-box">
+            <h4>✅ The Optimal Timeline</h4>
+            <p><strong>Before completion/move-in:</strong> Begin researching who supplies the property and what switching options exist. You cannot physically switch until you legally own or rent the property, but preparation saves time.</p>
+            <p><strong>Day 1:</strong> Take meter readings immediately. Note the current supplier details. Submit these readings to the incumbent supplier.</p>
+            <p><strong>Week 1:</strong> Contact the existing supplier to formally register as the new account holder. Request their best available tariff (not the deemed rate). Simultaneously compare alternative suppliers.</p>
+            <p><strong>Week 2-3:</strong> Initiate a switch to your chosen supplier if a better deal exists. The new supplier manages the entire process.</p>
+        </div>
+
+        <div class="step-container">
+            <h3><span class="step-number">1</span>Identify Your Supplier</h3>
+            <p>If the previous occupant didn't tell you who supplies the property:</p>
+            <ul>
+                <li><strong>For electricity:</strong> Use the <a href="https://www.energynetworks.org/operating-the-networks/whos-my-network-operator">Energy Networks Association postcode search</a> to find your Distribution Network Operator (DNO), who can tell you your supplier</li>
+                <li><strong>For gas:</strong> Use <a href="https://www.findmysupplier.energy/">Find My Supplier</a> service with your postcode</li>
+                <li><strong>New builds:</strong> Ask your developer's sales team directly – they'll have supplier details from the construction contracts</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <h3><span class="step-number">2</span>Register as the New Account Holder</h3>
+            <p>Call the supplier with:</p>
+            <ul>
+                <li>Your move-in date (precise date you became legally responsible)</li>
+                <li>Meter readings from day 1</li>
+                <li>Your contact and payment details</li>
+            </ul>
+            <p><strong>Critical:</strong> Ask specifically for their "best available tariff" or their standard variable tariff rates. You are <em>not</em> required to accept the deemed contract terms indefinitely – Ofgem rules require suppliers to offer you access to their standard tariffs.</p>
+        </div>
+
+        <div class="step-container">
+            <h3><span class="step-number">3</span>Compare and Switch</h3>
+            <p>Don't assume the inherited supplier is your best option. Use comparison tools to check market rates:</p>
+            <ul>
+                <li><strong><a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a></strong> – Compare current market rates across major suppliers</li>
+                <li><strong>Official price comparison services</strong> – Accredited by Ofgem</li>
+                <li>Consider <strong>fixed-rate deals</strong> if you want price certainty, especially if the price cap is expected to rise</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <h3><span class="step-number">4</span>Handle Special Circumstances</h3>
+            <p><strong>Prepayment meters:</strong> If your new property has a prepayment meter, contact the supplier <em>before</em> topping up. Previous occupants may have left debt on the meter, which you'd otherwise inadvertently pay off.</p>
+            <p><strong>New builds with IGT gas:</strong> Check if you're on an independent gas transporter network. If so, prioritise British Gas or SSE/OVO to avoid IGT surcharges, or factor these into your comparison calculations.</p>
+            <p><strong>Smart meters:</strong> Verify whether the smart meter is in "smart mode" (communicating with the supplier). First-generation (SMETS1) meters may lose smart functionality when you switch suppliers.</p>
+        </div>
+
+        <h2>The Switching Process: What Actually Happens</h2>
+
+        <p>One major barrier to switching is unfounded concern about the process. Here's what genuinely occurs:</p>
+
+        <ol>
+            <li><strong>You choose a new supplier and tariff</strong> – This can be done online in 10-15 minutes</li>
+            <li><strong>Your new supplier contacts your old supplier</strong> – You don't need to do this yourself</li>
+            <li><strong>Old supplier issues final bill</strong> – Based on final meter reading (you should provide this)</li>
+            <li><strong>Switch completes</strong> – Typically 17-21 days, but can be as fast as 5 working days</li>
+            <li><strong>You receive welcome communication from new supplier</strong> – Confirming account details and payment setup</li>
+        </ol>
+
+        <div class="tip-box">
+            <h4>✅ What Cannot Happen During a Switch</h4>
+            <ul>
+                <li>Your energy supply cannot be interrupted</li>
+                <li>You cannot be left without a supplier</li>
+                <li>Your meters do not need to be changed (unless moving to/from prepayment)</li>
+                <li>You do not need to contact your Distribution Network Operator</li>
+            </ul>
+            <p>The entire process is regulated by Ofgem and protected by the Energy Switch Guarantee, which mandates maximum timeframes and automatic compensation if things go wrong.</p>
+        </div>
+
+        <h2>Current Market Context (January 2026)</h2>
+
+        <p>The energy switching landscape has evolved significantly since the 2021-2022 crisis:</p>
+
+        <div class="chart-card">
+            <h4>📊 Annual Cost: Best Fixed Deals vs SVT (January 2026)</h4>
+            <div class="chart-container">
+                <canvas id="marketChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">Based on Ofgem typical consumption (2,700 kWh elec, 11,500 kWh gas). Higher usage = bigger savings.</p>
+        </div>
+
+        <ul>
+            <li><strong>Price cap level:</strong> £1,758/year for typical household usage (January-March 2026 period)</li>
+            <li><strong>Fixed deals availability:</strong> Multiple suppliers now offer fixed-rate tariffs below the price cap level</li>
+            <li><strong>Switching activity recovering:</strong> 2024 saw approximately 3 million voluntary switches, up 38% from 2023, though still below pre-crisis levels</li>
+            <li><strong>Market stability:</strong> No major supplier failures since 2022, rebuilding consumer confidence</li>
+        </ul>
+
+        <p>This means home movers in 2026 have significantly better opportunities to save by switching than during the 2022-2023 period when the market was essentially frozen. The return of competitive fixed deals makes switching even more financially advantageous.</p>
+
+        <h2>Special Considerations for Renters</h2>
+
+        <p>If you're renting rather than buying, you still have the right to switch energy suppliers – with some caveats:</p>
+
+        <div class="comparison-grid">
+            <div class="comparison-card">
+                <h4>✅ You CAN Switch If:</h4>
+                <ul>
+                    <li>Your name is on the energy bill</li>
+                    <li>You pay the supplier directly</li>
+                    <li>Energy costs are not included in your rent</li>
+                </ul>
+                <p>Your landlord <strong>cannot prevent you from switching</strong> under these circumstances, even if they have a "preferred supplier" clause in your tenancy agreement. Ofgem rules give you this right.</p>
+            </div>
+
+            <div class="comparison-card">
+                <h4>❌ You CANNOT Switch If:</h4>
+                <ul>
+                    <li>The landlord's name is on the bill</li>
+                    <li>Energy costs are included in your rent</li>
+                    <li>The landlord bills you separately for energy</li>
+                </ul>
+                <p>In these cases, the landlord is the customer of the energy supplier, not you. You pay the landlord, who pays the supplier.</p>
+            </div>
+        </div>
+
+        <h2>Why This Matters Beyond Individual Savings</h2>
+
+        <p>The home mover switching problem isn't just about individual household finances – it has broader implications for the UK energy market:</p>
+
+        <h3>Market Efficiency</h3>
+        <p>Low switching rates among home movers reduce competitive pressure on suppliers. If millions of customers remain on default deemed contracts indefinitely, suppliers have less incentive to offer attractive deals to retain customers.</p>
+
+        <h3>Consumer Detriment</h3>
+        <p>With approximately 1.2 million residential transactions annually and average potential savings of £200-250/year from switching away from SVT, the collective missed savings by UK home movers likely exceeds <strong>£250 million annually</strong>. This is money that could be spent elsewhere in the economy or saved by households.</p>
+
+        <h3>New Build Inequity</h3>
+        <p>First-time buyers purchasing new builds face particularly acute disadvantages – higher energy costs from day one in properties that should be more efficient. This undermines the government's housing policy goals and makes new builds less financially attractive than their EPC ratings suggest.</p>
+
+        <h2>Taking Action: Your Next Steps</h2>
+
+        <p>Whether you're about to move, recently moved, or moved months ago and never switched, it's not too late to improve your situation:</p>
+
+        <div class="tip-box">
+            <h4>📋 Home Mover Energy Checklist</h4>
+            <ul>
+                <li>☐ Identify current supplier (before or immediately after moving)</li>
+                <li>☐ Take meter readings on day 1 (photograph them for records)</li>
+                <li>☐ Register as new account holder with supplier within 48 hours</li>
+                <li>☐ Ask for best available tariff (not deemed contract)</li>
+                <li>☐ Check if property has IGT gas connection (if new build)</li>
+                <li>☐ Compare market rates using comparison tools within first week</li>
+                <li>☐ Initiate switch if better deal available (aim for within 2 weeks)</li>
+                <li>☐ Set calendar reminder to review rates again in 12 months</li>
+            </ul>
+        </div>
+
+        <h2>Conclusion: Break the Inertia Cycle</h2>
+
+        <p>The home mover energy trap persists because it operates silently. There's no dramatic moment when you realise you're overpaying – just a slightly higher direct debit that seems plausible given you're in a new property. Suppliers benefit from this inertia, collecting hundreds of pounds in excess charges from customers who simply never got around to switching.</p>
+
+        <p>Breaking this cycle requires treating energy switching as an immediate priority when moving house, not something to sort out "later." The financial benefit – typically £200-250 annually – represents one of the easiest savings you can secure during an expensive period of your life. Twenty minutes spent researching and switching suppliers in your first week of moving could save you over a thousand pounds over the years you live in that property.</p>
+
+        <p>The energy market in 2026 offers genuine opportunities to save through switching. Don't let moving day chaos leave you trapped on expensive deemed contracts for months or years. Your future self will thank you for those few minutes of effort.</p>
+
+        <div class="cta-box">
+            <h3>Never Overpay for Energy Again</h3>
+            <p>SwitchPilot automatically switches you to the best deal – so you save money without the hassle</p>
+            <a href="index.html#waitlist" class="cta-button">Join the Waitlist →</a>
+        </div>
+
+        <p style="text-align: center; margin-top: 1.5rem;">Or try our free tools: <a href="tariff-tracker.html">Compare Tariffs</a> · <a href="bill-calculator.html">Bill Calculator</a></p>
+
+        <hr>
+
+        <p class="sources">
+            <strong>Sources:</strong> Energy UK switching reports (2024-2025), ElectraLink market data, Citizens Advice consumer guidance, Ofgem regulatory documentation, HM Land Registry transaction statistics, MoneySavingExpert consumer research, Home Builders Federation energy efficiency reports.
+        </p>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </div>
+        <p>Putting the power back in your hands</p>
+        <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+    </footer>
+
+    <script>
+        // Five Year Cost Chart
+        const fiveYearCtx = document.getElementById('fiveYearChart').getContext('2d');
+        new Chart(fiveYearCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Best available deal', 'SVT / Deemed contract'],
+                datasets: [{
+                    data: [7600, 8790],
+                    backgroundColor: ['#10B981', '#ef4444'],
+                    borderRadius: 8,
+                    barThickness: 50
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `£${ctx.raw.toLocaleString()} over 5 years`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: { callback: v => `£${v.toLocaleString()}` },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { size: 13, family: 'DM Sans' } }
+                    }
+                }
+            }
+        });
+
+        // Market Comparison Chart
+        const marketCtx = document.getElementById('marketChart').getContext('2d');
+        new Chart(marketCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Best fixed deals', 'SVT / Deemed contract'],
+                datasets: [{
+                    data: [1520, 1758],
+                    backgroundColor: ['#10B981', '#ef4444'],
+                    borderRadius: 8,
+                    barThickness: 50
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `£${ctx.raw.toLocaleString()}/year`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: { callback: v => `£${v.toLocaleString()}` },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { size: 12, family: 'DM Sans' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -2460,11 +2460,8 @@ body {
 <div id="waitlist" class="waitlist-form">
   <h3>Join the Crew 🚀</h3>
   <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
-  <p class="form-info">We just need a few details to find the best deals for you 👇</p>
+  <p class="form-info">Just your email and postcode - takes 30 seconds 👇</p>
   <form onsubmit="handleSubmit(event)" id="waitlistForm">
-    <div class="form-group">
-      <input type="text" id="fullName" placeholder="Full Name" required />
-    </div>
     <div class="form-group">
       <input type="email" id="emailAddress" placeholder="Email Address" required />
     </div>
@@ -2494,24 +2491,28 @@ body {
         <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
       </div>
     </div>
-    <div id="usageFields" style="display:none;">
-      <p class="usage-title">⚡ Your Energy Usage</p>
-      <div class="usage-inputs">
-        <div class="usage-input-group">
-          <label>Electricity (kWh/year)</label>
-          <input type="number" id="elecUsage" value="2700" />
-        </div>
-        <div class="usage-input-group">
-          <label>Gas (kWh/year)</label>
-          <input type="number" id="gasUsage" value="11500" />
-        </div>
-      </div>
-      <p class="usage-presets-label">Or pick your household size:</p>
+   <div id="usageFields" style="display:none;">
+      <p class="usage-title">🏠 What's your home like?</p>
       <div class="usage-presets">
-        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>(1-2 bed)</button>
-        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>(typical)</button>
-        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>(4+ bed)</button>
+        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>1-2 bed</button>
+        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>2-3 bed</button>
+        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>4+ bed</button>
       </div>
+      <p style="font-size: 0.8rem; color: var(--sp-text-muted); margin-top: 0.8rem; cursor: pointer;" onclick="toggleManualUsage()">Know your exact usage? <a style="color: var(--sp-purple);">Enter it here</a></p>
+      <div id="manualUsageInputs" style="display: none; margin-top: 0.8rem;">
+        <div class="usage-inputs">
+          <div class="usage-input-group">
+            <label>Electricity (kWh/year)</label>
+            <input type="number" id="elecUsage" value="2700" />
+          </div>
+          <div class="usage-input-group">
+            <label>Gas (kWh/year)</label>
+            <input type="number" id="gasUsage" value="11500" />
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="elecUsageHidden" value="2700" />
+      <input type="hidden" id="gasUsageHidden" value="11500" />
     </div>
 
     <div id="extraFields" style="display:none;">
@@ -2962,17 +2963,23 @@ function mapToEnergyRegionFromPostcode(postcode) {
 // Usage preset buttons
 document.querySelectorAll('.usage-preset').forEach(btn => {
   btn.addEventListener('click', function() {
-    document.getElementById('elecUsage').value = this.dataset.elec;
-    document.getElementById('gasUsage').value = this.dataset.gas;
+    document.getElementById('elecUsageHidden').value = this.dataset.elec;
+    document.getElementById('gasUsageHidden').value = this.dataset.gas;
+    if (document.getElementById('elecUsage')) document.getElementById('elecUsage').value = this.dataset.elec;
+    if (document.getElementById('gasUsage')) document.getElementById('gasUsage').value = this.dataset.gas;
     document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
   });
 });
 
+function toggleManualUsage() {
+  const m = document.getElementById('manualUsageInputs');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
 function handleSubmit(e) {
     e.preventDefault();
     
-    const fullName = document.getElementById('fullName').value;
     const email = document.getElementById('emailAddress').value;
     const postcode = document.getElementById('postcode').value;
     const houseNumber = document.getElementById('houseNumber').value;
@@ -2980,8 +2987,8 @@ function handleSubmit(e) {
     const city = document.getElementById('city').value;
     const region = document.getElementById('region').value;
     const energyRegion = document.getElementById('energyRegion').value;
-    const elecUsage = document.getElementById('elecUsage').value;
-    const gasUsage = document.getElementById('gasUsage').value;
+    const elecUsage = document.getElementById('elecUsage')?.value || document.getElementById('elecUsageHidden').value;
+    const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
     const smartMeter = document.getElementById('smartMeter').value;
     const creditCheck = document.getElementById('creditCheck').value;
     
@@ -3016,7 +3023,6 @@ function handleSubmit(e) {
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-            name: fullName,
             email: email,
             postcode: postcode,
             houseNumber: houseNumber,
@@ -3034,7 +3040,7 @@ function handleSubmit(e) {
         form.innerHTML = `
             <div style="text-align:center;padding:2rem;">
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
-                <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard, ${fullName.split(' ')[0]}!</h3>
+                <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard!</h3>
                 <p style="color:#94A3B8;">Check your email at <strong style="color:#F1F5F9;">${email}</strong> for your welcome email.</p>
             </div>
         `;
@@ -3620,6 +3626,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 

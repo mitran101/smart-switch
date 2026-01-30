@@ -2895,61 +2895,83 @@ function mapToEnergyRegion(county, town, postcode) {
   const countyLower = (county || '').toLowerCase();
   const townLower = (town || '').toLowerCase();
   
-  if (townLower === 'london' || ['E','EC','N','NW','SE','SW','W','WC'].some(p => pc.startsWith(p) && pc.length > 2 && !pc.startsWith('EX') && !pc.startsWith('EN') && !pc.startsWith('NE') && !pc.startsWith('WA') && !pc.startsWith('WN') && !pc.startsWith('WR') && !pc.startsWith('WS') && !pc.startsWith('WV') && !pc.startsWith('WF'))) {
-    return 'London';
+  // Extract postcode area (letters only)
+  const pcArea = pc.match(/^[A-Z]+/)?.[0] || '';
+  
+  // London
+  if (['E','EC','N','NW','SE','SW','W','WC','UB','HA'].includes(pcArea) || townLower === 'london') {
+    // Exclude false positives
+    if (!['EX','EN','NE','WA','WN','WR','WS','WV','WF'].includes(pcArea)) {
+      return 'London';
+    }
   }
   
-  if (countyLower.includes('highland') || countyLower.includes('aberdeen') || pc.startsWith('AB') || pc.startsWith('IV') || pc.startsWith('KW') || pc.startsWith('PH') || pc.startsWith('DD') || pc.startsWith('ZE') || pc.startsWith('HS')) {
+  // North Scotland
+  if (['AB','DD','IV','KW','PH','ZE','HS'].includes(pcArea)) {
     return 'North Scotland';
   }
-  if (countyLower.includes('scotland') || pc.startsWith('EH') || pc.startsWith('FK') || pc.startsWith('G') || pc.startsWith('KA') || pc.startsWith('KY') || pc.startsWith('ML') || pc.startsWith('PA') || pc.startsWith('TD') || pc.startsWith('DG')) {
+  
+  // South Scotland
+  if (['DG','EH','FK','G','KA','KY','ML','PA','TD'].includes(pcArea)) {
     return 'South Scotland';
   }
   
-  if (pc.startsWith('LL') || pc.startsWith('CH') || (countyLower.includes('flint') || countyLower.includes('wrexham') || countyLower.includes('denbigh'))) {
+  // North Wales & Merseyside
+  if (['CH','LL','SY'].includes(pcArea)) {
     return 'North Wales & Merseyside';
   }
-  if (pc.startsWith('CF') || pc.startsWith('NP') || pc.startsWith('SA') || countyLower.includes('wales')) {
+  
+  // South Wales
+  if (['CF','NP','SA','LD'].includes(pcArea)) {
     return 'South Wales';
   }
   
-  if (townLower.includes('liverpool') || townLower.includes('wirral') || townLower.includes('sefton') || townLower.includes('knowsley') || pc.startsWith('L') && !pc.startsWith('LA') && !pc.startsWith('LE') && !pc.startsWith('LN') && !pc.startsWith('LS') && !pc.startsWith('LU')) {
-    return 'North Wales & Merseyside';
-  }
-  
-  if (pc.startsWith('NE') || pc.startsWith('DH') || pc.startsWith('SR') || pc.startsWith('TS') || pc.startsWith('DL')) {
+  // North East
+  if (['NE','DH','SR','TS','DL'].includes(pcArea)) {
     return 'North East';
   }
   
-  if (pc.startsWith('M') || pc.startsWith('BL') || pc.startsWith('BB') || pc.startsWith('PR') || pc.startsWith('FY') || pc.startsWith('LA') || pc.startsWith('CA') || pc.startsWith('WA') || pc.startsWith('WN') || pc.startsWith('OL') || pc.startsWith('SK') || pc.startsWith('CW')) {
+  // North West
+  if (['M','BL','BB','PR','FY','LA','CA','WA','WN','OL','SK','CW'].includes(pcArea)) {
+    return 'North West';
+  }
+  // L postcode (Liverpool) - but not LA, LE, LN, LS, LU, LL, LD
+  if (pcArea === 'L') {
     return 'North West';
   }
   
-  if (pc.startsWith('LS') || pc.startsWith('BD') || pc.startsWith('HG') || pc.startsWith('HX') || pc.startsWith('WF') || pc.startsWith('HD') || pc.startsWith('HU') || pc.startsWith('YO') || pc.startsWith('DN') || pc.startsWith('S')) {
+  // Yorkshire
+  if (['LS','BD','HG','HX','WF','HD','HU','YO','DN','S'].includes(pcArea)) {
     return 'Yorkshire';
   }
   
-  if (pc.startsWith('DE') || pc.startsWith('NG') || pc.startsWith('LE') || pc.startsWith('LN') || pc.startsWith('NN') || pc.startsWith('PE')) {
+  // East Midlands
+  if (['DE','NG','LE','LN','NN'].includes(pcArea)) {
     return 'East Midlands';
   }
   
-  if (pc.startsWith('B') || pc.startsWith('CV') || pc.startsWith('DY') || pc.startsWith('WS') || pc.startsWith('WV') || pc.startsWith('WR') || pc.startsWith('ST') || pc.startsWith('TF') || pc.startsWith('HR')) {
+  // West Midlands
+  if (['B','CV','DY','WS','WV','WR','ST','TF','HR'].includes(pcArea)) {
     return 'West Midlands';
   }
   
-  if (pc.startsWith('CB') || pc.startsWith('CO') || pc.startsWith('IP') || pc.startsWith('NR') || pc.startsWith('CM') || pc.startsWith('SS') || pc.startsWith('SG') || pc.startsWith('AL') || pc.startsWith('EN') || pc.startsWith('LU') || pc.startsWith('MK')) {
+  // Eastern
+  if (['CB','CO','IP','NR','CM','SS','SG','AL','EN','LU','PE','IG','RM','WD'].includes(pcArea)) {
     return 'Eastern';
   }
   
-  if (pc.startsWith('SO') || pc.startsWith('PO') || pc.startsWith('BN') || pc.startsWith('RH') || pc.startsWith('GU') || pc.startsWith('RG') || pc.startsWith('SP') || pc.startsWith('HP') || pc.startsWith('OX') || pc.startsWith('SL')) {
-    return 'Southern';
-  }
-  
-  if (pc.startsWith('CT') || pc.startsWith('ME') || pc.startsWith('DA') || pc.startsWith('BR') || pc.startsWith('TN') || pc.startsWith('KT') || pc.startsWith('CR') || pc.startsWith('SM') || pc.startsWith('TW')) {
+  // South East
+  if (['CT','ME','DA','BR','TN','KT','CR','SM','TW','BN','RH','GU','MK'].includes(pcArea)) {
     return 'South East';
   }
   
-  if (pc.startsWith('EX') || pc.startsWith('PL') || pc.startsWith('TQ') || pc.startsWith('TR') || pc.startsWith('TA') || pc.startsWith('BA') || pc.startsWith('BS') || pc.startsWith('GL') || pc.startsWith('SN') || pc.startsWith('DT') || pc.startsWith('BH')) {
+  // Southern
+  if (['SO','PO','RG','SP','HP','OX','SL'].includes(pcArea)) {
+    return 'Southern';
+  }
+  
+  // South West
+  if (['EX','PL','TQ','TR','TA','BA','BS','GL','SN','DT','BH'].includes(pcArea)) {
     return 'South West';
   }
   
@@ -3628,6 +3650,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 

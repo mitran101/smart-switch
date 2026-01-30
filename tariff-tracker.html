@@ -1264,45 +1264,60 @@
 
         // Postcode to Region mapping
         const postcodeToRegion = {
-            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
-            'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
-            'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
-            'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
-            'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
-            'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
-            'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
-            'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
-            'GU': 'Southern', 'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
-            'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
-            'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
-            'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
-            'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
-            'SS': 'Eastern', 'WD': 'Eastern',
-            'DE': 'East Midlands', 'DN': 'East Midlands', 'LE': 'East Midlands',
-            'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
-            'S': 'East Midlands',
-            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
-            'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
-            'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
-            'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
-            'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
-            'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
-            'WN': 'North West',
-            'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
-            'TS': 'North East',
-            'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
-            'HX': 'Yorkshire', 'LS': 'Yorkshire', 'S': 'Yorkshire', 'WF': 'Yorkshire',
-            'YO': 'Yorkshire', 'DN': 'Yorkshire',
-            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales',
-            'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
-            'SY': 'North Wales & Merseyside',
-            'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
-            'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
-            'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
-            'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
-            'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
-            'HS': 'North Scotland'
-        };
+    // London
+    'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
+    'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+    'UB': 'London', 'HA': 'London',
+    // South East
+    'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
+    'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
+    'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
+    'MK': 'South East',
+    // South West
+    'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
+    'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
+    'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
+    // Southern
+    'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
+    'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
+    // Eastern
+    'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
+    'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
+    'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
+    'SS': 'Eastern', 'WD': 'Eastern',
+    // East Midlands
+    'DE': 'East Midlands', 'LE': 'East Midlands',
+    'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
+    // West Midlands
+    'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
+    'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
+    'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
+    // Yorkshire
+    'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
+    'HX': 'Yorkshire', 'LS': 'Yorkshire', 'WF': 'Yorkshire',
+    'YO': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire',
+    // North West
+    'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
+    'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
+    'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
+    'WN': 'North West',
+    // North East
+    'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
+    'TS': 'North East',
+    // South Wales
+    'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales', 'LD': 'South Wales',
+    // North Wales & Merseyside
+    'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
+    'SY': 'North Wales & Merseyside',
+    // South Scotland
+    'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
+    'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
+    'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
+    // North Scotland
+    'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
+    'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
+    'HS': 'North Scotland'
+};
 
         function getRegionFromPostcode(postcode) {
             const cleaned = postcode.toUpperCase().replace(/[^A-Z0-9]/g, '');

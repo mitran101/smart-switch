@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuse Energy: Can the New Generation Learn from 2021's Mistakes? | SwitchPilot</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Fuse Energy analysis 2026: Is the UK's fastest-growing energy supplier safe? We look at their $5bn valuation, pricing, VC backing, and whether they can survive the next crisis.">
+    <link rel="canonical" href="https://switch-pilot.com/fuse-energy.html">
+    
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:title" content="Fuse Energy: Can the New Generation Learn from 2021's Mistakes?">
+    <meta property="og:description" content="The first new UK supplier in two years now serves 200,000+ households. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed?">
+    <meta property="og:url" content="https://switch-pilot.com/fuse-energy.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://switch-pilot.com/logo.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Fuse Energy: Can the New Generation Learn from 2021's Mistakes?">
+    <meta name="twitter:description" content="Is the UK's fastest-growing energy supplier safe? We look at Fuse Energy's pricing, VC backing, and whether they can survive the next crisis.">
+    <meta name="twitter:image" content="https://switch-pilot.com/logo.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-purple: #8b5cf6;
+            --sp-purple-dark: #7c3aed;
+            --sp-pink: #EC4899;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+            --sp-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+        }
+
+        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
+        .top-logo span { font-size: 1.35rem; }
+
+        .back-home {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--sp-slate);
+            margin: 1.75rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong {
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--sp-purple);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Stat */
+        .hero-stat {
+            background: var(--sp-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid var(--sp-purple);
+        }
+
+        .hero-stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 1.25rem;
+            color: var(--sp-slate);
+            font-weight: 600;
+        }
+
+        .hero-stat-sublabel {
+            font-size: 1rem;
+            color: var(--sp-slate-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--sp-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+        }
+
+        .stat-card .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            font-weight: 500;
+        }
+
+        .stat-box {
+            background: var(--sp-card);
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.75rem 2rem;
+            margin: 1.75rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-box .stat-number {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--sp-purple);
+            margin-bottom: 0.5rem;
+            font-family: 'DM Serif Display', Georgia, serif;
+        }
+
+        .stat-box .stat-label {
+            font-size: 1rem;
+            color: var(--sp-slate-light);
+            line-height: 1.5;
+        }
+
+        /* Chart containers */
+        .chart-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .chart-card h4 {
+            font-size: 1.1rem;
+            color: var(--sp-slate);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 220px;
+        }
+
+        .chart-container-tall {
+            position: relative;
+            height: 300px;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.75rem 0;
+        }
+
+        .warning-box h4 {
+            color: #b45309;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .warning-box p {
+            color: var(--sp-slate);
+            margin-bottom: 0.75rem;
+        }
+
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning-box ul {
+            color: var(--sp-slate);
+            margin-bottom: 0;
+        }
+
+        .tip-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.75rem 0;
+        }
+
+        .tip-box h4 {
+            color: var(--sp-green-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .tip-box p {
+            color: var(--sp-slate);
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-box ul {
+            color: var(--sp-slate);
+            margin-bottom: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.08));
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--sp-purple-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .highlight-box p {
+            color: var(--sp-slate);
+            margin-bottom: 0.75rem;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box ul {
+            color: var(--sp-slate);
+        }
+
+        ul, ol {
+            margin: 1.25rem 0 1.5rem 1.5rem;
+            color: var(--sp-slate-light);
+        }
+
+        li {
+            margin-bottom: 0.65rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            margin: 1.75rem 0;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+            color: white;
+            padding: 1rem 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .comparison-table td {
+            padding: 0.85rem 0.75rem;
+            border-bottom: 1px solid #E2E8F0;
+            color: var(--sp-slate-light);
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--sp-slate);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(139, 92, 246, 0.03);
+        }
+
+        .table-highlight {
+            background: var(--sp-green-light) !important;
+            font-weight: 600;
+        }
+
+        /* Pros/Cons */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .pros-cons-box {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .pros-cons-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .pros-cons-box.pros h4 {
+            color: var(--sp-green-dark);
+        }
+
+        .pros-cons-box.cons h4 {
+            color: var(--sp-red);
+        }
+
+        .pros-cons-box ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pros-cons-box li {
+            padding: 0.6rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 0.95rem;
+        }
+
+        .pros-cons-box li:last-child {
+            border-bottom: none;
+        }
+
+        .pros-cons-box li::before {
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pros-cons-box.pros li::before {
+            content: '✓';
+            color: var(--sp-green);
+        }
+
+        .pros-cons-box.cons li::before {
+            content: '✗';
+            color: var(--sp-red);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 1.75rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--sp-purple);
+            border: 3px solid var(--sp-bg);
+        }
+
+        .timeline-item h4 {
+            color: var(--sp-slate);
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .timeline-item p {
+            color: var(--sp-slate-light);
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+            text-decoration: none;
+        }
+
+        /* Verdict Box */
+        .verdict-box {
+            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .verdict-box h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-size: 1.35rem;
+        }
+
+        .verdict-box p {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1rem;
+        }
+
+        .verdict-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 2px solid var(--sp-purple);
+        }
+
+        .checklist h4 {
+            color: var(--sp-purple-dark);
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            color: var(--sp-slate);
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--sp-purple);
+            font-size: 1.1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #E2E8F0;
+            margin: 3rem 0 2rem;
+        }
+
+        .sources {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--sp-slate);
+            color: #94a3b8;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo img { height: 2.5rem; width: auto; margin-right: -10px; }
+        .footer-logo span { font-size: 1.25rem; font-weight: 700; color: white; }
+
+        .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
+        .footer a { color: var(--sp-purple); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 2.5rem; }
+            .top-logo span { font-size: 1.25rem; }
+            .back-home { padding: 0.5rem 1rem; font-size: 0.8rem; }
+
+            .article-header {
+                padding: 3rem 1.5rem 2rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.6rem 0.4rem;
+            }
+
+            .hero-stat-number {
+                font-size: 3rem;
+            }
+
+            .meta {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://switch-pilot.com/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">Supplier Analysis</span>
+            <h1>Fuse Energy: Can the New Generation Learn from 2021's Mistakes?</h1>
+            <p class="subtitle">The first new UK supplier in two years now serves 200,000+ households with a £3.75bn valuation. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed where energy veterans failed?</p>
+            <div class="meta">
+                <span>📅 February 2026</span>
+                <span>•</span>
+                <span>⏱️ 12 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <p>When Fuse Energy launched in July 2023, it became Britain's first new energy supplier in two years-a remarkable achievement in a market still recovering from the devastation of 2021, when 28 suppliers collapsed within 12 months, displacing over 4.2 million customers and leaving taxpayers with a £2.7 billion bill.</p>
+        
+        <p>The company's founders, former Revolut executives Alan Chang and Charles Orr, aren't energy industry veterans. They're fintech entrepreneurs who looked at the carnage and thought: "We can do better." Now backed by over $158 million in venture capital from top-tier investors including Balderton Capital, Lowercarbon Capital, Accel, Lakestar, Ribbit Capital, and even Nik Storonsky's QuantumLight, they've achieved a remarkable $5 billion valuation in just their third year of operation.</p>
+
+        <div class="hero-stat">
+            <div class="hero-stat-number">£70-120</div>
+            <div class="hero-stat-label">Annual savings vs price cap</div>
+            <div class="hero-stat-sublabel">Based on typical household usage (2,700 kWh elec, 11,500 kWh gas)</div>
+        </div>
+
+        <p>By early 2026, Fuse had grown to serve over 200,000 households, achieved $400 million in annual recurring revenue (growing 8x year-on-year), and reached cash flow positive status. But is this genuinely different from the speculative growth stories that collapsed in 2021, or are we watching history repeat itself with better marketing?</p>
+
+        <h2>The 2021 Carnage: What Went Wrong</h2>
+        
+        <p>To understand whether Fuse Energy represents genuine evolution or another disaster waiting to happen, we need to understand what killed Britain's energy suppliers in 2021.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <span class="stat-number">28</span>
+                <span class="stat-label">Suppliers Collapsed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">4.2M</span>
+                <span class="stat-label">Customers Displaced</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">250%</span>
+                <span class="stat-label">Wholesale Price Surge</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">£2.7B</span>
+                <span class="stat-label">Taxpayer Cost</span>
+            </div>
+        </div>
+
+        <p>Between January and December 2021, wholesale gas prices rose by 250%, with a 70% spike in August alone. But external shocks don't fully explain the crisis. Countries across Europe faced the same wholesale price surge, yet the UK saw disproportionate supplier failures.</p>
+
+        <h3>The Fatal Business Model</h3>
+        
+        <p>Most failed suppliers operated on a fundamentally flawed model. They were essentially middlemen-buying energy from the wholesale market and reselling it to customers with minimal infrastructure, inadequate hedging, and business models that only worked when wholesale prices remained stable.</p>
+
+        <div class="warning-box">
+            <h4>⚠️ The Avro Energy Case Study</h4>
+            <p>Avro Energy, which served 580,000 customers, epitomised the problem:</p>
+            <ul>
+                <li>Fewer than 12 employees running the entire operation</li>
+                <li>Zero hedging of wholesale price risk</li>
+                <li>Directors awarded themselves £2.2 million in bonuses while posting £28 million losses</li>
+            </ul>
+            <p>This wasn't an energy company. It was a marketing operation with an energy license.</p>
+        </div>
+
+        <p>Even Bulb Energy-the seventh-largest UK supplier with 1.7 million customers-collapsed spectacularly. Despite being valued at over £1 billion, Bulb entered special administration in November 2021, requiring £1.7 billion in taxpayer support. They had sophisticated systems, smart people, and rapid growth. It wasn't enough.</p>
+
+        <h2>Enter Fuse: The Fintech Playbook Applied to Energy</h2>
+        
+        <p>Fuse Energy's founders studied this wreckage carefully. Their pitch is that the failures weren't inevitable market forces, but predictable results of poor management and inadequate systems.</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>September 2022</h4>
+                <p>$78m seed round led by Balderton Capital and Lakestar</p>
+            </div>
+            <div class="timeline-item">
+                <h4>July 2023</h4>
+                <p>Launch as first new supplier post-crisis, first to market after 28 collapsed</p>
+            </div>
+            <div class="timeline-item">
+                <h4>September 2024</h4>
+                <p>$12m strategic round led by Multicoin Capital</p>
+            </div>
+            <div class="timeline-item">
+                <h4>July 2025</h4>
+                <p>Unicorn status at £750m+ valuation, enters domestic gas market, hits $90m ARR</p>
+            </div>
+            <div class="timeline-item">
+                <h4>December 2025</h4>
+                <p>$70m Series B at $5bn valuation, $400m ARR, 200,000+ customers, cash flow positive</p>
+            </div>
+        </div>
+
+        <p>Unlike the minimalist operations that collapsed in 2021, Fuse has built substantial infrastructure. They operate their own trading desk, use sophisticated hedging strategies, and maintain higher capital reserves than regulations require. Their team of 140+ includes engineers from Meta, SpaceX, Tesla, Citadel, and Jump Trading. They're also vertically integrated-owning renewable generation sites (wind and solar), running their own trading platform, and building consumer hardware.</p>
+
+        <h2>How Competitive Is Fuse? The Numbers</h2>
+        
+        <p>Pricing is where Fuse makes its boldest claims. Here's how their February 2026 tariffs compare to competitors across regions:</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>Fuse<br>Elec (p/kWh)</th>
+                    <th>Octopus<br>Elec (p/kWh)</th>
+                    <th>British Gas<br>Elec (p/kWh)</th>
+                    <th>Fuse<br>Gas (p/kWh)</th>
+                </tr>
+            </thead>
+            <tbody id="tariffTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--sp-slate-light);">Loading tariff data...</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: -1rem;">Source: SwitchPilot tariff data, updated from <a href="https://mitran101.github.io/smart-switch/all_tariffs.json" target="_blank">all_tariffs.json</a>. Comparing fixed tariffs.</p>
+
+        <div class="chart-card">
+            <h4>📊 Annual Cost Comparison: Typical Household</h4>
+            <div class="chart-container">
+                <canvas id="supplierCompareChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">Based on Ofgem typical consumption: 2,700 kWh electricity, 11,500 kWh gas. London region.</p>
+        </div>
+
+        <div class="tip-box">
+            <h4>✅ The Verdict: Genuinely Competitive</h4>
+            <p>Fuse consistently undercuts major suppliers by <strong>10-12% on electricity</strong> and <strong>3-5% on gas</strong>. For a typical dual-fuel household:</p>
+            <ul>
+                <li><strong>Price cap cost:</strong> ~£1,758/year</li>
+                <li><strong>Octopus 12M Fixed:</strong> ~£1,640/year</li>
+                <li><strong>Fuse 15M Fixed:</strong> ~£1,520/year</li>
+                <li><strong>Annual savings vs cap:</strong> £70-120</li>
+            </ul>
+            <p>The £50 per fuel exit fee (£100 total) means you need to stay ~12-14 months to break even, but that's standard for fixed tariffs.</p>
+        </div>
+
+        <h3>Why Can They Price Below Others?</h3>
+        
+        <p>Fuse's competitive pricing raises the obvious question: how are they doing what killed their predecessors?</p>
+
+        <ul>
+            <li><strong>Operational Efficiency:</strong> Fully digital model with no call centres, paper bills, or branch networks. They claim 30-40% lower operational costs than traditional suppliers.</li>
+            <li><strong>Sophisticated Hedging:</strong> Professional traders using complex hedging strategies-not buying spot market and hoping for the best.</li>
+            <li><strong>Capital Reserves:</strong> £170m+ raised and cash flow positive means they can absorb short-term volatility.</li>
+            <li><strong>Scale Economics:</strong> At 200,000 customers, operational costs per customer drop significantly.</li>
+        </ul>
+
+        <h2>The Customer Experience</h2>
+
+        <p>Setting aside existential risk questions, what's it actually like being a Fuse customer?</p>
+
+        <div class="pros-cons">
+            <div class="pros-cons-box pros">
+                <h4>✓ What Works Well</h4>
+                <ul>
+                    <li>Genuinely competitive pricing</li>
+                    <li>Excellent app with real-time usage</li>
+                    <li>24/7 live chat with real humans (not bots)</li>
+                    <li>Very responsive-even nights & weekends</li>
+                    <li>No estimated bills-pay actual usage</li>
+                    <li>Smart meter installation included</li>
+                    <li>Fast switching (2-3 weeks)</li>
+                    <li>4.7/5 Trustpilot from 3,400+ reviews</li>
+                </ul>
+            </div>
+            <div class="pros-cons-box cons">
+                <h4>✗ Limitations</h4>
+                <ul>
+                    <li>No phone support (chat/email only)</li>
+                    <li>Direct debit required only</li>
+                    <li>£100 exit fee (dual fuel)</li>
+                    <li>Only ~2.5 years trading history</li>
+                    <li>Unproven in major price crisis</li>
+                    <li>Can't fix monthly DD amount yet</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>Trustpilot reviews (4.7/5 from 3,400+ reviews) consistently praise the responsive chat support-customers report getting help within minutes, even on Sunday mornings at 7:30am. Common complaints: no phone line for emergencies, and you pay variable amounts each month based on actual usage (fixed DD coming soon, according to Fuse).</p>
+
+        <h2>The Warning Signs to Watch</h2>
+        
+        <p>Despite impressive metrics, there are legitimate concerns:</p>
+
+        <div class="warning-box">
+            <h4>⚠️ Key Risk Factors</h4>
+            <ul>
+                <li><strong>Untested in Crisis:</strong> Fuse launched during relative price stability. They've never faced a 2021-style wholesale spike where prices tripled in months.</li>
+                <li><strong>Growth Pressure:</strong> $5bn valuation means VC investors (Balderton, Lowercarbon, Accel, Ribbit, even Revolut founder Nik Storonsky's fund) expect aggressive returns. This can conflict with conservative risk management.</li>
+                <li><strong>The Revolut Comparison:</strong> Fuse explicitly models on Revolut's aggressive scaling-a company that's faced criticism for service issues during hypergrowth.</li>
+                <li><strong>International Expansion:</strong> They're now expanding to Ireland, Spain, and the US. Scaling across multiple markets while maintaining quality is challenging.</li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+            <h4>📊 What If Wholesale Prices Spike Again?</h4>
+            <div class="chart-container-tall">
+                <canvas id="crisisChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">The 2022 price cap hit £4,279. Fixed tariffs protect you from spikes-but only if your supplier survives.</p>
+        </div>
+
+        <h2>Should You Switch to Fuse?</h2>
+        
+        <p>This is the difficult question. Fuse offers genuine savings and superior digital experience. Their business model shows important differences from 2021 failures. But they're also untested in a true crisis.</p>
+
+        <div class="checklist">
+            <h4>📋 Consider Switching If:</h4>
+            <ul>
+                <li>You're comfortable with digital-only, app-based service</li>
+                <li>You want real-time visibility of consumption and spending</li>
+                <li>You're currently on SVT at or above the price cap</li>
+                <li>You're willing to monitor your supplier and switch again if needed</li>
+                <li>You can afford the time/hassle of switching if warning signs emerge</li>
+            </ul>
+        </div>
+
+        <div class="checklist">
+            <h4>📋 Stay With Your Current Supplier If:</h4>
+            <ul>
+                <li>You prefer phone-based customer service</li>
+                <li>You need prepayment meter options</li>
+                <li>You're already on a competitive fixed rate</li>
+                <li>You're extremely risk-averse and want maximum stability</li>
+                <li>You don't have/aren't comfortable with smartphone apps</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Our Practical Advice</h4>
+            <p>If you switch to Fuse, treat it as an <strong>active decision requiring monitoring</strong>, not "set and forget." Watch for:</p>
+            <ul>
+                <li>Sudden price increases beyond market movements</li>
+                <li>Deteriorating customer service as they scale</li>
+                <li>Negative press about financial stability</li>
+                <li>Major wholesale market disruptions</li>
+            </ul>
+            <p>If you see these signs, don't wait-start researching alternatives immediately.</p>
+        </div>
+
+        <div class="verdict-box">
+            <h3>🎯 Our Verdict</h3>
+            <p>Fuse Energy represents the most sophisticated and well-capitalised attempt yet to build a sustainable challenger supplier. Their pricing is competitive (£70-120/year savings), customer service is genuinely excellent (24/7 chat, 4.7/5 Trustpilot), and their $158m+ backing from tier-1 VCs provides real runway.</p>
+            <p>The vertically integrated model-owning generation, trading, supply, and soon hardware-is genuinely different from the hollow middlemen that collapsed in 2021. They're not just reselling energy; they're building an energy company.</p>
+            <p><strong>Our recommendation:</strong> If you're on SVT and comfortable with app-based service, Fuse is worth serious consideration. The chat support is better than most phone lines. But stay vigilant-no one has tested whether fintech-style energy companies can survive a true wholesale crisis.</p>
+        </div>
+
+        <h2>Key Takeaways</h2>
+        
+        <ul>
+            <li><strong>First new supplier post-2021 crisis</strong> - 200,000+ customers, $5bn valuation, $400m ARR, cash flow positive</li>
+            <li><strong>Serious VC backing</strong> - $158m+ raised from Balderton, Lowercarbon, Accel, Ribbit, Lakestar, and Revolut founder's fund</li>
+            <li><strong>Pricing is genuinely competitive</strong> - Consistently among cheapest fixed tariffs, saving £70-120/year vs price cap</li>
+            <li><strong>24/7 live chat support</strong> - Real humans, very responsive (even nights/weekends), 4.7/5 Trustpilot from 3,400+ reviews</li>
+            <li><strong>Vertically integrated</strong> - Own renewable generation, trading desk, and building consumer hardware</li>
+            <li><strong>Untested through crisis</strong> - The ultimate validation comes when wholesale prices next spike</li>
+            <li><strong>Best for:</strong> Tech-comfortable customers who prefer app/chat over phone, and are willing to actively monitor their supplier</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>Never Overpay for Energy Again</h3>
+            <p>We're building a free auto-switcher that finds you the best deal automatically. Join the waitlist for early access.</p>
+            <a href="index.html#waitlist" class="cta-button">Join the Waitlist →</a>
+        </div>
+
+        <p style="text-align: center; margin-top: 1.5rem;">Or try our free tools: <a href="bill-calculator.html">Bill Calculator</a> · <a href="tariff-tracker.html">Tariff Tracker</a></p>
+
+        <hr>
+
+        <p class="sources">
+            <strong>Sources:</strong> Fuse Energy company announcements, Tracxn funding data, Sifted ($70m raise coverage, Dec 2025), EU-Startups, Startupmag.co.uk, Trustpilot reviews (3,400+), Uswitch supplier profiles, Energy-Review.co.uk, SwitchPilot tariff database. Valuation and ARR figures from verified investor reports and company statements.
+        </p>
+        
+        <p class="sources" style="margin-top: 1rem;">
+            <strong>Disclaimer:</strong> This is an independent review. We are not affiliated with Fuse Energy. Tariff rates accurate as of February 2026 but subject to change. Always verify current pricing directly before switching.
+        </p>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="https://switch-pilot.com/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </div>
+        <p>Putting the power back in your hands</p>
+        <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+        // Tariff data and constants
+        const ELEC_KWH = 2700;
+        const GAS_KWH = 11500;
+        const PRICE_CAP_ANNUAL = 1758;
+        
+        const supplierNames = {
+            'fuse_energy': 'Fuse Energy',
+            'octopus': 'Octopus Energy',
+            'british_gas': 'British Gas',
+            'ovo': 'OVO Energy',
+            'scottish_power': 'Scottish Power'
+        };
+
+        function calculateAnnualCost(tariff) {
+            let total = 0;
+            if (tariff.elec_unit_rate_p && tariff.elec_standing_p) {
+                total += (tariff.elec_standing_p / 100) * 365;
+                total += (tariff.elec_unit_rate_p / 100) * ELEC_KWH;
+            }
+            if (tariff.gas_unit_rate_p && tariff.gas_standing_p) {
+                total += (tariff.gas_standing_p / 100) * 365;
+                total += (tariff.gas_unit_rate_p / 100) * GAS_KWH;
+            }
+            return total;
+        }
+
+        async function loadTariffData() {
+            try {
+                const response = await fetch('https://mitran101.github.io/smart-switch/all_tariffs.json');
+                const data = await response.json();
+                
+                // Filter for London region, dual fuel, fixed tariffs
+                const londonTariffs = data.tariffs
+                    .filter(t => t.region === 'London')
+                    .filter(t => t.elec_unit_rate_p && t.gas_unit_rate_p)
+                    .filter(t => !t.error)
+                    .filter(t => {
+                        const name = (t.tariff_name || '').toLowerCase();
+                        return !name.includes('variable') && !name.includes('tracker') && !name.includes('agile');
+                    })
+                    .map(t => ({
+                        ...t,
+                        annualCost: calculateAnnualCost(t),
+                        supplierName: supplierNames[t.supplier] || t.supplier
+                    }))
+                    .sort((a, b) => a.annualCost - b.annualCost);
+
+                // Update comparison table
+                updateComparisonTable(data.tariffs);
+                
+                // Update charts with real data
+                updateSupplierChart(londonTariffs);
+                
+            } catch (e) {
+                console.error('Failed to load tariff data:', e);
+                // Fall back to static chart if data fails
+                renderStaticChart();
+            }
+        }
+
+        function updateComparisonTable(allTariffs) {
+            const regions = ['London', 'South East', 'East Midlands', 'Yorkshire', 'South Scotland'];
+            const tableBody = document.getElementById('tariffTableBody');
+            if (!tableBody) return;
+
+            let html = '';
+            regions.forEach(region => {
+                const regionTariffs = allTariffs.filter(t => t.region === region && !t.error);
+                
+                const fuse = regionTariffs.find(t => t.supplier === 'fuse_energy');
+                const octopus = regionTariffs.find(t => t.supplier === 'octopus' && 
+                    (t.tariff_name || '').toLowerCase().includes('12'));
+                const bg = regionTariffs.find(t => t.supplier === 'british_gas');
+                
+                html += `<tr>
+                    <td><strong>${region}</strong></td>
+                    <td class="table-highlight">${fuse?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
+                    <td>${octopus?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
+                    <td>${bg?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
+                    <td>${fuse?.gas_unit_rate_p?.toFixed(2) || '-'}</td>
+                </tr>`;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        function updateSupplierChart(tariffs) {
+            // Get best tariff from each supplier
+            const suppliers = ['fuse_energy', 'octopus', 'british_gas', 'ovo', 'scottish_power'];
+            const chartData = [];
+            
+            suppliers.forEach(supplier => {
+                const best = tariffs
+                    .filter(t => t.supplier === supplier)
+                    .sort((a, b) => a.annualCost - b.annualCost)[0];
+                if (best) {
+                    chartData.push({
+                        label: best.supplierName,
+                        cost: Math.round(best.annualCost),
+                        tariff: best.tariff_name
+                    });
+                }
+            });
+            
+            // Add price cap for comparison
+            chartData.push({ label: 'Price Cap (SVT)', cost: PRICE_CAP_ANNUAL, tariff: 'Standard Variable' });
+            
+            // Sort by cost
+            chartData.sort((a, b) => a.cost - b.cost);
+
+            const ctx = document.getElementById('supplierCompareChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.map(d => d.label),
+                    datasets: [{
+                        data: chartData.map(d => d.cost),
+                        backgroundColor: chartData.map((d, i) => 
+                            d.label === 'Price Cap (SVT)' ? '#ef4444' : 
+                            i === 0 ? '#10B981' : '#8b5cf6'
+                        ),
+                        borderRadius: 6,
+                        barThickness: 40
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `£${ctx.raw.toLocaleString()}/year`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: false,
+                            min: Math.min(...chartData.map(d => d.cost)) - 100,
+                            ticks: { callback: v => `£${v.toLocaleString()}` },
+                            grid: { color: '#f1f5f9' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12, family: 'DM Sans' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderStaticChart() {
+            // Fallback static data if JSON fails
+            const ctx = document.getElementById('supplierCompareChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fuse Energy', 'Octopus 12M', 'British Gas', 'OVO 1 Year', 'Price Cap (SVT)'],
+                    datasets: [{
+                        data: [1520, 1640, 1680, 1660, 1758],
+                        backgroundColor: ['#10B981', '#8b5cf6', '#64748b', '#64748b', '#ef4444'],
+                        borderRadius: 6,
+                        barThickness: 40
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: false, min: 1400, ticks: { callback: v => `£${v}` }, grid: { color: '#f1f5f9' } },
+                        y: { grid: { display: false }, ticks: { font: { size: 12, family: 'DM Sans' } } }
+                    }
+                }
+            });
+        }
+
+        // Crisis Scenario Chart (static - historical data)
+        const crisisCtx = document.getElementById('crisisChart').getContext('2d');
+        new Chart(crisisCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan 21', 'Apr 21', 'Jul 21', 'Oct 21', 'Jan 22', 'Apr 22', 'Jul 22', 'Oct 22', 'Jan 23', 'Apr 23', 'Jul 23', 'Oct 23', 'Jan 24', 'Apr 24', 'Jul 24', 'Oct 24', 'Jan 25', 'Apr 25', 'Jul 25', 'Oct 25', 'Jan 26'],
+                datasets: [{
+                    label: 'Price Cap',
+                    data: [1138, 1138, 1138, 1277, 1277, 1971, 1971, 3549, 4279, 3280, 2074, 1923, 1928, 1690, 1568, 1717, 1738, 1849, 1568, 1717, 1758],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 0
+                }, {
+                    label: 'Fixed Tariff Example',
+                    data: [1100, 1100, 1100, 1100, 1100, 1100, 1400, 1400, 1400, 1400, 1400, 1600, 1600, 1600, 1600, 1600, 1550, 1550, 1550, 1550, 1520],
+                    borderColor: '#10B981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 0,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 11, family: 'DM Sans' } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `${ctx.dataset.label}: £${ctx.raw.toLocaleString()}/year`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { 
+                            font: { size: 10 },
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        min: 1000,
+                        max: 4500,
+                        ticks: { callback: v => `£${v.toLocaleString()}` },
+                        grid: { color: '#f1f5f9' }
+                    }
+                }
+            }
+        });
+
+        // Load data on page load
+        loadTariffData();
+    </script>
+</body>
+</html>

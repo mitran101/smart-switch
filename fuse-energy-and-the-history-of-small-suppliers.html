@@ -885,7 +885,7 @@
 
         <h2>How Competitive Is Fuse? The Numbers</h2>
         
-        <p>Pricing is where Fuse makes its boldest claims. Here's how their February 2026 tariffs compare to competitors across regions:</p>
+        <p>Pricing is where Fuse makes its boldest claims. Here's how their February 2026 tariffs compare to competitors across UK regions:</p>
 
         <table class="comparison-table">
             <thead>
@@ -901,19 +901,19 @@
                 <tr><td colspan="5" style="text-align: center; color: var(--sp-slate-light);">Loading tariff data...</td></tr>
             </tbody>
         </table>
-        <p style="font-size: 0.85rem; color: #64748b; margin-top: -1rem;">Source: SwitchPilot tariff data, updated from <a href="https://mitran101.github.io/smart-switch/all_tariffs.json" target="_blank">all_tariffs.json</a>. Comparing fixed tariffs.</p>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: -1rem;">Indicative rates for comparison. Tariffs update regularly - always verify current pricing before switching.</p>
 
         <div class="chart-card">
             <h4>📊 Annual Cost Comparison: Typical Household</h4>
             <div class="chart-container">
                 <canvas id="supplierCompareChart"></canvas>
             </div>
-            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">Based on Ofgem typical consumption: 2,700 kWh electricity, 11,500 kWh gas. London region.</p>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">Based on Ofgem typical consumption: 2,700 kWh electricity, 11,500 kWh gas. Cheapest fixed tariff per supplier, averaged across UK regions.</p>
         </div>
 
         <div class="tip-box">
             <h4>✅ The Verdict: Genuinely Competitive</h4>
-            <p>Fuse consistently undercuts major suppliers by <strong>10-12% on electricity</strong> and <strong>3-5% on gas</strong>. For a typical dual-fuel household:</p>
+            <p>These figures are indicative and non-binding - tariffs change regularly. But Fuse consistently undercuts major suppliers by <strong>10-12% on electricity</strong> and <strong>3-5% on gas</strong>. For a typical dual-fuel household:</p>
             <ul>
                 <li><strong>Price cap cost:</strong> ~£1,758/year</li>
                 <li><strong>Octopus 12M Fixed:</strong> ~£1,640/year</li>
@@ -1107,9 +1107,8 @@
                 const response = await fetch('https://mitran101.github.io/smart-switch/all_tariffs.json');
                 const data = await response.json();
                 
-                // Filter for London region, dual fuel, fixed tariffs
-                const londonTariffs = data.tariffs
-                    .filter(t => t.region === 'London')
+                // Get all dual-fuel fixed tariffs across all regions
+                const allFixed = data.tariffs
                     .filter(t => t.elec_unit_rate_p && t.gas_unit_rate_p)
                     .filter(t => !t.error)
                     .filter(t => {
@@ -1120,14 +1119,13 @@
                         ...t,
                         annualCost: calculateAnnualCost(t),
                         supplierName: supplierNames[t.supplier] || t.supplier
-                    }))
-                    .sort((a, b) => a.annualCost - b.annualCost);
+                    }));
 
-                // Update comparison table
+                // Update comparison table (all regions)
                 updateComparisonTable(data.tariffs);
                 
-                // Update charts with real data
-                updateSupplierChart(londonTariffs);
+                // Update chart with averaged data across all regions
+                updateSupplierChart(allFixed);
 
                 // Calculate average savings across ALL regions: Fuse fixed vs regional SVT
                 const allRegions = [...new Set(data.tariffs.map(t => t.region))];
@@ -1188,7 +1186,7 @@
         }
 
         function updateComparisonTable(allTariffs) {
-            const regions = ['London', 'South East', 'East Midlands', 'Yorkshire', 'South Scotland'];
+            const regions = [...new Set(allTariffs.filter(t => !t.error).map(t => t.region))].sort();
             const tableBody = document.getElementById('tariffTableBody');
             if (!tableBody) return;
 
@@ -1214,27 +1212,30 @@
         }
 
         function updateSupplierChart(tariffs) {
-            // Get best tariff from each supplier
+            // Average the cheapest tariff per region for each supplier
             const suppliers = ['fuse_energy', 'octopus', 'british_gas', 'ovo', 'scottish_power'];
+            const allRegions = [...new Set(tariffs.map(t => t.region))];
             const chartData = [];
             
             suppliers.forEach(supplier => {
-                const best = tariffs
-                    .filter(t => t.supplier === supplier)
-                    .sort((a, b) => a.annualCost - b.annualCost)[0];
-                if (best) {
+                const regionCosts = [];
+                allRegions.forEach(region => {
+                    const best = tariffs
+                        .filter(t => t.supplier === supplier && t.region === region)
+                        .sort((a, b) => a.annualCost - b.annualCost)[0];
+                    if (best) regionCosts.push(best.annualCost);
+                });
+                if (regionCosts.length > 0) {
+                    const avg = regionCosts.reduce((a, b) => a + b, 0) / regionCosts.length;
                     chartData.push({
-                        label: best.supplierName,
-                        cost: Math.round(best.annualCost),
-                        tariff: best.tariff_name
+                        label: supplierNames[supplier] || supplier,
+                        cost: Math.round(avg)
                     });
                 }
             });
             
-            // Add price cap for comparison
-            chartData.push({ label: 'Price Cap (SVT)', cost: PRICE_CAP_ANNUAL, tariff: 'Standard Variable' });
-            
-            // Sort by cost
+            // Add price cap
+            chartData.push({ label: 'Price Cap (SVT)', cost: PRICE_CAP_ANNUAL });
             chartData.sort((a, b) => a.cost - b.cost);
 
             const ctx = document.getElementById('supplierCompareChart').getContext('2d');

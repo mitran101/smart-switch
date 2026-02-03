@@ -892,7 +892,7 @@
                 <tr>
                     <th>Region</th>
                     <th>Fuse<br>Elec (p/kWh)</th>
-                    <th>Octopus<br>Elec (p/kWh)</th>
+                    <th>OVO<br>Elec (p/kWh)</th>
                     <th>British Gas<br>Elec (p/kWh)</th>
                     <th>Fuse<br>Gas (p/kWh)</th>
                 </tr>
@@ -1128,11 +1128,10 @@
                 updateSupplierChart(allFixed);
 
                 // Update tip box with same averaged figures
-                const suppliersToAvg = ['fuse_energy', 'octopus'];
                 const avgCosts = {};
                 const allRegions = [...new Set(allFixed.map(t => t.region))];
                 
-                ['fuse_energy', 'octopus', 'british_gas', 'ovo', 'scottish_power'].forEach(supplier => {
+                ['fuse_energy', 'british_gas', 'ovo', 'scottish_power'].forEach(supplier => {
                     const regionCosts = [];
                     allRegions.forEach(region => {
                         const best = allFixed
@@ -1149,9 +1148,9 @@
                     document.getElementById('tipFuse').textContent = avgCosts.fuse_energy.toLocaleString();
                     document.getElementById('tipSaving').textContent = (PRICE_CAP_ANNUAL - avgCosts.fuse_energy).toLocaleString();
                 }
-                // Show next cheapest dual-fuel fixed supplier (Octopus may not have dual fuel)
-                const otherSupplier = avgCosts.octopus || avgCosts.ovo || avgCosts.british_gas;
-                const otherName = avgCosts.octopus ? 'Octopus' : avgCosts.ovo ? 'OVO' : 'British Gas';
+                // Show next cheapest dual-fuel fixed supplier
+                const otherSupplier = avgCosts.ovo || avgCosts.british_gas || avgCosts.scottish_power;
+                const otherName = avgCosts.ovo ? 'OVO' : avgCosts.british_gas ? 'British Gas' : 'Scottish Power';
                 if (otherSupplier) {
                     document.getElementById('tipOctopus').textContent = otherSupplier.toLocaleString();
                     document.getElementById('tipOctopusLabel').textContent = otherName + ' Fixed';
@@ -1225,14 +1224,14 @@
                 const regionTariffs = allTariffs.filter(t => t.region === region && !t.error);
                 
                 const fuse = regionTariffs.find(t => t.supplier === 'fuse_energy');
-                const octopus = regionTariffs.find(t => t.supplier === 'octopus' && 
-                    (t.tariff_name || '').toLowerCase().includes('12'));
+                const ovo = regionTariffs.find(t => t.supplier === 'ovo' && 
+                    (t.tariff_name || '').toLowerCase().includes('fixed'));
                 const bg = regionTariffs.find(t => t.supplier === 'british_gas');
                 
                 html += `<tr>
                     <td><strong>${region}</strong></td>
                     <td class="table-highlight">${fuse?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
-                    <td>${octopus?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
+                    <td>${ovo?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
                     <td>${bg?.elec_unit_rate_p?.toFixed(2) || '-'}</td>
                     <td>${fuse?.gas_unit_rate_p?.toFixed(2) || '-'}</td>
                 </tr>`;
@@ -1243,7 +1242,7 @@
 
         function updateSupplierChart(tariffs) {
             // Average the cheapest tariff per region for each supplier
-            const suppliers = ['fuse_energy', 'octopus', 'british_gas', 'ovo', 'scottish_power'];
+            const suppliers = ['fuse_energy', 'british_gas', 'ovo', 'scottish_power'];
             const allRegions = [...new Set(tariffs.map(t => t.region))];
             const chartData = [];
             
@@ -1317,10 +1316,10 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Fuse Energy', 'Octopus 12M', 'British Gas', 'OVO 1 Year', 'Price Cap (SVT)'],
+                    labels: ['Fuse Energy', 'British Gas', 'OVO 1 Year', 'Price Cap (SVT)'],
                     datasets: [{
-                        data: [1520, 1640, 1680, 1660, 1758],
-                        backgroundColor: ['#10B981', '#8b5cf6', '#64748b', '#64748b', '#ef4444'],
+                        data: [1520, 1680, 1660, 1758],
+                        backgroundColor: ['#10B981', '#64748b', '#64748b', '#ef4444'],
                         borderRadius: 6,
                         barThickness: 40
                     }]

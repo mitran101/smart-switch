@@ -12,12 +12,12 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Fuse Energy analysis 2026: Is the UK's fastest-growing energy supplier safe? We look at their $5bn valuation, pricing, VC backing, and whether they can survive the next crisis.">
-    <link rel="canonical" href="https://switch-pilot.com/fuse-energy.html">
+    <link rel="canonical" href="https://switch-pilot.com/fuse-energy-and-the-history-of-small-suppliers.html">
     
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
     <meta property="og:title" content="Fuse Energy: Can the New Generation Learn from 2021's Mistakes?">
     <meta property="og:description" content="The first new UK supplier in two years now serves 200,000+ households. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed?">
-    <meta property="og:url" content="https://switch-pilot.com/fuse-energy.html">
+    <meta property="og:url" content="https://switch-pilot.com/fuse-energy-and-the-history-of-small-suppliers.html">
     <meta property="og:type" content="article">
     <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
     
@@ -805,7 +805,7 @@
         <p>The company's founders, former Revolut executives Alan Chang and Charles Orr, aren't energy industry veterans. They're fintech entrepreneurs who looked at the carnage and thought: "We can do better." Now backed by over $158 million in venture capital from top-tier investors including Balderton Capital, Lowercarbon Capital, Accel, Lakestar, Ribbit Capital, and even Nik Storonsky's QuantumLight, they've achieved a remarkable $5 billion valuation in just their third year of operation.</p>
 
         <div class="hero-stat">
-            <div class="hero-stat-number">£70-120</div>
+            <div class="hero-stat-number" id="heroSavings">...</div>
             <div class="hero-stat-label">Annual savings vs price cap</div>
             <div class="hero-stat-sublabel">Based on typical household usage (2,700 kWh elec, 11,500 kWh gas)</div>
         </div>
@@ -1128,6 +1128,13 @@
                 
                 // Update charts with real data
                 updateSupplierChart(londonTariffs);
+
+                // Update hero stat with actual savings
+                const fuseBest = londonTariffs.find(t => t.supplier === 'fuse_energy');
+                if (fuseBest) {
+                    const saving = Math.round(PRICE_CAP_ANNUAL - fuseBest.annualCost);
+                    document.getElementById('heroSavings').textContent = '£' + saving;
+                }
                 
             } catch (e) {
                 console.error('Failed to load tariff data:', e);

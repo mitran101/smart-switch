@@ -790,7 +790,7 @@
         <div class="header-content">
             <span class="tag">Supplier Analysis</span>
             <h1>Fuse Energy: Can the New Generation Learn from 2021's Mistakes?</h1>
-            <p class="subtitle">The first new UK supplier in two years now serves 200,000+ households with a £3.75bn valuation. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed where energy veterans failed?</p>
+            <p class="subtitle">The first new UK supplier in two years now serves 200,000+ households with a $5bn valuation. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed where energy veterans failed?</p>
             <div class="meta">
                 <span>📅 February 2026</span>
                 <span>•</span>
@@ -913,12 +913,12 @@
 
         <div class="tip-box">
             <h4>✅ The Verdict: Genuinely Competitive</h4>
-            <p>These figures are indicative and non-binding - tariffs change regularly. But Fuse consistently undercuts major suppliers by <strong>10-12% on electricity</strong> and <strong>3-5% on gas</strong>. For a typical dual-fuel household:</p>
+            <p>These figures are indicative and non-binding - tariffs change regularly. But Fuse consistently undercuts major suppliers on electricity and gas. For a typical dual-fuel household:</p>
             <ul>
-                <li><strong>Price cap cost:</strong> ~£1,758/year</li>
-                <li><strong>Octopus 12M Fixed:</strong> ~£1,640/year</li>
-                <li><strong>Fuse 15M Fixed:</strong> ~£1,520/year</li>
-                <li><strong>Annual savings vs cap:</strong> £70-120</li>
+                <li><strong>Price cap cost:</strong> ~£<span id="tipPriceCap">1,758</span>/year</li>
+                <li><strong>Octopus 12M Fixed:</strong> ~£<span id="tipOctopus">...</span>/year</li>
+                <li><strong>Fuse Fixed:</strong> ~£<span id="tipFuse">...</span>/year</li>
+                <li><strong>Annual savings vs cap:</strong> £<span id="tipSaving">...</span></li>
             </ul>
             <p>The £50 per fuel exit fee (£100 total) means you need to stay ~12-14 months to break even, but that's standard for fixed tariffs.</p>
         </div>
@@ -930,7 +930,7 @@
         <ul>
             <li><strong>Operational Efficiency:</strong> Fully digital model with no call centres, paper bills, or branch networks. They claim 30-40% lower operational costs than traditional suppliers.</li>
             <li><strong>Sophisticated Hedging:</strong> Professional traders using complex hedging strategies-not buying spot market and hoping for the best.</li>
-            <li><strong>Capital Reserves:</strong> £170m+ raised and cash flow positive means they can absorb short-term volatility.</li>
+            <li><strong>Capital Reserves:</strong> $158m+ raised and cash flow positive means they can absorb short-term volatility.</li>
             <li><strong>Scale Economics:</strong> At 200,000 customers, operational costs per customer drop significantly.</li>
         </ul>
 
@@ -1052,7 +1052,7 @@
             <a href="index.html#waitlist" class="cta-button">Join the Waitlist →</a>
         </div>
 
-        <p style="text-align: center; margin-top: 1.5rem;">Or try our free tools: <a href="bill-calculator.html">Bill Calculator</a> · <a href="tariff-tracker.html">Tariff Tracker</a></p>
+        <p style="text-align: center; margin-top: 1.5rem;">Or try our free tools: <a href="energy-bill-calculator.html">Bill Calculator</a> · <a href="tariff-tracker.html">Tariff Tracker</a></p>
 
         <hr>
 
@@ -1061,7 +1061,7 @@
         </p>
         
         <p class="sources" style="margin-top: 1rem;">
-            <strong>Disclaimer:</strong> This is an independent review. We are not affiliated with Fuse Energy. Tariff rates accurate as of February 2026 but subject to change. Always verify current pricing directly before switching.
+            <strong>Disclaimer:</strong> This is an independent analysis. We are not affiliated with Fuse Energy. Tariff rates accurate as of February 2026 but subject to change. Always verify current pricing directly before switching.
         </p>
     </div>
 
@@ -1126,6 +1126,32 @@
                 
                 // Update chart with averaged data across all regions
                 updateSupplierChart(allFixed);
+
+                // Update tip box with same averaged figures
+                const suppliersToAvg = ['fuse_energy', 'octopus'];
+                const avgCosts = {};
+                const allRegions = [...new Set(allFixed.map(t => t.region))];
+                
+                ['fuse_energy', 'octopus', 'british_gas', 'ovo', 'scottish_power'].forEach(supplier => {
+                    const regionCosts = [];
+                    allRegions.forEach(region => {
+                        const best = allFixed
+                            .filter(t => t.supplier === supplier && t.region === region)
+                            .sort((a, b) => a.annualCost - b.annualCost)[0];
+                        if (best) regionCosts.push(best.annualCost);
+                    });
+                    if (regionCosts.length > 0) {
+                        avgCosts[supplier] = Math.round(regionCosts.reduce((a, b) => a + b, 0) / regionCosts.length);
+                    }
+                });
+
+                if (avgCosts.fuse_energy) {
+                    document.getElementById('tipFuse').textContent = avgCosts.fuse_energy.toLocaleString();
+                    document.getElementById('tipSaving').textContent = (PRICE_CAP_ANNUAL - avgCosts.fuse_energy).toLocaleString();
+                }
+                if (avgCosts.octopus) {
+                    document.getElementById('tipOctopus').textContent = avgCosts.octopus.toLocaleString();
+                }
 
                 // Calculate average savings across ALL regions: Fuse fixed vs regional SVT
                 const allRegions = [...new Set(data.tariffs.map(t => t.region))];

@@ -916,7 +916,7 @@
             <p>These figures are indicative and non-binding - tariffs change regularly. But Fuse consistently undercuts major suppliers on electricity and gas. For a typical dual-fuel household:</p>
             <ul>
                 <li><strong>Price cap cost:</strong> ~£<span id="tipPriceCap">1,758</span>/year</li>
-                <li><strong>Octopus 12M Fixed:</strong> ~£<span id="tipOctopus">...</span>/year</li>
+                <li><strong><span id="tipOctopusLabel">Next cheapest fixed</span>:</strong> ~£<span id="tipOctopus">...</span>/year</li>
                 <li><strong>Fuse Fixed:</strong> ~£<span id="tipFuse">...</span>/year</li>
                 <li><strong>Annual savings vs cap:</strong> £<span id="tipSaving">...</span></li>
             </ul>
@@ -1149,15 +1149,19 @@
                     document.getElementById('tipFuse').textContent = avgCosts.fuse_energy.toLocaleString();
                     document.getElementById('tipSaving').textContent = (PRICE_CAP_ANNUAL - avgCosts.fuse_energy).toLocaleString();
                 }
-                if (avgCosts.octopus) {
-                    document.getElementById('tipOctopus').textContent = avgCosts.octopus.toLocaleString();
+                // Show next cheapest dual-fuel fixed supplier (Octopus may not have dual fuel)
+                const otherSupplier = avgCosts.octopus || avgCosts.ovo || avgCosts.british_gas;
+                const otherName = avgCosts.octopus ? 'Octopus' : avgCosts.ovo ? 'OVO' : 'British Gas';
+                if (otherSupplier) {
+                    document.getElementById('tipOctopus').textContent = otherSupplier.toLocaleString();
+                    document.getElementById('tipOctopusLabel').textContent = otherName + ' Fixed';
                 }
 
                 // Calculate average savings across ALL regions: Fuse fixed vs regional SVT
-                const allRegions = [...new Set(data.tariffs.map(t => t.region))];
+                const heroRegions = [...new Set(data.tariffs.map(t => t.region))];
                 const regionSavings = [];
                 
-                allRegions.forEach(region => {
+                heroRegions.forEach(region => {
                     const regionTariffs = data.tariffs.filter(t => t.region === region && !t.error);
                     
                     // Best Fuse fixed tariff in this region

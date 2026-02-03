@@ -807,7 +807,7 @@
         <div class="hero-stat">
             <div class="hero-stat-number" id="heroSavings">...</div>
             <div class="hero-stat-label">Annual savings vs price cap</div>
-            <div class="hero-stat-sublabel">Based on typical household usage (2,700 kWh elec, 11,500 kWh gas)</div>
+            <div class="hero-stat-sublabel" id="heroSubtext">Based on typical household usage (2,700 kWh elec, 11,500 kWh gas)</div>
         </div>
 
         <p>By early 2026, Fuse had grown to serve over 200,000 households, achieved $400 million in annual recurring revenue (growing 8x year-on-year), and reached cash flow positive status. But is this genuinely different from the speculative growth stories that collapsed in 2021, or are we watching history repeat itself with better marketing?</p>
@@ -1129,11 +1129,55 @@
                 // Update charts with real data
                 updateSupplierChart(londonTariffs);
 
-                // Update hero stat with actual savings
-                const fuseBest = londonTariffs.find(t => t.supplier === 'fuse_energy');
-                if (fuseBest) {
-                    const saving = Math.round(PRICE_CAP_ANNUAL - fuseBest.annualCost);
-                    document.getElementById('heroSavings').textContent = '£' + saving;
+                // Calculate average savings across ALL regions: Fuse fixed vs regional SVT
+                const allRegions = [...new Set(data.tariffs.map(t => t.region))];
+                const regionSavings = [];
+                
+                allRegions.forEach(region => {
+                    const regionTariffs = data.tariffs.filter(t => t.region === region && !t.error);
+                    
+                    // Best Fuse fixed tariff in this region
+                    const fuseBest = regionTariffs
+                        .filter(t => t.supplier === 'fuse_energy')
+                        .filter(t => t.elec_unit_rate_p && t.gas_unit_rate_p)
+                        .filter(t => {
+                            const name = (t.tariff_name || '').toLowerCase();
+                            return !name.includes('variable') && !name.includes('tracker') && !name.includes('agile');
+                        })
+                        .map(t => ({ ...t, annualCost: calculateAnnualCost(t) }))
+                        .sort((a, b) => a.annualCost - b.annualCost)[0];
+                    
+                    // SVT/variable tariff for this region (any supplier)
+                    const svt = regionTariffs
+                        .filter(t => t.elec_unit_rate_p && t.gas_unit_rate_p)
+                        .filter(t => {
+                            const name = (t.tariff_name || '').toLowerCase();
+                            return name.includes('variable') || name.includes('svt') || name.includes('standard');
+                        })
+                        .map(t => ({ ...t, annualCost: calculateAnnualCost(t) }))
+                        .sort((a, b) => b.annualCost - a.annualCost)[0]; // most expensive SVT
+                    
+                    if (fuseBest && svt) {
+                        const saving = svt.annualCost - fuseBest.annualCost;
+                        if (saving > 0) regionSavings.push(saving);
+                    } else if (fuseBest) {
+                        // Fallback: compare vs price cap
+                        const saving = PRICE_CAP_ANNUAL - fuseBest.annualCost;
+                        if (saving > 0) regionSavings.push(saving);
+                    }
+                });
+                
+                if (regionSavings.length > 0) {
+                    const minSaving = Math.round(Math.min(...regionSavings));
+                    const maxSaving = Math.round(Math.max(...regionSavings));
+                    const heroEl = document.getElementById('heroSavings');
+                    if (minSaving === maxSaving) {
+                        heroEl.textContent = '£' + minSaving;
+                    } else {
+                        heroEl.textContent = '£' + minSaving + '-' + maxSaving;
+                    }
+                    document.getElementById('heroSubtext').textContent = 
+                        'Average across ' + regionSavings.length + ' UK regions. Fuse fixed vs standard variable tariffs.';
                 }
                 
             } catch (e) {

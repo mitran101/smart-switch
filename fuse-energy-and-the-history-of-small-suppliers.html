@@ -1029,7 +1029,7 @@
 
         <div class="verdict-box">
             <h3>🎯 Our Verdict</h3>
-            <p>Fuse Energy represents the most sophisticated and well-capitalised attempt yet to build a sustainable challenger supplier. Their pricing is competitive (£70-120/year savings), customer service is genuinely excellent (24/7 chat, 4.7/5 Trustpilot), and their $158m+ backing from tier-1 VCs provides real runway.</p>
+            <p>Fuse Energy represents the most sophisticated and well-capitalised attempt yet to build a sustainable challenger supplier. Their pricing is competitive (£<span id="verdictSaving">...</span>/year savings), customer service is genuinely excellent (24/7 chat, 4.7/5 Trustpilot), and their $158m+ backing from tier-1 VCs provides real runway.</p>
             <p>The vertically integrated model-owning generation, trading, supply, and soon hardware-is genuinely different from the hollow middlemen that collapsed in 2021. They're not just reselling energy; they're building an energy company.</p>
             <p><strong>Our recommendation:</strong> If you're on SVT and comfortable with app-based service, Fuse is worth serious consideration. The chat support is better than most phone lines. But stay vigilant-no one has tested whether fintech-style energy companies can survive a true wholesale crisis.</p>
         </div>
@@ -1039,7 +1039,7 @@
         <ul>
             <li><strong>First new supplier post-2021 crisis</strong> - 200,000+ customers, $5bn valuation, $400m ARR, cash flow positive</li>
             <li><strong>Serious VC backing</strong> - $158m+ raised from Balderton, Lowercarbon, Accel, Ribbit, Lakestar, and Revolut founder's fund</li>
-            <li><strong>Pricing is genuinely competitive</strong> - Consistently among cheapest fixed tariffs, saving £70-120/year vs price cap</li>
+            <li><strong>Pricing is genuinely competitive</strong> - Consistently among cheapest fixed tariffs, saving £<span id="takeawaySaving">...</span>/year vs price cap</li>
             <li><strong>24/7 live chat support</strong> - Real humans, very responsive (even nights/weekends), 4.7/5 Trustpilot from 3,400+ reviews</li>
             <li><strong>Vertically integrated</strong> - Own renewable generation, trading desk, and building consumer hardware</li>
             <li><strong>Untested through crisis</strong> - The ultimate validation comes when wholesale prices next spike</li>
@@ -1203,8 +1203,17 @@
                     } else {
                         heroEl.textContent = '£' + minSaving + '-' + maxSaving;
                     }
-                    document.getElementById('heroSubtext').textContent = 
+document.getElementById('heroSubtext').textContent = 
                         'Average across ' + regionSavings.length + ' UK regions. Fuse fixed vs standard variable tariffs.';
+                    
+                    // Update hardcoded savings text
+                    const savingText = minSaving === maxSaving 
+                        ? minSaving.toString() 
+                        : minSaving + '-' + maxSaving;
+                    const verdictEl = document.getElementById('verdictSaving');
+                    const takeawayEl = document.getElementById('takeawaySaving');
+                    if (verdictEl) verdictEl.textContent = savingText;
+                    if (takeawayEl) takeawayEl.textContent = savingText;
                 }
                 
             } catch (e) {

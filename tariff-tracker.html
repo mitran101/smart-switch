@@ -399,12 +399,43 @@
             border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 600;
+            position: relative;
         }
         .badge.green { background: rgba(16, 185, 129, 0.2); color: var(--sp-green); }
         .badge.blue { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
         .badge.yellow { background: rgba(245, 158, 11, 0.2); color: var(--sp-amber); }
         .badge.purple { background: rgba(168, 85, 247, 0.2); color: var(--sp-purple); }
-        .badge.trustpilot { background: rgba(16, 185, 129, 0.2); color: var(--sp-green); }
+        .badge.red { background: rgba(239, 68, 68, 0.2); color: var(--sp-red); }
+        
+        /* Badge with tooltip */
+        .badge-with-info {
+            cursor: help;
+        }
+        .badge-with-info .badge-tooltip {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--sp-card-lighter);
+            border: 1px solid var(--sp-border);
+            color: var(--sp-text);
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            width: 180px;
+            text-align: left;
+            line-height: 1.4;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .badge-with-info:hover .badge-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
 
         .rates-grid {
             display: grid;
@@ -893,15 +924,15 @@
         let tariffData = { tariffs: [], updated: null };
         let chart = null;
 
-        // Supplier info
+        // Supplier info with Trustpilot (reviewed weekly) and Ofgem complaints data (Q3 2024)
         const supplierInfo = {
-            'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
-            'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable', trustpilot: 4.5 },
-            'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix', trustpilot: 4.3 },
-            'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable', trustpilot: 4.6 },
-            'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable', trustpilot: 4.3 },
-            'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable', trustpilot: 4.8 },
-            'fuse_energy': { name: 'Fuse Energy', color: '#ff8c00', green: false, greenNote: 'Standard mix', trustpilot: 4.7 }
+            'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable', trustpilot: 4.8, complaints: 0.6 },
+            'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable', trustpilot: 4.5, complaints: 1.3 },
+            'british_gas': { name: 'British Gas', color: '#0066cc', green: false, greenNote: 'Standard mix', trustpilot: 4.3, complaints: 1.5 },
+            'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable', trustpilot: 4.6, complaints: 1.2 },
+            'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable', trustpilot: 4.3, complaints: 1.4 },
+            'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable', trustpilot: 4.8, complaints: 0.7 },
+            'fuse_energy': { name: 'Fuse Energy', color: '#ff8c00', green: false, greenNote: 'Standard mix', trustpilot: 4.7, complaints: 0.3 }
         };
 
         // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
@@ -1055,12 +1086,37 @@
             return feeStr;
         }
 
+        function getComplaintsBadge(complaints) {
+            if (complaints === undefined || complaints === null) return '';
+            
+            let badgeClass, badgeText;
+            
+            if (complaints < 1) {
+                badgeClass = 'green';
+                badgeText = '<1 complaint per 100 accounts';
+            } else if (complaints < 2) {
+                badgeClass = 'yellow';
+                badgeText = `${complaints} complaints per 100 accounts`;
+            } else {
+                badgeClass = 'red';
+                badgeText = `${complaints} complaints per 100 accounts`;
+            }
+            
+            return `<span class="badge ${badgeClass} badge-with-info">📋 ${badgeText}<span class="badge-tooltip">Ofgem complaints data (Q3 2024) - complaints per 100 customer accounts</span></span>`;
+        }
+
+        function getTrustpilotBadge(trustpilot) {
+            if (!trustpilot) return '';
+            return `<span class="badge green badge-with-info">⭐ ${trustpilot} Trustpilot<span class="badge-tooltip">Trustpilot score - reviewed weekly from Trustpilot.com</span></span>`;
+        }
+
         function getPros(tariff, savings, supplier, fuelType) {
             const pros = [];
             if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
             if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
+            if (supplier?.complaints && supplier.complaints < 1) pros.push('Low complaint rate');
             return pros.slice(0, 3);
         }
 
@@ -1071,6 +1127,7 @@
             if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
             if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
+            if (supplier?.complaints && supplier.complaints > 1.2) cons.push('Higher complaint rate');
             return cons.slice(0, 3);
         }
 
@@ -1152,7 +1209,8 @@
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
                             ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
                             ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
-                            ${supplier.trustpilot ? `<span class="badge trustpilot">⭐ ${supplier.trustpilot} Trustpilot</span>` : ''}
+                            ${getTrustpilotBadge(supplier.trustpilot)}
+                            ${getComplaintsBadge(supplier.complaints)}
                         </div>
 
                         <div class="rates-grid">
@@ -1263,60 +1321,60 @@
 
         // Postcode to Region mapping
         const postcodeToRegion = {
-    // London
-    'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
-    'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
-    'UB': 'London', 'HA': 'London',
-    // South East
-    'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
-    'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
-    'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
-    'MK': 'South East',
-    // South West
-    'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
-    'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
-    'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
-    // Southern
-    'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
-    'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
-    // Eastern
-    'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
-    'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
-    'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
-    'SS': 'Eastern', 'WD': 'Eastern',
-    // East Midlands
-    'DE': 'East Midlands', 'LE': 'East Midlands',
-    'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
-    // West Midlands
-    'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
-    'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
-    'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
-    // Yorkshire
-    'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
-    'HX': 'Yorkshire', 'LS': 'Yorkshire', 'WF': 'Yorkshire',
-    'YO': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire',
-    // North West
-    'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
-    'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
-    'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
-    'WN': 'North West',
-    // North East
-    'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
-    'TS': 'North East',
-    // South Wales
-    'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales', 'LD': 'South Wales',
-    // North Wales & Merseyside
-    'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
-    'SY': 'North Wales & Merseyside',
-    // South Scotland
-    'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
-    'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
-    'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
-    // North Scotland
-    'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
-    'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
-    'HS': 'North Scotland'
-};
+            // London
+            'E': 'London', 'EC': 'London', 'N': 'London', 'NW': 'London', 
+            'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London',
+            'UB': 'London', 'HA': 'London',
+            // South East
+            'BN': 'South East', 'BR': 'South East', 'CR': 'South East', 'CT': 'South East',
+            'DA': 'South East', 'GU': 'South East', 'KT': 'South East', 'ME': 'South East',
+            'RH': 'South East', 'SM': 'South East', 'TN': 'South East', 'TW': 'South East',
+            'MK': 'South East',
+            // South West
+            'BA': 'South West', 'BH': 'South West', 'BS': 'South West', 'DT': 'South West',
+            'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'SN': 'South West',
+            'SP': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
+            // Southern
+            'PO': 'Southern', 'SO': 'Southern', 'RG': 'Southern',
+            'SL': 'Southern', 'HP': 'Southern', 'OX': 'Southern',
+            // Eastern
+            'AL': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern',
+            'EN': 'Eastern', 'IG': 'Eastern', 'IP': 'Eastern', 'LU': 'Eastern',
+            'NR': 'Eastern', 'PE': 'Eastern', 'RM': 'Eastern', 'SG': 'Eastern',
+            'SS': 'Eastern', 'WD': 'Eastern',
+            // East Midlands
+            'DE': 'East Midlands', 'LE': 'East Midlands',
+            'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
+            // West Midlands
+            'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands',
+            'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands',
+            'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
+            // Yorkshire
+            'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire',
+            'HX': 'Yorkshire', 'LS': 'Yorkshire', 'WF': 'Yorkshire',
+            'YO': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire',
+            // North West
+            'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West',
+            'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West',
+            'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West',
+            'WN': 'North West',
+            // North East
+            'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East',
+            'TS': 'North East',
+            // South Wales
+            'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales', 'LD': 'South Wales',
+            // North Wales & Merseyside
+            'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside',
+            'SY': 'North Wales & Merseyside',
+            // South Scotland
+            'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland',
+            'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland',
+            'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
+            // North Scotland
+            'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland',
+            'KW': 'North Scotland', 'PH': 'North Scotland', 'ZE': 'North Scotland',
+            'HS': 'North Scotland'
+        };
 
         function getRegionFromPostcode(postcode) {
             const cleaned = postcode.toUpperCase().replace(/[^A-Z0-9]/g, '');

@@ -1094,7 +1094,7 @@
             if (complaints < 1) {
                 badgeClass = 'green';
                 badgeText = '<1 complaint per 100 accounts';
-            } else if (complaints <= 1.2) {
+            } else if (complaints < 2) {
                 badgeClass = 'yellow';
                 badgeText = `${complaints} complaints per 100 accounts`;
             } else {

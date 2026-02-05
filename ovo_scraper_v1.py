@@ -254,59 +254,214 @@ def extract_rates_from_modal(page) -> dict:
             if re.search(r'no\s*exit\s*fee', modal_text, re.I):
                 rates['exit_fee'] = "£0"
         
-        # Extract electricity rates
-        # Pattern: "Unit rate: 26.90p/kWh" or "26.90p per kWh"
-        elec_unit_patterns = [
-            r'Electricity.*?Unit\s*rate[:\s]*(\d+\.?\d*)\s*p',
-            r'Electricity.*?(\d+\.?\d*)\s*p\s*/?\s*kWh',
-            r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p.*?Electricity',
-        ]
+        # ========================================
+        # METHOD 1: Tab-separated table parsing
+        # ========================================
+        # OVO modal renders as a table: "\tElectricity\tGas" with tab-separated values
+        # e.g. "Unit rate:\t26.90p/kWh\t6.03p/kWh"
+        # e.g. "Day:\t29.35p/kWh\tN/A"  (EC7 meters)
         
-        # Find Electricity section and extract
-        elec_section = re.search(r'Electricity(.*?)(?:Gas|Estimated yearly|$)', modal_text, re.I | re.S)
-        if elec_section:
-            elec_text = elec_section.group(1)
-            
-            # Unit rate
-            unit_match = re.search(r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p', elec_text, re.I)
-            if unit_match:
-                rates['elec_unit_rate_p'] = float(unit_match.group(1))
-            
-            # Standing charge
-            standing_match = re.search(r'Standing\s*charge[:\s]*(\d+\.?\d*)\s*p', elec_text, re.I)
-            if standing_match:
-                rates['elec_standing_p'] = float(standing_match.group(1))
+        table_parsed = False
         
-        # Extract gas rates
-        gas_section = re.search(r'Gas(.*?)(?:Estimated yearly|$)', modal_text, re.I | re.S)
-        if gas_section:
-            gas_text = gas_section.group(1)
+        # Check if modal has tab-separated table format
+        if '\tElectricity\t' in modal_text or '\tElectricity\n' in modal_text:
+            print(f"    📊 Detected tab-separated table format")
             
-            # Unit rate
-            unit_match = re.search(r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p', gas_text, re.I)
-            if unit_match:
-                rates['gas_unit_rate_p'] = float(unit_match.group(1))
+            for line in modal_text.split('\n'):
+                line = line.strip()
+                parts = line.split('\t')
+                if len(parts) < 2:
+                    continue
+                
+                label = parts[0].strip().rstrip(':').lower()
+                elec_val = parts[1].strip() if len(parts) >= 2 else ''
+                gas_val = parts[2].strip() if len(parts) >= 3 else ''
+                
+                # Parse unit rate
+                if label == 'unit rate':
+                    elec_rate = re.search(r'(\d+\.?\d*)\s*p', elec_val)
+                    gas_rate = re.search(r'(\d+\.?\d*)\s*p', gas_val)
+                    if elec_rate:
+                        rates['elec_unit_rate_p'] = float(elec_rate.group(1))
+                    if gas_rate:
+                        rates['gas_unit_rate_p'] = float(gas_rate.group(1))
+                
+                # Parse Day rate (EC7)
+                elif label == 'day':
+                    elec_rate = re.search(r'(\d+\.?\d*)\s*p', elec_val)
+                    if elec_rate:
+                        rates['elec_unit_rate_p'] = float(elec_rate.group(1))
+                        rates['elec_is_ec7'] = True
+                
+                # Parse Night rate (EC7)
+                elif label == 'night':
+                    elec_rate = re.search(r'(\d+\.?\d*)\s*p', elec_val)
+                    if elec_rate:
+                        rates['elec_night_rate_p'] = float(elec_rate.group(1))
+                        rates['elec_is_ec7'] = True
+                
+                # Parse standing charge
+                elif label == 'standing charge':
+                    elec_sc = re.search(r'(\d+\.?\d*)\s*p', elec_val)
+                    gas_sc = re.search(r'(\d+\.?\d*)\s*p', gas_val)
+                    if elec_sc:
+                        rates['elec_standing_p'] = float(elec_sc.group(1))
+                    if gas_sc:
+                        rates['gas_standing_p'] = float(gas_sc.group(1))
+                
+                # Parse exit fee
+                elif label == 'exit fee':
+                    fee_match = re.search(r'£(\d+)', elec_val) or re.search(r'(\d+)', elec_val)
+                    if fee_match:
+                        rates['exit_fee'] = f"£{fee_match.group(1)} per fuel"
+                
+                # Parse contract length
+                elif label == 'plan length':
+                    length_match = re.search(r'(\d+)\s*months?', elec_val)
+                    if length_match:
+                        rates['contract_months'] = int(length_match.group(1))
             
-            # Standing charge
-            standing_match = re.search(r'Standing\s*charge[:\s]*(\d+\.?\d*)\s*p', gas_text, re.I)
-            if standing_match:
-                rates['gas_standing_p'] = float(standing_match.group(1))
+            # Check if we got the essential rates
+            if rates.get('elec_standing_p') or rates.get('gas_unit_rate_p'):
+                table_parsed = True
+                if rates.get('elec_is_ec7'):
+                    print(f"    ⚡ EC7: Day={rates.get('elec_unit_rate_p')}p, Night={rates.get('elec_night_rate_p')}p")
+                print(f"    ✓ Table parsing successful: {rates}")
         
-        # Fallback patterns if section-based extraction fails
-        if 'elec_unit_rate_p' not in rates:
-            # Try generic patterns
-            all_unit_rates = re.findall(r'(\d+\.?\d*)\s*p\s*/?\s*kWh', modal_text, re.I)
-            if len(all_unit_rates) >= 1:
-                rates['elec_unit_rate_p'] = float(all_unit_rates[0])
-            if len(all_unit_rates) >= 2:
-                rates['gas_unit_rate_p'] = float(all_unit_rates[1])
+        # ========================================
+        # METHOD 2: Section-based extraction (fallback)
+        # ========================================
+        if not table_parsed:
+            elec_section = re.search(r'Electricity(.*?)(?:\bGas\b|Estimated yearly|$)', modal_text, re.I | re.S)
+            if elec_section:
+                elec_text = elec_section.group(1)
+                print(f"    ⚡ Elec section text: {repr(elec_text[:300])}")
+                
+                # Check if this is an EC7 (Economy 7) meter with Day/Night rates
+                day_patterns = [
+                    r'Day[:\s]*(\d+\.?\d*)\s*p',
+                    r'Day\s*(?:rate)?[:\s]*(\d+\.?\d*)\s*p',
+                    r'Day\n(\d+\.?\d*)\s*p',
+                    r'Day\s*\n\s*(\d+\.?\d*)\s*p',
+                ]
+                night_patterns = [
+                    r'Night[:\s]*(\d+\.?\d*)\s*p',
+                    r'Night\s*(?:rate)?[:\s]*(\d+\.?\d*)\s*p',
+                    r'Night\n(\d+\.?\d*)\s*p',
+                    r'Night\s*\n\s*(\d+\.?\d*)\s*p',
+                ]
+                
+                day_match = None
+                night_match = None
+                for pat in day_patterns:
+                    day_match = re.search(pat, elec_text, re.I)
+                    if day_match:
+                        break
+                for pat in night_patterns:
+                    night_match = re.search(pat, elec_text, re.I)
+                    if night_match:
+                        break
+                
+                if day_match and night_match:
+                    rates['elec_unit_rate_p'] = float(day_match.group(1))
+                    rates['elec_night_rate_p'] = float(night_match.group(1))
+                    rates['elec_is_ec7'] = True
+                    print(f"    ⚡ EC7 meter detected: Day={day_match.group(1)}p, Night={night_match.group(1)}p")
+                elif day_match and not night_match:
+                    rates['elec_unit_rate_p'] = float(day_match.group(1))
+                    rates['elec_is_ec7'] = True
+                else:
+                    unit_match = re.search(r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p', elec_text, re.I)
+                    if unit_match:
+                        rates['elec_unit_rate_p'] = float(unit_match.group(1))
+                    else:
+                        any_rate = re.search(r'(\d+\.?\d*)\s*p\s*/?\s*kWh', elec_text, re.I)
+                        if any_rate:
+                            rates['elec_unit_rate_p'] = float(any_rate.group(1))
+                
+                standing_match = re.search(r'Standing\s*charge[:\s]*(\d+\.?\d*)\s*p', elec_text, re.I)
+                if standing_match:
+                    rates['elec_standing_p'] = float(standing_match.group(1))
+                else:
+                    sc_match = re.search(r'(\d+\.?\d*)\s*p\s*/?\s*day', elec_text, re.I)
+                    if sc_match:
+                        rates['elec_standing_p'] = float(sc_match.group(1))
+            else:
+                print(f"    ⚠ Could not find Electricity section in modal text")
+            
+            gas_section = re.search(r'\bGas\b(.*?)(?:Estimated yearly|$)', modal_text, re.I | re.S)
+            if gas_section:
+                gas_text = gas_section.group(1)
+                
+                unit_match = re.search(r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p', gas_text, re.I)
+                if unit_match:
+                    rates['gas_unit_rate_p'] = float(unit_match.group(1))
+                else:
+                    any_rate = re.search(r'(\d+\.?\d*)\s*p\s*/?\s*kWh', gas_text, re.I)
+                    if any_rate:
+                        rates['gas_unit_rate_p'] = float(any_rate.group(1))
+                
+                standing_match = re.search(r'Standing\s*charge[:\s]*(\d+\.?\d*)\s*p', gas_text, re.I)
+                if standing_match:
+                    rates['gas_standing_p'] = float(standing_match.group(1))
+                else:
+                    sc_match = re.search(r'(\d+\.?\d*)\s*p\s*/?\s*day', gas_text, re.I)
+                    if sc_match:
+                        rates['gas_standing_p'] = float(sc_match.group(1))
+            else:
+                print(f"    ⚠ Could not find Gas section in modal text")
         
-        if 'elec_standing_p' not in rates:
-            all_standing = re.findall(r'(\d+\.?\d*)\s*p\s*/?\s*day', modal_text, re.I)
-            if len(all_standing) >= 1:
-                rates['elec_standing_p'] = float(all_standing[0])
-            if len(all_standing) >= 2:
-                rates['gas_standing_p'] = float(all_standing[1])
+        # ========================================
+        # SANITY CHECK: detect likely swaps
+        # ========================================
+        elec_u = rates.get('elec_unit_rate_p')
+        gas_u = rates.get('gas_unit_rate_p')
+        elec_s = rates.get('elec_standing_p')
+        gas_s = rates.get('gas_standing_p')
+        
+        if elec_u and gas_u and gas_u > 15 and elec_u < 10:
+            print(f"    🔄 SWAP DETECTED: elec_unit={elec_u}, gas_unit={gas_u} — swapping!")
+            rates['elec_unit_rate_p'], rates['gas_unit_rate_p'] = gas_u, elec_u
+        
+        if elec_s and gas_s and gas_s > 40 and elec_s < 30:
+            print(f"    🔄 SWAP DETECTED: elec_sc={elec_s}, gas_sc={gas_s} — swapping!")
+            rates['elec_standing_p'], rates['gas_standing_p'] = gas_s, elec_s
+        
+        # ========================================
+        # METHOD 3: Value-based fallback (last resort)
+        # ========================================
+        if not rates.get('elec_unit_rate_p') and not rates.get('gas_unit_rate_p'):
+            print(f"    ⚠ All extraction methods failed, trying value-based fallback...")
+            all_rates_pkwh = re.findall(r'(\d+\.?\d*)\s*p\s*/?\s*kWh', modal_text, re.I)
+            all_rates_pday = re.findall(r'(\d+\.?\d*)\s*p\s*/?\s*day', modal_text, re.I)
+            
+            print(f"    All p/kWh values found: {all_rates_pkwh}")
+            print(f"    All p/day values found: {all_rates_pday}")
+            
+            if all_rates_pkwh:
+                float_rates = sorted([float(r) for r in all_rates_pkwh])
+                if len(float_rates) >= 2:
+                    rates['gas_unit_rate_p'] = float_rates[0]
+                    rates['elec_unit_rate_p'] = float_rates[-1]
+                    if len(float_rates) == 3:
+                        rates['elec_night_rate_p'] = float_rates[1]
+                        rates['elec_is_ec7'] = True
+                elif len(float_rates) == 1:
+                    if float_rates[0] < 15:
+                        rates['gas_unit_rate_p'] = float_rates[0]
+                    else:
+                        rates['elec_unit_rate_p'] = float_rates[0]
+            
+            if all_rates_pday:
+                float_sc = sorted([float(r) for r in all_rates_pday])
+                if len(float_sc) >= 2:
+                    rates['gas_standing_p'] = float_sc[0]
+                    rates['elec_standing_p'] = float_sc[-1]
+                elif len(float_sc) == 1:
+                    if float_sc[0] < 35:
+                        rates['gas_standing_p'] = float_sc[0]
+                    else:
+                        rates['elec_standing_p'] = float_sc[0]
         
     except Exception as e:
         print(f"    ✗ Error extracting rates: {e}")
@@ -1075,6 +1230,8 @@ def save_results(results: list):
                     "contract_months": t.get("contract_months"),
                     "exit_fee": t.get("exit_fee", ""),
                     "elec_unit_rate_p": t.get("elec_unit_rate_p"),
+                    "elec_night_rate_p": t.get("elec_night_rate_p"),
+                    "elec_is_ec7": t.get("elec_is_ec7", False),
                     "elec_standing_p": t.get("elec_standing_p"),
                     "gas_unit_rate_p": t.get("gas_unit_rate_p"),
                     "gas_standing_p": t.get("gas_standing_p"),
@@ -1088,7 +1245,7 @@ def save_results(results: list):
     fieldnames = [
         "supplier", "region", "postcode", "scraped_at", "attempt",
         "tariff_name", "contract_months", "exit_fee",
-        "elec_unit_rate_p", "elec_standing_p",
+        "elec_unit_rate_p", "elec_night_rate_p", "elec_is_ec7", "elec_standing_p",
         "gas_unit_rate_p", "gas_standing_p", "error"
     ]
     

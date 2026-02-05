@@ -1093,13 +1093,13 @@
             
             if (complaints < 1) {
                 badgeClass = 'green';
-                badgeText = '<1 per 100 accounts';
+                badgeText = '<1 complaint per 100 accounts';
             } else if (complaints <= 1.2) {
                 badgeClass = 'yellow';
-                badgeText = `${complaints} per 100 accounts`;
+                badgeText = `${complaints} complaints per 100 accounts`;
             } else {
                 badgeClass = 'red';
-                badgeText = `${complaints} per 100 accounts`;
+                badgeText = `${complaints} complaints per 100 accounts`;
             }
             
             return `<span class="badge ${badgeClass} badge-with-info">📋 ${badgeText}<span class="badge-tooltip">Ofgem complaints data (Q3 2024) - complaints per 100 customer accounts</span></span>`;

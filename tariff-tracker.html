@@ -1208,7 +1208,7 @@
 
                         <div class="card-badges">
                             ${supplier.green ? '<span class="badge green">🌱 Green</span>' : ''}
-                            ${tariff.tariff_name?.toLowerCase().includes('fixed') ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
+                            ${(tariff.tariff_name?.toLowerCase().includes('fixed') || tariff.tariff_name?.toLowerCase().includes('one year') || tariff.tariff_name?.toLowerCase().includes('1 year')) ? '<span class="badge blue">🔒 Fixed</span>' : '<span class="badge yellow">📈 Variable</span>'}
                             ${getExitFee(tariff, fuelType).includes('£0') ? '<span class="badge purple">✓ No Exit Fee</span>' : ''}
                             ${getTrustpilotBadge(supplier.trustpilot)}
                             ${getComplaintsBadge(supplier.complaints)}

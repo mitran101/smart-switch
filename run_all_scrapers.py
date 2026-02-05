@@ -68,6 +68,12 @@ SCRAPERS = {
         "supplier_name": "fuse_energy",
         "is_api": False,
     },
+    "so": {
+        "script": "so_energy_scraper_v2.py",
+        "output_pattern": "so_tariffs_*.json",
+        "supplier_name": "so_energy",
+        "is_api": False,
+    },
 }
 
 # Unified output fields

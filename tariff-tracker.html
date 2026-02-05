@@ -924,7 +924,7 @@
         let tariffData = { tariffs: [], updated: null };
         let chart = null;
 
-        // Supplier info with Trustpilot (reviewed weekly) and Ofgem complaints data (Q3 2024)
+        // Supplier info with Trustpilot (reviewed weekly) and Ofgem complaints data (Q3 2025)
         const supplierInfo = {
             'octopus': { name: 'Octopus Energy', color: '#ff00ff', green: true, greenNote: '100% renewable', trustpilot: 4.8, complaints: 0.6 },
             'eon_next': { name: 'E.ON Next', color: '#e4002b', green: true, greenNote: '100% renewable', trustpilot: 4.5, complaints: 1.3 },
@@ -1102,7 +1102,7 @@
                 badgeText = `${complaints} complaints per 100 accounts`;
             }
             
-            return `<span class="badge ${badgeClass} badge-with-info">📋 ${badgeText}<span class="badge-tooltip">Ofgem complaints data (Q3 2024) - complaints per 100 customer accounts</span></span>`;
+            return `<span class="badge ${badgeClass} badge-with-info">📋 ${badgeText}<span class="badge-tooltip">Ofgem complaints data (Q3 2025) - complaints per 100 customer accounts</span></span>`;
         }
 
         function getTrustpilotBadge(trustpilot) {

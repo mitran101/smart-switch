@@ -347,18 +347,18 @@
             box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
         }
 
-        .supplier-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            margin-left: 1.75rem;
-        }
-        .supplier-name { 
-            font-size: 1.35rem; 
-            font-weight: 700; 
-            color: var(--sp-text);
-        }
+.supplier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+    gap: 1rem;
+}
+.supplier-name { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+}
         .tariff-name { color: var(--sp-text-muted); font-size: 0.9rem; margin-top: 2px; }
         .annual-cost { text-align: right; }
         .cost-amount { 
@@ -1193,7 +1193,7 @@
                         
                         <div class="supplier-header">
                             <div>
-                                <div class="supplier-name">${supplier.name}</div>
+                                <div class="supplier-name" style="color: ${supplier.color}">${supplier.name}</div>
                                 <div class="tariff-name">${displayTariffName}</div>
                             </div>
                             <div class="annual-cost">

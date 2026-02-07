@@ -632,12 +632,12 @@
                             <select id="helperSupplier" onchange="onSupplierChange()">
                                 <option value="price_cap">Price Cap</option>
                                 <option value="fuse_energy">Fuse Energy - Fixed 13m</option>
-                                <option value="eon_next">E.ON Next - Fixed 18m</option>
                                 <option value="octopus">Octopus - 12M Fixed</option>
                                 <option value="edf">EDF - Simply Fixed</option>
                                 <option value="british_gas">British Gas - Fixed Jan27</option>
                                 <option value="scottish_power">Scottish Power - 1 Year Fixed</option>
                                 <option value="ovo">OVO - 1 Year Fixed</option>
+                                <option value="so_energy">SO Energy - Fixed</option>
                             </select>
                         </div>
                         <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem;">
@@ -864,23 +864,23 @@
         let gasRates = {
             price_cap: { ...defaultPriceCapRates },
             fuse_energy: {},
-            eon_next: {},
             octopus: {},
             edf: {},
             british_gas: {},
             scottish_power: {},
-            ovo: {}
+            ovo: {},
+            so_energy: {}
         };
 
         const supplierNames = {
             price_cap: "Price Cap",
             fuse_energy: "Fuse Energy",
-            eon_next: "E.ON Next",
             octopus: "Octopus 12M Fixed",
             edf: "EDF Simply Fixed",
             british_gas: "British Gas Fixed",
             scottish_power: "Scottish Power",
-            ovo: "OVO 1 Year Fixed"
+            ovo: "OVO 1 Year Fixed",
+            so_energy: "SO Energy Fixed"
         };
 
         // Toggle tariff helper visibility
@@ -935,7 +935,7 @@
                     return;
                 }
                 
-                const suppliers = ['fuse_energy', 'eon_next', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo'];
+                const suppliers = ['fuse_energy', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo', 'so_energy'];
                 
                 // Populate rates for all regions/suppliers
                 tariffs.forEach(t => {

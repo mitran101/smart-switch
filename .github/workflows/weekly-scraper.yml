@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install playwright requests
-        playwright install chromium
+        playwright install chromium firefox
         playwright install-deps
 
     - name: Run all scrapers (excluding EDF)

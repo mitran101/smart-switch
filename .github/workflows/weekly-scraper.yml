@@ -18,30 +18,12 @@ jobs:
       with:
         python-version: '3.11'
 
-    # E.ON scraper uses undetected-chromedriver which requires matching Chrome version
-    # Install latest Chrome and update undetected-chromedriver to ensure compatibility
-    - name: Install Chrome (for E.ON scraper)
-      run: |
-        # Remove any existing Chrome to avoid conflicts
-        sudo apt-get remove -y google-chrome-stable || true
-
-        # Install latest Chrome
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y
-
-        # Verify installation
-        echo "Chrome version: $(google-chrome --version)"
-
+    # All scrapers now use Playwright - no need for external Chrome
     - name: Install dependencies
       run: |
-        # Install latest versions to ensure Chrome/ChromeDriver compatibility
-        pip install --upgrade playwright requests selenium
-        pip install --upgrade undetected-chromedriver
-        playwright install chromium firefox
+        pip install playwright requests
+        playwright install chromium
         playwright install-deps
-
-        # Show versions for debugging
-        echo "undetected-chromedriver version: $(pip show undetected-chromedriver | grep Version)"
 
     - name: Run all scrapers (excluding EDF)
       run: |

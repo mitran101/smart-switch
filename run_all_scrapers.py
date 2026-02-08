@@ -27,7 +27,7 @@ from datetime import datetime
 
 SCRAPERS = {
     "eon": {
-        "script": "eon_next_scraper_v5.py",
+        "script": "eon_next_scraper_v6_playwright.py",
         "output_pattern": "eon_tariffs_*.json",
         "supplier_name": "eon_next",
         "is_api": False,

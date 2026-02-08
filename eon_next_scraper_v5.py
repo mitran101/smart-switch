@@ -777,8 +777,7 @@ def scrape_with_retry(driver, postcode: str, region: str, max_attempts: int = 3)
 
 def run_scraper(headless=False, test_postcode=None, wait_secs=30, max_retries=3):
     results = []
-    consecutive_failures = 0  # Track consecutive failures for early abort
-    early_abort = False
+    consecutive_failures = 0  # Track consecutive failures for warnings
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES.items() if v == test_postcode}
@@ -791,9 +790,6 @@ def run_scraper(headless=False, test_postcode=None, wait_secs=30, max_retries=3)
     batches = [items[i:i+3] for i in range(0, len(items), 3)]
     
     for batch_idx, batch in enumerate(batches):
-        if early_abort:
-            break
-            
         print(f"\n{'#'*60}")
         print(f"  BATCH {batch_idx + 1}/{len(batches)} - {len(batch)} regions")
         print('#'*60)
@@ -821,13 +817,11 @@ def run_scraper(headless=False, test_postcode=None, wait_secs=30, max_retries=3)
                     print(f"  ✗ Failed")
                     consecutive_failures += 1
                 
-                # EARLY ABORT: If first 3 regions all fail, scraper is broken
-                if consecutive_failures >= 3 and len(results) <= 4:
-                    print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
-                    print(f"  → Scraper appears broken on this environment")
-                    print(f"  → Run manually on local machine")
-                    early_abort = True
-                    break
+                # WARNING: Log consecutive failures but continue collecting data
+                if consecutive_failures >= 5 and len(results) <= 7:
+                    print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
+                    print(f"  → Continuing to collect partial data from remaining regions...")
+                # Don't break - continue to try all regions
                 
                 if i < len(batch) - 1:
                     wait = wait_secs + random.randint(-10, 20)
@@ -838,17 +832,11 @@ def run_scraper(headless=False, test_postcode=None, wait_secs=30, max_retries=3)
             if driver:
                 driver.quit()
                 print("  Browser closed")
-        
-        if early_abort:
-            break
-        
+
         if batch_idx < len(batches) - 1:
             batch_wait = 120 + random.randint(0, 60)
             print(f"\n  🔄 Batch done. Waiting {batch_wait}s...")
             time.sleep(batch_wait)
-    
-    if early_abort:
-        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
     
     return results
 

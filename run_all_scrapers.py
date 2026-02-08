@@ -239,30 +239,45 @@ def combine_results(scrapers_to_run):
 
 
 def get_supplier_status(results):
-    """Get simple success/fail status per supplier by region count."""
+    """Get detailed success/fail status per supplier with error reasons."""
     supplier_regions = {}
-    
+
     for r in results:
         supplier = r.get("supplier", "unknown")
         region = r.get("region", "unknown")
-        
+        postcode = r.get("postcode", "unknown")
+        error = r.get("error")
+
         if supplier not in supplier_regions:
-            supplier_regions[supplier] = {"success": set(), "failed": set()}
-        
+            supplier_regions[supplier] = {
+                "success": set(),
+                "failed": {},  # Changed to dict to track error reasons
+            }
+
         # A region is successful if it has a tariff name and elec rates
         has_tariff = r.get("tariff_name") is not None
         has_elec = r.get("elec_unit_rate_p") or r.get("elec_day_rate_p")
-        has_error = r.get("error") is not None
-        
+        has_error = error is not None
+
         if has_tariff and has_elec and not has_error:
             supplier_regions[supplier]["success"].add(region)
         elif region not in supplier_regions[supplier]["success"]:
-            supplier_regions[supplier]["failed"].add(region)
-    
+            # Store error reason
+            error_msg = error if error else "No data collected"
+            # Truncate long error messages
+            if len(error_msg) > 100:
+                error_msg = error_msg[:97] + "..."
+            supplier_regions[supplier]["failed"][region] = {
+                "postcode": postcode,
+                "error": error_msg
+            }
+
     # Remove failed regions that are also in success
     for supplier in supplier_regions:
-        supplier_regions[supplier]["failed"] -= supplier_regions[supplier]["success"]
-    
+        for region in list(supplier_regions[supplier]["failed"].keys()):
+            if region in supplier_regions[supplier]["success"]:
+                del supplier_regions[supplier]["failed"][region]
+
     return supplier_regions
 
 
@@ -423,44 +438,87 @@ def main():
         save_combined_results(results)
         
         # =====================================================
-        # SUPPLIER STATUS REPORT - Simple and accurate
+        # SUPPLIER STATUS REPORT - Enhanced with error details
         # =====================================================
         print(f"\n{'='*60}")
         print("  SUPPLIER STATUS")
         print('='*60)
-        
+
         status = get_supplier_status(results)
-        
+
         total_success = 0
         total_regions = 0
-        
+        error_report = {
+            "timestamp": datetime.now().isoformat(),
+            "suppliers": {}
+        }
+
         for supplier, data in sorted(status.items()):
             success_count = len(data["success"])
             failed_count = len(data["failed"])
             total = success_count + failed_count
-            
+
             total_success += success_count
             total_regions += total
-            
+
             if failed_count == 0:
                 icon = "✓"
             elif success_count == 0:
                 icon = "✗"
             else:
                 icon = "⚠"
-            
+
             print(f"  {icon} {supplier}: {success_count}/{total} regions")
-            
-            if failed_count > 0 and failed_count <= 5:
-                failed_list = ", ".join(sorted(data["failed"]))
-                print(f"      Failed: {failed_list}")
-        
+
+            # Show detailed failure reasons for scrapers with issues
+            if failed_count > 0:
+                error_report["suppliers"][supplier] = {
+                    "success_count": success_count,
+                    "failed_count": failed_count,
+                    "failed_regions": []
+                }
+
+                if failed_count <= 8:  # Show details if not too many failures
+                    print(f"      Failed regions:")
+                    for region, fail_info in sorted(data["failed"].items()):
+                        error_msg = fail_info["error"]
+                        postcode = fail_info["postcode"]
+                        # Shorten error for console display
+                        short_error = error_msg[:60] + "..." if len(error_msg) > 60 else error_msg
+                        print(f"        • {region} ({postcode}): {short_error}")
+
+                        # Add to error report
+                        error_report["suppliers"][supplier]["failed_regions"].append({
+                            "region": region,
+                            "postcode": postcode,
+                            "error": error_msg
+                        })
+                else:
+                    failed_list = ", ".join(sorted(data["failed"].keys()))
+                    print(f"      Failed: {failed_list}")
+
+                    # Still add to error report
+                    for region, fail_info in data["failed"].items():
+                        error_report["suppliers"][supplier]["failed_regions"].append({
+                            "region": region,
+                            "postcode": fail_info["postcode"],
+                            "error": fail_info["error"]
+                        })
+
         print(f"\n  {'─'*40}")
         print(f"  TOTAL: {total_success}/{total_regions} regions with data")
-        
+        print(f"  SUCCESS RATE: {100*total_success/total_regions:.1f}%")
+
         # Count tariffs
         tariff_count = sum(1 for r in results if r.get("tariff_name") and not r.get("error"))
         print(f"  TARIFFS: {tariff_count} total")
+
+        # Save error report
+        if error_report["suppliers"]:
+            error_file = "scraper_errors_latest.json"
+            with open(error_file, "w") as f:
+                json.dump(error_report, f, indent=2)
+            print(f"\n  📋 Error details saved to: {error_file}")
         
     else:
         print("\n  ⚠ No results!")

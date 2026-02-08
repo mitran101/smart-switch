@@ -18,12 +18,16 @@ jobs:
       with:
         python-version: '3.11'
 
+    # E.ON scraper uses undetected-chromedriver which requires Chrome
+    # Note: Installing latest stable Chrome may cause compatibility issues
+    # Consider pinning to a specific version if E.ON scraper breaks in future
     - name: Install Chrome (for E.ON scraper)
       run: |
         wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
         echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
+        echo "Chrome version: $(google-chrome --version)"
 
     - name: Install dependencies
       run: |

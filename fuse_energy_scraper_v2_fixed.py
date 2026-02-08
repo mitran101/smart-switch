@@ -122,15 +122,16 @@ def is_residential_address(address_text: str) -> bool:
         if word in address_lower:
             return False
     
-    # MUST match: starts with number(s), optional letter, comma, space
-    # Examples: "28, Street" or "28a, Street" or "123, Road"
+    # MUST match: starts with number(s), optional letter, comma OR space
+    # Examples: "28, Street" or "28a, Street" or "123, Road" or "1, Parliament Road, Ipswich"
     # Rejects: "Apartment 2, 1 Street" (starts with word)
-    pattern = r'^\d+[a-z]?,\s+[A-Z]'
-    
-    if re.match(pattern, address_text):
-        return True
-    
-    return False
+    pattern = r'^\d+[a-z]?[\s,]+[A-Z]'
+
+    match = re.match(pattern, address_text)
+    if not match:
+        print(f"        ⚠ Rejected by regex: {address_text[:60]}")
+
+    return bool(match)
 
 def extract_rates(page) -> dict:
     """Extract electricity and gas rates from page."""
@@ -782,8 +783,7 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
     """Main runner."""
     
     results = []
-    consecutive_failures = 0  # Track consecutive failures for early abort
-    early_abort = False
+    consecutive_failures = 0  # Track consecutive failures for warnings
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES.items() if v == test_postcode}
@@ -821,13 +821,11 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
             else:
                 consecutive_failures += 1
             
-            # EARLY ABORT: If first 3 regions all fail, scraper is broken
-            if consecutive_failures >= 3 and len(results) <= 4:
-                print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
-                print(f"  → Scraper appears broken on this environment")
-                print(f"  → Run manually on local machine")
-                early_abort = True
-                break
+            # WARNING: Log consecutive failures but continue collecting data
+            if consecutive_failures >= 5 and len(results) <= 7:
+                print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
+                print(f"  → Continuing to collect partial data from remaining regions...")
+            # Don't break - continue to try all regions
             
             # Save partial
             with open("fuse_tariffs_partial.json", "w") as f:
@@ -840,10 +838,7 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
                 time.sleep(wait)
         
         browser.close()
-    
-    if early_abort:
-        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
-    
+
     return results
 
 

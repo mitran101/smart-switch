@@ -43,6 +43,24 @@ POSTCODE_START_INDEX = {
     "N5 2SD": 5,
 }
 
+# Fallback postcodes for regions where primary postcode may not exist in EDF's database
+FALLBACK_POSTCODES = {
+    "Eastern": ["IP1 1AA", "CO1 1AA"],  # Ipswich, Colchester alternatives
+    "East Midlands": ["NG1 1AA", "DE1 1AA"],  # Nottingham, Derby alternatives
+    "London": ["SW1A 1AA", "EC1A 1BB"],  # Westminster, City of London alternatives
+    "North Wales & Merseyside": ["CH1 1AA"],  # Chester alternative
+    "West Midlands": ["B1 1AA"],  # Birmingham alternative
+    "North East": ["NE1 1AA"],  # Newcastle alternative
+    "North West": ["M1 1AA"],  # Manchester alternative
+    "South East": ["BN1 1AA"],  # Brighton alternative
+    "Southern": ["SO14 0AA"],  # Southampton alternative
+    "South Wales": ["CF10 1AA"],  # Cardiff alternative
+    "South West": ["BS1 1AA"],  # Bristol alternative
+    "Yorkshire": ["LS1 1AA"],  # Leeds alternative
+    "North Scotland": ["AB10 1AA"],  # Aberdeen alternative
+    "South Scotland": ["G1 1AA"],  # Glasgow alternative
+}
+
 EMAIL = "switch.pilots@gmail.com"
 URL = "https://www.edfenergy.com/quote/choose-tariff"
 
@@ -574,15 +592,38 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
 
 def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
     results = []
-    consecutive_failures = 0  # Track consecutive failures for early abort
-    early_abort = False
-    
+    consecutive_failures = 0  # Track consecutive failures for warnings
+
     for i, (region, postcode) in enumerate(postcodes.items()):
         print(f"\n{'='*60}")
         print(f"SCRAPING: {region} ({postcode}) [{i+1}/{len(postcodes)}]")
         print('='*60)
-        
+
+        # Try primary postcode first
         result = scrape_edf(browser, postcode, region)
+
+        # If failed and region has fallback postcodes, try them
+        if not result.get('tariffs') and region in FALLBACK_POSTCODES:
+            print(f"\n  ⚠️  Primary postcode {postcode} failed")
+            print(f"  → Trying fallback postcodes for {region}...")
+
+            for fallback_pc in FALLBACK_POSTCODES[region]:
+                print(f"\n  🔄 Attempting fallback: {fallback_pc}")
+                time.sleep(10)  # Brief wait before retry
+
+                result = scrape_edf(browser, fallback_pc, region)
+                result['postcode'] = f"{fallback_pc} (fallback)"  # Mark as fallback
+
+                if result.get('tariffs'):
+                    print(f"  ✓ Success with fallback postcode: {fallback_pc}")
+                    break
+                else:
+                    print(f"  ✗ Fallback {fallback_pc} also failed")
+
+            if not result.get('tariffs'):
+                result['error'] = f"All postcodes failed (tried {postcode} + {len(FALLBACK_POSTCODES[region])} fallbacks)"
+                print(f"\n  ❌ All postcodes exhausted for {region}")
+
         results.append(result)
         
         # Track success/failure
@@ -591,13 +632,11 @@ def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
         else:
             consecutive_failures += 1
         
-        # EARLY ABORT: If first 3 regions all fail, scraper is broken
-        if consecutive_failures >= 3 and len(results) <= 4:
-            print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
-            print(f"  → Scraper appears broken on this environment")
-            print(f"  → Run manually on local machine")
-            early_abort = True
-            break
+        # WARNING: Log consecutive failures but continue collecting data
+        if consecutive_failures >= 5 and len(results) <= 7:
+            print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
+            print(f"  → Continuing to collect partial data from remaining regions...")
+        # Don't break - continue to try all regions
         
         with open("edf_tariffs_partial.json", "w") as f:
             json.dump(results, f, indent=2)
@@ -606,10 +645,7 @@ def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
             wait = wait_between + random.randint(-5, 10)
             print(f"\n  ⏳ Waiting {wait}s...")
             time.sleep(wait)
-    
-    if early_abort:
-        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
-    
+
     return results
 
 

@@ -225,8 +225,9 @@ def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
         start_idx = POSTCODE_START_INDEX.get(postcode, 1)
         max_tries = 10
         address_selected = False
+        consecutive_customer_popups = 0  # Track "Already EON customer" popups
 
-        for i in range(start_idx, min(len(options), start_idx + 20)):
+        for i in range(start_idx, min(len(options), start_idx + 5)):  # Reduced from 20 to 5
             if i in tried_addresses:
                 continue
 
@@ -252,6 +253,11 @@ def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
                     print(f"    ⚠ Already EON customer popup - closing...")
                     close_popup(page)
                     human_delay(1000, 2000)
+                    consecutive_customer_popups += 1
+                    # Early abort if we hit this 3 times in a row
+                    if consecutive_customer_popups >= 3:
+                        print(f"    ✗ Hit 'Already EON customer' 3 times - aborting this postcode")
+                        raise Exception(f"All addresses showing 'Already EON customer' popup")
                     continue
 
                 if issues['business_meter']:
@@ -274,6 +280,7 @@ def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
                     if tariff_check.is_visible(timeout=5000):
                         print(f"    ✓ Address accepted - tariffs loading")
                         address_selected = True
+                        consecutive_customer_popups = 0  # Reset counter on success
                         break
                 except:
                     print(f"    ✗ No tariffs visible for this address")
@@ -414,6 +421,12 @@ def run_scraper(headless: bool = False, test_postcode: str = None, wait_secs: in
     else:
         postcodes = DNO_POSTCODES
 
+    # Early abort: Test first 3 regions
+    early_abort_check = min(3, len(postcodes))
+    print(f"  Early abort enabled: Will abort if first {early_abort_check} regions all fail")
+
+
+
     os.makedirs("screenshots", exist_ok=True)
 
     # Split into batches
@@ -458,10 +471,18 @@ def run_scraper(headless: bool = False, test_postcode: str = None, wait_secs: in
                     print(f"  ✗ Failed after {max_retries} attempts")
                     consecutive_failures += 1
 
+                # Early abort: Check if first N regions all failed
+                if len(results) <= early_abort_check and consecutive_failures >= early_abort_check:
+                    print(f"
+  EARLY ABORT: First {early_abort_check} regions all failed")
+                    print(f"  -> Stopping scraper to avoid wasting time/resources")
+                    browser.close()
+                    return results
+
                 # WARNING: Log consecutive failures but continue collecting data
                 if consecutive_failures >= 5 and len(results) <= 7:
                     print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
-                    print(f"  → Continuing to collect partial data from remaining regions...")
+                    print(f"  -> Continuing to collect partial data from remaining regions...")
                 # Don't break - continue to try all regions
 
                 # Wait between regions

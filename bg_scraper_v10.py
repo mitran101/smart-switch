@@ -467,7 +467,7 @@ def scrape_bg_tariffs(browser, postcode: str, region: str, attempt: int = 1) -> 
                 continue
         
         if not good_indices:
-            good_indices = list(range(start_idx, min(len(options), start_idx + 10)))
+            good_indices = list(range(start_idx, min(len(options), start_idx + 5)))
             print(f"    No house addresses found, trying all...")
         else:
             print(f"    Found {len(good_indices)} house addresses")

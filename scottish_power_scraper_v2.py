@@ -473,7 +473,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         selected = False
         skip_words = ['flat', 'apartment', 'floor', 'unit', 'suite', 'apt', 'room', 'basement']
         
-        for i in range(start_idx, min(len(options), start_idx + 20)):  # Increased from 15 to 20
+        for i in range(start_idx, min(len(options), start_idx + 5)):  # Increased from 15 to 20
             if i in tried_addresses:
                 print(f"    [{i}] Already tried this address")
                 continue
@@ -559,7 +559,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -627,7 +627,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -745,7 +745,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -883,7 +883,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
                 if i in tried_addresses:
                     continue
                 try:

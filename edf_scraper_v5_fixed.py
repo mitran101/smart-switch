@@ -262,7 +262,7 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
     
     start_idx = POSTCODE_START_INDEX.get(postcode, 1)
     current_idx = start_idx
-    max_attempts = 15
+    max_attempts = 3  # Reduced from 15 to 3 attempts per region
     
     try:
         # INITIAL LOAD
@@ -593,8 +593,12 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
 def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
     results = []
     consecutive_failures = 0  # Track consecutive failures for warnings
+    postcode_items = list(postcodes.items())
 
-    for i, (region, postcode) in enumerate(postcodes.items()):
+    # EARLY ABORT STRATEGY: Try first 3 regions only
+    early_abort_check = min(3, len(postcode_items))
+
+    for i, (region, postcode) in enumerate(postcode_items):
         print(f"\n{'='*60}")
         print(f"SCRAPING: {region} ({postcode}) [{i+1}/{len(postcodes)}]")
         print('='*60)
@@ -602,45 +606,45 @@ def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
         # Try primary postcode first
         result = scrape_edf(browser, postcode, region)
 
-        # If failed and region has fallback postcodes, try them
+        # If failed and region has fallback postcodes, try ONLY FIRST ONE
         if not result.get('tariffs') and region in FALLBACK_POSTCODES:
             print(f"\n  ⚠️  Primary postcode {postcode} failed")
-            print(f"  → Trying fallback postcodes for {region}...")
+            print(f"  → Trying first fallback postcode for {region}...")
 
-            for fallback_pc in FALLBACK_POSTCODES[region]:
-                print(f"\n  🔄 Attempting fallback: {fallback_pc}")
-                time.sleep(10)  # Brief wait before retry
+            fallback_pc = FALLBACK_POSTCODES[region][0]  # Only try first fallback
+            print(f"\n  🔄 Attempting fallback: {fallback_pc}")
+            time.sleep(10)  # Brief wait before retry
 
-                result = scrape_edf(browser, fallback_pc, region)
-                result['postcode'] = f"{fallback_pc} (fallback)"  # Mark as fallback
+            result = scrape_edf(browser, fallback_pc, region)
+            result['postcode'] = f"{fallback_pc} (fallback)"  # Mark as fallback
 
-                if result.get('tariffs'):
-                    print(f"  ✓ Success with fallback postcode: {fallback_pc}")
-                    break
-                else:
-                    print(f"  ✗ Fallback {fallback_pc} also failed")
-
-            if not result.get('tariffs'):
-                result['error'] = f"All postcodes failed (tried {postcode} + {len(FALLBACK_POSTCODES[region])} fallbacks)"
-                print(f"\n  ❌ All postcodes exhausted for {region}")
+            if result.get('tariffs'):
+                print(f"  ✓ Success with fallback postcode: {fallback_pc}")
+            else:
+                print(f"  ✗ Fallback {fallback_pc} also failed")
+                result['error'] = f"Primary {postcode} and fallback {fallback_pc} both failed"
 
         results.append(result)
-        
+
         # Track success/failure
         if result.get('tariffs'):
             consecutive_failures = 0  # Reset on success
         else:
             consecutive_failures += 1
-        
-        # WARNING: Log consecutive failures but continue collecting data
-        if consecutive_failures >= 5 and len(results) <= 7:
-            print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
-            print(f"  → Continuing to collect partial data from remaining regions...")
-        # Don't break - continue to try all regions
-        
+
+        # EARLY ABORT: If first 3 regions all fail, abort EDF scraper
+        if i + 1 == early_abort_check and consecutive_failures == early_abort_check:
+            print(f"\n{'='*60}")
+            print(f"  ❌ ABORTING EDF SCRAPER")
+            print(f"  → All first {early_abort_check} regions failed")
+            print(f"  → Likely systematic issue with EDF website")
+            print(f"  → Saving partial results and exiting...")
+            print('='*60)
+            break
+
         with open("edf_tariffs_partial.json", "w") as f:
             json.dump(results, f, indent=2)
-        
+
         if i < len(postcodes) - 1:
             wait = wait_between + random.randint(-5, 10)
             print(f"\n  ⏳ Waiting {wait}s...")

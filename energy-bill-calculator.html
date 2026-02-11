@@ -673,7 +673,10 @@
 
                 <!-- Custom rate inputs -->
                 <div id="customRateInputs" style="display: none; background: var(--sp-purple-light); border-radius: 12px; padding: 15px; margin-top: 15px;">
-                    <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; color: var(--sp-purple-dark);">Enter your tariff rates:</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <p style="font-size: 0.9rem; font-weight: 600; margin: 0; color: var(--sp-purple-dark);">Enter your tariff rates:</p>
+                        <button onclick="clearCustomRates()" style="padding: 4px 12px; background: var(--sp-slate-light); color: white; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600;">Clear</button>
+                    </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div>
                             <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">⚡ Electricity (p/kWh)</label>
@@ -1237,6 +1240,15 @@
             }
         }
 
+        function clearCustomRates() {
+            document.getElementById('customElecRate').value = '';
+            document.getElementById('customGasRate').value = '';
+            document.getElementById('customElecStanding').value = '';
+            document.getElementById('customGasStanding').value = '';
+            currentTariff = null;
+            resetToHyphens();
+        }
+
         function applyCustomRates() {
             const elecRate = parseFloat(document.getElementById('customElecRate').value);
             const gasRate = parseFloat(document.getElementById('customGasRate').value);
@@ -1273,7 +1285,19 @@
                 // Show custom inputs
                 customInputs.style.display = 'block';
                 ratesGrid.style.display = 'none';
-                currentTariff = null;
+
+                // Auto-apply if inputs already have values, otherwise reset
+                const elecRate = document.getElementById('customElecRate').value;
+                const elecStanding = document.getElementById('customElecStanding').value;
+
+                if (elecRate && elecStanding) {
+                    // Apply existing custom rates
+                    applyCustomRates();
+                } else {
+                    // No values yet, reset to hyphens
+                    currentTariff = null;
+                    resetToHyphens();
+                }
                 return;
             } else if (value === 'svt') {
                 const svt = getSVT();

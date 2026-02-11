@@ -676,6 +676,10 @@
                     💡 <a href="tariff-tracker.html" style="color: var(--sp-green-dark); font-weight: 600; text-decoration: none;">Check our tariff tracker</a> to see the best available tariffs across all suppliers
                 </p>
 
+                <p style="text-align: center; margin-top: 0.5rem; font-size: 0.8rem; color: var(--sp-slate-light); opacity: 0.8;">
+                    📱 Smart meter required • 🚗 EV tariff
+                </p>
+
                 <div class="bill-summary">
                     <div class="period-tabs">
                         <button class="period-tab" onclick="setPeriod('day')">Daily</button>
@@ -1146,19 +1150,39 @@
             calculateAll();
         }
 
+        function getTariffBadges(tariffName) {
+            const badges = [];
+            const name = tariffName.toLowerCase();
+
+            // Smart meter required tariffs
+            if (name.includes('agile') || name.includes('cosy') ||
+                name.includes('intelligent') || name.includes('flux')) {
+                badges.push('📱');
+            }
+
+            // EV tariffs
+            if (name.includes('go') || name.includes('ev')) {
+                badges.push('🚗');
+            }
+
+            return badges.length > 0 ? ' ' + badges.join(' ') : '';
+        }
+
         function populateSuppliers() {
             const select = document.getElementById('supplierSelect');
             select.innerHTML = '<option value="svt">⚠️ SVT Price Cap</option>';
-            
+
             regionalTariffs.forEach((t, i) => {
-                select.innerHTML += `<option value="${i}">${supplierNames[t.supplier]}</option>`;
+                const badges = getTariffBadges(t.tariff_name);
+                const displayName = supplierNames[t.supplier];
+                select.innerHTML += `<option value="${i}">${displayName}${badges}</option>`;
             });
 
             // Auto-select cheapest
             if (regionalTariffs.length > 0) {
                 select.value = findCheapestIndex();
             }
-            
+
             changeSupplier();
         }
 

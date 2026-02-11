@@ -844,7 +844,8 @@
             'british_gas': '#0066cc',
             'octopus': '#a855f7',
             'so_energy': '#C8F000',
-            'svt': '#ef4444'
+            'svt': '#ef4444',
+            'custom': '#06b6d4'
         };
 
         // Dynamic supplier names - populated from JSON data
@@ -1507,6 +1508,16 @@
                 cost: calcAnnualCostFromKwh(getSVT(), elecKwhAnnual, gasKwhAnnual),
                 tariff: null
             });
+
+            // Add custom rates if selected
+            if (currentTariff && currentTariff.supplier === 'custom') {
+                chartData.push({
+                    supplier: 'custom',
+                    name: 'Your Custom Rates',
+                    cost: calcAnnualCostFromKwh(currentTariff, elecKwhAnnual, gasKwhAnnual),
+                    tariff: currentTariff
+                });
+            }
 
             chartData.sort((a, b) => a.cost - b.cost);
 

@@ -476,6 +476,29 @@
             color: white;
         }
 
+        .fuel-type-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--sp-slate-light);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .fuel-type-btn:hover {
+            border-color: var(--sp-green);
+        }
+
+        .fuel-type-btn.active {
+            background: var(--sp-green);
+            border-color: var(--sp-green);
+            color: white;
+        }
+
         /* CTA Section - Matching Tracker */
         .cta-section {
             background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
@@ -588,6 +611,17 @@
     </header>
 
     <div class="region-bar">
+        <div class="input-group" style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--sp-slate);">Energy Type</label>
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="fuel-type-btn active" onclick="setFuelType('dual')" id="dualFuelBtn">
+                    ⚡ Dual Fuel
+                </button>
+                <button class="fuel-type-btn" onclick="setFuelType('elec')" id="elecOnlyBtn">
+                    💡 Electricity Only
+                </button>
+            </div>
+        </div>
         <label for="postcodeInput">📍 Your Postcode:</label>
         <input type="text" id="postcodeInput" placeholder="e.g. SW1A 1AA" maxlength="8" style="
             padding: 10px 15px;
@@ -619,12 +653,12 @@
                     </select>
                 </div>
 
-                <div class="current-rates">
+                <div class="current-rates" id="currentRatesGrid">
                     <div class="rate-box">
                         <div class="label">⚡ Electricity</div>
                         <div class="value" id="elecRateDisplay">24.50<span>p/kWh</span></div>
                     </div>
-                    <div class="rate-box">
+                    <div class="rate-box" id="gasRateBox">
                         <div class="label">🔥 Gas</div>
                         <div class="value" id="gasRateDisplay">6.24<span>p/kWh</span></div>
                     </div>
@@ -632,11 +666,15 @@
                         <div class="label">⚡ Standing</div>
                         <div class="value" id="elecStandingDisplay">53.56<span>p/day</span></div>
                     </div>
-                    <div class="rate-box">
+                    <div class="rate-box" id="gasStandingBox">
                         <div class="label">🔥 Standing</div>
                         <div class="value" id="gasStandingDisplay">31.66<span>p/day</span></div>
                     </div>
                 </div>
+
+                <p style="text-align: center; margin-top: 0.75rem; font-size: 0.9rem; color: var(--sp-slate-light);">
+                    💡 <a href="tariff-tracker.html" style="color: var(--sp-green-dark); font-weight: 600; text-decoration: none;">Check our tariff tracker</a> to see the best available tariffs across all suppliers
+                </p>
 
                 <div class="bill-summary">
                     <div class="period-tabs">
@@ -684,16 +722,16 @@
             
             <!-- Editable Usage Estimates -->
             <div style="background: var(--sp-purple-light); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div id="usageInputsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div>
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--sp-purple-dark);">⚡ Electricity (kWh/year)</label>
-                        <input type="number" id="elecKwhInput" value="2900" min="0" max="20000" step="100" 
+                        <input type="number" id="elecKwhInput" value="2900" min="0" max="20000" step="100"
                                oninput="updateFromKwh()"
                                style="width: 100%; padding: 12px; border: 2px solid #ddd6fe; border-radius: 8px; font-size: 1.1rem; font-weight: 600; font-family: inherit; text-align: center;">
                     </div>
-                    <div>
+                    <div id="gasInputSection">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--sp-purple-dark);">🔥 Gas (kWh/year)</label>
-                        <input type="number" id="gasKwhInput" value="12000" min="0" max="50000" step="100" 
+                        <input type="number" id="gasKwhInput" value="12000" min="0" max="50000" step="100"
                                oninput="updateFromKwh()"
                                style="width: 100%; padding: 12px; border: 2px solid #ddd6fe; border-radius: 8px; font-size: 1.1rem; font-weight: 600; font-family: inherit; text-align: center;">
                     </div>
@@ -859,6 +897,7 @@
         let periodMultiplier = 30;
         let tariffChart = null;
         let currentPreset = 'medium';
+        let currentFuelType = 'dual'; // 'dual' or 'elec'
 
         document.addEventListener('DOMContentLoaded', () => {
             createAppliances();
@@ -930,10 +969,20 @@
 
                 // First pass: build supplier names mapping
                 rawTariffs.forEach(t => {
-                    if (!t.error &&
-                        t.elec_unit_rate_p !== null && t.elec_unit_rate_p !== undefined &&
-                        t.gas_unit_rate_p !== null && t.gas_unit_rate_p !== undefined) {
+                    // Check if tariff has required data based on fuel type
+                    let hasRequiredData;
+                    if (currentFuelType === 'dual') {
+                        // Dual fuel: need both elec and gas
+                        hasRequiredData = !t.error &&
+                            t.elec_unit_rate_p !== null && t.elec_unit_rate_p !== undefined &&
+                            t.gas_unit_rate_p !== null && t.gas_unit_rate_p !== undefined;
+                    } else {
+                        // Electricity only: just need elec
+                        hasRequiredData = !t.error &&
+                            t.elec_unit_rate_p !== null && t.elec_unit_rate_p !== undefined;
+                    }
 
+                    if (hasRequiredData) {
                         // Normalize supplier name (handle "So Energy" -> "so_energy")
                         const normalizedSupplier = t.supplier.toLowerCase().replace(/\s+/g, '_');
 
@@ -960,10 +1009,15 @@
 
                 // Second pass: filter tariffs using normalized supplier names
                 allTariffs = rawTariffs.filter(t => {
-                    if (t.error ||
-                        t.elec_unit_rate_p === null || t.elec_unit_rate_p === undefined ||
-                        t.gas_unit_rate_p === null || t.gas_unit_rate_p === undefined) {
+                    if (t.error || t.elec_unit_rate_p === null || t.elec_unit_rate_p === undefined) {
                         return false;
+                    }
+
+                    // For dual fuel, also check gas data
+                    if (currentFuelType === 'dual') {
+                        if (t.gas_unit_rate_p === null || t.gas_unit_rate_p === undefined) {
+                            return false;
+                        }
                     }
 
                     const normalizedSupplier = t.supplier.toLowerCase().replace(/\s+/g, '_');
@@ -988,6 +1042,49 @@
                     <p style="color: var(--sp-red);">Failed to load tariff data. Please refresh.</p>
                 `;
             }
+        }
+
+        function setFuelType(type) {
+            currentFuelType = type;
+
+            // Update button states
+            document.getElementById('dualFuelBtn').classList.toggle('active', type === 'dual');
+            document.getElementById('elecOnlyBtn').classList.toggle('active', type === 'elec');
+
+            // Hide/show gas-related elements
+            const gasTab = document.getElementById('gasTab');
+            const gasInputSection = document.getElementById('gasInputSection');
+            const gasRateBox = document.getElementById('gasRateBox');
+            const gasStandingBox = document.getElementById('gasStandingBox');
+            const usageInputsGrid = document.getElementById('usageInputsGrid');
+            const currentRatesGrid = document.getElementById('currentRatesGrid');
+
+            if (gasTab) {
+                gasTab.style.display = type === 'dual' ? 'inline-block' : 'none';
+            }
+            if (gasInputSection) {
+                gasInputSection.style.display = type === 'dual' ? 'block' : 'none';
+            }
+            if (gasRateBox) {
+                gasRateBox.style.display = type === 'dual' ? 'block' : 'none';
+            }
+            if (gasStandingBox) {
+                gasStandingBox.style.display = type === 'dual' ? 'block' : 'none';
+            }
+            if (usageInputsGrid) {
+                usageInputsGrid.style.gridTemplateColumns = type === 'dual' ? '1fr 1fr' : '1fr';
+            }
+            if (currentRatesGrid) {
+                currentRatesGrid.style.gridTemplateColumns = type === 'dual' ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)';
+            }
+
+            // If switching to elec-only and gas tab is active, switch to elec tab
+            if (type === 'elec' && gasTab && gasTab.classList.contains('active')) {
+                showFuel('elec');
+            }
+
+            // Reload tariffs with new filter
+            loadTariffData();
         }
 
         function createAppliances() {
@@ -1084,15 +1181,18 @@
 
         function updateRatesDisplay() {
             if (!currentTariff) return;
-            
-            document.getElementById('elecRateDisplay').innerHTML = 
+
+            document.getElementById('elecRateDisplay').innerHTML =
                 `${currentTariff.elec_unit_rate_p.toFixed(2)}<span>p/kWh</span>`;
-            document.getElementById('gasRateDisplay').innerHTML = 
-                `${currentTariff.gas_unit_rate_p.toFixed(2)}<span>p/kWh</span>`;
-            document.getElementById('elecStandingDisplay').innerHTML = 
+            document.getElementById('elecStandingDisplay').innerHTML =
                 `${currentTariff.elec_standing_p.toFixed(1)}<span>p/day</span>`;
-            document.getElementById('gasStandingDisplay').innerHTML = 
-                `${currentTariff.gas_standing_p.toFixed(1)}<span>p/day</span>`;
+
+            if (currentFuelType === 'dual') {
+                document.getElementById('gasRateDisplay').innerHTML =
+                    `${(currentTariff.gas_unit_rate_p || 0).toFixed(2)}<span>p/kWh</span>`;
+                document.getElementById('gasStandingDisplay').innerHTML =
+                    `${(currentTariff.gas_standing_p || 0).toFixed(1)}<span>p/day</span>`;
+            }
         }
 
         function setPeriod(period) {
@@ -1139,24 +1239,30 @@
 
             // Get annual kWh from inputs
             const elecKwhAnnual = parseFloat(document.getElementById('elecKwhInput').value) || 0;
-            const gasKwhAnnual = parseFloat(document.getElementById('gasKwhInput').value) || 0;
-            
+            const gasKwhAnnual = currentFuelType === 'dual' ? (parseFloat(document.getElementById('gasKwhInput').value) || 0) : 0;
+
             // Convert to daily for calculations
             const elecKwhDaily = elecKwhAnnual / 365;
             const gasKwhDaily = gasKwhAnnual / 365;
 
             // Calculate costs for the selected period
             const elecUsageCost = (elecKwhDaily * periodMultiplier * currentTariff.elec_unit_rate_p) / 100;
-            const gasUsageCost = (gasKwhDaily * periodMultiplier * currentTariff.gas_unit_rate_p) / 100;
+            const gasUsageCost = currentFuelType === 'dual' ? ((gasKwhDaily * periodMultiplier * (currentTariff.gas_unit_rate_p || 0)) / 100) : 0;
             const elecStandingCost = (currentTariff.elec_standing_p * periodMultiplier) / 100;
-            const gasStandingCost = (currentTariff.gas_standing_p * periodMultiplier) / 100;
+            const gasStandingCost = currentFuelType === 'dual' ? ((currentTariff.gas_standing_p || 0) * periodMultiplier / 100) : 0;
 
             const totalCost = elecUsageCost + gasUsageCost + elecStandingCost + gasStandingCost;
 
             const periodSuffix = { day: '/day', week: '/wk', month: '/mo', year: '/yr' }[currentPeriod];
             document.getElementById('totalBill').innerHTML = `£${totalCost.toFixed(0)}<span>${periodSuffix}</span>`;
-            document.getElementById('billBreakdown').textContent = 
-                `Elec: £${elecUsageCost.toFixed(0)} | Gas: £${gasUsageCost.toFixed(0)} | Standing: £${(elecStandingCost + gasStandingCost).toFixed(0)}`;
+
+            if (currentFuelType === 'dual') {
+                document.getElementById('billBreakdown').textContent =
+                    `Elec: £${elecUsageCost.toFixed(0)} | Gas: £${gasUsageCost.toFixed(0)} | Standing: £${(elecStandingCost + gasStandingCost).toFixed(0)}`;
+            } else {
+                document.getElementById('billBreakdown').textContent =
+                    `Elec: £${elecUsageCost.toFixed(0)} | Standing: £${elecStandingCost.toFixed(0)}`;
+            }
 
             // Annual comparison
             const annualCurrent = calcAnnualCostFromKwh(currentTariff, elecKwhAnnual, gasKwhAnnual);
@@ -1185,10 +1291,12 @@
         }
         
         function calcAnnualCostFromKwh(tariff, elecKwhAnnual, gasKwhAnnual) {
-            return ((elecKwhAnnual * tariff.elec_unit_rate_p) + 
-                   (gasKwhAnnual * tariff.gas_unit_rate_p) +
+            const gasCost = currentFuelType === 'dual' ? (gasKwhAnnual * (tariff.gas_unit_rate_p || 0)) : 0;
+            const gasStanding = currentFuelType === 'dual' ? ((tariff.gas_standing_p || 0) * 365) : 0;
+            return ((elecKwhAnnual * tariff.elec_unit_rate_p) +
+                   gasCost +
                    (tariff.elec_standing_p * 365) +
-                   (tariff.gas_standing_p * 365)) / 100;
+                   gasStanding) / 100;
         }
         
         function updateApplianceCosts() {

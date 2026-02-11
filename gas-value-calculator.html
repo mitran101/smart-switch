@@ -654,13 +654,7 @@
                         <div class="input-group" style="margin-bottom: 0.75rem;">
                             <select id="helperSupplier" onchange="onSupplierChange()">
                                 <option value="price_cap">Price Cap</option>
-                                <option value="fuse_energy">Fuse Energy</option>
-                                <option value="octopus">Octopus Energy</option>
-                                <option value="edf">EDF</option>
-                                <option value="british_gas">British Gas</option>
-                                <option value="scottish_power">Scottish Power</option>
-                                <option value="ovo">OVO Energy</option>
-                                <option value="so_energy">SO Energy</option>
+                                <!-- Suppliers with gas data will be populated dynamically -->
                             </select>
                         </div>
                         <div id="regionWrapper" class="input-group" style="margin-bottom: 0.75rem;">
@@ -883,27 +877,14 @@
             "North Wales & Merseyside": 5.94, "South Scotland": 5.89, "North Scotland": 5.89
         };
 
-        // Gas rates - populated from JSON
+        // Gas rates - populated from JSON dynamically
         let gasRates = {
-            price_cap: { ...defaultPriceCapRates },
-            fuse_energy: {},
-            octopus: {},
-            edf: {},
-            british_gas: {},
-            scottish_power: {},
-            ovo: {},
-            so_energy: {}
+            price_cap: { ...defaultPriceCapRates }
         };
 
-        const supplierNames = {
-            price_cap: "Price Cap",
-            fuse_energy: "Fuse Energy",
-            octopus: "Octopus Energy",
-            edf: "EDF",
-            british_gas: "British Gas",
-            scottish_power: "Scottish Power",
-            ovo: "OVO Energy",
-            so_energy: "SO Energy"
+        // Dynamic supplier names - will be populated from JSON data
+        let supplierNames = {
+            price_cap: "Price Cap"
         };
 
         // Toggle tariff helper visibility
@@ -932,49 +913,97 @@
         async function loadTariffRates() {
             const note = document.getElementById('tariffHelperNote');
             const supplier = document.getElementById('helperSupplier').value;
-            
+
             // If we already have rates loaded, don't reload
-            if (Object.keys(gasRates.fuse_energy || {}).length > 0) {
+            if (Object.keys(gasRates).length > 1) { // More than just price_cap
                 note.textContent = 'Select your region above';
                 return;
             }
-            
+
             note.textContent = 'Loading rates...';
-            
+
             try {
                 const response = await fetch('./all_tariffs.json');
-                
+
                 if (!response.ok) {
                     note.textContent = 'Could not load rates - check all_tariffs.json exists';
                     return;
                 }
-                
+
                 const data = await response.json();
-                
+
                 // Handle different JSON structures
                 let tariffs = data.tariffs || data;
                 if (!Array.isArray(tariffs)) {
                     note.textContent = 'Error: Invalid JSON structure';
                     return;
                 }
-                
-                const suppliers = ['fuse_energy', 'octopus', 'edf', 'british_gas', 'scottish_power', 'ovo', 'so_energy'];
-                
-                // Populate rates for all regions/suppliers
+
+                // Dynamically detect suppliers with gas data
+                const suppliersFound = new Set();
+
                 tariffs.forEach(t => {
-                    if (suppliers.includes(t.supplier) && !t.error && t.gas_unit_rate_p) {
-                        if (!gasRates[t.supplier]) gasRates[t.supplier] = {};
-                        if (!gasRates[t.supplier][t.region]) {
-                            gasRates[t.supplier][t.region] = t.gas_unit_rate_p;
+                    // Only include tariffs with valid gas data (not null, not error)
+                    if (!t.error && t.gas_unit_rate_p !== null && t.gas_unit_rate_p !== undefined) {
+                        // Normalize supplier name (handle "So Energy" -> "so_energy")
+                        const normalizedSupplier = t.supplier.toLowerCase().replace(/\s+/g, '_');
+
+                        // Initialize structures if needed
+                        if (!gasRates[normalizedSupplier]) {
+                            gasRates[normalizedSupplier] = {};
+                            // Store display name (capitalize first letter of each word)
+                            // Handle both spaces and underscores in supplier names
+                            supplierNames[normalizedSupplier] = t.supplier.split(/[\s_]+/).map(word =>
+                                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                            ).join(' ');
                         }
+
+                        // Store the gas rate for this region
+                        if (!gasRates[normalizedSupplier][t.region]) {
+                            gasRates[normalizedSupplier][t.region] = t.gas_unit_rate_p;
+                        }
+
+                        suppliersFound.add(normalizedSupplier);
                     }
                 });
-                
+
+                // Rebuild the supplier dropdown with only suppliers that have gas data
+                rebuildSupplierDropdown(Array.from(suppliersFound));
+
                 note.textContent = 'Select your region above';
-                
+
             } catch (e) {
                 console.error('Could not load tariff data:', e);
                 note.textContent = 'Error loading rates: ' + e.message;
+            }
+        }
+
+        // Rebuild supplier dropdown with dynamic suppliers
+        function rebuildSupplierDropdown(suppliers) {
+            const select = document.getElementById('helperSupplier');
+            const currentValue = select.value;
+
+            // Clear existing options except Price Cap
+            select.innerHTML = '<option value="price_cap">Price Cap</option>';
+
+            // Sort suppliers alphabetically by display name
+            suppliers.sort((a, b) => {
+                const nameA = supplierNames[a] || a;
+                const nameB = supplierNames[b] || b;
+                return nameA.localeCompare(nameB);
+            });
+
+            // Add options for each supplier with gas data
+            suppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = supplierNames[supplier] || supplier;
+                select.appendChild(option);
+            });
+
+            // Restore previous selection if still valid
+            if (suppliers.includes(currentValue) || currentValue === 'price_cap') {
+                select.value = currentValue;
             }
         }
 

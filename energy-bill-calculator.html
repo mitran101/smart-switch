@@ -776,16 +776,8 @@
             'svt': '#ef4444'
         };
 
-        const supplierNames = {
-            'octopus': 'Octopus Energy',
-            'fuse_energy': 'Fuse Energy',
-            'eon_next': 'E.ON Next',
-            'british_gas': 'British Gas',
-            'ovo': 'OVO Energy',
-            'scottish_power': 'Scottish Power',
-            'edf': 'EDF',
-            'so_energy': 'SO Energy'
-        };
+        // Dynamic supplier names - populated from JSON data
+        const supplierNames = {};
 
         // Home size presets - annual kWh estimates
         const homePresets = {
@@ -932,17 +924,50 @@
             try {
                 const response = await fetch('./all_tariffs.json');
                 const data = await response.json();
-                
-                allTariffs = (data.tariffs || data).filter(t => 
-                    !t.error && 
-                    t.elec_unit_rate_p && 
-                    t.gas_unit_rate_p &&
-                    supplierNames[t.supplier]
-                );
+
+                // Dynamically detect suppliers with BOTH electricity AND gas data
+                const rawTariffs = data.tariffs || data;
+
+                // First pass: build supplier names mapping
+                rawTariffs.forEach(t => {
+                    if (!t.error &&
+                        t.elec_unit_rate_p !== null && t.elec_unit_rate_p !== undefined &&
+                        t.gas_unit_rate_p !== null && t.gas_unit_rate_p !== undefined) {
+
+                        // Normalize supplier name (handle "So Energy" -> "so_energy")
+                        const normalizedSupplier = t.supplier.toLowerCase().replace(/\s+/g, '_');
+
+                        // Store display name if not already present
+                        if (!supplierNames[normalizedSupplier]) {
+                            // Handle both spaces and underscores in supplier names
+                            supplierNames[normalizedSupplier] = t.supplier.split(/[\s_]+/).map(word =>
+                                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                            ).join(' ');
+                        }
+                    }
+                });
+
+                // Second pass: filter tariffs using normalized supplier names
+                allTariffs = rawTariffs.filter(t => {
+                    if (t.error ||
+                        t.elec_unit_rate_p === null || t.elec_unit_rate_p === undefined ||
+                        t.gas_unit_rate_p === null || t.gas_unit_rate_p === undefined) {
+                        return false;
+                    }
+
+                    const normalizedSupplier = t.supplier.toLowerCase().replace(/\s+/g, '_');
+                    return supplierNames[normalizedSupplier] !== undefined;
+                }).map(t => {
+                    // Normalize the supplier field in the tariff object
+                    return {
+                        ...t,
+                        supplier: t.supplier.toLowerCase().replace(/\s+/g, '_')
+                    };
+                });
 
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('tariffContent').style.display = 'block';
-                
+
                 // Set default region and load
                 currentRegion = 'London';
                 changeRegion();

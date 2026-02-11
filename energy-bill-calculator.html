@@ -1040,10 +1040,12 @@
                 currentRegion = 'London';
                 changeRegion();
 
-                // Ensure calculations run after content is shown
+                // Force calculations to run after content is displayed
                 setTimeout(() => {
-                    if (currentTariff) calculateAll();
-                }, 100);
+                    if (currentTariff) {
+                        calculateAll();
+                    }
+                }, 150);
             } catch (e) {
                 console.error('Failed to load tariff data:', e);
                 document.getElementById('loadingState').innerHTML = `

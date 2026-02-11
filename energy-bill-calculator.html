@@ -1258,7 +1258,13 @@
         }
 
         function calculateAll() {
-            if (!currentTariff) return;
+            if (!currentTariff) {
+                // Default to SVT if no tariff is selected yet
+                currentTariff = {
+                    supplier: 'svt',
+                    ...getSVT()
+                };
+            }
 
             // Get annual kWh from inputs
             const elecKwhAnnual = parseFloat(document.getElementById('elecKwhInput').value) || 0;

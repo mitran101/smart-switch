@@ -1189,12 +1189,15 @@
                 select.innerHTML += `<option value="${i}">${displayName}${badges}</option>`;
             });
 
-            // Auto-select cheapest
+            // Auto-select cheapest or default to SVT
             if (regionalTariffs.length > 0) {
                 select.value = findCheapestIndex();
+            } else {
+                select.value = 'svt';
             }
 
-            changeSupplier();
+            // Ensure changeSupplier runs after select value is set
+            setTimeout(() => changeSupplier(), 0);
         }
 
         function changeSupplier() {

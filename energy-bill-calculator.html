@@ -671,6 +671,33 @@
                     </div>
                 </div>
 
+                <!-- Custom rate inputs -->
+                <div id="customRateInputs" style="display: none; background: var(--sp-purple-light); border-radius: 12px; padding: 15px; margin-top: 15px;">
+                    <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; color: var(--sp-purple-dark);">Enter your tariff rates:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">⚡ Electricity (p/kWh)</label>
+                            <input type="number" id="customElecRate" step="0.01" placeholder="e.g. 24.50" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                        </div>
+                        <div id="customGasRateInput">
+                            <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">🔥 Gas (p/kWh)</label>
+                            <input type="number" id="customGasRate" step="0.01" placeholder="e.g. 6.24" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">⚡ Elec standing (p/day)</label>
+                            <input type="number" id="customElecStanding" step="0.01" placeholder="e.g. 53.56" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                        </div>
+                        <div id="customGasStandingInput">
+                            <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">🔥 Gas standing (p/day)</label>
+                            <input type="number" id="customGasStanding" step="0.01" placeholder="e.g. 31.66" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                        </div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--sp-slate-light); opacity: 0.9;">
+                    ℹ️ Rates are indicative and based on current supplier tariffs. Your actual tariff rates may differ. For more accuracy, select "Enter custom rates" and input your exact rates from your bill.
+                </p>
+
                 <p style="text-align: center; margin-top: 1.25rem; font-size: 0.9rem; color: var(--sp-slate-light);">
                     💡 <a href="tariff-tracker.html" style="color: var(--sp-green-dark); font-weight: 600; text-decoration: none;">Check our tariff tracker</a> to see the best available tariffs across all suppliers
                 </p>
@@ -1059,6 +1086,8 @@
             const gasInputSection = document.getElementById('gasInputSection');
             const gasRateBox = document.getElementById('gasRateBox');
             const gasStandingBox = document.getElementById('gasStandingBox');
+            const customGasRateInput = document.getElementById('customGasRateInput');
+            const customGasStandingInput = document.getElementById('customGasStandingInput');
             const usageInputsGrid = document.getElementById('usageInputsGrid');
             const currentRatesGrid = document.getElementById('currentRatesGrid');
 
@@ -1073,6 +1102,12 @@
             }
             if (gasStandingBox) {
                 gasStandingBox.style.display = type === 'dual' ? 'block' : 'none';
+            }
+            if (customGasRateInput) {
+                customGasRateInput.style.display = type === 'dual' ? 'block' : 'none';
+            }
+            if (customGasStandingInput) {
+                customGasStandingInput.style.display = type === 'dual' ? 'block' : 'none';
             }
             if (usageInputsGrid) {
                 usageInputsGrid.style.gridTemplateColumns = type === 'dual' ? '1fr 1fr' : '1fr';
@@ -1170,6 +1205,7 @@
         function populateSuppliers() {
             const select = document.getElementById('supplierSelect');
             select.innerHTML = '<option value="">-- Pick a supplier --</option>';
+            select.innerHTML += '<option value="custom">✏️ Enter custom rates</option>';
             select.innerHTML += '<option value="svt">⚠️ SVT Price Cap (most expensive default rate)</option>';
 
             regionalTariffs.forEach((t, i) => {
@@ -1201,13 +1237,43 @@
             }
         }
 
+        function applyCustomRates() {
+            const elecRate = parseFloat(document.getElementById('customElecRate').value);
+            const gasRate = parseFloat(document.getElementById('customGasRate').value);
+            const elecStanding = parseFloat(document.getElementById('customElecStanding').value);
+            const gasStanding = parseFloat(document.getElementById('customGasStanding').value);
+
+            if (elecRate && elecStanding && (currentFuelType === 'elec' || (gasRate && gasStanding))) {
+                currentTariff = {
+                    supplier: 'custom',
+                    tariff_name: 'Custom Rates',
+                    elec_unit_rate_p: elecRate,
+                    elec_standing_p: elecStanding,
+                    gas_unit_rate_p: gasRate || 0,
+                    gas_standing_p: gasStanding || 0
+                };
+                updateRatesDisplay();
+                calculateAll();
+            }
+        }
+
         function changeSupplier() {
             const value = document.getElementById('supplierSelect').value;
+            const customInputs = document.getElementById('customRateInputs');
+            const ratesGrid = document.getElementById('currentRatesGrid');
 
             if (value === '') {
                 // No supplier selected, reset to hyphens
                 currentTariff = null;
                 resetToHyphens();
+                customInputs.style.display = 'none';
+                ratesGrid.style.display = 'grid';
+                return;
+            } else if (value === 'custom') {
+                // Show custom inputs
+                customInputs.style.display = 'block';
+                ratesGrid.style.display = 'none';
+                currentTariff = null;
                 return;
             } else if (value === 'svt') {
                 const svt = getSVT();
@@ -1219,6 +1285,8 @@
                 currentTariff = regionalTariffs[parseInt(value)];
             }
 
+            customInputs.style.display = 'none';
+            ratesGrid.style.display = 'grid';
             updateRatesDisplay();
             calculateAll();
         }

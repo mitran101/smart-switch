@@ -1176,7 +1176,7 @@
 
         function populateSuppliers() {
             const select = document.getElementById('supplierSelect');
-            select.innerHTML = '<option value="svt">⚠️ SVT Price Cap</option>';
+            select.innerHTML = '<option value="svt">⚠️ SVT Price Cap (most expensive default rate)</option>';
 
             regionalTariffs.forEach((t, i) => {
                 const badges = getTariffBadges(t.tariff_name);

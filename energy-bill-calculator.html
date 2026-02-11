@@ -939,10 +939,21 @@
 
                         // Store display name if not already present
                         if (!supplierNames[normalizedSupplier]) {
-                            // Handle both spaces and underscores in supplier names
-                            supplierNames[normalizedSupplier] = t.supplier.split(/[\s_]+/).map(word =>
-                                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-                            ).join(' ');
+                            // Handle special cases for proper branding
+                            let displayName;
+                            if (normalizedSupplier === 'so_energy') {
+                                displayName = 'SO Energy';
+                            } else if (normalizedSupplier === 'ovo') {
+                                displayName = 'OVO Energy';
+                            } else if (normalizedSupplier === 'octopus') {
+                                displayName = 'Octopus Energy';
+                            } else {
+                                // Default: capitalize first letter of each word
+                                displayName = t.supplier.split(/[\s_]+/).map(word =>
+                                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                                ).join(' ');
+                            }
+                            supplierNames[normalizedSupplier] = displayName;
                         }
                     }
                 });

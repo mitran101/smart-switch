@@ -648,7 +648,7 @@
             <div id="tariffContent" style="display: none;">
                 <div class="supplier-selector">
                     <select id="supplierSelect" onchange="changeSupplier()">
-                        <option value="svt">⚠️ SVT Price Cap</option>
+                        <option value="svt">⚠️ SVT Price Cap (most expensive default rate)</option>
                     </select>
                 </div>
 
@@ -1039,6 +1039,11 @@
                 // Set default region and load
                 currentRegion = 'London';
                 changeRegion();
+
+                // Ensure calculations run after content is shown
+                setTimeout(() => {
+                    if (currentTariff) calculateAll();
+                }, 100);
             } catch (e) {
                 console.error('Failed to load tariff data:', e);
                 document.getElementById('loadingState').innerHTML = `

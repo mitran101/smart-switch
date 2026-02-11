@@ -1040,12 +1040,17 @@
                 currentRegion = 'London';
                 changeRegion();
 
-                // Force calculations to run after content is displayed
+                // Ensure currentTariff is set and calculations run
                 setTimeout(() => {
-                    if (currentTariff) {
-                        calculateAll();
+                    if (!currentTariff) {
+                        currentTariff = {
+                            supplier: 'svt',
+                            ...getSVT()
+                        };
                     }
-                }, 150);
+                    calculateAll();
+                    updateChart();
+                }, 200);
             } catch (e) {
                 console.error('Failed to load tariff data:', e);
                 document.getElementById('loadingState').innerHTML = `

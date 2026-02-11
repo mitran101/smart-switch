@@ -1281,9 +1281,11 @@
                 };
             }
 
-            // Get annual kWh from inputs
-            const elecKwhAnnual = parseFloat(document.getElementById('elecKwhInput').value) || 0;
-            const gasKwhAnnual = currentFuelType === 'dual' ? (parseFloat(document.getElementById('gasKwhInput').value) || 0) : 0;
+            // Get annual kWh from inputs with defaults
+            const elecInput = document.getElementById('elecKwhInput');
+            const gasInput = document.getElementById('gasKwhInput');
+            const elecKwhAnnual = elecInput ? (parseFloat(elecInput.value) || 2900) : 2900;
+            const gasKwhAnnual = currentFuelType === 'dual' ? (gasInput ? (parseFloat(gasInput.value) || 12000) : 12000) : 0;
 
             // Convert to daily for calculations
             const elecKwhDaily = elecKwhAnnual / 365;

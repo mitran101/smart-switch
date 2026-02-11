@@ -680,19 +680,19 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div>
                             <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">⚡ Electricity (p/kWh)</label>
-                            <input type="number" id="customElecRate" step="0.01" placeholder="e.g. 24.50" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                            <input type="number" id="customElecRate" min="0" max="200" step="0.01" placeholder="e.g. 24.50" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
                         </div>
                         <div id="customGasRateInput">
                             <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">🔥 Gas (p/kWh)</label>
-                            <input type="number" id="customGasRate" step="0.01" placeholder="e.g. 6.24" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                            <input type="number" id="customGasRate" min="0" max="200" step="0.01" placeholder="e.g. 6.24" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">⚡ Elec standing (p/day)</label>
-                            <input type="number" id="customElecStanding" step="0.01" placeholder="e.g. 53.56" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                            <input type="number" id="customElecStanding" min="0" max="500" step="0.01" placeholder="e.g. 53.56" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
                         </div>
                         <div id="customGasStandingInput">
                             <label style="display: block; font-size: 0.85rem; margin-bottom: 4px;">🔥 Gas standing (p/day)</label>
-                            <input type="number" id="customGasStanding" step="0.01" placeholder="e.g. 31.66" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
+                            <input type="number" id="customGasStanding" min="0" max="500" step="0.01" placeholder="e.g. 31.66" oninput="applyCustomRates()" style="width: 100%; padding: 8px; border: 2px solid #ddd6fe; border-radius: 6px; font-size: 1rem;">
                         </div>
                     </div>
                 </div>

@@ -655,19 +655,19 @@
                 <div class="current-rates" id="currentRatesGrid">
                     <div class="rate-box">
                         <div class="label">⚡ Electricity unit rate</div>
-                        <div class="value" id="elecRateDisplay">24.50<span>p/kWh</span></div>
+                        <div class="value" id="elecRateDisplay">--<span>p/kWh</span></div>
                     </div>
                     <div class="rate-box" id="gasRateBox">
                         <div class="label">🔥 Gas unit rate</div>
-                        <div class="value" id="gasRateDisplay">6.24<span>p/kWh</span></div>
+                        <div class="value" id="gasRateDisplay">--<span>p/kWh</span></div>
                     </div>
                     <div class="rate-box">
                         <div class="label">⚡ Electricity standing charge</div>
-                        <div class="value" id="elecStandingDisplay">53.56<span>p/day</span></div>
+                        <div class="value" id="elecStandingDisplay">--<span>p/day</span></div>
                     </div>
                     <div class="rate-box" id="gasStandingBox">
                         <div class="label">🔥 Gas standing charge</div>
-                        <div class="value" id="gasStandingDisplay">31.66<span>p/day</span></div>
+                        <div class="value" id="gasStandingDisplay">--<span>p/day</span></div>
                     </div>
                 </div>
 
@@ -686,22 +686,22 @@
                         <button class="period-tab active" onclick="setPeriod('month')">Monthly</button>
                         <button class="period-tab" onclick="setPeriod('year')">Annual</button>
                     </div>
-                    <div class="bill-amount" id="totalBill">£0<span>/mo</span></div>
-                    <div class="bill-breakdown" id="billBreakdown">Elec: £0 | Gas: £0 | Standing: £0</div>
+                    <div class="bill-amount" id="totalBill">--<span>/mo</span></div>
+                    <div class="bill-breakdown" id="billBreakdown">--</div>
                 </div>
 
                 <div class="comparison-banner">
                     <div class="comparison-item current">
                         <div class="label">Selected Tariff</div>
-                        <div class="amount" id="currentTariffCost">£0/yr</div>
+                        <div class="amount" id="currentTariffCost">--/yr</div>
                     </div>
                     <div class="comparison-vs">vs</div>
                     <div class="comparison-item svt">
                         <div class="label">SVT Price Cap</div>
-                        <div class="amount" id="svtCost">£0/yr</div>
+                        <div class="amount" id="svtCost">--/yr</div>
                     </div>
                 </div>
-                <div class="savings-badge" id="savingsBadge">You're saving £0/year</div>
+                <div class="savings-badge" id="savingsBadge">Select a supplier to see savings</div>
 
                 <h2 style="margin-top: 25px;">💰 Best Deals in <span id="regionDisplay">London</span></h2>
                 <div class="chart-container">
@@ -1039,18 +1039,6 @@
                 // Set default region and load
                 currentRegion = 'London';
                 changeRegion();
-
-                // Ensure currentTariff is set and calculations run
-                setTimeout(() => {
-                    if (!currentTariff) {
-                        currentTariff = {
-                            supplier: 'svt',
-                            ...getSVT()
-                        };
-                    }
-                    calculateAll();
-                    updateChart();
-                }, 200);
             } catch (e) {
                 console.error('Failed to load tariff data:', e);
                 document.getElementById('loadingState').innerHTML = `
@@ -1181,7 +1169,8 @@
 
         function populateSuppliers() {
             const select = document.getElementById('supplierSelect');
-            select.innerHTML = '<option value="svt">⚠️ SVT Price Cap (most expensive default rate)</option>';
+            select.innerHTML = '<option value="">-- Pick a supplier --</option>';
+            select.innerHTML += '<option value="svt">⚠️ SVT Price Cap (most expensive default rate)</option>';
 
             regionalTariffs.forEach((t, i) => {
                 const badges = getTariffBadges(t.tariff_name);
@@ -1189,21 +1178,18 @@
                 select.innerHTML += `<option value="${i}">${displayName}${badges}</option>`;
             });
 
-            // Auto-select cheapest or default to SVT
-            if (regionalTariffs.length > 0) {
-                select.value = findCheapestIndex();
-            } else {
-                select.value = 'svt';
-            }
-
-            // Ensure changeSupplier runs after select value is set
-            setTimeout(() => changeSupplier(), 0);
+            // Don't auto-select anything, let user choose
+            select.value = '';
         }
 
         function changeSupplier() {
             const value = document.getElementById('supplierSelect').value;
-            
-            if (value === 'svt') {
+
+            if (value === '') {
+                // No supplier selected, don't calculate
+                currentTariff = null;
+                return;
+            } else if (value === 'svt') {
                 const svt = getSVT();
                 currentTariff = {
                     supplier: 'svt',
@@ -1274,11 +1260,8 @@
 
         function calculateAll() {
             if (!currentTariff) {
-                // Default to SVT if no tariff is selected yet
-                currentTariff = {
-                    supplier: 'svt',
-                    ...getSVT()
-                };
+                // No tariff selected, don't calculate
+                return;
             }
 
             // Get annual kWh from inputs with defaults

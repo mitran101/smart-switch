@@ -1182,12 +1182,32 @@
             select.value = '';
         }
 
+        function resetToHyphens() {
+            document.getElementById('elecRateDisplay').innerHTML = '--<span>p/kWh</span>';
+            document.getElementById('gasRateDisplay').innerHTML = '--<span>p/kWh</span>';
+            document.getElementById('elecStandingDisplay').innerHTML = '--<span>p/day</span>';
+            document.getElementById('gasStandingDisplay').innerHTML = '--<span>p/day</span>';
+            document.getElementById('totalBill').innerHTML = '--<span>/mo</span>';
+            document.getElementById('billBreakdown').textContent = '--';
+            document.getElementById('currentTariffCost').textContent = '--/yr';
+            document.getElementById('svtCost').textContent = '--/yr';
+            document.getElementById('savingsBadge').textContent = 'Select a supplier to see savings';
+            document.getElementById('savingsBadge').style.background = '#94a3b8';
+
+            // Clear chart
+            if (tariffChart) {
+                tariffChart.destroy();
+                tariffChart = null;
+            }
+        }
+
         function changeSupplier() {
             const value = document.getElementById('supplierSelect').value;
 
             if (value === '') {
-                // No supplier selected, don't calculate
+                // No supplier selected, reset to hyphens
                 currentTariff = null;
+                resetToHyphens();
                 return;
             } else if (value === 'svt') {
                 const svt = getSVT();

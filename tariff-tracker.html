@@ -1177,7 +1177,8 @@
             }
 
             grid.innerHTML = top5.map((tariff, index) => {
-                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#A855F7', green: false };
+                const supplierKey = tariff.supplier.toLowerCase().replace(/\s+/g, '_');
+const supplier = supplierInfo[supplierKey] || { name: tariff.supplier, color: '#A855F7', green: false };
                 const pros = getPros(tariff, tariff.savings, supplier, fuelType);
                 const cons = getCons(tariff, tariff.savings, supplier, fuelType);
                 
@@ -1258,7 +1259,8 @@
             const ctx = document.getElementById('tariffChart').getContext('2d');
             
             const labels = tariffs.map(t => {
-                const supplier = supplierInfo[t.supplier]?.name || t.supplier;
+                const supplierKey = t.supplier.toLowerCase().replace(/\s+/g, '_');
+const supplier = supplierInfo[supplierKey]?.name || t.supplier;
                 const tariffName = t.tariff_name || 'Standard';
                 const full = supplier + ' - ' + tariffName;
                 return full.length > 28 ? full.substring(0, 25) + '...' : full;

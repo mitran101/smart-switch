@@ -321,6 +321,44 @@
         .summary-item.info .summary-icon { color: var(--sp-blue); }
         .summary-item.amber .summary-icon { color: var(--sp-amber); }
 
+        /* Tracker callout */
+        .tracker-callout {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: var(--sp-purple-light);
+            border: 1px solid #C4B5FD;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tracker-callout-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tracker-callout strong {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: var(--sp-slate);
+        }
+
+        .tracker-callout p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--sp-slate-light);
+        }
+
+        .tracker-callout a {
+            color: var(--sp-purple);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .tracker-callout a:hover { text-decoration: underline; }
+
         /* Quote block */
         blockquote {
             border-left: 4px solid var(--sp-slate-light);
@@ -525,6 +563,14 @@
         </blockquote>
 
         <p>Ofgem launched a call for input on overhauling energy customer service standards — moving away from prescriptive rules toward clearer minimum outcomes, with the market determining how to exceed them. Whether that produces better results for consumers or simply less regulatory oversight remains to be seen.</p>
+
+        <div class="tracker-callout">
+            <div class="tracker-callout-icon">📊</div>
+            <div>
+                <strong>We've integrated Ofgem's supplier complaints data into our tariff tracker.</strong>
+                <p>When comparing suppliers, you'll be able to see complaints per 100,000 customers — so price isn't the only thing you're comparing. Where the data's available, we surface it alongside the tariff. <a href="tariff-tracker.html">See it in the tracker →</a></p>
+            </div>
+        </div>
 
         <h2>The price cap: still rising slightly, still necessary</h2>
         <p>For Q1 2026 (January–March), the price cap equates to an annual spend of <strong>£1,758</strong> for a typical dual-fuel direct debit household — up just £3 from the previous quarter but around 2% lower than the same period in 2025.</p>

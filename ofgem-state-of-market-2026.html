@@ -88,22 +88,19 @@
             text-decoration: none;
             font-weight: 700;
             color: white;
-            transition: opacity 0.2s;
         }
 
-        .top-logo:hover { opacity: 0.8; }
-        .top-logo img { height: 2rem; width: auto; }
+        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
         .top-logo span { font-size: 1.35rem; }
 
         .back-home {
-            display: inline-block;
             padding: 10px 20px;
             background: rgba(255,255,255,0.1);
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: background 0.2s;
             font-size: 0.9rem;
         }
 
@@ -113,7 +110,7 @@
         .article-header {
             background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
             color: white;
-            padding: 5rem 2rem 3rem;
+            padding: 4rem 2rem 3rem;
             position: relative;
             overflow: hidden;
         }
@@ -136,7 +133,7 @@
 
         .tag {
             display: inline-block;
-            background: var(--sp-amber);
+            background: rgba(255,255,255,0.2);
             color: white;
             padding: 0.35rem 0.85rem;
             border-radius: 20px;
@@ -149,7 +146,7 @@
 
         h1 {
             font-family: 'DM Serif Display', Georgia, serif;
-            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
             font-weight: 400;
             line-height: 1.2;
             margin-bottom: 1.25rem;
@@ -157,26 +154,31 @@
 
         .subtitle {
             font-size: 1.15rem;
-            color: #94A3B8;
+            color: rgba(255,255,255,0.85);
             max-width: 640px;
         }
 
-        .article-meta {
+        .meta {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
             font-size: 0.9rem;
-            color: #94A3B8;
+            color: rgba(255,255,255,0.7);
         }
 
         /* Body */
-        .article-body {
+        .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 3rem 2rem 1.5rem;
+        }
+
+        .sources {
+            font-size: 0.9rem;
+            color: #94a3b8;
         }
 
         h2 {
@@ -422,25 +424,12 @@
             transform: translateY(-2px);
         }
 
-        /* Footer */
-        .article-footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem 3rem;
-            border-top: 1px solid #E2E8F0;
-        }
-
-        .footer-note {
-            font-size: 0.85rem;
-            color: #94A3B8;
-            margin-bottom: 0.5rem;
-        }
-
         .footer {
             background: var(--sp-slate);
-            color: #94A3B8;
+            color: #94a3b8;
             text-align: center;
-            padding: 2.5rem 2rem;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
             font-size: 0.9rem;
         }
 
@@ -457,9 +446,13 @@
         .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
         .footer a { color: var(--sp-green); text-decoration: none; }
 
-        @media (max-width: 600px) {
-            .article-header { padding: 3rem 1.25rem 2rem; }
-            .article-body { padding: 2rem 1.25rem 1rem; }
+        @media (max-width: 768px) {
+            .top-nav { padding: 1rem; }
+            .top-logo img { height: 2.5rem; }
+            .top-logo span { font-size: 1.25rem; }
+            .back-home { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .article-header { padding: 3rem 1.5rem 2rem; }
+            .container { padding: 2rem 1.25rem 1rem; }
             .stat-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
@@ -471,7 +464,7 @@
             <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo">
             <span>SwitchPilot</span>
         </a>
-        <a href="index.html" class="back-home">← Back to home</a>
+        <a href="index.html" class="back-home">← Back to Home</a>
     </nav>
 
     <header class="article-header">
@@ -479,7 +472,7 @@
             <span class="tag">📊 Market Report</span>
             <h1>Record Satisfaction. Record Debt. The Two Faces of Britain's Energy Market</h1>
             <p class="subtitle">Ofgem's January 2026 State of the Market report reveals the strangest contradiction in recent energy history — and what it means for your bills.</p>
-            <div class="article-meta">
+            <div class="meta">
                 <span>📅 27 January 2026</span>
                 <span>·</span>
                 <span>Source: Ofgem State of the Energy Retail Market 2026</span>
@@ -487,7 +480,7 @@
         </div>
     </header>
 
-    <article class="article-body">
+    <div class="container">
 
         <h2>The contradiction at the heart of the 2026 market</h2>
         <p>On 27 January 2026, Ofgem published its annual State of the Energy Market report — and it tells a story that doesn't quite add up on the surface.</p>
@@ -670,23 +663,18 @@
             </div>
         </div>
 
-    </article>
-
-    <section style="padding: 0 2rem; max-width: 800px; margin: 0 auto;">
         <div class="cta-box">
             <h3>Don't pay more than you have to</h3>
             <p>The gap between the price cap and the best fixed deals is the biggest it's been in years. Join our waitlist and we'll help you find it.</p>
             <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
         </div>
-    </section>
 
-    <footer class="article-footer">
-        <p class="footer-note">Sources: Ofgem State of the Market: Energy Retail Highlights — January 2026; Ofgem State of the Market: Energy Infrastructure Highlights — January 2026; Jonathan Brearley keynote speech, January 2026.</p>
-        <p class="footer-note" style="margin-top: 1rem;">
-            <strong>Related reading:</strong>
-            <a href="energy-debt-crisis.html" style="color: var(--sp-green); text-decoration: none;">The Silent Crisis: UK Energy Debt Triples →</a>
-        </p>
-    </footer>
+        <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 3rem 0 2rem;">
+
+        <p class="sources"><strong>Sources:</strong> Ofgem State of the Market: Energy Retail Highlights — January 2026; Ofgem State of the Market: Energy Infrastructure Highlights — January 2026; Ofgem customer service data Q3 2025; Jonathan Brearley keynote speech, January 2026.</p>
+        <p class="sources" style="margin-top: 1rem;"><strong>Related reading:</strong> <a href="energy-debt-crisis.html">The Silent Crisis: UK Energy Debt Triples</a></p>
+
+    </div>
 
     <footer class="footer">
         <div class="footer-logo">

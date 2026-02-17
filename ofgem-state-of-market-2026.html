@@ -21,6 +21,12 @@
     <meta property="og:type" content="article">
     <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
 
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ofgem's State of the Market 2026: Record Satisfaction, Record Debt">
+    <meta name="twitter:description" content="Customer satisfaction is at an all-time high. Consumer debt just hit £4.48bn. Ofgem's January 2026 report explained.">
+    <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
     <script>
@@ -430,7 +436,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .site-footer {
+        .footer {
             background: var(--sp-slate);
             color: #94A3B8;
             text-align: center;
@@ -438,7 +444,18 @@
             font-size: 0.9rem;
         }
 
-        .site-footer a { color: var(--sp-green); text-decoration: none; }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img { height: 2.5rem; width: auto; margin-right: -10px; }
+        .footer-logo span { font-size: 1.25rem; font-weight: 700; color: white; }
+        .footer p { color: #94a3b8; font-size: 0.9rem; margin: 0.5rem 0; }
+        .footer a { color: var(--sp-green); text-decoration: none; }
 
         @media (max-width: 600px) {
             .article-header { padding: 3rem 1.25rem 2rem; }
@@ -671,10 +688,14 @@
         </p>
     </footer>
 
-    <footer class="site-footer">
-        <p>💌 Weekly energy insights delivered to your inbox</p>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+            <span>SwitchPilot</span>
+        </div>
+        <p>Putting the power back in your hands</p>
         <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
-        <p style="margin-top: 1rem;">© 2026 SwitchPilot. Making energy bills make sense.</p>
+        <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
     </footer>
 
     <script>

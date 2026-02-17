@@ -1080,169 +1080,6 @@ body {
 
 .address-row input { flex: 1; }
 
-/* Usage Fields */
-#usageFields { margin-top: 1.5rem; }
-
-.usage-title {
-  color: var(--sp-text);
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-}
-
-.usage-inputs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.usage-input-group {
-  flex: 1;
-}
-
-.usage-input-group label {
-  font-size: 0.8rem;
-  color: var(--sp-text-muted);
-  display: block;
-  margin-bottom: 0.3rem;
-}
-
-.usage-input-group input {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  font-size: 1rem;
-  color: var(--sp-text);
-  box-sizing: border-box;
-  font-family: inherit;
-}
-
-.usage-presets-label {
-  color: var(--sp-text-muted);
-  font-size: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-
-.usage-presets {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.usage-preset {
-  flex: 1;
-  min-width: 80px;
-  padding: 0.6rem;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  color: var(--sp-text-muted);
-  font-family: inherit;
-  transition: all 0.2s;
-}
-
-.usage-preset.active {
-  border-color: var(--sp-purple);
-  background: rgba(168,85,247,0.2);
-  color: var(--sp-text);
-  box-shadow: 0 0 15px rgba(168,85,247,0.2);
-}
-
-/* Extra Fields */
-#extraFields { margin-top: 1.5rem; position: relative; z-index: 2; }
-
-.extra-title {
-  color: var(--sp-text);
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-}
-
-.smart-meter-section { margin-bottom: 1.2rem; }
-.smart-meter-section label { font-size: 0.9rem; color: var(--sp-text); display: block; margin-bottom: 0.5rem; font-weight: 500; }
-
-.smart-meter-btns {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.smart-meter-btn {
-  flex: 1;
-  min-width: 80px;
-  padding: 0.8rem;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--sp-text-muted);
-  font-weight: 600;
-  font-family: inherit;
-  transition: all 0.2s;
-}
-
-.smart-meter-btn.active {
-  border-color: var(--sp-purple);
-  background: rgba(168,85,247,0.2);
-  color: var(--sp-text);
-  box-shadow: 0 0 15px rgba(168,85,247,0.2);
-}
-
-.credit-check-section {
-  margin-bottom: 1rem;
-  background: rgba(16,185,129,0.1);
-  padding: 1.2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(16,185,129,0.25);
-}
-
-.credit-check-section label {
-  font-size: 0.95rem;
-  color: var(--sp-text);
-  display: block;
-  margin-bottom: 0.4rem;
-  font-weight: 700;
-}
-
-.credit-check-section .description {
-  font-size: 0.8rem;
-  color: var(--sp-text-muted);
-  margin: 0 0 0.8rem 0;
-  line-height: 1.5;
-}
-
-.credit-check-btns {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.credit-check-btn {
-  flex: 1;
-  min-width: 80px;
-  padding: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--sp-text-muted);
-  font-weight: 600;
-  font-family: inherit;
-  transition: all 0.2s;
-}
-
-.credit-check-btn.active {
-  border-color: var(--sp-purple);
-  background: rgba(168,85,247,0.2);
-  color: var(--sp-text);
-  box-shadow: 0 0 15px rgba(168,85,247,0.2);
-}
 
 .submit-btn {
   width: 100%;
@@ -2492,55 +2329,6 @@ body {
         <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
       </div>
     </div>
-   <div id="usageFields" style="display:none;">
-      <p class="usage-title">🏠 What's your home like?</p>
-      <div class="usage-presets">
-        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>1-2 bed</button>
-        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>2-3 bed</button>
-        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>4+ bed</button>
-      </div>
-      <p style="font-size: 0.8rem; color: var(--sp-text-muted); margin-top: 0.8rem; cursor: pointer;" onclick="toggleManualUsage()">Know your exact usage? <a style="color: var(--sp-purple);">Enter it here</a></p>
-      <div id="manualUsageInputs" style="display: none; margin-top: 0.8rem;">
-        <div class="usage-inputs">
-          <div class="usage-input-group">
-            <label>Electricity (kWh/year)</label>
-            <input type="number" id="elecUsage" value="2700" />
-          </div>
-          <div class="usage-input-group">
-            <label>Gas (kWh/year)</label>
-            <input type="number" id="gasUsage" value="11500" />
-          </div>
-        </div>
-      </div>
-      <input type="hidden" id="elecUsageHidden" value="2700" />
-      <input type="hidden" id="gasUsageHidden" value="11500" />
-    </div>
-
-    <div id="extraFields" style="display:none;">
-      <p class="extra-title">📊 Two quick questions</p>
-      
-      <div class="smart-meter-section">
-        <label>Do you have a smart meter?</label>
-        <div class="smart-meter-btns">
-          <button type="button" class="smart-meter-btn" data-value="yes">✅ Yes</button>
-          <button type="button" class="smart-meter-btn" data-value="no">❌ No</button>
-          <button type="button" class="smart-meter-btn" data-value="unsure">🤷 Not sure</button>
-        </div>
-        <input type="hidden" id="smartMeter" value="" />
-      </div>
-      
-      <div class="credit-check-section">
-        <label>💰 Want access to exclusive cashback & cheaper tariffs?</label>
-        <p class="description">Suppliers offer their best deals to customers with good payment history. Bad debt costs the industry billions - so reliable payers get rewarded with lower rates and cashback. If you consent to a soft credit check, you could unlock higher savings - and it won't affect your credit score.</p>
-        <div class="credit-check-btns">
-          <button type="button" class="credit-check-btn" data-value="yes">💸 Yes, get me better deals!</button>
-          <button type="button" class="credit-check-btn" data-value="no">No thanks</button>
-          <button type="button" class="credit-check-btn" data-value="maybe">Maybe later</button>
-        </div>
-        <input type="hidden" id="creditCheck" value="" />
-      </div>
-    </div>
-
     <input type="hidden" id="energyRegion" value="" />
     <button type="submit" class="submit-btn">Sign me up →</button>
   </form>
@@ -2887,15 +2675,11 @@ function selectAddress() {
   document.getElementById('energyRegion').value = energyRegion;
   
   document.getElementById('addressFields').style.display = 'block';
-  document.getElementById('usageFields').style.display = 'block';
-  document.getElementById('extraFields').style.display = 'block';
 }
 
 function showManualEntry() {
   document.getElementById('addressDropdownWrapper').style.display = 'none';
   document.getElementById('addressFields').style.display = 'block';
-  document.getElementById('usageFields').style.display = 'block';
-  document.getElementById('extraFields').style.display = 'block';
   document.getElementById('houseNumber').focus();
   
   const postcode = document.getElementById('postcode').value.trim().toUpperCase();
@@ -2995,22 +2779,6 @@ function mapToEnergyRegionFromPostcode(postcode) {
   return mapToEnergyRegion('', '', postcode);
 }
 
-// Usage preset buttons
-document.querySelectorAll('.usage-preset').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.getElementById('elecUsageHidden').value = this.dataset.elec;
-    document.getElementById('gasUsageHidden').value = this.dataset.gas;
-    if (document.getElementById('elecUsage')) document.getElementById('elecUsage').value = this.dataset.elec;
-    if (document.getElementById('gasUsage')) document.getElementById('gasUsage').value = this.dataset.gas;
-    document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-function toggleManualUsage() {
-  const m = document.getElementById('manualUsageInputs');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -3022,25 +2790,11 @@ function handleSubmit(e) {
     const city = document.getElementById('city').value;
     const region = document.getElementById('region').value;
     const energyRegion = document.getElementById('energyRegion').value;
-    const elecUsage = document.getElementById('elecUsage')?.value || document.getElementById('elecUsageHidden').value;
-    const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
-    const smartMeter = document.getElementById('smartMeter').value;
-    const creditCheck = document.getElementById('creditCheck').value;
-    
+
     const form = e.target.closest('.waitlist-form');
-    
+
     if (!houseNumber && !street) {
         alert('Please find your address using the postcode lookup');
-        return;
-    }
-    
-    if (!smartMeter) {
-        alert('Please let us know if you have a smart meter');
-        return;
-    }
-    
-    if (!creditCheck) {
-        alert('Please let us know if you\'d like access to exclusive deals');
         return;
     }
     
@@ -3064,11 +2818,7 @@ function handleSubmit(e) {
             street: street,
             city: city,
             region: region,
-            energyRegion: energyRegion,
-            elecUsage: elecUsage,
-            gasUsage: gasUsage,
-            smartMeter: smartMeter,
-            creditCheck: creditCheck
+            energyRegion: energyRegion
         })
     })
     .then(() => {
@@ -3643,23 +3393,6 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Smart meter button handlers
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('smart-meter-btn')) {
-    document.getElementById('smartMeter').value = e.target.dataset.value;
-    document.querySelectorAll('.smart-meter-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-  }
-});
-
-// Credit check button handlers
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('credit-check-btn')) {
-    document.getElementById('creditCheck').value = e.target.dataset.value;
-    document.querySelectorAll('.credit-check-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-  }
-});
 </script>
 </body>
 </html>

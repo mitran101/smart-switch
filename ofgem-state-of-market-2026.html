@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofgem's State of the Market 2026: Record Satisfaction, Record Debt | SwitchPilot</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+    <!-- SEO -->
+    <meta name="description" content="Ofgem's January 2026 State of the Market report reveals a tale of two energy markets: all-time high customer satisfaction alongside record-breaking consumer debt of £4.48 billion.">
+    <link rel="canonical" href="https://switch-pilot.com/ofgem-state-of-market-2026.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Ofgem's State of the Market 2026: Record Satisfaction, Record Debt">
+    <meta property="og:description" content="Customer satisfaction is at an all-time high. Consumer debt just hit £4.48bn. Ofgem's latest report explains both — and what it means for your bills.">
+    <meta property="og:url" content="https://switch-pilot.com/ofgem-state-of-market-2026.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-red: #EF4444;
+            --sp-red-light: #FEE2E2;
+            --sp-purple: #8B5CF6;
+            --sp-purple-light: #EDE9FE;
+            --sp-blue: #3B82F6;
+            --sp-blue-light: #DBEAFE;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Navigation */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .top-logo:hover { opacity: 0.8; }
+        .top-logo img { height: 2rem; width: auto; }
+        .top-logo span { font-size: 1.35rem; }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        /* Article header */
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310B981' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--sp-amber);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 640px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        /* Body */
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 400;
+            margin: 2.5rem 0 1rem;
+            color: var(--sp-slate);
+        }
+
+        h2:first-of-type { margin-top: 0; }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate-light);
+        }
+
+        strong { color: var(--sp-slate); font-weight: 600; }
+
+        /* Stat cards */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .stat-card .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--sp-slate-light);
+            line-height: 1.4;
+        }
+
+        .stat-card.red .stat-number { color: var(--sp-red); }
+        .stat-card.green .stat-number { color: var(--sp-green); }
+        .stat-card.amber .stat-number { color: var(--sp-amber); }
+        .stat-card.purple .stat-number { color: var(--sp-purple); }
+        .stat-card.blue .stat-number { color: var(--sp-blue); }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box.red {
+            background: var(--sp-red-light);
+            border-left-color: var(--sp-red);
+        }
+
+        .highlight-box.amber {
+            background: #FEF3C7;
+            border-left-color: var(--sp-amber);
+        }
+
+        .highlight-box.purple {
+            background: var(--sp-purple-light);
+            border-left-color: var(--sp-purple);
+        }
+
+        .highlight-box.blue {
+            background: var(--sp-blue-light);
+            border-left-color: var(--sp-blue);
+        }
+
+        .highlight-box p { color: var(--sp-slate); margin-bottom: 0; }
+        .highlight-box p + p { margin-top: 0.6rem; }
+
+        /* Chart containers */
+        .chart-container {
+            background: var(--sp-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--sp-slate);
+            margin-bottom: 1rem;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 260px;
+        }
+
+        /* Summary box */
+        .summary-box {
+            background: var(--sp-card);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .summary-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1.25rem;
+            color: var(--sp-slate);
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid #F1F5F9;
+            font-size: 0.95rem;
+            color: var(--sp-slate-light);
+        }
+
+        .summary-item:first-of-type { border-top: none; }
+
+        .summary-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .summary-item.positive .summary-icon { color: var(--sp-green); }
+        .summary-item.negative .summary-icon { color: var(--sp-red); }
+        .summary-item.info .summary-icon { color: var(--sp-blue); }
+        .summary-item.amber .summary-icon { color: var(--sp-amber); }
+
+        /* Quote block */
+        blockquote {
+            border-left: 4px solid var(--sp-slate-light);
+            margin: 1.5rem 0;
+            padding: 0.75rem 1.5rem;
+            font-style: italic;
+            color: var(--sp-slate-light);
+        }
+
+        blockquote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--sp-slate);
+        }
+
+        /* CTA */
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-slate) 0%, #0F172A 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p {
+            color: #94A3B8;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            background: var(--sp-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .cta-button:hover {
+            background: var(--sp-green-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 3rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: #94A3B8;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-footer {
+            background: var(--sp-slate);
+            color: #94A3B8;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        .site-footer a { color: var(--sp-green); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .article-header { padding: 3rem 1.25rem 2rem; }
+            .article-body { padding: 2rem 1.25rem 1rem; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html" class="top-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo">
+            <span>SwitchPilot</span>
+        </a>
+        <a href="index.html" class="back-home">← Back to home</a>
+    </nav>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">📊 Market Report</span>
+            <h1>Record Satisfaction. Record Debt. The Two Faces of Britain's Energy Market</h1>
+            <p class="subtitle">Ofgem's January 2026 State of the Market report reveals the strangest contradiction in recent energy history — and what it means for your bills.</p>
+            <div class="article-meta">
+                <span>📅 27 January 2026</span>
+                <span>·</span>
+                <span>Source: Ofgem State of the Energy Retail Market 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-body">
+
+        <h2>The contradiction at the heart of the 2026 market</h2>
+        <p>On 27 January 2026, Ofgem published its annual State of the Energy Market report — and it tells a story that doesn't quite add up on the surface.</p>
+        <p><strong>Customer satisfaction has never been higher.</strong> 82% of households said they were happy with their energy supplier, an all-time record. Complaints are at their lowest since 2022. Even prepayment meter customers — historically the most poorly served group — now report the same satisfaction levels as direct debit customers for the first time.</p>
+        <p><strong>And yet consumer debt has never been worse.</strong> The amount owed to energy suppliers by struggling households hit <strong>£4.48 billion</strong> in Q3 2025 — the twelfth consecutive quarterly record. A number that has been climbing without pause since the energy crisis began in 2021.</p>
+        <p>These two facts coexist in the same market, at the same time. Understanding why tells you a lot about where energy bills are headed — and who is being left behind.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card green">
+                <div class="stat-number">82%</div>
+                <div class="stat-label">Customer satisfaction — all-time high</div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-number">£4.48bn</div>
+                <div class="stat-label">Consumer debt — 12th consecutive record</div>
+            </div>
+            <div class="stat-card amber">
+                <div class="stat-number">£265</div>
+                <div class="stat-label">Gap between price cap and cheapest fixed deal</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-number">92%</div>
+                <div class="stat-label">Market share held by just 6 suppliers</div>
+            </div>
+        </div>
+
+        <h2>The debt crisis quietly getting worse</h2>
+        <p>Before the energy crisis, household energy debt in Britain sat at around £1.5 billion. Three years later it has tripled — and shows no sign of stopping.</p>
+
+        <div class="chart-container">
+            <div class="chart-title">UK Household Energy Debt (approximate, £bn)</div>
+            <div class="chart-wrap">
+                <canvas id="debtChart"></canvas>
+            </div>
+        </div>
+
+        <p>The £4.48 billion figure represents money owed by real households who can't keep up with their bills. It doesn't include people using credit cards or loans to pay energy — just direct arrears to suppliers.</p>
+        <p>This debt costs <strong>everyone</strong> money. Ofgem estimates that uncollected debt adds around <strong>£52 per year</strong> to the average energy bill as suppliers price in the bad-debt risk. You're paying for it even if you've never missed a payment.</p>
+
+        <div class="highlight-box red">
+            <p><strong>Who carries this debt?</strong> Predominantly households in or near fuel poverty. Around 3 million homes are thought to be in fuel poverty in Great Britain. The debt is concentrated among those who were already struggling before the crisis and could never fully recover once prices spiked in 2022.</p>
+        </div>
+
+        <p>To address it, Ofgem announced a <strong>Debt Relief Scheme</strong> targeting approximately <strong>195,000 households</strong> who receive means-tested benefits and accumulated debt during the crisis period (April 2022 to March 2024). Phase one could write off up to <strong>£500 million</strong> of energy debt — meaningful, but a fraction of the total. The scheme was due to launch in early 2026.</p>
+
+        <h2>Fixed deals are back — and they're cheap</h2>
+        <p>One of the clearest signs that the energy market is recovering is the return of competitive fixed-rate tariffs.</p>
+        <p>By October 2025, the cheapest available fixed-term deal was around <strong>£265 below the price cap</strong>. That's roughly £22 per month you could be saving by switching away from your supplier's default variable rate.</p>
+        <p>Consumers have noticed. The proportion of households on fixed-term contracts has <strong>doubled year-on-year</strong> — roughly one-in-three are now locked into a fixed deal, approaching pre-crisis norms. The era of "there's no point switching, all tariffs are the same" is well and truly over.</p>
+
+        <div class="chart-container">
+            <div class="chart-title">Cheapest Fixed Tariff vs Price Cap (typical dual-fuel household, £/year)</div>
+            <div class="chart-wrap">
+                <canvas id="tariffChart"></canvas>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>What this means for you:</strong> If you're still on a standard variable tariff — the default rate — you're almost certainly overpaying. The price cap protects you from the worst, but it is not the best deal available. It's a ceiling, not a floor.</p>
+        </div>
+
+        <h2>Six companies control almost everything</h2>
+        <p>Britain's energy market has consolidated dramatically since the crisis of 2021–2022, when around 30 suppliers collapsed. Today there are <strong>23 active domestic suppliers</strong>, down from over 70 at the market's peak.</p>
+        <p>Of those, the <strong>six largest</strong> — British Gas, EDF, E.ON, Octopus, OVO, and Scottish Power — now account for <strong>92% of all domestic electricity and gas accounts</strong>. That figure crept up from 91% the previous quarter.</p>
+
+        <div class="chart-container">
+            <div class="chart-title">Domestic Market Share: Big 6 vs Others</div>
+            <div class="chart-wrap">
+                <canvas id="marketShareChart"></canvas>
+            </div>
+        </div>
+
+        <p>The latest casualty: <strong>Tomato Energy</strong>, which exited the market after Ofgem activated the Supplier of Last Resort process in late 2025. Tomato had been fined £1.5 million for failing to meet financial resilience rules and had racked up £3 million in debts. Around <strong>23,000 customers</strong> were protected through the process — their credit balances transferred to a new supplier automatically.</p>
+
+        <div class="highlight-box amber">
+            <p><strong>Why does this matter?</strong> Concentration isn't inherently bad — large suppliers have scale to invest and absorb shocks. But less competition means less pressure to innovate and cut prices. Switching rates remain below pre-crisis levels, which reduces that competitive pressure further.</p>
+        </div>
+
+        <h2>Smart meters: 65% coverage, £40 compensation if they fail</h2>
+        <p>Smart meters have now been installed in <strong>65% of homes</strong> and 61% of businesses. Of those installed, <strong>90% are operating in "smart mode"</strong> — actually sending data back to suppliers rather than functioning as dumb meters.</p>
+        <p>That sounds good, but it means roughly 10% of installed smart meters still aren't working as intended. Ofgem moved to fix this: from <strong>February 2026</strong>, new guaranteed standards require suppliers to pay customers <strong>£40 compensation</strong> if they face unreasonable delays or failed installations. Suppliers had already replaced or fixed 900,000 faulty meters following previous regulatory action.</p>
+        <p>The push matters because smart meters are the foundation of the next big shift: flexible tariffs that charge you less for using energy at off-peak times. Smart time-of-use tariff adoption has grown by over <strong>75% in the last year</strong>, with 835,000 customers now on such tariffs — mostly EV owners charging overnight at cheap rates.</p>
+
+        <h2>The regulator admits it got things wrong</h2>
+        <p>Perhaps the most striking element of Ofgem CEO Jonathan Brearley's accompanying speech was a rare moment of regulatory self-criticism.</p>
+
+        <blockquote>
+            "Over the last few years Ofgem has had to intervene in light of poor services and poor practice for some suppliers... at times, our past approach has been unwieldy, potentially heavy handed and bureaucratic."
+            <cite>— Jonathan Brearley, Ofgem CEO, State of the Market keynote, January 2026</cite>
+        </blockquote>
+
+        <p>Ofgem launched a call for input on overhauling energy customer service standards — moving away from prescriptive rules toward clearer minimum outcomes, with the market determining how to exceed them. Whether that produces better results for consumers or simply less regulatory oversight remains to be seen.</p>
+
+        <h2>The price cap: still rising slightly, still necessary</h2>
+        <p>For Q1 2026 (January–March), the price cap equates to an annual spend of <strong>£1,758</strong> for a typical dual-fuel direct debit household — up just £3 from the previous quarter but around 2% lower than the same period in 2025.</p>
+        <p>Wholesale gas prices fell during 2025 as global LNG supply expanded and European storage levels stayed high. But those savings were partially offset by rising government policy costs — including contributions toward the Sizewell C nuclear project and green levies. Networks are also more expensive: Ofgem's RIIO-3 determination approved <strong>£28.1 billion</strong> in new grid investment, which will add roughly <strong>£30 per household per year by 2031</strong> (offset by around £80 in savings from cheaper renewable generation over time).</p>
+
+        <div class="highlight-box blue">
+            <p><strong>Prepayment meter customers</strong> are in a slightly better position than usual: their equivalent cap sits at <strong>£1,711</strong> — lower than direct debit for the first time in several years, reflecting Ofgem's push to end the "prepayment premium."</p>
+        </div>
+
+        <h2>What to take from all of this</h2>
+        <p>The 2026 State of the Market report is, in many ways, a story of two energy markets operating in parallel.</p>
+        <p>For customers who are engaged — shopping around, taking fixed deals, using smart meters, shifting consumption to off-peak times — the market is working better than it has in years. Savings of £200–£300 a year are available to those who look.</p>
+        <p>For the millions in debt, on prepayment meters, or simply unable to engage with a market that requires constant vigilance, the situation has quietly deteriorated for three years without interruption.</p>
+        <p>The Debt Relief Scheme is a start. The overhaul of customer service standards may help. But neither addresses the underlying problem: energy costs in Britain remain structurally high, and the people least able to pay are the ones bearing the most of that burden.</p>
+
+        <div class="summary-box">
+            <h3>Key takeaways from Ofgem's January 2026 report</h3>
+            <div class="summary-item negative">
+                <span class="summary-icon">⚠</span>
+                <span><strong>Consumer debt hit £4.48bn</strong> — the 12th consecutive quarterly record, up from ~£1.5bn pre-crisis</span>
+            </div>
+            <div class="summary-item positive">
+                <span class="summary-icon">✓</span>
+                <span><strong>Customer satisfaction at 82%</strong> — an all-time high, even among prepayment meter customers</span>
+            </div>
+            <div class="summary-item positive">
+                <span class="summary-icon">✓</span>
+                <span><strong>Cheapest fixed deal is £265 below the price cap</strong> — switching is worth it again</span>
+            </div>
+            <div class="summary-item positive">
+                <span class="summary-icon">✓</span>
+                <span><strong>Fixed-term contract uptake doubled year-on-year</strong> — consumers are engaging</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">ℹ</span>
+                <span><strong>6 suppliers control 92% of the market</strong> — consolidation continues post-crisis</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">ℹ</span>
+                <span><strong>Smart time-of-use tariffs up 75%</strong> — 835,000 customers now on flexible deals</span>
+            </div>
+            <div class="summary-item negative">
+                <span class="summary-icon">⚠</span>
+                <span><strong>Tomato Energy collapsed</strong> — 23,000 customers transferred via Supplier of Last Resort</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">ℹ</span>
+                <span><strong>Debt Relief Scheme launching</strong> — £500m write-off targeted at 195,000 crisis-debt households</span>
+            </div>
+        </div>
+
+    </article>
+
+    <section style="padding: 0 2rem; max-width: 800px; margin: 0 auto;">
+        <div class="cta-box">
+            <h3>Don't pay more than you have to</h3>
+            <p>The gap between the price cap and the best fixed deals is the biggest it's been in years. Join our waitlist and we'll help you find it.</p>
+            <a href="index.html#waitlist" class="cta-button">Join Waitlist →</a>
+        </div>
+    </section>
+
+    <footer class="article-footer">
+        <p class="footer-note">Sources: Ofgem State of the Market: Energy Retail Highlights — January 2026; Ofgem State of the Market: Energy Infrastructure Highlights — January 2026; Jonathan Brearley keynote speech, January 2026.</p>
+        <p class="footer-note" style="margin-top: 1rem;">
+            <strong>Related reading:</strong>
+            <a href="energy-debt-crisis.html" style="color: var(--sp-green); text-decoration: none;">The Silent Crisis: UK Energy Debt Triples →</a>
+        </p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+        <p style="margin-top: 1rem;">© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Debt chart
+        const debtCtx = document.getElementById('debtChart');
+        if (debtCtx) {
+            new Chart(debtCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pre-crisis\n2020', 'Q4 2021', 'Q4 2022', 'Q4 2023', 'Q4 2024', 'Q3 2025'],
+                    datasets: [{
+                        label: 'Consumer debt (£bn)',
+                        data: [1.5, 1.9, 2.7, 3.2, 3.85, 4.48],
+                        backgroundColor: function(context) {
+                            const index = context.dataIndex;
+                            return index === 0 ? '#10B981' : `rgba(239,68,68,${0.5 + index * 0.1})`;
+                        },
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            callbacks: {
+                                label: function(context) {
+                                    return '£' + context.parsed.y + ' billion';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5.5,
+                            grid: { color: '#E2E8F0' },
+                            ticks: {
+                                callback: function(value) { return '£' + value + 'bn'; },
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11, weight: '500' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Tariff vs cap chart
+        const tariffCtx = document.getElementById('tariffChart');
+        if (tariffCtx) {
+            new Chart(tariffCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Price Cap\nQ1 2026', 'Cheapest Fixed\nOct 2025'],
+                    datasets: [{
+                        label: 'Annual cost (£)',
+                        data: [1758, 1493],
+                        backgroundColor: ['#94A3B8', '#10B981'],
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            callbacks: {
+                                label: function(context) {
+                                    return '£' + context.parsed.y + '/year';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 1200,
+                            max: 1900,
+                            grid: { color: '#E2E8F0' },
+                            ticks: {
+                                callback: function(value) { return '£' + value; },
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12, weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Market share doughnut
+        const msCtx = document.getElementById('marketShareChart');
+        if (msCtx) {
+            new Chart(msCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Big 6 (British Gas, EDF, E.ON, Octopus, OVO, Scottish Power)', 'All other suppliers'],
+                    datasets: [{
+                        data: [92, 8],
+                        backgroundColor: ['#1E293B', '#10B981'],
+                        borderWidth: 0,
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 12 },
+                                color: '#475569',
+                                padding: 16
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1E293B',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed + '% of domestic market';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    });
+    </script>
+
+</body>
+</html>

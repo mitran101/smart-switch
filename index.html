@@ -1080,6 +1080,71 @@ body {
 
 .address-row input { flex: 1; }
 
+/* Usage Fields */
+#usageFields { margin-top: 1.5rem; }
+
+.usage-title {
+  color: var(--sp-text);
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.usage-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.usage-input-group {
+  flex: 1;
+}
+
+.usage-input-group label {
+  font-size: 0.8rem;
+  color: var(--sp-text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.usage-input-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--sp-text);
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.usage-presets {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.usage-preset {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.6rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--sp-text-muted);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.usage-preset.active {
+  border-color: var(--sp-purple);
+  background: rgba(168,85,247,0.2);
+  color: var(--sp-text);
+  box-shadow: 0 0 15px rgba(168,85,247,0.2);
+}
 
 .submit-btn {
   width: 100%;
@@ -2329,6 +2394,29 @@ body {
         <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
       </div>
     </div>
+   <div id="usageFields" style="display:none;">
+      <p class="usage-title">🏠 What's your home like?</p>
+      <div class="usage-presets">
+        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>1-2 bed</button>
+        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>2-3 bed</button>
+        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>4+ bed</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--sp-text-muted); margin-top: 0.8rem; cursor: pointer;" onclick="toggleManualUsage()">Know your exact usage? <a style="color: var(--sp-purple);">Enter it here</a></p>
+      <div id="manualUsageInputs" style="display: none; margin-top: 0.8rem;">
+        <div class="usage-inputs">
+          <div class="usage-input-group">
+            <label>Electricity (kWh/year)</label>
+            <input type="number" id="elecUsage" value="2700" />
+          </div>
+          <div class="usage-input-group">
+            <label>Gas (kWh/year)</label>
+            <input type="number" id="gasUsage" value="11500" />
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="elecUsageHidden" value="2700" />
+      <input type="hidden" id="gasUsageHidden" value="11500" />
+    </div>
     <input type="hidden" id="energyRegion" value="" />
     <button type="submit" class="submit-btn">Sign me up →</button>
   </form>
@@ -2675,11 +2763,13 @@ function selectAddress() {
   document.getElementById('energyRegion').value = energyRegion;
   
   document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
 }
 
 function showManualEntry() {
   document.getElementById('addressDropdownWrapper').style.display = 'none';
   document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
   document.getElementById('houseNumber').focus();
   
   const postcode = document.getElementById('postcode').value.trim().toUpperCase();
@@ -2779,6 +2869,22 @@ function mapToEnergyRegionFromPostcode(postcode) {
   return mapToEnergyRegion('', '', postcode);
 }
 
+// Usage preset buttons
+document.querySelectorAll('.usage-preset').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.getElementById('elecUsageHidden').value = this.dataset.elec;
+    document.getElementById('gasUsageHidden').value = this.dataset.gas;
+    if (document.getElementById('elecUsage')) document.getElementById('elecUsage').value = this.dataset.elec;
+    if (document.getElementById('gasUsage')) document.getElementById('gasUsage').value = this.dataset.gas;
+    document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+function toggleManualUsage() {
+  const m = document.getElementById('manualUsageInputs');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -2790,6 +2896,8 @@ function handleSubmit(e) {
     const city = document.getElementById('city').value;
     const region = document.getElementById('region').value;
     const energyRegion = document.getElementById('energyRegion').value;
+    const elecUsage = document.getElementById('elecUsage')?.value || document.getElementById('elecUsageHidden').value;
+    const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
 
     const form = e.target.closest('.waitlist-form');
 
@@ -2818,7 +2926,9 @@ function handleSubmit(e) {
             street: street,
             city: city,
             region: region,
-            energyRegion: energyRegion
+            energyRegion: energyRegion,
+            elecUsage: elecUsage,
+            gasUsage: gasUsage
         })
     })
     .then(() => {

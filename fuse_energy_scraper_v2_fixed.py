@@ -823,8 +823,8 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
             
             # EARLY ABORT: If first 3 regions all fail, abort scraper
             if consecutive_failures >= 3 and len(results) <= 3:
-                print(f"
-============================================================")
+                print("
+" + "="*60)
                 print(f"  ❌ ABORTING: First 3 regions all failed")
                 print(f"  → Likely a systematic issue with the website")
                 print(f"  → Saving partial results and exiting...")

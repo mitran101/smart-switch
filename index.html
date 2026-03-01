@@ -1,3517 +1,7054 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>SwitchPilot - Free Auto-Switching Energy Service (Coming Soon)</title>
+
 <link rel="icon" href="./favicon.ico" sizes="any">
+
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
   
+
 <!-- SEO Meta Tags -->
+
 <meta name="description" content="Free auto-switching energy service coming soon. Compare UK energy tariffs, understand your bill breakdown, and get weekly insider insights.">
+
 <link rel="canonical" href="https://switch-pilot.com/">
 
+
+
 <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+
 <meta property="og:title" content="SwitchPilot - Free Auto-Switching Energy Service">
+
 <meta property="og:description" content="We're building a free service that automatically switches you to the best energy deal. Plus weekly insider insights on what's really in your bill.">
+
 <meta property="og:url" content="https://switch-pilot.com/">
+
 <meta property="og:type" content="website">
+
 <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
 
+
+
 <!-- Twitter -->
+
 <meta name="twitter:card" content="summary">
+
 <meta name="twitter:title" content="SwitchPilot - Free Auto-Switching Energy Service">
+
 <meta name="twitter:description" content="Stop overpaying for energy. Free auto-switching service coming soon.">
+
 <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
+
   
+
 <!-- Google Analytics -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+
 <script>
+
   window.dataLayer = window.dataLayer || [];
+
   function gtag(){dataLayer.push(arguments);}
+
   gtag('js', new Date());
+
   gtag('config', 'G-WEQ6VBT567');
+
 </script>
 
+
+
 <!-- Google Fonts -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
+
+
 <style>
+
 :root {
+
   --sp-slate: #1E293B;
+
   --sp-slate-dark: #0F172A;
+
   --sp-slate-light: #94A3B8;
+
   --sp-green: #10B981;
+
   --sp-green-dark: #059669;
+
   --sp-green-light: #D1FAE5;
+
   --sp-amber: #F59E0B;
+
   --sp-purple: #A855F7;
+
   --sp-pink: #EC4899;
+
   --sp-red: #EF4444;
+
   --sp-bg: #F8FAFC;
+
   --sp-card: #1E293B;
+
   --sp-card-border: rgba(255,255,255,0.08);
+
   --sp-text: #F1F5F9;
+
   --sp-text-muted: #94A3B8;
+
 }
 
+
+
 .topics .topic:nth-child(n+7) {
+
   display: none;
+
 }
+
+
 
 html { scroll-behavior: smooth; }
 
+
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+
+
 body {
+
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
   background: var(--sp-slate-dark);
+
   color: var(--sp-text);
+
   overflow-x: hidden;
+
   scroll-padding-top: 80px;
+
   line-height: 1.6;
+
   background-image: 
+
     linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
+
     linear-gradient(90deg, rgba(236,72,153,0.06) 1px, transparent 1px);
+
   background-size: 70px 70px;
+
 }
+
+
 
 /* Glow animation keyframes */
+
 @keyframes borderGlow {
+
   0%, 100% { 
+
     box-shadow: 0 0 20px rgba(168,85,247,0.3), 0 10px 40px rgba(0,0,0,0.2);
+
   }
+
   50% { 
+
     box-shadow: 0 0 30px rgba(236,72,153,0.4), 0 15px 50px rgba(0,0,0,0.25);
+
   }
+
 }
+
+
 
 @keyframes subtleFloat {
+
   0%, 100% { transform: translateY(0); }
+
   50% { transform: translateY(-5px); }
+
 }
+
+
 
 @keyframes gradientShift {
+
   0% { background-position: 0% 50%; }
+
   50% { background-position: 100% 50%; }
+
   100% { background-position: 0% 50%; }
+
 }
+
+
 
 /* Glowing border mixin style */
+
 .glow-card {
+
   position: relative;
+
   transition: all 0.4s ease;
+
 }
+
+
 
 .glow-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: inherit;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0;
+
   transition: opacity 0.4s ease;
+
 }
+
+
 
 .glow-card:hover::before {
+
   opacity: 1;
+
   animation: gradientShift 3s ease infinite;
+
 }
+
+
 
 .glow-card:hover {
+
   transform: translateY(-5px);
+
   box-shadow: 0 0 30px rgba(168,85,247,0.3), 0 20px 50px rgba(0,0,0,0.3);
+
 }
+
+
 
 /* STICKY NAV */
+
 .sticky-nav {
+
   position: fixed;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   z-index: 9999;
+
   background: var(--sp-slate);
+
   padding: 0.8rem 2rem;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   transition: all 0.3s ease;
+
 }
+
+
 
 .sticky-nav.scrolled {
+
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+
 }
+
+
 
 .nav-logo {
+
   display: flex;
+
   align-items: center;
+
   gap: 0;
+
   text-decoration: none;
+
   color: #fff;
+
 }
+
+
 
 .nav-logo img { height: 3.2rem; width: auto; margin-right: -12px; }
+
 .nav-logo span { font-size: 1.35rem; font-weight: 700; }
 
+
+
 .nav-links {
+
   display: flex;
+
   align-items: center;
+
   gap: 0.5rem;
+
 }
+
+
 
 .nav-links a {
+
   color: #fff;
+
   text-decoration: none;
+
   padding: 0.5rem 1rem;
+
   border-radius: 10px;
+
   font-size: 0.9rem;
+
   font-weight: 600;
+
   opacity: 0.75;
+
   transition: all 0.2s ease;
+
 }
+
+
 
 .nav-links a:hover {
+
   opacity: 1;
+
   background: rgba(255,255,255,0.1);
+
 }
+
+
 
 .nav-links a.active {
+
   opacity: 1;
+
   background: rgba(255,255,255,0.15);
+
 }
+
+
 
 .nav-cta {
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink)) !important;
+
   opacity: 1 !important;
+
   box-shadow: 0 4px 15px rgba(236,72,153,0.3);
+
 }
+
+
 
 .nav-cta:hover {
+
   transform: translateY(-2px);
+
   box-shadow: 0 6px 20px rgba(236,72,153,0.4);
+
 }
+
+
 
 .nav-toggle {
+
   display: none;
+
   flex-direction: column;
+
   gap: 5px;
+
   background: none;
+
   border: none;
+
   cursor: pointer;
+
   padding: 5px;
+
 }
+
+
 
 .nav-toggle span {
+
   width: 24px;
+
   height: 2px;
+
   background: #fff;
+
   border-radius: 2px;
+
   transition: all 0.3s ease;
+
 }
+
+
 
 @media (max-width: 900px) {
+
   .nav-links {
+
     position: fixed;
+
     top: 60px;
+
     left: 0;
+
     right: 0;
+
     background: var(--sp-slate);
+
     flex-direction: column;
+
     padding: 1.5rem;
+
     gap: 0.5rem;
+
     transform: translateY(-100%);
+
     opacity: 0;
+
     pointer-events: none;
+
     transition: all 0.3s ease;
+
     border-bottom: 1px solid rgba(255,255,255,0.08);
+
   }
+
   .nav-links.open {
+
     transform: translateY(0);
+
     opacity: 1;
+
     pointer-events: auto;
+
   }
+
   .nav-links a {
+
     width: 100%;
+
     text-align: center;
+
     padding: 0.8rem 1rem;
+
   }
+
   .nav-toggle { display: flex; }
+
   .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
+
   .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
 }
+
+
 
 /* HERO */
+
 .hero {
+
   position: relative;
+
   padding: 7rem 2rem 4rem;
+
   overflow: hidden;
+
   background: 
+
     radial-gradient(ellipse at 30% 20%, rgba(168,85,247,0.25) 0%, transparent 50%),
+
     radial-gradient(ellipse at 70% 80%, rgba(236,72,153,0.2) 0%, transparent 50%),
+
     linear-gradient(135deg, var(--sp-slate-dark) 0%, var(--sp-slate) 50%, var(--sp-slate-dark) 100%);
+
   color: white;
+
 }
+
+
 
 .hero::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   background-image: 
+
     linear-gradient(rgba(168,85,247,0.12) 1px, transparent 1px),
+
     linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);
+
   background-size: 60px 60px;
+
   animation: gridSlide 25s linear infinite;
+
 }
+
+
 
 @keyframes gridSlide {
+
   0% { transform: translate(0, 0); }
+
   100% { transform: translate(60px, 60px); }
+
 }
+
+
 
 .hero::after {
+
   content: '';
+
   position: absolute;
+
   width: 500px;
+
   height: 500px;
+
   border-radius: 50%;
+
   background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+
   top: -100px;
+
   right: -150px;
+
   animation: subtleFloat 8s ease-in-out infinite;
+
 }
+
+
 
 .hero-content {
+
   max-width: 1200px;
+
   margin: 0 auto;
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 4rem;
+
   align-items: center;
+
   position: relative;
+
   z-index: 5;
+
 }
+
+
 
 .badge {
+
   display: inline-block;
+
   background: rgba(255,255,255,0.2);
+
   padding: 0.5rem 1.2rem;
+
   border-radius: 50px;
+
   margin-bottom: 1.5rem;
+
   font-weight: 600;
+
   font-size: 0.85rem;
+
   backdrop-filter: blur(10px);
+
 }
+
+
 
 .hero-text h1 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: clamp(2rem, 5vw, 3.5rem);
+
   font-weight: 400;
+
   margin: 0 0 1.5rem;
+
   line-height: 1.15;
+
 }
+
+
 
 .hero-text p {
+
   font-size: 1.15rem;
+
   opacity: 0.9;
+
   line-height: 1.7;
+
   max-width: 90%;
+
 }
+
+
 
 /* PILOT CONTAINER */
+
 .pilot-container {
+
   position: relative;
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   min-height: 400px;
+
 }
+
+
 
 .pilot-icons {
+
   position: absolute;
+
   inset: 0;
+
   pointer-events: none;
+
   z-index: 1;
+
 }
+
+
 
 .pilot-icon {
+
   position: absolute;
+
   font-size: 2.2rem;
+
   filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+
   animation: iconFloat 5s ease-in-out infinite, iconGlow 3s ease-in-out infinite;
+
 }
+
+
 
 .pilot-icon:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
+
 .pilot-icon:nth-child(2) { top: 0%; right: 15%; animation-delay: 0.8s; }
+
 .pilot-icon:nth-child(3) { bottom: 25%; left: 0%; animation-delay: 1.6s; }
+
 .pilot-icon:nth-child(4) { top: 50%; right: 0%; animation-delay: 2.4s; }
 
+
+
 @keyframes iconFloat {
+
   0%, 100% { transform: translateY(0) scale(1); }
+
   50% { transform: translateY(-12px) scale(1.08); }
+
 }
+
+
 
 @keyframes iconGlow {
+
   0%, 100% { opacity: 0.75; }
+
   50% { opacity: 1; }
+
 }
+
+
 
 .pilot-character {
+
   position: relative;
+
   z-index: 2;
+
   width: 340px;
+
   height: auto;
+
   animation: pilotFloat 10s infinite ease-in-out;
+
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
+
 }
+
+
 
 @keyframes pilotFloat {
+
   0%,100% { transform: translateY(0) rotate(-4deg); }
+
   50% { transform: translateY(-25px) rotate(4deg); }
+
 }
+
+
 
 .destination-tag {
+
   position: absolute;
+
   bottom: -10px;
+
   right: -30px;
+
   z-index: 3;
+
   background: white;
+
   color: var(--sp-slate);
+
   padding: 0.8rem 1.2rem;
+
   border-radius: 15px;
+
   font-weight: 700;
+
   font-size: 0.85rem;
+
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+
 }
+
+
 
 .destination-tag strong {
+
   font-size: 1.2rem;
+
   color: var(--sp-purple);
+
   display: block;
+
   margin-top: 0.2rem;
+
 }
 
+
+
 /* HERO CTA */
+
 .hero-cta {
+
   max-width: 550px;
+
   margin: 2rem auto 3rem;
+
   padding: 0 2rem;
+
   position: relative;
+
   z-index: 10;
+
   text-align: center;
+
 }
+
+
 
 .hero-cta p { margin: 0 0 1.2rem 0; font-size: 1.1rem; font-weight: 600; color: #fff; }
 
+
+
 .hero-btn {
+
   display: inline-block;
+
   padding: 1rem 2.5rem;
+
   border: none;
+
   border-radius: 12px;
+
   font-size: 1.1rem;
+
   font-weight: 700;
+
   background: #fff;
+
   color: var(--sp-purple);
+
   cursor: pointer;
+
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+
   text-decoration: none;
+
   transition: transform 0.2s, box-shadow 0.2s;
+
 }
+
+
 
 .hero-btn:hover {
+
   transform: translateY(-2px);
+
   box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+
 }
+
+
 
 .hero-cta .subtext {
+
   margin: 1rem 0 0 0;
+
   font-size: 0.85rem;
+
   color: rgba(255,255,255,0.7);
+
 }
+
+
 
 .tracker-link {
+
   margin-top: 1.5rem;
+
   padding: 0.8rem 1.2rem;
+
   background: rgba(255,255,255,0.15);
+
   border: 1px solid rgba(255,255,255,0.25);
+
   border-radius: 12px;
+
   backdrop-filter: blur(10px);
+
 }
+
+
 
 .tracker-link p {
+
   margin: 0;
+
   font-size: 0.9rem;
+
   color: rgba(255,255,255,0.9);
+
   font-weight: 500;
+
 }
+
+
 
 .tracker-link a {
+
   color: #fff;
+
   font-weight: 700;
+
   text-decoration: none;
+
 }
+
+
 
 /* VISION MISSION BOXES */
+
 .vision-mission-grid {
+
   max-width: 1100px;
+
   margin: -2rem auto 0;
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 2rem;
+
   padding: 0 2rem;
+
   position: relative;
+
   z-index: 10;
+
 }
+
+
 
 .vision-box {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 2rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.3);
+
   box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 10px 40px rgba(0,0,0,0.2);
+
   position: relative;
+
   overflow: hidden;
+
   transition: all 0.4s ease;
+
 }
+
+
 
 .vision-box::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   transition: opacity 0.4s ease;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .vision-box:hover {
+
   transform: translateY(-5px);
+
   box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+
 }
+
+
 
 .vision-box:hover::before {
+
   opacity: 1;
+
 }
+
+
 
 .vision-box.purple { border-color: rgba(168,85,247,0.4); }
+
 .vision-box.pink { border-color: rgba(236,72,153,0.4); }
+
 .vision-box.purple::before { background: linear-gradient(135deg, var(--sp-purple), #6366f1, var(--sp-purple)); background-size: 200% 200%; }
+
 .vision-box.pink::before { background: linear-gradient(135deg, var(--sp-pink), var(--sp-purple), var(--sp-pink)); background-size: 200% 200%; }
 
+
+
 .vision-box-header {
+
   display: flex;
+
   align-items: center;
+
   gap: 0.6rem;
+
   margin-bottom: 1rem;
+
 }
+
+
 
 .vision-box-header span { font-size: 1.6rem; }
 
+
+
 .vision-box-header h3 {
+
   margin: 0;
+
   font-size: 1.1rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
 }
+
+
 
 .vision-box h4 {
+
   margin: 0 0 0.75rem 0;
+
   font-size: 1.3rem;
+
   font-weight: 700;
+
   color: var(--sp-text);
+
 }
 
+
+
 .vision-box p {
+
   margin: 0;
+
   font-size: 1rem;
+
   line-height: 1.6;
+
   color: var(--sp-text-muted);
+
 }
+
+
 
 .vision-box strong { color: var(--sp-text); }
 
+
+
 /* WHY IT MATTERS */
+
 .stat-hero {
+
   max-width: 1000px;
+
   margin: 3rem auto 0;
+
   padding: 0 2rem;
+
 }
+
+
 
 .stat-hero-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 2.5rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   text-align: center;
+
   position: relative;
+
   overflow: hidden;
+
   transition: all 0.4s ease;
+
   animation: borderGlow 4s ease-in-out infinite;
+
 }
+
+
 
 .stat-hero-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.6;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .stat-hero-card:hover {
+
   transform: translateY(-5px);
+
   box-shadow: 0 0 50px rgba(168,85,247,0.4), 0 25px 60px rgba(0,0,0,0.3);
+
 }
+
+
 
 .stat-hero-card:hover::before {
+
   opacity: 1;
+
 }
+
+
 
 .stat-hero-number {
+
   font-size: 4rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
   margin-bottom: 0.5rem;
+
   line-height: 1;
+
 }
+
+
 
 .stat-hero-card h3 {
+
   font-size: 1.3rem;
+
   font-weight: 700;
+
   margin: 0 0 1rem 0;
+
   color: var(--sp-text);
+
 }
+
+
 
 .stat-hero-card p {
+
   font-size: 1.05rem;
+
   line-height: 1.7;
+
   margin: 0;
+
   color: var(--sp-text-muted);
+
   max-width: 750px;
+
   margin-left: auto;
+
   margin-right: auto;
+
 }
+
+
 
 /* ABOUT SECTION */
+
 .about-section {
+
   max-width: 900px;
+
   margin: 3rem auto 0;
+
   padding: 0 2rem;
+
 }
+
+
 
 .about-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.3);
+
   box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 10px 40px rgba(0,0,0,0.2);
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .about-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.4;
+
   animation: gradientShift 6s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .about-card h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1.5rem;
+
   text-align: center;
+
   color: var(--sp-text);
+
 }
 
+
+
 .about-card > p {
+
   font-size: 1.1rem;
+
   line-height: 1.7;
+
   margin-bottom: 1.2rem;
+
   color: var(--sp-text-muted);
+
 }
+
+
 
 .about-card strong { color: var(--sp-text); }
 
+
+
 .insight-box {
+
   background: rgba(168,85,247,0.1);
+
   padding: 1.5rem;
+
   border-radius: 12px;
+
   border-left: 4px solid var(--sp-purple);
+
   margin: 1.5rem 0;
+
 }
+
+
 
 .insight-box p { color: var(--sp-text-muted); font-size: 1rem; margin: 0 0 1rem 0; font-weight: 600; }
+
 .insight-box p:last-child { margin-bottom: 0; }
 
+
+
 .insight-item {
+
   display: flex;
+
   gap: 0.8rem;
+
   align-items: flex-start;
+
   margin-bottom: 0.8rem;
+
 }
+
+
 
 .insight-item:last-child { margin-bottom: 0; }
+
 .insight-item span { font-size: 1.2rem; }
+
 .insight-item p { margin: 0; font-size: 0.95rem; line-height: 1.6; font-weight: 400; }
+
 .insight-item strong { color: var(--sp-text); }
 
+
+
 .building-box {
+
   background: rgba(236,72,153,0.1);
+
   padding: 1.8rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(236,72,153,0.25);
+
   margin-top: 1.5rem;
+
 }
+
+
 
 .building-box p { color: var(--sp-text-muted); font-size: 1.05rem; margin: 0 0 1rem 0; font-weight: 600; }
 
+
+
 .building-item {
+
   display: flex;
+
   gap: 1rem;
+
   align-items: flex-start;
+
   margin-bottom: 0.8rem;
+
 }
+
+
 
 .building-item span { font-size: 1.3rem; }
+
 .building-item p { margin: 0; font-size: 1rem; line-height: 1.6; font-weight: 400; color: var(--sp-text-muted); }
+
 .building-item strong { color: var(--sp-text); }
 
+
+
 .best-part {
+
   margin-top: 1rem;
+
   padding-top: 1rem;
+
   border-top: 1px solid rgba(255,255,255,0.1);
+
 }
+
+
 
 .best-part p { color: var(--sp-text-muted); }
 
+
+
 .best-part strong {
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
 }
+
+
 
 /* MID CTA */
+
 .mid-cta {
+
   max-width: 900px;
+
   margin: 3rem auto;
+
   padding: 0 2rem;
+
 }
+
+
 
 .mid-cta-card {
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   padding: 2rem 2.5rem;
+
   border-radius: 16px;
+
   box-shadow: 0 15px 50px rgba(168,85,247,0.3);
+
   text-align: center;
+
 }
+
+
 
 .mid-cta-card p { font-size: 1.1rem; margin: 0 0 1rem 0; color: #fff; }
+
 .mid-cta-card p:first-child { font-weight: 700; font-size: 1.2rem; }
 
+
+
 .mid-cta-btn {
+
   display: inline-block;
+
   padding: 1rem 2.5rem;
+
   background: #fff;
+
   color: var(--sp-purple);
+
   text-decoration: none;
+
   border-radius: 12px;
+
   font-weight: 700;
+
   font-size: 1.05rem;
+
   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
   transition: all 0.2s;
+
 }
+
+
 
 .mid-cta-btn:hover {
+
   transform: translateY(-2px);
+
   box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+
 }
+
+
 
 /* SURVEY STATS */
+
 .survey-section {
+
   max-width: 1200px;
+
   margin: 4rem auto;
+
   padding: 0 2rem;
+
 }
+
+
 
 .survey-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   text-align: center;
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .survey-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
 
+
+
 /* Animated scanline */
+
 .survey-card::after {
+
   content: '';
+
   position: absolute;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   height: 2px;
+
   background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
+
   animation: scanline 3s linear infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .survey-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
 
+
+
 .survey-card h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
 }
+
+
 
 .survey-card > p {
+
   font-size: 1.1rem;
+
   line-height: 1.6;
+
   color: var(--sp-text-muted);
+
   margin-bottom: 2.5rem;
+
   max-width: 700px;
+
   margin-left: auto;
+
   margin-right: auto;
+
 }
+
+
 
 .survey-grid {
+
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
   gap: 1.5rem;
+
   margin-bottom: 2rem;
+
 }
+
+
 
 .survey-stat {
+
   background: rgba(255,255,255,0.05);
+
   padding: 1.75rem;
+
   border-radius: 12px;
+
   border: 1px solid transparent;
+
   position: relative;
+
   transition: all 0.3s ease;
+
 }
+
+
 
 .survey-stat.purple { 
+
   border-color: rgba(168,85,247,0.4); 
+
   background: rgba(168,85,247,0.1);
+
   box-shadow: 0 0 15px rgba(168,85,247,0.15);
+
 }
+
 .survey-stat.pink { 
+
   border-color: rgba(236,72,153,0.4); 
+
   background: rgba(236,72,153,0.1);
+
   box-shadow: 0 0 15px rgba(236,72,153,0.15);
+
 }
+
+
 
 .survey-stat:hover {
+
   transform: translateY(-3px);
+
 }
+
+
 
 .survey-stat.purple:hover {
+
   box-shadow: 0 0 25px rgba(168,85,247,0.3);
+
 }
+
+
 
 .survey-stat.pink:hover {
+
   box-shadow: 0 0 25px rgba(236,72,153,0.3);
+
 }
+
+
 
 .survey-stat-number {
+
   font-size: 3rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
   margin-bottom: 0.25rem;
+
   line-height: 1;
+
 }
+
+
 
 .survey-stat h4 { font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: var(--sp-text); }
+
 .survey-stat p { font-size: 0.85rem; margin: 0; color: var(--sp-text-muted); }
 
+
+
 .survey-btn {
+
   display: inline-block;
+
   padding: 1rem 2rem;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   text-decoration: none;
+
   border-radius: 12px;
+
   font-weight: 700;
+
   font-size: 1rem;
+
   box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+
   transition: transform 0.2s;
+
 }
+
+
 
 .survey-btn:hover { transform: translateY(-2px); }
 
+
+
 .survey-card .footnote {
+
   font-size: 1rem;
+
   color: var(--sp-text-muted);
+
   margin-top: 2rem;
+
   max-width: 650px;
+
   margin-left: auto;
+
   margin-right: auto;
+
   line-height: 1.6;
+
 }
+
+
 
 .survey-card .footnote strong { color: var(--sp-text); }
 
+
+
 /* WAITLIST FORM */
+
 .waitlist-form {
+
   max-width: 700px;
+
   margin: 3.5rem auto 4rem;
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 30px rgba(168,85,247,0.2), 0 15px 50px rgba(0,0,0,0.25);
+
   position: relative;
+
   overflow: hidden;
+
   animation: borderGlow 5s ease-in-out infinite;
+
 }
+
+
 
 .waitlist-form::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 /* Scanline effect */
+
 .waitlist-form::after {
+
   content: '';
+
   position: absolute;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   height: 2px;
+
   background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
+
   animation: scanline 3s linear infinite;
+
   pointer-events: none;
+
 }
+
+
 
 @keyframes scanline {
+
   0% { transform: translateX(-100%); }
+
   100% { transform: translateX(100%); }
+
 }
+
+
 
 .waitlist-form h3 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 1.75rem;
+
   font-weight: 400;
+
   margin-bottom: 0.75rem;
+
   color: var(--sp-text);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .waitlist-form > p {
+
   color: var(--sp-text-muted);
+
   margin-bottom: 1.5rem;
+
   font-size: 1.05rem;
+
   position: relative;
+
   z-index: 2;
+
 }
 
+
+
 .waitlist-form .form-info {
+
   font-size: 0.95rem;
+
   color: var(--sp-text-muted);
+
   margin-bottom: 1.5rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .form-group { margin-bottom: 1rem; position: relative; z-index: 2; }
 
+
+
 .form-group input {
+
   width: 100%;
+
   padding: 1.1rem;
+
   border-radius: 12px;
+
   border: 1px solid rgba(255,255,255,0.15);
+
   background: rgba(255,255,255,0.08);
+
   font-size: 1rem;
+
   color: var(--sp-text);
+
   box-sizing: border-box;
+
   font-family: inherit;
+
   transition: border-color 0.2s, background 0.2s;
+
 }
+
+
 
 .form-group input::placeholder { color: var(--sp-text-muted); }
 
+
+
 .form-group input:focus {
+
   outline: none;
+
   border-color: var(--sp-purple);
+
   background: rgba(255,255,255,0.12);
+
 }
 
+
+
 .find-address-row {
+
   display: flex;
+
   gap: 0.5rem;
+
 }
+
+
 
 .find-address-row input { flex: 1; }
 
+
+
 .find-address-btn {
+
   padding: 1rem 1.5rem;
+
   border: none;
+
   border-radius: 12px;
+
   background: var(--sp-purple);
+
   color: #fff;
+
   font-weight: 700;
+
   cursor: pointer;
+
   white-space: nowrap;
+
   font-family: inherit;
+
 }
+
+
 
 #postcodeError {
+
   color: #F87171;
+
   font-size: 0.85rem;
+
   margin: 0.5rem 0 0 0;
+
   display: none;
+
 }
+
+
 
 #addressDropdownWrapper { margin-bottom: 1rem; position: relative; z-index: 2; }
+
 #addressDropdownWrapper label { font-size: 0.85rem; color: var(--sp-text-muted); display: block; margin-bottom: 0.4rem; }
 
+
+
 #addressDropdown {
+
   width: 100%;
+
   padding: 1.1rem;
+
   border-radius: 12px;
+
   border: 2px solid var(--sp-purple);
+
   background: rgba(255,255,255,0.08);
+
   font-size: 1rem;
+
   color: var(--sp-text);
+
   box-sizing: border-box;
+
   cursor: pointer;
+
   font-family: inherit;
+
   -webkit-appearance: none;
+
   -moz-appearance: none;
+
   appearance: none;
+
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23A855F7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+
   background-repeat: no-repeat;
+
   background-position: right 1rem center;
+
 }
 
+
+
 #addressDropdown:focus {
+
   outline: none;
+
   border-color: var(--sp-pink);
+
   box-shadow: 0 0 15px rgba(168,85,247,0.3);
+
 }
+
+
 
 #addressDropdown option { background: var(--sp-slate); color: var(--sp-text); }
 
+
+
 #addressDropdownWrapper .manual-link { font-size: 0.75rem; color: var(--sp-text-muted); margin: 0.4rem 0 0 0; }
+
 #addressDropdownWrapper .manual-link a { color: var(--sp-purple); }
+
+
 
 #addressFields { position: relative; z-index: 2; }
 
+
+
 .address-row {
+
   display: flex;
+
   gap: 0.5rem;
+
 }
+
+
 
 .address-row input { flex: 1; }
 
+
+
 /* Usage Fields */
+
 #usageFields { margin-top: 1.5rem; }
 
+
+
 .usage-title {
+
   color: var(--sp-text);
+
   font-weight: 600;
+
   margin-bottom: 0.8rem;
+
   font-size: 0.95rem;
+
 }
+
+
 
 .usage-inputs {
+
   display: flex;
+
   gap: 0.5rem;
+
   margin-bottom: 1rem;
+
 }
+
+
 
 .usage-input-group {
+
   flex: 1;
+
 }
+
+
 
 .usage-input-group label {
+
   font-size: 0.8rem;
+
   color: var(--sp-text-muted);
+
   display: block;
+
   margin-bottom: 0.3rem;
+
 }
+
+
 
 .usage-input-group input {
+
   width: 100%;
+
   padding: 0.9rem;
+
   border-radius: 10px;
+
   border: 1px solid rgba(255,255,255,0.15);
+
   background: rgba(255,255,255,0.08);
+
   font-size: 1rem;
+
   color: var(--sp-text);
+
   box-sizing: border-box;
+
   font-family: inherit;
+
 }
+
+
 
 .usage-presets {
+
   display: flex;
+
   gap: 0.5rem;
+
   flex-wrap: wrap;
+
 }
+
+
 
 .usage-preset {
+
   flex: 1;
+
   min-width: 80px;
+
   padding: 0.6rem;
+
   border: 1px solid rgba(255,255,255,0.15);
+
   background: rgba(255,255,255,0.05);
+
   border-radius: 8px;
+
   cursor: pointer;
+
   font-size: 0.75rem;
+
   color: var(--sp-text-muted);
+
   font-family: inherit;
+
   transition: all 0.2s;
+
 }
+
+
 
 .usage-preset.active {
+
   border-color: var(--sp-purple);
+
   background: rgba(168,85,247,0.2);
+
   color: var(--sp-text);
+
   box-shadow: 0 0 15px rgba(168,85,247,0.2);
+
 }
+
+
 
 .submit-btn {
+
   width: 100%;
+
   padding: 1.2rem;
+
   border: none;
+
   border-radius: 12px;
+
   font-size: 1.2rem;
+
   font-weight: 700;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   cursor: pointer;
+
   box-shadow: 0 0 30px rgba(168,85,247,0.4), 0 10px 30px rgba(168,85,247,0.3);
+
   margin-top: 1rem;
+
   font-family: inherit;
+
   transition: transform 0.2s, box-shadow 0.2s;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .submit-btn:hover {
+
   transform: translateY(-3px);
+
   box-shadow: 0 0 50px rgba(168,85,247,0.5), 0 15px 40px rgba(168,85,247,0.4);
+
 }
+
+
 
 .waitlist-form .privacy-note {
+
   margin-top: 1rem;
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
 }
+
+
 
 /* PRICE CAP SECTION */
+
 .price-cap-section {
+
   max-width: 1400px;
+
   margin: 3.5rem auto 0;
+
   padding: 0 2rem;
+
 }
+
+
 
 .price-cap-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .price-cap-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   animation: gradientShift 5s ease infinite;
+
   pointer-events: none;
+
 }
 
+
+
 .price-cap-header {
+
   text-align: center;
+
   margin-bottom: 2rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .price-cap-header .icon { font-size: 2.5rem; margin-bottom: 1rem; }
 
+
+
 .price-cap-header h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
 }
+
+
 
 .price-cap-header p {
+
   font-size: 1.05rem;
+
   color: var(--sp-text-muted);
+
   max-width: 800px;
+
   margin: 0 auto;
+
   line-height: 1.6;
+
 }
+
+
 
 .price-cap-controls {
+
   margin-bottom: 10px;
+
   text-align: center;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .price-cap-controls p {
+
   font-size: 14px;
+
   color: var(--sp-text-muted);
+
   margin-bottom: 10px;
+
   font-weight: 500;
+
 }
+
+
 
 .price-cap-btn {
+
   padding: 10px 20px;
+
   border: none;
+
   border-radius: 8px;
+
   cursor: pointer;
+
   font-size: 14px;
+
   font-weight: 600;
+
   transition: all 0.3s;
+
   margin: 5px;
+
   background: rgba(255,255,255,0.08);
+
   color: var(--sp-text-muted);
+
   border: 1px solid rgba(255,255,255,0.15);
+
   font-family: inherit;
+
 }
+
+
 
 .price-cap-active {
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: white;
+
   border-color: transparent;
+
 }
+
+
 
 .price-cap-chart-container {
+
   height: 600px;
+
   margin-bottom: 30px;
+
   position: relative;
+
   z-index: 2;
+
 }
 
+
+
 .chart-close-btn {
+
   display: none;
+
   position: fixed;
+
   bottom: 30px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: white;
+
   border: none;
+
   padding: 14px 28px;
+
   border-radius: 30px;
+
   font-size: 15px;
+
   font-weight: 700;
+
   cursor: pointer;
+
   box-shadow: 0 6px 25px rgba(168,85,247,0.5);
+
   z-index: 9999;
+
   animation: fadeInUp 0.2s ease;
+
   font-family: inherit;
+
 }
+
+
 
 .chart-close-btn.visible { display: block; }
 
+
+
 @keyframes fadeInUp {
+
   from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
+
 }
+
+
 
 .price-cap-totals {
+
   display: flex;
+
   justify-content: center;
+
   gap: 40px;
+
   flex-wrap: wrap;
+
   margin-top: 30px;
+
 }
+
+
 
 .price-cap-total {
+
   text-align: center;
+
   padding: 25px 35px;
+
   border-radius: 12px;
+
   min-width: 220px;
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .price-cap-total.previous { 
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   border: 1px solid rgba(148,163,184,0.3);
+
 }
+
+
 
 .price-cap-total.current { 
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink)); 
+
   color: white;
+
   box-shadow: 0 0 30px rgba(168,85,247,0.4);
+
 }
+
+
 
 .price-cap-total p:first-child { 
+
   font-size: 14px; 
+
   margin-bottom: 8px; 
+
   font-weight: 500;
+
 }
+
 .price-cap-total.previous p:first-child { color: var(--sp-text-muted); }
+
 .price-cap-total.current p:first-child { color: rgba(255,255,255,0.9); }
 
+
+
 .price-cap-total p:nth-child(2) { 
+
   font-size: 36px; 
+
   font-weight: 800; 
+
   margin: 0;
+
 }
+
 .price-cap-total.previous p:nth-child(2) { color: #FFFFFF; }
+
 .price-cap-total.current p:nth-child(2) { color: #FFFFFF; }
 
+
+
 .price-cap-total p:last-child { 
+
   font-size: 14px; 
+
   margin-top: 8px; 
+
 }
+
 .price-cap-total.previous p:last-child { color: var(--sp-text-muted); }
+
 .price-cap-total.current p:last-child { color: rgba(255,255,255,0.9); }
 
+
+
 .price-cap-footer {
+
   margin-top: 30px;
+
   padding: 15px;
+
   background: rgba(255,255,255,0.05);
+
   border-left: 4px solid var(--sp-purple);
+
   font-size: 12px;
+
   color: var(--sp-text-muted);
+
   border-radius: 0 8px 8px 0;
+
 }
+
+
 
 .price-cap-footer p { margin: 0 0 8px 0; }
+
 .price-cap-footer p:last-child { margin: 0; }
+
 .price-cap-footer strong { color: var(--sp-text); }
 
+
+
 /* BILLING INTERACTIVE */
+
 .billing-section {
+
   max-width: 1200px;
+
   margin: 3.5rem auto 4.5rem;
+
   padding: 0 2rem;
+
 }
+
+
 
 .billing-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 25px rgba(168,85,247,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   text-align: center;
+
   position: relative;
+
   overflow: hidden;
+
   transition: all 0.4s ease;
+
 }
+
+
 
 .billing-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .billing-card:hover {
+
   box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+
 }
+
+
 
 .billing-card:hover::before {
+
   opacity: 0.8;
+
 }
 
+
+
 .billing-card .tag {
+
   display: inline-block;
+
   background: rgba(251,191,36,0.2);
+
   color: #FCD34D;
+
   padding: 0.5rem 1rem;
+
   border-radius: 20px;
+
   font-size: 0.85rem;
+
   font-weight: 600;
+
   margin-bottom: 1rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .billing-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
 
+
+
 .billing-card h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .billing-card > p {
+
   font-size: 1.15rem;
+
   color: var(--sp-text-muted);
+
   max-width: 700px;
+
   margin: 0 auto 2rem;
+
   line-height: 1.6;
+
   position: relative;
+
   z-index: 2;
+
 }
 
+
+
 .billing-stats {
+
   display: flex;
+
   gap: 2rem;
+
   justify-content: center;
+
   flex-wrap: wrap;
+
   margin: 2rem 0;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .billing-stat { text-align: center; }
 
+
+
 .billing-stat-value {
+
   font-size: 1.75rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
 }
+
+
 
 .billing-stat-label {
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
 }
 
+
+
 .billing-btn {
+
   padding: 1.2rem 2.5rem;
+
   border: none;
+
   border-radius: 12px;
+
   font-size: 1.15rem;
+
   font-weight: 700;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   cursor: pointer;
+
   box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+
   font-family: inherit;
+
   transition: transform 0.2s;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .billing-btn:hover { transform: translateY(-2px); }
 
+
+
 .billing-card .footnote {
+
   margin-top: 1.5rem;
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 /* TARIFF TRACKER */
+
 .tariff-section {
+
   max-width: 1200px;
+
   margin: 3.5rem auto 4.5rem;
+
   padding: 0 2rem;
+
 }
+
+
 
 .tariff-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(236,72,153,0.4);
+
   box-shadow: 0 0 25px rgba(236,72,153,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   text-align: center;
+
   position: relative;
+
   overflow: hidden;
+
   transition: all 0.4s ease;
+
 }
+
+
 
 .tariff-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-pink), var(--sp-purple), var(--sp-pink));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.5;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .tariff-card:hover {
+
   box-shadow: 0 0 40px rgba(236,72,153,0.35), 0 20px 50px rgba(0,0,0,0.3);
+
 }
+
+
 
 .tariff-card:hover::before {
+
   opacity: 0.8;
+
 }
 
+
+
 .tariff-card .tag {
+
   display: inline-block;
+
   background: rgba(251,191,36,0.2);
+
   color: #FCD34D;
+
   padding: 0.5rem 1rem;
+
   border-radius: 20px;
+
   font-size: 0.85rem;
+
   font-weight: 600;
+
   margin-bottom: 1rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .tariff-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
 
+
+
 .tariff-card h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .tariff-card > p {
+
   font-size: 1.15rem;
+
   color: var(--sp-text-muted);
+
   max-width: 700px;
+
   margin: 0 auto 2rem;
+
   line-height: 1.6;
+
   position: relative;
+
   z-index: 2;
+
 }
 
+
+
 .tariff-stats {
+
   display: flex;
+
   gap: 2rem;
+
   justify-content: center;
+
   flex-wrap: wrap;
+
   margin: 2rem 0;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .tariff-stat { text-align: center; }
 
+
+
 .tariff-stat-value {
+
   font-size: 1.75rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
 }
+
+
 
 .tariff-stat-label {
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
 }
 
+
+
 .tariff-btn {
+
   padding: 1.2rem 2.5rem;
+
   border: none;
+
   border-radius: 12px;
+
   font-size: 1.15rem;
+
   font-weight: 700;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   cursor: pointer;
+
   box-shadow: 0 10px 30px rgba(168,85,247,0.3);
+
   font-family: inherit;
+
   transition: transform 0.2s;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .tariff-btn:hover { transform: translateY(-2px); }
 
+
+
 .tariff-card .footnote {
+
   margin-top: 1.5rem;
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .tariff-card .footnote a { color: var(--sp-purple); text-decoration: none; }
 
+
+
 /* INSIGHTS SECTION */
+
 .insights {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 4.5rem 2rem;
+
   text-align: center;
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 /* Animated grid background */
+
 .insights::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   background-image:
+
     linear-gradient(rgba(168,85,247,0.08) 1px, transparent 1px),
+
     linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+
   background-size: 50px 50px;
+
   animation: gridSlide 20s linear infinite;
+
   pointer-events: none;
+
 }
+
+
 
 @keyframes gridSlide {
+
   0% { transform: translate(0, 0); }
+
   100% { transform: translate(50px, 50px); }
+
 }
+
+
 
 /* Top scanline */
+
 .insights::after {
+
   content: '';
+
   position: absolute;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   height: 2px;
+
   background: linear-gradient(90deg, transparent, var(--sp-purple), transparent);
+
   animation: scanline 3s linear infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .insights h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2.5rem;
+
   font-weight: 400;
+
   margin-bottom: 0.5rem;
+
   color: var(--sp-text);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .insights > p {
+
   color: var(--sp-text-muted);
+
   margin-top: 0.3rem;
+
   margin-bottom: 2.5rem;
+
   font-size: 1.15rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .topics {
+
   max-width: 1200px;
+
   margin: 2.5rem auto 0;
+
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+
   gap: 1.5rem;
+
   padding: 0 2rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .topic {
+
   background: rgba(15,23,42,0.8);
+
   padding: 2rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.25);
+
   box-shadow: 0 0 15px rgba(168,85,247,0.1), 0 4px 20px rgba(0,0,0,0.15);
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: flex-start;
+
   cursor: pointer;
+
   transition: all 0.4s ease;
+
   position: relative;
+
   overflow: hidden;
+
   text-align: left;
+
 }
+
+
 
 /* Glowing border on hover */
+
 .topic::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0;
+
   transition: opacity 0.4s ease;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .topic:hover::before {
+
   opacity: 1;
+
 }
+
+
 
 .topic:hover {
+
   transform: translateY(-8px);
+
   box-shadow: 0 0 40px rgba(168,85,247,0.35), 0 20px 50px rgba(0,0,0,0.3);
+
   background: rgba(30,41,59,0.95);
+
 }
+
+
 
 .topic h3 {
+
   font-size: 1.3rem;
+
   margin-bottom: 0.75rem;
+
   margin-top: 0;
+
   line-height: 1.3;
+
   font-weight: 700;
+
   color: var(--sp-text);
+
 }
+
+
 
 .topic p {
+
   color: var(--sp-text-muted);
+
   line-height: 1.6;
+
   font-size: 1rem;
+
   margin: 0 0 1rem 0;
+
 }
+
+
 
 .topic p:last-child {
+
   margin-bottom: 0;
+
   font-size: 0.85rem;
+
   color: var(--sp-text-muted);
+
   opacity: 0.7;
+
   margin-top: auto;
+
   padding-top: 1rem;
+
 }
+
+
 
 .archive-link {
+
   text-align: center;
+
   margin-top: 2rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .archive-link a {
+
   display: inline-flex;
+
   align-items: center;
+
   gap: 0.5rem;
+
   color: var(--sp-purple);
+
   font-weight: 600;
+
   text-decoration: none;
+
   padding: 0.8rem 1.5rem;
+
   border: 2px solid rgba(168,85,247,0.3);
+
   border-radius: 30px;
+
   transition: all 0.2s;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .archive-link a:hover {
+
   background: rgba(168,85,247,0.15);
+
   border-color: var(--sp-purple);
+
 }
+
+
 
 /* STATS SECTION */
+
 .stats {
+
   max-width: 1200px;
+
   margin: 4rem auto;
+
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
   gap: 2rem;
+
   text-align: center;
+
   padding: 0 2rem;
+
 }
+
+
 
 .stat-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 2rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.3);
+
   box-shadow: 0 0 20px rgba(168,85,247,0.15), 0 4px 20px rgba(0,0,0,0.15);
+
   position: relative;
+
   overflow: hidden;
+
   transition: all 0.4s ease;
+
 }
+
+
 
 .stat-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0;
+
   transition: opacity 0.4s ease;
+
   animation: gradientShift 4s ease infinite;
+
   pointer-events: none;
+
 }
+
+
 
 .stat-card:hover {
+
   transform: translateY(-5px);
+
   box-shadow: 0 0 35px rgba(168,85,247,0.3), 0 15px 40px rgba(0,0,0,0.25);
+
 }
+
+
 
 .stat-card:hover::before {
+
   opacity: 1;
+
 }
+
+
 
 .stat-number {
+
   font-size: 3rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
   line-height: 1;
+
   margin-bottom: 0.5rem;
+
 }
+
+
 
 .stat-label {
+
   color: var(--sp-text-muted);
+
   font-size: 1rem;
+
 }
+
+
 
 /* GAME SECTION */
+
 .game-section {
+
   max-width: 1200px;
+
   margin: 4rem auto;
+
   padding: 0 2rem;
+
 }
+
+
 
 .game-card {
+
   background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
   padding: 3rem;
+
   border-radius: 16px;
+
   border: 1px solid rgba(168,85,247,0.4);
+
   box-shadow: 0 0 30px rgba(168,85,247,0.25), 0 10px 40px rgba(0,0,0,0.2);
+
   position: relative;
+
   overflow: hidden;
+
   text-align: center;
+
 }
+
+
 
 .game-card::before {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   border-radius: 16px;
+
   padding: 2px;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+
   background-size: 200% 200%;
+
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
   -webkit-mask-composite: xor;
+
   mask-composite: exclude;
+
   opacity: 0.6;
+
   animation: gradientShift 3s ease infinite;
+
   pointer-events: none;
+
 }
 
+
+
 /* Animated grid inside game card */
+
 .game-card::after {
+
   content: '';
+
   position: absolute;
+
   inset: 0;
+
   background-image: 
+
     linear-gradient(rgba(168,85,247,0.05) 1px, transparent 1px),
+
     linear-gradient(90deg, rgba(236,72,153,0.05) 1px, transparent 1px);
+
   background-size: 30px 30px;
+
   pointer-events: none;
+
 }
+
+
 
 .game-card .icon { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 2; }
 
+
+
 .game-card h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2rem;
+
   font-weight: 400;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
   position: relative;
+
   z-index: 2;
+
 }
 
+
+
 .game-card > p {
+
   font-size: 1.05rem;
+
   color: var(--sp-text-muted);
+
   margin-bottom: 1.5rem;
+
   max-width: 600px;
+
   margin-left: auto;
+
   margin-right: auto;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 #gameStartScreen { margin-bottom: 1.5rem; position: relative; z-index: 2; }
 
+
+
 .game-start-btn {
+
   padding: 1.3rem 3rem;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   border: none;
+
   border-radius: 16px;
+
   font-size: 1.3rem;
+
   font-weight: 700;
+
   cursor: pointer;
+
   box-shadow: 0 10px 40px rgba(168,85,247,0.4);
+
   font-family: inherit;
+
 }
+
+
 
 #gameCanvas {
+
   border: 3px solid var(--sp-purple);
+
   border-radius: 15px;
+
   background: var(--sp-slate-dark);
+
   max-width: 100%;
+
   cursor: none;
+
   display: none;
+
   margin: 0 auto 1.5rem;
+
   position: relative;
+
   z-index: 2;
+
   box-shadow: 0 0 20px rgba(168,85,247,0.3);
+
 }
+
+
 
 .game-scores {
+
   display: flex;
+
   justify-content: center;
+
   gap: 2rem;
+
   flex-wrap: wrap;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .game-score-card {
+
   padding: 1rem 2rem;
+
   background: rgba(255,255,255,0.05);
+
   border-radius: 12px;
+
   border: 1px solid rgba(168,85,247,0.35);
+
   box-shadow: 0 0 15px rgba(168,85,247,0.15);
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .game-score-card .label {
+
   font-size: 0.9rem;
+
   color: var(--sp-text-muted);
+
   margin-bottom: 0.3rem;
+
 }
+
+
 
 .game-score-card .value {
+
   font-size: 1.8rem;
+
   font-weight: 800;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
+
   background-clip: text;
+
 }
+
+
 
 #gameOverScreen {
+
   display: none;
+
   margin-top: 2rem;
+
 }
+
+
 
 #gameOverScreen h3 {
+
   font-size: 2rem;
+
   margin-bottom: 1rem;
+
   color: var(--sp-pink);
+
 }
+
+
 
 #gameOverScreen p {
+
   font-size: 1.3rem;
+
   margin-bottom: 1rem;
+
   color: var(--sp-text);
+
 }
+
+
 
 #gameOverScreen #finalGameScore {
+
   color: var(--sp-purple);
+
   font-weight: 900;
+
 }
+
+
 
 .game-restart-btn {
+
   padding: 1rem 2.5rem;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: #fff;
+
   border: none;
+
   border-radius: 12px;
+
   font-size: 1.2rem;
+
   font-weight: 700;
+
   cursor: pointer;
+
   font-family: inherit;
+
 }
+
+
 
 /* FINAL CTA */
+
 .final-cta {
+
   text-align: center;
+
   padding: 5rem 2rem;
+
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+
   color: white;
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .final-cta::before {
+
   content: '';
+
   position: absolute;
+
   top: 0; right: 0;
+
   width: 50%; height: 100%;
+
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
   opacity: 0.5;
+
 }
+
+
 
 .final-cta h2 {
+
   font-family: 'DM Serif Display', Georgia, serif;
+
   font-size: 2.5rem;
+
   font-weight: 400;
+
   margin-bottom: 1.5rem;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .final-cta p {
+
   max-width: 800px;
+
   margin: 0 auto 2rem;
+
   opacity: 0.9;
+
   font-size: 1.1rem;
+
   line-height: 1.6;
+
   position: relative;
+
   z-index: 2;
+
 }
+
+
 
 .cta-btn {
+
   padding: 1.3rem 3rem;
+
   border: none;
+
   border-radius: 16px;
+
   font-size: 1.3rem;
+
   font-weight: 700;
+
   background: #fff;
+
   color: var(--sp-purple);
+
   cursor: pointer;
+
   box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+
   transition: all 0.3s;
+
   position: relative;
+
   z-index: 2;
+
   font-family: inherit;
+
 }
+
+
 
 .cta-btn:hover {
+
   transform: translateY(-3px);
+
   box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+
 }
+
+
 
 /* FOOTER */
+
 .footer {
+
   text-align: center;
+
   padding: 3rem 2rem;
+
   background: var(--sp-slate);
+
   color: rgba(255,255,255,0.7);
+
 }
 
+
+
 .footer p { margin: 0 0 1rem 0; }
+
 .footer p:last-child { margin: 0; }
+
 .footer a { color: var(--sp-purple); text-decoration: none; }
 
+
+
 /* RESPONSIVE */
+
 @media (max-width: 968px) {
+
   .hero { padding: 6rem 1.5rem 4rem; }
+
   .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+
   .hero-text h1 { font-size: 2.2rem; }
+
   .hero-text p { font-size: 1.05rem; max-width: 100%; }
 
+
+
   .pilot-container { min-height: 350px; }
+
   .pilot-character { width: 280px; }
+
   .pilot-icons { display: block; }
+
   .pilot-icon { font-size: 1.8rem; }
+
+
 
   .destination-tag { position: static; margin: 1.5rem auto 0; max-width: 280px; text-align: center; }
 
+
+
   .vision-mission-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1.5rem; margin-top: -1rem; }
+
   .stat-hero { margin-top: 2rem; }
+
   .about-section { margin-top: 2rem; padding: 0 1.5rem; }
+
   .about-card { padding: 2rem 1.5rem; }
 
+
+
   .waitlist-form { padding: 2rem 1.5rem; margin: 2rem 1.5rem; }
+
   .waitlist-form h3 { font-size: 1.5rem; }
 
+
+
   .insights { padding: 3.5rem 1.5rem; }
+
   .insights h2, .final-cta h2 { font-size: 2rem; }
+
   .topics { grid-template-columns: 1fr; gap: 1.5rem; }
 
+
+
   .stats { grid-template-columns: 1fr; gap: 1.5rem; }
+
   .stat-number { font-size: 2.5rem; }
 
+
+
   .price-cap-section, .billing-section, .tariff-section { padding: 0 1.5rem; }
+
   .price-cap-card, .billing-card, .tariff-card { padding: 2rem 1.5rem; }
+
   .price-cap-header h2, .billing-card h2, .tariff-card h2 { font-size: 1.75rem; }
+
   .price-cap-chart-container { height: 500px; }
+
   .price-cap-totals { gap: 20px; }
+
   .price-cap-total { min-width: 140px; padding: 15px; }
 
+
+
   .final-cta { padding: 4rem 1.5rem; }
+
   .final-cta p { font-size: 1rem; }
+
   .cta-btn { padding: 1rem 2rem; font-size: 1.1rem; width: 100%; max-width: 300px; }
+
 }
 
+
+
 @media (max-width: 480px) {
+
   .hero { padding: 5.5rem 1rem 3rem; }
+
   .pilot-container { min-height: 300px; flex-direction: column; align-items: center; }
+
   .pilot-character { width: 280px; }
+
   .pilot-icons { display: none; }
+
   .destination-tag { position: static; margin: 1rem auto 0; right: auto; }
+
   .hero-text h1 { font-size: 1.75rem; }
+
   
+
   .sticky-nav { justify-content: flex-start; padding-left: 0.5rem; }
+
   .nav-toggle { margin-left: auto; }
 
+
+
   .vision-mission-grid { padding: 0 1rem; gap: 1rem; margin-bottom: 1rem; }
+
   .vision-box { padding: 1.5rem; }
 
+
+
   .stat-hero { margin-top: 1.5rem; padding: 0 1rem; }
+
   .stat-hero-card { padding: 1.5rem; }
+
   .stat-hero-number { font-size: 3rem; }
 
+
+
   .about-section { margin-top: 1.5rem; padding: 0 1rem; }
+
   .about-card { padding: 1.5rem 1rem; }
 
+
+
   .mid-cta { padding: 0 1rem; }
+
   .mid-cta-card { padding: 1.5rem; }
 
+
+
   .survey-section { padding: 0 1rem; }
+
   .survey-card { padding: 2rem 1rem; }
+
   .survey-grid { gap: 1rem; }
+
+
 
   .waitlist-form { padding: 1.5rem 1rem; margin: 1.5rem 1rem; }
 
+
+
   .price-cap-section, .billing-section, .tariff-section { padding: 0 1rem; }
+
   .price-cap-card, .billing-card, .tariff-card { padding: 1.5rem 1rem; }
+
   .price-cap-header h2, .billing-card h2, .tariff-card h2 { font-size: 1.5rem; }
+
   .price-cap-chart-container { height: 450px; }
+
   .price-cap-total { min-width: 0; width: 100%; max-width: 250px; padding: 12px; }
+
   .price-cap-total p:first-child { font-size: 10px; }
+
   .price-cap-total p:nth-child(2) { font-size: 24px; }
+
   .price-cap-total p:last-child { font-size: 12px; }
+
   .price-cap-btn { width: 32%; font-size: 11px; padding: 7px 0; }
 
+
+
   .insights, .final-cta { padding: 3rem 1rem; }
+
   .topic p { font-size: 0.95rem; line-height: 1.5; }
 
+
+
   .game-section { padding: 0 1rem; }
+
   .game-card { padding: 2rem 1rem; }
 
+
+
   .footer { padding: 2.5rem 1rem; }
+
 }
+
 </style>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
+
+
 </head>
+
 <body>
 
+
+
 <!-- STICKY NAV -->
+
 <nav class="sticky-nav" id="stickyNav">
+
   <a href="#hero" class="nav-logo">
+
     <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:3.2rem;width:auto;vertical-align:middle;margin-right:-12px;">
+
     <span>SwitchPilot</span>
+
   </a>
+
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+
     <span></span><span></span><span></span>
+
   </button>
+
   <div class="nav-links" id="navLinks">
+
     <a href="#about">About</a>
+
     <a href="#bill-breakdown">Bill Breakdown</a>
+
     <a href="energy-bill-calculator.html">Bill Calculator</a>
+
     <a href="#tariffs">Cheapest Tariffs</a>
+
     <a href="#insights">Insights</a>
+
     <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+
   </div>
+
 </nav>
 
+
+
 <section class="hero" id="hero">
+
   <div class="hero-content">
+
     <div class="hero-text">
+
       <div class="badge">🚀 Building Together</div>
+
       <h1>Your Launchpad to Better Energy Deals</h1>
+
       <p>We're building a service that automatically switches you to the best energy deal - for free. Plus weekly insider insights that show you where your money actually goes, the hidden costs no one explains, and what's really happening in the energy market.</p>
+
     </div>
+
     <div class="pilot-container">
+
       <div class="pilot-icons">
+
         <div class="pilot-icon">⚡</div>
+
         <div class="pilot-icon">💷</div>
+
         <div class="pilot-icon">📈</div>
+
         <div class="pilot-icon">💡</div>
+
       </div>
+
       <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
+
       <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
+
     </div>
+
   </div>
+
+
 
   <div class="hero-cta">
+
     <p>📬 Get weekly insights and early access to our free auto-switcher when we launch</p>
+
     <a href="#waitlist" class="hero-btn">Join the Crew →</a>
+
     <p class="subtext">🔒 Unsubscribe anytime.</p>
+
     
+
     <div class="tracker-link">
+
       <p>⚡ While we build auto-switching: <a href="tariff-tracker.html">Check the cheapest deals on the market →</a></p>
+
     </div>
+
   </div>
+
 </section>
+
+
 
 <!-- Vision & Mission Boxes -->
+
 <div class="vision-mission-grid">
+
   <div class="vision-box purple">
+
     <div class="vision-box-header">
+
       <span>🔮</span>
+
       <h3>Our Vision</h3>
+
     </div>
+
     <h4>Putting the power back in your hands</h4>
+
     <p>An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
+
   </div>
+
   <div class="vision-box pink">
+
     <div class="vision-box-header">
+
       <span>🛠️</span>
+
       <h3>What We're Building</h3>
+
     </div>
+
     <p>A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market (with your consent of course!). Plus weekly insider insights that cut through the noise and tell you what's really happening with your energy bills.</p>
+
   </div>
+
 </div>
 
+
+
 <!-- WHY IT MATTERS -->
+
 <section class="stat-hero">
+
   <div class="stat-hero-card">
+
     <div class="stat-hero-number">65%</div>
+
     <h3>of UK households are paying more than they need to</h3>
+
     <p>Most people are on their supplier's "default" tariff - basically the most expensive option. And even those who do switch often miss better deals because comparing tariffs is confusing, time-consuming, and easy to put off.</p>
+
     <p style="margin-top: 1rem;">That's why we're building something that does the hard work for you - and keeping you informed on what you're actually paying for. Because when people understand their bills and switch more often, energy companies have to compete harder. Everyone wins.</p>
+
   </div>
+
 </section>
 
+
+
 <!-- WHO WE ARE -->
+
 <section id="about" class="about-section">
+
   <div class="about-card">
+
     <h2>Who We Are</h2>
 
+
+
     <p>We're two insiders who've been working in the UK energy industry for the past couple of years — <strong>and what we've seen from the inside has shocked us.</strong></p>
+
 <p>Hidden charges. Broken pricing. A system designed to confuse you. None of it gets explained on your bill - but you're paying for all of it.</p>
+
     <p>So we're building something different.</p>
 
+
+
     <div class="insight-box">
+
       <p>Here's the kind of stuff hidden in your bill that nobody explains:</p>
+
       <div class="insight-item">
+
         <span>💨</span>
+
         <p><strong>You pay wind farms to switch OFF</strong> when it's too windy. Yes, really - the grid can't handle too much power at once, so we pay them to stop generating.</p>
+
       </div>
+
       <div class="insight-item">
+
         <span>⛽</span>
+
         <p><strong>Your electricity price is set by gas</strong> - even when half our power comes from cheap wind and solar. It's like paying steak prices for a salad because someone else at the restaurant ordered steak.</p>
+
       </div>
+
       <div class="insight-item">
+
         <span>💸</span>
+
         <p><strong>You're paying for other people's unpaid bills</strong> - when customers don't pay, energy companies add the cost to everyone else's bills. UK energy debt just hit £4.4 billion, and you're picking up the tab.</p>
+
       </div>
+
     </div>
+
+
 
     <p>None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, and make switching effortless.</p>
 
+
+
     <div class="building-box">
+
       <p>That's why we're building two things:</p>
+
       <div class="building-item">
+
         <span>⚡</span>
+
         <p><strong>A free auto-switching service</strong> that works in the background for you - finding and switching you to better deals automatically (with your consent)</p>
+
       </div>
+
       <div class="building-item">
+
         <span>📚</span>
+
         <p><strong>Weekly insider insights</strong> that cut through the jargon and tell you what's actually happening - because informed consumers create a more competitive market for everyone</p>
+
       </div>
+
       <p class="best-part"><strong>The best part?</strong> Your feedback shapes what we build. We're not building FOR you - we're building WITH you.</p>
+
     </div>
+
   </div>
+
 </section>
+
+
 
 <!-- MID-PAGE CTA -->
+
 <section class="mid-cta">
+
   <div class="mid-cta-card">
+
     <p>Ready to be part of this?</p>
+
     <p style="font-weight: 400;">Get weekly insights and early access when we launch</p>
+
     <a href="#waitlist" class="mid-cta-btn">Join the Crew →</a>
+
   </div>
+
 </section>
+
+
 
 <!-- SURVEY STATS SHOWCASE -->
+
 <section id="survey" class="survey-section">
+
   <div class="survey-card">
+
     <div class="icon">📊</div>
+
     <h2>Here's What People Think About Energy Switching</h2>
+
     <p>We surveyed real energy customers. Here's what we found:</p>
+
     
+
     <div class="survey-grid">
+
       <div class="survey-stat purple">
+
         <div class="survey-stat-number">77.5%</div>
+
         <h4>Want auto-switching</h4>
+
         <p>3 in 4 people are ready for this</p>
+
       </div>
+
       
+
       <div class="survey-stat pink">
+
         <div class="survey-stat-number">73%</div>
+
         <h4>Of "happy" customers</h4>
+
         <p>Would still switch if it was easy and automatic</p>
+
       </div>
+
       
+
       <div class="survey-stat purple">
+
         <div class="survey-stat-number">61%</div>
+
         <h4>Don't understand bills</h4>
+
         <p>That's why we explain what you're paying for</p>
+
       </div>
+
       
+
       <div class="survey-stat pink">
+
         <div class="survey-stat-number">48%</div>
+
         <h4>Haven't switched in 5+ years</h4>
+
         <p>Energy companies love this - it's free money for them</p>
+
       </div>
+
     </div>
+
     
+
     <a href="survey-results.html" class="survey-btn">Read Full Survey Results →</a>
+
     
+
     <p class="footnote"><strong>But surveys are just surveys.</strong> We want to hear from <strong>YOU</strong> - your feedback shapes what we build.</p>
+
   </div>
+
 </section>
+
+
 
 <div id="waitlist" class="waitlist-form">
+
   <h3>Join the Crew 🚀</h3>
+
   <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
+
   <p class="form-info">Just a couple more details so we can find the best deals for you 👇</p>
+
   <form onsubmit="handleSubmit(event)" id="waitlistForm">
+
     <div class="form-group">
+
       <input type="email" id="emailAddress" placeholder="Email Address" required />
+
     </div>
+
     <div class="form-group">
+
       <div class="find-address-row">
+
         <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required />
+
         <button type="button" onclick="lookupPostcode()" id="findAddressBtn" class="find-address-btn">Find Address</button>
+
       </div>
+
       <p id="postcodeError"></p>
+
     </div>
+
     <div id="addressDropdownWrapper" style="display:none;">
+
       <label>Select your address:</label>
+
       <select id="addressDropdown" onchange="selectAddress()">
+
         <option value="">-- Select your address --</option>
+
       </select>
+
       <p class="manual-link">Can't find your address? <a href="#" onclick="showManualEntry();return false;">Enter manually</a></p>
+
     </div>
+
     <div id="addressFields" style="display:none;">
+
       <div class="form-group">
+
         <input type="text" id="houseNumber" placeholder="House/Flat Number" required />
+
       </div>
+
       <div class="form-group">
+
         <input type="text" id="street" placeholder="Street Name" required />
+
       </div>
+
       <div class="form-group address-row">
+
         <input type="text" id="city" placeholder="City" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
+
         <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05); color: var(--sp-text-muted);" />
+
       </div>
+
     </div>
+
    <div id="usageFields" style="display:none;">
+
       <p class="usage-title">🏠 What's your home like?</p>
+
       <div class="usage-presets">
+
         <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>1-2 bed</button>
+
         <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>2-3 bed</button>
+
         <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>4+ bed</button>
+
       </div>
+
       <p style="font-size: 0.8rem; color: var(--sp-text-muted); margin-top: 0.8rem; cursor: pointer;" onclick="toggleManualUsage()">Know your exact usage? <a style="color: var(--sp-purple);">Enter it here</a></p>
+
       <div id="manualUsageInputs" style="display: none; margin-top: 0.8rem;">
+
         <div class="usage-inputs">
+
           <div class="usage-input-group">
+
             <label>Electricity (kWh/year)</label>
+
             <input type="number" id="elecUsage" value="2700" />
+
           </div>
+
           <div class="usage-input-group">
+
             <label>Gas (kWh/year)</label>
+
             <input type="number" id="gasUsage" value="11500" />
+
           </div>
+
         </div>
+
       </div>
+
       <input type="hidden" id="elecUsageHidden" value="2700" />
+
       <input type="hidden" id="gasUsageHidden" value="11500" />
+
     </div>
+
     <input type="hidden" id="energyRegion" value="" />
+
     <button type="submit" class="submit-btn">Sign me up →</button>
+
   </form>
+
   <p class="privacy-note">🔒 Unsubscribe anytime. We respect your inbox.</p>
+
 </div>
+
+
 
 <!-- EMBEDDED PRICE CAP TOOL -->
+
 <section id="bill-breakdown" class="price-cap-section">
+
   <div class="price-cap-card">
+
     <div class="price-cap-header">
+
       <div class="icon">📊</div>
+
       <h2>Where Does Your Money Actually Go?</h2>
+
       <p>Your energy bill isn't just paying for gas and electricity. There are dozens of hidden costs - network fees, green levies, supplier profits, and more. We've broken it all down so you can see exactly where every pound goes.</p>
+
     </div>
+
+
 
     <div class="price-cap-controls">
+
       <p>Payment Method:</p>
+
       <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
+
       <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
+
       <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
+
     </div>
+
     
+
     <div class="price-cap-chart-container">
+
       <canvas id="priceCapChart"></canvas>
+
       <button id="chartCloseBtn" class="chart-close-btn" onclick="hideChartTooltip()">✕ Close</button>
+
     </div>
+
     
+
     <div class="price-cap-totals">
+
       <div class="price-cap-total previous">
+
         <p>Oct-Dec 2025</p>
+
         <p id="priceCapPeriod1Total">£1755</p>
+
         <p>Previous period</p>
+
       </div>
+
       <div class="price-cap-total current">
+
         <p>Jan-Mar 2026</p>
+
         <p id="priceCapPeriod2Total">£1758</p>
+
         <p id="priceCapChangeAmount">+£3 (+0.2%)</p>
+
       </div>
+
     </div>
+
     
+
     <div class="price-cap-footer">
+
       <p><strong>💡 What's the "Price Cap"?</strong> It's the maximum amount energy companies can charge you per unit of energy. Set by Ofgem (the energy regulator) and changes every 3 months.</p>
+
       <p><strong>Source:</strong> Ofgem (the UK energy regulator)</p>
+
       <p><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
+
       <p><strong>Tip:</strong> Hover or tap on the bars to see what each cost means!</p>
+
     </div>
+
   </div>
+
 </section>
+
+
 
 <!-- ENERGY BILL CALCULATOR -->
+
 <section class="billing-section">
+
   <div class="billing-card">
+
     <span class="tag">⚡ Interactive Calculator</span>
+
     <div class="icon">💰</div>
+
     <h2>Energy Bill Calculator</h2>
+
     <p>Calculate your energy bill based on your actual usage. Enter your postcode, select your home size, fine-tune by appliance, and see how much you could save on different tariffs.</p>
+
     <div class="billing-stats">
+
       <div class="billing-stat">
+
         <div class="billing-stat-value">Your Usage</div>
+
         <div class="billing-stat-label">Home Size</div>
+
       </div>
+
       <div class="billing-stat">
+
         <div class="billing-stat-value">Your Area</div>
+
         <div class="billing-stat-label">By Postcode</div>
+
       </div>
+
       <div class="billing-stat">
+
         <div class="billing-stat-value">Your Savings</div>
+
         <div class="billing-stat-label">Compare Tariffs</div>
+
       </div>
+
     </div>
+
     <button onclick="window.open('energy-bill-calculator.html','_blank')" class="billing-btn">Calculate Your Bill →</button>
+
     <p class="footnote">Find the best tariff for your actual usage</p>
+
   </div>
+
 </section>
+
+
 
 <!-- TARIFF TRACKER CALLOUT -->
+
 <section id="tariffs" class="tariff-section">
+
   <div class="tariff-card">
+
     <span class="tag">⏳ While We Build Auto-Switching</span>
+
     <div class="icon">⚡</div>
+
     <h2>Energy Price Tracker</h2>
+
     <p>We're not a comparison site - but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.</p>
+
     <div class="tariff-stats">
+
       <div class="tariff-stat">
+
         <div id="trackerSavings" class="tariff-stat-value">£165</div>
+
         <div class="tariff-stat-label">Avg. Savings/year</div>
+
       </div>
+
     </div>
+
     <button onclick="window.open('tariff-tracker.html','_blank')" class="tariff-btn">Compare Tariffs Now →</button>
+
     <p class="footnote">Updated weekly • While we build full automation • <a href="Switching-guide.html">Read our switching guide</a></p>
+
   </div>
+
 </section>
+
+
 
 <section id="insights" class="insights">
+
   <h2>Plain English Explainers</h2>
+
   <p>Energy bills are confusing on purpose. We break them down so anyone can understand.</p>
+
   <div class="topics">
 
-    <div class="topic" onclick="window.open('ofgem-state-of-market-2026.html','_blank')">
-  <h3>📊 Record Satisfaction. Record Debt. Ofgem's 2026 Market Report Explained</h3>
-  <p>82% of customers are happier than ever with their supplier. Consumer debt just hit £4.48bn — a 12th consecutive record. Ofgem's State of the Market report tells a story of two very different energy markets.</p>
-  <p>📅 17 Feb 2026</p>
+
+
+    <div class="topic" onclick="window.open('q2-2026-price-cap.html','_blank')">
+
+  <h3>📉 Q2 2026 Price Cap: £1,641 — What’s Really Behind the Drop</h3>
+
+  <p>Bills fall £117 from Q1. But the government’s £150 headline saving tells only part of the story — and for gas-heating households, the relief is thinner than it looks.</p>
+
+  <p>📅 1 Mar 2026</p>
+
 </div>
+
+
+
+    <div class="topic" onclick="window.open('ofgem-state-of-market-2026.html','_blank')">
+
+  <h3>📊 Record Satisfaction. Record Debt. Ofgem's 2026 Market Report Explained</h3>
+
+  <p>82% of customers are happier than ever with their supplier. Consumer debt just hit £4.48bn — a 12th consecutive record. Ofgem's State of the Market report tells a story of two very different energy markets.</p>
+
+  <p>📅 17 Feb 2026</p>
+
+</div>
+
+
 
     <div class="topic" onclick="window.open('ban-on-acquisition-tariffs.html','_blank')">
+
   <h3>📜 The Ban on Acquisition Tariffs: When Consumer Protection Harms Consumers</h3>
+
   <p>Since April 2022, UK suppliers can't offer cheaper deals to new customers. Intended to protect loyal customers, but economic analysis suggests the BAT may actually harm consumers by removing competition.</p>
+
   <p>📅 11 Feb 2026</p>
+
 </div>
+
+
 
     <div class="topic" onclick="window.open('fuse-energy-and-the-history-of-small-suppliers.html','_blank')">
+
   <h3>⚡ Fuse Energy and the History of Small Suppliers</h3>
+
   <p>The first new UK supplier since 28 collapsed in 2021. With $5bn valuation and VC backing from Balderton and Accel, can fintech veterans succeed where energy veterans failed?</p>
+
   <p>📅 2 Feb 2026</p>
+
 </div>
+
+
 
     <div class="topic" onclick="window.open('home-mover-energy-trap.html','_blank')">
+
   <h3>🏠 The Home Mover's Energy Trap</h3>
+
   <p>Moving house? You're automatically put on expensive "deemed contract" rates. Most people never switch and overpay £200-250/year. Here's how to avoid the trap.</p>
+
   <p>📅 28 Jan 2026</p>
+
 </div>
 
+
+
     <div class="topic" onclick="window.open('why-uk-electricity-bills-follow-gas-prices.html','_blank')">
+
       <h3>⚡ Why UK Electricity Bills Follow Gas Prices</h3>
+
       <p>You're paying for wind farms. You'll never see cheaper bills. Here's how marginal pricing guarantees you pay gas prices for wind power - no matter how many renewables we build.</p>
+
       <p>📅 24 Jan 2026</p>
+
     </div>
+
+
 
     <div class="topic" onclick="window.open('crypto-mining-energy-analysis.html','_blank')">
+
       <h3>⛏️ We Calculated If Mining Bitcoin at Home Is Worth It in 2026</h3>
+
       <p>Can you mine BTC and heat your flat for free? We ran the numbers with UK electricity prices. Spoiler: it's barely worth it. Interactive calculator included.</p>
+
       <p>📅 19 Jan 2026</p>
+
     </div>
+
+
 
     <div class="topic" onclick="window.open('pounds-for-pylons.html','_blank')">
+
       <h3>🔌 £250 Off for Living Near Pylons? We Check the Facts</h3>
+
       <p>The government's "Pounds for Pylons" scheme offers £250/year off energy bills. Sounds great - until you realise who's actually paying for it. Interactive calculator included.</p>
+
       <p>📅 19 Jan 2026</p>
+
     </div>
+
+
 
     <div class="topic" onclick="window.open('gas-value-calculator.html','_blank')">
+
       <h3>🔥 How Long Does £10 of Gas Last?</h3>
+
       <p>Ever wonder how quickly a tenner disappears when you turn on the heating? From hot showers to cooking dinner, see exactly what your gas money buys. Interactive calculator included.</p>
+
       <p>📅 10 Jan 2026</p>
+
     </div>
+
+
 
     <div class="topic" onclick="window.open('network-charges-update-2026.html','_blank')">
+
       <h3>📉 Good News: Network Charges Lower Than Expected</h3>
+
       <p>The fee you pay for using the electricity grid (it's buried in your bill) is rising less than we feared. Originally looking at £80/year extra, now it's £62. Small win, but we'll take it.</p>
+
       <p>📅 8 Jan 2026</p>
+
     </div>
+
+
 
     <div class="topic" onclick="window.open('energy-debt-crisis.html','_blank')">
+
       <h3>💷 The Silent Crisis: UK Energy Debt Triples</h3>
+
       <p>Energy debt has hit £4.4bn - and you're paying £52/year extra on your bill because of it. The data behind the crisis suppliers don't want you to see.</p>
+
       <p>📅 7 Jan 2026</p>
+
     </div>
 
+
+
   </div>
+
+
 
   <div class="archive-link">
+
     <a href="archive.html">📚 View All Articles <span>→</span></a>
+
   </div>
+
 </section>
+
+
 
 <section class="stats">
+
   <div class="stat-card">
+
     <div class="stat-number">65%</div>
+
     <div class="stat-label">are overpaying right now</div>
+
   </div>
+
   <div class="stat-card">
+
     <div class="stat-number" id="dynamicSavings">£200+</div>
+
     <div class="stat-label">you could save per year</div>
+
   </div>
+
   <div class="stat-card">
+
     <div class="stat-number">You</div>
+
     <div class="stat-label">help us build this</div>
+
   </div>
+
 </section>
 
+
+
 <!-- GAME SECTION -->
+
 <section id="game" class="game-section">
+
   <div class="game-card">
+
     <div class="icon"><img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:4rem;width:auto;vertical-align:middle;margin-right:-1rem;">💷</div>
+
     <h2>Whilst We Build You a Service That Works for YOU</h2>
+
     <p>Why not play a fun game? Move your mouse to pilot the rocket, catch energy savings, and avoid obstacles!</p>
 
+
+
     <div id="gameStartScreen">
+
       <button onclick="startMainGame()" class="game-start-btn">🎮 Play Now</button>
+
     </div>
+
+
 
     <canvas id="gameCanvas" width="700" height="400"></canvas>
 
+
+
     <div class="game-scores">
+
       <div class="game-score-card">
+
         <div class="label">Score</div>
+
         <div id="gameScore" class="value">0</div>
+
       </div>
+
       <div class="game-score-card">
+
         <div class="label">High Score</div>
+
         <div id="gameHighScore" class="value">0</div>
+
       </div>
+
     </div>
+
+
 
     <div id="gameOverScreen">
+
       <h3>Game Over! 💥</h3>
+
       <p>Final Score: <span id="finalGameScore">0</span></p>
+
       <button onclick="restartMainGame()" class="game-restart-btn">Play Again</button>
+
     </div>
+
   </div>
+
 </section>
+
+
 
 <section class="final-cta">
+
   <h2>Stop Overpaying.</h2>
+
   <p>Most people are on their supplier's most expensive tariff without even knowing it. We're building a free service that finds you better deals automatically - and we'll keep you informed every step of the way with weekly insider insights.</p>
+
   <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up</button>
+
 </section>
 
+
+
 <footer class="footer">
+
   <p>💌 Weekly energy insights delivered to your inbox</p>
+
   <p>📧 Questions? <a href="mailto:crew@switch-pilot.com">crew@switch-pilot.com</a></p>
+
   <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+
 </footer>
 
+
+
 <script>
+
 // Google Apps Script URL
+
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec';
 
+
+
 // Target number for countdown
+
 const TARGET_SIGNUPS = 5000;
 
+
+
 // Initialize signup counter - fetch from Google Sheets
+
 let signupCount = 0;
 
+
+
 function updateCounterDisplay(count) {
+
     const countElement = document.getElementById('signupCount');
+
     const spotsElement = document.getElementById('spotsRemaining');
+
     const progressBar = document.getElementById('progressBar');
+
     
+
     if (countElement) countElement.textContent = count.toLocaleString();
+
     if (spotsElement) spotsElement.textContent = Math.max(0, TARGET_SIGNUPS - count).toLocaleString();
+
     if (progressBar) progressBar.style.width = Math.min(100, (count / TARGET_SIGNUPS) * 100) + '%';
+
 }
 
+
+
 // Fetch ONLY verified count ("yes") from Apps Script
+
 fetch(SCRIPT_URL + '?getCount=1')
+
     .then(response => response.json())
+
     .then(data => {
+
         signupCount = data.count || 0;
+
         updateCounterDisplay(signupCount);
+
     })
+
     .catch(err => {
+
         console.log('Could not fetch signup count:', err);
+
         updateCounterDisplay(0);
+
     });
+
+
+
 
 
 function animateCounter(element, newValue) {
+
     element.style.transform = 'scale(1.3)';
+
     element.style.transition = 'transform 0.3s ease';
+
     element.textContent = newValue.toLocaleString();
+
     setTimeout(() => {
+
         element.style.transform = 'scale(1)';
+
     }, 300);
+
 }
+
+
 
 // Ideal Postcodes API
+
 const IDEAL_POSTCODES_API_KEY = 'ak_mkmkogpnZZ5AR83WNyoK3DW1EOxNS';
+
 let addressList = [];
 
+
+
 async function lookupPostcode() {
+
   const postcodeInput = document.getElementById('postcode');
+
   const postcodeError = document.getElementById('postcodeError');
+
   const addressDropdownWrapper = document.getElementById('addressDropdownWrapper');
+
   const addressDropdown = document.getElementById('addressDropdown');
+
   const findBtn = document.getElementById('findAddressBtn');
+
   
+
   let postcode = postcodeInput.value.trim().replace(/\s+/g, '').toUpperCase();
+
   
+
   if (!postcode) {
+
     postcodeError.textContent = 'Please enter a postcode';
+
     postcodeError.style.display = 'block';
+
     return;
+
   }
+
   
+
   postcodeError.style.display = 'none';
+
   findBtn.textContent = 'Searching...';
+
   findBtn.disabled = true;
+
   
+
   try {
+
     const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${postcode}?api_key=${IDEAL_POSTCODES_API_KEY}`);
+
     const data = await response.json();
+
     
+
     if (data.code === 2000 && data.result && data.result.length > 0) {
+
       addressList = data.result;
+
       
+
       if (postcode.length > 4) {
+
         postcodeInput.value = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
+
       }
+
       
+
       addressDropdown.innerHTML = '<option value="">-- Select your address --</option>';
+
       addressList.forEach((addr, index) => {
+
         const option = document.createElement('option');
+
         option.value = index;
+
         option.textContent = addr.line_1 + (addr.line_2 ? ', ' + addr.line_2 : '') + ', ' + addr.post_town;
+
         addressDropdown.appendChild(option);
+
       });
+
       
+
       addressDropdownWrapper.style.display = 'block';
+
       document.getElementById('addressFields').style.display = 'none';
+
       
+
     } else if (data.code === 4040) {
+
       postcodeError.textContent = 'Postcode not found. Please check and try again.';
+
       postcodeError.style.display = 'block';
+
       addressDropdownWrapper.style.display = 'none';
+
     } else {
+
       postcodeError.textContent = 'Error looking up postcode. Please try again.';
+
       postcodeError.style.display = 'block';
+
       addressDropdownWrapper.style.display = 'none';
+
     }
+
   } catch (error) {
+
     postcodeError.textContent = 'Error looking up postcode. Please try again.';
+
     postcodeError.style.display = 'block';
+
     console.error('Postcode lookup error:', error);
+
   }
+
   
+
   findBtn.textContent = 'Find Address';
+
   findBtn.disabled = false;
+
 }
+
+
 
 function selectAddress() {
+
   const dropdown = document.getElementById('addressDropdown');
+
   const index = dropdown.value;
+
   
+
   if (index === '') return;
+
   
+
   const addr = addressList[index];
+
   
+
   const flatParts = [addr.sub_building_name, addr.building_name].filter(Boolean);
+
   document.getElementById('houseNumber').value = flatParts.length > 0 ? flatParts.join(', ') : (addr.building_number || '');
+
   
+
   const street = addr.thoroughfare || addr.dependant_locality || '';
+
   const streetWithNumber = (flatParts.length > 0 && addr.building_number) ? addr.building_number + ' ' + street : street;
+
   document.getElementById('street').value = streetWithNumber;
+
   
+
   document.getElementById('city').value = addr.post_town || '';
+
   document.getElementById('region').value = addr.county || addr.post_town || '';
+
   
+
   const energyRegion = mapToEnergyRegion(addr.county, addr.post_town, addr.postcode);
+
   document.getElementById('energyRegion').value = energyRegion;
+
   
+
   document.getElementById('addressFields').style.display = 'block';
+
   document.getElementById('usageFields').style.display = 'block';
+
 }
+
+
 
 function showManualEntry() {
+
   document.getElementById('addressDropdownWrapper').style.display = 'none';
+
   document.getElementById('addressFields').style.display = 'block';
+
   document.getElementById('usageFields').style.display = 'block';
+
   document.getElementById('houseNumber').focus();
+
   
+
   const postcode = document.getElementById('postcode').value.trim().toUpperCase();
+
   const energyRegion = mapToEnergyRegionFromPostcode(postcode);
+
   document.getElementById('energyRegion').value = energyRegion;
+
 }
+
+
 
 function mapToEnergyRegion(county, town, postcode) {
+
   const pc = (postcode || '').toUpperCase().replace(/\s+/g, '');
+
   const countyLower = (county || '').toLowerCase();
+
   const townLower = (town || '').toLowerCase();
+
   
+
   // Extract postcode area (letters only)
+
   const pcArea = pc.match(/^[A-Z]+/)?.[0] || '';
+
   
+
   // London
+
   if (['E','EC','N','NW','SE','SW','W','WC','UB','HA'].includes(pcArea) || townLower === 'london') {
+
     // Exclude false positives
+
     if (!['EX','EN','NE','WA','WN','WR','WS','WV','WF'].includes(pcArea)) {
+
       return 'London';
+
     }
+
   }
+
   
+
   // North Scotland
+
   if (['AB','DD','IV','KW','PH','ZE','HS'].includes(pcArea)) {
+
     return 'North Scotland';
+
   }
+
   
+
   // South Scotland
+
   if (['DG','EH','FK','G','KA','KY','ML','PA','TD'].includes(pcArea)) {
+
     return 'South Scotland';
+
   }
+
   
+
   // North Wales & Merseyside
+
   if (['CH','LL','SY'].includes(pcArea)) {
+
     return 'North Wales & Merseyside';
+
   }
+
   
+
   // South Wales
+
   if (['CF','NP','SA','LD'].includes(pcArea)) {
+
     return 'South Wales';
+
   }
+
   
+
   // North East
+
   if (['NE','DH','SR','TS','DL'].includes(pcArea)) {
+
     return 'North East';
+
   }
+
   
+
   // North West
+
   if (['M','BL','BB','PR','FY','LA','CA','WA','WN','OL','SK','CW'].includes(pcArea)) {
+
     return 'North West';
+
   }
+
   // L postcode (Liverpool) - but not LA, LE, LN, LS, LU, LL, LD
+
   if (pcArea === 'L') {
+
     return 'North West';
+
   }
+
   
+
   // Yorkshire
+
   if (['LS','BD','HG','HX','WF','HD','HU','YO','DN','S'].includes(pcArea)) {
+
     return 'Yorkshire';
+
   }
+
   
+
   // East Midlands
+
   if (['DE','NG','LE','LN','NN'].includes(pcArea)) {
+
     return 'East Midlands';
+
   }
+
   
+
   // West Midlands
+
   if (['B','CV','DY','WS','WV','WR','ST','TF','HR'].includes(pcArea)) {
+
     return 'West Midlands';
+
   }
+
   
+
   // Eastern
+
   if (['CB','CO','IP','NR','CM','SS','SG','AL','EN','LU','PE','IG','RM','WD'].includes(pcArea)) {
+
     return 'Eastern';
+
   }
+
   
+
   // South East
+
   if (['CT','ME','DA','BR','TN','KT','CR','SM','TW','BN','RH','GU','MK'].includes(pcArea)) {
+
     return 'South East';
+
   }
+
   
+
   // Southern
+
   if (['SO','PO','RG','SP','HP','OX','SL'].includes(pcArea)) {
+
     return 'Southern';
+
   }
+
   
+
   // South West
+
   if (['EX','PL','TQ','TR','TA','BA','BS','GL','SN','DT','BH'].includes(pcArea)) {
+
     return 'South West';
+
   }
+
   
+
   return 'Unknown';
+
 }
+
+
 
 function mapToEnergyRegionFromPostcode(postcode) {
+
   return mapToEnergyRegion('', '', postcode);
+
 }
+
+
 
 // Usage preset buttons
+
 document.querySelectorAll('.usage-preset').forEach(btn => {
+
   btn.addEventListener('click', function() {
+
     document.getElementById('elecUsageHidden').value = this.dataset.elec;
+
     document.getElementById('gasUsageHidden').value = this.dataset.gas;
+
     if (document.getElementById('elecUsage')) document.getElementById('elecUsage').value = this.dataset.elec;
+
     if (document.getElementById('gasUsage')) document.getElementById('gasUsage').value = this.dataset.gas;
+
     document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
+
     this.classList.add('active');
+
   });
+
 });
 
+
+
 function toggleManualUsage() {
+
   const m = document.getElementById('manualUsageInputs');
+
   m.style.display = m.style.display === 'none' ? 'block' : 'none';
+
 }
 
+
+
 function handleSubmit(e) {
+
     e.preventDefault();
+
     
+
     const email = document.getElementById('emailAddress').value;
+
     const postcode = document.getElementById('postcode').value;
+
     const houseNumber = document.getElementById('houseNumber').value;
+
     const street = document.getElementById('street').value;
+
     const city = document.getElementById('city').value;
+
     const region = document.getElementById('region').value;
+
     const energyRegion = document.getElementById('energyRegion').value;
+
     const elecUsage = document.getElementById('elecUsage')?.value || document.getElementById('elecUsageHidden').value;
+
     const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
+
+
 
     const form = e.target.closest('.waitlist-form');
 
+
+
     if (!houseNumber && !street) {
+
         alert('Please find your address using the postcode lookup');
+
         return;
+
     }
+
     
+
     signupCount++;
+
     const counterElement = document.getElementById('signupCount');
+
     if (counterElement) {
+
         animateCounter(counterElement, signupCount);
+
     }
+
     updateCounterDisplay(signupCount);
+
     
+
     form.innerHTML = '<div style="text-align:center;padding:2rem;"><p style="color:var(--sp-text-muted);font-size:1.1rem;">Adding you to the crew...</p></div>';
+
     
+
     fetch(SCRIPT_URL, {
+
         method: 'POST',
+
         mode: 'no-cors',
+
         headers: { 'Content-Type': 'application/json' },
+
         body: JSON.stringify({ 
+
             email: email,
+
             postcode: postcode,
+
             houseNumber: houseNumber,
+
             street: street,
+
             city: city,
+
             region: region,
+
             energyRegion: energyRegion,
+
             elecUsage: elecUsage,
+
             gasUsage: gasUsage
+
         })
+
     })
+
     .then(() => {
+
         form.innerHTML = `
+
             <div style="text-align:center;padding:2rem;">
+
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+
                 <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard!</h3>
+
                 <p style="color:#94A3B8;">Check your email at <strong style="color:#F1F5F9;">${email}</strong> for your welcome email.</p>
+
 <p style="margin-top:1.5rem;"><a href="tariff-tracker.html" style="color:#A855F7;font-weight:700;text-decoration:none;">⚡ Check the cheapest deals while you wait →</a></p>
+
             </div>
+
         `;
+
     })
+
     .catch(() => {
+
         form.innerHTML = `
+
             <div style="text-align:center;padding:2rem;">
+
                 <div style="font-size:4rem;margin-bottom:1rem;">✉️</div>
+
                 <h3 style="color:#A855F7;margin-bottom:0.5rem;font-size:1.8rem;font-family:'DM Serif Display',Georgia,serif;font-weight:400;">Welcome Aboard!</h3>
+
                 <p style="color:#94A3B8;">Check your email at <strong style="color:#F1F5F9;">${email}</strong> for your welcome email.</p>
+
 <p style="margin-top:1.5rem;"><a href="tariff-tracker.html" style="color:#A855F7;font-weight:700;text-decoration:none;">⚡ Check the cheapest deals while you wait →</a></p>
+
             </div>
+
         `;
+
     });
+
 }
+
+
 
 // GAME CODE
+
 const gameCanvas = document.getElementById('gameCanvas');
+
 if (gameCanvas) {
+
     const ctx = gameCanvas.getContext('2d');
+
     
+
     let gameRunning = false;
+
     let gameScore = 0;
+
     let gameHighScore = 0;
+
     document.getElementById('gameHighScore').textContent = gameHighScore;
+
     
+
     const logoImg = new Image();
+
     logoImg.src = 'https://mitran101.github.io/smart-switch/logo.png';
+
     let logoLoaded = false;
+
     logoImg.onload = () => { logoLoaded = true; };
 
+
+
     const player = {
+
         x: gameCanvas.width / 2,
+
         y: gameCanvas.height - 80,
+
         size: 55
+
     };
+
     
+
     const goodItems = ['⚡', '💷', '🔋', '💡'];
+
     const badItems = ['💥', '🌩️'];
+
     const items = [];
+
     
+
     let mouseX = player.x;
+
     let mouseY = player.y;
+
     
+
     gameCanvas.addEventListener('mousemove', (e) => {
+
         const rect = gameCanvas.getBoundingClientRect();
+
         mouseX = (e.clientX - rect.left) * (gameCanvas.width / rect.width);
+
         mouseY = (e.clientY - rect.top) * (gameCanvas.height / rect.height);
+
     });
+
     
+
     gameCanvas.addEventListener('touchstart', (e) => {
+
         e.preventDefault();
+
         const rect = gameCanvas.getBoundingClientRect();
+
         const touch = e.touches[0];
+
         mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+
         mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 100;
+
     });
+
     
+
     gameCanvas.addEventListener('touchmove', (e) => {
+
         e.preventDefault();
+
         const rect = gameCanvas.getBoundingClientRect();
+
         const touch = e.touches[0];
+
         mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+
         mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 100;
+
     });
+
     
+
     gameCanvas.addEventListener('touchend', (e) => {
+
         e.preventDefault();
+
     });
+
     
+
     function createItem() {
+
         const isGood = Math.random() > 0.25;
+
         const emoji = isGood 
+
             ? goodItems[Math.floor(Math.random() * goodItems.length)]
+
             : badItems[Math.floor(Math.random() * badItems.length)];
+
         
+
         items.push({
+
             x: Math.random() * (gameCanvas.width - 40),
+
             y: -40,
+
             size: 30,
+
             emoji: emoji,
+
             speed: 2 + Math.random() * 2,
+
             isGood: isGood
+
         });
+
     }
+
     
+
     function drawEmoji(emoji, x, y, size) {
+
         ctx.font = `${size}px Arial`;
+
         ctx.textAlign = 'center';
+
         ctx.textBaseline = 'middle';
+
         ctx.fillText(emoji, x, y);
+
     }
+
     
+
     function checkCollision(item) {
+
         const dist = Math.sqrt(
+
             Math.pow(player.x - item.x, 2) + 
+
             Math.pow(player.y - item.y, 2)
+
         );
+
         return dist < (player.size + item.size) / 2;
+
     }
+
     
+
     function updateGame() {
+
         if (!gameRunning) return;
+
         
+
         ctx.fillStyle = '#1E293B';
+
         ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
         
+
         player.x += (mouseX - player.x) * 0.15;
+
         player.y += (mouseY - player.y) * 0.15;
+
         
+
         player.x = Math.max(20, Math.min(gameCanvas.width - 20, player.x));
+
         player.y = Math.max(20, Math.min(gameCanvas.height - 20, player.y));
+
         
+
         if (logoLoaded) {
+
             const w = player.size * 1.8;
+
             const h = player.size;
+
             ctx.drawImage(logoImg, player.x - w/2, player.y - h/2, w, h);
+
         }
+
         
+
         for (let i = items.length - 1; i >= 0; i--) {
+
             const item = items[i];
+
             item.y += item.speed;
+
             
+
             drawEmoji(item.emoji, item.x, item.y, item.size);
+
             
+
             if (checkCollision(item)) {
+
                 if (item.isGood) {
+
                     gameScore += 10;
+
                     document.getElementById('gameScore').textContent = gameScore;
+
                     
+
                     ctx.fillStyle = 'rgba(168, 85, 247, 0.3)';
+
                     ctx.beginPath();
+
                     ctx.arc(item.x, item.y, 50, 0, Math.PI * 2);
+
                     ctx.fill();
+
                 } else {
+
                     endGame();
+
                 }
+
                 items.splice(i, 1);
+
             }
+
             else if (item.y > gameCanvas.height + 40) {
+
                 items.splice(i, 1);
+
             }
+
         }
+
         
+
         if (Math.random() < 0.02) {
+
             createItem();
+
         }
+
         
+
         requestAnimationFrame(updateGame);
+
     }
+
     
+
     function endGame() {
+
         gameRunning = false;
+
         
+
         if (gameScore > gameHighScore) {
+
             gameHighScore = gameScore;
+
             document.getElementById('gameHighScore').textContent = gameHighScore;
+
         }
+
         
+
         document.getElementById('finalGameScore').textContent = gameScore;
+
         document.getElementById('gameOverScreen').style.display = 'block';
+
         document.getElementById('gameCanvas').style.display = 'none';
+
     }
+
     
+
     window.startMainGame = function() {
+
         gameRunning = true;
+
         gameScore = 0;
+
         items.length = 0;
+
         player.x = gameCanvas.width / 2;
+
         player.y = gameCanvas.height - 80;
+
         document.getElementById('gameScore').textContent = 0;
+
         document.getElementById('gameStartScreen').style.display = 'none';
+
         document.getElementById('gameCanvas').style.display = 'block';
+
         updateGame();
+
         
+
         for (let i = 0; i < 3; i++) {
+
             setTimeout(createItem, i * 500);
+
         }
+
     };
+
     
+
     window.restartMainGame = function() {
+
         document.getElementById('gameOverScreen').style.display = 'none';
+
         startMainGame();
+
     };
+
 }
 
+
+
 // PRICE CAP TOOL CODE
+
 const priceCapData = {
+
   directDebit: {
+
     period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 270, policy: 215, ebit: 42, headroom: 18, levelisation: 10, vat: 84, total: 1755 },
+
     period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 279, policy: 236, ebit: 44, headroom: 18, levelisation: 10, vat: 84, total: 1758 }
+
   },
+
   standardCredit: {
+
     period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 406, policy: 215, ebit: 44, headroom: 20, levelisation: 0, vat: 90, total: 1890 },
+
     period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 415, policy: 236, ebit: 45, headroom: 20, levelisation: 0, vat: 90, total: 1894 }
+
   },
+
   prepayment: {
+
     period1: { name: "Oct-Dec 2025", wholesale: 719, networks: 391, operating: 296, policy: 215, ebit: 42, headroom: 19, levelisation: -56, vat: 81, total: 1707 },
+
     period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 392, operating: 304, policy: 236, ebit: 44, headroom: 19, levelisation: -56, vat: 81, total: 1711 }
+
   }
+
 };
+
+
 
 const priceCapColors = {
+
   wholesale: '#5DADE2',
+
   networks: '#884EA0',
+
   operating: '#E67E22',
+
   policy: '#34495E',
+
   ebit: '#A569BD',
+
   headroom: '#7F8C8D',
+
   levelisation: '#52796F',
+
   vat: '#922B3E'
+
 };
+
+
 
 const priceCapLabels = {
+
   wholesale: 'Wholesale Energy (Actual Energy Cost)',
+
   networks: 'Network Costs',
+
   operating: 'Operating Costs',
+
   policy: 'Govt. Policy Costs & Green Levies',
+
   ebit: 'Supplier Profit',
+
   headroom: 'Safety Buffer',
+
   levelisation: 'Payment Adjustment',
+
   vat: 'VAT (5%)'
+
 };
+
+
 
 const priceCapDescriptions = {
+
   wholesale: 'The cost of buying gas and electricity on the wholesale market - from power stations, wind farms, and gas suppliers. This is what the actual energy you use costs.',
+
   networks: 'Charges for maintaining and operating the national grid, plus the local pipes and cables that deliver energy to your home. Think of it as delivery fees.',
+
   operating: 'What it costs suppliers to run their business - customer service, billing systems, meter reading, and managing unpaid debts.',
+
   policy: 'Government-mandated costs for environmental and social programmes: renewable energy subsidies, home insulation schemes, and support for vulnerable customers.',
+
   ebit: 'The regulated profit margin suppliers are allowed to earn. Ofgem sets this to ensure companies remain financially viable while protecting consumers.',
+
   headroom: 'A buffer built into the cap to protect suppliers from unexpected cost increases. Helps prevent companies going bust if wholesale prices spike.',
+
   levelisation: 'An adjustment based on your payment method. Prepayment customers get a credit here because they pay upfront and can\'t accumulate debt.',
+
   vat: 'Value Added Tax charged at 5% on domestic energy - a reduced rate compared to the standard 20% VAT on most goods and services.'
+
 };
 
+
+
 let currentPriceCapMethod = 'directDebit';
+
 let priceCapChart = null;
+
+
 
 const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
+
+
 function hideChartTooltip() {
+
   if (priceCapChart) {
+
     priceCapChart.tooltip.setActiveElements([], {x: 0, y: 0});
+
     priceCapChart.update();
+
   }
+
   const btn = document.getElementById('chartCloseBtn');
+
   if (btn) btn.classList.remove('visible');
+
 }
+
+
 
 function renderPriceCapChart() {
+
   const data = priceCapData[currentPriceCapMethod];
+
   const ctx = document.getElementById('priceCapChart');
+
   
+
   if (!ctx) return;
+
   
+
   if (priceCapChart) {
+
     priceCapChart.destroy();
+
   }
+
   
+
   const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
+
   
+
   priceCapChart = new Chart(ctx, {
+
     type: 'bar',
+
     data: {
+
       labels: [data.period1.name, data.period2.name],
+
       datasets: components.map(comp => ({
+
         label: priceCapLabels[comp],
+
         data: [data.period1[comp], data.period2[comp]],
+
         backgroundColor: priceCapColors[comp],
+
         borderColor: priceCapColors[comp],
+
         borderWidth: 1,
+
         barPercentage: 0.9,
+
         categoryPercentage: 0.5
+
       }))
+
     },
+
     plugins: [ChartDataLabels],
+
     options: {
+
       responsive: true,
+
       maintainAspectRatio: false,
+
       layout: {
+
         padding: {
+
           top: 0,
+
           bottom: 0
+
         }
+
       },
+
       scales: {
+
         x: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' } },
+
         y: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' }, title: { display: true, text: 'Cost (£)', color: '#94A3B8' } }
+
       },
+
       plugins: {
+
         datalabels: {
+
           display: function(context) {
+
             return context.dataset.data[context.dataIndex] > 50;
+
           },
+
           color: '#fff',
+
           font: {
+
             size: 10,
+
             weight: 'bold'
+
           },
+
           anchor: 'center',
+
           align: 'center',
+
           formatter: function(value) {
+
             return '£' + Math.round(value);
+
           }
+
         },
+
         legend: { 
+
           position: 'bottom',
+
           align: 'center',
+
           labels: { 
+
             color: '#94A3B8', 
+
             padding: 12, 
+
             font: { size: 10 }, 
+
             boxWidth: 10,
+
             boxHeight: 10,
+
             usePointStyle: true,
+
             pointStyle: 'rectRounded'
+
           },
+
           title: {
+
             display: true,
+
             padding: 15,
+
             text: ''
+
           }
+
         },
+
         tooltip: {
+
           enabled: true,
+
           mode: 'nearest',
+
           intersect: true,
+
           backgroundColor: 'rgba(255, 255, 255, 0.98)',
+
           titleColor: '#1E293B',
+
           bodyColor: '#475569',
+
           borderColor: '#A855F7',
+
           borderWidth: 2,
+
           padding: 15,
+
           cornerRadius: 10,
+
           titleFont: { size: 14, weight: 'bold' },
+
           bodyFont: { size: 12 },
+
           boxPadding: 6,
+
           usePointStyle: true,
+
           displayColors: true,
+
           callbacks: {
+
             title: function(items) {
+
               return items[0].dataset.label;
+
             },
+
             label: function(context) {
+
               return '£' + context.parsed.y + ' per year';
+
             },
+
             afterLabel: function(context) {
+
               const componentKey = components[context.datasetIndex];
+
               const description = priceCapDescriptions[componentKey];
+
               const maxLength = window.innerWidth < 480 ? 50 : 80;
+
               if (description.length > maxLength) {
+
                 const words = description.split(' ');
+
                 let lines = [];
+
                 let currentLine = '';
+
                 
+
                 words.forEach(word => {
+
                   if ((currentLine + word).length > maxLength) {
+
                     lines.push(currentLine.trim());
+
                     currentLine = word + ' ';
+
                   } else {
+
                     currentLine += word + ' ';
+
                   }
+
                 });
+
                 lines.push(currentLine.trim());
+
                 return '\n' + lines.join('\n');
+
               }
+
               return '\n' + description;
+
             }
+
           },
+
           bodySpacing: 6,
+
           footerMarginTop: 10,
+
           footerFont: { size: 13, weight: 'bold' },
+
           footerColor: '#A855F7'
+
         }
+
       },
+
       interaction: {
+
         mode: 'nearest',
+
         intersect: true
+
       }
+
     }
+
   });
+
   
+
   if (isMobileDevice) {
+
     ctx.addEventListener('click', function() {
+
       setTimeout(function() {
+
         const btn = document.getElementById('chartCloseBtn');
+
         if (btn && priceCapChart && priceCapChart.tooltip._active && priceCapChart.tooltip._active.length > 0) {
+
           btn.classList.add('visible');
+
         } else if (btn) {
+
           btn.classList.remove('visible');
+
         }
+
       }, 150);
+
     });
+
   }
+
   
+
   updatePriceCapStats();
+
 }
+
+
 
 function updatePriceCapStats() {
+
   const data = priceCapData[currentPriceCapMethod];
+
   const p1 = document.getElementById('priceCapPeriod1Total');
+
   const p2 = document.getElementById('priceCapPeriod2Total');
+
   const change = document.getElementById('priceCapChangeAmount');
+
   
+
   if (p1) p1.textContent = '£' + data.period1.total;
+
   if (p2) p2.textContent = '£' + data.period2.total;
+
   
+
   if (change) {
+
     const changeVal = data.period2.total - data.period1.total;
+
     const percentChange = ((changeVal / data.period1.total) * 100).toFixed(1);
+
     change.textContent = (changeVal >= 0 ? '+' : '') + '£' + changeVal + ' (' + (changeVal >= 0 ? '+' : '') + percentChange + '%)';
+
   }
+
 }
+
+
 
 function setPriceCapMethod(method) {
+
   currentPriceCapMethod = method;
+
   document.querySelectorAll('.price-cap-btn').forEach(btn => {
+
     btn.classList.remove('price-cap-active');
+
   });
+
   event.target.classList.add('price-cap-active');
+
   renderPriceCapChart();
+
 }
+
+
 
 window.addEventListener('load', function() {
+
   if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
+
     renderPriceCapChart();
+
   }
+
   
+
   loadDynamicSavings();
+
 });
+
+
 
 async function loadDynamicSavings() {
+
   try {
+
     const response = await fetch('./all_tariffs.json');
+
     if (!response.ok) return;
+
     const data = await response.json();
+
     
+
     function isValidTariff(tariff) {
+
       if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+
       if (tariff.error) return false;
+
       if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+
       if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+
       if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+
       if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+
       return true;
+
     }
+
+
 
     const capRatesByRegion = {
+
       'North West': { elecStanding: 52.22, elecUnit: 28.45, gasStanding: 35.23, gasUnit: 5.89 },
+
       'North East': { elecStanding: 60.93, elecUnit: 26.75, gasStanding: 35.21, gasUnit: 5.93 },
+
       'Yorkshire': { elecStanding: 59.72, elecUnit: 26.69, gasStanding: 35.18, gasUnit: 5.90 },
+
       'North Scotland': { elecStanding: 62.07, elecUnit: 28.36, gasStanding: 35.28, gasUnit: 5.89 },
+
       'Southern': { elecStanding: 45.70, elecUnit: 27.83, gasStanding: 34.56, gasUnit: 6.00 },
+
       'South Scotland': { elecStanding: 57.62, elecUnit: 27.18, gasStanding: 35.30, gasUnit: 5.89 },
+
       'North Wales & Merseyside': { elecStanding: 71.01, elecUnit: 29.09, gasStanding: 35.49, gasUnit: 5.94 },
+
       'London': { elecStanding: 47.11, elecUnit: 27.00, gasStanding: 35.63, gasUnit: 6.03 },
+
       'South East': { elecStanding: 48.66, elecUnit: 28.27, gasStanding: 34.68, gasUnit: 5.83 },
+
       'Eastern': { elecStanding: 49.33, elecUnit: 27.88, gasStanding: 34.74, gasUnit: 5.87 },
+
       'East Midlands': { elecStanding: 50.17, elecUnit: 26.89, gasStanding: 34.82, gasUnit: 5.79 },
+
       'West Midlands': { elecStanding: 54.08, elecUnit: 26.99, gasStanding: 35.12, gasUnit: 5.85 },
+
       'South West': { elecStanding: 55.11, elecUnit: 28.16, gasStanding: 34.71, gasUnit: 6.15 },
+
       'South Wales': { elecStanding: 52.75, elecUnit: 28.18, gasStanding: 35.35, gasUnit: 6.11 }
+
     };
+
     
+
     const typicalElec = 2700;
+
     const typicalGas = 11500;
+
     
+
     const savingsByRegion = [];
+
     
+
     for (const [region, rates] of Object.entries(capRatesByRegion)) {
+
       const capCost = (rates.elecStanding * 365 / 100) + (rates.elecUnit * typicalElec / 100) +
+
                       (rates.gasStanding * 365 / 100) + (rates.gasUnit * typicalGas / 100);
+
       
+
       const regionTariffs = data.tariffs
+
         .filter(t => t.region === region)
+
         .filter(t => isValidTariff(t))
+
         .filter(t => {
+
           const name = (t.tariff_name || '').toLowerCase();
+
           return !name.includes('variable') && !name.includes('svt') && !name.includes('standard');
+
         });
+
       
+
       if (regionTariffs.length === 0) continue;
+
       
+
       let cheapestCost = Infinity;
+
       regionTariffs.forEach(t => {
+
         const cost = (t.elec_standing_p * 365 / 100) + (t.elec_unit_rate_p * typicalElec / 100) +
+
                      (t.gas_standing_p * 365 / 100) + (t.gas_unit_rate_p * typicalGas / 100);
+
         if (cost < cheapestCost) cheapestCost = cost;
+
       });
+
       
+
       const savings = capCost - cheapestCost;
+
       if (savings > 0) savingsByRegion.push(savings);
+
     }
+
     
+
     if (savingsByRegion.length > 0) {
+
       const avgSavings = savingsByRegion.reduce((a, b) => a + b, 0) / savingsByRegion.length;
+
       
+
       if (avgSavings > 20) {
+
         const savingsEl = document.getElementById('dynamicSavings');
+
         if (savingsEl) savingsEl.textContent = '£' + Math.round(avgSavings) + '+';
+
         
+
         const savingsTextEl = document.getElementById('dynamicSavingsText');
+
         if (savingsTextEl) savingsTextEl.textContent = '£' + Math.round(avgSavings) + '+';
+
         
+
         const trackerEl = document.getElementById('trackerSavings');
+
         if (trackerEl) trackerEl.textContent = '£' + Math.round(avgSavings);
+
       }
+
     }
+
   } catch (e) {
+
     console.log('Could not load dynamic savings:', e);
+
   }
+
 }
 
+
+
 // NAV FUNCTIONALITY
+
 const navToggle = document.getElementById('navToggle');
+
 const navLinks = document.getElementById('navLinks');
+
 const stickyNav = document.getElementById('stickyNav');
+
 const navLinksAll = document.querySelectorAll('.nav-links a');
 
+
+
 navToggle.addEventListener('click', () => {
+
   navToggle.classList.toggle('open');
+
   navLinks.classList.toggle('open');
+
 });
+
+
 
 navLinksAll.forEach(link => {
+
   link.addEventListener('click', () => {
+
     navToggle.classList.remove('open');
+
     navLinks.classList.remove('open');
+
   });
+
 });
+
+
 
 window.addEventListener('scroll', () => {
+
   if (window.scrollY > 50) {
+
     stickyNav.classList.add('scrolled');
+
   } else {
+
     stickyNav.classList.remove('scrolled');
+
   }
+
   
+
   const sections = document.querySelectorAll('section[id], div[id="waitlist"]');
+
   let current = '';
+
   
+
   sections.forEach(section => {
+
     const sectionTop = section.offsetTop - 100;
+
     if (window.scrollY >= sectionTop) {
+
       current = section.getAttribute('id');
+
     }
+
   });
+
   
+
   navLinksAll.forEach(link => {
+
     link.classList.remove('active');
+
     if (link.getAttribute('href') === '#' + current) {
+
       link.classList.add('active');
+
     }
+
   });
+
 });
+
+
 
 document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+
   anchor.addEventListener('click', function(e) {
+
     e.preventDefault();
+
     const target = document.querySelector(this.getAttribute('href'));
+
     if (target) {
+
       target.scrollIntoView({ behavior: 'smooth' });
+
     }
+
   });
+
 });
 
+
+
 </script>
+
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

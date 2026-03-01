@@ -512,7 +512,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         # Debug: print snippet of page text
         print(f"    📄 Page check: {page_text[:200]}...")
         
-        max_address_retries = 8
+        max_address_retries = 3
         address_retry_count = 0
         
         # Check for MPAN prompt (same page - just pick different address)
@@ -1160,7 +1160,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
     return result, tried_addresses
 
 
-def scrape_with_retry(browser, postcode: str, region: str, max_retries: int = 3) -> dict:
+def scrape_with_retry(browser, postcode: str, region: str, max_retries: int = 2) -> dict:
     """Scrape with exponential backoff retry."""
     tried = set()
     
@@ -1173,7 +1173,7 @@ def scrape_with_retry(browser, postcode: str, region: str, max_retries: int = 3)
             return result
         
         if attempt < max_retries:
-            wait_time = 30 * (2 ** (attempt - 1)) + random.randint(0, 15)
+            wait_time = 10
             print(f"\n  ⏳ Waiting {wait_time}s before retry...")
             time.sleep(wait_time)
     
@@ -1185,7 +1185,7 @@ def scrape_with_retry(browser, postcode: str, region: str, max_retries: int = 3)
 # ============================================
 
 def run_scraper(headless: bool = False, test_postcode: str = None, 
-                wait_secs: int = 20, max_retries: int = 3):
+                wait_secs: int = 10, max_retries: int = 2):
     """Main scraper runner."""
     
     results = []
@@ -1246,7 +1246,7 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 
                 # Wait between regions
                 if i < len(batch) - 1:
-                    actual_wait = wait_secs + random.randint(-5, 10)
+                    actual_wait = wait_secs + random.randint(0, 5)
                     print(f"\n  ⏳ Waiting {actual_wait}s before next region...")
                     time.sleep(actual_wait)
             
@@ -1255,7 +1255,7 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
             
             # Longer wait between batches
             if batch_idx < len(batches) - 1:
-                batch_wait = 60 + random.randint(0, 30)
+                batch_wait = 20 + random.randint(0, 10)
                 print(f"\n  🔄 Batch complete! Waiting {batch_wait}s...")
                 time.sleep(batch_wait)
         

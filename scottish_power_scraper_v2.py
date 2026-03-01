@@ -1237,7 +1237,7 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                     consecutive_failures += 1
                 
                 # EARLY ABORT: If first 3 regions all fail, scraper is broken
-                if consecutive_failures >= 3 and len(results) <= 4:
+                if consecutive_failures >= 3:
                     print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
                     print(f"  → Scraper appears broken on this environment")
                     print(f"  → Run manually on local machine")

@@ -709,7 +709,8 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 wait_secs: int = 20, max_retries: int = 3):
     
     results = []
-    consecutive_failures = 0  # Track consecutive failures for warnings
+    consecutive_failures = 0
+    early_abort = False
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES_ALL.items() if v == test_postcode}
@@ -777,20 +778,10 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 print(f"  ✗ Failed after {max_retries} attempts")
                 consecutive_failures += 1
             
-            # EARLY ABORT: If first 3 regions all fail, abort scraper
-            if consecutive_failures >= 3 and len(results) <= 3:
-                print("
-" + "="*60)
-                print(f"  ❌ ABORTING: First 3 regions all failed")
-                print(f"  → Likely a systematic issue with the website")
-                print(f"  → Saving partial results and exiting...")
-                print('============================================================')
+            if consecutive_failures >= 3 and len(results) <= 4:
+                print(f"\n  🛑 EARLY ABORT: {consecutive_failures} consecutive failures")
+                early_abort = True
                 break
-            # WARNING: Log consecutive failures
-            if consecutive_failures >= 5 and len(results) <= 7:
-                print(f"
-  ⚠️  WARNING: {consecutive_failures} consecutive failures")
-                print(f"  → Continuing to collect partial data from remaining regions...")
             
             # Wait between regions
             if i < len(postcodes) - 1:

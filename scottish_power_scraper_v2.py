@@ -1060,35 +1060,83 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         human_delay(2000, 3000)
         page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_tariff_options.png")
         
-        # Click "Select tariff" button (first one = cheapest)
-        select_btn_selectors = [
-            'button:has-text("Select tariff")',
-            'button:has-text("Select")',
-            'a:has-text("Select tariff")',
-            '[class*="tariff"] button',
+        # STEP 8a: Click "Tariff details" link/button (new layout)
+        tariff_details_selectors = [
+            'button:has-text("Tariff details")',
+            'a:has-text("Tariff details")',
+            'text="Tariff details"',
+            'button:has-text("tariff details")',
+            'a:has-text("tariff details")',
         ]
         
-        tariff_selected = False
-        for selector in select_btn_selectors:
+        tariff_details_clicked = False
+        for selector in tariff_details_selectors:
             try:
                 btns = page.locator(selector).all()
                 if btns:
                     btns[0].scroll_into_view_if_needed()
-                    human_delay(800, 1200)
+                    human_delay(500, 800)
                     btns[0].click()
-                    print(f"    ✓ Selected tariff (clicked first option)")
-                    tariff_selected = True
+                    print(f"    ✓ Clicked Tariff details")
+                    tariff_details_clicked = True
                     break
             except:
                 continue
         
-        if not tariff_selected:
-            print(f"    ⚠ Could not click Select tariff button")
+        if not tariff_details_clicked:
+            # Fallback: try old Select tariff button
+            select_btn_selectors = [
+                'button:has-text("Select tariff")',
+                'button:has-text("Select")',
+                'a:has-text("Select tariff")',
+            ]
+            for selector in select_btn_selectors:
+                try:
+                    btns = page.locator(selector).all()
+                    if btns:
+                        btns[0].scroll_into_view_if_needed()
+                        human_delay(500, 800)
+                        btns[0].click()
+                        print(f"    ✓ Clicked Select tariff (fallback)")
+                        tariff_details_clicked = True
+                        break
+                except:
+                    continue
+        
+        if not tariff_details_clicked:
+            print(f"    ⚠ Could not click Tariff details or Select tariff")
             page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_no_select_btn.png")
+        
+        human_delay(2000, 3000)
+        
+        # STEP 8b: Click "See details" button
+        see_details_selectors = [
+            'button:has-text("See details")',
+            'a:has-text("See details")',
+            'text="See details"',
+            'button:has-text("see details")',
+        ]
+        
+        see_details_clicked = False
+        for selector in see_details_selectors:
+            try:
+                btns = page.locator(selector).all()
+                if btns:
+                    btns[0].scroll_into_view_if_needed()
+                    human_delay(500, 800)
+                    btns[0].click()
+                    print(f"    ✓ Clicked See details")
+                    see_details_clicked = True
+                    break
+            except:
+                continue
+        
+        if not see_details_clicked:
+            print(f"    ⚠ Could not find See details button - may already be on details page")
         
         # Wait for tariff details page to load
         print(f"    Waiting for tariff details page...")
-        human_delay(5000, 8000)
+        human_delay(3000, 5000)
         
         # ============================================
         # STEP 9: Extract rates

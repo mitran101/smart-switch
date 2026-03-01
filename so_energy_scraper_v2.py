@@ -777,11 +777,20 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 print(f"  ✗ Failed after {max_retries} attempts")
                 consecutive_failures += 1
             
-            # WARNING: Log consecutive failures but continue collecting data
+            # EARLY ABORT: If first 3 regions all fail, abort scraper
+            if consecutive_failures >= 3 and len(results) <= 3:
+                print(f"
+============================================================")
+                print(f"  ❌ ABORTING: First 3 regions all failed")
+                print(f"  → Likely a systematic issue with the website")
+                print(f"  → Saving partial results and exiting...")
+                print('============================================================')
+                break
+            # WARNING: Log consecutive failures
             if consecutive_failures >= 5 and len(results) <= 7:
-                print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
+                print(f"
+  ⚠️  WARNING: {consecutive_failures} consecutive failures")
                 print(f"  → Continuing to collect partial data from remaining regions...")
-            # Don't break - continue to try all regions
             
             # Wait between regions
             if i < len(postcodes) - 1:

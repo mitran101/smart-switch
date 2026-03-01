@@ -473,30 +473,22 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         selected = False
         skip_words = ['flat', 'apartment', 'floor', 'unit', 'suite', 'apt', 'room', 'basement']
         
-        for i in range(start_idx, min(len(options), start_idx + 5)):  # Increased from 15 to 20
+        for i in range(start_idx, min(len(options), start_idx + 15)):
             if i in tried_addresses:
-                print(f"    [{i}] Already tried this address")
                 continue
             try:
                 text = options[i].text_content().strip()
-                if not text:
-                    print(f"    [{i}] Empty text - skipping")
+                if not text or not text[0].isdigit():
                     continue
-                if not text[0].isdigit():
-                    print(f"    [{i}] Doesn't start with number: {text[:40]} - skipping")
+                if any(w in text.lower() for w in skip_words):
                     continue
-                matched_word = next((w for w in skip_words if w in text.lower()), None)
-                if matched_word:
-                    print(f"    [{i}] Contains '{matched_word}': {text[:40]} - skipping")
-                    continue
-
-                print(f"    [{i}] ✓ Valid residential address: {text[:50]}...")
+                
+                print(f"    Selecting: {text[:50]}...")
                 tried_addresses.add(i)
                 address_select.select_option(index=i)
                 selected = True
                 break
-            except Exception as e:
-                print(f"    [{i}] Error reading address: {str(e)[:40]}")
+            except:
                 continue
         
         if not selected:
@@ -520,7 +512,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         # Debug: print snippet of page text
         print(f"    📄 Page check: {page_text[:200]}...")
         
-        max_address_retries = 12  # Increased from 8 to 12 for more attempts
+        max_address_retries = 8
         address_retry_count = 0
         
         # Check for MPAN prompt (same page - just pick different address)
@@ -559,7 +551,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -627,7 +619,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -745,7 +737,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -784,7 +776,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             page_text = page.inner_text('body').lower()
         
         if has_mpan_prompt(page_text):
-            raise Exception(f"All addresses require MPAN after {address_retry_count} attempts (tried addresses at indices: {sorted(tried_addresses)})")
+            raise Exception(f"All addresses require MPAN after {address_retry_count} attempts")
         
         # ============================================
         # STEP 5: Click Continue after energy selection
@@ -883,7 +875,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             options = address_select.locator('option').all()
             next_selected = False
             
-            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 5)):
+            for i in range(start_idx + address_retry_count, min(len(options), start_idx + 20)):
                 if i in tried_addresses:
                     continue
                 try:
@@ -945,7 +937,7 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             page_text = page.inner_text('body').lower()
         
         if 'business address' in page_text or 'looks like a business' in page_text:
-            raise Exception(f"All addresses flagged as business after {address_retry_count} attempts (tried addresses at indices: {sorted(tried_addresses)})")
+            raise Exception(f"All addresses flagged as business after {address_retry_count} attempts")
         
         # ============================================
         # STEP 6: Select payment method (Direct Debit)
@@ -1197,7 +1189,8 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
     """Main scraper runner."""
     
     results = []
-    consecutive_failures = 0  # Track consecutive failures for warnings
+    consecutive_failures = 0  # Track consecutive failures for early abort
+    early_abort = False
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES.items() if v == test_postcode}
@@ -1218,7 +1211,9 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
         batches = [items[i:i+3] for i in range(0, len(items), 3)]
         
         for batch_idx, batch in enumerate(batches):
-
+            if early_abort:
+                break
+                
             print(f"\n{'#'*60}")
             print(f"  BATCH {batch_idx + 1}/{len(batches)} - {len(batch)} regions")
             print('#'*60)
@@ -1241,27 +1236,23 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                     print(f"  ✗ Failed after {max_retries} attempts")
                     consecutive_failures += 1
                 
-                # EARLY ABORT: If first 3 regions all fail, abort scraper
-                if consecutive_failures >= 3 and len(results) <= 3:
-                    print("
-" + "="*60)
-                    print(f"  ❌ ABORTING: First 3 regions all failed")
-                    print(f"  → Likely a systematic issue with the website")
-                    print(f"  → Saving partial results and exiting...")
-                    print('============================================================')
+                # EARLY ABORT: If first 3 regions all fail, scraper is broken
+                if consecutive_failures >= 3 and len(results) <= 4:
+                    print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
+                    print(f"  → Scraper appears broken on this environment")
+                    print(f"  → Run manually on local machine")
+                    early_abort = True
                     break
-                # WARNING: Log consecutive failures
-                if consecutive_failures >= 5 and len(results) <= 7:
-                    print(f"
-  ⚠️  WARNING: {consecutive_failures} consecutive failures")
-                    print(f"  → Continuing to collect partial data from remaining regions...")
                 
                 # Wait between regions
                 if i < len(batch) - 1:
                     actual_wait = wait_secs + random.randint(-5, 10)
                     print(f"\n  ⏳ Waiting {actual_wait}s before next region...")
                     time.sleep(actual_wait)
-
+            
+            if early_abort:
+                break
+            
             # Longer wait between batches
             if batch_idx < len(batches) - 1:
                 batch_wait = 60 + random.randint(0, 30)
@@ -1269,6 +1260,9 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 time.sleep(batch_wait)
         
         browser.close()
+    
+    if early_abort:
+        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
     
     return results
 

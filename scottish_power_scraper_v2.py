@@ -1108,75 +1108,49 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             print(f"    ⚠ Could not click Tariff details or Select tariff")
             page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_no_select_btn.png")
         
-        human_delay(2000, 3000)
-        
-        # STEP 8b: Click "See details" button
-        see_details_selectors = [
-            'button:has-text("See details")',
-            'a:has-text("See details")',
-            'text="See details"',
-            'button:has-text("see details")',
-        ]
-        
-        see_details_clicked = False
-        for selector in see_details_selectors:
-            try:
-                btns = page.locator(selector).all()
-                if btns:
-                    btns[0].scroll_into_view_if_needed()
-                    human_delay(500, 800)
-                    btns[0].click()
-                    print(f"    ✓ Clicked See details")
-                    see_details_clicked = True
-                    break
-            except:
-                continue
-        
-        if not see_details_clicked:
-            print(f"    ⚠ Could not find See details button - may already be on details page")
-        
-        # Wait for tariff details page to load
-        print(f"    Waiting for tariff details page...")
-        human_delay(3000, 5000)
-        
         # ============================================
-        # STEP 9: Extract rates
+        # STEP 9: Extract rates from modal
         # ============================================
-        print(f"\n  [STEP 9] Extracting rates...")
-        
-        # Wait for details to load
-        details_indicators = [
-            'text=/Unit rate/i',
-            'text=/Standing charge/i',
-            'text=/Tariff Details/i',
-            'text=/pence per kWh/i',
+        print(f"\n  [STEP 9] Extracting rates from modal...")
+
+        # Wait for the modal to appear after clicking "Tariff details"
+        modal_selectors = [
+            '[role="dialog"]',
+            'dialog',
+            '[aria-modal="true"]',
+            '.modal',
+            '.tariff-details',
+            '.overlay',
         ]
-        
-        for indicator in details_indicators:
+
+        modal_el = None
+        for sel in modal_selectors:
             try:
-                page.wait_for_selector(indicator, timeout=15000)
-                print(f"    ✓ Details page loaded")
+                el = page.locator(sel).first
+                el.wait_for(state='visible', timeout=10000)
+                modal_el = el
+                print(f"    ✓ Modal visible ({sel})")
                 break
             except:
                 continue
-        
-        human_delay(2000, 3000)
-        
+
+        if not modal_el:
+            print(f"    ⚠ No modal detected — falling back to body text")
+
+        human_delay(1000, 1500)
+
         # Take screenshot
         page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_details.png")
-        
-        # Get text from modal if open (avoids background page noise), else full body
+
+        # Extract text from modal only; fall back to full body
         modal_text = None
-        for sel in ['[role="dialog"]', 'dialog', '[aria-modal="true"]']:
+        if modal_el:
             try:
-                el = page.locator(sel).first
-                if el.is_visible(timeout=3000):
-                    modal_text = el.inner_text()
-                    print(f"    ✓ Modal text captured ({len(modal_text)} chars)")
-                    break
+                modal_text = modal_el.inner_text()
+                print(f"    ✓ Modal text captured ({len(modal_text)} chars)")
             except:
-                continue
-        
+                pass
+
         page_text = modal_text if modal_text else page.inner_text('body')
         
         # Save debug file

@@ -137,27 +137,16 @@ def extract_tariff_rates(page_text: str) -> dict:
     
     print(f"    📄 Page text length: {len(page_text)} chars")
     
-    # Tariff name patterns
-    tariff_patterns = [
-        r'(\d\s*Year\s*Fixed[^\n]*)',  # "1 Year Fixed", "2 Year Fixed"
-        r'(Fixed\s*\d+\s*Year[^\n]*)',  # "Fixed 1 Year"
-        r'(Exclusive Online Fixed[^\n]*)',
-        r'(Standard Variable[^\n]*)',
-        r'(Fixed Price[^\n]*\d{4})',
-        r'(ScottishPower[^\n]*Tariff[^\n]*)',
-        r'(Fixed\s+(?:Price\s+)?[A-Za-z]+\s+\d{4})',
-        r'(Online\s*Fixed[^\n]*)',
-        r'(Variable[^\n]*Tariff[^\n]*)',
-    ]
-    
-    for pattern in tariff_patterns:
-        match = re.search(pattern, page_text, re.I)
-        if match:
-            tariff_name = match.group(1).strip()
-            tariff_name = re.sub(r'\s+', ' ', tariff_name)
-            if len(tariff_name) > 5:
-                rates['tariff_name'] = tariff_name
-                break
+    # Tariff name: the line immediately before "Electricity monthly cost" is always the modal heading
+    name_match = re.search(r'([^\n\r]+)\s*[\n\r]+\s*Electricity\s+monthly\s+cost', page_text, re.I)
+    if name_match:
+        candidate = name_match.group(1).strip()
+        candidate = re.sub(r'\s+', ' ', candidate)
+        if 3 < len(candidate) < 80 and not candidate.startswith('£'):
+            rates['tariff_name'] = candidate
+            print(f"    📛 Tariff name: {candidate}")
+    if 'tariff_name' not in rates:
+        print(f"    ⚠ Could not extract tariff name")
     
     # Exit fee
     exit_patterns = [
@@ -180,19 +169,28 @@ def extract_tariff_rates(page_text: str) -> dict:
             rates['exit_fee'] = "£0"
     
     # Split page into Electricity and Gas sections for accurate extraction
-    # Electricity section
+    # Anchor on "monthly cost" to match only the modal, not background card text
     elec_section_match = re.search(
-        r'Electricity(?:\s+monthly\s+cost)?(.*?)(?=Gas(?:\s+monthly\s+cost|\s|$))',
+        r'Electricity\s+monthly\s+cost(.*?)(?=Gas\s+monthly\s+cost)',
         page_text, re.I | re.S
     )
     elec_text = elec_section_match.group(1) if elec_section_match else ""
-    
-    # Gas section
+
     gas_section_match = re.search(
-        r'Gas(?:\s+monthly\s+cost)?\s(.*?)(?=Electricity|Select tariff|$)',
+        r'Gas\s+monthly\s+cost(.*?)(?=Electricity\s+monthly\s+cost|Select tariff|\Z)',
         page_text, re.I | re.S
     )
     gas_text = gas_section_match.group(1) if gas_section_match else ""
+
+    # Debug: log what sections were found
+    if elec_text:
+        print(f"    📊 Elec section ({len(elec_text)} chars): {elec_text[:100].strip()}")
+    else:
+        print(f"    ⚠ No electricity section found in text")
+    if gas_text:
+        print(f"    📊 Gas section ({len(gas_text)} chars): {gas_text[:100].strip()}")
+    else:
+        print(f"    ⚠ No gas section found in text")
     
     # Electricity unit rate
     elec_unit_patterns = [
@@ -1113,45 +1111,62 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         # ============================================
         print(f"\n  [STEP 9] Extracting rates from modal...")
 
-        # Wait for the modal to appear after clicking "Tariff details"
-        modal_selectors = [
-            '[role="dialog"]',
-            'dialog',
-            '[aria-modal="true"]',
-            '.modal',
-            '.tariff-details',
-            '.overlay',
-        ]
-
-        modal_el = None
-        for sel in modal_selectors:
+        # Wait for modal rate content to appear
+        for indicator in ['text=/Primary Unit rate/i', 'text=/Electricity monthly cost/i', 'text=/Standing charge/i']:
             try:
-                el = page.locator(sel).first
-                el.wait_for(state='visible', timeout=10000)
-                modal_el = el
-                print(f"    ✓ Modal visible ({sel})")
+                page.wait_for_selector(indicator, timeout=10000)
+                print(f"    ✓ Rate content visible ({indicator})")
                 break
             except:
                 continue
 
-        if not modal_el:
-            print(f"    ⚠ No modal detected — falling back to body text")
-
-        human_delay(1000, 1500)
+        human_delay(500, 1000)
 
         # Take screenshot
         page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_details.png")
 
-        # Extract text from modal only; fall back to full body
+        # Try known modal selectors first
         modal_text = None
-        if modal_el:
+        for sel in ['[role="dialog"]', 'dialog', '[aria-modal="true"]',
+                    '[class*="Modal"]', '[class*="modal"]', '[class*="Dialog"]',
+                    '[class*="dialog"]', '[class*="Overlay"]', '[class*="overlay"]',
+                    '[class*="Drawer"]', '[class*="Sheet"]', '[class*="TariffDetail"]']:
             try:
-                modal_text = modal_el.inner_text()
-                print(f"    ✓ Modal text captured ({len(modal_text)} chars)")
+                el = page.locator(sel).first
+                if el.is_visible(timeout=2000):
+                    text = el.inner_text()
+                    if 'Primary Unit rate' in text or 'Standing charge' in text:
+                        modal_text = text
+                        print(f"    ✓ Modal text captured via selector {sel} ({len(text)} chars)")
+                        break
+            except:
+                continue
+
+        # Fallback: use JS to find the element containing the rate data
+        if not modal_text:
+            try:
+                modal_text = page.evaluate("""() => {
+                    const els = Array.from(document.querySelectorAll('*'));
+                    for (const el of els) {
+                        const t = el.innerText || '';
+                        if (t.includes('Primary Unit rate') && t.includes('Standing charge')
+                                && t.includes('Electricity') && t.includes('Gas')
+                                && t.length < 3000) {
+                            return t;
+                        }
+                    }
+                    return null;
+                }""")
+                if modal_text:
+                    print(f"    ✓ Modal text captured via JS ({len(modal_text)} chars)")
             except:
                 pass
 
-        page_text = modal_text if modal_text else page.inner_text('body')
+        if not modal_text:
+            modal_text = page.inner_text('body')
+            print(f"    ⚠ Using full body text fallback ({len(modal_text)} chars)")
+
+        page_text = modal_text
         
         # Save debug file
         with open(f"debug_sp_{postcode.replace(' ', '_')}.txt", "w", encoding="utf-8") as f:

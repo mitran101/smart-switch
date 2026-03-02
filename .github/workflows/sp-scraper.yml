@@ -1,0 +1,115 @@
+name: Scottish Power Scraper (Manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape-sp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install playwright
+        playwright install firefox
+        playwright install-deps
+
+    - name: Run Scottish Power scraper
+      run: |
+        python scottish_power_scraper_v2.py --headless --wait 10 --retries 3
+      continue-on-error: true
+
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: sp-debug-screenshots
+        path: screenshots/
+        retention-days: 7
+
+    - name: Upload debug text files
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: sp-debug-text
+        path: debug_sp_*.txt
+        retention-days: 7
+
+    - name: Merge SP results into all_tariffs.json
+      run: |
+        python3 - <<'EOF'
+        import json, glob, os
+        from datetime import datetime
+
+        # Find the SP scraper output (most recent)
+        sp_files = sorted(glob.glob('sp_tariffs_*.json'))
+        if not sp_files:
+            print("No SP output file found — scraper may have failed entirely")
+            exit(0)
+
+        sp_raw = json.load(open(sp_files[-1]))
+        print(f"Loaded {sp_files[-1]} — {len(sp_raw)} region results")
+
+        # Load all_tariffs.json
+        with open('all_tariffs.json') as f:
+            all_data = json.load(f)
+
+        tariffs = all_data['tariffs']
+        updated = 0
+
+        for result in sp_raw:
+            region = result.get('region')
+            result_tariffs = result.get('tariffs', [])
+            if not result_tariffs:
+                print(f"  {region}: no tariffs extracted, skipping")
+                continue
+
+            t = result_tariffs[0]
+
+            # Find matching row in all_tariffs.json
+            match = next(
+                (row for row in tariffs
+                 if row.get('supplier') == 'scottish_power'
+                 and row.get('region') == region),
+                None
+            )
+
+            if not match:
+                print(f"  {region}: no existing row found in all_tariffs.json, skipping")
+                continue
+
+            # Update rates
+            match['tariff_name']      = t.get('tariff_name') or match.get('tariff_name')
+            match['elec_unit_rate_p'] = t.get('elec_unit_rate_p')
+            match['elec_standing_p']  = t.get('elec_standing_p')
+            match['gas_unit_rate_p']  = t.get('gas_unit_rate_p')
+            match['gas_standing_p']   = t.get('gas_standing_p')
+            match['exit_fee_gbp']     = t.get('exit_fee') or match.get('exit_fee_gbp')
+            match['scraped_at']       = result.get('scraped_at')
+            match['error']            = result.get('error')
+            updated += 1
+            print(f"  {region}: elec {t.get('elec_unit_rate_p')}p / gas {t.get('gas_unit_rate_p')}p")
+
+        all_data['updated'] = datetime.utcnow().isoformat()
+
+        with open('all_tariffs.json', 'w') as f:
+            json.dump(all_data, f, indent=2)
+
+        print(f"\nUpdated {updated} SP regions in all_tariffs.json")
+        EOF
+
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add all_tariffs.json
+        git diff --staged --quiet || git commit -m "SP scraper: update rates $(date +'%Y-%m-%d %H:%M')"
+        git push || echo "Nothing to push"

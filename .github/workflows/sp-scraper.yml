@@ -83,10 +83,10 @@ jobs:
             )
 
             if not match:
-                print(f"  {region}: no existing row found in all_tariffs.json, skipping")
+                print(f"  {region}: no existing row in all_tariffs.json, skipping")
                 continue
 
-            # Update rates
+            # Update only the fields the SP scraper provides — leave others untouched
             match['tariff_name']      = t.get('tariff_name') or match.get('tariff_name')
             match['elec_unit_rate_p'] = t.get('elec_unit_rate_p')
             match['elec_standing_p']  = t.get('elec_standing_p')
@@ -96,14 +96,15 @@ jobs:
             match['scraped_at']       = result.get('scraped_at')
             match['error']            = result.get('error')
             updated += 1
-            print(f"  {region}: elec {t.get('elec_unit_rate_p')}p / gas {t.get('gas_unit_rate_p')}p")
+            print(f"  {region}: elec {t.get('elec_unit_rate_p')}p | gas {t.get('gas_unit_rate_p')}p | standing {t.get('elec_standing_p')}p")
 
-        all_data['updated'] = datetime.utcnow().isoformat()
-
-        with open('all_tariffs.json', 'w') as f:
-            json.dump(all_data, f, indent=2)
-
-        print(f"\nUpdated {updated} SP regions in all_tariffs.json")
+        if updated > 0:
+            all_data['updated'] = datetime.utcnow().isoformat()
+            with open('all_tariffs.json', 'w') as f:
+                json.dump(all_data, f, indent=2)
+            print(f"\nUpdated {updated} SP regions in all_tariffs.json")
+        else:
+            print("\nNo regions updated — all_tariffs.json left unchanged")
         EOF
 
     - name: Commit and push

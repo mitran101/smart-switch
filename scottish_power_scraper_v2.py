@@ -182,20 +182,21 @@ def extract_tariff_rates(page_text: str) -> dict:
     # Split page into Electricity and Gas sections for accurate extraction
     # Electricity section
     elec_section_match = re.search(
-        r'Electricity(.*?)(?=Gas\b|$)',
+        r'Electricity(?:\s+monthly\s+cost)?(.*?)(?=Gas(?:\s+monthly\s+cost|\s|$))',
         page_text, re.I | re.S
     )
     elec_text = elec_section_match.group(1) if elec_section_match else ""
     
     # Gas section
     gas_section_match = re.search(
-        r'Gas\b(.*?)(?=Electricity|$)',
+        r'Gas(?:\s+monthly\s+cost)?\s(.*?)(?=Electricity|Select tariff|$)',
         page_text, re.I | re.S
     )
     gas_text = gas_section_match.group(1) if gas_section_match else ""
     
     # Electricity unit rate
     elec_unit_patterns = [
+        r'Primary\s+Unit\s+rate[\s\S]{0,5}(\d+\.\d+)\s*p',  # modal format
         r'Unit\s*rate[:\s]*(\d+\.?\d*)\s*p(?:\s*per\s*kWh)?',
         r'(\d+\.?\d*)\s*p\s*per\s*kWh',
         r'(\d+\.?\d*)\s*p/kWh',
@@ -1164,13 +1165,24 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         # Take screenshot
         page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_details.png")
         
-        # Get page text
-        page_text = page.inner_text('body')
+        # Get text from modal if open (avoids background page noise), else full body
+        modal_text = None
+        for sel in ['[role="dialog"]', 'dialog', '[aria-modal="true"]']:
+            try:
+                el = page.locator(sel).first
+                if el.is_visible(timeout=3000):
+                    modal_text = el.inner_text()
+                    print(f"    ✓ Modal text captured ({len(modal_text)} chars)")
+                    break
+            except:
+                continue
+        
+        page_text = modal_text if modal_text else page.inner_text('body')
         
         # Save debug file
         with open(f"debug_sp_{postcode.replace(' ', '_')}.txt", "w", encoding="utf-8") as f:
             f.write(page_text)
-        print(f"    📄 Saved debug text")
+        print(f"    📄 Saved debug text ({len(page_text)} chars)")
         
         # Extract rates
         rates = extract_tariff_rates(page_text)

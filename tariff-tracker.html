@@ -1161,7 +1161,7 @@
                 .filter(t => {
                     if (fuelType === 'dual' && t.isElecOnly) return false;
                     if (t.annualCost <= 0) return false;
-                    if (t.savings < 0) return false;
+                    if (t.savings <= 0) return false;
                     return true;
                 })
                 .sort((a, b) => a.annualCost - b.annualCost);

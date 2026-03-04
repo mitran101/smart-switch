@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-E.ON Next Tariff Scraper v6 - PLAYWRIGHT EDITION
-Migrated from Selenium/undetected-chrome to Playwright for better compatibility
-- Handles residential address selection
-- Handles "already supply" popup
-- Handles "business meter" popup
-- Handles prepayment meter detection
-- Handles Chrome "open app" popup
-- Handles page refresh on invalid address
+E.ON Next Tariff Scraper v6.1 - PLAYWRIGHT EDITION
+- Full form flow: postcode → address → fuel type → EV → usage → see prices → expand → extract
+- Commercial address filtering (skips kiosks, churches, farms, offices etc.)
+- Electricity-only skip (tries next address if no gas meter)
+- Scotland start indices tuned to skip student/HMO addresses
+- Tariff name: matches "Next " prefix (covers all current E.ON Next tariffs)
+- Rate extraction: simple findall for p/kWh and p/day (robust)
 """
 
 import json
@@ -16,6 +15,7 @@ import re
 import random
 import time
 import os
+import sys
 from datetime import datetime
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 
@@ -43,12 +43,19 @@ DNO_POSTCODES = {
 EON_QUOTE_URL = "https://www.eonnext.com/dashboard/journey/get-a-quote"
 
 POSTCODE_START_INDEX = {
-    "AB24 3EN": 5,
-    "G20 6NQ": 5,
+    "AB24 3EN": 10,
+    "G20 6NQ": 12,
     "BN2 7HQ": 16,
 }
 
-# Pool of realistic user agents
+COMMERCIAL_KEYWORDS = [
+    'kiosk', 'bt kiosk', ' pcp ', 'church', 'school', 'college', 'university',
+    'hotel', 'pub ', ' inn ', 'farm ', 'barn ', 'lodge ', 'office', 'surgery',
+    'pharmacy', 'clinic', 'hospital', 'garage ', 'workshop', 'warehouse',
+    'limited', ' ltd', ' plc', 'centre', 'center', 'chapel', 'hall ',
+    'club ', 'shop ', 'store ', 'restaurant', 'cafe ', 'bar ', 'unit ',
+]
+
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -57,80 +64,64 @@ USER_AGENTS = [
 
 STEALTH_SCRIPT = """
 Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
-Object.defineProperty(navigator, 'plugins', {
-    get: () => [
-        { name: 'Chrome PDF Plugin', filename: 'internal-pdf-viewer' },
-        { name: 'Chrome PDF Viewer', filename: 'mhjfbmdgcfjbbpaeojofohoefgiehjai' },
-        { name: 'Native Client', filename: 'internal-nacl-plugin' }
-    ]
-});
 Object.defineProperty(navigator, 'languages', { get: () => ['en-GB', 'en-US', 'en'] });
 window.chrome = { runtime: {}, loadTimes: function() {}, csi: function() {}, app: {} };
 """
 
 # ============================================
-# HELPER FUNCTIONS
+# HELPERS
 # ============================================
 
-def human_delay(min_ms=500, max_ms=2000):
-    delay = random.betavariate(2, 5) * (max_ms - min_ms) + min_ms
-    time.sleep(delay / 1000)
+def hd(min_ms=300, max_ms=800):
+    time.sleep(random.uniform(min_ms / 1000, max_ms / 1000))
 
-def typing_delay():
-    return random.randint(50, 120)
+def is_commercial(text):
+    tl = text.lower()
+    return any(kw in tl for kw in COMMERCIAL_KEYWORDS)
 
-def is_residential_address(text: str) -> bool:
-    """Check if address is residential (starts with number, no flats)."""
-    if not text or not text[0].isdigit():
-        return False
-
-    skip_words = ['flat', 'apartment', 'floor', 'unit', 'suite', 'apt', 'room', 'basement']
-    return not any(w in text.lower() for w in skip_words)
-
-def check_popup_issues(page) -> dict:
-    """Check for various popup/blocker issues."""
+def get_body_text(page):
     try:
-        text = page.inner_text('body').lower()
-
-        return {
-            'already_supply': 'already supply this property' in text or 'lets get you to the right place' in text,
-            'business_meter': 'business meter' in text or 'business account' in text or 'commercial meter' in text,
-            'prepayment': 'prepayment' in text or 'pre-payment' in text or 'pay as you go' in text,
-            'missing_out': "what you'll be missing" in text or "what you will be missing" in text,
-        }
+        return page.inner_text('body').lower()
     except:
-        return {'already_supply': False, 'business_meter': False, 'prepayment': False, 'missing_out': False}
+        return ''
 
-def close_popup(page):
-    """Try to close any popup."""
-    close_selectors = [
+def close_any_popup(page):
+    for sel in [
         "button[aria-label*='close' i]",
-        "button[aria-label*='Close' i]",
-        "[class*='close']",
         "button:has-text('No thanks')",
-        "button:has-text('Continue')",
         "button:has-text('Close')",
-    ]
-
-    for selector in close_selectors:
+        "button:has-text('Continue')",
+        "[class*='close']:visible",
+    ]:
         try:
-            btn = page.locator(selector).first
-            if btn.is_visible(timeout=1000):
+            btn = page.locator(sel).first
+            if btn.is_visible(timeout=800):
                 btn.click()
-                print(f"    ✓ Closed popup")
-                human_delay(500, 1000)
+                hd(400, 700)
                 return True
         except:
             continue
+    return False
 
+def click_text(page, *texts):
+    for text in texts:
+        try:
+            el = page.get_by_text(text, exact=True).first
+            if el.is_visible(timeout=1500):
+                el.click()
+                hd(300, 600)
+                return True
+        except:
+            continue
     return False
 
 # ============================================
-# MAIN SCRAPER
+# MAIN SCRAPE FUNCTION
 # ============================================
 
-def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
-    """Scrape E.ON Next tariffs for a single postcode."""
+def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
+    if tried_addresses is None:
+        tried_addresses = set()
 
     result = {
         "supplier": "eon_next",
@@ -142,10 +133,7 @@ def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
     }
 
     context = None
-    tried_addresses = set()
-
     try:
-        # Setup browser context
         context = browser.new_context(
             viewport={"width": 1920, "height": 1080},
             user_agent=random.choice(USER_AGENTS),
@@ -156,422 +144,416 @@ def scrape_eon(browser, postcode: str, region: str, attempt: int = 1) -> dict:
         page = context.new_page()
 
         # STEP 1: Load page
-        print(f"\n  [1] Loading E.ON Next...")
+        print(f"\n  [1] Loading page...")
         page.goto(EON_QUOTE_URL, timeout=45000, wait_until="domcontentloaded")
-        human_delay(2000, 4000)
+        hd(1500, 2500)
 
-        # Handle cookies
         try:
-            cookie_btn = page.locator('#onetrust-accept-btn-handler').first
-            if cookie_btn.is_visible(timeout=3000):
-                cookie_btn.click()
+            btn = page.locator('#onetrust-accept-btn-handler').first
+            if btn.is_visible(timeout=3000):
+                btn.click()
                 print(f"    ✓ Accepted cookies")
-                human_delay(1000, 2000)
+                hd(500, 900)
         except:
             pass
 
-        page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_01_loaded.png")
-
         # STEP 2: Enter postcode
         print(f"\n  [2] Entering postcode: {postcode}")
-
-        postcode_selectors = [
-            'input[name*="postcode" i]',
-            'input[placeholder*="postcode" i]',
-            'input[type="text"]'
-        ]
-
-        postcode_input = None
-        for selector in postcode_selectors:
+        for sel in ['input[name*="postcode" i]', 'input[placeholder*="postcode" i]', 'input[type="text"]']:
             try:
-                postcode_input = page.locator(selector).first
-                if postcode_input.is_visible(timeout=2000):
+                inp = page.locator(sel).first
+                if inp.is_visible(timeout=2000):
+                    inp.click()
+                    hd(100, 200)
+                    inp.fill(postcode)
+                    print(f"    ✓ Entered postcode")
                     break
             except:
                 continue
-
-        if not postcode_input:
-            raise Exception("Could not find postcode input")
-
-        postcode_input.click()
-        human_delay(300, 500)
-        postcode_input.fill('')
-
-        for char in postcode:
-            postcode_input.type(char, delay=typing_delay())
-
-        print(f"    ✓ Entered postcode")
-        human_delay(2000, 3000)
-
-        page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_02_postcode.png")
+        hd(2000, 3000)
 
         # STEP 3: Select address
         print(f"\n  [3] Selecting address...")
-
         try:
-            address_dropdown = page.locator('select').first
-            address_dropdown.wait_for(state="visible", timeout=15000)
-            print(f"    ✓ Address dropdown found")
+            dropdown = page.locator('select').first
+            dropdown.wait_for(state="visible", timeout=12000)
         except:
-            page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_no_dropdown.png")
             raise Exception("Address dropdown did not appear")
 
-        human_delay(1000, 2000)
-
-        # Get options
-        options = address_dropdown.locator('option').all()
-        print(f"    Found {len(options)} addresses")
-
+        hd(500, 900)
+        options = dropdown.locator('option').all()
         start_idx = POSTCODE_START_INDEX.get(postcode, 1)
-        max_tries = 10
-        address_selected = False
-        consecutive_customer_popups = 0  # Track "Already EON customer" popups
+        skip_texts = ['select', 'choose', 'please select']
 
-        for i in range(start_idx, min(len(options), start_idx + 5)):  # Reduced from 20 to 5
+        # Build valid address list
+        valid = []
+        for i, opt in enumerate(options):
+            if i < start_idx:
+                continue
             if i in tried_addresses:
                 continue
-
             try:
-                addr_text = options[i].text_content().strip()
-
-                if not is_residential_address(addr_text):
-                    print(f"    [{i}] Skip non-residential: {addr_text[:40]}")
+                txt = opt.text_content().strip()
+                if not txt or any(txt.lower().startswith(s) for s in skip_texts):
                     continue
-
-                print(f"    [{i}] Trying: {addr_text[:50]}...")
-                tried_addresses.add(i)
-
-                address_dropdown.select_option(index=i)
-                human_delay(2000, 3000)
-
-                page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_after_addr_{i}.png")
-
-                # Check for issues
-                issues = check_popup_issues(page)
-
-                if issues['already_supply']:
-                    print(f"    ⚠ Already EON customer popup - closing...")
-                    close_popup(page)
-                    human_delay(1000, 2000)
-                    consecutive_customer_popups += 1
-                    # Early abort if we hit this 3 times in a row
-                    if consecutive_customer_popups >= 3:
-                        print(f"    ✗ Hit 'Already EON customer' 3 times - aborting this postcode")
-                        raise Exception(f"All addresses showing 'Already EON customer' popup")
+                if is_commercial(txt):
                     continue
-
-                if issues['business_meter']:
-                    print(f"    ⚠ Business meter detected - trying next address")
-                    continue
-
-                if issues['prepayment']:
-                    print(f"    ⚠ Prepayment meter - trying next address")
-                    continue
-
-                if issues['missing_out']:
-                    print(f"    ⚠ 'What you'll be missing' popup - closing...")
-                    close_popup(page)
-                    human_delay(1000, 2000)
-
-                # Check if we have tariff options visible
-                try:
-                    # Look for tariff cards or buttons
-                    tariff_check = page.locator('text=/tariff/i, button:has-text("View"), button:has-text("Select")').first
-                    if tariff_check.is_visible(timeout=5000):
-                        print(f"    ✓ Address accepted - tariffs loading")
-                        address_selected = True
-                        consecutive_customer_popups = 0  # Reset counter on success
-                        break
-                except:
-                    print(f"    ✗ No tariffs visible for this address")
-                    continue
-
-            except Exception as e:
-                print(f"    ✗ Error with address {i}: {str(e)[:50]}")
+                valid.append((i, txt))
+            except:
                 continue
 
-        if not address_selected:
-            raise Exception(f"No valid address found after trying {len(tried_addresses)} addresses")
+        print(f"    Found {len(valid)} valid addresses")
+        if not valid:
+            raise Exception("No valid residential addresses found")
 
-        # Wait for tariffs to load
-        human_delay(3000, 5000)
-        page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_tariffs.png")
+        success = False
+        for addr_idx, addr_text in valid[:20]:
+            print(f"\n    Trying #{addr_idx}: {addr_text[:55]}...")
+            tried_addresses.add(addr_idx)
 
-        # STEP 4: Extract tariff data
-        print(f"\n  [4] Extracting tariff data...")
+            dropdown.select_option(index=addr_idx)
+            hd(1500, 2500)
+
+            body = get_body_text(page)
+
+            # Skip electricity-only
+            if 'only have electricity at this property' in body or 'only have electricity' in body:
+                print(f"    ⚠ Electricity-only - skipping...")
+                # Re-enter postcode to reset
+                for sel in ['input[name*="postcode" i]', 'input[placeholder*="postcode" i]']:
+                    try:
+                        inp = page.locator(sel).first
+                        if inp.is_visible(timeout=2000):
+                            inp.fill('')
+                            inp.fill(postcode)
+                            hd(1500, 2000)
+                            try:
+                                dropdown = page.locator('select').first
+                                dropdown.wait_for(state="visible", timeout=8000)
+                                options = dropdown.locator('option').all()
+                            except:
+                                pass
+                            break
+                    except:
+                        continue
+                continue
+
+            # Already supply popup
+            if 'already supply this property' in body or 'lets get you to the right place' in body:
+                print(f"    ⚠ Already EON customer - closing...")
+                close_any_popup(page)
+                hd(500, 800)
+                try:
+                    dropdown = page.locator('select').first
+                    options = dropdown.locator('option').all()
+                except:
+                    pass
+                continue
+
+            # Business meter
+            if 'business meter' in body or 'commercial meter' in body:
+                print(f"    ⚠ Business meter - skipping...")
+                close_any_popup(page)
+                hd(300, 600)
+                continue
+
+            # Something's gone wrong
+            if "something's gone wrong" in body or "something went wrong" in body:
+                print(f"    ⚠ E.ON error page - retrying postcode...")
+                page.goto(EON_QUOTE_URL, timeout=30000, wait_until="domcontentloaded")
+                hd(1500, 2500)
+                for sel in ['input[name*="postcode" i]', 'input[placeholder*="postcode" i]']:
+                    try:
+                        inp = page.locator(sel).first
+                        if inp.is_visible(timeout=2000):
+                            inp.fill(postcode)
+                            hd(1500, 2000)
+                            try:
+                                dropdown = page.locator('select').first
+                                dropdown.wait_for(state="visible", timeout=8000)
+                                options = dropdown.locator('option').all()
+                            except:
+                                pass
+                            break
+                    except:
+                        continue
+                continue
+
+            print(f"    ✓ Address selected")
+            success = True
+            break
+
+        if not success:
+            raise Exception("Could not find suitable address")
+
+        # STEP 4: Select options
+        print(f"\n  [4] Selecting options...")
+        click_text(page, 'No')  # EV = No
+        hd(200, 400)
+        click_text(page, 'Electricity and gas')
+        hd(300, 500)
+        click_text(page, '1-2 bedrooms')
+        hd(300, 500)
+        print(f"    ✓ Options selected")
+
+        # STEP 5: Check eligible popup
+        body = get_body_text(page)
+        if 'great news' in body and 'eligible' in body:
+            print(f"    ⚠ Eligible popup - dismissing...")
+            click_text(page, 'See prices', 'See tariff prices', 'Continue', 'Close', 'Got it')
+            hd(400, 700)
+
+        # STEP 6: Click see prices
+        print(f"\n  [5] Clicking see tariff prices...")
+        clicked = click_text(page, 'See tariff prices', 'Get quote', 'Continue')
+        if not clicked:
+            try:
+                page.locator('button[type="submit"]').first.click()
+            except:
+                pass
+        hd(2500, 4000)
+
+        # Check for missing-out popup on results
+        body = get_body_text(page)
+        if "what you'll be missing" in body or "what you will be missing" in body:
+            close_any_popup(page)
+            hd(500, 800)
+
+        # STEP 7: Expand tariff details
+        print(f"\n  [6] Expanding tariff details...")
+        expanded = click_text(page, 'More info', 'View details', 'See details', 'Show details', 'Tariff details')
+        if expanded:
+            print(f"    ✓ Expanded")
+        else:
+            print(f"    ⚠ No expand button found")
+        hd(500, 800)
+
+        page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_expanded.png")
+
+        # STEP 8: Extract rates
+        print(f"\n  [7] Extracting rates...")
+        # Scroll to load all content
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        hd(300, 500)
+        page.evaluate("window.scrollTo(0, 0)")
+        hd(200, 400)
 
         page_text = page.inner_text('body')
 
-        # Find tariff name
-        tariff_name = None
-        tariff_patterns = [
-            r'(Next Flex)',
-            r'(Next Drive)',
-            r'(Variable\s*Tariff)',
-            r'(Fixed\s*Tariff)',
-        ]
-        for pattern in tariff_patterns:
-            match = re.search(pattern, page_text, re.I)
-            if match:
-                tariff_name = match.group(1)
+        rates = {}
+        lines = [l.strip() for l in page_text.splitlines() if l.strip()]
+
+        # Tariff name: first line starting with "Next "
+        for line in lines:
+            if line.lower().startswith('next ') and len(line) <= 60:
+                rates['tariff_name'] = line
                 break
 
-        # Extract rates - look for prices in pence
-        elec_unit = None
-        elec_standing = None
-        gas_unit = None
-        gas_standing = None
-
-        # Electricity unit rate (look for p/kWh)
-        elec_match = re.search(r'electricity.*?(\d+\.?\d*)\s*p\s*/?\s*kWh', page_text, re.I | re.S)
-        if elec_match:
-            elec_unit = float(elec_match.group(1))
-
-        # Electricity standing charge
-        elec_sc_match = re.search(r'electricity.*?standing.*?(\d+\.?\d*)\s*p\s*/?\s*day', page_text, re.I | re.S)
-        if elec_sc_match:
-            elec_standing = float(elec_sc_match.group(1))
-
-        # Gas unit rate
-        gas_match = re.search(r'gas.*?(\d+\.?\d*)\s*p\s*/?\s*kWh', page_text, re.I | re.S)
-        if gas_match:
-            gas_unit = float(gas_match.group(1))
-
-        # Gas standing charge
-        gas_sc_match = re.search(r'gas.*?standing.*?(\d+\.?\d*)\s*p\s*/?\s*day', page_text, re.I | re.S)
-        if gas_sc_match:
-            gas_standing = float(gas_sc_match.group(1))
-
         # Exit fee
-        exit_fee = "£0"
-        exit_match = re.search(r'exit\s*fee.*?£(\d+)', page_text, re.I)
-        if exit_match:
-            exit_fee = f"£{exit_match.group(1)}"
+        m = re.search(r'£(\d+)\s*(?:per fuel\s*)?exit fee|exit fee[:\s]*£(\d+)', page_text, re.I)
+        if m:
+            rates['exit_fee_gbp'] = int(m.group(1) or m.group(2))
 
-        if tariff_name and (elec_unit or gas_unit):
-            tariff = {
-                'tariff_name': tariff_name,
-                'elec_unit_rate_p': elec_unit,
-                'elec_standing_p': elec_standing,
-                'gas_unit_rate_p': gas_unit,
-                'gas_standing_p': gas_standing,
-                'exit_fee': exit_fee,
-            }
-            result['tariffs'].append(tariff)
+        # Unit rates and standing charges
+        unit_rates = re.findall(r'(\d+\.\d+)\s*p\s*(?:per\s*)?kWh', page_text, re.I)
+        standing = re.findall(r'(\d+\.\d+)\s*p\s*(?:per\s*)?day', page_text, re.I)
 
-            print(f"    ✓ Found: {tariff_name}")
-            print(f"      Elec: {elec_unit}p/kWh, {elec_standing}p/day")
-            print(f"      Gas: {gas_unit}p/kWh, {gas_standing}p/day")
-            print(f"      Exit fee: {exit_fee}")
+        if len(unit_rates) >= 1:
+            rates['elec_unit_rate_p'] = float(unit_rates[0])
+        if len(unit_rates) >= 2:
+            rates['gas_unit_rate_p'] = float(unit_rates[1])
+        if len(standing) >= 1:
+            rates['elec_standing_p'] = float(standing[0])
+        if len(standing) >= 2:
+            rates['gas_standing_p'] = float(standing[1])
+
+        page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_final.png")
+
+        if rates:
+            result['tariffs'].append(rates)
+            print(f"    ✓ EXTRACTED:")
+            for k, v in rates.items():
+                print(f"      {k}: {v}")
         else:
-            result['error'] = "Could not extract tariff rates"
-            print(f"    ✗ No tariff data found")
+            result['error'] = "Could not extract rates"
+            print(f"    ✗ No rates found")
 
         result['url'] = page.url
 
     except PlaywrightTimeout as e:
         result['error'] = f"Timeout: {str(e)[:100]}"
-        print(f"    ✗ TIMEOUT")
+        print(f"    ✗ TIMEOUT: {e}")
     except Exception as e:
         result['error'] = str(e)[:200]
         print(f"    ✗ ERROR: {e}")
+        try:
+            page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_error.png")
+        except:
+            pass
     finally:
         if context:
-            try:
-                page.screenshot(path=f"screenshots/eon_{region.replace(' ', '_')}_final.png")
-            except:
-                pass
             context.close()
 
-    return result
+    result['tried_addresses'] = list(tried_addresses)
+    return result, tried_addresses
 
 
-def scrape_with_retry(browser, postcode: str, region: str, max_attempts: int = 3) -> dict:
-    """Retry with exponential backoff."""
+def scrape_with_retry(browser, postcode, region, max_attempts=3):
+    tried = set()
     for attempt in range(1, max_attempts + 1):
-        print(f"\n  🔄 Attempt {attempt}/{max_attempts}")
-
-        result = scrape_eon(browser, postcode, region, attempt)
-
+        print(f"\n  Attempt {attempt}/{max_attempts}")
+        if tried:
+            print(f"     Already tried: {sorted(tried)}")
+        result, tried = scrape_eon(browser, postcode, region, attempt, tried)
         if result.get('tariffs'):
             return result
-
         if attempt < max_attempts:
-            wait = 30 * (2 ** (attempt - 1)) + random.randint(0, 10)
-            print(f"  ⏳ Waiting {wait}s...")
+            wait = 15 + random.randint(0, 15)
+            print(f"\n  Waiting {wait}s...")
             time.sleep(wait)
-
     return result
 
 
-# ============================================
-# RUNNER
-# ============================================
-
-def run_scraper(headless: bool = False, test_postcode: str = None, wait_secs: int = 30, max_retries: int = 3):
-    """Main runner."""
-
+def run_scraper(headless=False, test_postcode=None, regions=None, wait_secs=15, max_retries=3):
     results = []
     consecutive_failures = 0
+    early_abort = False
 
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES.items() if v == test_postcode}
         if not postcodes:
             postcodes = {"Test": test_postcode}
+    elif regions:
+        region_list = [r.strip() for r in regions.split(",")]
+        postcodes = {}
+        for rname, pc in DNO_POSTCODES.items():
+            for r in region_list:
+                if r.lower() in rname.lower():
+                    postcodes[rname] = pc
+                    break
+        if not postcodes:
+            print(f"No matching regions for: {regions}")
+            return []
+        print(f"  Scraping {len(postcodes)} regions: {', '.join(postcodes.keys())}")
     else:
         postcodes = DNO_POSTCODES
 
-    # Early abort: Test first 3 regions
-    early_abort_check = min(3, len(postcodes))
-    print(f"  Early abort enabled: Will abort if first {early_abort_check} regions all fail")
-
-
-
+    items = list(postcodes.items())
+    batches = [items[i:i+3] for i in range(0, len(items), 3)]
     os.makedirs("screenshots", exist_ok=True)
 
-    # Split into batches
-    items = list(postcodes.items())
-    batches = [
-        items[0:3],   # Batch 1
-        items[3:6],   # Batch 2
-        items[6:9],   # Batch 3
-        items[9:12],  # Batch 4
-        items[12:14], # Batch 5
-    ]
-
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=headless,
-            slow_mo=50,
-            args=[
-                '--disable-blink-features=AutomationControlled',
-                '--no-sandbox',
-                '--disable-dev-shm-usage',
-            ]
-        )
-
         for batch_idx, batch in enumerate(batches):
+            if early_abort:
+                break
+
             print(f"\n{'#'*60}")
             print(f"  BATCH {batch_idx + 1}/{len(batches)} - {len(batch)} regions")
             print('#'*60)
 
-            for i, (region, postcode) in enumerate(batch):
-                print(f"\n{'='*50}")
-                print(f"  [{i+1}/{len(batch)}] {region} ({postcode})")
-                print('='*50)
+            browser = p.chromium.launch(
+                headless=headless,
+                args=[
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-setuid-sandbox',
+                ]
+            )
 
-                result = scrape_with_retry(browser, postcode, region, max_retries)
-                results.append(result)
+            try:
+                for i, (region, postcode) in enumerate(batch):
+                    print(f"\n{'='*60}")
+                    print(f"  {region} ({postcode})")
+                    print('='*60)
 
-                # Track success/failure
-                if result.get('tariffs'):
-                    print(f"  ✓ Success!")
-                    consecutive_failures = 0
-                else:
-                    print(f"  ✗ Failed after {max_retries} attempts")
-                    consecutive_failures += 1
+                    result = scrape_with_retry(browser, postcode, region, max_retries)
+                    results.append(result)
 
-                # Early abort: Check if first N regions all failed
-                if len(results) <= early_abort_check and consecutive_failures >= early_abort_check:
-                    print(f"
-  EARLY ABORT: First {early_abort_check} regions all failed")
-                    print(f"  -> Stopping scraper to avoid wasting time/resources")
-                    browser.close()
-                    return results
+                    if result.get('tariffs'):
+                        with open("eon_tariffs_partial.json", "w") as f:
+                            json.dump(results, f, indent=2)
+                        print(f"  ✓ Success!")
+                        consecutive_failures = 0
+                    else:
+                        print(f"  ✗ Failed")
+                        consecutive_failures += 1
 
-                # WARNING: Log consecutive failures but continue collecting data
-                if consecutive_failures >= 5 and len(results) <= 7:
-                    print(f"\n  ⚠️  WARNING: {consecutive_failures} consecutive failures")
-                    print(f"  -> Continuing to collect partial data from remaining regions...")
-                # Don't break - continue to try all regions
+                    if consecutive_failures >= 3 and len(results) <= 4:
+                        print(f"\n  EARLY ABORT: first {consecutive_failures} regions failed")
+                        early_abort = True
+                        break
 
-                # Wait between regions
-                if i < len(batch) - 1:
-                    wait = wait_secs + random.randint(-10, 20)
-                    print(f"\n  ⏳ Waiting {wait}s...")
-                    time.sleep(wait)
+                    if i < len(batch) - 1:
+                        wait = wait_secs + random.randint(-3, 8)
+                        print(f"\n  Waiting {wait}s...")
+                        time.sleep(wait)
+            finally:
+                browser.close()
 
-            # Longer wait between batches
+            if early_abort:
+                break
+
             if batch_idx < len(batches) - 1:
-                batch_wait = 120 + random.randint(0, 60)
-                print(f"\n  🔄 Batch done. Waiting {batch_wait}s...")
+                batch_wait = 45 + random.randint(0, 20)
+                print(f"\n  Batch done. Waiting {batch_wait}s...")
                 time.sleep(batch_wait)
-
-        browser.close()
 
     return results
 
 
-def save_results(results: list):
-    """Save JSON and CSV."""
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+def save_results(results):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # JSON
-    with open(f"eon_tariffs_{ts}.json", "w") as f:
+    with open(f"eon_tariffs_{timestamp}.json", "w") as f:
         json.dump(results, f, indent=2)
+    print(f"\nSaved: eon_tariffs_{timestamp}.json")
 
-    # CSV
     rows = []
     for r in results:
-        base = {
-            "supplier": r["supplier"],
-            "region": r["region"],
-            "postcode": r["postcode"],
-            "scraped_at": r["scraped_at"],
-            "attempt": r.get("attempt", 1),
-        }
+        base = {"supplier": "eon_next", "region": r["region"], "postcode": r["postcode"],
+                "scraped_at": r["scraped_at"], "attempt": r.get("attempt", 1)}
         if r.get("tariffs"):
             for t in r["tariffs"]:
-                row = {**base, **t}
-                rows.append(row)
+                row = base.copy(); row.update(t); rows.append(row)
         else:
-            rows.append({**base, "error": r.get("error", "Unknown")})
+            base["error"] = r.get("error", "Unknown"); rows.append(base)
 
-    with open(f"eon_tariffs_{ts}.csv", "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=[
-            "supplier", "region", "postcode", "scraped_at", "attempt",
-            "tariff_name", "exit_fee", "elec_unit_rate_p", "elec_standing_p",
-            "gas_unit_rate_p", "gas_standing_p", "error"
-        ], extrasaction='ignore')
-        writer.writeheader()
-        writer.writerows(rows)
+    fields = ["supplier", "region", "postcode", "scraped_at", "attempt", "tariff_name",
+              "elec_unit_rate_p", "elec_standing_p", "gas_unit_rate_p", "gas_standing_p",
+              "exit_fee_gbp", "error"]
+    with open(f"eon_tariffs_{timestamp}.csv", "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fields, extrasaction='ignore')
+        writer.writeheader(); writer.writerows(rows)
 
-    # Summary
-    print(f"\n{'='*70}")
-    print("SUMMARY")
-    print('='*70)
+    print(f"\n{'='*60}")
     success = sum(1 for r in results if r.get('tariffs'))
-    print(f"Success: {success}/{len(results)}")
-
+    print(f"Success: {success}/{len(results)} ({100*success/len(results) if results else 0:.0f}%)")
     for r in results:
-        if r.get('tariffs'):
-            t = r['tariffs'][0]
-            print(f"  ✓ {r['region']}: {t.get('elec_unit_rate_p', '?')}p elec, {t.get('gas_unit_rate_p', '?')}p gas")
-        else:
-            print(f"  ✗ {r['region']}: {r.get('error', 'Failed')[:40]}")
+        t = r.get('tariffs', [{}])[0]
+        icon = "✓" if r.get('tariffs') else "✗"
+        print(f"  {icon} {r['region']}: {t.get('elec_unit_rate_p','?')}p elec, {t.get('gas_unit_rate_p','?')}p gas")
 
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="E.ON Next Scraper v6.1 - Playwright")
     parser.add_argument("--headless", action="store_true")
     parser.add_argument("--test", type=str, help="Test single postcode")
-    parser.add_argument("--wait", type=int, default=30, help="Wait between regions")
-    parser.add_argument("--retries", type=int, default=3, help="Max retries per region")
+    parser.add_argument("--regions", type=str, help="Comma-separated regions")
+    parser.add_argument("--wait", type=int, default=15)
+    parser.add_argument("--retries", type=int, default=3)
     args = parser.parse_args()
 
+    os.makedirs("screenshots", exist_ok=True)
     print("="*60)
-    print("E.ON NEXT SCRAPER v6 - PLAYWRIGHT EDITION")
+    print("E.ON NEXT SCRAPER v6.1 - PLAYWRIGHT")
     print("="*60)
 
-    results = run_scraper(
-        headless=args.headless,
-        test_postcode=args.test,
-        wait_secs=args.wait,
-        max_retries=args.retries
-    )
+    results = run_scraper(args.headless, args.test, args.regions, args.wait, args.retries)
     save_results(results)
-    print("\n✓ Done!")
+
+    input("\nPress Enter to exit...")
 
 
 if __name__ == "__main__":

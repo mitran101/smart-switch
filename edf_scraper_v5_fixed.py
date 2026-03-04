@@ -43,24 +43,6 @@ POSTCODE_START_INDEX = {
     "N5 2SD": 5,
 }
 
-# Fallback postcodes for regions where primary postcode may not exist in EDF's database
-FALLBACK_POSTCODES = {
-    "Eastern": ["IP1 1AA", "CO1 1AA"],  # Ipswich, Colchester alternatives
-    "East Midlands": ["NG1 1AA", "DE1 1AA"],  # Nottingham, Derby alternatives
-    "London": ["SW1A 1AA", "EC1A 1BB"],  # Westminster, City of London alternatives
-    "North Wales & Merseyside": ["CH1 1AA"],  # Chester alternative
-    "West Midlands": ["B1 1AA"],  # Birmingham alternative
-    "North East": ["NE1 1AA"],  # Newcastle alternative
-    "North West": ["M1 1AA"],  # Manchester alternative
-    "South East": ["BN1 1AA"],  # Brighton alternative
-    "Southern": ["SO14 0AA"],  # Southampton alternative
-    "South Wales": ["CF10 1AA"],  # Cardiff alternative
-    "South West": ["BS1 1AA"],  # Bristol alternative
-    "Yorkshire": ["LS1 1AA"],  # Leeds alternative
-    "North Scotland": ["AB10 1AA"],  # Aberdeen alternative
-    "South Scotland": ["G1 1AA"],  # Glasgow alternative
-}
-
 EMAIL = "switch.pilots@gmail.com"
 URL = "https://www.edfenergy.com/quote/choose-tariff"
 
@@ -141,17 +123,6 @@ def has_dual_fuel(page) -> bool:
 def extract_rates(text: str) -> dict:
     """Extract tariff rates from page text."""
     rates = {}
-    
-    # Tariff name
-    m = re.search(r'(Simply Fixed\s*\w+\d+v?\d*)', text, re.I)
-    if m:
-        rates['tariff_name'] = m.group(1).strip()
-    else:
-        for pattern in [r'(Standard Variable)', r'(Price Tracker)']:
-            m = re.search(pattern, text, re.I)
-            if m:
-                rates['tariff_name'] = m.group(1).strip()
-                break
     
     # Exit fee
     m = re.search(r'Exit fee\s*£?(\d+(?:\.\d+)?)', text, re.I)
@@ -262,7 +233,7 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
     
     start_idx = POSTCODE_START_INDEX.get(postcode, 1)
     current_idx = start_idx
-    max_attempts = 3  # Reduced from 15 to 3 attempts per region
+    max_attempts = 15
     
     try:
         # INITIAL LOAD
@@ -516,7 +487,7 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
             
             # CHECK IF WE GOT RESULTS
             page_text = page.inner_text('body').lower()
-            if 'choose the best tariff' in page_text or 'simply fixed' in page_text:
+            if 'choose the best tariff' in page_text or 'simply fixed' in page_text or 'simply tracker' in page_text:
                 found_good_address = True
                 print(f"    ✓ Got tariff results!")
             else:
@@ -548,21 +519,49 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
             time.sleep(2)
         except:
             print(f"    Extracting from main page")
-        
+
+        # Grab tariff name directly from DOM heading (modal or page)
+        tariff_name_from_dom = None
+        for selector in [
+            '[role="dialog"] h2', '[role="dialog"] h1', '[role="dialog"] h3',
+            '[class*="modal"] h2', '[class*="modal"] h1',
+            '[class*="overlay"] h2',
+            'h2', 'h1',
+        ]:
+            try:
+                for el in page.locator(selector).all():
+                    if el.is_visible(timeout=500):
+                        txt = el.inner_text().strip()
+                        if txt and len(txt) < 80:
+                            tariff_name_from_dom = txt
+                            break
+                if tariff_name_from_dom:
+                    break
+            except:
+                pass
+        if tariff_name_from_dom:
+            for suffix in [' tariff details', ' Tariff details', ' Tariff Details']:
+                if tariff_name_from_dom.lower().endswith(suffix.lower()):
+                    tariff_name_from_dom = tariff_name_from_dom[:len(tariff_name_from_dom) - len(suffix)].strip()
+                    break
+            print(f"    ✓ Tariff name from DOM: {tariff_name_from_dom}")
+
         # Scroll to see all rates
         for _ in range(5):
             page.keyboard.press("PageDown")
             time.sleep(0.3)
-        
+
         page.screenshot(path=f"screenshots/edf_{region.replace(' ', '_')}_details.png", full_page=True)
-        
+
         print(f"\n  [STEP 10] Extracting rates...")
         page_text = page.inner_text('body')
-        
+
         with open(f"debug_edf_{region.replace(' ', '_')}.txt", "w", encoding="utf-8") as f:
             f.write(page_text)
-        
+
         rates = extract_rates(page_text)
+        if tariff_name_from_dom:
+            rates['tariff_name'] = tariff_name_from_dom
         if rates:
             result['tariffs'].append(rates)
             print(f"\n    ✓ EXTRACTED:")
@@ -592,64 +591,42 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
 
 def run_all_regions(browser, postcodes: dict, wait_between: int = 20) -> list:
     results = []
-    consecutive_failures = 0  # Track consecutive failures for warnings
-    postcode_items = list(postcodes.items())
-
-    # EARLY ABORT STRATEGY: Try first 3 regions only
-    early_abort_check = min(3, len(postcode_items))
-
-    for i, (region, postcode) in enumerate(postcode_items):
+    consecutive_failures = 0  # Track consecutive failures for early abort
+    early_abort = False
+    
+    for i, (region, postcode) in enumerate(postcodes.items()):
         print(f"\n{'='*60}")
         print(f"SCRAPING: {region} ({postcode}) [{i+1}/{len(postcodes)}]")
         print('='*60)
-
-        # Try primary postcode first
+        
         result = scrape_edf(browser, postcode, region)
-
-        # If failed and region has fallback postcodes, try ONLY FIRST ONE
-        if not result.get('tariffs') and region in FALLBACK_POSTCODES:
-            print(f"\n  ⚠️  Primary postcode {postcode} failed")
-            print(f"  → Trying first fallback postcode for {region}...")
-
-            fallback_pc = FALLBACK_POSTCODES[region][0]  # Only try first fallback
-            print(f"\n  🔄 Attempting fallback: {fallback_pc}")
-            time.sleep(10)  # Brief wait before retry
-
-            result = scrape_edf(browser, fallback_pc, region)
-            result['postcode'] = f"{fallback_pc} (fallback)"  # Mark as fallback
-
-            if result.get('tariffs'):
-                print(f"  ✓ Success with fallback postcode: {fallback_pc}")
-            else:
-                print(f"  ✗ Fallback {fallback_pc} also failed")
-                result['error'] = f"Primary {postcode} and fallback {fallback_pc} both failed"
-
         results.append(result)
-
+        
         # Track success/failure
         if result.get('tariffs'):
             consecutive_failures = 0  # Reset on success
         else:
             consecutive_failures += 1
-
-        # EARLY ABORT: If first 3 regions all fail, abort EDF scraper
-        if i + 1 == early_abort_check and consecutive_failures == early_abort_check:
-            print(f"\n{'='*60}")
-            print(f"  ❌ ABORTING EDF SCRAPER")
-            print(f"  → All first {early_abort_check} regions failed")
-            print(f"  → Likely systematic issue with EDF website")
-            print(f"  → Saving partial results and exiting...")
-            print('='*60)
+        
+        # EARLY ABORT: If first 3 regions all fail, scraper is broken
+        if consecutive_failures >= 3 and len(results) <= 4:
+            print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
+            print(f"  → Scraper appears broken on this environment")
+            print(f"  → Run manually on local machine")
+            early_abort = True
             break
-
+        
         with open("edf_tariffs_partial.json", "w") as f:
             json.dump(results, f, indent=2)
-
+        
         if i < len(postcodes) - 1:
             wait = wait_between + random.randint(-5, 10)
             print(f"\n  ⏳ Waiting {wait}s...")
             time.sleep(wait)
-
+    
+    if early_abort:
+        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
+    
     return results
 
 

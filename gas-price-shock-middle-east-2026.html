@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicons -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <!-- SEO -->
+    <meta name="description" content="UK gas prices have nearly doubled in a week due to Middle East conflict. Here's what it means for your energy bills and whether you should fix your tariff now.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.switch-pilot.com/gas-price-shock-middle-east-2026.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="UK Gas Prices Have Nearly Doubled This Week. Here's What It Means for Your Bills">
+    <meta property="og:description" content="Middle East conflict has sent UK wholesale gas prices soaring. We explain what's happening, what it means for the October cap, and whether you should fix now.">
+    <meta property="og:url" content="https://www.switch-pilot.com/gas-price-shock-middle-east-2026.html">
+    <meta property="og:site_name" content="SwitchPilot">
+    <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
+    <meta property="article:published_time" content="2026-03-06T00:00:00Z">
+    <meta property="article:section" content="Energy">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UK Gas Prices Have Nearly Doubled This Week. Here's What It Means for Your Bills">
+    <meta name="twitter:description" content="Middle East conflict has sent UK wholesale gas prices soaring. We explain what's happening and whether you should fix your tariff now.">
+    <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "UK Gas Prices Have Nearly Doubled This Week. Here's What It Means for Your Bills",
+      "description": "UK wholesale gas prices have surged due to Middle East conflict. Here's what it means for the October 2026 price cap and your energy bills.",
+      "url": "https://www.switch-pilot.com/gas-price-shock-middle-east-2026.html",
+      "datePublished": "2026-03-06",
+      "dateModified": "2026-03-06",
+      "author": {"@type": "Organization", "name": "SwitchPilot", "url": "https://www.switch-pilot.com"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "SwitchPilot",
+        "logo": {"@type": "ImageObject", "url": "https://mitran101.github.io/smart-switch/logo.png"}
+      },
+      "image": "https://mitran101.github.io/smart-switch/logo.png",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.switch-pilot.com/gas-price-shock-middle-east-2026.html"}
+    }
+    </script>
+    <title>UK Gas Prices Have Nearly Doubled This Week. Here's What It Means for Your Bills | SwitchPilot</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-amber-light: #FEF3C7;
+            --sp-red: #EF4444;
+            --sp-red-light: #FEE2E2;
+            --sp-purple: #A855F7;
+            --sp-pink: #EC4899;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* Nav */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            font-size: 1.35rem;
+            transition: opacity 0.2s;
+        }
+        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
+        .top-logo:hover { opacity: 0.8; }
+        .back-home {
+            display: inline-block; padding: 10px 20px;
+            background: rgba(255,255,255,0.1); color: white;
+            text-decoration: none; border-radius: 30px;
+            font-weight: 600; font-size: 0.9rem; transition: background 0.2s;
+        }
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        /* Breaking news banner */
+        .breaking-banner {
+            background: var(--sp-red);
+            color: white;
+            text-align: center;
+            padding: 0.65rem 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+        .breaking-banner span {
+            background: white;
+            color: var(--sp-red);
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Header — dark red/black for urgency */
+        .article-header {
+            background: linear-gradient(135deg, #7F1D1D 0%, #1E293B 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute; top: 0; right: 0; width: 55%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .header-content {
+            max-width: 800px; margin: 0 auto;
+            position: relative; z-index: 1;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(239,68,68,0.7);
+            color: white; padding: 0.35rem 0.85rem;
+            border-radius: 20px; font-size: 0.8rem;
+            font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 1.25rem;
+        }
+        h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+        }
+        .subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 640px;
+        }
+        .article-meta {
+            display: flex; align-items: center; gap: 1rem;
+            margin-top: 1.5rem; padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem; color: rgba(255,255,255,0.65); flex-wrap: wrap;
+        }
+
+        /* Body */
+        .article-body {
+            max-width: 800px; margin: 0 auto;
+            padding: 3rem 2rem 1.5rem;
+        }
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.65rem; font-weight: 400;
+            margin: 2.5rem 0 1rem; color: var(--sp-slate);
+        }
+        h2:first-of-type { margin-top: 0; }
+        p { margin-bottom: 1.25rem; color: var(--sp-slate-light); }
+        strong { color: var(--sp-slate); font-weight: 600; }
+        ul { margin: 1.25rem 0 1.5rem 1.5rem; color: var(--sp-slate-light); }
+        ul li { margin-bottom: 0.65rem; }
+
+        /* Callout boxes */
+        .highlight-box {
+            background: var(--sp-green-light);
+            border-left: 4px solid var(--sp-green);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+        }
+        .highlight-box p { margin: 0; color: var(--sp-slate); }
+
+        .warning-box {
+            background: var(--sp-amber-light);
+            border-left: 4px solid var(--sp-amber);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+        }
+        .warning-box p { margin: 0; color: var(--sp-slate); }
+
+        .danger-box {
+            background: var(--sp-red-light);
+            border-left: 4px solid var(--sp-red);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+        }
+        .danger-box p { margin: 0; color: var(--sp-slate); }
+
+        .purple-box {
+            background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(236,72,153,0.08));
+            border-left: 4px solid var(--sp-purple);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0;
+        }
+        .purple-box p { margin: 0; color: var(--sp-slate); }
+
+        /* Action box — prominent */
+        .action-box {
+            background: linear-gradient(135deg, #7F1D1D 0%, #1E293B 100%);
+            color: white; padding: 2rem; border-radius: 12px;
+            margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .action-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem; margin-bottom: 0.75rem; color: white;
+        }
+        .action-box p { color: rgba(255,255,255,0.85); margin-bottom: 1rem; }
+        .action-box ul { color: rgba(255,255,255,0.8); margin-left: 1.25rem; }
+        .action-box ul li { margin-bottom: 0.5rem; }
+        .action-box strong { color: white; }
+
+        /* Key stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.25rem; margin: 2rem 0;
+        }
+        .stat-card {
+            background: var(--sp-card); padding: 1.4rem 1.25rem;
+            border-radius: 12px; border: 2px solid #E2E8F0; text-align: center;
+        }
+        .stat-value {
+            font-size: 1.9rem; font-weight: 800;
+            line-height: 1.1; margin-bottom: 0.4rem;
+        }
+        .stat-value.green { color: var(--sp-green); }
+        .stat-value.amber { color: var(--sp-amber); }
+        .stat-value.red { color: var(--sp-red); }
+        .stat-value.purple {
+            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { font-size: 0.85rem; color: var(--sp-slate-light); line-height: 1.35; }
+
+        /* Chart */
+        .chart-section {
+            background: var(--sp-card); border: 2px solid #E2E8F0;
+            border-radius: 12px; padding: 1.75rem; margin: 2rem 0;
+        }
+        .chart-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.2rem; color: var(--sp-slate); margin-bottom: 0.4rem;
+        }
+        .chart-subtitle {
+            font-size: 0.85rem; color: var(--sp-slate-light); margin-bottom: 1.25rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 2rem 0;
+            border-left: 3px solid #E2E8F0;
+            padding-left: 1.5rem;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 1.75rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute; left: -1.95rem; top: 0.4rem;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--sp-red); border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--sp-red);
+        }
+        .timeline-date {
+            font-size: 0.8rem; font-weight: 700; color: var(--sp-red);
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.3rem;
+        }
+        .timeline-title {
+            font-weight: 700; color: var(--sp-slate); margin-bottom: 0.3rem;
+        }
+        .timeline-body {
+            font-size: 0.95rem; color: var(--sp-slate-light); margin: 0;
+        }
+
+        /* Summary */
+        .summary-section {
+            background: var(--sp-card); border: 2px solid #E2E8F0;
+            border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0;
+        }
+        .summary-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.25rem; margin-bottom: 1.25rem; color: var(--sp-slate);
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.85rem;
+        }
+        .summary-item {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            padding: 0.85rem 1rem; border-radius: 8px;
+            font-size: 0.9rem; line-height: 1.4;
+        }
+        .summary-item.positive { background: var(--sp-green-light); }
+        .summary-item.warning { background: var(--sp-amber-light); }
+        .summary-item.danger { background: var(--sp-red-light); }
+        .summary-item.info { background: #EFF6FF; }
+        .summary-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+        /* CTA */
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white; padding: 3rem 2.5rem; border-radius: 16px;
+            text-align: center; margin: 3rem auto; max-width: 700px;
+        }
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.75rem; margin-bottom: 1rem; color: white;
+        }
+        .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-size: 1.05rem; }
+        .cta-button {
+            display: inline-block; padding: 0.85rem 2rem; background: white;
+            color: var(--sp-purple); text-decoration: none; border-radius: 30px;
+            font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; margin: 0.25rem;
+        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .cta-button.secondary {
+            background: rgba(255,255,255,0.15); color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        /* Footers */
+        .article-footer {
+            max-width: 800px; margin: 3rem auto 0;
+            padding: 2rem; background: #F1F5F9; border-radius: 12px;
+        }
+        .footer-note { font-size: 0.85rem; color: var(--sp-slate-light); line-height: 1.6; }
+        .site-footer {
+            background: var(--sp-slate); color: rgba(255,255,255,0.7);
+            text-align: center; padding: 2.5rem 2rem;
+            margin-top: 4rem; font-size: 0.9rem; line-height: 1.9;
+        }
+        .site-footer a { color: var(--sp-green); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .article-header { padding: 3rem 1.25rem 2rem; }
+            .article-body { padding: 2rem 1.25rem 1rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a href="index.html" class="top-logo">
+        <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo">
+        SwitchPilot
+    </a>
+    <a href="index.html" class="back-home">← Back Home</a>
+</nav>
+
+    <div class="breaking-banner">
+        <span>Breaking</span>
+        UK wholesale gas prices have nearly doubled this week · Martin Lewis urges immediate action · Fixed deals still available
+    </div>
+
+    <header class="article-header">
+        <div class="header-content">
+            <div class="tag">🔥 Energy Crisis · March 2026</div>
+            <h1>UK gas prices have nearly doubled this week. Here's what it means for your bills.</h1>
+            <p class="subtitle">The Iran conflict has sent wholesale gas prices to a 12-month high. Qatar has halted LNG production. And analysts warn the Ofgem price cap could spike toward £2,500 from July. Here's the calm, clear picture — and what to do right now.</p>
+            <div class="article-meta">
+                <span>📅 3 March 2026</span>
+                <span>•</span>
+                <span>10 min read</span>
+                <span>•</span>
+                <span>Updated as the situation develops</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-body">
+
+        <h2>What's happened</h2>
+
+        <p>Over the weekend of 1–2 March 2026, US and Israeli military strikes on Iran rapidly escalated into a broader regional conflict. Iranian forces moved to effectively close the Strait of Hormuz — the narrow waterway through which roughly a third of global crude oil trade, and a significant share of global LNG shipments, passes each day.</p>
+
+        <p>The most significant energy market consequence came from Qatar. <strong>QatarEnergy, the world's largest LNG exporter, halted production at its Ras Laffan facilities</strong> following Iranian drone strikes on the complex. Qatar supplies around 12–14% of Europe's LNG imports and roughly 20% of global LNG supply. Removing that volume from global markets — even temporarily — sent shockwaves through European and UK gas trading.</p>
+
+        <p>The result: UK wholesale gas prices have come close to <strong>doubling in the space of a few days</strong>, rising from around 76–78 pence per therm in late February to a peak of 151p/therm — a level not seen since February 2023, during the acute phase of the Russia-Ukraine energy crisis. Prices have since eased back to around 145–148p/therm, but remain dramatically elevated relative to where they were just days ago.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value red">~2×</div>
+                <div class="stat-label">UK wholesale gas has nearly doubled — from ~77p to ~148p/therm in days</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value red">151p</div>
+                <div class="stat-label">Peak UK gas price this week (pence per therm) — 12-month high</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value amber">~20%</div>
+                <div class="stat-label">Share of global LNG supply from Qatar — now halted</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value purple">£2,500</div>
+                <div class="stat-label">Potential price cap level if spike is sustained — analysts at Stifel</div>
+            </div>
+        </div>
+
+        <div class="danger-box">
+            <p><strong>This is a live and evolving situation.</strong> The figures above reflect the position as of 3 March 2026. Whether wholesale prices remain elevated depends on the duration and resolution of the conflict, whether Qatar resumes LNG production, and how quickly shipping adapts to avoid the Strait of Hormuz. SwitchPilot will update this article as the picture develops.</p>
+        </div>
+
+        <h2>How did we get here so quickly?</h2>
+
+        <p>To understand the speed and severity of the price move, it helps to understand how UK gas prices work. The UK doesn't have a single domestic gas price — it buys gas on international markets, primarily through the National Balancing Point (NBP), which closely tracks European TTF (Title Transfer Facility) gas futures. When global supply or demand shifts, UK prices move with it, often sharply.</p>
+
+        <p>The Strait of Hormuz is the physical chokepoint through which Persian Gulf energy exports — oil, LNG, refined products — must flow. Around <strong>15 million barrels of crude oil</strong> pass through it daily, roughly a third of global crude trade. Qatar's LNG, which feeds gas infrastructure across Europe and Asia, also transits through the Gulf. When Iran threatened to "set fire to ships" in the strait, markets didn't wait to see if it was a bluff.</p>
+
+        <p>European TTF futures rose <strong>35% on Tuesday alone</strong>. Goldman Sachs, in a note published Monday, warned that a month-long halt to Hormuz flows risks driving TTF prices toward 74 euros per MWh — the level that triggered widespread demand destruction during the 2022 energy crisis. For comparison, European gas prices peaked at 345 euros per MWh in August 2022 as Russia cut supplies following Western sanctions.</p>
+
+        <div class="chart-section">
+            <div class="chart-title">UK wholesale gas price: context and the current spike</div>
+            <div class="chart-subtitle">Indicative NBP gas price trajectory (p/therm). The current spike brings prices to a 12-month high, though still well below the 2022 crisis peak of over 500p/therm.</div>
+            <div style="height: 260px;">
+                <canvas id="gasSpike"></canvas>
+            </div>
+        </div>
+
+        <p>It's worth keeping the current spike in perspective. As dramatic as a near-doubling in a week is, UK wholesale gas prices peaked at over <strong>500p/therm during the summer of 2022</strong> — roughly 3.5 times higher than today's elevated levels. The question the market is wrestling with now is not whether a spike has happened, but whether it will be sustained.</p>
+
+        <h2>What does this mean for household bills?</h2>
+
+        <p>The key word here is <strong>lag</strong>. Wholesale gas prices don't translate immediately into higher household bills. The Ofgem price cap is reviewed quarterly, and the next review is for Q3 2026 (July–September), with the announcement due by 27 May 2026. The cap set for that quarter will be based on a wholesale price assessment period running broadly through March to May.</p>
+
+        <p>That means the current spike is feeding directly into the data that will determine the July price cap. If wholesale prices remain at or near current levels through spring, the July cap could rise significantly. Analysts at Stifel warned on Monday that a trebling of wholesale prices, if sustained, could push the cap toward <strong>£2,500</strong> — a level not seen since the Energy Price Guarantee capped household exposure during the worst of the 2022 crisis.</p>
+
+        <div class="warning-box">
+            <p><strong>The "big if":</strong> Martin Lewis, appearing on MoneySavingExpert on Tuesday, was careful to describe the price impact on the July cap as a big "if" sustained. The market has moved fast this week, but energy price shocks driven by geopolitical events can reverse quickly too. If Qatar resumes production, if a ceasefire emerges, or if shipping successfully reroutes around the Strait, prices could fall back sharply. Nobody knows at this point how long the conflict will last.</p>
+        </div>
+
+        <div class="chart-section">
+            <div class="chart-title">Price cap scenarios: what July 2026 could look like</div>
+            <div class="chart-subtitle">Based on analyst projections at different wholesale price levels. Illustrative — not a forecast. The actual Q3 2026 cap will reflect wholesale prices across the assessment period.</div>
+            <div style="height: 240px;">
+                <canvas id="capScenario"></canvas>
+            </div>
+        </div>
+
+        <h2>Important context: Q3 is the lowest gas demand quarter of the year</h2>
+
+        <p>Before absorbing the worst-case cap scenarios, there's a crucial piece of context that tends to get lost in the headlines: <strong>July to September is when UK households use the least gas</strong>. By a significant margin.</p>
+
+        <p>Ofgem's own demand-weighting methodology — used to calculate how consumption is distributed across the year — shows gas usage is heavily concentrated in winter. The quarterly breakdown for a typical household is:</p>
+
+        <div class="chart-section">
+            <div class="chart-title">How your annual gas consumption is actually distributed</div>
+            <div class="chart-subtitle">Ofgem quarterly demand weights for gas (% of annual consumption by volume). Source: Ofgem price cap methodology. Note: cost-weighted Q3 share is lower still — around 8% — because gas is cheaper in summer.</div>
+            <div style="height: 200px;">
+                <canvas id="demandWeight"></canvas>
+            </div>
+        </div>
+
+        <p>Q3 (July–September) accounts for just <strong>11% of a typical household's annual gas consumption by volume</strong>. Q1 (January–March), by contrast, is 39% — the same three-month period, but 3.5 times the gas usage.</p>
+
+        <p>The bill impact is actually even smaller than the volume weight suggests. Because gas is priced lower in summer — suppliers buy forward at cheaper rates for low-demand periods — the <strong>cost-weighted Q3 share is closer to 8%</strong> of annual gas spend. That's the more relevant figure when thinking about what a higher July cap actually costs you in practice.</p>
+
+        <p>Here's the arithmetic at current and hypothetical cap levels, using the 8% cost-weighted share:</p>
+
+        <div class="chart-section" style="overflow-x: auto;">
+            <div class="chart-title">What a higher cap actually costs you in gas — Q3 only</div>
+            <div class="chart-subtitle">Based on Ofgem Typical Domestic Consumption Values (11,500 kWh gas/year). Gas standing charge included. Q3 = 91 days.</div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-top:0.5rem;">
+                <thead>
+                    <tr style="background:var(--sp-slate); color:white;">
+                        <th style="padding:0.7rem 1rem; text-align:left;">Scenario</th>
+                        <th style="padding:0.7rem 1rem; text-align:right;">Annual cap</th>
+                        <th style="padding:0.7rem 1rem; text-align:right;">Annual gas cost</th>
+                        <th style="padding:0.7rem 1rem; text-align:right;">Q3 gas cost<br><span style="font-weight:400; font-size:0.8rem;">(8% cost-weighted)</span></th>
+                        <th style="padding:0.7rem 1rem; text-align:right;">vs. current</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid #E2E8F0;">
+                        <td style="padding:0.7rem 1rem; color:var(--sp-slate);">Current cap (Q2 2026)</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-green); font-weight:600;">£1,641</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate);">~£766</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate); font-weight:600;">~£61</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate-light);">—</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #E2E8F0;">
+                        <td style="padding:0.7rem 1rem; color:var(--sp-slate);">Moderate rise (Q3 central)</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-amber); font-weight:600;">£1,900</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate);">~£910</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate); font-weight:600;">~£73</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-amber); font-weight:600;">+£12</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #E2E8F0; background:#FEF2F2;">
+                        <td style="padding:0.7rem 1rem; color:var(--sp-slate);">Severe spike (analyst worst case)</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-red); font-weight:600;">£2,500</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate);">~£1,200</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-slate); font-weight:600;">~£96</td>
+                        <td style="padding:0.7rem 1rem; text-align:right; color:var(--sp-red); font-weight:600;">+£35</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.8rem; color:var(--sp-slate-light); margin-top:0.85rem;">Q3 gas costs use an 8% cost-weighted share of annual gas spend — lower than the 11% volume-based consumption weight because gas is priced cheaper in summer. Annual gas cost derived from 11,500 kWh (Ofgem TDCV) × relevant unit rate + standing charge × 365 days.</p>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>The key insight:</strong> Even in the severe worst-case scenario — the July cap rising to £2,500 — the actual additional gas cost you'd pay in Q3 is around <strong>£35 above today's level</strong>, spread across three summer months. The annual cap headline is alarming; the summer quarter reality is considerably more modest. Gas accounts for just 8% of annual gas spend in Q3 on a cost-weighted basis — because you barely use gas in July and August, and what little you do use is priced cheaply. The real pain from a sustained price spike would land in the Q4 2026 and Q1 2027 winter caps — if prices remain elevated that long.</p>
+        </div>
+
+        <p>This isn't a reason for complacency. If wholesale prices stay elevated through the autumn, the Q4 2026 cap (announced August 2026) and Q1 2027 cap (announced November 2026) are where households would feel the full weight of sustained high prices — because winter is when gas demand is at its peak. A £2,500 Q1 cap would represent roughly <strong>£468 in gas costs for that quarter alone</strong> (39% of ~£1,200 annual gas by volume — and the cost-weighted Q1 share is even higher than 39%, since gas is most expensive in winter). That's the scenario to watch.</p>
+
+        <div class="warning-box">
+            <p><strong>Don't mistake Q3 insulation for full protection.</strong> The seasonal argument cuts both ways: yes, summer gas costs are low regardless of the cap. But if this conflict drives a structural, multi-month price elevation, the October and January cap resets are where it gets genuinely serious. The urgency of fixing now isn't primarily about this summer — it's about insulating yourself against what may follow if the crisis isn't resolved quickly.</p>
+        </div>
+
+        <h2>Should you fix now? A more measured view</h2>
+
+        <p>Martin Lewis issued an urgent warning on Tuesday morning urging anyone on a standard variable tariff to fix immediately if deals were available. It's well-intentioned advice, and in a fast-moving market it's understandable. But there are important structural facts that the "fix urgently" framing doesn't fully account for — and which suggest a more measured approach may serve most households better.</p>
+
+        <p><strong>First, you already have price protection through to the end of June.</strong> The Q2 2026 cap of £1,641 is locked in until 30 June 2026. Whatever happens to wholesale gas prices over the coming weeks, your unit rates cannot rise before then if you're on a standard variable tariff. The current crisis has no direct bearing on what you pay for the next four months.</p>
+
+        <p><strong>Second, as covered above, Q3 is the lowest gas demand period of the year.</strong> Even if the July cap does rise, you'll use only 11% of your annual gas in that quarter. The bill impact of a higher Q3 cap is considerably smaller than headline cap numbers suggest.</p>
+
+        <p>Taken together, the genuine risk window is <strong>Q4 2026 (October) and Q1 2027 (January)</strong> — the winter caps. Those are the quarters where sustained high wholesale prices would translate into meaningful bill pain. Those caps won't be set until August and November 2026 respectively, months away and entirely dependent on how the conflict evolves.</p>
+
+        <div class="purple-box">
+            <p><strong>The SwitchPilot position:</strong> Don't panic. You have meaningful built-in protection. The right move right now is to <strong>watch the market carefully over the next 2–4 weeks</strong> as the geopolitical picture develops — not to rush into a fixed tariff that may have already been repriced to reflect today's fear premium. Fixing in a panic, especially at rates above £1,800, risks locking in an elevated rate that could look expensive if prices ease as quickly as they rose.</p>
+        </div>
+
+        <div class="action-box">
+            <h3>🔒 The SwitchPilot approach: watch, don't panic</h3>
+            <p>Here's how to think about this clearly, without the noise:</p>
+            <ul>
+                <li><strong>You're protected until 30 June 2026.</strong> The Q2 cap of £1,641 applies regardless of what's happening in wholesale markets right now. There is no urgency to act before then based on the current spike alone.</li>
+                <li><strong>Q3 is low-demand anyway.</strong> Even a significantly higher July cap would cost you around £73–96 in actual gas for the quarter — just 8% of annual gas spend on a cost-weighted basis. The scale of the problem in summer is modest.</li>
+                <li><strong>The real watch-point is autumn.</strong> Monitor whether wholesale prices remain elevated through April and May — that feeds into the Q3 cap — and more importantly, whether the situation persists through summer, which feeds into the Q4 and Q1 winter caps. Those are the ones that matter for your heating bills.</li>
+                <li><strong>Don't fix above ~£1,800.</strong> If suppliers are now pricing fixed tariffs at significantly elevated rates reflecting today's spike, you may be locking in a fear premium. A fixed tariff only makes sense if it's at or below the current £1,641 cap. If deals have repriced above £1,800, staying on the SVT cap may well be the better position for now.</li>
+                <li><strong>If a deal below the cap is still available, it's worth considering.</strong> Pre-spike fixed rates still live represent genuine value. Verify the rate, check exit fees, and confirm it's actually below today's cap — not just below a projected higher one.</li>
+                <li><strong>If you're already fixed, do nothing.</strong> You're insulated from the spike for the duration of your tariff. Do not exit a fixed deal during a market spike.</li>
+                <li><strong>This is a price event, not a supply shortage.</strong> There is no physical scarcity of gas in the UK. Storage levels are normal. Don't let dramatic headlines drive a financial decision you may later regret.</li>
+            </ul>
+        </div>
+
+        <h2>What happened last time?</h2>
+
+        <p>The 2021–22 energy crisis provides useful context. Russia's reduction in pipeline gas supplies began in summer 2021 and accelerated dramatically after the full-scale invasion of Ukraine in February 2022. But critically, the resulting price cap increases arrived with a lag — the April 2022 cap rose 54% based on the wholesale price environment of the preceding months.</p>
+
+        <p>The speed of the current crisis is different: a geopolitical shock rather than a gradual supply squeeze. That cuts both ways. It can reverse faster than a structural supply withdrawal — but it can also spike harder in the short term as markets price in fear alongside actual physical disruption.</p>
+
+        <p>Europe is also in a materially different position than in 2022. Since then, it has built substantial LNG import terminal capacity, diversified supply away from Russian gas, and established emergency demand-reduction protocols. Storage infrastructure across the continent is more developed. These are genuine buffers — but they are not unlimited, particularly if Qatar's production halt extends for weeks rather than days.</p>
+
+        <h2>The events so far: a timeline</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">1 March 2026</div>
+                <div class="timeline-title">US and Israeli strikes on Iranian facilities begin</div>
+                <p class="timeline-body">Military action escalates significantly over the weekend. Iran threatens to disrupt Strait of Hormuz shipping. Oil prices begin rising sharply toward $80/barrel.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2 March 2026</div>
+                <div class="timeline-title">Qatar halts LNG production after drone strikes</div>
+                <p class="timeline-body">QatarEnergy suspends production at Ras Laffan following Iranian drone strikes on the facility. Qatar supplies approximately 20% of global LNG — the suspension immediately tightens European gas markets. Saudi Aramco's Ras Tanura refinery also reportedly struck.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2–3 March 2026</div>
+                <div class="timeline-title">European TTF rises 35%, UK NBP spikes to 151p/therm</div>
+                <p class="timeline-body">European benchmark gas prices surge. UK wholesale gas hits a 12-month high. Goldman Sachs raises its April TTF forecast to 55 euros/MWh from 36 euros/MWh and warns of further upside risk.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">3 March 2026</div>
+                <div class="timeline-title">Martin Lewis issues urgent consumer warning</div>
+                <p class="timeline-body">MoneySavingExpert founder advises customers on standard variable tariffs to fix immediately if deals are available. Bank of England rate cut expectations are repriced out of markets — only a 20% probability of a March cut remains, down from 80% the prior week.</p>
+            </div>
+        </div>
+
+        <h2>Why the UK is particularly exposed</h2>
+
+        <p>The ECIU (Energy and Climate Intelligence Unit) was direct in its response: the UK "is still too dependent on gas, the price of which is set on international markets beyond the UK's control." This isn't a new observation — it's been the consistent finding of every major energy security review since 2022 — but it bears repeating when prices spike again.</p>
+
+        <p>Around <strong>73% of UK homes heat with gas</strong>. Gas was, until 2024, the single largest source of electricity generation. North Sea domestic production is declining and — even with new licences — cannot move the dial on the wholesale price the UK pays. Because UK electricity prices are determined at the margin by the cost of gas-fired generation, <strong>an LNG supply shock hits both gas bills and electricity bills simultaneously</strong>.</p>
+
+        <p>The long-term answer — more renewables, more heat pumps, better-insulated homes, more interconnection — is well understood. But it takes years to build out. In the meantime, UK households remain exposed to exactly the kind of event unfolding this week.</p>
+
+        <div class="purple-box">
+            <p><strong>The SwitchPilot view:</strong> The case for insulating your home, moving away from gas heating over the medium term, and being an active energy customer — switching when deals are favourable, watching market conditions — has never been stronger. This crisis, like 2022, will eventually pass. But the structural vulnerability it exposes won't, until gas plays a smaller role in UK homes and electricity generation. That transition is under way, but slowly.</p>
+        </div>
+
+        <h2>What happens next</h2>
+
+        <p>The immediate unknowns are geopolitical: how long the conflict lasts, whether Qatar resumes LNG production, whether Strait of Hormuz traffic normalises. These are genuinely unknowable at this stage. The markets are pricing in fear as much as actual supply disruption.</p>
+
+        <p>For the price cap specifically:</p>
+
+        <ul>
+            <li><strong>Q3 2026 (July) cap:</strong> Set by Ofgem on 27 May 2026, based on wholesale prices across the assessment window. If current prices are sustained through April, the cap will rise materially. If they ease by late March, the impact is smaller.</li>
+            <li><strong>Government response:</strong> The UK government intervened in 2022 with the Energy Price Guarantee and again in 2025 with policy cost removal. Whether they would do so again — and at what level of pain — is uncertain.</li>
+            <li><strong>Fixed deal availability:</strong> Suppliers will reprice or pull fixed deals as their own hedging costs increase. The window for locking in pre-spike prices is closing.</li>
+        </ul>
+
+        <p>SwitchPilot will update this article and our tariff tracker as the situation develops. The most useful thing you can do right now is check whether a fixed deal is available and make an informed decision — not a panicked one.</p>
+
+        <div class="summary-section">
+            <div class="summary-title">Key Takeaways</div>
+            <div class="summary-grid">
+                <div class="summary-item danger">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>UK wholesale gas up ~93% this week</strong> — Iran conflict and Qatar LNG halt behind the move</span>
+                </div>
+                <div class="summary-item danger">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>July cap could rise sharply</strong> — analysts cite potential toward £2,500 if prices are sustained</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Duration is the key uncertainty</strong> — a short-lived spike would limit cap impact; a sustained one won't</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Qatar supplies ~20% of global LNG</strong> — production halt is the single biggest supply disruption</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>This is a price event, not a supply shortage</strong> — UK physical gas supply is not at immediate risk</span>
+                </div>
+                <div class="summary-item info">
+                    <span class="summary-icon">💡</span>
+                    <span><strong>Bill impact is lagged</strong> — today's prices feed into the July cap assessment, not current bills</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Q3 gas demand is just 11% of annual</strong> — a higher July cap matters far less in summer than it would in winter</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>The real risk is Q4 and Q1 2027</strong> — winter caps are where sustained prices would genuinely hurt</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Q2 cap protects you until 30 June</strong> — no urgency to act; your rates cannot rise before then</span>
+                </div>
+                <div class="summary-item warning">
+                    <span class="summary-icon">⚠</span>
+                    <span><strong>Don't fix above ~£1,800</strong> — post-spike tariffs may price in fear; locking in now could backfire if prices ease</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Watch the market, don't panic</strong> — monitor prices over 2–4 weeks; act on evidence, not headlines</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Europe is better-prepared than 2022</strong> — more LNG terminals, diversified supply, emergency protocols</span>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+    <section style="padding: 0 2rem;">
+        <div class="cta-box">
+            <h3>Keep an eye on the market — don't panic</h3>
+            <p>You're protected until 30 June. Use the tariff tracker to monitor rates, and only fix if a deal is genuinely below the current £1,641 cap. Join the waitlist and we'll alert you when the right moment comes.</p>
+            <a href="tariff-tracker.html" class="cta-button">Monitor Tariffs →</a>
+            <a href="index.html#waitlist" class="cta-button secondary">Join Waitlist</a>
+        </div>
+    </section>
+
+    <footer class="article-footer">
+        <p class="footer-note"><strong>Sources:</strong> Ofgem price cap data (Feb 2026); OilPrice.com, "UK Gas Prices Have Nearly Doubled This Week" (3 Mar 2026); CNBC, "Middle East war sends natural gas prices soaring" (3 Mar 2026); Energy and Climate Intelligence Unit, press release (2 Mar 2026); MoneySavingExpert, Martin Lewis energy briefing (3 Mar 2026); FXStreet market analysis (3 Mar 2026); LBC News, UK petrol and gas market coverage (2–3 Mar 2026); Goldman Sachs market note via CNBC (3 Mar 2026). Wholesale price figures are NBP/TTF spot and near-term forward contracts and are indicative. The Stifel £2,500 scenario is an analyst projection, not an Ofgem forecast.</p>
+        <p class="footer-note" style="margin-top: 1rem;">
+            <strong>Related reading:</strong><br>
+            <a href="q2-2026-price-cap.html" style="color: var(--sp-green); text-decoration: none;">April 2026 Price Cap: Your Bills Are Dropping — But Not by as Much as They’re Saying →</a><br>
+            <a href="why-uk-electricity-bills-follow-gas-prices.html" style="color: var(--sp-green); text-decoration: none; margin-top: 0.4rem; display:inline-block;">Why UK Electricity Bills Follow Gas Prices →</a><br>
+            <a href="ofgem-state-of-market-2026.html" style="color: var(--sp-green); text-decoration: none; margin-top: 0.4rem; display:inline-block;">Ofgem State of the Market 2026: What It Means for Consumers →</a>
+        </p>
+    </footer>
+
+    <footer class="site-footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top: 1rem;">📧 Questions? team@switch-pilot.com</p>
+        <p style="margin-top: 1rem;">© 2026 SwitchPilot. Making energy bills make sense.</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gas seasonal demand weight chart
+        const demandCtx = document.getElementById('demandWeight');
+        if (demandCtx) {
+            new Chart(demandCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1: Jan–Mar\n(Winter)', 'Q2: Apr–Jun\n(Spring)', 'Q3: Jul–Sep\n(Summer)', 'Q4: Oct–Dec\n(Autumn)'],
+                    datasets: [{
+                        label: '% of annual gas consumption',
+                        data: [39, 18, 11, 32],
+                        backgroundColor: ['#EF4444', '#F59E0B', '#10B981', '#A855F7'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { label: ctx => `${ctx.parsed.y}% of annual gas consumption` }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            max: 50,
+                            ticks: { callback: v => `${v}%`, font: { size: 11 } },
+                            grid: { color: '#F1F5F9' }
+                        },
+                        x: {
+                            ticks: { font: { size: 11 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gas spike chart
+        const spikeCtx = document.getElementById('gasSpike');
+        if (spikeCtx) {
+            new Chart(spikeCtx, {
+                type: 'line',
+                data: {
+                    labels: [
+                        'Aug 22\n(crisis peak)', 'Jan 23', 'Jul 23', 'Jan 24',
+                        'Jul 24', 'Jan 25', 'Feb 25\n(pre-conflict)', 'Jul 25',
+                        'Oct 25', 'Jan 26', 'Feb 26', '1 Mar 26', '3 Mar 26\n(now)'
+                    ],
+                    datasets: [{
+                        label: 'UK NBP gas price (p/therm, indicative)',
+                        data: [510, 190, 85, 72, 68, 95, 80, 70, 85, 78, 76, 77, 148],
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239,68,68,0.08)',
+                        borderWidth: 2.5,
+                        pointRadius: function(ctx) {
+                            return ctx.dataIndex >= 11 ? 7 : 4;
+                        },
+                        pointBackgroundColor: function(ctx) {
+                            if (ctx.dataIndex === 12) return '#EF4444';
+                            if (ctx.dataIndex === 0) return '#B45309';
+                            return '#94A3B8';
+                        },
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { label: ctx => `${ctx.parsed.y}p/therm` }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            ticks: {
+                                callback: v => `${v}p`,
+                                font: { size: 11 }
+                            },
+                            grid: { color: '#F1F5F9' }
+                        },
+                        x: {
+                            ticks: { font: { size: 10 }, maxRotation: 40 },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cap scenario chart
+        const scenCtx = document.getElementById('capScenario');
+        if (scenCtx) {
+            new Chart(scenCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q2 2026 (current)', 'Q3 – prices ease', 'Q3 – prices hold', 'Q3 – prices sustained'],
+                    datasets: [{
+                        label: 'Estimated price cap (£/year)',
+                        data: [1641, 1650, 1900, 2400],
+                        backgroundColor: ['#10B981', '#F59E0B', '#F97316', '#EF4444'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: ctx => `£${ctx.parsed.y.toLocaleString()}/year` } }
+                    },
+                    scales: {
+                        y: {
+                            min: 1200,
+                            ticks: { callback: v => `£${v.toLocaleString()}`, font: { size: 11 } },
+                            grid: { color: '#F1F5F9' }
+                        },
+                        x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+    }); // end DOMContentLoaded
+    </script>
+</body>
+</html>

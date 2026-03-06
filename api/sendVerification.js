@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const link = `https://switchpilot.com/verify?token=${token}&email=${encodeURIComponent(email)}`;
 
     await transporter.sendMail({
-      from: `SwitchPilot Flight Crew <${process.env.SMTP_USER}>`,
+      from: `SwitchPilot Team <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Verify your email — SwitchPilot",
       html: `

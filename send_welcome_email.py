@@ -100,7 +100,7 @@ def send_welcome_email(to_email):
         """
     
     msg = MIMEMultipart('alternative')
-    msg['From'] = f"SwitchPilot Crew <crew@switch-pilot.com>"
+    msg['From'] = f"SwitchPilot Team <team@switch-pilot.com>"
     msg['To'] = to_email
     msg['Subject'] = "You're in - here's how UK energy really works"
     

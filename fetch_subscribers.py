@@ -17,7 +17,7 @@ def fetch_subscribers():
     client = gspread.authorize(creds)
 
     # Open your spreadsheet - update this to your sheet's name or ID
-    sheet = client.open("SwitchPilot Subscribers").sheet1
+    sheet = client.open("SwitchPilot Signups").sheet1
     
     # Get column B (emails), skip header
     emails = sheet.col_values(2)[1:]

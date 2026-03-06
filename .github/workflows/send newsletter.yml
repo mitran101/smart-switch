@@ -1,6 +1,8 @@
 name: Send Newsletter
 
 on:
+  schedule:
+    - cron: '0 10 7 3 *'  # 10:00 AM UTC (UK time) on March 7
   workflow_dispatch:
     inputs:
       mode:
@@ -24,7 +26,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests gspread google-auth
+        run: pip install requests
 
       - name: Send test email
         if: ${{ github.event.inputs.mode == 'test' }}
@@ -33,12 +35,9 @@ jobs:
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
         run: python send_newsletter.py --test
 
-      - name: Fetch subscriber list and send
-        if: ${{ github.event.inputs.mode == 'send' }}
+      - name: Send to all subscribers
+        if: ${{ github.event.inputs.mode == 'send' || github.event_name == 'schedule' }}
         env:
           MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
-          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-        run: |
-          python fetch_subscribers.py > emails.txt
-          python send_newsletter.py --file emails.txt
+        run: python send_newsletter.py --file emails.txt

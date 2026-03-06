@@ -16,14 +16,14 @@ def fetch_subscribers():
     ])
     client = gspread.authorize(creds)
 
-    # Open your spreadsheet - update this to your sheet's name or ID
-    sheet = client.open("SwitchPilot Signups").sheet1
+    # Open by ID from your Apps Script
+    sheet = client.open_by_key("10r_oruP0YcfRHH_k_nhjSDQ6knwgd89EqJ0vfx-v2No").sheet1
     
-    # Get column B (emails), skip header
-    emails = sheet.col_values(2)[1:]
+    # Get all data, skip header
+    rows = sheet.get_all_values()[1:]
     
-    # Filter valid emails
-    emails = [e.strip() for e in emails if e and '@' in e]
+    # Column B = email, Column C = unsubscribed ("yes" means skip)
+    emails = [row[1].strip() for row in rows if row[1] and '@' in row[1] and row[2] != 'yes']
     return emails
 
 if __name__ == "__main__":

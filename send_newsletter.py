@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
         # Test mode - send to yourself
-        send_newsletter("amaury.clerens@hotmail.com", html)
+        send_newsletter("mitran30@gmail.com", html)
     elif len(sys.argv) > 1 and sys.argv[1] == "--file":
         # Read emails from a file (one per line)
         with open(sys.argv[2], 'r') as f:

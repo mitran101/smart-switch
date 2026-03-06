@@ -3,6 +3,7 @@ import os
 import sys
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from urllib.parse import quote
 import requests
 
 def fetch_newsletter_html():
@@ -16,18 +17,27 @@ def fetch_newsletter_html():
         print(f"ERROR: Could not fetch newsletter HTML: {e}")
         return None
 
+def personalize_html(html_content, to_email):
+    """Replace generic unsubscribe link with personalized one"""
+    generic_unsub = "https://mitran101.github.io/smart-switch/unsubscribe.html"
+    personal_unsub = f"https://mitran101.github.io/smart-switch/unsubscribe.html?token={quote(to_email)}"
+    return html_content.replace(generic_unsub, personal_unsub)
+
 def send_newsletter(to_email, html_content):
     smtp_server = "smtp.office365.com"
     smtp_port = 587
     sender_email = os.getenv('MICROSOFT_EMAIL')
     password = os.getenv('MICROSOFT_PASSWORD')
 
+    # Personalize unsubscribe link for this recipient
+    html = personalize_html(html_content, to_email)
+
     msg = MIMEMultipart('alternative')
     msg['From'] = f"SwitchPilot Team <team@switch-pilot.com>"
     msg['To'] = to_email
     msg['Subject'] = "Gas prices just doubled. Here's what you need to know."
 
-    msg.attach(MIMEText(html_content, 'html'))
+    msg.attach(MIMEText(html, 'html'))
 
     try:
         with smtplib.SMTP(smtp_server, smtp_port) as server:
@@ -60,7 +70,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
         # Test mode - send to yourself
-        send_newsletter("mmitran30@gmail.com", html)
+        send_newsletter("mitran30@gmail.com", html)
     elif len(sys.argv) > 1 and sys.argv[1] == "--file":
         # Read emails from a file (one per line)
         with open(sys.argv[2], 'r') as f:

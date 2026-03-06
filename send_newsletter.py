@@ -4,6 +4,7 @@ import sys
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from urllib.parse import quote
+import base64
 import requests
 
 def fetch_newsletter_html():
@@ -20,7 +21,8 @@ def fetch_newsletter_html():
 def personalize_html(html_content, to_email):
     """Replace generic unsubscribe link with personalized one"""
     generic_unsub = "https://mitran101.github.io/smart-switch/unsubscribe.html"
-    personal_unsub = f"https://mitran101.github.io/smart-switch/unsubscribe.html?token={quote(to_email)}"
+    token = base64.b64encode(to_email.encode('utf-8')).decode('utf-8')
+    personal_unsub = f"https://mitran101.github.io/smart-switch/unsubscribe.html?token={quote(token)}"
     return html_content.replace(generic_unsub, personal_unsub)
 
 def send_newsletter(to_email, html_content):
@@ -70,7 +72,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
         # Test mode - send to yourself
-        send_newsletter("mmitran30@gmail.com", html)
+        send_newsletter("mitran30@gmail.com", html)
     elif len(sys.argv) > 1 and sys.argv[1] == "--file":
         # Read emails from a file (one per line)
         with open(sys.argv[2], 'r') as f:

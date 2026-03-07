@@ -108,7 +108,7 @@ def send_welcome_email(to_email):
       </head>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
         <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 30px 24px; border-radius: 10px 10px 0 0; text-align: center;">
-          <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" width="56" style="display: block; width: 56px; height: auto; margin: 0 auto 10px;">
+          <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" width="80" style="display: block; width: 80px; height: auto; margin: 0 auto 10px;">
           <span style="font-size: 22px; font-weight: 700; color: #ffffff !important; -webkit-text-fill-color: #ffffff; letter-spacing: -0.3px;">Welcome to SwitchPilot</span>
         </div>
         

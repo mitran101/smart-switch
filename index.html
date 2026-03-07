@@ -4368,74 +4368,70 @@ body {
 
   .footer { padding: 2.5rem 1rem; }
 
-  .hiw-steps { flex-direction: column; gap: 1.5rem; }
-  .hiw-connector { display: none; }
-  .hiw-step { max-width: 100%; }
-  .how-it-works-section { padding: 3rem 1rem; }
+  .how-it-works-section { padding: 2.5rem 1rem; }
   .hiw-inner h2 { font-size: 1.8rem; }
-  .q-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .questionnaire-section { padding: 3rem 1rem; }
-  .cashback-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .cashback-section { padding: 3rem 1rem; }
-  .q-bottom { flex-direction: column; gap: 0.5rem; align-items: center; }
+  .hiw-pills { flex-direction: column; gap: 0.6rem; align-items: center; }
+  .hiw-expand-steps { gap: 1.25rem; }
+  .hiw-expand-q { flex-direction: column; gap: 0.5rem; }
 
 }
 
 /* HOW IT WORKS */
 
 .how-it-works-section {
-  padding: 5rem 2rem;
+  padding: 4rem 2rem;
   background: linear-gradient(135deg, rgba(168,85,247,0.08) 0%, transparent 50%);
 }
 
 .hiw-inner {
-  max-width: 1100px;
+  max-width: 700px;
   margin: 0 auto;
   text-align: center;
 }
 
 .hiw-inner h2 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--sp-text);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.hiw-sub {
-  color: var(--sp-text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
+.hiw-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 }
 
-.hiw-steps {
+.hiw-pill {
+  background: var(--sp-card);
+  border: 1px solid var(--sp-card-border);
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sp-text);
+}
+
+.hiw-expand-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.hiw-expand-step {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  margin-bottom: 2.5rem;
 }
 
-.hiw-step {
-  flex: 1;
-  background: var(--sp-card);
-  border: 1px solid var(--sp-card-border);
-  border-radius: 16px;
-  padding: 1.5rem 1.25rem;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hiw-step:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 24px rgba(168,85,247,0.25);
-}
-
-.hiw-number {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 28px;
+.hiw-expand-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
   color: #fff;
@@ -4444,268 +4440,58 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2px;
 }
 
-.hiw-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-.hiw-step h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--sp-text);
-  margin-bottom: 0.5rem;
-}
-
-.hiw-step p {
-  font-size: 0.88rem;
+.hiw-expand-step div {
   color: var(--sp-text-muted);
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
-.hiw-connector {
-  color: var(--sp-purple);
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding-top: 2.5rem;
-  flex-shrink: 0;
+.hiw-expand-step div strong {
+  color: var(--sp-text);
 }
 
-.hiw-note {
+.hiw-expand-divider {
+  height: 1px;
+  background: var(--sp-card-border);
+  margin: 1.25rem 0;
+}
+
+.hiw-expand-q {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  background: rgba(168,85,247,0.08);
-  border: 1px solid rgba(168,85,247,0.2);
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
+  gap: 0.85rem;
   text-align: left;
-  max-width: 700px;
-  margin: 0 auto;
 }
 
-.hiw-note span {
-  font-size: 1.25rem;
+.hiw-expand-q-icon {
+  font-size: 1.5rem;
   flex-shrink: 0;
 }
 
-.hiw-note p {
-  color: var(--sp-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-/* WHY THE QUESTIONNAIRE */
-
-.questionnaire-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, transparent 0%, rgba(236,72,153,0.06) 50%, transparent 100%);
-}
-
-.q-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.q-badge {
-  display: inline-block;
-  background: rgba(236,72,153,0.15);
-  border: 1px solid rgba(236,72,153,0.3);
-  color: var(--sp-pink);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.35rem 1rem;
-  border-radius: 20px;
-  margin-bottom: 1.25rem;
-}
-
-.q-inner h2 {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--sp-text);
-  margin-bottom: 0.75rem;
-}
-
-.q-intro {
-  color: var(--sp-text-muted);
-  font-size: 1.05rem;
-  margin-bottom: 2.5rem;
-}
-
-.q-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.q-card {
-  background: var(--sp-card);
-  border: 1px solid var(--sp-card-border);
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: transform 0.3s ease;
-}
-
-.q-card:hover {
-  transform: translateY(-3px);
-}
-
-.q-card-icon {
-  font-size: 1.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.q-card h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--sp-text);
-  margin-bottom: 0.6rem;
-}
-
-.q-card p, .q-card ul {
-  color: var(--sp-text-muted);
+.hiw-expand-q div {
   font-size: 0.9rem;
   line-height: 1.6;
 }
 
-.q-card ul {
-  padding-left: 1.2rem;
-}
-
-.q-card ul li {
-  margin-bottom: 0.3rem;
-}
-
-.q-bottom {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.q-bottom span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(16,185,129,0.1);
-  border: 1px solid rgba(16,185,129,0.25);
-  color: var(--sp-green);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  border-radius: 20px;
-}
-
-/* CASHBACK CALLOUT */
-
-.cashback-section {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, transparent 60%);
-}
-
-.cashback-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.cashback-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--sp-green), #059669);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.4rem 1.25rem;
-  border-radius: 20px;
-  margin-bottom: 1.25rem;
-}
-
-.cashback-inner h2 {
-  font-size: 2.2rem;
-  font-weight: 800;
+.hiw-expand-q div strong {
   color: var(--sp-text);
-  margin-bottom: 0.75rem;
+  display: block;
+  margin-bottom: 0.35rem;
 }
 
-.cashback-lead {
+.hiw-expand-q div p {
   color: var(--sp-text-muted);
-  font-size: 1.1rem;
-  max-width: 650px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.6;
-}
-
-.cashback-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
-  text-align: left;
-}
-
-.cashback-item {
-  background: var(--sp-card);
-  border: 1px solid rgba(16,185,129,0.2);
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cashback-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 24px rgba(16,185,129,0.2);
-}
-
-.cashback-icon {
-  font-size: 1.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.cashback-item h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--sp-text);
-  margin-bottom: 0.5rem;
-}
-
-.cashback-item p {
-  color: var(--sp-text-muted);
-  font-size: 0.88rem;
-  line-height: 1.6;
-}
-
-.cashback-cta {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--sp-green), var(--sp-green-dark));
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.9rem 2rem;
-  border-radius: 12px;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(16,185,129,0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cashback-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(16,185,129,0.4);
+  margin: 0;
 }
 
 /* HOW IT WORKS - EXPAND */
 
 .hiw-expand {
   max-width: 700px;
-  margin: 2rem auto 0;
+  margin: 0 auto;
   background: rgba(168,85,247,0.06);
   border: 1px solid rgba(168,85,247,0.2);
   border-radius: 14px;
@@ -4915,161 +4701,37 @@ body {
 
   <div class="hiw-inner">
 
-    <h2>How SwitchPilot Works</h2>
+    <h2>What Makes Us Different</h2>
 
-    <p class="hiw-sub">This isn't a comparison site. Suppliers come to you - and compete for your business.</p>
-
-    <div class="hiw-steps">
-
-      <div class="hiw-step">
-        <div class="hiw-icon">📝</div>
-        <div class="hiw-number">1</div>
-        <h3>Sign Up Free</h3>
-        <p>Takes two minutes. Just your email and address to get started.</p>
-      </div>
-
-      <div class="hiw-connector">→</div>
-
-      <div class="hiw-step">
-        <div class="hiw-icon">💬</div>
-        <div class="hiw-number">2</div>
-        <h3>Answer 8 Questions</h3>
-        <p>Optional - but you get <strong>£5 cashback</strong> just for completing it, and it helps unlock even cheaper exclusive tariffs.</p>
-      </div>
-
-      <div class="hiw-connector">→</div>
-
-      <div class="hiw-step">
-        <div class="hiw-icon">⚔️</div>
-        <div class="hiw-number">3</div>
-        <h3>Suppliers Compete</h3>
-        <p>Energy suppliers bid against each other to win your business - creating exclusive tariffs you won't find anywhere else.</p>
-      </div>
-
-      <div class="hiw-connector">→</div>
-
-      <div class="hiw-step">
-        <div class="hiw-icon">🏆</div>
-        <div class="hiw-number">4</div>
-        <h3>Cheapest Wins</h3>
-        <p>The supplier with the lowest tariff wins. You get switched automatically - no forms, no phone calls.</p>
-      </div>
-
-      <div class="hiw-connector">→</div>
-
-      <div class="hiw-step">
-        <div class="hiw-icon">💷</div>
-        <div class="hiw-number">5</div>
-        <h3>You Get Switched (and Paid)</h3>
-        <p>Exclusive deal locked in, plus 10% cashback from our revenue - straight to you, every time.</p>
-      </div>
-
+    <div class="hiw-pills">
+      <div class="hiw-pill">⚡ Exclusive tariffs you can't get anywhere else</div>
+      <div class="hiw-pill">💷 10% cashback from our revenue on every switch</div>
+      <div class="hiw-pill">🔄 Automatic - we handle everything</div>
     </div>
 
     <details class="hiw-expand">
-      <summary>How does the tender actually work? <span class="hiw-expand-arrow">▼</span></summary>
+      <summary>How it works <span class="hiw-expand-arrow">▼</span></summary>
       <div class="hiw-expand-body">
-        <p>Most switching services go and find the best publicly available tariff for you. We do something different.</p>
-        <p>We group our customers together and go to energy suppliers directly. Suppliers can see the group - their size, their profile - and they compete by offering exclusive tariffs that aren't listed anywhere publicly. It's a winner-takes-all tender: one supplier wins, everyone in the group gets that deal.</p>
-        <p>This competitive pressure is what unlocks tariffs you genuinely cannot find elsewhere. Suppliers are motivated to offer their best price because if they don't, they lose the whole group to a competitor.</p>
-        <p>The optional questionnaire (step 2) helps suppliers understand the group better - and the more they know, the more confident they are bidding aggressively. That's why completing it unlocks even cheaper tariffs on top of your £5 for filling it in.</p>
-        <p>We earn a fee from the winning supplier for bringing them customers. We give 10% of that fee - from your specific switch - back to you as cashback.</p>
+
+        <div class="hiw-expand-steps">
+          <div class="hiw-expand-step"><span class="hiw-expand-num">1</span><div><strong>Sign up free.</strong> Just your email and address. Takes two minutes.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">2</span><div><strong>Suppliers compete.</strong> We take your group to energy suppliers directly. They bid against each other with exclusive tariffs - ones that don't appear publicly anywhere - in a winner-takes-all tender.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">3</span><div><strong>Cheapest wins.</strong> The supplier with the lowest tariff gets the group. You get switched automatically - no forms, no phone calls.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">4</span><div><strong>You get paid.</strong> The supplier pays us a fee for bringing them customers. We give 10% of what we make from your switch back to you as cashback - every time, including annual re-matches.</div></div>
+        </div>
+
+        <div class="hiw-expand-divider"></div>
+
+        <div class="hiw-expand-q">
+          <div class="hiw-expand-q-icon">💬</div>
+          <div>
+            <strong>There's also an optional short questionnaire.</strong>
+            <p>When we're getting ready to switch you, we'll send you a few short questions. You get cashback just for completing it - and your answers help suppliers bid even more aggressively for your group, which means cheaper tariffs for you. Your data is used for one thing only: finding you the best possible deal.</p>
+          </div>
+        </div>
+
       </div>
     </details>
-
-  </div>
-
-</section>
-
-
-
-<!-- THE QUESTIONNAIRE -->
-
-<section class="questionnaire-section">
-
-  <div class="q-inner">
-
-    <div class="q-badge">Optional - but worth it</div>
-
-    <h2>The Questionnaire That Pays You</h2>
-
-    <p class="q-intro">After you sign up, we'll send you a short questionnaire. 8 simple questions. Here's what you get for completing it.</p>
-
-    <div class="q-grid">
-
-      <div class="q-card">
-        <div class="q-card-icon">💷</div>
-        <h3>£5 cashback, instantly</h3>
-        <p>Complete the questionnaire and we'll pay you £5 straight away - before you've even been switched. Just for answering 8 questions.</p>
-      </div>
-
-      <div class="q-card">
-        <div class="q-card-icon">🔓</div>
-        <h3>Even cheaper exclusive tariffs</h3>
-        <p>The more suppliers know about the group they're bidding for, the more confidently they compete. More competition means cheaper tariffs - so your answers directly translate into a better deal.</p>
-      </div>
-
-      <div class="q-card">
-        <div class="q-card-icon">⏱️</div>
-        <h3>Takes a few minutes</h3>
-        <p>8 questions, all self-reported. There's no right or wrong answer - just honest ones. And it's completely optional.</p>
-      </div>
-
-      <div class="q-card">
-        <div class="q-card-icon">🛡️</div>
-        <h3>Your data is yours</h3>
-        <p>What you share is used only to help match you to the right supplier group. We never sell your data. We never share it beyond what's needed to complete your switch.</p>
-      </div>
-
-    </div>
-
-    <div class="q-bottom">
-      <span>£5 for completing it.</span>
-      <span>Cheaper exclusive tariffs.</span>
-      <span>Completely optional.</span>
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- CASHBACK CALLOUT -->
-
-<section class="cashback-section">
-
-  <div class="cashback-inner">
-
-    <div class="cashback-badge">10% Cashback - Every Switch</div>
-
-    <h2>We Give You a Cut of Our Revenue</h2>
-
-    <p class="cashback-lead">When a supplier wins the tender, they pay us a fee for your switch. We give 10% of what we make from your switch back to you as cashback - straight to you, every time.</p>
-
-    <div class="cashback-grid">
-
-      <div class="cashback-item">
-        <div class="cashback-icon">💷</div>
-        <h3>Instant cashback</h3>
-        <p>10% of our switching fee, paid to you on every switch. Not a voucher, not a loyalty point - real money.</p>
-      </div>
-
-      <div class="cashback-item">
-        <div class="cashback-icon">🔄</div>
-        <h3>Every year, automatically</h3>
-        <p>We re-run the tender annually. Every time you're matched to a new supplier, you get cashback again. It's not a one-time thing.</p>
-      </div>
-
-      <div class="cashback-item">
-        <div class="cashback-icon">🚫</div>
-        <h3>Not available anywhere else</h3>
-        <p>The exclusive tariffs we unlock through competitive tender don't appear on comparison sites. This combination of exclusive deal plus cashback is unique to SwitchPilot.</p>
-      </div>
-
-    </div>
-
-    <a href="#waitlist" class="cashback-cta">Get Exclusive Deals + 10% Cashback →</a>
 
   </div>
 

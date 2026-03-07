@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 
-<meta property="og:description" content="Suppliers fight for your business in a winner-takes-all tender - giving you exclusive tariffs and 10% cashback you won't find on Uswitch or MoneySuperMarket. Built by energy insiders.">
+<meta property="og:description" content="Free auto-switching service. Suppliers compete for your business in a winner-takes-all tender - unlocking exclusive tariffs you can't get anywhere else, plus 10% cashback. Built by energy insiders.">
 
 <meta property="og:url" content="https://switch-pilot.com/">
 
@@ -4701,6 +4701,62 @@ body {
   box-shadow: 0 8px 28px rgba(16,185,129,0.4);
 }
 
+/* HOW IT WORKS - EXPAND */
+
+.hiw-expand {
+  max-width: 700px;
+  margin: 2rem auto 0;
+  background: rgba(168,85,247,0.06);
+  border: 1px solid rgba(168,85,247,0.2);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.hiw-expand summary {
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sp-text);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.hiw-expand summary::-webkit-details-marker { display: none; }
+
+.hiw-expand summary:hover {
+  background: rgba(168,85,247,0.1);
+}
+
+.hiw-expand[open] summary .hiw-expand-arrow {
+  transform: rotate(180deg);
+}
+
+.hiw-expand-arrow {
+  font-size: 0.8rem;
+  color: var(--sp-purple);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.hiw-expand-body {
+  padding: 0 1.5rem 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.hiw-expand-body p {
+  color: var(--sp-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
 </style>
 
 
@@ -4765,7 +4821,7 @@ body {
 
       <h1>Suppliers Fight for You. You Get the Best Deal.</h1>
 
-      <p>We don't just find you a deal - we make suppliers compete for your business. Exclusive tariffs in a winner-takes-all tender, plus 10% cashback from our revenue on every switch. Not available on Uswitch. Not on MoneySuperMarket. Nowhere else.</p>
+      <p>We're a free auto-switching service - but with a difference. We make suppliers compete for your business in a winner-takes-all tender, unlocking exclusive tariffs you genuinely cannot find anywhere else. Plus 10% cashback from our revenue on every switch.</p>
 
     </div>
 
@@ -4795,11 +4851,11 @@ body {
 
   <div class="hero-cta">
 
-    <p>📬 Free to join. No credit check. Exclusive deals plus 10% cashback, every time you're switched.</p>
+    <p>📬 Free to join. Exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
     <a href="#waitlist" class="hero-btn">Sign Up Free →</a>
 
-    <p class="subtext">🔒 Takes 3-4 minutes. No credit check. Unsubscribe anytime.</p>
+    <p class="subtext">🔒 Free forever. Unsubscribe anytime.</p>
 
 
 
@@ -4845,7 +4901,7 @@ body {
 
     </div>
 
-    <p>We score you, group you with similar customers, and let suppliers bid for your business in a <strong>winner-takes-all tender</strong>. The cheapest tariff wins. You get switched automatically - plus <strong>10% cashback</strong> from our revenue, every single time.</p>
+    <p>Suppliers bid for your business in a <strong>winner-takes-all tender</strong>, producing exclusive tariffs you can't get anywhere else. The cheapest tariff wins. You get switched automatically - plus <strong>10% cashback</strong> from our revenue, every single time.</p>
 
   </div>
 
@@ -4869,16 +4925,16 @@ body {
         <div class="hiw-icon">📝</div>
         <div class="hiw-number">1</div>
         <h3>Sign Up Free</h3>
-        <p>Answer 8 quick questions. Takes 3-4 minutes. No credit check - everything is self-reported.</p>
+        <p>Takes two minutes. Just your email and address to get started.</p>
       </div>
 
       <div class="hiw-connector">→</div>
 
       <div class="hiw-step">
-        <div class="hiw-icon">🎯</div>
+        <div class="hiw-icon">💬</div>
         <div class="hiw-number">2</div>
-        <h3>We Score You</h3>
-        <p>We assess your profile and group you with similar customers into quality tiers that suppliers value.</p>
+        <h3>Answer 8 Questions</h3>
+        <p>Optional - but you get <strong>£5 cashback</strong> just for completing it, and it helps unlock even cheaper exclusive tariffs.</p>
       </div>
 
       <div class="hiw-connector">→</div>
@@ -4887,7 +4943,7 @@ body {
         <div class="hiw-icon">⚔️</div>
         <div class="hiw-number">3</div>
         <h3>Suppliers Compete</h3>
-        <p>Energy suppliers see your group and bid against each other with exclusive tariffs - a winner-takes-all tender.</p>
+        <p>Energy suppliers bid against each other to win your business - creating exclusive tariffs you won't find anywhere else.</p>
       </div>
 
       <div class="hiw-connector">→</div>
@@ -4904,16 +4960,22 @@ body {
       <div class="hiw-step">
         <div class="hiw-icon">💷</div>
         <div class="hiw-number">5</div>
-        <h3>You Get Paid</h3>
-        <p>Exclusive deal locked in, plus 10% cashback from our revenue - straight to you, instantly.</p>
+        <h3>You Get Switched (and Paid)</h3>
+        <p>Exclusive deal locked in, plus 10% cashback from our revenue - straight to you, every time.</p>
       </div>
 
     </div>
 
-    <div class="hiw-note">
-      <span>🔒</span>
-      <p>These tariffs don't appear on Uswitch, MoneySuperMarket, or anywhere else. The competitive tender is what unlocks them - and the cashback is from us, not the supplier.</p>
-    </div>
+    <details class="hiw-expand">
+      <summary>How does the tender actually work? <span class="hiw-expand-arrow">▼</span></summary>
+      <div class="hiw-expand-body">
+        <p>Most switching services go and find the best publicly available tariff for you. We do something different.</p>
+        <p>We group our customers together and go to energy suppliers directly. Suppliers can see the group - their size, their profile - and they compete by offering exclusive tariffs that aren't listed anywhere publicly. It's a winner-takes-all tender: one supplier wins, everyone in the group gets that deal.</p>
+        <p>This competitive pressure is what unlocks tariffs you genuinely cannot find elsewhere. Suppliers are motivated to offer their best price because if they don't, they lose the whole group to a competitor.</p>
+        <p>The optional questionnaire (step 2) helps suppliers understand the group better - and the more they know, the more confident they are bidding aggressively. That's why completing it unlocks even cheaper tariffs on top of your £5 for filling it in.</p>
+        <p>We earn a fee from the winning supplier for bringing them customers. We give 10% of that fee - from your specific switch - back to you as cashback.</p>
+      </div>
+    </details>
 
   </div>
 
@@ -4921,56 +4983,50 @@ body {
 
 
 
-<!-- WHY THE QUESTIONNAIRE -->
+<!-- THE QUESTIONNAIRE -->
 
 <section class="questionnaire-section">
 
   <div class="q-inner">
 
-    <div class="q-badge">Transparent by design</div>
+    <div class="q-badge">Optional - but worth it</div>
 
-    <h2>Why Do We Ask Questions?</h2>
+    <h2>The Questionnaire That Pays You</h2>
 
-    <p class="q-intro">We ask 8 simple questions when you sign up. Here's exactly why - and why it's good for you.</p>
+    <p class="q-intro">After you sign up, we'll send you a short questionnaire. 8 simple questions. Here's what you get for completing it.</p>
 
     <div class="q-grid">
 
       <div class="q-card">
-        <div class="q-card-icon">🔍</div>
-        <h3>What we ask about</h3>
-        <ul>
-          <li>Smart meter status</li>
-          <li>How you pay (direct debit, prepayment, etc.)</li>
-          <li>How long you've lived at your address</li>
-          <li>Whether you've had any payment difficulties</li>
-          <li>How engaged you are with your energy usage</li>
-        </ul>
+        <div class="q-card-icon">💷</div>
+        <h3>£5 cashback, instantly</h3>
+        <p>Complete the questionnaire and we'll pay you £5 straight away - before you've even been switched. Just for answering 8 questions.</p>
       </div>
 
       <div class="q-card">
-        <div class="q-card-icon">💡</div>
-        <h3>Why suppliers care</h3>
-        <p>A homeowner with a smart meter who pays by direct debit and has never missed a payment is genuinely worth more to a supplier than someone who just switched last month. Suppliers know this - and they'll pay more, and offer better tariffs, for higher-quality customer groups.</p>
+        <div class="q-card-icon">🔓</div>
+        <h3>Even cheaper exclusive tariffs</h3>
+        <p>The more suppliers know about the group they're bidding for, the more confidently they compete. More competition means cheaper tariffs - so your answers directly translate into a better deal.</p>
       </div>
 
       <div class="q-card">
-        <div class="q-card-icon">🎁</div>
-        <h3>Why this benefits you</h3>
-        <p>By scoring you accurately, we can show suppliers exactly what they're getting. That confidence unlocks better bids. The questionnaire isn't a barrier - it's what makes the exclusive tariffs and cashback possible in the first place.</p>
+        <div class="q-card-icon">⏱️</div>
+        <h3>Takes a few minutes</h3>
+        <p>8 questions, all self-reported. There's no right or wrong answer - just honest ones. And it's completely optional.</p>
       </div>
 
       <div class="q-card">
         <div class="q-card-icon">🛡️</div>
         <h3>Your data is yours</h3>
-        <p>Everything you share is used only to score and match you. We never sell your data. We never share it beyond what's needed to complete your switch. That's it.</p>
+        <p>What you share is used only to help match you to the right supplier group. We never sell your data. We never share it beyond what's needed to complete your switch.</p>
       </div>
 
     </div>
 
     <div class="q-bottom">
-      <span>No credit check.</span>
-      <span>Self-reported only.</span>
-      <span>3-4 minutes.</span>
+      <span>£5 for completing it.</span>
+      <span>Cheaper exclusive tariffs.</span>
+      <span>Completely optional.</span>
     </div>
 
   </div>
@@ -4989,7 +5045,7 @@ body {
 
     <h2>We Give You a Cut of Our Revenue</h2>
 
-    <p class="cashback-lead">Suppliers pay us a fee for bringing them high-quality customers. We give 10% of that fee back to you as cashback - instantly, on every switch.</p>
+    <p class="cashback-lead">When a supplier wins the tender, they pay us a fee for your switch. We give 10% of what we make from your switch back to you as cashback - straight to you, every time.</p>
 
     <div class="cashback-grid">
 
@@ -5141,7 +5197,7 @@ body {
 
     <p>Ready to get suppliers competing for you?</p>
 
-    <p style="font-weight: 400;">Sign up free - exclusive tariffs, 10% cashback, no credit check</p>
+    <p style="font-weight: 400;">Exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue</p>
 
     <a href="#waitlist" class="mid-cta-btn">Sign Up Free →</a>
 
@@ -5233,9 +5289,9 @@ body {
 
   <h3>Get Suppliers Competing for You 🚀</h3>
 
-  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback on every switch. No credit check.</p>
+  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback from our revenue on every switch.</p>
 
-  <p class="form-info">A few details so we can score you and match you with the right supplier group 👇</p>
+  <p class="form-info">A couple of details to get you set up 👇</p>
 
   <form onsubmit="handleSubmit(event)" id="waitlistForm">
 
@@ -5787,7 +5843,7 @@ body {
 
   <h2>Stop Overpaying.</h2>
 
-  <p>Most people are on their supplier's most expensive tariff without even knowing it. We make suppliers compete for your business in a winner-takes-all tender - unlocking exclusive tariffs plus 10% cashback you won't find anywhere else. Free to join. No credit check.</p>
+  <p>Most people are on their supplier's most expensive tariff without even knowing it. We're a free auto-switching service that makes suppliers compete for your business - unlocking exclusive tariffs you genuinely cannot find anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
   <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up Free</button>
 

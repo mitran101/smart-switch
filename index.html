@@ -22,7 +22,7 @@
 
 <!-- SEO Meta Tags -->
 
-<meta name="description" content="Free auto-switching energy service. Suppliers compete for your business in a winner-takes-all tender - unlocking exclusive tariffs and 10% cashback you can't get anywhere else.">
+<meta name="description" content="Free auto-switching energy service. Suppliers compete for you in a winner-takes-all tender - unlocking exclusive tariffs and 10% cashback you can't get anywhere else.">
 
 <link rel="canonical" href="https://switch-pilot.com/">
 
@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 
-<meta property="og:description" content="Free auto-switching service. Suppliers compete for your business in a winner-takes-all tender - unlocking exclusive tariffs you can't get anywhere else, plus 10% cashback. Built by energy insiders.">
+<meta property="og:description" content="Free auto-switching service. Suppliers compete for you in a winner-takes-all tender - unlocking exclusive tariffs you can't get anywhere else, plus 10% cashback. Built by energy insiders.">
 
 <meta property="og:url" content="https://switch-pilot.com/">
 
@@ -48,7 +48,7 @@
 
 <meta name="twitter:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 
-<meta name="twitter:description" content="Stop overpaying for energy. Suppliers compete for your business - you get exclusive deals and 10% cashback. Built by energy insiders.">
+<meta name="twitter:description" content="Stop overpaying for energy. Suppliers compete for you - you get exclusive deals and 10% cashback. Built by energy insiders.">
 
 <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
 
@@ -1830,7 +1830,55 @@ body {
 
 .survey-card .footnote strong { color: var(--sp-text); }
 
+.survey-expand {
+  border: none;
+  background: none;
+}
 
+.survey-expand-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 1.5rem;
+  background: var(--sp-card);
+  border: 1px solid var(--sp-card-border);
+  border-radius: 14px;
+  margin-bottom: 0;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+
+.survey-expand-summary::-webkit-details-marker { display: none; }
+
+.survey-expand-summary:hover { background: rgba(255,255,255,0.05); }
+
+.survey-expand-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+
+.survey-expand-arrow {
+  font-size: 0.8rem;
+  color: var(--sp-purple);
+  transition: transform 0.3s ease;
+}
+
+.survey-expand[open] .survey-expand-summary {
+  border-radius: 14px 14px 0 0;
+  border-bottom-color: transparent;
+}
+
+.survey-expand[open] .survey-expand-arrow {
+  transform: rotate(180deg);
+}
+
+.survey-expand .survey-card {
+  border-radius: 0 0 14px 14px;
+  margin-top: 0;
+}
 
 /* WAITLIST FORM */
 
@@ -4607,7 +4655,7 @@ body {
 
       <h1>Suppliers Fight for You. You Get the Best Deal.</h1>
 
-      <p>We're a free auto-switching service - but with a difference. We make suppliers compete for your business in a winner-takes-all tender, unlocking exclusive tariffs you genuinely cannot find anywhere else. Plus 10% cashback from our revenue on every switch.</p>
+      <p>We're a free auto-switching service - but with a difference. We make suppliers compete for you in a winner-takes-all tender, unlocking exclusive tariffs you genuinely cannot find anywhere else. Plus 10% cashback from our revenue on every switch.</p>
 
     </div>
 
@@ -4687,7 +4735,7 @@ body {
 
     </div>
 
-    <p>Suppliers bid for your business in a <strong>winner-takes-all tender</strong>, producing exclusive tariffs you can't get anywhere else. The cheapest tariff wins. You get switched automatically - plus <strong>10% cashback</strong> from our revenue, every single time.</p>
+    <p>Suppliers bid against each other in a <strong>winner-takes-all tender</strong>, producing exclusive tariffs you can't get anywhere else. The cheapest tariff wins. You get switched automatically - plus <strong>10% cashback</strong> from our revenue, every single time.</p>
 
   </div>
 
@@ -4751,7 +4799,7 @@ body {
 
     <p>Most people are on their supplier's default tariff - basically the most expensive option. And even those who do switch miss the real deals, because the best tariffs never appear on comparison sites.</p>
 
-    <p style="margin-top: 1rem;">We change that. By making suppliers compete directly for your business, we unlock tariffs that don't exist anywhere else - and we share our revenue with you as cashback. Because when consumers have real power, energy companies have to compete harder. Everyone wins.</p>
+    <p style="margin-top: 1rem;">We change that. We make suppliers compete directly for you - unlocking tariffs that don't exist anywhere else, and sharing our revenue with you as cashback. Because when consumers have real power, energy companies have to compete harder. Everyone wins.</p>
 
   </div>
 
@@ -4769,7 +4817,7 @@ body {
 
 
 
-    <p>We're two insiders working inside a Big Six energy supplier - <strong>and what we've seen from the inside has shocked us.</strong></p>
+    <p>We're two insiders from the energy industry - <strong>and what we've seen from the inside has shocked us.</strong></p>
 
 <p>Hidden charges. Broken pricing. A system designed to confuse you. None of it gets explained on your bill - but you're paying for all of it.</p>
 
@@ -4873,15 +4921,18 @@ body {
 
 <section id="survey" class="survey-section">
 
+  <details class="survey-expand">
+
+    <summary class="survey-expand-summary">
+      <span class="survey-expand-label">📊 What energy customers say about switching</span>
+      <span class="survey-expand-arrow">▼</span>
+    </summary>
+
   <div class="survey-card">
-
-    <div class="icon">📊</div>
-
-    <h2>Here's What People Think About Energy Switching</h2>
 
     <p>We surveyed real energy customers. Here's what we found:</p>
 
-    
+
 
     <div class="survey-grid">
 
@@ -4895,7 +4946,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat pink">
 
@@ -4907,7 +4958,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat purple">
 
@@ -4919,7 +4970,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat pink">
 
@@ -4933,15 +4984,13 @@ body {
 
     </div>
 
-    
+
 
     <a href="survey-results.html" class="survey-btn">Read Full Survey Results →</a>
 
-    
-
-    <p class="footnote"><strong>But surveys are just surveys.</strong> We want to hear from <strong>YOU</strong> - your feedback shapes what we build.</p>
-
   </div>
+
+  </details>
 
 </section>
 
@@ -5505,7 +5554,7 @@ body {
 
   <h2>Stop Overpaying.</h2>
 
-  <p>Most people are on their supplier's most expensive tariff without even knowing it. We're a free auto-switching service that makes suppliers compete for your business - unlocking exclusive tariffs you genuinely cannot find anywhere else, plus 10% cashback from our revenue on every switch.</p>
+  <p>Most people are on their supplier's most expensive tariff without even knowing it. We're a free auto-switching service that makes suppliers compete for you - unlocking exclusive tariffs you genuinely cannot find anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
   <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up Free</button>
 

@@ -27,24 +27,20 @@ def fetch_recent_articles():
             # Extract link from onclick attribute
             onclick = topic.get('onclick', '')
             if 'window.open' in onclick:
-                # Extract filename from onclick="window.open('Q1-Cap.html','_blank')"
                 link = onclick.split("'")[1]
                 full_url = f"https://switch-pilot.com/{link}"
             else:
                 continue
             
-            # Extract title
             h3 = topic.find('h3')
             if h3:
                 title = h3.get_text(strip=True)
             else:
                 continue
             
-            # Extract description (first <p> tag)
             p_tags = topic.find_all('p')
             description = ""
             if len(p_tags) > 0:
-                # First p is usually the description, skip date paragraph
                 for p in p_tags:
                     text = p.get_text(strip=True)
                     if not text.startswith('📅'):
@@ -106,9 +102,13 @@ def send_welcome_email(to_email):
     
     html = f"""
     <html>
+      <head>
+        <meta name="color-scheme" content="light">
+        <meta name="supported-color-schemes" content="light">
+      </head>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
-        <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 35px 20px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; font-size: 1.8rem; margin: 0;">🚀⚡ Welcome to SwitchPilot</h1>
+        <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 28px 24px; border-radius: 10px 10px 0 0;">
+          <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" width="60" style="display: inline-block; width: 60px; height: auto; vertical-align: middle; margin-right: -6px;"><span style="font-size: 22px; font-weight: 700; color: #ffffff !important; -webkit-text-fill-color: #ffffff; letter-spacing: -0.3px; vertical-align: middle; padding-left: 4px;">Welcome to SwitchPilot</span>
         </div>
         
         <div style="padding: 35px 25px; background: #ffffff; border-radius: 0 0 10px 10px;">
@@ -147,8 +147,8 @@ def send_welcome_email(to_email):
           </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-  You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
-</p>
+            You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
+          </p>
           
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
             We surveyed 200 people. Here's what we found:
@@ -199,7 +199,7 @@ def send_welcome_email(to_email):
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="https://switch-pilot.com/tariff-tracker.html" style="background: linear-gradient(135deg, #6366f1, #ec4899); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin-bottom: 15px;">
-              Check Live Tariff Tracker →
+              Check Live Tariff Tracker
             </a>
           </div>
           
@@ -213,16 +213,16 @@ def send_welcome_email(to_email):
           </div>
           
           <p style="color: #6366f1; font-size: 1.1rem; margin-top: 30px; font-weight: 600;">
-            The SwitchPilot Team 🚀⚡
+            The SwitchPilot Team
           </p>
           
           <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 20px; font-style: italic;">
-            P.S. - <a href="https://switch-pilot.com#game" style="color: #6366f1; text-decoration: none;">Play our game</a> while we build your service 🎮
+            P.S. - <a href="https://switch-pilot.com#game" style="color: #6366f1; text-decoration: none;">Play our game</a> while we build your service
           </p>
           
           <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e4ea;">
             <a href="https://switch-pilot.com" style="color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: 600;">
-              Visit SwitchPilot →
+              Visit SwitchPilot
             </a>
           </div>
         </div>
@@ -237,10 +237,10 @@ def send_welcome_email(to_email):
             server.starttls()
             server.login(sender_email, password)
             server.send_message(msg)
-        print(f"✅ Welcome email sent to {to_email}")
+        print(f"Sent welcome email to {to_email}")
         return True
     except Exception as e:
-        print(f"❌ Failed to send email: {e}")
+        print(f"Failed to send email: {e}")
         return False
 
 if __name__ == "__main__":

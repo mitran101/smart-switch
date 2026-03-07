@@ -26,7 +26,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests gspread google-auth
 
       - name: Send test email
         if: ${{ github.event.inputs.mode == 'test' }}
@@ -40,4 +40,13 @@ jobs:
         env:
           MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
-        run: python send_newsletter.py --file emails.txt
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+        run: |
+          python fetch_subscribers.py > emails.txt
+          if [ -s emails.txt ]; then
+            echo "Found $(wc -l < emails.txt) subscribers"
+            python send_newsletter.py --file emails.txt
+          else
+            echo "ERROR: No subscribers found. Check GOOGLE_SERVICE_ACCOUNT secret and sheet sharing."
+            exit 1
+          fi

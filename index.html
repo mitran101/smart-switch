@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>SwitchPilot - Free Auto-Switching Energy Service (Coming Soon)</title>
+<title>SwitchPilot - Free Auto-Switching Energy Service</title>
 
 <link rel="icon" href="./favicon.ico" sizes="any">
 
@@ -22,7 +22,7 @@
 
 <!-- SEO Meta Tags -->
 
-<meta name="description" content="Free auto-switching energy service coming soon. Compare UK energy tariffs, understand your bill breakdown, and get weekly insider insights.">
+<meta name="description" content="Free auto-switching energy service. We automatically put you on the best deal - and make suppliers compete for exclusive tariffs and 10% cashback you won't find anywhere else.">
 
 <link rel="canonical" href="https://switch-pilot.com/">
 
@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 
-<meta property="og:description" content="We're building a free service that automatically switches you to the best energy deal. Plus weekly insider insights on what's really in your bill.">
+<meta property="og:description" content="Free auto-switching service. We automatically put you on the best deal - and make suppliers compete for exclusive tariffs and 10% cashback you won't find anywhere else. Built by energy insiders.">
 
 <meta property="og:url" content="https://switch-pilot.com/">
 
@@ -48,7 +48,7 @@
 
 <meta name="twitter:title" content="SwitchPilot - Free Auto-Switching Energy Service">
 
-<meta name="twitter:description" content="Stop overpaying for energy. Free auto-switching service coming soon.">
+<meta name="twitter:description" content="Free auto-switching service. We automatically put you on the best energy deal - plus exclusive tariffs and 10% cashback you won't find anywhere else.">
 
 <meta name="twitter:image" content="https://mitran101.github.io/smart-switch/logo.png">
 
@@ -1830,7 +1830,55 @@ body {
 
 .survey-card .footnote strong { color: var(--sp-text); }
 
+.survey-expand {
+  border: none;
+  background: none;
+}
 
+.survey-expand-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 1.5rem;
+  background: var(--sp-card);
+  border: 1px solid var(--sp-card-border);
+  border-radius: 14px;
+  margin-bottom: 0;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+
+.survey-expand-summary::-webkit-details-marker { display: none; }
+
+.survey-expand-summary:hover { background: rgba(255,255,255,0.05); }
+
+.survey-expand-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+
+.survey-expand-arrow {
+  font-size: 0.8rem;
+  color: var(--sp-purple);
+  transition: transform 0.3s ease;
+}
+
+.survey-expand[open] .survey-expand-summary {
+  border-radius: 14px 14px 0 0;
+  border-bottom-color: transparent;
+}
+
+.survey-expand[open] .survey-expand-arrow {
+  transform: rotate(180deg);
+}
+
+.survey-expand .survey-card {
+  border-radius: 0 0 14px 14px;
+  margin-top: 0;
+}
 
 /* WAITLIST FORM */
 
@@ -4368,6 +4416,183 @@ body {
 
   .footer { padding: 2.5rem 1rem; }
 
+  .how-it-works-section { padding: 2.5rem 1rem; }
+  .hiw-inner h2 { font-size: 1.8rem; }
+  .hiw-pills { flex-direction: column; gap: 0.6rem; align-items: center; }
+  .hiw-expand-steps { gap: 1.25rem; }
+  .hiw-expand-q { flex-direction: column; gap: 0.5rem; }
+
+}
+
+/* HOW IT WORKS */
+
+.how-it-works-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(168,85,247,0.08) 0%, transparent 50%);
+}
+
+.hiw-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hiw-inner h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--sp-text);
+  margin-bottom: 1.5rem;
+}
+
+.hiw-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.hiw-pill {
+  background: var(--sp-card);
+  border: 1px solid var(--sp-card-border);
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sp-text);
+}
+
+.hiw-expand-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.hiw-expand-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.hiw-expand-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.hiw-expand-step div {
+  color: var(--sp-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.hiw-expand-step div strong {
+  color: var(--sp-text);
+}
+
+.hiw-expand-divider {
+  height: 1px;
+  background: var(--sp-card-border);
+  margin: 1.25rem 0;
+}
+
+.hiw-expand-q {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.hiw-expand-q-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.hiw-expand-q div {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.hiw-expand-q div strong {
+  color: var(--sp-text);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.hiw-expand-q div p {
+  color: var(--sp-text-muted);
+  margin: 0;
+}
+
+/* HOW IT WORKS - EXPAND */
+
+.hiw-expand {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(168,85,247,0.06);
+  border: 1px solid rgba(168,85,247,0.2);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.hiw-expand summary {
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sp-text);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.hiw-expand summary::-webkit-details-marker { display: none; }
+
+.hiw-expand summary:hover {
+  background: rgba(168,85,247,0.1);
+}
+
+.hiw-expand[open] summary .hiw-expand-arrow {
+  transform: rotate(180deg);
+}
+
+.hiw-expand-arrow {
+  font-size: 0.8rem;
+  color: var(--sp-purple);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.hiw-expand-body {
+  padding: 1.5rem 1.5rem 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.hiw-expand-divider {
+  margin: 0.25rem 0;
+}
+
+.hiw-expand-body p {
+  color: var(--sp-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
 }
 
 </style>
@@ -4392,7 +4617,7 @@ body {
 
   <a href="#hero" class="nav-logo">
 
-    <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" style="height:3.2rem;width:auto;vertical-align:middle;margin-right:-12px;">
+    <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo" style="height:3.2rem;width:auto;vertical-align:middle;margin-right:-12px;">
 
     <span>SwitchPilot</span>
 
@@ -4430,11 +4655,11 @@ body {
 
     <div class="hero-text">
 
-      <div class="badge">🚀 Building Together</div>
+      <div class="badge">⚡ Energy Insiders, On Your Side</div>
 
-      <h1>Your Launchpad to Better Energy Deals</h1>
+      <h1>We Switch You to the Best Deal. Automatically.</h1>
 
-      <p>We're building a service that automatically switches you to the best energy deal - for free. Plus weekly insider insights that show you where your money actually goes, the hidden costs no one explains, and what's really happening in the energy market.</p>
+      <p>SwitchPilot is a free auto-switching service - we put you on the best deal automatically, no effort required. And we go further: we make suppliers compete for exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
     </div>
 
@@ -4452,7 +4677,7 @@ body {
 
       </div>
 
-      <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot" class="pilot-character">
+      <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo" class="pilot-character">
 
       <div class="destination-tag"><span>Next Destination:</span><strong>Smarter Switching</strong></div>
 
@@ -4464,17 +4689,17 @@ body {
 
   <div class="hero-cta">
 
-    <p>📬 Get weekly insights and early access to our free auto-switcher when we launch</p>
+    <p>📬 Free to join. Automatic switching to the best deal - plus exclusive tariffs and 10% cashback you won't get anywhere else.</p>
 
-    <a href="#waitlist" class="hero-btn">Start Saving →</a>
+    <a href="#waitlist" class="hero-btn">Sign Up Free →</a>
 
-    <p class="subtext">🔒 Unsubscribe anytime.</p>
+    <p class="subtext">🔒 Free forever. Unsubscribe anytime.</p>
 
-    
+
 
     <div class="tracker-link">
 
-      <p>⚡ While we build auto-switching: <a href="tariff-tracker.html">Check the cheapest deals on the market →</a></p>
+      <p>⚡ Want to browse tariffs first? <a href="tariff-tracker.html">Check the cheapest deals on the market →</a></p>
 
     </div>
 
@@ -4500,7 +4725,7 @@ body {
 
     <h4>Putting the power back in your hands</h4>
 
-    <p>An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and switching is effortless.</p>
+    <p>An energy market where customers are informed, empowered, and never overpay. Where transparency is the norm and the best deal comes to you - not the other way round.</p>
 
   </div>
 
@@ -4514,11 +4739,55 @@ body {
 
     </div>
 
-    <p>A <strong>free auto-switching service</strong> that automatically puts you on the best tariff on the market (with your consent of course!). Plus weekly insider insights that cut through the noise and tell you what's really happening with your energy bills.</p>
+    <p>A <strong>free auto-switching service</strong> that puts you on the best deal automatically - no effort, no annual faff. We also make suppliers compete for exclusive tariffs you can't get anywhere else, and give you <strong>10% cashback</strong> from our revenue on every switch.</p>
 
   </div>
 
 </div>
+
+
+
+<!-- HOW IT WORKS -->
+
+<section class="how-it-works-section">
+
+  <div class="hiw-inner">
+
+    <h2>What Makes Us Different</h2>
+
+    <div class="hiw-pills">
+      <div class="hiw-pill">🔄 Automatic switching - we handle everything</div>
+      <div class="hiw-pill">⚡ Exclusive tariffs you can't get anywhere else</div>
+      <div class="hiw-pill">💷 10% cashback from our revenue on every switch</div>
+    </div>
+
+    <details class="hiw-expand">
+      <summary>How it works <span class="hiw-expand-arrow">▼</span></summary>
+      <div class="hiw-expand-body">
+
+        <div class="hiw-expand-steps">
+          <div class="hiw-expand-step"><span class="hiw-expand-num">1</span><div><strong>Sign up free.</strong> Just your email and address. Takes two minutes.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">2</span><div><strong>Suppliers compete.</strong> We take your group to energy suppliers directly. They bid against each other with exclusive tariffs - ones that don't appear publicly anywhere - in a winner-takes-all tender.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">3</span><div><strong>Cheapest wins.</strong> The supplier with the lowest tariff gets the group. You get switched automatically - no forms, no phone calls.</div></div>
+          <div class="hiw-expand-step"><span class="hiw-expand-num">4</span><div><strong>You get paid.</strong> The supplier pays us a fee for bringing them customers. We give 10% of what we make from your switch back to you as cashback - every time, including annual re-matches.</div></div>
+        </div>
+
+        <div class="hiw-expand-divider"></div>
+
+        <div class="hiw-expand-q">
+          <div class="hiw-expand-q-icon">💬</div>
+          <div>
+            <strong>There's also an optional short questionnaire.</strong>
+            <p>When we're getting ready to switch you, we'll send you a few short questions. <strong>You get cashback just for completing it</strong> - and your answers help suppliers bid more aggressively for your group, which means <strong>even cheaper exclusive tariffs</strong>. Your data is used for one thing only: finding you the best possible deal.</p>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+  </div>
+
+</section>
 
 
 
@@ -4532,9 +4801,9 @@ body {
 
     <h3>of UK households are paying more than they need to</h3>
 
-    <p>Most people are on their supplier's "default" tariff - basically the most expensive option. And even those who do switch often miss better deals because comparing tariffs is confusing, time-consuming, and easy to put off.</p>
+    <p>Most people are on their supplier's default tariff - basically the most expensive option. And even those who do switch miss the real deals, because the best tariffs never appear on comparison sites.</p>
 
-    <p style="margin-top: 1rem;">That's why we're building something that does the hard work for you - and keeping you informed on what you're actually paying for. Because when people understand their bills and switch more often, energy companies have to compete harder. Everyone wins.</p>
+    <p style="margin-top: 1rem;">We change that. SwitchPilot automatically puts you on the best deal - no annual reminders, no comparison faff. And because we make suppliers compete for exclusive tariffs, you end up on a deal that doesn't exist anywhere else, with 10% cashback from our revenue on top.</p>
 
   </div>
 
@@ -4552,11 +4821,11 @@ body {
 
 
 
-    <p>We're two insiders who've been working in the UK energy industry for the past couple of years — <strong>and what we've seen from the inside has shocked us.</strong></p>
+    <p>We're two insiders from the energy industry - <strong>and what we've seen from the inside has shocked us.</strong></p>
 
 <p>Hidden charges. Broken pricing. A system designed to confuse you. None of it gets explained on your bill - but you're paying for all of it.</p>
 
-    <p>So we're building something different.</p>
+    <p>So we built something different.</p>
 
 
 
@@ -4592,19 +4861,27 @@ body {
 
 
 
-    <p>None of this is explained on your bill. But you're paying for all of it. So now we're on a mission: <strong>make the energy market transparent</strong>, give power back to consumers, and make switching effortless.</p>
+    <p>None of this is explained on your bill. But you're paying for all of it. We know the tricks. And we're using that knowledge to get you a better deal.</p>
 
 
 
     <div class="building-box">
 
-      <p>That's why we're building two things:</p>
+      <p>Here's what we do:</p>
+
+      <div class="building-item">
+
+        <span>🔄</span>
+
+        <p><strong>We automatically switch you to the best deal.</strong> Sign up once and we handle everything - monitoring the market, switching you when a better deal is available, no annual faff required. Free forever.</p>
+
+      </div>
 
       <div class="building-item">
 
         <span>⚡</span>
 
-        <p><strong>A free auto-switching service</strong> that works in the background for you - finding and switching you to better deals automatically (with your consent)</p>
+        <p><strong>We make suppliers compete for exclusive tariffs.</strong> A winner-takes-all tender unlocks deals you can't get anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
       </div>
 
@@ -4612,11 +4889,11 @@ body {
 
         <span>📚</span>
 
-        <p><strong>Weekly insider insights</strong> that cut through the jargon and tell you what's actually happening - because informed consumers create a more competitive market for everyone</p>
+        <p><strong>We publish weekly energy insights and free tools</strong> that cut through the jargon - because informed consumers create a more competitive market for everyone. Most suppliers don't want you reading this stuff. That's exactly why we write it.</p>
 
       </div>
 
-      <p class="best-part"><strong>The best part?</strong> Your feedback shapes what we build. We're not building FOR you - we're building WITH you.</p>
+      <p class="best-part"><strong>This isn't just a switching service.</strong> It's a trusted energy advisor that happens to also get you switched - for free, with cashback.</p>
 
     </div>
 
@@ -4632,11 +4909,11 @@ body {
 
   <div class="mid-cta-card">
 
-    <p>Ready to be part of this?</p>
+    <p>Ready to get suppliers competing for you?</p>
 
-    <p style="font-weight: 400;">Get weekly insights and early access when we launch</p>
+    <p style="font-weight: 400;">Exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue</p>
 
-    <a href="#waitlist" class="mid-cta-btn">Start Saving →</a>
+    <a href="#waitlist" class="mid-cta-btn">Sign Up Free →</a>
 
   </div>
 
@@ -4648,15 +4925,18 @@ body {
 
 <section id="survey" class="survey-section">
 
+  <details class="survey-expand">
+
+    <summary class="survey-expand-summary">
+      <span class="survey-expand-label">📊 What energy customers say about switching</span>
+      <span class="survey-expand-arrow">▼</span>
+    </summary>
+
   <div class="survey-card">
-
-    <div class="icon">📊</div>
-
-    <h2>Here's What People Think About Energy Switching</h2>
 
     <p>We surveyed real energy customers. Here's what we found:</p>
 
-    
+
 
     <div class="survey-grid">
 
@@ -4670,7 +4950,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat pink">
 
@@ -4682,7 +4962,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat purple">
 
@@ -4694,7 +4974,7 @@ body {
 
       </div>
 
-      
+
 
       <div class="survey-stat pink">
 
@@ -4708,15 +4988,13 @@ body {
 
     </div>
 
-    
+
 
     <a href="survey-results.html" class="survey-btn">Read Full Survey Results →</a>
 
-    
-
-    <p class="footnote"><strong>But surveys are just surveys.</strong> We want to hear from <strong>YOU</strong> - your feedback shapes what we build.</p>
-
   </div>
+
+  </details>
 
 </section>
 
@@ -4724,11 +5002,11 @@ body {
 
 <div id="waitlist" class="waitlist-form">
 
-  <h3>Start Saving 🚀</h3>
+  <h3>Get Suppliers Competing for You 🚀</h3>
 
-  <p>Get weekly energy insights + early access to free auto-switching when we launch</p>
+  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback from our revenue on every switch.</p>
 
-  <p class="form-info">Just a couple more details so we can find the best deals for you 👇</p>
+  <p class="form-info">A couple of details to get you set up 👇</p>
 
   <form onsubmit="handleSubmit(event)" id="waitlistForm">
 
@@ -5052,7 +5330,7 @@ body {
 
   <h3>📊 Record Satisfaction. Record Debt. Ofgem's 2026 Market Report Explained</h3>
 
-  <p>82% of customers are happier than ever with their supplier. Consumer debt just hit £4.48bn — a 12th consecutive record. Ofgem's State of the Market report tells a story of two very different energy markets.</p>
+  <p>82% of customers are happier than ever with their supplier. Consumer debt just hit £4.48bn - a 12th consecutive record. Ofgem's State of the Market report tells a story of two very different energy markets.</p>
 
   <p>📅 17 Feb 2026</p>
 
@@ -5202,9 +5480,9 @@ body {
 
   <div class="stat-card">
 
-    <div class="stat-number">You</div>
+    <div class="stat-number">10%</div>
 
-    <div class="stat-label">help us build this</div>
+    <div class="stat-label">cashback on every switch</div>
 
   </div>
 
@@ -5280,9 +5558,9 @@ body {
 
   <h2>Stop Overpaying.</h2>
 
-  <p>Most people are on their supplier's most expensive tariff without even knowing it. We're building a free service that finds you better deals automatically - and we'll keep you informed every step of the way with weekly insider insights.</p>
+  <p>Most people are on their supplier's most expensive tariff without even knowing it. SwitchPilot automatically moves you to the best deal - no effort, free forever. And we make suppliers compete for exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue on every switch.</p>
 
-  <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up</button>
+  <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up Free</button>
 
 </section>
 

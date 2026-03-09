@@ -410,42 +410,31 @@
             .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     
-        /* SwitchInsights sub-brand */
-        .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; position: sticky; top: 0; z-index: 10000; }
-        .si-topbar-back, .si-topbar-archive { color: #94A3B8; text-decoration: none; font-weight: 600; }
-        .si-topbar-back:hover, .si-topbar-archive:hover { color: #fff; }
-        .si-topbar-brand { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-        .si-logo-wrap { color: #fff; font-size: 0.9rem; font-weight: 700; }
-        .si-tagline { color: #94A3B8; font-size: 0.72rem; }
-        .si-byline { font-size: 0.82rem; color: #94A3B8; margin: -0.5rem 0 1.5rem; font-style: italic; }
-        .si-byline a { color: #A855F7; text-decoration: none; }
-        .si-cta-banner { background: linear-gradient(135deg, #064E3B, #065F46); border-top: 2px solid #10B981; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 3rem; position: relative; }
-        .si-cta-inner { flex: 1; }
-        .si-cta-inner span { color: #6EE7B7; font-weight: 700; font-size: 1rem; }
-        .si-cta-inner p { color: #A7F3D0; font-size: 0.9rem; margin: 0.3rem 0 0.8rem; }
-        .si-cta-btn { display: inline-block; background: #10B981; color: #fff; padding: 0.6rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
-        .si-cta-btn:hover { background: #059669; }
-        .si-cta-close { position: absolute; top: 0.75rem; right: 1rem; background: none; border: none; color: #6EE7B7; font-size: 1rem; cursor: pointer; opacity: 0.7; }
-        @media (max-width: 600px) { .si-topbar { flex-direction: column; gap: 0.3rem; text-align: center; } .si-cta-banner { flex-direction: column; } }
+                .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; }
+        .si-topbar-logo { display: flex; align-items: center; text-decoration: none; }
+        .si-topbar-links { display: flex; align-items: center; gap: 1.2rem; }
+        .si-topbar-archive { color: #94A3B8; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+        .si-topbar-archive:hover { color: #fff; }
+        .si-topbar-visit { background: linear-gradient(135deg, #A855F7, #EC4899); color: #fff; text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 8px; }
+        .si-topbar-visit:hover { opacity: 0.9; }
+        /* legacy compat */
+        .si-topbar-back, .si-topbar-brand, .si-tagline { display: none; }
+        @media (max-width: 500px) { .si-topbar-archive { display: none; } } .si-cta-banner { flex-direction: column; } }
 
         </style>
 </head>
 <body>
 <div class="si-topbar">
-  <a href="https://www.switch-pilot.com" class="si-topbar-back">Visit SwitchPilot &rarr;</a>
-  <div class="si-topbar-brand">
-    <span class="si-logo-wrap"><img src="switchinsightslogo.png" alt="SwitchInsights logo" style="height:28px;width:auto;vertical-align:middle;"></span>
-    <span class="si-tagline">Energy explained, in plain English</span>
+  <a href="archive.html" class="si-topbar-logo">
+    <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:32px;width:auto;vertical-align:middle;">
+  </a>
+  <div class="si-topbar-links">
+    <a href="archive.html" class="si-topbar-archive">All articles</a>
+    <a href="https://www.switch-pilot.com" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
   </div>
-  <a href="archive.html" class="si-topbar-archive">All articles &rarr;</a>
 </div>
 
-<nav class="top-nav">
-    <a href="index.html" class="top-logo">
-        <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo">
-        SwitchPilot
-    </a>
-</nav>
+
 
     <div class="breaking-banner">
         <span>Breaking</span>

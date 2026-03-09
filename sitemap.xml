@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.switch-pilot.com/</loc></url>
-  <url><loc>https://www.switch-pilot.com/tariff-tracker.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/archive.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/survey-results.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/Switching-guide.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/billing-consumption-interactive.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/energy-bill-calculator.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/gas-value-calculator.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/crypto-mining-energy-analysis.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/pounds-for-pylons.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/network-charges-update-2026.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/energy-debt-crisis.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/standing-charge-increase-2026.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/energy-bill-rebate-april-2026.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/price-cap-january-2026.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/sizewell-c-nuclear-charge.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/warm-home-discount.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/coal-renewables-timelapse.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/community.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/why-uk-electricity-bills-follow-gas-prices.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/ban-on-acquisition-tariffs.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/fuse-energy-and-the-history-of-small-suppliers.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/home-mover-energy-trap.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/homemove-bill-estimate.html</loc></url>
-  <url><loc>https://www.switch-pilot.com/switchinsights/ofgem-state-of-market-2026.html</loc></url>
+
+  <!-- Service pages -->
+  <url><loc>https://www.switch-pilot.com/</loc><lastmod>2026-03-09</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.switch-pilot.com/tariff-tracker.html</loc><lastmod>2026-03-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.switch-pilot.com/energy-bill-calculator.html</loc><lastmod>2026-03-09</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.switch-pilot.com/billing-consumption-interactive.html</loc><lastmod>2026-03-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/homemove-bill-estimate.html</loc><lastmod>2026-03-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/gas-bill-value-calculator.html</loc><lastmod>2026-03-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/Switching-guide.html</loc><lastmod>2026-03-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/community.html</loc><lastmod>2026-03-09</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- SwitchInsights hub -->
+  <url><loc>https://www.switch-pilot.com/switchinsights/</loc><lastmod>2026-03-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <!-- SwitchInsights articles (newest first) -->
   <url><loc>https://www.switch-pilot.com/switchinsights/gas-price-shock-middle-east-2026.html</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://www.switch-pilot.com/switchinsights/q2-2026-price-cap.html</loc><lastmod>2026-03-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/q2-2026-price-cap.html</loc><lastmod>2026-03-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/ofgem-state-of-market-2026.html</loc><lastmod>2026-02-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/ban-on-acquisition-tariffs.html</loc><lastmod>2026-02-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/fuse-energy-and-the-history-of-small-suppliers.html</loc><lastmod>2026-02-02</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/home-mover-energy-trap.html</loc><lastmod>2026-01-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/why-uk-electricity-bills-follow-gas-prices.html</loc><lastmod>2026-01-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/crypto-mining-energy-analysis.html</loc><lastmod>2026-01-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/pounds-for-pylons.html</loc><lastmod>2026-01-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/gas-value-calculator.html</loc><lastmod>2026-01-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/network-charges-update-2026.html</loc><lastmod>2026-01-08</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/energy-debt-crisis.html</loc><lastmod>2026-01-07</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/standing-charge-increase-2026.html</loc><lastmod>2026-01-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/energy-bill-rebate-april-2026.html</loc><lastmod>2026-01-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/price-cap-january-2026.html</loc><lastmod>2025-11-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/sizewell-c-nuclear-charge.html</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.switch-pilot.com/switchinsights/warm-home-discount.html</loc><lastmod>2025-10-25</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
 </urlset>

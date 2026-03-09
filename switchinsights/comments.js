@@ -106,11 +106,7 @@
       .si-reactions-btn:hover { background: rgba(16,185,129,0.22); border-color: rgba(16,185,129,0.6); }
       .si-reactions-btn.reacted { background: rgba(16,185,129,0.3); border-color: #10B981; }
       .si-reactions-count {
-        font-size: 0.8rem; color: rgba(226,232,240,0.5); font-family: inherit;
-      }
-      .si-comment-count-badge {
-        font-size: 0.8rem; color: rgba(226,232,240,0.5);
-        font-family: inherit; font-style: normal;
+        font-size: 0.82rem; color: rgba(226,232,240,0.6); font-family: inherit;
       }
 
       .si-comments-section {
@@ -126,9 +122,17 @@
         max-width: 760px;
         margin: 0 auto;
       }
+      .si-comments-topbar {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem;
+      }
       .si-comments-heading {
         font-family: 'DM Serif Display', serif; font-size: 1.5rem;
-        color: #fff !important; margin: 0 0 1.75rem;
+        color: #fff !important; margin: 0; display: flex; align-items: baseline; gap: 0.5rem;
+      }
+      .si-count-inline {
+        font-size: 0.9rem; color: rgba(226,232,240,0.4); font-family: 'DM Sans', sans-serif;
+        font-weight: 400;
       }
 
       /* Comment thread */
@@ -292,49 +296,6 @@
     injectStyles();
     const slug = getSlug();
 
-    /* -- Reactions + comment count badge near byline -- */
-    const byline = document.querySelector('.si-byline');
-    if (byline) {
-      const countBadge = document.createElement('span');
-      countBadge.className = 'si-comment-count-badge';
-      countBadge.textContent = '';
-      byline.parentNode.insertBefore(countBadge, byline.nextSibling);
-
-      const reactWrap = document.createElement('div');
-      reactWrap.className = 'si-reactions';
-      byline.parentNode.insertBefore(reactWrap, countBadge.nextSibling);
-
-      const reacted = localStorage.getItem('si_reacted_' + slug) === '1';
-      let reactionCount = 0;
-
-      const renderReactions = (count, hasReacted) => {
-        reactWrap.innerHTML = `
-          <button class="si-reactions-btn${hasReacted ? ' reacted' : ''}" id="si-react-btn">
-            👍 ${hasReacted ? 'Useful!' : 'Was this useful?'}
-          </button>
-          ${count > 0 ? `<span class="si-reactions-count">${count} ${count === 1 ? 'person' : 'people'} found this useful</span>` : ''}
-        `;
-        document.getElementById('si-react-btn').addEventListener('click', async () => {
-          if (localStorage.getItem('si_reacted_' + slug) === '1') return;
-          localStorage.setItem('si_reacted_' + slug, '1');
-          await insertReaction(slug);
-          reactionCount++;
-          renderReactions(reactionCount, true);
-        });
-      };
-
-      fetchReactionCount(slug).then(count => {
-        reactionCount = count;
-        renderReactions(count, reacted);
-      });
-
-      fetchCommentCount(slug).then(count => {
-        countBadge.textContent = count > 0
-          ? '💬 ' + count + (count === 1 ? ' comment' : ' comments')
-          : '';
-      });
-    }
-
     /* -- Comments section -- */
     const footer = document.querySelector('footer.site-footer');
     if (!footer) return;
@@ -343,12 +304,42 @@
     section.className = 'si-comments-section';
     section.innerHTML = `
       <div class="si-comments-inner">
-        <h2 class="si-comments-heading">Discussion</h2>
+        <div class="si-comments-topbar">
+          <h2 class="si-comments-heading">Discussion <span class="si-count-inline" id="si-count-inline"></span></h2>
+          <div class="si-reactions" id="si-react-wrap"></div>
+        </div>
         <div id="si-thread"></div>
         ${buildFormHTML(null, false)}
       </div>
     `;
     footer.parentNode.insertBefore(section, footer);
+
+    /* -- Reactions -- */
+    const reactWrap = document.getElementById('si-react-wrap');
+    const reacted = localStorage.getItem('si_reacted_' + slug) === '1';
+    let reactionCount = 0;
+    const renderReactions = (count, hasReacted) => {
+      reactWrap.innerHTML = `
+        <button class="si-reactions-btn${hasReacted ? ' reacted' : ''}" id="si-react-btn">
+          👍 ${hasReacted ? 'Useful!' : 'Was this useful?'}
+        </button>
+        ${count > 0 ? `<span class="si-reactions-count">${count} ${count === 1 ? 'person' : 'people'} found this useful</span>` : ''}
+      `;
+      document.getElementById('si-react-btn').addEventListener('click', async () => {
+        if (localStorage.getItem('si_reacted_' + slug) === '1') return;
+        localStorage.setItem('si_reacted_' + slug, '1');
+        await insertReaction(slug);
+        reactionCount++;
+        renderReactions(reactionCount, true);
+      });
+    };
+    fetchReactionCount(slug).then(count => { reactionCount = count; renderReactions(count, reacted); });
+
+    /* -- Comment count -- */
+    fetchCommentCount(slug).then(count => {
+      const badge = document.getElementById('si-count-inline');
+      if (badge) badge.textContent = count > 0 ? '(' + count + ')' : '';
+    });
 
     /* Load and render comments */
     const thread = document.getElementById('si-thread');

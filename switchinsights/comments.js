@@ -114,15 +114,21 @@
       }
 
       .si-comments-section {
-        max-width: 760px; margin: 3rem auto 0;
-        padding: 2.5rem 1.5rem 3rem; border-top: 1px solid rgba(168,85,247,0.2);
+        background: #1E293B !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 3rem 0 0 !important;
+        padding: 3rem 2rem 4rem !important;
+        border-top: 3px solid rgba(168,85,247,0.4) !important;
+        box-sizing: border-box !important;
+      }
+      .si-comments-inner {
+        max-width: 760px;
+        margin: 0 auto;
       }
       .si-comments-heading {
         font-family: 'DM Serif Display', serif; font-size: 1.5rem;
-        color: #fff; margin: 0 0 0.5rem;
-      }
-      .si-comments-subhead {
-        font-size: 0.82rem; color: rgba(226,232,240,0.45); margin: 0 0 2rem;
+        color: #fff !important; margin: 0 0 1.75rem;
       }
 
       /* Comment thread */
@@ -148,7 +154,7 @@
       .si-reply-link:hover { color: #A855F7; }
 
       .si-no-comments {
-        color: rgba(226,232,240,0.4); font-size: 0.9rem;
+        color: rgba(226,232,240,0.55) !important; font-size: 0.9rem;
         font-style: italic; margin-bottom: 2rem;
       }
 
@@ -336,10 +342,11 @@
     const section = document.createElement('div');
     section.className = 'si-comments-section';
     section.innerHTML = `
-      <h2 class="si-comments-heading">Discussion</h2>
-      <p class="si-comments-subhead">Comments are moderated and appear once reviewed.</p>
-      <div id="si-thread"></div>
-      ${buildFormHTML(null, false)}
+      <div class="si-comments-inner">
+        <h2 class="si-comments-heading">Discussion</h2>
+        <div id="si-thread"></div>
+        ${buildFormHTML(null, false)}
+      </div>
     `;
     footer.parentNode.insertBefore(section, footer);
 

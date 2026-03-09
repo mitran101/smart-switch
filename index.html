@@ -4385,6 +4385,8 @@ body {
 
   .stat-hero-number { font-size: 3rem; }
 
+  .stat-hero > div { grid-template-columns: 1fr !important; }
+
 
 
   .about-section { margin-top: 1.5rem; padding: 0 1rem; }
@@ -4688,7 +4690,7 @@ body {
 
       <h1>Most UK households overpay on energy. We're here to make sure you never do.</h1>
 
-      <p>SwitchPilot is a <strong>free auto-switching service</strong> built by energy industry professionals who know exactly how the market works. We make suppliers compete for you - so you get exclusive tariffs you won't find anywhere else, plus <strong>10% cashback</strong> on every switch. We also educate you on what you're actually paying for, with free tools and plain-English insights.</p>
+      <p>SwitchPilot is a <strong>free auto-switching service</strong> built by energy industry professionals who know exactly how the market works. We make suppliers compete for you - so you get exclusive tariffs you won't find anywhere else, plus <strong>10% cashback from the fee suppliers pay us</strong> on every switch. We also educate you on what you're actually paying for, with free tools and plain-English insights.</p>
 
     </div>
 
@@ -4718,7 +4720,7 @@ body {
 
   <div class="hero-cta">
 
-    <p>📬 Free to join. Automatic switching to the best deal - plus exclusive tariffs and 10% cashback you won't get anywhere else.</p>
+    <p>📬 Free to join. Automatic switching to the best deal - plus exclusive tariffs and 10% cashback from supplier fees.</p>
 
     <a href="#waitlist" class="hero-btn">Sign Up Free →</a>
 
@@ -4739,6 +4741,34 @@ body {
   </div>
 
 </section>
+
+
+
+<!-- STAT STRIP -->
+
+<div class="stat-hero">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+
+    <div class="stat-hero-card">
+      <div class="stat-hero-number">65%</div>
+      <h3>of UK households are overpaying</h3>
+      <p>Most people are on their supplier's default tariff - the most expensive option. Are you one of them?</p>
+    </div>
+
+    <div class="stat-hero-card">
+      <div class="stat-hero-number">£200<span style="font-size:2rem">+</span></div>
+      <h3>average saving per year</h3>
+      <p>What switching to the right deal puts back in your pocket. Real money, not small print.</p>
+    </div>
+
+    <div class="stat-hero-card">
+      <div class="stat-hero-number">10%</div>
+      <h3>cashback on every switch</h3>
+      <p>When a supplier wins your deal, they pay us a fee. We give you 10% of it back - straight to you.</p>
+    </div>
+
+  </div>
+</div>
 
 
 
@@ -4848,7 +4878,7 @@ body {
     <div class="hiw-pills">
       <div class="hiw-pill">🔄 Automatic switching - we handle everything</div>
       <div class="hiw-pill">⚡ Exclusive tariffs you can't get anywhere else</div>
-      <div class="hiw-pill">💷 10% cashback from our revenue on every switch</div>
+      <div class="hiw-pill">💷 10% cashback from the fee suppliers pay us</div>
     </div>
 
     <p style="color:var(--sp-text-muted);font-size:0.95rem;margin-top:1rem;">Unlike comparison sites, you don't have to do anything. No comparing, no forms, no phone calls.</p>
@@ -4863,7 +4893,7 @@ body {
 
   <h3>Get Suppliers Competing for You 🚀</h3>
 
-  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback from our revenue on every switch.</p>
+  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback from the fee suppliers pay us.</p>
 
   <p class="form-info">A couple of details to get you set up 👇</p>
 
@@ -5061,7 +5091,7 @@ body {
 
         <span>⚡</span>
 
-        <p><strong>We make suppliers compete for you.</strong> Our winner-takes-all tender pits suppliers against each other for exclusive tariffs you can't find publicly anywhere - plus 10% cashback from our revenue on every switch.</p>
+        <p><strong>We make suppliers compete for you.</strong> Our winner-takes-all tender pits suppliers against each other for exclusive tariffs you can't find publicly anywhere - plus 10% cashback from the fee suppliers pay us.</p>
 
       </div>
 
@@ -5227,13 +5257,13 @@ body {
 
   <div class="tariff-card">
 
-    <span class="tag">⏳ While We Build Auto-Switching</span>
+    <span class="tag">🔍 Free Diagnostic Tool</span>
 
     <div class="icon">⚡</div>
 
     <h2>Energy Price Tracker</h2>
 
-    <p>We're not a comparison site - but until auto-switching is ready, use our tracker to find the best deals. Updated every week across all 14 UK regions.</p>
+    <p>We're not a comparison site - but check if you're overpaying. Our free tracker shows the cheapest deals on the market right now, updated every week across all 14 UK regions. And if you are overpaying? We can get you exclusive deals you won't find here or anywhere else.</p>
 
     <div class="tariff-stats">
 
@@ -5247,9 +5277,9 @@ body {
 
     </div>
 
-    <button onclick="window.open('tariff-tracker.html','_blank')" class="tariff-btn">Compare Tariffs Now →</button>
+    <button onclick="window.open('tariff-tracker.html','_blank')" class="tariff-btn">See If You're Overpaying →</button>
 
-    <p class="footnote">Updated weekly • While we build full automation • <a href="Switching-guide.html">Read our switching guide</a></p>
+    <p class="footnote">Updated weekly • Free to use • <a href="Switching-guide.html">Read our switching guide</a></p>
 
   </div>
 
@@ -5427,7 +5457,7 @@ body {
 
   <h2>Stop Overpaying.</h2>
 
-  <p>Most people are on their supplier's most expensive tariff without even knowing it. SwitchPilot automatically moves you to the best deal - no effort, free forever. And we make suppliers compete for exclusive tariffs you can't get anywhere else, plus 10% cashback from our revenue on every switch.</p>
+  <p>Most people are on their supplier's most expensive tariff without even knowing it. SwitchPilot automatically moves you to the best deal - no effort, free forever. And we make suppliers compete for exclusive tariffs you can't get anywhere else, plus 10% cashback from the fee suppliers pay us.</p>
 
   <button class="cta-btn" onclick="document.querySelector('.waitlist-form').scrollIntoView({behavior:'smooth'})">Sign Up Free</button>
 

@@ -217,10 +217,6 @@ def send_welcome_email(to_email):
             The SwitchPilot Team
           </p>
           
-          <p style="color: #9ca3af; font-size: 0.9rem; margin-top: 20px; font-style: italic;">
-            P.S. - <a href="https://switch-pilot.com#game" style="color: #6366f1; text-decoration: none;">Play our game</a> while we build your service
-          </p>
-          
           <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e4ea;">
             <a href="https://switch-pilot.com" style="color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: 600;">
               Visit SwitchPilot

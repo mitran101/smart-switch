@@ -130,38 +130,6 @@
     },
     {
       "supplier": "british_gas",
-      "region": "Southern",
-      "postcode": "BH6 4AS",
-      "scraped_at": "2026-03-08T04:31:45.142884",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
-      "elec_day_rate_p": null,
-      "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Timeout: Locator.wait_for: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\"#address-select\") to be visible\n"
-    },
-    {
-      "supplier": "british_gas",
-      "region": "South Wales",
-      "postcode": "CF14 2DY",
-      "scraped_at": "2026-03-08T04:36:53.157131",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
-      "elec_day_rate_p": null,
-      "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Timeout: Locator.wait_for: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\"#address-select\") to be visible\n"
-    },
-    {
-      "supplier": "british_gas",
       "region": "South West",
       "postcode": "PL9 7BS",
       "scraped_at": "2026-03-08T04:40:30.257401",
@@ -2911,7 +2879,39 @@
       "exit_fee_gbp": 25,
       "contract_months": 12,
       "error": null
+    },
+    {
+      "supplier": "british_gas",
+      "region": "Southern",
+      "postcode": "BH6 4AS",
+      "scraped_at": "2026-03-09T23:01:23.964789",
+      "tariff_name": "Fixed Tariff Mar27 v3",
+      "elec_unit_rate_p": 29.153,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 44.076,
+      "gas_unit_rate_p": 6.947,
+      "gas_standing_p": 32.367,
+      "exit_fee_gbp": null,
+      "contract_months": null,
+      "error": null
+    },
+    {
+      "supplier": "british_gas",
+      "region": "South Wales",
+      "postcode": "CF14 2DY",
+      "scraped_at": "2026-03-09T23:06:38.338041",
+      "tariff_name": "Fixed Tariff Mar27 v3",
+      "elec_unit_rate_p": 29.366,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 51.141,
+      "gas_unit_rate_p": 6.866,
+      "gas_standing_p": 33.187,
+      "exit_fee_gbp": null,
+      "contract_months": null,
+      "error": null
     }
   ],
-  "updated": "2026-03-08T04:53:06.206460"
+  "updated": "2026-03-09T23:20:45.744967"
 }

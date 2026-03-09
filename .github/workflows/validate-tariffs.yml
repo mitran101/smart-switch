@@ -36,7 +36,7 @@ jobs:
             "elec_standing_p":  (10, 100),
             "gas_standing_p":   (10, 100),
         }
-        MIN_REGIONS = 8   # out of 14 expected
+        MIN_REGIONS = 14  # all regions required
         SUPPLIER_SCRAPERS = {
             "eon_next":       "eon",
             "british_gas":    "bg",

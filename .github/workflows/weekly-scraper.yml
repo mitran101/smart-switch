@@ -12,7 +12,7 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 45
 
     steps:
     - name: Checkout code
@@ -49,10 +49,9 @@ jobs:
         ONLY="${{ github.event.inputs.only }}"
         if [ -n "$ONLY" ]; then
           echo "Running specific scrapers: $ONLY"
-          python run_all_scrapers.py --sequential --only $ONLY
+          python run_all_scrapers.py --only $ONLY
         else
-          echo "Running all scrapers (sequential)"
-          python run_all_scrapers.py --sequential
+          python run_all_scrapers.py
         fi
       continue-on-error: true
       env:

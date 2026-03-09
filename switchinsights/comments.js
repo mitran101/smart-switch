@@ -372,14 +372,38 @@
         formWrap.innerHTML = buildFormHTML(cid, true);
         e.target.closest('.si-comment').insertAdjacentElement('afterend', formWrap);
         formWrap.querySelector('.si-cancel-btn').addEventListener('click', () => formWrap.remove());
-        bindSubmit(formWrap.querySelector('.si-comment-form'), slug);
+        bindSubmit(formWrap.querySelector('.si-comment-form'), slug, thread, cid);
       }
     });
 
-    bindSubmit(section.querySelector('.si-comment-form'), slug);
+    bindSubmit(section.querySelector('.si-comment-form'), slug, thread, null);
   }
 
-  function bindSubmit(form, slug) {
+  function addCommentToThread(thread, name, text, parentId) {
+    const fakeComment = {
+      id: 'new-' + Date.now(),
+      author_name: name,
+      comment_text: text,
+      created_at: new Date().toISOString(),
+      parent_id: parentId || null,
+    };
+    // Remove "no comments" placeholder if present
+    const placeholder = thread.querySelector('.si-no-comments');
+    if (placeholder) placeholder.remove();
+
+    const html = renderComment(fakeComment, !!parentId);
+    if (parentId) {
+      // Insert after the parent comment
+      const parent = thread.querySelector('[data-id="' + parentId + '"]');
+      if (parent) {
+        parent.insertAdjacentHTML('afterend', html);
+        return;
+      }
+    }
+    thread.insertAdjacentHTML('beforeend', html);
+  }
+
+  function bindSubmit(form, slug, thread, parentId) {
     if (!form) return;
     const btn = form.querySelector('.si-submit-btn');
     const msg = form.querySelector('.si-form-msg');
@@ -388,12 +412,12 @@
       const name = form.querySelector('.si-input-name').value.trim();
       const text = form.querySelector('.si-input-comment').value.trim();
       const hp = form.querySelector('.si-input-hp').value;
-      const parentId = form.dataset.parent || null;
+      const pid = parentId || form.dataset.parent || null;
 
       msg.className = 'si-form-msg';
       msg.textContent = '';
 
-      if (hp) return; /* honeypot triggered - silently discard */
+      if (hp) return;
       if (!name || name.length < 2) {
         msg.className = 'si-form-msg error';
         msg.textContent = 'Please enter your name.';
@@ -412,16 +436,20 @@
         article_slug: slug,
         author_name: name,
         comment_text: text,
-        parent_id: parentId || null,
+        parent_id: pid || null,
       });
 
       if (ok) {
+        addCommentToThread(thread, name, text, pid);
         form.querySelector('.si-input-name').value = '';
         form.querySelector('.si-input-comment').value = '';
-        msg.className = 'si-form-msg success';
-        msg.textContent = "Thanks! Your comment will appear once reviewed.";
+        msg.className = 'si-form-msg';
         btn.textContent = 'Post comment';
         btn.disabled = false;
+        // Close reply form if this was a reply
+        if (pid) {
+          form.closest('[id^="si-reply-"]')?.remove();
+        }
       } else {
         msg.className = 'si-form-msg error';
         msg.textContent = 'Something went wrong. Please try again.';

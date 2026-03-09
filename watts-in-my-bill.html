@@ -852,6 +852,7 @@
     <span class="upload-icon">📄</span>
     <h2>Drop your energy bill here</h2>
     <p>PNG, JPG or PDF · Click or drag & drop</p>
+    <p style="margin-top:10px;font-size:0.7rem;color:#484870;letter-spacing:1px;">🇬🇧 UK energy bills only · Ofgem-regulated suppliers</p>
     <img id="previewImg" class="preview-img" style="display:none" alt="Bill preview">
     <input type="file" id="fileInput" accept="image/*,.pdf">
   </div>
@@ -871,6 +872,7 @@
 
   <footer>
     Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology.<br>
+    For UK energy bills only — Ofgem-regulated suppliers in Great Britain.<br>
     Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly.<br>
     Actual savings may vary. Not financial advice. Always confirm rates with your new supplier before switching.
   </footer>
@@ -1004,6 +1006,8 @@ Return ONLY a JSON object — no markdown, no backticks, just raw JSON — with 
 
 If you cannot read the bill or it is not a UK energy bill, return: {"error": "explanation"}
 
+This tool only supports UK energy bills from Ofgem-regulated suppliers. If the bill is from another country, return: {"error": "This tool only works with UK energy bills. We can see this appears to be a bill from outside the UK — it uses Ofgem price cap methodology which only applies to Great Britain."}
+
 Return ONLY the JSON. Nothing else.`;
 
   try {
@@ -1013,7 +1017,7 @@ Return ONLY the JSON. Nothing else.`;
       { type: "text", text: prompt }
     ];
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("/api/analyse", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

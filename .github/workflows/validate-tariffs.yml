@@ -1,0 +1,139 @@
+name: Validate Tariff Data
+on:
+  workflow_run:
+    workflows: ["Weekly Tariff Scraper"]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    # Run whether scraper succeeded or failed - we want to catch partial failures
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled' }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: main
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Validate tariff data
+      id: validate
+      run: |
+        python3 - <<'EOF'
+        import json, os, sys
+
+        RATE_BOUNDS = {
+            "elec_unit_rate_p": (15, 55),
+            "gas_unit_rate_p":  (2, 15),
+            "elec_standing_p":  (10, 100),
+            "gas_standing_p":   (10, 100),
+        }
+        MIN_REGIONS = 8   # out of 14 expected
+        SUPPLIER_SCRAPERS = {
+            "eon_next":       "eon",
+            "british_gas":    "bg",
+            "ovo":            "ovo",
+            "octopus":        "octopus",
+            "scottish_power": "sp",
+            "fuse_energy":    "fuse",
+            "so_energy":      "so",
+        }
+
+        try:
+            data = json.load(open("all_tariffs.json"))
+            tariffs = data.get("tariffs", [])
+        except Exception as e:
+            print(f"Could not read all_tariffs.json: {e}")
+            sys.exit(0)
+
+        if not tariffs:
+            print("all_tariffs.json is empty - scraper may have completely failed")
+            sys.exit(0)
+
+        # Group by supplier
+        by_supplier = {}
+        for t in tariffs:
+            s = t.get("supplier", "unknown")
+            by_supplier.setdefault(s, []).append(t)
+
+        dodgy = []
+        print(f"\n=== TARIFF VALIDATION ===\n")
+
+        for supplier, rows in by_supplier.items():
+            ok = [r for r in rows if not r.get("error") and r.get("elec_unit_rate_p")]
+            bad_rates = []
+            for r in ok:
+                for field, (lo, hi) in RATE_BOUNDS.items():
+                    val = r.get(field)
+                    if val is not None and not (lo <= val <= hi):
+                        bad_rates.append(f"{r.get('region')}: {field}={val} (expected {lo}-{hi})")
+
+            regions_ok = len(ok)
+            print(f"  {supplier}: {regions_ok} regions with data, {len(bad_rates)} out-of-range rates")
+            for b in bad_rates:
+                print(f"    !! {b}")
+
+            scraper_key = SUPPLIER_SCRAPERS.get(supplier)
+            if scraper_key and (regions_ok < MIN_REGIONS or bad_rates):
+                dodgy.append(scraper_key)
+                print(f"    -> flagged for re-run")
+
+        if dodgy:
+            unique = list(dict.fromkeys(dodgy))
+            print(f"\nDodgy scrapers to re-run: {unique}")
+            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                f.write(f"dodgy={' '.join(unique)}\n")
+                f.write("needs_rerun=true\n")
+        else:
+            print("\nAll suppliers look good!")
+            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                f.write("needs_rerun=false\n")
+        EOF
+
+    - name: Cache Playwright browsers
+      if: steps.validate.outputs.needs_rerun == 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-browsers-${{ runner.os }}-v1
+
+    - name: Install dependencies for re-run
+      if: steps.validate.outputs.needs_rerun == 'true'
+      run: |
+        pip install playwright requests
+        playwright install chromium firefox
+        playwright install-deps chromium firefox
+
+    - name: Re-run dodgy scrapers
+      if: steps.validate.outputs.needs_rerun == 'true'
+      run: |
+        echo "Re-running: ${{ steps.validate.outputs.dodgy }}"
+        python run_all_scrapers.py --only ${{ steps.validate.outputs.dodgy }}
+      continue-on-error: true
+      env:
+        PYTHONUNBUFFERED: "1"
+
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v4
+      if: steps.validate.outputs.needs_rerun == 'true'
+      with:
+        name: validate-rerun-screenshots
+        path: screenshots/
+        retention-days: 7
+
+    - name: Commit improved results
+      if: steps.validate.outputs.needs_rerun == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.csv
+        git diff --staged --quiet || git commit -m "Validation re-run: $(date +'%Y-%m-%d %H:%M')"
+        git push || echo "Nothing to push"

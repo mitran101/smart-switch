@@ -9,7 +9,6 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    # Run whether scraper succeeded or failed - we want to catch partial failures
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled' }}
 
     steps:
@@ -24,10 +23,10 @@ jobs:
         python-version: '3.11'
         cache: 'pip'
 
-    - name: Validate tariff data
+    - name: Validate and identify failed regions
       id: validate
       run: |
-        python3 - <<'EOF'
+        python3 << 'PYEOF'
         import json, os, sys
 
         RATE_BOUNDS = {
@@ -36,15 +35,16 @@ jobs:
             "elec_standing_p":  (10, 100),
             "gas_standing_p":   (10, 100),
         }
-        MIN_REGIONS = 14  # all regions required
-        SUPPLIER_SCRAPERS = {
-            "eon_next":       "eon",
-            "british_gas":    "bg",
-            "ovo":            "ovo",
-            "octopus":        "octopus",
-            "scottish_power": "sp",
-            "fuse_energy":    "fuse",
-            "so_energy":      "so",
+
+        # Maps supplier name in JSON -> scraper script and output pattern
+        SUPPLIER_META = {
+            "eon_next":       {"script": "eon_next_scraper_v6_playwright.py", "pattern": "eon_tariffs_*.json",  "supports_regions": True},
+            "british_gas":    {"script": "bg_scraper_v10.py",                 "pattern": "bg_tariffs_*.json",   "supports_regions": False},
+            "ovo":            {"script": "ovo_scraper_v1.py",                 "pattern": "ovo_tariffs_*.json",  "supports_regions": False},
+            "octopus":        {"script": "octopus_api_v1.py",                 "pattern": "octopus_tariffs_*.json", "supports_regions": False},
+            "scottish_power": {"script": "scottish_power_scraper_v2.py",      "pattern": "sp_tariffs_*.json",   "supports_regions": False},
+            "fuse_energy":    {"script": "fuse_energy_scraper_v2_fixed.py",   "pattern": "fuse_tariffs_*.json", "supports_regions": False},
+            "so_energy":      {"script": "so_energy_scraper_v2.py",           "pattern": "so_tariffs_*.json",   "supports_regions": False},
         }
 
         try:
@@ -55,48 +55,62 @@ jobs:
             sys.exit(0)
 
         if not tariffs:
-            print("all_tariffs.json is empty - scraper may have completely failed")
+            print("all_tariffs.json is empty")
             sys.exit(0)
 
-        # Group by supplier
-        by_supplier = {}
+        # Find failed regions per supplier
+        # A region entry is "good" if it has elec rate and no error
+        by_supplier_region = {}
         for t in tariffs:
             s = t.get("supplier", "unknown")
-            by_supplier.setdefault(s, []).append(t)
+            r = t.get("region", "unknown")
+            key = (s, r)
+            # If we already have a good entry, keep it
+            if key not in by_supplier_region or not by_supplier_region[key].get("elec_unit_rate_p"):
+                by_supplier_region[key] = t
 
-        dodgy = []
-        print(f"\n=== TARIFF VALIDATION ===\n")
+        failed_by_supplier = {}
+        print("\n=== TARIFF VALIDATION ===\n")
 
-        for supplier, rows in by_supplier.items():
-            ok = [r for r in rows if not r.get("error") and r.get("elec_unit_rate_p")]
-            bad_rates = []
-            for r in ok:
-                for field, (lo, hi) in RATE_BOUNDS.items():
-                    val = r.get(field)
-                    if val is not None and not (lo <= val <= hi):
-                        bad_rates.append(f"{r.get('region')}: {field}={val} (expected {lo}-{hi})")
+        for supplier, meta in SUPPLIER_META.items():
+            supplier_entries = {r: t for (s, r), t in by_supplier_region.items() if s == supplier}
+            if not supplier_entries:
+                continue
 
-            regions_ok = len(ok)
-            print(f"  {supplier}: {regions_ok} regions with data, {len(bad_rates)} out-of-range rates")
-            for b in bad_rates:
-                print(f"    !! {b}")
+            failed_regions = []
+            for region, t in supplier_entries.items():
+                is_bad = bool(t.get("error")) or not t.get("elec_unit_rate_p")
+                if not is_bad:
+                    # Check rate bounds
+                    for field, (lo, hi) in RATE_BOUNDS.items():
+                        val = t.get(field)
+                        if val is not None and not (lo <= val <= hi):
+                            is_bad = True
+                            print(f"  !! {supplier} / {region}: {field}={val} out of range ({lo}-{hi})")
+                            break
+                if is_bad:
+                    failed_regions.append(region)
 
-            scraper_key = SUPPLIER_SCRAPERS.get(supplier)
-            if scraper_key and (regions_ok < MIN_REGIONS or bad_rates):
-                dodgy.append(scraper_key)
-                print(f"    -> flagged for re-run")
+            ok = len(supplier_entries) - len(failed_regions)
+            total = len(supplier_entries)
+            print(f"  {supplier}: {ok}/{total} regions OK" + (f", failed: {failed_regions}" if failed_regions else ""))
 
-        if dodgy:
-            unique = list(dict.fromkeys(dodgy))
-            print(f"\nDodgy scrapers to re-run: {unique}")
+            if failed_regions:
+                failed_by_supplier[supplier] = failed_regions
+
+        if failed_by_supplier:
+            # Encode as JSON for next step
+            import base64
+            encoded = base64.b64encode(json.dumps(failed_by_supplier).encode()).decode()
             with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-                f.write(f"dodgy={' '.join(unique)}\n")
-                f.write("needs_rerun=true\n")
+                f.write(f"needs_rerun=true\n")
+                f.write(f"failed_map={encoded}\n")
+            print(f"\nFailed suppliers: {list(failed_by_supplier.keys())}")
         else:
-            print("\nAll suppliers look good!")
             with open(os.environ["GITHUB_OUTPUT"], "a") as f:
                 f.write("needs_rerun=false\n")
-        EOF
+            print("\nAll good!")
+        PYEOF
 
     - name: Cache Playwright browsers
       if: steps.validate.outputs.needs_rerun == 'true'
@@ -105,19 +119,118 @@ jobs:
         path: ~/.cache/ms-playwright
         key: playwright-browsers-${{ runner.os }}-v1
 
-    - name: Install dependencies for re-run
+    - name: Install dependencies
       if: steps.validate.outputs.needs_rerun == 'true'
       run: |
         pip install playwright requests
         playwright install chromium firefox
         playwright install-deps chromium firefox
 
-    - name: Re-run dodgy scrapers
+    - name: Re-run failed regions and patch all_tariffs.json
       if: steps.validate.outputs.needs_rerun == 'true'
       run: |
-        echo "Re-running: ${{ steps.validate.outputs.dodgy }}"
-        python run_all_scrapers.py --only ${{ steps.validate.outputs.dodgy }}
-      continue-on-error: true
+        python3 << 'PYEOF'
+        import json, os, sys, subprocess, glob, base64
+        from datetime import datetime
+
+        SUPPLIER_META = {
+            "eon_next":       {"script": "eon_next_scraper_v6_playwright.py", "pattern": "eon_tariffs_*.json",     "supports_regions": True},
+            "british_gas":    {"script": "bg_scraper_v10.py",                 "pattern": "bg_tariffs_*.json",      "supports_regions": False},
+            "ovo":            {"script": "ovo_scraper_v1.py",                 "pattern": "ovo_tariffs_*.json",     "supports_regions": False},
+            "octopus":        {"script": "octopus_api_v1.py",                 "pattern": "octopus_tariffs_*.json", "supports_regions": False},
+            "scottish_power": {"script": "scottish_power_scraper_v2.py",      "pattern": "sp_tariffs_*.json",      "supports_regions": False},
+            "fuse_energy":    {"script": "fuse_energy_scraper_v2_fixed.py",   "pattern": "fuse_tariffs_*.json",    "supports_regions": False},
+            "so_energy":      {"script": "so_energy_scraper_v2.py",           "pattern": "so_tariffs_*.json",      "supports_regions": False},
+        }
+
+        OUTPUT_FIELDS = [
+            "supplier","region","postcode","scraped_at","tariff_name",
+            "elec_unit_rate_p","elec_day_rate_p","elec_night_rate_p","elec_standing_p",
+            "gas_unit_rate_p","gas_standing_p","exit_fee_gbp","contract_months","error"
+        ]
+
+        failed_map = json.loads(base64.b64decode("${{ steps.validate.outputs.failed_map }}").decode())
+
+        # Load existing all_tariffs.json
+        with open("all_tariffs.json") as f:
+            combined = json.load(f)
+        tariffs = combined["tariffs"]
+
+        os.makedirs("screenshots", exist_ok=True)
+
+        for supplier, failed_regions in failed_map.items():
+            meta = SUPPLIER_META.get(supplier)
+            if not meta:
+                continue
+
+            script = meta["script"]
+            if not os.path.exists(script):
+                print(f"Script not found: {script}")
+                continue
+
+            print(f"\n{'='*50}")
+            print(f"Re-running {supplier} for: {failed_regions}")
+            print('='*50)
+
+            cmd = [sys.executable, script, "--headless"]
+            if meta["supports_regions"]:
+                cmd += ["--regions", ",".join(failed_regions)]
+
+            subprocess.run(cmd)
+
+            # Find the freshest output file
+            files = sorted(glob.glob(meta["pattern"]), key=os.path.getmtime, reverse=True)
+            if not files:
+                print(f"No output file found for {supplier}")
+                continue
+
+            with open(files[0]) as f:
+                new_data = json.load(f)
+
+            # For each failed region, if the new run got data, patch it in
+            for entry in new_data:
+                region = entry.get("region")
+                if region not in failed_regions:
+                    continue
+                if not entry.get("tariffs"):
+                    print(f"  Still no data for {supplier} / {region}")
+                    continue
+
+                print(f"  Got data for {supplier} / {region} - patching")
+
+                # Remove old entries for this supplier+region
+                tariffs = [t for t in tariffs
+                           if not (t.get("supplier") == supplier and t.get("region") == region)]
+
+                # Add new normalised entries
+                for t in entry["tariffs"]:
+                    row = {f: None for f in OUTPUT_FIELDS}
+                    row.update({
+                        "supplier":        supplier,
+                        "region":          region,
+                        "postcode":        entry.get("postcode", ""),
+                        "scraped_at":      entry.get("scraped_at", ""),
+                        "tariff_name":     t.get("tariff_name"),
+                        "elec_unit_rate_p":t.get("elec_unit_rate_p"),
+                        "elec_day_rate_p": t.get("elec_day_rate_p"),
+                        "elec_night_rate_p":t.get("elec_night_rate_p"),
+                        "elec_standing_p": t.get("elec_standing_p"),
+                        "gas_unit_rate_p": t.get("gas_unit_rate_p"),
+                        "gas_standing_p":  t.get("gas_standing_p"),
+                        "exit_fee_gbp":    t.get("exit_fee_gbp"),
+                        "contract_months": t.get("contract_months"),
+                        "error":           None,
+                    })
+                    tariffs.append(row)
+
+        combined["tariffs"] = tariffs
+        combined["updated"] = datetime.now().isoformat()
+
+        with open("all_tariffs.json", "w") as f:
+            json.dump(combined, f, indent=2)
+
+        print("\nall_tariffs.json patched.")
+        PYEOF
       env:
         PYTHONUNBUFFERED: "1"
 
@@ -129,11 +242,11 @@ jobs:
         path: screenshots/
         retention-days: 7
 
-    - name: Commit improved results
+    - name: Commit patched results
       if: steps.validate.outputs.needs_rerun == 'true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add all_tariffs.json tariff_data_latest.json all_tariffs_*.csv
-        git diff --staged --quiet || git commit -m "Validation re-run: $(date +'%Y-%m-%d %H:%M')"
+        git diff --staged --quiet || git commit -m "Validation patch: $(date +'%Y-%m-%d %H:%M')"
         git push || echo "Nothing to push"

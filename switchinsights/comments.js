@@ -263,6 +263,7 @@
           <button class="si-submit-btn" type="button">Post comment</button>
           ${cancelable ? '<button class="si-cancel-btn" type="button">Cancel</button>' : ''}
         </div>
+        <p style="font-size:0.72rem;color:rgba(226,232,240,0.35);margin-top:0.5rem;">By commenting you agree to our <a href="https://www.switch-pilot.com/terms.html" style="color:rgba(226,232,240,0.5);">Terms of Service</a>.</p>
         <div class="si-form-msg"></div>
       </div>`;
   }

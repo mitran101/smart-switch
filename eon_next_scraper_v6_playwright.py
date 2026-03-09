@@ -288,11 +288,14 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
 
         # STEP 4: Select options
         print(f"\n  [4] Selecting options...")
+        click_text(page, 'Electricity and gas')
+        hd(200, 400)
         click_text(page, 'No')  # EV = No
         hd(200, 400)
-        click_text(page, 'Electricity and gas')
-        hd(300, 500)
-        click_text(page, '1-2 bedrooms')
+        # Button text changed to include usage hint - try both variants
+        clicked_bedroom = click_text(page, '1-2 bedrooms (low usage)', '1-2 bedrooms')
+        if not clicked_bedroom:
+            print(f"    ⚠ Could not click bedroom size button")
         hd(300, 500)
         print(f"    ✓ Options selected")
 
@@ -530,7 +533,8 @@ def save_results(results):
     success = sum(1 for r in results if r.get('tariffs'))
     print(f"Success: {success}/{len(results)} ({100*success/len(results) if results else 0:.0f}%)")
     for r in results:
-        t = r.get('tariffs', [{}])[0]
+        tariffs = r.get('tariffs', [])
+        t = tariffs[0] if tariffs else {}
         icon = "✓" if r.get('tariffs') else "✗"
         print(f"  {icon} {r['region']}: {t.get('elec_unit_rate_p','?')}p elec, {t.get('gas_unit_rate_p','?')}p gas")
 
@@ -553,7 +557,10 @@ def main():
     results = run_scraper(args.headless, args.test, args.regions, args.wait, args.retries)
     save_results(results)
 
-    input("\nPress Enter to exit...")
+    try:
+        input("\nPress Enter to exit...")
+    except (EOFError, KeyboardInterrupt):
+        pass
 
 
 if __name__ == "__main__":

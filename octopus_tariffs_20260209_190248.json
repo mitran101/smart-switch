@@ -1,0 +1,3362 @@
+[
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:00:56.035644",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 48.788145,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:00:56.036644",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.005,
+        "elec_standing_p": 54.84696,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:00:56.036644",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.005,
+        "elec_standing_p": 39.535125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:00:56.036644",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 20.9055,
+        "elec_standing_p": 65.83542,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:00:56.037169",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 61.56108,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:00:56.037169",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 70.04823,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:00:56.037169",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 49.98336,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 62.224785,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 20.9055,
+        "elec_standing_p": 55.78566,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 20.9055,
+        "elec_standing_p": 62.064135,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 21.861,
+        "elec_standing_p": 66.066105,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.005,
+        "elec_standing_p": 66.26277,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 19.9605,
+        "elec_standing_p": 62.11863,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:00:56.038207",
+    "tariffs": [
+      {
+        "tariff_name": "Agile Octopus",
+        "product_code": "AGILE-24-10-01",
+        "elec_unit_rate_p": 22.806,
+        "elec_standing_p": 59.928225,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": true,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.62608,
+        "elec_standing_p": 48.388515,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.08806,
+        "elec_standing_p": 48.31659,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.131005,
+        "elec_standing_p": 45.465735,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 15.283905,
+        "elec_standing_p": 69.026055,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.137935,
+        "elec_standing_p": 52.493595,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.01855,
+        "elec_standing_p": 58.897125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.9457,
+        "elec_standing_p": 50.28996,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.596155,
+        "elec_standing_p": 44.50782,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.841015,
+        "elec_standing_p": 47.76429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.79387,
+        "elec_standing_p": 50.48274,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.788305,
+        "elec_standing_p": 54.389265,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 13.96521,
+        "elec_standing_p": 57.84429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.24304,
+        "elec_standing_p": 57.28044,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:08.092703",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus",
+        "product_code": "COSY-22-12-08",
+        "elec_unit_rate_p": 14.916615,
+        "elec_standing_p": 61.67889,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:13.572552",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 28.649355,
+        "elec_standing_p": 47.7036,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.59547,
+        "elec_standing_p": 47.631675,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.67968,
+        "elec_standing_p": 44.78082,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 29.93802,
+        "elec_standing_p": 68.34114,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.693225,
+        "elec_standing_p": 51.80868,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.459495,
+        "elec_standing_p": 58.21221,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 29.275575,
+        "elec_standing_p": 49.605045,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 28.59087,
+        "elec_standing_p": 43.822905,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 29.070405,
+        "elec_standing_p": 47.07927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 28.978215,
+        "elec_standing_p": 49.797825,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 28.96719,
+        "elec_standing_p": 53.70435,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.354915,
+        "elec_standing_p": 57.15927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 27.89913,
+        "elec_standing_p": 56.595525,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:13.573562",
+    "tariffs": [
+      {
+        "tariff_name": "Cosy Octopus 12M Fixed",
+        "product_code": "COSY-FIX-12M-25-09-24",
+        "elec_unit_rate_p": 29.218455,
+        "elec_standing_p": 60.993975,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a325 per fuel",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 40.100445,
+        "elec_standing_p": 48.388515,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 38.733135,
+        "elec_standing_p": 48.31659,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 38.931795,
+        "elec_standing_p": 45.465735,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 41.768055,
+        "elec_standing_p": 69.026055,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 38.87541,
+        "elec_standing_p": 52.493595,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 38.53206,
+        "elec_standing_p": 58.897125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 40.93593,
+        "elec_standing_p": 50.28996,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 39.976335,
+        "elec_standing_p": 44.50782,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 40.59195,
+        "elec_standing_p": 47.76429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 40.489365,
+        "elec_standing_p": 50.48274,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:20.066539",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 40.42626,
+        "elec_standing_p": 54.389265,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:20.067576",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 38.502765,
+        "elec_standing_p": 57.84429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:20.067576",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 37.931355,
+        "elec_standing_p": 57.28044,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:20.067576",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Flux Import",
+        "product_code": "FLUX-IMPORT-23-02-14",
+        "elec_unit_rate_p": 39.50646,
+        "elec_standing_p": 61.67889,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 47.7036,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 47.631675,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 44.78082,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 68.34114,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 51.80868,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 58.21221,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 49.605045,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 43.822905,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 47.07927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 49.797825,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 53.70435,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 57.15927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 56.595525,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:25.922659",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go 12M Fixed",
+        "product_code": "GO-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 8.49975,
+        "elec_standing_p": 60.993975,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 30.605085,
+        "elec_standing_p": 48.388515,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.508045,
+        "elec_standing_p": 48.31659,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.625435,
+        "elec_standing_p": 45.465735,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 31.93953,
+        "elec_standing_p": 69.026055,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.616405,
+        "elec_standing_p": 52.493595,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.35233,
+        "elec_standing_p": 58.897125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 31.23498,
+        "elec_standing_p": 50.28996,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 30.5445,
+        "elec_standing_p": 44.50782,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 31.032225,
+        "elec_standing_p": 47.76429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 30.936465,
+        "elec_standing_p": 50.48274,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 30.914415,
+        "elec_standing_p": 54.389265,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.280825,
+        "elec_standing_p": 57.84429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 29.83197,
+        "elec_standing_p": 57.28044,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:35.058253",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus Go",
+        "product_code": "GO-VAR-22-10-14",
+        "elec_unit_rate_p": 31.137015,
+        "elec_standing_p": 61.67889,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:41.592733",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 47.7036,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:41.592733",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 47.631675,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:41.592733",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 44.78082,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:41.592733",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 68.34114,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 51.80868,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 58.21221,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 49.605045,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 43.822905,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 47.07927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 49.797825,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 53.70435,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 57.15927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 56.595525,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:41.593764",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go 12M Fixed",
+        "product_code": "INTELLI-FIX-12M-25-08-29",
+        "elec_unit_rate_p": 7.00035,
+        "elec_standing_p": 60.993975,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 24.126585,
+        "elec_standing_p": 48.388515,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 22.77324,
+        "elec_standing_p": 48.31659,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 24.62859,
+        "elec_standing_p": 45.465735,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 24.26739,
+        "elec_standing_p": 69.026055,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 22.845165,
+        "elec_standing_p": 52.493595,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:01:51.415286",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 22.19448,
+        "elec_standing_p": 58.897125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 23.8896,
+        "elec_standing_p": 50.28996,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 23.56536,
+        "elec_standing_p": 44.50782,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 24.12858,
+        "elec_standing_p": 47.76429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 23.42739,
+        "elec_standing_p": 50.48274,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 23.11722,
+        "elec_standing_p": 54.389265,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 22.557045,
+        "elec_standing_p": 57.84429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 22.95741,
+        "elec_standing_p": 57.28044,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:01:51.416313",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Flux Import",
+        "product_code": "INTELLI-FLUX-IMPORT-23-07-14",
+        "elec_unit_rate_p": 23.79342,
+        "elec_standing_p": 61.67889,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.198085,
+        "elec_standing_p": 47.7036,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 28.12404,
+        "elec_standing_p": 47.631675,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 28.209825,
+        "elec_standing_p": 44.78082,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 30.511425,
+        "elec_standing_p": 68.34114,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 28.223685,
+        "elec_standing_p": 51.80868,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 27.985335,
+        "elec_standing_p": 58.21221,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.836275,
+        "elec_standing_p": 49.605045,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:02:03.058377",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.138445,
+        "elec_standing_p": 43.822905,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.627115,
+        "elec_standing_p": 47.07927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.533245,
+        "elec_standing_p": 49.797825,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.52201,
+        "elec_standing_p": 53.70435,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 27.878865,
+        "elec_standing_p": 57.15927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 28.43358,
+        "elec_standing_p": 56.595525,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:02:03.059359",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go",
+        "product_code": "INTELLI-VAR-24-10-29",
+        "elec_unit_rate_p": 29.778105,
+        "elec_standing_p": 60.993975,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:02:11.416944",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.198085,
+        "elec_standing_p": 47.7036,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 28.12404,
+        "elec_standing_p": 47.631675,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 28.209825,
+        "elec_standing_p": 44.78082,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 30.511425,
+        "elec_standing_p": 68.34114,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 28.223685,
+        "elec_standing_p": 51.80868,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 27.985335,
+        "elec_standing_p": 58.21221,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.836275,
+        "elec_standing_p": 49.605045,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.138445,
+        "elec_standing_p": 43.822905,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.627115,
+        "elec_standing_p": 47.07927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.533245,
+        "elec_standing_p": 49.797825,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.52201,
+        "elec_standing_p": 53.70435,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 27.878865,
+        "elec_standing_p": 57.15927,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 28.43358,
+        "elec_standing_p": 56.595525,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:02:11.417974",
+    "tariffs": [
+      {
+        "tariff_name": "Intelligent Octopus Go - EV Saver",
+        "product_code": "INTELLI-VAR-OEV-24-07-17",
+        "elec_unit_rate_p": 29.778105,
+        "elec_standing_p": 60.993975,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:02:29.194413",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.60047,
+        "elec_standing_p": 47.977125,
+        "gas_unit_rate_p": 5.532975,
+        "gas_standing_p": 33.37593,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:02:29.194413",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 24.64812,
+        "elec_standing_p": 48.81135,
+        "gas_unit_rate_p": 5.50557,
+        "gas_standing_p": 33.4593,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:02:29.194413",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 24.68277,
+        "elec_standing_p": 45.782205,
+        "gas_unit_rate_p": 5.74392,
+        "gas_standing_p": 34.27914,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:02:29.194413",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 26.37348,
+        "elec_standing_p": 69.673275,
+        "gas_unit_rate_p": 5.78592,
+        "gas_standing_p": 34.141065,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 24.74808,
+        "elec_standing_p": 52.72659,
+        "gas_unit_rate_p": 5.55387,
+        "gas_standing_p": 33.761385,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 24.74052,
+        "elec_standing_p": 59.59044,
+        "gas_unit_rate_p": 5.62107,
+        "gas_standing_p": 33.85347,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.207035,
+        "elec_standing_p": 50.88258,
+        "gas_unit_rate_p": 5.37537,
+        "gas_standing_p": 33.88224,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.557525,
+        "elec_standing_p": 44.349585,
+        "gas_unit_rate_p": 5.661075,
+        "gas_standing_p": 33.188925,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.853625,
+        "elec_standing_p": 47.32119,
+        "gas_unit_rate_p": 5.573925,
+        "gas_standing_p": 33.309675,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 26.09502,
+        "elec_standing_p": 51.414825,
+        "gas_unit_rate_p": 5.78802,
+        "gas_standing_p": 34.008765,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 26.09628,
+        "elec_standing_p": 53.759265,
+        "gas_unit_rate_p": 5.85732,
+        "gas_standing_p": 33.349995,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 24.40767,
+        "elec_standing_p": 58.373595,
+        "gas_unit_rate_p": 5.65887,
+        "gas_standing_p": 33.83037,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.141515,
+        "elec_standing_p": 56.27643,
+        "gas_unit_rate_p": 5.58957,
+        "gas_standing_p": 33.951225,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:02:29.195411",
+    "tariffs": [
+      {
+        "tariff_name": "Octopus 12M Fixed",
+        "product_code": "OE-FIX-12M-26-02-06",
+        "elec_unit_rate_p": 25.56582,
+        "elec_standing_p": 60.72381,
+        "gas_unit_rate_p": 5.50977,
+        "gas_standing_p": 33.922455,
+        "exit_fee": "\u00a30",
+        "is_variable": false,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": false
+      }
+    ]
+  },
+  {
+    "region": "Eastern",
+    "postcode": "IP4 5ET",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 48.388515,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "East Midlands",
+    "postcode": "DE23 6JJ",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 48.31659,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "London",
+    "postcode": "N5 2SD",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 45.465735,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Wales & Merseyside",
+    "postcode": "L3 2BN",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 69.026055,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "West Midlands",
+    "postcode": "SY2 6HL",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 52.493595,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North East",
+    "postcode": "NE2 1UY",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 58.897125,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North West",
+    "postcode": "PR4 2NB",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 50.28996,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Southern",
+    "postcode": "BH6 4AS",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 44.50782,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South East",
+    "postcode": "BN2 7HQ",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 47.76429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Wales",
+    "postcode": "CF14 2DY",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 50.48274,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South West",
+    "postcode": "PL9 7BS",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 54.389265,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "Yorkshire",
+    "postcode": "YO31 1DT",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 57.84429,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "South Scotland",
+    "postcode": "G20 6NQ",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 57.28044,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  },
+  {
+    "region": "North Scotland",
+    "postcode": "AB24 3EN",
+    "scraped_at": "2026-02-09T19:02:38.349082",
+    "tariffs": [
+      {
+        "tariff_name": "Snug Octopus",
+        "product_code": "SNUG-24-11-07",
+        "elec_unit_rate_p": 8.99997,
+        "elec_standing_p": 61.67889,
+        "gas_unit_rate_p": null,
+        "gas_standing_p": null,
+        "exit_fee": "\u00a30",
+        "is_variable": true,
+        "is_green": false,
+        "is_tracker": false,
+        "elec_only": true
+      }
+    ]
+  }
+]

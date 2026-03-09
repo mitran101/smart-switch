@@ -1,0 +1,9 @@
+# Python dependencies for smart-switch tariff scrapers
+
+# Web scraping and browser automation
+playwright>=1.40.0
+requests>=2.31.0
+
+# Note: After installing, run:
+#   playwright install chromium firefox
+#   playwright install-deps

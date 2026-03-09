@@ -828,11 +828,11 @@
 
 <!-- SwitchPilot Nav -->
 <nav class="top-nav">
-  <a href="index.html" class="top-logo">
+  <a href="index" class="top-logo">
     <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" onerror="this.style.display='none'">
     <span>SwitchPilot</span>
   </a>
-  <a href="tariff-tracker.html" class="back-home">⚡ Tariff Tracker</a>
+  <a href="tariff-tracker" class="back-home">⚡ Tariff Tracker</a>
 </nav>
 
 <div class="grid-bg"></div>
@@ -873,7 +873,7 @@
   <footer>
     Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology.<br>
     For UK energy bills only — Ofgem-regulated suppliers in Great Britain.<br>
-    Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly.<br>
+    Tariff comparison uses live data from the <a href="tariff-tracker">SwitchPilot Tariff Tracker</a>, updated weekly.<br>
     Actual savings may vary. Not financial advice. Always confirm rates with your new supplier before switching.
   </footer>
 
@@ -1277,7 +1277,7 @@ function renderResults(d, tariffData) {
     html += `<div class="switching-section">
       <div class="switching-header"><h3>Could you be paying <span>less?</span></h3></div>
       <div class="no-savings-note">We couldn't identify your region from this bill — we need that to compare tariffs accurately by network area.<br><br>
-      Check our <a href="tariff-tracker.html" style="color:#34d399">Tariff Tracker</a> to see deals in your region.</div>
+      Check our <a href="tariff-tracker" style="color:#34d399">Tariff Tracker</a> to see deals in your region.</div>
     </div>`;
   }
 
@@ -1350,7 +1350,7 @@ function renderSwitchingSection(billData, tariffData, result) {
 
   if (deals.length === 0) {
     html += `<div class="no-savings-note">No fixed tariffs currently beat your estimated annual cost in the ${region} region.<br>You may already be on a competitive rate — or the available deals include exit fees that reduce the saving.<br><br>
-    <a href="tariff-tracker.html" style="color:#34d399">Browse all tariffs in our tracker →</a></div>`;
+    <a href="tariff-tracker" style="color:#34d399">Browse all tariffs in our tracker →</a></div>`;
   } else {
     html += `<div class="tariff-cards-grid">`;
     deals.forEach((t, i) => {
@@ -1396,7 +1396,7 @@ function renderSwitchingSection(billData, tariffData, result) {
 
   html += `<div class="switching-footer">
     <p>Savings estimated using your bill's usage rates extrapolated annually. Actual savings depend on your exact consumption, region, and tariff terms. Always confirm rates before switching.</p>
-    <a href="tariff-tracker.html" class="tariff-tracker-link">Full Tariff Tracker →</a>
+    <a href="tariff-tracker" class="tariff-tracker-link">Full Tariff Tracker →</a>
   </div></div>`;
 
   return html;

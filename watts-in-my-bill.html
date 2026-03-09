@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watt's In My Bill? | SwitchPilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --accent: #f0c040;
+    --accent2: #40c0f0;
+    --accent3: #f04080;
+    --accent-green: #10B981;
+    --text: #e8e8f0;
+    --muted: #6868a0;
+    --border: #2a2a40;
+    /* SwitchPilot tokens */
+    --sp-slate: #1E293B;
+    --sp-purple: #A855F7;
+    --sp-pink: #EC4899;
+    --sp-green: #10B981;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SwitchPilot Nav ── */
+  .top-nav {
+    background: var(--sp-slate);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+  .top-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .top-logo img { height: 3rem; width: auto; margin-right: -12px; }
+  .top-logo span { font-size: 1.35rem; }
+  .back-home {
+    display: inline-block;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .back-home:hover { background: rgba(255,255,255,0.2); }
+
+  /* Grid background */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .bolt {
+    font-size: 2.5rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--accent), 0 0 30px var(--accent); opacity: 1; }
+    50% { text-shadow: 0 0 20px var(--accent), 0 0 60px var(--accent); opacity: 0.8; }
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    font-family: 'Syne', sans-serif;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .tagline {
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 50px 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upload-zone::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(240,192,64,0.03) 100%);
+    pointer-events: none;
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--accent);
+    background: #16160e;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px rgba(240,192,64,0.1);
+  }
+
+  .upload-icon { font-size: 3rem; margin-bottom: 16px; display: block; }
+
+  .upload-zone h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .upload-zone p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  #fileInput { display: none; }
+
+  .preview-img {
+    max-width: 100%;
+    max-height: 280px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid var(--border);
+  }
+
+  /* Buttons */
+  .btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px 30px;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: #f8d060;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(240,192,64,0.3);
+  }
+
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Loading */
+  .loading { display: none; text-align: center; padding: 40px; }
+  .loading.active { display: block; }
+
+  .spinner {
+    width: 50px; height: 50px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading p {
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    font-size: 0.85rem;
+    animation: flicker 1.5s ease-in-out infinite;
+  }
+
+  @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* Results */
+  .results { display: none; margin-top: 40px; }
+  .results.active { display: block; animation: fadeUp 0.5s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .results-header h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .total-badge {
+    background: var(--accent);
+    color: #0a0a0f;
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  /* Bill summary card */
+  .bill-summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .bill-summary h3 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 16px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .summary-item {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid var(--border);
+  }
+
+  .summary-item .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .summary-item .value { font-size: 1.2rem; font-weight: 800; }
+  .summary-item .value.elec { color: var(--accent); }
+  .summary-item .value.gas { color: var(--accent2); }
+
+  /* Region badge */
+  .region-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(168,85,247,0.15);
+    border: 1px solid rgba(168,85,247,0.3);
+    color: #c084fc;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    margin-top: 10px;
+  }
+
+  /* Breakdown bars */
+  .breakdown-section { margin-bottom: 24px; }
+
+  .section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cost-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+    transition: border-color 0.2s;
+  }
+
+  .cost-item:hover { border-color: var(--muted); }
+
+  .cost-item-left .name { font-weight: 600; font-size: 0.9rem; margin-bottom: 3px; }
+
+  .cost-item-left .detail {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .cost-item-right { text-align: right; }
+  .cost-item-right .amount { font-weight: 800; font-size: 1rem; }
+  .cost-item-right .pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .bar-wrap {
+    grid-column: 1 / -1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .bar-elec { background: var(--accent); }
+  .bar-gas { background: var(--accent2); }
+  .bar-standing { background: var(--accent3); }
+  .bar-tax { background: #a040f0; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .tag-regulated { background: rgba(160,64,240,0.2); color: #c080f8; }
+  .tag-wholesale { background: rgba(64,192,240,0.2); color: var(--accent2); }
+  .tag-network { background: rgba(240,64,128,0.2); color: var(--accent3); }
+
+  /* Insight box */
+  .insight-box {
+    background: linear-gradient(135deg, #1a1510, #12121a);
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+
+  .insight-box h3 {
+    color: var(--accent);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 10px;
+  }
+
+  .insight-box p { color: #c8c8d8; font-size: 0.88rem; line-height: 1.7; }
+
+  /* ── SWITCHING SECTION ── */
+  .switching-section {
+    margin-top: 32px;
+    background: linear-gradient(135deg, #0d1a0d, #0a0a12);
+    border: 1px solid rgba(16,185,129,0.35);
+    border-radius: 20px;
+    padding: 28px;
+  }
+
+  .switching-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .switching-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .switching-header h3 span { color: var(--accent-green); }
+
+  .saving-pill {
+    background: rgba(16,185,129,0.2);
+    border: 1px solid rgba(16,185,129,0.4);
+    color: #34d399;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .tariff-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .tariff-deal-card {
+    background: #111820;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .tariff-deal-card:hover {
+    border-color: rgba(16,185,129,0.4);
+    transform: translateY(-2px);
+  }
+
+  .tariff-deal-card.best-deal {
+    border-color: rgba(16,185,129,0.5);
+    background: #0d1f15;
+  }
+
+  .best-label {
+    position: absolute;
+    top: -10px;
+    left: 14px;
+    background: var(--accent-green);
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    font-family: 'Space Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .deal-supplier {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .deal-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: #e8e8f0;
+  }
+
+  .deal-rates {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .deal-rate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  .deal-rate-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .deal-rate-value {
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+  }
+
+  .deal-saving {
+    background: rgba(16,185,129,0.15);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .deal-saving-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: #34d399;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .deal-saving-value {
+    font-weight: 800;
+    color: #34d399;
+    font-size: 1rem;
+  }
+
+  .no-savings-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 16px;
+  }
+
+  .switching-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .switching-footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .tariff-tracker-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent-green);
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tariff-tracker-link:hover {
+    background: #34d399;
+    transform: translateY(-1px);
+  }
+
+  /* Loading state for switching */
+  .switching-loading {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    animation: flicker 1.5s ease-in-out infinite;
+  }
+
+  /* Error */
+  .error-box {
+    display: none;
+    background: rgba(240,64,80,0.1);
+    border: 1px solid rgba(240,64,80,0.4);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #f06070;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .error-box.active { display: block; }
+
+  /* Reset */
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    margin-top: 16px;
+  }
+
+  .reset-btn:hover { border-color: var(--muted); color: var(--text); }
+
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--accent-green); }
+
+  /* ── Email Capture Card ── */
+  .email-capture {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #0d0d1a, #111a0d);
+    border: 1px solid rgba(168,85,247,0.35);
+    border-radius: 20px;
+    padding: 28px 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .email-capture::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+    background-size: 200% 100%;
+    animation: scanline 3s linear infinite;
+  }
+
+  @keyframes scanline {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .email-capture-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .email-capture-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .email-capture-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .email-capture-header p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .email-capture-header p strong {
+    color: #c084fc;
+  }
+
+  .email-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .email-input-row input[type="email"] {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(168,85,247,0.3);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .email-input-row input[type="email"]::placeholder {
+    color: var(--muted);
+  }
+
+  .email-input-row input[type="email"]:focus {
+    border-color: var(--sp-purple);
+    background: rgba(168,85,247,0.08);
+  }
+
+  .email-submit-btn {
+    background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .email-submit-btn:hover:not(:disabled) {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .email-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .email-capture-privacy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .email-capture-success {
+    display: none;
+    text-align: center;
+    padding: 16px 0 4px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .email-capture-success .tick {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .email-capture-success p {
+    color: #c084fc;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .email-capture-success strong {
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<!-- SwitchPilot Nav -->
+<nav class="top-nav">
+  <a href="index.html" class="top-logo">
+    <img src="https://mitran101.github.io/smart-switch/logo.png" alt="" onerror="this.style.display='none'">
+    <span>SwitchPilot</span>
+  </a>
+  <a href="tariff-tracker.html" class="back-home">⚡ Tariff Tracker</a>
+</nav>
+
+<div class="grid-bg"></div>
+
+<div class="container">
+
+  <header>
+    <div class="logo-wrap">
+      <span class="bolt">⚡</span>
+    </div>
+    <h1>Watt's In<br><span>My Bill?</span></h1>
+    <p class="tagline">Upload your bill · Get the breakdown · Find a better deal</p>
+  </header>
+
+  <!-- Upload -->
+  <div class="upload-zone" id="uploadZone">
+    <span class="upload-icon">📄</span>
+    <h2>Drop your energy bill here</h2>
+    <p>PNG, JPG or PDF · Click or drag & drop</p>
+    <img id="previewImg" class="preview-img" style="display:none" alt="Bill preview">
+    <input type="file" id="fileInput" accept="image/*,.pdf">
+  </div>
+
+  <button class="btn" id="analyseBtn" disabled>⚡ Analyse My Bill</button>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p id="loadingMsg">Reading your bill · extracting charges · crunching numbers...</p>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <button class="reset-btn" id="resetBtn" style="display:none" onclick="resetTool()">↩ Scan another bill</button>
+
+  <footer>
+    Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology.<br>
+    Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly.<br>
+    Actual savings may vary. Not financial advice. Always confirm rates with your new supplier before switching.
+  </footer>
+
+</div>
+
+<script>
+// ── DOM refs ──
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('fileInput');
+const previewImg = document.getElementById('previewImg');
+const analyseBtn = document.getElementById('analyseBtn');
+const loading = document.getElementById('loading');
+const loadingMsg = document.getElementById('loadingMsg');
+const results = document.getElementById('results');
+const errorBox = document.getElementById('errorBox');
+const resetBtn = document.getElementById('resetBtn');
+
+let selectedFile = null;
+let base64Data = null;
+
+// ── Postcode → DNO region map (matching tariff tracker) ──
+const POSTCODE_REGION_MAP = {
+  'IP': 'Eastern', 'CB': 'Eastern', 'CM': 'Eastern', 'CO': 'Eastern', 'NR': 'Eastern', 'PE': 'Eastern', 'SS': 'Eastern',
+  'DE': 'East Midlands', 'LE': 'East Midlands', 'LN': 'East Midlands', 'NG': 'East Midlands', 'NN': 'East Midlands',
+  'N': 'London', 'E': 'London', 'EC': 'London', 'SE': 'London', 'SW': 'London', 'W': 'London', 'WC': 'London', 'BR': 'London', 'CR': 'London', 'EN': 'London', 'HA': 'London', 'IG': 'London', 'KT': 'London', 'RM': 'London', 'SM': 'London', 'TW': 'London', 'UB': 'London', 'WD': 'London',
+  'CH': 'North Wales & Merseyside', 'LL': 'North Wales & Merseyside', 'SY': 'North Wales & Merseyside',
+  'B': 'West Midlands', 'CV': 'West Midlands', 'DY': 'West Midlands', 'HR': 'West Midlands', 'ST': 'West Midlands', 'TF': 'West Midlands', 'WR': 'West Midlands', 'WS': 'West Midlands', 'WV': 'West Midlands',
+  'DH': 'North East', 'DL': 'North East', 'NE': 'North East', 'SR': 'North East', 'TS': 'North East',
+  'BB': 'North West', 'BL': 'North West', 'CA': 'North West', 'CW': 'North West', 'FY': 'North West', 'L': 'North West', 'LA': 'North West', 'M': 'North West', 'OL': 'North West', 'PR': 'North West', 'SK': 'North West', 'WA': 'North West', 'WN': 'North West',
+  'BN': 'South East', 'CT': 'South East', 'GU': 'South East', 'ME': 'South East', 'RH': 'South East', 'TN': 'South East',
+  'BH': 'Southern', 'PO': 'Southern', 'RG': 'Southern', 'SO': 'Southern', 'SP': 'Southern',
+  'CF': 'South Wales', 'NP': 'South Wales', 'SA': 'South Wales', 'LD': 'South Wales',
+  'BA': 'South West', 'BS': 'South West', 'DT': 'South West', 'EX': 'South West', 'GL': 'South West', 'PL': 'South West', 'TA': 'South West', 'TQ': 'South West', 'TR': 'South West',
+  'BD': 'Yorkshire', 'HD': 'Yorkshire', 'HG': 'Yorkshire', 'HU': 'Yorkshire', 'HX': 'Yorkshire', 'LS': 'Yorkshire', 'WF': 'Yorkshire', 'YO': 'Yorkshire', 'DN': 'Yorkshire', 'S': 'Yorkshire',
+  'DG': 'South Scotland', 'EH': 'South Scotland', 'FK': 'South Scotland', 'G': 'South Scotland', 'KA': 'South Scotland', 'KY': 'South Scotland', 'ML': 'South Scotland', 'PA': 'South Scotland', 'TD': 'South Scotland',
+  'AB': 'North Scotland', 'DD': 'North Scotland', 'IV': 'North Scotland', 'KW': 'North Scotland', 'PH': 'North Scotland'
+};
+
+function postcodeToRegion(postcode) {
+  if (!postcode) return null;
+  const clean = postcode.toUpperCase().replace(/\s/g, '');
+  // Try 2-char prefix first, then 1-char
+  const two = clean.substring(0, 2).replace(/\d/g, '');
+  const one = clean.substring(0, 1);
+  // Match longest alpha prefix
+  const prefix2 = clean.match(/^([A-Z]{1,2})/)?.[1] || '';
+  if (prefix2.length === 2 && POSTCODE_REGION_MAP[prefix2]) return POSTCODE_REGION_MAP[prefix2];
+  if (prefix2.length >= 1 && POSTCODE_REGION_MAP[prefix2[0]]) return POSTCODE_REGION_MAP[prefix2[0]];
+  return null;
+}
+
+// ── File handling ──
+uploadZone.addEventListener('click', () => fileInput.click());
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+function handleFile(file) {
+  selectedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    base64Data = e.target.result.split(',')[1];
+    if (file.type.startsWith('image/')) {
+      previewImg.src = e.target.result;
+      previewImg.style.display = 'block';
+    } else {
+      previewImg.style.display = 'none';
+    }
+    analyseBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Main analysis ──
+analyseBtn.addEventListener('click', async () => {
+  if (!base64Data) return;
+
+  analyseBtn.disabled = true;
+  loading.classList.add('active');
+  results.classList.remove('active');
+  errorBox.classList.remove('active');
+  resetBtn.style.display = 'none';
+
+  const isImage = selectedFile.type.startsWith('image/');
+  const mediaType = isImage ? selectedFile.type : 'application/pdf';
+
+  const prompt = `You are an expert in UK energy billing and Ofgem price cap methodology. Analyse this energy bill and extract all charges you can identify.
+
+Return ONLY a JSON object — no markdown, no backticks, just raw JSON — with this exact structure:
+
+{
+  "supplier": "supplier name or Unknown",
+  "period": "billing period e.g. Jan 2025 - Mar 2025 or Unknown",
+  "accountNumber": "account number if visible or null",
+  "postcode": "full postcode if visible on bill or null (e.g. SW1A 1AA)",
+  "region": "DNO region if you can infer from bill address or postcode — one of: Eastern, East Midlands, London, North Wales & Merseyside, West Midlands, North East, North West, South East, Southern, South Wales, South West, Yorkshire, South Scotland, North Scotland — or null if unknown",
+  "hasElectricity": true/false,
+  "hasGas": true/false,
+  "totalAmount": number (total bill in pounds, no £),
+  "electricity": {
+    "unitRate": number or null (pence per kWh),
+    "standingCharge": number or null (pence per day),
+    "unitsUsed": number or null (kWh),
+    "unitCostSubtotal": number or null (£),
+    "standingChargeSubtotal": number or null (£),
+    "subtotal": number or null (£),
+    "days": number or null
+  },
+  "gas": {
+    "unitRate": number or null (pence per kWh),
+    "standingCharge": number or null (pence per day),
+    "unitsUsed": number or null (kWh),
+    "unitCostSubtotal": number or null (£),
+    "standingChargeSubtotal": number or null (£),
+    "subtotal": number or null (£),
+    "days": number or null
+  },
+  "vatAmount": number or null (£),
+  "discounts": number or null (£, positive number),
+  "otherCharges": number or null (£),
+  "insight": "2-3 sentence plain English insight about this bill — comment on whether rates look high/low vs the Ofgem cap, usage patterns, anything notable. Be specific.",
+  "pricecapContext": "1-2 sentences on how these rates compare to the Q1 2026 Ofgem cap: electricity ~24.5p/kWh, 61p/day standing charge; gas ~6.24p/kWh, 31.65p/day standing charge"
+}
+
+If you cannot read the bill or it is not a UK energy bill, return: {"error": "explanation"}
+
+Return ONLY the JSON. Nothing else.`;
+
+  try {
+    loadingMsg.textContent = 'Reading your bill · extracting charges · crunching numbers...';
+    const contentArray = [
+      { type: isImage ? "image" : "document", source: { type: "base64", media_type: mediaType, data: base64Data } },
+      { type: "text", text: prompt }
+    ];
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: contentArray }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.map(b => b.text || '').join('').trim();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+    } catch {
+      throw new Error("Could not parse response. Please try a clearer image.");
+    }
+
+    if (parsed.error) {
+      loading.classList.remove('active');
+      showError(parsed.error);
+      return;
+    }
+
+    // Resolve region from extracted postcode if not directly inferred
+    if (!parsed.region && parsed.postcode) {
+      parsed.region = postcodeToRegion(parsed.postcode);
+    }
+
+    // Now fetch live tariff data
+    loadingMsg.textContent = 'Fetching live tariff data · finding you better deals...';
+    let tariffData = null;
+    try {
+      const tariffResp = await fetch('https://raw.githubusercontent.com/mitran101/smart-switch/main/all_tariffs.json');
+      tariffData = await tariffResp.json();
+    } catch (e) {
+      console.warn('Could not fetch tariff data:', e);
+    }
+
+    loading.classList.remove('active');
+    renderResults(parsed, tariffData);
+
+  } catch (err) {
+    loading.classList.remove('active');
+    showError(err.message || "Something went wrong. Please try again.");
+    analyseBtn.disabled = false;
+  }
+});
+
+// ── Helpers ──
+function fmt(n, dp = 2) {
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  return '£' + Number(n).toFixed(dp);
+}
+
+function fmtP(n) {
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  return Number(n).toFixed(2) + 'p';
+}
+
+function pct(part, total) {
+  if (!part || !total) return 0;
+  return Math.min(100, Math.round((part / total) * 100));
+}
+
+// ── Switching logic ──
+function findBestDeals(billData, tariffData) {
+  if (!tariffData?.tariffs || !billData.region) return null;
+
+  const region = billData.region;
+  const fuelType = billData.hasElectricity && billData.hasGas ? 'dual' :
+                   billData.hasElectricity ? 'elec' : 'gas';
+
+  // Q2 2026 price cap rates (April onwards) — used as benchmark
+  const capRates = {
+    elec_unit: 24.50, elec_standing: 61.00,
+    gas_unit: 6.24, gas_standing: 31.65
+  };
+
+  // Typical annual usage (Ofgem default household)
+  const annualElec = billData.electricity?.unitsUsed
+    ? (billData.electricity.unitsUsed / (billData.electricity.days || 90)) * 365
+    : 2900;
+  const annualGas = billData.gas?.unitsUsed
+    ? (billData.gas.unitsUsed / (billData.gas.days || 90)) * 365
+    : 11500;
+
+  function annualCost(t) {
+    let cost = 0;
+    if (fuelType !== 'gas' && t.elec_unit_rate_p) {
+      cost += (t.elec_unit_rate_p / 100) * annualElec + (t.elec_standing_p / 100) * 365;
+    }
+    if (fuelType !== 'elec' && t.gas_unit_rate_p) {
+      cost += (t.gas_unit_rate_p / 100) * annualGas + (t.gas_standing_p / 100) * 365;
+    }
+    return cost;
+  }
+
+  function capAnnualCost() {
+    let cost = 0;
+    if (fuelType !== 'gas') cost += (capRates.elec_unit / 100) * annualElec + (capRates.elec_standing / 100) * 365;
+    if (fuelType !== 'elec') cost += (capRates.gas_unit / 100) * annualGas + (capRates.gas_standing / 100) * 365;
+    return cost;
+  }
+
+  // Use bill's own rates as the benchmark if available
+  function billAnnualCost() {
+    let cost = 0;
+    if (fuelType !== 'gas' && billData.electricity?.unitRate) {
+      const ur = billData.electricity.unitRate;
+      const sc = billData.electricity.standingCharge || capRates.elec_standing;
+      cost += (ur / 100) * annualElec + (sc / 100) * 365;
+    } else if (fuelType !== 'gas') {
+      cost += (capRates.elec_unit / 100) * annualElec + (capRates.elec_standing / 100) * 365;
+    }
+    if (fuelType !== 'elec' && billData.gas?.unitRate) {
+      const ur = billData.gas.unitRate;
+      const sc = billData.gas.standingCharge || capRates.gas_standing;
+      cost += (ur / 100) * annualGas + (sc / 100) * 365;
+    } else if (fuelType !== 'elec') {
+      cost += (capRates.gas_unit / 100) * annualGas + (capRates.gas_standing / 100) * 365;
+    }
+    return cost;
+  }
+
+  const currentCost = billAnnualCost();
+
+  // Filter valid tariffs for this region
+  const validTariffs = tariffData.tariffs
+    .filter(t => t.region === region && !t.error)
+    .filter(t => {
+      const name = (t.tariff_name || '').toLowerCase();
+      if (name.includes('variable') || name.includes('svt') || name.includes('standard')) return false;
+      return true;
+    })
+    .filter(t => {
+      if (fuelType !== 'gas' && !t.elec_unit_rate_p) return false;
+      if (fuelType !== 'elec' && !t.gas_unit_rate_p) return false;
+      return true;
+    })
+    .map(t => ({ ...t, annualCost: annualCost(t), saving: currentCost - annualCost(t) }))
+    .filter(t => t.saving > 0 && t.annualCost > 0)
+    .sort((a, b) => b.saving - a.saving)
+    .slice(0, 3);
+
+  return {
+    deals: validTariffs,
+    currentCost,
+    capCost: capAnnualCost(),
+    region,
+    fuelType,
+    annualElec,
+    annualGas
+  };
+}
+
+// ── Render ──
+function renderResults(d, tariffData) {
+  const total = d.totalAmount || 0;
+
+  const elecUnit = d.electricity?.unitCostSubtotal || 0;
+  const elecStanding = d.electricity?.standingChargeSubtotal || 0;
+  const gasUnit = d.gas?.unitCostSubtotal || 0;
+  const gasStanding = d.gas?.standingChargeSubtotal || 0;
+  const vat = d.vatAmount || 0;
+  const discounts = d.discounts || 0;
+
+  const elecUC = { wholesale: elecUnit * 0.36, network: elecUnit * 0.26, operating: elecUnit * 0.17, policy: elecUnit * 0.16, ebit: elecUnit * 0.05 };
+  const gasUC = { wholesale: gasUnit * 0.55, network: gasUnit * 0.23, operating: gasUnit * 0.12, policy: gasUnit * 0.07, ebit: gasUnit * 0.03 };
+
+  let html = `
+    <div class="results-header">
+      <h2>Bill Breakdown</h2>
+      <div class="total-badge">${fmt(total)} total</div>
+    </div>
+
+    <div class="bill-summary">
+      <h3>📋 Bill Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="label">Supplier</div>
+          <div class="value" style="font-size:1rem">${d.supplier || 'Unknown'}</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">Period</div>
+          <div class="value" style="font-size:0.9rem">${d.period || 'Unknown'}</div>
+        </div>
+        ${d.hasElectricity ? `
+        <div class="summary-item">
+          <div class="label">⚡ Elec rate</div>
+          <div class="value elec">${fmtP(d.electricity?.unitRate)}/kWh</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">⚡ Elec standing</div>
+          <div class="value elec">${fmtP(d.electricity?.standingCharge)}/day</div>
+        </div>` : ''}
+        ${d.hasGas ? `
+        <div class="summary-item">
+          <div class="label">🔥 Gas rate</div>
+          <div class="value gas">${fmtP(d.gas?.unitRate)}/kWh</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">🔥 Gas standing</div>
+          <div class="value gas">${fmtP(d.gas?.standingCharge)}/day</div>
+        </div>` : ''}
+      </div>
+      ${d.region ? `<div class="region-badge">📍 ${d.region} region${d.postcode ? ' · ' + d.postcode : ''}</div>` : ''}
+    </div>
+  `;
+
+  // Electricity cost stack
+  if (d.hasElectricity && elecUnit > 0) {
+    html += `
+      <div class="breakdown-section">
+        <div class="section-title">⚡ Electricity Unit Cost — Where your money goes</div>
+        ${costRow('Wholesale Energy Cost', 'tag-wholesale', 'Wholesale', 'What your supplier paid on the wholesale market · ~36% of unit cost', elecUC.wholesale, total, 'var(--accent)', 'bar-elec')}
+        ${costRow('Network Charges', 'tag-network', 'Network', 'Transmission & distribution — getting electricity to your home · ~26% of unit cost', elecUC.network, total, 'var(--accent)', 'bar-elec')}
+        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, call centres, smart metering programme · ~17% of unit cost', elecUC.operating, total, 'var(--accent)', 'bar-elec')}
+        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Renewables obligation, ECO scheme, Warm Home Discount · ~16% of unit cost', elecUC.policy, total, 'var(--accent)', 'bar-elec')}
+        ${costRow('Supplier Margin (EBIT)', '', '', 'Regulated profit — Ofgem cap limits this to ~5% of unit cost', elecUC.ebit, total, 'var(--accent)', 'bar-elec')}
+      </div>`;
+  }
+
+  // Gas cost stack
+  if (d.hasGas && gasUnit > 0) {
+    html += `
+      <div class="breakdown-section">
+        <div class="section-title">🔥 Gas Unit Cost — Where your money goes</div>
+        ${costRow('Wholesale Gas Cost', 'tag-wholesale', 'Wholesale', 'Commodity gas price — the most volatile element of your bill · ~55% of unit cost', gasUC.wholesale, total, 'var(--accent2)', 'bar-gas')}
+        ${costRow('Gas Network Charges', 'tag-network', 'Network', 'National Transmission System & local distribution · ~23% of unit cost', gasUC.network, total, 'var(--accent2)', 'bar-gas')}
+        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, servicing, smart meter rollout · ~12% of unit cost', gasUC.operating, total, 'var(--accent2)', 'bar-gas')}
+        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Warm Home Discount, social & environmental obligations · ~7% of unit cost', gasUC.policy, total, 'var(--accent2)', 'bar-gas')}
+        ${costRow('Supplier Margin (EBIT)', '', '', 'Gas is lower-margin — Ofgem cap limits supplier profit to ~3% of unit cost', gasUC.ebit, total, 'var(--accent2)', 'bar-gas')}
+      </div>`;
+  }
+
+  // Other charges
+  html += `<div class="breakdown-section"><div class="section-title">📋 Other Charges</div>`;
+  if (elecStanding > 0) html += costRow('⚡ Electricity Standing Charge', '', '', `${d.electricity?.days ? d.electricity.days + ' days × ' + fmtP(d.electricity.standingCharge) : 'Fixed daily charge'} · Network maintenance & metering`, elecStanding, total, 'var(--accent3)', 'bar-standing');
+  if (gasStanding > 0)  html += costRow('🔥 Gas Standing Charge', '', '', `${d.gas?.days ? d.gas.days + ' days × ' + fmtP(d.gas.standingCharge) : 'Fixed daily charge'} · Pipe network & safety`, gasStanding, total, 'var(--accent3)', 'bar-standing');
+  if (vat > 0)          html += costRow('VAT', 'tag-regulated', 'Tax', '5% reduced rate — energy is exempt from standard 20% VAT', vat, total, '#a040f0', 'bar-tax');
+  if (discounts > 0)    html += costRow('Discounts / Credits', '', '', 'Applied to your account this period', -discounts, total, '#40f0a0', '');
+  html += `</div>`;
+
+  // Insight
+  if (d.insight || d.pricecapContext) {
+    html += `<div class="insight-box"><h3>⚡ Analyst's Take</h3><p>${d.insight || ''} ${d.pricecapContext || ''}</p></div>`;
+  }
+
+  // Switching section
+  let switchingResult = null;
+  if (tariffData && d.region) {
+    switchingResult = findBestDeals(d, tariffData);
+    html += renderSwitchingSection(d, tariffData, switchingResult);
+  } else if (tariffData && !d.region) {
+    html += `<div class="switching-section">
+      <div class="switching-header"><h3>Could you be paying <span>less?</span></h3></div>
+      <div class="no-savings-note">We couldn't identify your region from this bill — we need that to compare tariffs accurately by network area.<br><br>
+      Check our <a href="tariff-tracker.html" style="color:#34d399">Tariff Tracker</a> to see deals in your region.</div>
+    </div>`;
+  }
+
+  // Email capture — always render, context-aware copy
+  html += renderEmailCapture(d, switchingResult);
+
+  results.innerHTML = html;
+  results.classList.add('active');
+  resetBtn.style.display = 'block';
+
+  // Animate bars
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(b => {
+      const w = b.style.width;
+      b.style.width = '0';
+      requestAnimationFrame(() => { b.style.width = w; });
+    });
+  }, 100);
+}
+
+function costRow(name, tagClass, tagLabel, detail, amount, total, color, barClass) {
+  const isNegative = amount < 0;
+  const displayAmount = Math.abs(amount);
+  const displayColor = isNegative ? '#40f0a0' : color;
+  const prefix = isNegative ? '-' : '';
+  const barPct = pct(displayAmount, total);
+  const barStyle = barClass
+    ? `<div class="bar-wrap"><div class="bar-fill ${barClass}" style="width:${barPct}%"></div></div>`
+    : `<div class="bar-wrap"><div class="bar-fill" style="width:${barPct}%; background:${displayColor}"></div></div>`;
+  const tagHtml = tagClass && tagLabel ? `<span class="tag ${tagClass}">${tagLabel}</span>` : '';
+  return `
+    <div class="cost-item">
+      <div class="cost-item-left">
+        <div class="name">${name}${tagHtml}</div>
+        <div class="detail">${detail}</div>
+      </div>
+      <div class="cost-item-right">
+        <div class="amount" style="color:${displayColor}">${prefix}${fmt(displayAmount)}</div>
+        <div class="pct">${barPct}% of bill</div>
+      </div>
+      ${barStyle}
+    </div>`;
+}
+
+function supplierDisplayName(key) {
+  const map = {
+    'british_gas': 'British Gas', 'octopus': 'Octopus Energy', 'eon_next': 'E.ON Next',
+    'ovo': 'OVO Energy', 'scottish_power': 'Scottish Power', 'edf': 'EDF Energy',
+    'fuse_energy': 'Fuse Energy', 'so_energy': 'SO Energy'
+  };
+  return map[key] || key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function renderSwitchingSection(billData, tariffData, result) {
+  if (!result) result = findBestDeals(billData, tariffData);
+  if (!result) return '';
+
+  const { deals, currentCost, region, fuelType } = result;
+  const maxSaving = deals.length > 0 ? deals[0].saving : 0;
+  const fuelLabel = fuelType === 'dual' ? 'dual fuel' : fuelType === 'elec' ? 'electricity' : 'gas';
+
+  let html = `<div class="switching-section">
+    <div class="switching-header">
+      <h3>Could you be paying <span>less?</span></h3>
+      ${maxSaving > 0 ? `<div class="saving-pill">Save up to ${fmt(maxSaving, 0)}/yr</div>` : ''}
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:18px;">
+      Live fixed deals in the <strong style="color:#c8c8d8">${region}</strong> region vs your estimated annual cost of <strong style="color:#c8c8d8">${fmt(currentCost, 0)}</strong> (${fuelLabel}, extrapolated from bill period)
+    </p>`;
+
+  if (deals.length === 0) {
+    html += `<div class="no-savings-note">No fixed tariffs currently beat your estimated annual cost in the ${region} region.<br>You may already be on a competitive rate — or the available deals include exit fees that reduce the saving.<br><br>
+    <a href="tariff-tracker.html" style="color:#34d399">Browse all tariffs in our tracker →</a></div>`;
+  } else {
+    html += `<div class="tariff-cards-grid">`;
+    deals.forEach((t, i) => {
+      const supplier = supplierDisplayName(t.supplier);
+      const tariffName = t.tariff_name || 'Fixed Tariff';
+      const exitFee = t.exit_fee_gbp ? `Exit: ${t.exit_fee_gbp}` : 'No exit fee info';
+      html += `
+        <div class="tariff-deal-card${i === 0 ? ' best-deal' : ''}">
+          ${i === 0 ? '<div class="best-label">Best Deal</div>' : ''}
+          <div class="deal-supplier">${supplier}</div>
+          <div class="deal-name">${tariffName}</div>
+          <div class="deal-rates">
+            ${t.elec_unit_rate_p ? `
+            <div class="deal-rate-row">
+              <span class="deal-rate-label">⚡ Elec unit</span>
+              <span class="deal-rate-value" style="color:var(--accent)">${t.elec_unit_rate_p.toFixed(2)}p/kWh</span>
+            </div>
+            <div class="deal-rate-row">
+              <span class="deal-rate-label">⚡ Elec standing</span>
+              <span class="deal-rate-value" style="color:var(--accent)">${(t.elec_standing_p||0).toFixed(2)}p/day</span>
+            </div>` : ''}
+            ${t.gas_unit_rate_p ? `
+            <div class="deal-rate-row">
+              <span class="deal-rate-label">🔥 Gas unit</span>
+              <span class="deal-rate-value" style="color:var(--accent2)">${t.gas_unit_rate_p.toFixed(2)}p/kWh</span>
+            </div>
+            <div class="deal-rate-row">
+              <span class="deal-rate-label">🔥 Gas standing</span>
+              <span class="deal-rate-value" style="color:var(--accent2)">${(t.gas_standing_p||0).toFixed(2)}p/day</span>
+            </div>` : ''}
+            <div class="deal-rate-row" style="margin-top:2px">
+              <span class="deal-rate-label" style="color:#555">${exitFee}</span>
+            </div>
+          </div>
+          <div class="deal-saving">
+            <span class="deal-saving-label">Est. annual saving</span>
+            <span class="deal-saving-value">${fmt(t.saving, 0)}</span>
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `<div class="switching-footer">
+    <p>Savings estimated using your bill's usage rates extrapolated annually. Actual savings depend on your exact consumption, region, and tariff terms. Always confirm rates before switching.</p>
+    <a href="tariff-tracker.html" class="tariff-tracker-link">Full Tariff Tracker →</a>
+  </div></div>`;
+
+  return html;
+}
+
+function renderEmailCapture(billData, switchingResult) {
+  const region = billData.region || null;
+  const maxSaving = switchingResult?.deals?.[0]?.saving || 0;
+  const supplier = billData.supplier && billData.supplier !== 'Unknown' ? billData.supplier : null;
+
+  // Context-aware headline
+  let headline, subline;
+  if (maxSaving > 50) {
+    headline = `We found you could save ${fmt(maxSaving, 0)}/yr`;
+    subline = `Get <strong>an alert when better deals appear</strong>${region ? ` in the ${region} region` : ''} — and weekly bill insights from SwitchPilot.`;
+  } else if (region) {
+    headline = `Stay ahead of rate changes in ${region}`;
+    subline = `Get <strong>weekly tariff alerts</strong> for your region and bite-sized energy insights from SwitchPilot.`;
+  } else {
+    headline = `Get alerted when better deals appear`;
+    subline = `Join SwitchPilot for <strong>weekly tariff alerts</strong> and plain-English energy insights — no jargon.`;
+  }
+
+  // Encode bill context for the submit handler (passed as data attributes)
+  const ctx = encodeURIComponent(JSON.stringify({
+    region: region,
+    supplier: supplier,
+    maxSaving: maxSaving > 0 ? Math.round(maxSaving) : null,
+    fuelType: switchingResult?.fuelType || (billData.hasElectricity && billData.hasGas ? 'dual' : billData.hasElectricity ? 'elec' : 'gas'),
+    elecRate: billData.electricity?.unitRate || null,
+    gasRate: billData.gas?.unitRate || null,
+  }));
+
+  return `
+  <div class="email-capture" id="emailCaptureCard">
+    <div class="email-capture-header">
+      <div class="email-capture-icon">📬</div>
+      <div>
+        <h3>${headline}</h3>
+        <p>${subline}</p>
+      </div>
+    </div>
+    <div id="emailCaptureForm">
+      <div class="email-input-row">
+        <input type="email" id="captureEmailInput" placeholder="your@email.com" autocomplete="email">
+        <button class="email-submit-btn" id="captureSubmitBtn" onclick="submitBillScanEmail('${ctx}')">
+          Get alerts →
+        </button>
+      </div>
+      <p class="email-capture-privacy">🔒 No spam. Unsubscribe any time. We never sell your data.</p>
+    </div>
+    <div class="email-capture-success" id="emailCaptureSuccess">
+      <span class="tick">✅</span>
+      <p>You're on the list.<br><strong>We'll alert you when better deals appear${region ? ' in ' + region : ''}.</strong><br>
+      Check your inbox — first insight on its way.</p>
+    </div>
+  </div>`;
+}
+
+async function submitBillScanEmail(ctxEncoded) {
+  const emailInput = document.getElementById('captureEmailInput');
+  const submitBtn = document.getElementById('captureSubmitBtn');
+  const formEl = document.getElementById('emailCaptureForm');
+  const successEl = document.getElementById('emailCaptureSuccess');
+
+  const email = emailInput?.value?.trim();
+  if (!email || !email.includes('@')) {
+    emailInput.focus();
+    emailInput.style.borderColor = 'var(--accent3)';
+    setTimeout(() => emailInput.style.borderColor = '', 1500);
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '...';
+
+  let ctx = {};
+  try { ctx = JSON.parse(decodeURIComponent(ctxEncoded)); } catch {}
+
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLUY6mfhHMOKj4m0kI1-4PmoCfwvurirWTPt9zNEOr-aa2EvDBGa-l1w9K4mVC5FrDoQ/exec';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        source: 'bill-scanner',
+        region: ctx.region || '',
+        supplier: ctx.supplier || '',
+        estimatedSaving: ctx.maxSaving || '',
+        fuelType: ctx.fuelType || '',
+        elecRate: ctx.elecRate || '',
+        gasRate: ctx.gasRate || '',
+        timestamp: new Date().toISOString(),
+      })
+    });
+  } catch (e) {
+    // no-cors fetch will always "fail" — submission still went through
+    console.log('Submitted (no-cors mode)');
+  }
+
+  // Always show success — no-cors gives opaque response
+  formEl.style.display = 'none';
+  successEl.style.display = 'block';
+}
+
+function showError(msg) {
+  errorBox.textContent = '⚠ ' + msg;
+  errorBox.classList.add('active');
+  analyseBtn.disabled = false;
+  resetBtn.style.display = 'block';
+}
+
+function resetTool() {
+  selectedFile = null;
+  base64Data = null;
+  fileInput.value = '';
+  previewImg.src = '';
+  previewImg.style.display = 'none';
+  analyseBtn.disabled = true;
+  results.classList.remove('active');
+  results.innerHTML = '';
+  errorBox.classList.remove('active');
+  loading.classList.remove('active');
+  resetBtn.style.display = 'none';
+}
+</script>
+</body>
+</html>

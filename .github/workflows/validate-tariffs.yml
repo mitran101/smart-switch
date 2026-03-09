@@ -187,13 +187,25 @@ jobs:
             with open(files[0]) as f:
                 new_data = json.load(f)
 
-            # For each failed region, if the new run got data, patch it in
+            # For each failed region, only patch if new run got BETTER data than what's there
             for entry in new_data:
                 region = entry.get("region")
                 if region not in failed_regions:
                     continue
-                if not entry.get("tariffs"):
-                    print(f"  Still no data for {supplier} / {region}")
+
+                new_has_data = bool(entry.get("tariffs") and entry["tariffs"][0].get("elec_unit_rate_p"))
+
+                if not new_has_data:
+                    print(f"  Still no data for {supplier} / {region} - keeping original")
+                    continue
+
+                # Check if original already had good data (shouldn't happen since it was in failed_regions,
+                # but safety net: never overwrite good data with bad)
+                original = next((t for t in tariffs
+                                 if t.get("supplier") == supplier and t.get("region") == region), None)
+                original_has_data = original and original.get("elec_unit_rate_p") and not original.get("error")
+                if original_has_data:
+                    print(f"  {supplier} / {region} already has good data - skipping")
                     continue
 
                 print(f"  Got data for {supplier} / {region} - patching")

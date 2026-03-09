@@ -778,17 +778,359 @@
             }
         }
 
-                /* SwitchInsights topbar */
-        .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; }
-        .si-topbar-logo { display: flex; align-items: center; text-decoration: none; color: #fff; }
-        .si-topbar-links { display: flex; align-items: center; gap: 0.75rem; }
-        .si-topbar-archive { background: rgba(16,185,129,0.15); border: 1px solid #10B981; color: #10B981 !important; text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 8px; }
-        .si-topbar-archive:hover { background: rgba(16,185,129,0.3); }
-        .si-topbar-visit { background: linear-gradient(135deg, #A855F7, #EC4899); color: #fff !important; text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 8px; }
-        .si-topbar-visit:hover { opacity: 0.9; }
-        .si-topbar-back, .si-topbar-brand, .si-tagline, .si-logo-wrap { display: none; }
-        @media (max-width: 500px) { .si-topbar-archive { display: none; } }
+        /* ── SwitchInsights sub-brand ── */
+        .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; position: sticky; top: 0; z-index: 10000; }
+        .si-topbar-back, .si-topbar-archive { color: #94A3B8; text-decoration: none; font-weight: 600; }
+        .si-topbar-back:hover, .si-topbar-archive:hover { color: #fff; }
+        .si-topbar-brand { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+        .si-logo-wrap { color: #fff; font-size: 0.9rem; font-weight: 700; }
+        .si-tagline { color: #94A3B8; font-size: 0.72rem; }
+        .si-byline { font-size: 0.82rem; color: #94A3B8; margin: -0.5rem 0 1.5rem; font-style: italic; }
+        .si-byline a { color: #A855F7; text-decoration: none; }
+        .si-cta-banner { background: linear-gradient(135deg, #064E3B, #065F46); border-top: 2px solid #10B981; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 3rem; position: relative; }
+        .si-cta-inner { flex: 1; }
+        .si-cta-inner span { color: #6EE7B7; font-weight: 700; font-size: 1rem; }
+        .si-cta-inner p { color: #A7F3D0; font-size: 0.9rem; margin: 0.3rem 0 0.8rem; }
+        .si-cta-btn { display: inline-block; background: #10B981; color: #fff; padding: 0.6rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+        .si-cta-btn:hover { background: #059669; }
+        .si-cta-close { position: absolute; top: 0.75rem; right: 1rem; background: none; border: none; color: #6EE7B7; font-size: 1rem; cursor: pointer; opacity: 0.7; }
+        .si-cta-close:hover { opacity: 1; }
+        @media (max-width: 600px) {
+          .si-topbar { flex-direction: column; gap: 0.3rem; text-align: center; }
+          .si-cta-banner { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="si-topbar">
+  <a href="archive.html" class="si-topbar-logo" style="display:flex;align-items:center;text-decoration:none;color:#fff;">
+    <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:32px;width:auto;vertical-align:middle;margin-right:8px;">
+    <span style="color:#fff;font-weight:700;font-size:1rem;letter-spacing:-0.3px;">SwitchInsights</span>
+  </a>
+  <div class="si-topbar-links">
+    <a href="archive.html" class="si-topbar-archive">All articles</a>
+    <a href="https://www.switch-pilot.com" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
+  </div>
+</div>
 
+<a href="archive.html" class="si-topbar-archive">All articles →</a>
+</div>
+
+    <header class="article-header">
+        <div class="header-content">
+            <span class="tag">Supplier Analysis</span>
+            <h1>Fuse Energy: Can the New Generation Learn from 2021's Mistakes?</h1>
+            <p class="subtitle">The first new UK supplier in two years now serves 200,000+ households with a $5bn valuation. But in a market haunted by 28 collapsed suppliers, can fintech veterans succeed where energy veterans failed?</p>
+            <div class="meta">
+                <span>📅 February 2026</span>
+                <span>•</span>
+                <span>⏱️ 12 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <p class="si-byline">From <strong>SwitchInsights</strong> - part of <a href="https://www.switch-pilot.com">SwitchPilot</a></p>
+
+        <p>When Fuse Energy launched in July 2023, it became Britain's first new energy supplier in two years-a remarkable achievement in a market still recovering from the devastation of 2021, when 28 suppliers collapsed within 12 months, displacing over 4.2 million customers and leaving taxpayers with a £2.7 billion bill.</p>
+        
+        <p>The company's founders, former Revolut executives Alan Chang and Charles Orr, aren't energy industry veterans. They're fintech entrepreneurs who looked at the carnage and thought: "We can do better." Now backed by over $158 million in venture capital from top-tier investors including Balderton Capital, Lowercarbon Capital, Accel, Lakestar, Ribbit Capital, and even Nik Storonsky's QuantumLight, they've achieved a remarkable $5 billion valuation in just their third year of operation.</p>
+
+        <div class="hero-stat">
+            <div class="hero-stat-number" id="heroSavings">...</div>
+            <div class="hero-stat-label">Annual savings vs price cap</div>
+            <div class="hero-stat-sublabel" id="heroSubtext">Based on typical household usage (2,700 kWh elec, 11,500 kWh gas)</div>
+        </div>
+
+        <p>By early 2026, Fuse had grown to serve over 200,000 households, achieved $400 million in annual recurring revenue (growing 8x year-on-year), and reached cash flow positive status. But is this genuinely different from the speculative growth stories that collapsed in 2021, or are we watching history repeat itself with better marketing?</p>
+
+        <h2>The 2021 Carnage: What Went Wrong</h2>
+        
+        <p>To understand whether Fuse Energy represents genuine evolution or another disaster waiting to happen, we need to understand what killed Britain's energy suppliers in 2021.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <span class="stat-number">28</span>
+                <span class="stat-label">Suppliers Collapsed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">4.2M</span>
+                <span class="stat-label">Customers Displaced</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">250%</span>
+                <span class="stat-label">Wholesale Price Surge</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">£2.7B</span>
+                <span class="stat-label">Taxpayer Cost</span>
+            </div>
+        </div>
+
+        <p>Between January and December 2021, wholesale gas prices rose by 250%, with a 70% spike in August alone. But external shocks don't fully explain the crisis. Countries across Europe faced the same wholesale price surge, yet the UK saw disproportionate supplier failures.</p>
+
+        <h3>The Fatal Business Model</h3>
+        
+        <p>Most failed suppliers operated on a fundamentally flawed model. They were essentially middlemen-buying energy from the wholesale market and reselling it to customers with minimal infrastructure, inadequate hedging, and business models that only worked when wholesale prices remained stable.</p>
+
+        <div class="warning-box">
+            <h4>⚠️ The Avro Energy Case Study</h4>
+            <p>Avro Energy, which served 580,000 customers, epitomised the problem:</p>
+            <ul>
+                <li>Fewer than 12 employees running the entire operation</li>
+                <li>Zero hedging of wholesale price risk</li>
+                <li>Directors awarded themselves £2.2 million in bonuses while posting £28 million losses</li>
+            </ul>
+            <p>This wasn't an energy company. It was a marketing operation with an energy license.</p>
+        </div>
+
+        <p>Even Bulb Energy-the seventh-largest UK supplier with 1.7 million customers-collapsed spectacularly. Despite being valued at over £1 billion, Bulb entered special administration in November 2021, requiring £1.7 billion in taxpayer support. They had sophisticated systems, smart people, and rapid growth. It wasn't enough.</p>
+
+        <h2>Enter Fuse: The Fintech Playbook Applied to Energy</h2>
+        
+        <p>Fuse Energy's founders studied this wreckage carefully. Their pitch is that the failures weren't inevitable market forces, but predictable results of poor management and inadequate systems.</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>September 2022</h4>
+                <p>$78m seed round led by Balderton Capital and Lakestar</p>
+            </div>
+            <div class="timeline-item">
+                <h4>July 2023</h4>
+                <p>Launch as first new supplier post-crisis, first to market after 28 collapsed</p>
+            </div>
+            <div class="timeline-item">
+                <h4>September 2024</h4>
+                <p>$12m strategic round led by Multicoin Capital</p>
+            </div>
+            <div class="timeline-item">
+                <h4>July 2025</h4>
+                <p>Unicorn status at £750m+ valuation, enters domestic gas market, hits $90m ARR</p>
+            </div>
+            <div class="timeline-item">
+                <h4>December 2025</h4>
+                <p>$70m Series B at $5bn valuation, $400m ARR, 200,000+ customers, cash flow positive</p>
+            </div>
+        </div>
+
+        <p>Unlike the minimalist operations that collapsed in 2021, Fuse has built substantial infrastructure. They operate their own trading desk, use sophisticated hedging strategies, and maintain higher capital reserves than regulations require. Their team of 140+ includes engineers from Meta, SpaceX, Tesla, Citadel, and Jump Trading. They're also vertically integrated-owning renewable generation sites (wind and solar), running their own trading platform, and building consumer hardware.</p>
+
+        <h2>How Competitive Is Fuse? The Numbers</h2>
+        
+        <p>Pricing is where Fuse makes its boldest claims. Here's how their February 2026 tariffs compare to competitors across UK regions:</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>Fuse<br>Elec (p/kWh)</th>
+                    <th>OVO<br>Elec (p/kWh)</th>
+                    <th>British Gas<br>Elec (p/kWh)</th>
+                    <th>Fuse<br>Gas (p/kWh)</th>
+                </tr>
+            </thead>
+            <tbody id="tariffTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--sp-slate-light);">Loading tariff data...</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: -1rem;">Indicative rates for comparison. Tariffs update regularly - always verify current pricing before switching.</p>
+
+        <div class="chart-card">
+            <h4>📊 Annual Cost Comparison: Typical Household</h4>
+            <div class="chart-container">
+                <canvas id="supplierCompareChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">Based on Ofgem typical consumption: 2,700 kWh electricity, 11,500 kWh gas. Cheapest fixed tariff per supplier, averaged across UK regions.</p>
+        </div>
+
+        <div class="tip-box">
+            <h4>✅ The Verdict: Genuinely Competitive</h4>
+            <p>These figures are indicative and non-binding - tariffs change regularly. But Fuse consistently undercuts major suppliers on electricity and gas. For a typical dual-fuel household:</p>
+            <ul>
+                <li><strong>Price cap cost:</strong> ~£<span id="tipPriceCap">1,758</span>/year</li>
+                <li><strong><span id="tipOctopusLabel">Next cheapest fixed</span>:</strong> ~£<span id="tipOctopus">...</span>/year</li>
+                <li><strong>Fuse Fixed:</strong> ~£<span id="tipFuse">...</span>/year</li>
+                <li><strong>Annual savings vs cap:</strong> £<span id="tipSaving">...</span></li>
+            </ul>
+            <p>The £50 per fuel exit fee (£100 total) means you need to stay ~12-15 months to see the full saving, but that's standard for fixed tariffs.</p>
+        </div>
+
+        <h3>Why Can They Price Below Others?</h3>
+        
+        <p>Fuse's competitive pricing raises the obvious question: how are they doing what killed their predecessors?</p>
+
+        <ul>
+            <li><strong>Operational Efficiency:</strong> Fully digital model with no call centres, paper bills, or branch networks. They claim 30-40% lower operational costs than traditional suppliers.</li>
+            <li><strong>Sophisticated Hedging:</strong> Professional traders using complex hedging strategies-not buying spot market and hoping for the best.</li>
+            <li><strong>Capital Reserves:</strong> $158m+ raised and cash flow positive means they can absorb short-term volatility.</li>
+            <li><strong>Scale Economics:</strong> At 200,000 customers, operational costs per customer drop significantly.</li>
+        </ul>
+
+        <h2>The Customer Experience</h2>
+
+        <p>Setting aside existential risk questions, what's it actually like being a Fuse customer?</p>
+
+        <div class="pros-cons">
+            <div class="pros-cons-box pros">
+                <h4>✓ What Works Well</h4>
+                <ul>
+                    <li>Genuinely competitive pricing</li>
+                    <li>Excellent app with real-time usage</li>
+                    <li>24/7 live chat with real humans (not bots)</li>
+                    <li>Very responsive-even nights & weekends</li>
+                    <li>No estimated bills-pay actual usage</li>
+                    <li>Smart meter installation included</li>
+                    <li>Fast switching (2-3 weeks)</li>
+                    <li>4.7/5 Trustpilot from 3,400+ reviews</li>
+                </ul>
+            </div>
+            <div class="pros-cons-box cons">
+                <h4>✗ Limitations</h4>
+                <ul>
+                    <li>No phone support (chat/email only)</li>
+                    <li>Direct debit required only</li>
+                    <li>£100 exit fee (dual fuel)</li>
+                    <li>Only ~2.5 years trading history</li>
+                    <li>Unproven in major price crisis</li>
+                    <li>Can't fix monthly DD amount yet</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>Trustpilot reviews (4.7/5 from 3,400+ reviews) consistently praise the responsive chat support-customers report getting help within minutes, even on Sunday mornings at 7:30am. Common complaints: no phone line for emergencies, and you pay variable amounts each month based on actual usage (fixed DD coming soon, according to Fuse).</p>
+
+        <h2>The Warning Signs to Watch</h2>
+        
+        <p>Despite impressive metrics, there are legitimate concerns:</p>
+
+        <div class="warning-box">
+            <h4>⚠️ Key Risk Factors</h4>
+            <ul>
+                <li><strong>Untested in Crisis:</strong> Fuse launched during relative price stability. They've never faced a 2021-style wholesale spike where prices tripled in months.</li>
+                <li><strong>Growth Pressure:</strong> $5bn valuation means VC investors (Balderton, Lowercarbon, Accel, Ribbit, even Revolut founder Nik Storonsky's fund) expect aggressive returns. This can conflict with conservative risk management.</li>
+                <li><strong>The Revolut Comparison:</strong> Fuse explicitly models on Revolut's aggressive scaling-a company that's faced criticism for service issues during hypergrowth.</li>
+                <li><strong>International Expansion:</strong> They're now expanding to Ireland, Spain, and the US. Scaling across multiple markets while maintaining quality is challenging.</li>
+            </ul>
+        </div>
+
+        <div class="chart-card">
+            <h4>📊 What If Wholesale Prices Spike Again?</h4>
+            <div class="chart-container-tall">
+                <canvas id="crisisChart"></canvas>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 1rem; margin-bottom: 0;">The 2022 price cap hit £4,279. Fixed tariffs protect you from spikes-but only if your supplier survives.</p>
+        </div>
+
+        <h2>Should You Switch to Fuse?</h2>
+        
+        <p>This is the difficult question. Fuse offers genuine savings and superior digital experience. Their business model shows important differences from 2021 failures. But they're also untested in a true crisis.</p>
+
+        <div class="checklist">
+            <h4>📋 Consider Switching If:</h4>
+            <ul>
+                <li>You're comfortable with digital-only, app-based service</li>
+                <li>You want real-time visibility of consumption and spending</li>
+                <li>You're currently on SVT at or above the price cap</li>
+                <li>You're willing to monitor your supplier and switch again if needed</li>
+                <li>You can afford the time/hassle of switching if warning signs emerge</li>
+            </ul>
+        </div>
+
+        <div class="checklist">
+            <h4>📋 Stay With Your Current Supplier If:</h4>
+            <ul>
+                <li>You prefer phone-based customer service</li>
+                <li>You need prepayment meter options</li>
+                <li>You're already on a competitive fixed rate</li>
+                <li>You're extremely risk-averse and want maximum stability</li>
+                <li>You don't have/aren't comfortable with smartphone apps</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Our Practical Advice</h4>
+            <p>If you switch to Fuse, treat it as an <strong>active decision requiring monitoring</strong>, not "set and forget." Watch for:</p>
+            <ul>
+                <li>Sudden price increases beyond market movements</li>
+                <li>Deteriorating customer service as they scale</li>
+                <li>Negative press about financial stability</li>
+                <li>Major wholesale market disruptions</li>
+            </ul>
+            <p>If you see these signs, don't wait-start researching alternatives immediately.</p>
+        </div>
+
+        <div class="verdict-box">
+            <h3>🎯 Our Verdict</h3>
+            <p>Fuse Energy represents the most sophisticated and well-capitalised attempt yet to build a sustainable challenger supplier. Their pricing is competitive (£<span id="verdictSaving">...</span>/year savings), customer service is genuinely excellent (24/7 chat, 4.7/5 Trustpilot), and their $158m+ backing from tier-1 VCs provides real runway.</p>
+            <p>The vertically integrated model-owning generation, trading, supply, and soon hardware-is genuinely different from the hollow middlemen that collapsed in 2021. They're not just reselling energy; they're building an energy company.</p>
+            <p><strong>Our recommendation:</strong> If you're on SVT and comfortable with app-based service, Fuse is worth serious consideration. The chat support is better than most phone lines. But stay vigilant-no one has tested whether fintech-style energy companies can survive a true wholesale crisis.</p>
+        </div>
+
+        <h2>Key Takeaways</h2>
+        
+        <ul>
+            <li><strong>First new supplier post-2021 crisis</strong> - 200,000+ customers, $5bn valuation, $400m ARR, cash flow positive</li>
+            <li><strong>Serious VC backing</strong> - $158m+ raised from Balderton, Lowercarbon, Accel, Ribbit, Lakestar, and Revolut founder's fund</li>
+            <li><strong>Pricing is genuinely competitive</strong> - Consistently among cheapest fixed tariffs, saving £<span id="takeawaySaving">...</span>/year vs price cap</li>
+            <li><strong>24/7 live chat support</strong> - Real humans, very responsive (even nights/weekends), 4.7/5 Trustpilot from 3,400+ reviews</li>
+            <li><strong>Vertically integrated</strong> - Own renewable generation, trading desk, and building consumer hardware</li>
+            <li><strong>Untested through crisis</strong> - The ultimate validation comes when wholesale prices next spike</li>
+            <li><strong>Best for:</strong> Tech-comfortable customers who prefer app/chat over phone, and are willing to actively monitor their supplier</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>We automatically find you the best deal - so you don't have to.</h3>
+            <p>SwitchPilot is a free auto-switching service. We monitor the market and switch you automatically when a better deal is available. We also unlock exclusive tariffs you won't find anywhere else, plus 10% cashback from our revenue on every switch.</p>
+            <a href="index.html#waitlist" class="cta-button">Sign Up Free →</a>
+        </div>
+
+        <p style="text-align: center; margin-top: 1.5rem;">Or try our free tools: <a href="energy-bill-calculator.html">Bill Calculator</a> · <a href="tariff-tracker.html">Tariff Tracker</a></p>
+
+        <hr>
+
+        <p class="sources">
+            <strong>Sources:</strong> Fuse Energy company announcements, Tracxn funding data, Sifted ($70m raise coverage, Dec 2025), EU-Startups, Startupmag.co.uk, Trustpilot reviews (3,400+), Uswitch supplier profiles, Energy-Review.co.uk, SwitchPilot tariff database. Valuation and ARR figures from verified investor reports and company statements.
+        </p>
+        
+        <p class="sources" style="margin-top: 1rem;">
+            <strong>Disclaimer:</strong> This is an independent analysis. We are not affiliated with Fuse Energy. Tariff rates accurate as of February 2026 but subject to change. Always verify current pricing directly before switching.
+        </p>
+    </div>
+
+    <script>
+        // Tariff data and constants
+        const ELEC_KWH = 2700;
+        const GAS_KWH = 11500;
+        const PRICE_CAP_ANNUAL = 1758;
+        
+        const supplierNames = {
+            'fuse_energy': 'Fuse Energy',
+            'octopus': 'Octopus Energy',
+            'british_gas': 'British Gas',
+            'ovo': 'OVO Energy',
+            'scottish_power': 'Scottish Power'
+        };
+
+        function calculateAnnualCost(tariff) {
+            let total = 0;
+            if (tariff.elec_unit_rate_p && tariff.elec_standing_p) {
+                total += (tariff.elec_standing_p / 100) * 365;
+                total += (tariff.elec_unit_rate_p / 100) * ELEC_KWH;
+            }
+            if (tariff.gas_unit_rate_p && tariff.gas_standing_p) {
+                total += (tariff.gas_standing_p / 100) * 365;
+                total += (tariff.gas_unit_rate_p / 100) * GAS_KWH;
+            }
+            return total;
+        }
+
+        async function loadTariffData() {
+            try {
+                const response = await fetch('https://mitran101.github.io/smart-switch/all_tariffs.json');
+                const data = await response.json();
+                
+                // Get all dual-fuel fixed tariffs across all regions
+                const allFixed = data.tariffs
                     .filter(t => t.elec_unit_rate_p && t.gas_unit_rate_p)
                     .filter(t => !t.error)
                     .filter(t => {
@@ -1089,6 +1431,12 @@ document.getElementById('heroSubtext').textContent =
         loadTariffData();
     </script>
 
+<div class="si-cta-banner">
+  <div class="si-cta-inner">
+    <span>⚡ Tired of overpaying on energy?</span>
+    <p>SwitchPilot automatically finds you the cheapest deal - exclusive tariffs, 10% cashback, switched for you. Free forever.</p>
+    <a href="https://www.switch-pilot.com#waitlist" class="si-cta-btn">Sign Up Free →</a>
+  </div>
 
 <footer class="site-footer">
     <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;">

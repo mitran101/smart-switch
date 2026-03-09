@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuclear Charge: You're Paying for a Plant That Doesn't Exist | SwitchPilot</title>
+    <title>Warm Home Discount: More People Qualify (But Everyone Pays) | SwitchPilot</title>
     
     <!-- Favicons -->
-    <link rel="icon" href="switchinsights-favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="switchinsights-favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="switchinsights-favicon-16x16.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="../switchinsights-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../switchinsights-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../switchinsights-favicon-16x16.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -37,7 +37,6 @@
             --sp-green-light: #D1FAE5;
             --sp-amber: #F59E0B;
             --sp-red: #EF4444;
-            --sp-blue: #60A5FA;
             --sp-bg: #F8FAFC;
             --sp-card: #FFFFFF;
         }
@@ -99,7 +98,7 @@
             position: absolute;
             top: 0; right: 0;
             width: 50%; height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2360A5FA' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F59E0B' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             opacity: 0.5;
         }
 
@@ -112,7 +111,7 @@
 
         .tag {
             display: inline-block;
-            background: var(--sp-blue);
+            background: var(--sp-amber);
             color: white;
             padding: 0.35rem 0.85rem;
             border-radius: 20px;
@@ -163,14 +162,6 @@
         }
         h2:first-of-type { margin-top: 0; }
 
-        h3 {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin: 1.5rem 0 0.6rem;
-            color: var(--sp-slate);
-        }
-
         p {
             margin-bottom: 1.25rem;
             color: var(--sp-slate-light);
@@ -199,14 +190,14 @@
         }
         .warning-box p { margin: 0; color: var(--sp-slate); }
 
-        .info-box {
-            background: #DBEAFE;
-            border-left: 4px solid var(--sp-blue);
+        .danger-box {
+            background: #FEE2E2;
+            border-left: 4px solid var(--sp-red);
             padding: 1.25rem 1.5rem;
             border-radius: 0 8px 8px 0;
             margin: 1.5rem 0;
         }
-        .info-box p { margin: 0; color: var(--sp-slate); }
+        .danger-box p { margin: 0; color: var(--sp-slate); }
 
         .chart-section {
             background: var(--sp-card);
@@ -232,8 +223,8 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             margin: 2rem 0;
         }
 
@@ -242,6 +233,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            text-align: center;
         }
 
         .stat-value {
@@ -252,12 +244,104 @@
         }
         .stat-value.warning { color: var(--sp-amber); }
         .stat-value.danger { color: var(--sp-red); }
-        .stat-value.info { color: var(--sp-blue); }
 
         .stat-label {
             font-size: 0.85rem;
             color: var(--sp-slate-light);
             font-weight: 500;
+        }
+
+        /* Who Pays Grid */
+        .who-pays-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .who-pays-chart {
+            height: 200px;
+        }
+
+        .who-pays-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .legend-dot.green { background: #10B981; }
+        .legend-dot.red { background: #EF4444; }
+
+        .legend-label {
+            font-weight: 600;
+            color: var(--sp-slate);
+            font-size: 0.9rem;
+        }
+
+        .legend-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .legend-value.green { color: #10B981; }
+        .legend-value.red { color: #EF4444; }
+
+        .legend-desc {
+            font-size: 0.85rem;
+            color: var(--sp-slate-light);
+            margin-top: 2px;
+        }
+
+        /* Expansion Stats */
+        .expansion-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #F1F5F9;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .expansion-stat {
+            text-align: center;
+        }
+
+        .expansion-stat-label {
+            font-size: 0.75rem;
+            color: var(--sp-slate-light);
+        }
+
+        .expansion-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .expansion-stat-value.grey { color: #94A3B8; }
+        .expansion-stat-value.green { color: var(--sp-green); }
+        .expansion-stat-value.amber { color: var(--sp-amber); }
+
+        .expansion-arrow {
+            font-size: 1.5rem;
+            color: var(--sp-slate-light);
+            display: flex;
+            align-items: center;
         }
 
         .summary-section {
@@ -276,7 +360,7 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
 
@@ -350,57 +434,6 @@
         }
         .cta-button.secondary:hover { background: rgba(255,255,255,0.25); }
 
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding: 1rem 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--sp-amber), var(--sp-blue), var(--sp-green));
-            border-radius: 3px;
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 55px;
-            padding-bottom: 1.5rem;
-        }
-        .timeline-item:last-child { padding-bottom: 0; }
-        .timeline-dot {
-            position: absolute;
-            left: 12px;
-            top: 4px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid var(--sp-amber);
-        }
-        .timeline-item:nth-child(2) .timeline-dot { border-color: var(--sp-blue); }
-        .timeline-item:nth-child(3) .timeline-dot { border-color: var(--sp-green); }
-        .timeline-date {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--sp-slate-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .timeline-title {
-            font-weight: 700;
-            color: var(--sp-slate);
-            margin: 0.25rem 0;
-        }
-        .timeline-desc {
-            font-size: 0.9rem;
-            color: var(--sp-slate-light);
-            margin: 0;
-        }
-
         .article-footer {
             max-width: 800px;
             margin: 0 auto;
@@ -419,6 +452,13 @@
         .site-footer p { opacity: 0.8; margin: 0.5rem 0; color: white; }
         .site-footer a { color: #a855f7; text-decoration: none; }
 
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .top-nav { padding: 1rem; }
             .top-logo img { height: 1.6rem; }
@@ -427,9 +467,119 @@
             .article-header { padding: 3rem 1.5rem 2rem; }
             .article-body { padding: 2rem 1.5rem 1rem; }
             h2 { font-size: 1.4rem; }
-            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-            .stat-value { font-size: 1.5rem; }
-            .cta-box { padding: 2rem 1.5rem; margin: 1.5rem 1rem 0; }
+            
+            .stats-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 0.75rem; 
+            }
+            .stat-card { padding: 1rem; }
+            .stat-value { font-size: 1.4rem; }
+            .stat-label { font-size: 0.75rem; }
+            
+            .chart-section { padding: 1.25rem; }
+            
+            .who-pays-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .who-pays-chart {
+                height: 180px;
+                max-width: 220px;
+                margin: 0 auto;
+            }
+            .who-pays-legend {
+                flex-direction: row;
+                justify-content: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .legend-item {
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+            .legend-dot {
+                margin-top: 0;
+            }
+            
+            .expansion-stats {
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                background: transparent;
+            }
+            .expansion-stat {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                background: #F1F5F9;
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                text-align: left;
+            }
+            .expansion-stat-label {
+                order: 1;
+            }
+            .expansion-stat-value {
+                order: 2;
+            }
+            .expansion-arrow {
+                display: none;
+            }
+            
+            .summary-grid { 
+                grid-template-columns: 1fr; 
+                gap: 0.75rem; 
+            }
+            
+            .cta-box { 
+                padding: 2rem 1.5rem; 
+                margin: 1.5rem 1rem 0; 
+            }
+            .cta-box h3 { font-size: 1.3rem; }
+            .cta-button { 
+                display: block; 
+                margin: 0.5rem 0; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-header { padding: 2.5rem 1rem 1.5rem; }
+            .article-body { padding: 1.5rem 1rem 1rem; }
+            
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.25rem; }
+            .subtitle { font-size: 1rem; }
+            
+            .stats-grid { gap: 0.5rem; }
+            .stat-card { padding: 0.85rem 0.5rem; }
+            .stat-value { font-size: 1.2rem; }
+            .stat-label { font-size: 0.7rem; line-height: 1.3; }
+            
+            .chart-section { padding: 1rem; margin: 1.5rem 0; }
+            .chart-title { font-size: 0.95rem; }
+            .chart-subtitle { font-size: 0.8rem; }
+            
+            .who-pays-chart {
+                height: 160px;
+                max-width: 180px;
+            }
+            .legend-value { font-size: 1.1rem; }
+            .legend-desc { font-size: 0.8rem; }
+            
+            .highlight-box, .warning-box, .danger-box {
+                padding: 1rem 1.25rem;
+            }
+            
+            .summary-section { padding: 1.5rem 1.25rem; }
+            .summary-title { font-size: 1.2rem; }
+            .summary-item { font-size: 0.85rem; }
+            
+            .cta-box { padding: 1.5rem 1.25rem; }
+            .cta-box p { font-size: 0.95rem; }
         }
     
                 .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; }
@@ -448,12 +598,12 @@
 
 <body>
 <div class="si-topbar">
-  <a href="switchinsights.html" class="si-topbar-logo" style="display:flex;align-items:center;text-decoration:none;color:#fff;">
+  <a href="index.html" class="si-topbar-logo" style="display:flex;align-items:center;text-decoration:none;color:#fff;">
     <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:32px;width:auto;vertical-align:middle;margin-right:8px;">
     <span style="color:#fff;font-weight:700;font-size:1rem;letter-spacing:-0.3px;">SwitchInsights</span>
   </a>
   <div class="si-topbar-links">
-    <a href="switchinsights.html" class="si-topbar-archive">All articles</a>
+    <a href="index.html" class="si-topbar-archive">All articles</a>
     <a href="https://www.switch-pilot.com" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
   </div>
 </div>
@@ -462,11 +612,11 @@
 
     <header class="article-header">
         <div class="header-content">
-            <span class="tag">New Charge</span>
-            <h1>You're Now Paying for a Nuclear Plant That Doesn't Exist Yet</h1>
-            <p class="subtitle">From January 2026, a new charge is being added to your bill to fund Sizewell C — years before it generates any power.</p>
+            <span class="tag">Policy Change</span>
+            <h1>Warm Home Discount: More People Now Qualify (But Everyone Pays)</h1>
+            <p class="subtitle">The government is expanding who gets £150 off their bill. The catch? Everyone else pays more.</p>
             <div class="article-meta">
-                <span>📅 22 November 2025</span>
+                <span>📅 25 October 2025</span>
                 <span>•</span>
                 <span>⏱️ 5 min read</span>
             </div>
@@ -475,141 +625,149 @@
 
     <article class="article-body">
 
-        <h2>What's Happening?</h2>
-        <p>From <strong>1 January 2026</strong>, a new charge is being added to your electricity bill. It's to help build Sizewell C — a nuclear power station in Suffolk that won't generate any electricity for years.</p>
+        <h2>What Is It?</h2>
+        <p>The Warm Home Discount is a <strong>£150 one-off payment</strong> taken off your electricity bill each winter. It's meant to help low-income households with heating costs.</p>
 
-        <p>Yes, you read that right. For the first time ever, part of your bill is going towards building a power plant <em>before</em> it actually produces any power.</p>
+        <p>From winter 2025–26, the government is expanding who qualifies — roughly <strong>6 million households</strong> will now get it, up from 3 million before.</p>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value warning">£14</div>
-                <div class="stat-label">Added per year (Jan-Mar 2026)</div>
+                <div class="stat-value">£150</div>
+                <div class="stat-label">Rebate on electricity bill</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value warning">£13</div>
-                <div class="stat-label">Per year from April 2026</div>
+                <div class="stat-value">6m</div>
+                <div class="stat-label">Households now eligible</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value info">2030s</div>
-                <div class="stat-label">When plant might open</div>
+                <div class="stat-value warning">+£22</div>
+                <div class="stat-label">Added to your bill (if not eligible)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value info">£20bn+</div>
-                <div class="stat-label">Total project cost</div>
+                <div class="stat-value danger">+£40</div>
+                <div class="stat-label">Total impact by April 2026</div>
             </div>
         </div>
 
-        <!-- Timeline Visual -->
+        <!-- Eligibility Expansion Chart -->
         <div class="chart-section">
-            <div class="chart-title">The Sizewell C Timeline</div>
-            <div class="chart-subtitle">You pay now, power comes later</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">January 2026</div>
-                    <div class="timeline-title">Charges start appearing on your bill</div>
-                    <p class="timeline-desc">~£14/year added to electricity bills</p>
+            <div class="chart-title">Scheme Expansion</div>
+            <div class="chart-subtitle">Households receiving the Warm Home Discount</div>
+            <div style="height: 220px; margin-top: 1rem;">
+                <canvas id="eligibilityChart"></canvas>
+            </div>
+            <div class="expansion-stats">
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Before</div>
+                    <div class="expansion-stat-value grey">3 million</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">2026–2034</div>
-                    <div class="timeline-title">Construction phase</div>
-                    <p class="timeline-desc">You keep paying while the plant is built</p>
+                <div class="expansion-arrow">→</div>
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Now</div>
+                    <div class="expansion-stat-value green">6 million</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">Mid-2030s (estimated)</div>
-                    <div class="timeline-title">Plant starts generating power</div>
-                    <p class="timeline-desc">Finally produces electricity for the grid</p>
+                <div class="expansion-stat">
+                    <div class="expansion-stat-label">Increase</div>
+                    <div class="expansion-stat-value amber">+100%</div>
                 </div>
             </div>
         </div>
 
-        <h2>Why Are We Paying Now?</h2>
-        <p>Building nuclear plants is incredibly expensive — we're talking tens of billions of pounds. The government decided that if customers chip in small amounts during construction, it reduces the overall cost in the long run.</p>
+        <h2>Why Is It Changing?</h2>
+        <p>The old rules were complicated and unfair. You had to be on certain benefits AND live in a home classed as "expensive to heat." Many people who were struggling missed out simply because their home didn't tick that box.</p>
 
-        <p>The idea is:</p>
+        <p>The new rules are simpler: if you're on a qualifying benefit, you get the discount automatically. No more confusing eligibility checks.</p>
+
+        <h2>The Catch: Everyone Else Pays More</h2>
+        <p>Here's what they don't tell you upfront: <strong>the scheme is paid for by all energy customers</strong>. Energy companies add the cost to everyone's bills.</p>
+
+        <!-- Who Pays Chart -->
+        <div class="chart-section">
+            <div class="chart-title">Who Pays for the Warm Home Discount?</div>
+            <div class="chart-subtitle">The cost is spread across all 28 million UK households</div>
+            <div class="who-pays-grid">
+                <div class="who-pays-chart">
+                    <canvas id="whoPaysPie"></canvas>
+                </div>
+                <div class="who-pays-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot green"></span>
+                        <div>
+                            <div class="legend-label">Recipients</div>
+                            <div class="legend-value green">6m households</div>
+                            <div class="legend-desc">Get £150 off their bill</div>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot red"></span>
+                        <div>
+                            <div class="legend-label">Everyone Else</div>
+                            <div class="legend-value red">22m households</div>
+                            <div class="legend-desc">Pay ~£40/year extra</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p>With double the people now receiving the discount:</p>
         <ul>
-            <li>Lower risk for investors = cheaper financing</li>
-            <li>Cheaper financing = lower bills when the plant eventually opens</li>
-            <li>Nuclear provides reliable power that doesn't depend on wind or sun</li>
+            <li>The scheme costs more to run</li>
+            <li>Your bill goes up by around <strong>£15–£22 per year</strong> from October 2025</li>
+            <li>Another <strong>£10–£20</strong> could be added in April 2026 to cover supplier costs</li>
         </ul>
 
-        <p>Whether you agree with that logic or not, the decision has been made. The charge is now law.</p>
+        <div class="danger-box">
+            <p><strong>Bottom line:</strong> If you don't qualify for the discount, you're helping pay for those who do — around £20–£40 extra per year on your bill.</p>
+        </div>
 
-        <h2>How Much Will It Add?</h2>
-
-        <!-- Cost Over Time Chart -->
+        <!-- Cost Timeline -->
         <div class="chart-section">
-            <div class="chart-title">Nuclear Charge on Your Bill</div>
-            <div class="chart-subtitle">Expected annual cost per household</div>
-            <div style="height: 220px; margin-top: 1rem;">
-                <canvas id="nuclearCostChart"></canvas>
+            <div class="chart-title">How Much It's Adding to Your Bill</div>
+            <div class="chart-subtitle">Extra cost per year for non-eligible households</div>
+            <div style="height: 200px; margin-top: 1rem;">
+                <canvas id="costTimelineChart"></canvas>
             </div>
         </div>
-
-        <h3>January – March 2026</h3>
-        <p><strong>£14 per year</strong> added to bills. Slightly higher because it includes catching up on costs from December 2025.</p>
-
-        <h3>April 2026 onwards</h3>
-        <p><strong>~£13 per year</strong>. This is expected to stay roughly the same through 2026, but could rise as construction progresses.</p>
-
-        <div class="info-box">
-            <p><strong>Where does it appear on your bill?</strong> You won't see a separate line item. It's rolled into your electricity unit rate — so your price per kWh goes up slightly.</p>
-        </div>
-
-        <h2>The Bigger Picture: Policy Costs on Your Bill</h2>
-        <p>This is just one of several "policy costs" on your bill. You're already paying for things like:</p>
-
-        <!-- Policy Costs Breakdown -->
-        <div class="chart-section">
-            <div class="chart-title">Policy Costs Already on Your Bill</div>
-            <div class="chart-subtitle">Government programmes funded through energy bills (£/year)</div>
-            <div style="height: 220px; margin-top: 1rem;">
-                <canvas id="policyCostsChart"></canvas>
-            </div>
-        </div>
-
-        <ul>
-            <li><strong>Renewables subsidies:</strong> Funding for wind and solar farms</li>
-            <li><strong>Energy efficiency:</strong> Grants for home insulation</li>
-            <li><strong>Warm Home Discount:</strong> Support for low-income households</li>
-            <li><strong>Nuclear RAB (new):</strong> Building Sizewell C</li>
-        </ul>
-
-        <p>These add up. They're part of why your bill doesn't just track the actual cost of gas and electricity — there's a whole layer of government programmes built in.</p>
 
         <h2>Does This Affect Fixed Deals Too?</h2>
-        <p>Yes. Most suppliers will build this cost into both standard rates AND fixed tariffs. So switching to a fixed deal won't necessarily avoid it.</p>
+        <p>Yes. Most suppliers are building these extra costs into new fixed tariffs. So even if you switch to a fixed deal, you'll likely see the impact in the rates.</p>
 
-        <p>That said, there are still competitive deals out there. If you lock in a good fixed rate now, you could protect yourself from future increases — not just from nuclear charges, but from all the other costs that keep getting added to bills.</p>
+        <p>That said, there's still competition in the market. Some suppliers are absorbing part of the cost to stay competitive. So while costs are going up overall, there are still good deals to be found.</p>
+
+        <h2>What Should You Do?</h2>
+        <div class="highlight-box">
+            <p><strong>If you're on benefits:</strong> Check if you qualify — you might get £150 off automatically this winter. You don't need to apply if you're on Pension Credit (core group). For other benefits, check the government website.</p>
+        </div>
+
+        <p><strong>If you're not eligible:</strong> Locking into a fixed deal now could help you avoid further increases expected in April 2026. Use our tariff tracker to compare the best deals available.</p>
 
         <div class="summary-section">
             <div class="summary-title">Key Takeaways</div>
             <div class="summary-grid">
                 <div class="summary-item positive">
                     <span class="summary-icon">✓</span>
-                    <span><strong>New charge starts</strong> 1 January 2026</span>
+                    <span><strong>More people qualify</strong> — 6 million households, up from 3 million</span>
                 </div>
-                <div class="summary-item info">
-                    <span class="summary-icon">⚛️</span>
-                    <span><strong>Pays for building</strong> Sizewell C nuclear plant</span>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Simpler rules</strong> — no more "expensive to heat" requirement</span>
+                </div>
+                <div class="summary-item positive">
+                    <span class="summary-icon">✓</span>
+                    <span><strong>Same £150 rebate</strong> on your electricity bill</span>
                 </div>
                 <div class="summary-item warning">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>£14/year added</strong> Jan–Mar 2026</span>
+                    <span><strong>Everyone else pays more</strong> — around £15–£22 extra this winter</span>
                 </div>
                 <div class="summary-item warning">
                     <span class="summary-icon">⚠</span>
-                    <span><strong>~£13/year</strong> from April 2026 onwards</span>
+                    <span><strong>More rises likely</strong> — another £10–£20 in April 2026</span>
                 </div>
                 <div class="summary-item info">
-                    <span class="summary-icon">💡</span>
-                    <span><strong>Rolled into unit rate</strong> — no separate line on bill</span>
-                </div>
-                <div class="summary-item info">
-                    <span class="summary-icon">💡</span>
-                    <span><strong>Applies to</strong> standard and fixed tariffs</span>
+                    <span class="summary-icon">📅</span>
+                    <span><strong>Starts winter 2025–26</strong></span>
                 </div>
             </div>
         </div>
@@ -617,7 +775,7 @@
 
     <section style="padding: 0 2rem;">
         <div class="cta-box">
-            <h3>We'll automatically find you the best deal - costs rising or not.</h3>
+            <h3>We'll automatically switch you to a cheaper deal.</h3>
             <p>SwitchPilot is a free auto-switching service. We do the work so you don't have to - and unlock exclusive tariffs you won't find anywhere else, plus 10% cashback from our revenue on every switch.</p>
             <a href="index.html#waitlist" class="cta-button">Sign Up Free →</a>
             <a href="tariff-tracker.html" class="cta-button secondary">Browse Tariffs</a>
@@ -625,20 +783,68 @@
     </section>
 
     <footer class="article-footer">
-        <p class="footer-note">Sources: Department for Energy Security and Net Zero, Great British Nuclear, Ofgem.</p>
+        <p class="footer-note">Sources: Ofgem, Department for Energy Security and Net Zero.</p>
     </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Nuclear Cost Chart
-        new Chart(document.getElementById('nuclearCostChart'), {
+        // Eligibility Expansion Chart
+        new Chart(document.getElementById('eligibilityChart'), {
             type: 'bar',
             data: {
-                labels: ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026', '2027 (est)', '2028 (est)'],
+                labels: ['Before (2024-25)', 'Now (2025-26)'],
                 datasets: [{
-                    label: 'Annual cost (£)',
-                    data: [14, 13, 13, 13, 15, 17],
-                    backgroundColor: ['#F59E0B', '#60A5FA', '#60A5FA', '#60A5FA', '#94A3B8', '#94A3B8'],
+                    label: 'Households (millions)',
+                    data: [3, 6],
+                    backgroundColor: ['#94A3B8', '#10B981'],
+                    borderRadius: 8,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 8,
+                        grid: { color: '#E2E8F0' },
+                        ticks: { callback: v => v + 'm' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Who Pays Pie Chart
+        new Chart(document.getElementById('whoPaysPie'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Recipients (get £150)', 'Everyone else (pays extra)'],
+                datasets: [{
+                    data: [6, 22],
+                    backgroundColor: ['#10B981', '#EF4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Cost Timeline Chart
+        new Chart(document.getElementById('costTimelineChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Before', 'Oct 2025', 'Apr 2026 (est)'],
+                datasets: [{
+                    label: 'Extra cost per year',
+                    data: [12, 22, 40],
+                    backgroundColor: ['#94A3B8', '#F59E0B', '#EF4444'],
                     borderRadius: 6
                 }]
             },
@@ -649,40 +855,11 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 25,
+                        max: 50,
                         grid: { color: '#E2E8F0' },
                         ticks: { callback: v => '£' + v }
                     },
                     x: { grid: { display: false } }
-                }
-            }
-        });
-
-        // Policy Costs Chart
-        new Chart(document.getElementById('policyCostsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Renewables', 'Energy Efficiency', 'Warm Home Discount', 'Nuclear RAB (new)', 'Other'],
-                datasets: [{
-                    label: 'Cost per year (£)',
-                    data: [120, 45, 46, 14, 11],
-                    backgroundColor: ['#10B981', '#60A5FA', '#F59E0B', '#EF4444', '#94A3B8'],
-                    borderRadius: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 150,
-                        grid: { color: '#E2E8F0' },
-                        ticks: { callback: v => '£' + v }
-                    },
-                    y: { grid: { display: false } }
                 }
             }
         });

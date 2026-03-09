@@ -1,15 +1,23 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/**/*.js", "use": "@vercel/node" },
-    { "src": "*.html", "use": "@vercel/static" },
-    { "src": "*.json", "use": "@vercel/static" },
-    { "src": "*.xml", "use": "@vercel/static" },
-    { "src": "*.ico", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/api/(.*)", "dest": "/api/$1.js" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "redirects": [
+    { "source": "/switchinsights.html", "destination": "/switchinsights/", "permanent": true },
+    { "source": "/archive.html", "destination": "/switchinsights/", "permanent": true },
+    { "source": "/ban-on-acquisition-tariffs.html", "destination": "/switchinsights/ban-on-acquisition-tariffs.html", "permanent": true },
+    { "source": "/crypto-mining-energy-analysis.html", "destination": "/switchinsights/crypto-mining-energy-analysis.html", "permanent": true },
+    { "source": "/energy-bill-rebate-april-2026.html", "destination": "/switchinsights/energy-bill-rebate-april-2026.html", "permanent": true },
+    { "source": "/energy-debt-crisis.html", "destination": "/switchinsights/energy-debt-crisis.html", "permanent": true },
+    { "source": "/fuse-energy-and-the-history-of-small-suppliers.html", "destination": "/switchinsights/fuse-energy-and-the-history-of-small-suppliers.html", "permanent": true },
+    { "source": "/gas-price-shock-middle-east-2026.html", "destination": "/switchinsights/gas-price-shock-middle-east-2026.html", "permanent": true },
+    { "source": "/gas-value-calculator.html", "destination": "/switchinsights/gas-value-calculator.html", "permanent": true },
+    { "source": "/home-mover-energy-trap.html", "destination": "/switchinsights/home-mover-energy-trap.html", "permanent": true },
+    { "source": "/network-charges-update-2026.html", "destination": "/switchinsights/network-charges-update-2026.html", "permanent": true },
+    { "source": "/ofgem-state-of-market-2026.html", "destination": "/switchinsights/ofgem-state-of-market-2026.html", "permanent": true },
+    { "source": "/pounds-for-pylons.html", "destination": "/switchinsights/pounds-for-pylons.html", "permanent": true },
+    { "source": "/price-cap-january-2026.html", "destination": "/switchinsights/price-cap-january-2026.html", "permanent": true },
+    { "source": "/q2-2026-price-cap.html", "destination": "/switchinsights/q2-2026-price-cap.html", "permanent": true },
+    { "source": "/sizewell-c-nuclear-charge.html", "destination": "/switchinsights/sizewell-c-nuclear-charge.html", "permanent": true },
+    { "source": "/standing-charge-increase-2026.html", "destination": "/switchinsights/standing-charge-increase-2026.html", "permanent": true },
+    { "source": "/warm-home-discount.html", "destination": "/switchinsights/warm-home-discount.html", "permanent": true },
+    { "source": "/why-uk-electricity-bills-follow-gas-prices.html", "destination": "/switchinsights/why-uk-electricity-bills-follow-gas-prices.html", "permanent": true }
   ]
 }

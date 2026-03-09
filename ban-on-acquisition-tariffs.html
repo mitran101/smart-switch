@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ban on Acquisition Tariffs: When Consumer Protection Harms Consumers | SwitchPilot</title>
+    <title>The Ban on Acquisition Tariffs: When Consumer Protection Harms Consumers | SwitchInsights</title>
 
     <!-- Favicons -->
     <link rel="icon" href="./favicon.ico" sizes="any">
@@ -19,6 +19,7 @@
     <meta property="og:description" content="The Ban on Acquisition Tariffs was designed to eliminate the loyalty penalty. But economic analysis suggests the policy may actually harm consumers by removing competition.">
     <meta property="og:url" content="https://switch-pilot.com/ban-on-acquisition-tariffs.html">
     <meta property="og:type" content="article">
+    <meta property="og:site_name" content="SwitchInsights">
     <meta property="og:image" content="https://mitran101.github.io/smart-switch/logo.png">
 
     <!-- Twitter -->
@@ -805,9 +806,41 @@
                 flex-wrap: wrap;
             }
         }
+
+        /* ── SwitchInsights sub-brand ── */
+        .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(168,85,247,0.3); padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; position: sticky; top: 0; z-index: 10000; }
+        .si-topbar-back, .si-topbar-archive { color: #94A3B8; text-decoration: none; font-weight: 600; }
+        .si-topbar-back:hover, .si-topbar-archive:hover { color: #fff; }
+        .si-topbar-brand { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+        .si-logo-wrap { color: #fff; font-size: 0.9rem; font-weight: 700; }
+        .si-tagline { color: #94A3B8; font-size: 0.72rem; }
+        .si-byline { font-size: 0.82rem; color: #94A3B8; margin: -0.5rem 0 1.5rem; font-style: italic; }
+        .si-byline a { color: #A855F7; text-decoration: none; }
+        .si-cta-banner { background: linear-gradient(135deg, #064E3B, #065F46); border-top: 2px solid #10B981; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 3rem; position: relative; }
+        .si-cta-inner { flex: 1; }
+        .si-cta-inner span { color: #6EE7B7; font-weight: 700; font-size: 1rem; }
+        .si-cta-inner p { color: #A7F3D0; font-size: 0.9rem; margin: 0.3rem 0 0.8rem; }
+        .si-cta-btn { display: inline-block; background: #10B981; color: #fff; padding: 0.6rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+        .si-cta-btn:hover { background: #059669; }
+        .si-cta-close { position: absolute; top: 0.75rem; right: 1rem; background: none; border: none; color: #6EE7B7; font-size: 1rem; cursor: pointer; opacity: 0.7; }
+        .si-cta-close:hover { opacity: 1; }
+        @media (max-width: 600px) {
+          .si-topbar { flex-direction: column; gap: 0.3rem; text-align: center; }
+          .si-cta-banner { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
+
+<div class="si-topbar">
+  <a href="https://www.switch-pilot.com" class="si-topbar-back">← SwitchPilot</a>
+  <div class="si-topbar-brand">
+    <span class="si-logo-wrap"><img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo" style="height:22px;width:auto;vertical-align:middle;margin-right:6px;">💡 <strong>SwitchInsights</strong></span>
+    <span class="si-tagline">Energy explained, in plain English</span>
+  </div>
+  <a href="archive.html" class="si-topbar-archive">All articles →</a>
+</div>
+
     <nav class="top-nav">
         <a href="index.html" class="top-logo">
             <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
@@ -830,6 +863,8 @@
     </header>
 
     <div class="container">
+        <p class="si-byline">From <strong>SwitchInsights</strong> - part of <a href="https://www.switch-pilot.com">SwitchPilot</a></p>
+
         <div class="highlight-box">
             <h4>🎯 Key Takeaway</h4>
             <p>Since April 2022, UK energy suppliers have been banned from offering cheaper tariffs exclusively to new customers. This Ban on Acquisition Tariffs (BAT) was designed to eliminate the "loyalty penalty" where inactive customers pay more than switchers. But economic analysis suggests the policy may actually harm consumers by removing the primary mechanism suppliers use to compete for customers.</p>
@@ -1324,5 +1359,15 @@
             }
         });
     </script>
+
+<div class="si-cta-banner">
+  <div class="si-cta-inner">
+    <span>⚡ Tired of overpaying on energy?</span>
+    <p>SwitchPilot automatically finds you the cheapest deal - exclusive tariffs, 10% cashback, switched for you. Free forever.</p>
+    <a href="https://www.switch-pilot.com#waitlist" class="si-cta-btn">Sign Up Free →</a>
+  </div>
+  <button class="si-cta-close" onclick="this.parentElement.style.display='none'" aria-label="Dismiss">✕</button>
+</div>
+
 </body>
 </html>

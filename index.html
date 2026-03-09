@@ -4834,9 +4834,9 @@ body {
 
   <h3>Get Suppliers Competing for You 🚀</h3>
 
-  <p>Free to join. Once you're with us, you'll always be on the best deal on the market - exclusive tariffs, 10% cashback, switched automatically every year.</p>
+  <p>Free to join. Exclusive tariffs you won't find anywhere else. 10% cashback from our revenue on every switch.</p>
 
-  <p class="form-info">Just your email and postcode to start 👇</p>
+  <p class="form-info">A couple of details to get you set up 👇</p>
 
   <form onsubmit="handleSubmit(event)" id="waitlistForm">
 
@@ -4848,13 +4848,19 @@ body {
 
     <div class="form-group">
 
-      <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required />
+      <div class="find-address-row">
+
+        <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required />
+
+        <button type="button" onclick="lookupPostcode()" id="findAddressBtn" class="find-address-btn">Find Address</button>
+
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--sp-text-muted);margin-top:0.4rem;">Address lookup optional - for a more accurate estimate</p>
 
       <p id="postcodeError"></p>
 
     </div>
-
-    <p style="font-size:0.82rem;color:var(--sp-text-muted);margin-bottom:1rem;">We'll email you to collect the remaining details before your first switch.</p>
 
     <div id="addressDropdownWrapper" style="display:none;">
 
@@ -5224,9 +5230,9 @@ body {
 
 <section id="insights" class="insights">
 
-  <h2>Plain English Explainers</h2>
+  <h2>From SwitchInsights</h2>
 
-  <p>Energy bills are confusing on purpose. We break them down so anyone can understand.</p>
+  <p>Our energy blog - plain English breakdowns of what's really going on.</p>
 
   <div class="topics">
 
@@ -5374,7 +5380,7 @@ body {
 
   <div class="archive-link">
 
-    <a href="archive.html">📚 View All Articles <span>→</span></a>
+    <a href="archive.html">Browse all SwitchInsights articles →</a>
 
   </div>
 

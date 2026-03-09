@@ -502,6 +502,39 @@ def run_scraper(headless=False, test_postcode=None, regions=None, wait_secs=15, 
                 print(f"\n  Batch done. Waiting {batch_wait}s...")
                 time.sleep(batch_wait)
 
+    # RETRY PASS: if the scraper worked for most regions, retry stragglers
+    if not early_abort:
+        failed = [(r['region'], r['postcode']) for r in results if not r.get('tariffs')]
+        success_count = len(results) - len(failed)
+        if failed and success_count >= 5 and len(failed) <= 5:
+            print(f"\n{'#'*60}")
+            print(f"  RETRY PASS: {success_count}/{len(results)} succeeded, retrying {len(failed)} failed region(s)")
+            print('#'*60)
+            with sync_playwright() as p:
+                browser = p.chromium.launch(
+                    headless=headless,
+                    args=[
+                        '--disable-blink-features=AutomationControlled',
+                        '--no-sandbox',
+                        '--disable-dev-shm-usage',
+                        '--disable-setuid-sandbox',
+                    ]
+                )
+                try:
+                    for region, postcode in failed:
+                        print(f"\n{'='*60}")
+                        print(f"  RETRY: {region} ({postcode})")
+                        print('='*60)
+                        result = scrape_with_retry(browser, postcode, region, max_retries)
+                        for i, r in enumerate(results):
+                            if r['region'] == region:
+                                results[i] = result
+                                break
+                        if i < len(failed) - 1:
+                            time.sleep(wait_secs + random.randint(0, 10))
+                finally:
+                    browser.close()
+
     return results
 
 

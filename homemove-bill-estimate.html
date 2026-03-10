@@ -551,7 +551,8 @@
         .svt-card { background: #fff8f8; border: 2px solid #fecaca; text-align: center; }
         .svt-label-top { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--sp-red); margin-bottom: 0.5rem; }
         .svt-amount { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 800; color: #b91c1c; line-height: 1; margin-bottom: 0.35rem; }
-        .svt-sub { font-size: 0.95rem; color: #92400e; }
+        .svt-sub { font-size: 0.95rem; color: #92400e; margin-bottom: 0.4rem; }
+        .svt-disclaimer { font-size: 0.75rem; color: #b45309; opacity: 0.75; margin-top: 0.3rem; }
 
         /* ── Bridge card ── */
         .deals-bridge-card { background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); border: 2px solid var(--sp-green); text-align: center; }
@@ -672,7 +673,8 @@
             <div class="card svt-card">
                 <div class="svt-label-top">⚠️ Default rate at this property</div>
                 <div class="svt-amount" id="svtBill">£0</div>
-                <div class="svt-sub">per year on the standard tariff — what most movers end up on</div>
+                <div class="svt-sub"><strong id="svtBillMonthly">£0/month</strong> &nbsp;·&nbsp; per year on the standard tariff</div>
+                <div class="svt-disclaimer">Based on Direct Debit, standard (non-prepayment) meter. Estimated figures — actual bills vary.</div>
                 <div class="warning-box" style="margin-top:1.25rem;margin-bottom:0;">
                     <div class="icon">💡</div>
                     <div class="content">
@@ -707,6 +709,7 @@
                     <div class="bill-card selected">
                         <div class="label">✓ With this deal</div>
                         <div class="amount" id="selectedBill">£0</div>
+                        <div class="tariff-name" id="selectedBillMonthly" style="font-weight:700;color:var(--sp-purple-dark);margin-bottom:3px;">£0/month</div>
                         <div class="tariff-name" id="selectedSupplierName">-</div>
                     </div>
                     <div class="savings-banner" id="savingsBanner">
@@ -987,7 +990,8 @@
 
         function updateDisplay(svtCost) {
             // SVT card
-            document.getElementById('svtBill').textContent = `£${Math.round(svtCost)}`;
+            document.getElementById('svtBill').textContent = `£${Math.round(svtCost)}/yr`;
+            document.getElementById('svtBillMonthly').textContent = `£${Math.round(svtCost / 12)}/month`;
 
             // Bridge card
             document.getElementById('dealsCount').textContent = regionalTariffs.length;
@@ -999,7 +1003,8 @@
             document.getElementById('regionName').textContent = currentRegion;
 
             // Selected deal
-            document.getElementById('selectedBill').textContent = `£${Math.round(selectedTariff.annualCost)}`;
+            document.getElementById('selectedBill').textContent = `£${Math.round(selectedTariff.annualCost)}/yr`;
+            document.getElementById('selectedBillMonthly').textContent = `£${Math.round(selectedTariff.annualCost / 12)}/month`;
             document.getElementById('selectedSupplierName').textContent = supplierNames[selectedTariff.supplier];
 
             const savings = svtCost - selectedTariff.annualCost;

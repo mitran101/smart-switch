@@ -539,8 +539,6 @@
             .top-logo img { height: 2.5rem; }
             .top-logo span { font-size: 1.25rem; }
             .header { padding: 2.5rem 1.5rem; }
-            .cta-section { flex-direction: column; text-align: center; padding: 1.5rem; }
-            .cta-section .content { text-align: center; }
         }
 
         @media (max-width: 480px) {
@@ -548,6 +546,50 @@
             .header h1 { font-size: 1.5rem; }
             .container { padding: 15px; }
         }
+
+        /* ── SVT default-rate card ── */
+        .svt-card { background: #fff8f8; border: 2px solid #fecaca; text-align: center; }
+        .svt-label-top { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--sp-red); margin-bottom: 0.5rem; }
+        .svt-amount { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 800; color: #b91c1c; line-height: 1; margin-bottom: 0.35rem; }
+        .svt-sub { font-size: 0.95rem; color: #92400e; }
+
+        /* ── Bridge card ── */
+        .deals-bridge-card { background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); border: 2px solid var(--sp-green); text-align: center; }
+        .bridge-count { font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; color: #fff; line-height: 1; }
+        .bridge-text { font-size: 1rem; color: #6EE7B7; margin: 0.3rem 0 0.6rem; font-weight: 600; }
+        .bridge-savings { font-size: 0.9rem; color: #A7F3D0; }
+        .bridge-savings strong { color: #fff; }
+
+        /* ── Section heading inside card ── */
+        .section-title { font-size: 1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+
+        /* ── Selected deal summary ── */
+        .selected-summary { display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center; margin: 15px 0; }
+        @media (max-width: 520px) { .selected-summary { grid-template-columns: 1fr; } }
+        .selected-summary .bill-card { padding: 18px; }
+
+        /* ── CTA overhaul ── */
+        .cta-section {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            display: block;
+        }
+        .cta-badge { display: inline-block; background: rgba(16,185,129,0.18); border: 1px solid var(--sp-green); color: var(--sp-green); padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.4px; margin-bottom: 1rem; }
+        .cta-section .cta-header { margin-bottom: 2rem; }
+        .cta-section .cta-header h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 400; margin-bottom: 0.75rem; line-height: 1.3; }
+        .cta-section .cta-header p { color: rgba(255,255,255,0.72); font-size: 0.98rem; max-width: 580px; margin: 0 auto; line-height: 1.6; }
+        .cta-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; text-align: left; }
+        @media (max-width: 620px) { .cta-pillars { grid-template-columns: 1fr; } }
+        .cta-pillar { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 1.25rem 1rem; }
+        .pillar-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .cta-pillar h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; color: #fff; }
+        .cta-pillar p { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+        .cta-btn-main { display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 1.05rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 25px rgba(139,92,246,0.45); }
+        .cta-btn-main:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(139,92,246,0.55); }
     </style>
 </head>
 <body>
@@ -625,83 +667,106 @@
         </div>
 
         <div id="results" class="results">
+
+            <!-- 1. Default rate — what most movers end up on -->
+            <div class="card svt-card">
+                <div class="svt-label-top">⚠️ Default rate at this property</div>
+                <div class="svt-amount" id="svtBill">£0</div>
+                <div class="svt-sub">per year on the standard tariff — what most movers end up on</div>
+                <div class="warning-box" style="margin-top:1.25rem;margin-bottom:0;">
+                    <div class="icon">💡</div>
+                    <div class="content">
+                        <h4>Most home movers get stuck here</h4>
+                        <p>When you move in, you're automatically placed on the previous occupant's supplier at their standard rates. 80% of movers never switch — costing them an average of £300/year.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Bridge: how many deals beat this -->
+            <div class="card deals-bridge-card">
+                <div class="bridge-count" id="dealsCount">0</div>
+                <div class="bridge-text">deals available in <span id="regionName2">your area</span> that beat this rate</div>
+                <div class="bridge-savings">Save up to <strong id="maxSavings">£0</strong>/year by switching before you move in</div>
+            </div>
+
+            <!-- 3. Chart -->
             <div class="card">
-                <div class="bill-display">
+                <h3 class="section-title">💰 Deals vs Standard Rate in <span id="regionName">Your Area</span></h3>
+                <div class="chart-container">
+                    <canvas id="dealsChart"></canvas>
+                </div>
+                <p class="chart-hint">👆 Click a bar to select that supplier</p>
+            </div>
+
+            <!-- 4. Compare & rate details -->
+            <div class="card">
+                <h3 class="section-title">🔄 Compare Suppliers</h3>
+                <select class="tariff-dropdown" id="supplierSelect" onchange="selectSupplier()"></select>
+
+                <div class="selected-summary">
                     <div class="bill-card selected">
-                        <div class="label">✓ Best Deal</div>
+                        <div class="label">✓ With this deal</div>
                         <div class="amount" id="selectedBill">£0</div>
                         <div class="tariff-name" id="selectedSupplierName">-</div>
                     </div>
-                    <div class="bill-vs">vs</div>
-                    <div class="bill-card svt">
-                        <div class="label">⚠️ Standard Rate</div>
-                        <div class="amount" id="svtBill">£0</div>
-                        <div class="tariff-name">What most movers pay</div>
+                    <div class="savings-banner" id="savingsBanner">
+                        <div class="amount" id="savingsAmount">Save £0/year</div>
+                        <div class="note" id="savingsNote">vs standard rate</div>
                     </div>
                 </div>
 
-                <div class="savings-banner" id="savingsBanner">
-                    <div class="amount" id="savingsAmount">Save £0/year</div>
-                    <div class="note" id="savingsNote">by switching from SVT</div>
-                </div>
-
-                <div class="tariff-selector-section">
-                    <h3>🔄 Compare Suppliers</h3>
-                    <select class="tariff-dropdown" id="supplierSelect" onchange="selectSupplier()">
-                    </select>
-                    
-                    <div class="rate-cards">
-                        <div class="rate-card">
-                            <div class="label">⚡ Elec Rate</div>
-                            <div class="value" id="elecRate">-</div>
-                        </div>
-                        <div class="rate-card">
-                            <div class="label">🔥 Gas Rate</div>
-                            <div class="value" id="gasRate">-</div>
-                        </div>
-                        <div class="rate-card">
-                            <div class="label">⚡ Standing</div>
-                            <div class="value" id="elecStanding">-</div>
-                        </div>
-                        <div class="rate-card">
-                            <div class="label">🔥 Standing</div>
-                            <div class="value" id="gasStanding">-</div>
-                        </div>
+                <div class="rate-cards">
+                    <div class="rate-card">
+                        <div class="label">⚡ Elec Rate</div>
+                        <div class="value" id="elecRate">-</div>
+                    </div>
+                    <div class="rate-card">
+                        <div class="label">🔥 Gas Rate</div>
+                        <div class="value" id="gasRate">-</div>
+                    </div>
+                    <div class="rate-card">
+                        <div class="label">⚡ Standing</div>
+                        <div class="value" id="elecStanding">-</div>
+                    </div>
+                    <div class="rate-card">
+                        <div class="label">🔥 Standing</div>
+                        <div class="value" id="gasStanding">-</div>
                     </div>
                 </div>
 
-                <div class="usage-info">
-                    <strong>📊 Estimated annual usage:</strong> <span id="usageEstimate">-</span>
-                    <br>Based on property type, size, and EPC rating.
+                <div class="usage-info" style="margin-top:1rem;margin-bottom:0;">
+                    <strong>📊 Estimated annual usage:</strong> <span id="usageEstimate">-</span><br>
+                    Based on property type, size, and EPC rating.
                 </div>
             </div>
 
-            <div class="card">
-                <div class="chart-section">
-                    <h3>💰 Best Deals in <span id="regionName">Your Area</span></h3>
-                    <div class="chart-container">
-                        <canvas id="dealsChart"></canvas>
-                    </div>
-                    <p class="chart-hint">👆 Click a bar to select that supplier</p>
-                </div>
-            </div>
-
-            <div class="warning-box">
-                <div class="icon">💡</div>
-                <div class="content">
-                    <h4>Don't fall into the mover's trap</h4>
-                    <p>80% of people who move home stay on expensive standard rates. The average overpayment is £300/year. Switch before you move in.</p>
-                </div>
-            </div>
-
+            <!-- 5. CTA -->
             <div class="cta-section">
-                <div class="icon">😩</div>
-                <div class="content">
-                    <h3>Never overpay for energy again</h3>
-                    <p>We're building a free auto-switcher that does this for you — automatically. Sign up for early access and never overpay again.</p>
+                <div class="cta-header">
+                    <div class="cta-badge">FREE TO JOIN · NO CONTRACTS</div>
+                    <h3>SwitchPilot puts you on the cheapest deal — automatically</h3>
+                    <p>We monitor every tariff in your area and switch you whenever a better deal appears. No forms, no hassle, no risk of ever overpaying again.</p>
                 </div>
-                <a href="index.html#waitlist" class="cta-btn">Get Early Access →</a>
+                <div class="cta-pillars">
+                    <div class="cta-pillar">
+                        <div class="pillar-icon">🔄</div>
+                        <h4>Auto-switching</h4>
+                        <p>We watch the market and move you to the cheapest tariff automatically — you don't lift a finger.</p>
+                    </div>
+                    <div class="cta-pillar">
+                        <div class="pillar-icon">🔒</div>
+                        <h4>Exclusive tariffs</h4>
+                        <p>Access deals you won't find on any comparison site — negotiated exclusively for SwitchPilot members.</p>
+                    </div>
+                    <div class="cta-pillar">
+                        <div class="pillar-icon">💰</div>
+                        <h4>Cashback rewards</h4>
+                        <p>Earn cashback every time we switch you. Free forever — we earn from suppliers, not from you.</p>
+                    </div>
+                </div>
+                <a href="https://www.switch-pilot.com/#waitlist" class="cta-btn-main">Join Free — Never Overpay Again →</a>
             </div>
+
         </div>
     </div>
     </div>
@@ -921,32 +986,42 @@
         }
 
         function updateDisplay(svtCost) {
+            // SVT card
+            document.getElementById('svtBill').textContent = `£${Math.round(svtCost)}`;
+
+            // Bridge card
+            document.getElementById('dealsCount').textContent = regionalTariffs.length;
+            document.getElementById('regionName2').textContent = currentRegion;
+            const maxSaving = svtCost - regionalTariffs[0].annualCost;
+            document.getElementById('maxSavings').textContent = `£${Math.round(maxSaving)}`;
+
+            // Region label in chart heading
+            document.getElementById('regionName').textContent = currentRegion;
+
+            // Selected deal
             document.getElementById('selectedBill').textContent = `£${Math.round(selectedTariff.annualCost)}`;
             document.getElementById('selectedSupplierName').textContent = supplierNames[selectedTariff.supplier];
-            document.getElementById('svtBill').textContent = `£${Math.round(svtCost)}`;
 
             const savings = svtCost - selectedTariff.annualCost;
             const banner = document.getElementById('savingsBanner');
-            
-            if (savings > 0) {
-                banner.style.background = 'linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%)';
-                document.getElementById('savingsAmount').textContent = `Save £${Math.round(savings)}/year`;
-                document.getElementById('savingsNote').textContent = `That's £${Math.round(savings/12)}/month vs SVT`;
-            } else {
-                banner.style.background = 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)';
-                document.getElementById('savingsAmount').textContent = `£${Math.round(Math.abs(savings))}/year more`;
-                document.getElementById('savingsNote').textContent = 'than the price cap';
-            }
+            banner.style.background = savings > 0
+                ? 'linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%)'
+                : 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)';
+            document.getElementById('savingsAmount').textContent = savings > 0
+                ? `Save £${Math.round(savings)}/year`
+                : `£${Math.round(Math.abs(savings))}/year above cap`;
+            document.getElementById('savingsNote').textContent = savings > 0
+                ? `That's £${Math.round(savings / 12)}/month less than the standard rate`
+                : 'vs standard rate';
 
+            // Rate cards
             document.getElementById('elecRate').textContent = `${selectedTariff.elec_unit_rate_p.toFixed(2)}p`;
             document.getElementById('gasRate').textContent = `${selectedTariff.gas_unit_rate_p.toFixed(2)}p`;
             document.getElementById('elecStanding').textContent = `${selectedTariff.elec_standing_p.toFixed(1)}p`;
             document.getElementById('gasStanding').textContent = `${selectedTariff.gas_standing_p.toFixed(1)}p`;
 
-            document.getElementById('usageEstimate').textContent = 
+            document.getElementById('usageEstimate').textContent =
                 `${currentConsumption.elec.toLocaleString()} kWh electricity + ${currentConsumption.gas.toLocaleString()} kWh gas`;
-
-            document.getElementById('regionName').textContent = currentRegion;
         }
 
         function populateSupplierDropdown() {
@@ -978,7 +1053,7 @@
                 tariff: t
             })), {
                 supplier: 'svt',
-                name: 'SVT Price Cap',
+                name: 'Standard Rate (default)',
                 cost: svtCost,
                 tariff: null
             }].sort((a, b) => a.cost - b.cost);

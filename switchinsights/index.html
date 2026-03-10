@@ -496,7 +496,13 @@
       .si-topbar { padding: 0.6rem 1rem; }
       .page-wrap { padding: 0 1rem; }
     }
-  </style>
+  
+    /* Show-more for article grid */
+    .card-hidden { display: none !important; }
+    .show-more-wrap { text-align: center; margin: 1.25rem 0 0; }
+    .show-more-btn { display: inline-block; padding: 0.55rem 1.6rem; background: transparent; border: 2px solid var(--green); color: var(--green); border-radius: 50px; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .show-more-btn:hover { background: var(--green); color: #fff; }
+</style>
 </head>
 <body>
 
@@ -598,13 +604,31 @@
           <span class="card-date">28 January 2026</span>
         </a>
 
-        <a href="why-uk-electricity-bills-follow-gas-prices.html" target="_blank" class="article-card">
+        <a href="why-uk-electricity-bills-follow-gas-prices.html" target="_blank" class="article-card card-hidden">
           <h3>⚡ Why UK Electricity Bills Follow Gas Prices</h3>
           <p class="card-desc">Even when wind and solar generate half our power, your electricity bill is still set by gas. We explain the marginal pricing mechanism &mdash; and why it's so hard to fix.</p>
           <span class="card-date">24 January 2026</span>
         </a>
 
       </div>
+      <div class="show-more-wrap">
+        <button class="show-more-btn" id="showMoreBtn" onclick="toggleCards()">Show more articles ↓</button>
+      </div>
+      <script>
+      function toggleCards() {
+        var hidden = document.querySelectorAll('.article-grid .card-hidden');
+        var btn = document.getElementById('showMoreBtn');
+        if (hidden.length > 0) {
+          hidden.forEach(function(c){ c.classList.remove('card-hidden'); });
+          btn.textContent = 'Show fewer ↑';
+        } else {
+          var all = document.querySelectorAll('.article-grid .article-card');
+          all.forEach(function(c, i){ if (i >= 6) c.classList.add('card-hidden'); });
+          btn.textContent = 'Show more articles ↓';
+          document.querySelector('.article-grid').scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      }
+      </script>
     </section>
 
     <!-- Wide callout banner -->
@@ -651,6 +675,10 @@
       <div class="year-group">
         <div class="year-heading">2026</div>
 
+        <a href="supplier-profits-analysis.html" target="_blank" class="list-article">
+          <span class="list-article-title">📊 Do Energy Suppliers Really Make a Fortune from You?</span>
+          <span class="list-article-date">10 Mar 2026</span>
+        </a>
         <a href="gas-price-shock-middle-east-2026.html" target="_blank" class="list-article">
           <span class="list-article-title">📈 UK Gas Prices Have Nearly Doubled This Week</span>
           <span class="list-article-date">6 Mar 2026</span>

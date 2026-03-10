@@ -905,9 +905,12 @@
                     }
                 });
 
-            selectedTariff = regionalTariffs[0];
-
             const svtCost = calculateSVTCost(currentConsumption.elec, currentConsumption.gas);
+
+            // Only show tariffs cheaper than the regional price cap
+            regionalTariffs = regionalTariffs.filter(t => t.annualCost < svtCost);
+
+            selectedTariff = regionalTariffs[0];
 
             updateDisplay(svtCost);
             populateSupplierDropdown();

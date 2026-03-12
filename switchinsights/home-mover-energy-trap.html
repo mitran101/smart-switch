@@ -1097,7 +1097,8 @@ async function submitNewsletter() {
       body: JSON.stringify({
         action: 'newsletterSignup',
         email: email,
-        source: 'switchinsights'
+        source: 'switchinsights',
+        page_url: window.location.href
       })
     });
     const data = await res.json();

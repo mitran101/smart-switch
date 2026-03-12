@@ -120,7 +120,7 @@ def send_newsletter_welcome_email(to_email):
             <p style="font-size:1.05rem;color:#1a1a2e;margin:0 0 16px;">Hey 👋</p>
 
             <p style="color:#4a5568;line-height:1.7;margin:0 0 16px;">
-              You're now subscribed to SwitchInsights &mdash; plain-English breakdowns of what's really happening in UK energy, written by people who work inside the industry.
+              You're now subscribed to SwitchInsights - plain-English breakdowns of what's really happening in UK energy, written by people who work inside the industry.
             </p>
 
             <p style="color:#4a5568;line-height:1.7;margin:0 0 24px;">
@@ -145,7 +145,7 @@ def send_newsletter_welcome_email(to_email):
             <div style="background:#f8f4ff;border-radius:10px;padding:16px 20px;margin-bottom:28px;">
               <p style="color:#7c3aed;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 6px;">From the same team</p>
               <p style="color:#4a5568;font-size:0.88rem;line-height:1.6;margin:0;">
-                We're also building <a href="https://www.switch-pilot.com?utm_source=newsletter_welcome&utm_medium=email&utm_campaign=welcome" style="color:#A855F7;font-weight:600;text-decoration:none;">SwitchPilot</a> &mdash; a free service that automatically switches you to the cheapest energy deal, so you never have to think about it. <a href="https://www.switch-pilot.com?utm_source=newsletter_welcome&utm_medium=email&utm_campaign=welcome" style="color:#A855F7;font-weight:600;text-decoration:none;">Take a look &rarr;</a>
+                We're also building <a href="https://www.switch-pilot.com?utm_source=newsletter_welcome&utm_medium=email&utm_campaign=welcome" style="color:#A855F7;font-weight:600;text-decoration:none;">SwitchPilot</a> - a free service that automatically switches you to the cheapest energy deal, so you never have to think about it. <a href="https://www.switch-pilot.com?utm_source=newsletter_welcome&utm_medium=email&utm_campaign=welcome" style="color:#A855F7;font-weight:600;text-decoration:none;">Take a look &rarr;</a>
               </p>
             </div>
 

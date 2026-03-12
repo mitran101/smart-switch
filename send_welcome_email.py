@@ -123,34 +123,26 @@ def send_welcome_email(to_email):
             We'll be in touch with a personalised savings estimate for your area — and when we're ready to switch, we'll ask for a bit more info to get you set up properly. For now, you don't need to do anything.
           </p>
           
-          <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Our Story</h2>
-          
+          <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Who We Are</h2>
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We're two people working in the UK energy industry.
+            SwitchPilot is built by energy industry professionals who know exactly how the market works — and what most consumers don't.
           </p>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            When we joined, we didn't understand much. But now we've learned things that have shocked us.
-          </p>
-          
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
             Did you know you're paying wind farms to turn off? Or covering other people's bad debts through your bill? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
           </p>
-          
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            Most people don't know what they're paying for. We didn't either until we got inside the industry.
-          </p>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            It shocked us. And it sparked a mission - to create more transparency and give power back to consumers.
+            Most people don't know what they're actually paying for. We're here to change that — and to make sure you never overpay again.
           </p>
-          
+
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We're building a <strong>free auto-switching service</strong> that puts you on the best deal possible based on your preferences (and consent, of course!). But more than that, we're building a <strong>movement that educates and empowers consumers</strong>.
+            A <strong>free auto-switching service</strong> that makes suppliers compete for you — so you get the best deal available, plus exclusive tariffs you won't find anywhere else, and <strong>10% cashback from the fee suppliers pay us</strong> on every switch.
           </p>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
             You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
           </p>

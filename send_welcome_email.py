@@ -120,13 +120,13 @@ def send_welcome_email(to_email):
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            We'll be in touch with a personalised savings estimate for your area — and when we're ready to switch, we'll ask for a bit more info to get you set up properly. For now, you don't need to do anything.
+            We'll be in touch with a personalised savings estimate for your area - and when we're ready to switch, we'll ask for a bit more info to get you set up properly. For now, you don't need to do anything.
           </p>
           
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Who We Are</h2>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            SwitchPilot is built by energy industry professionals who know exactly how the market works — and what most consumers don't.
+            SwitchPilot is built by energy industry professionals who know exactly how the market works - and what most consumers don't.
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
@@ -134,13 +134,13 @@ def send_welcome_email(to_email):
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            Most people don't know what they're actually paying for. We're here to change that — and to make sure you never overpay again.
+            Most people don't know what they're actually paying for. We're here to change that - and to make sure you never overpay again.
           </p>
 
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            A <strong>free auto-switching service</strong> that makes suppliers compete for you — so you get the best deal available, plus exclusive tariffs you won't find anywhere else, and <strong>10% cashback from the fee suppliers pay us</strong> on every switch.
+            A <strong>free auto-switching service</strong> that makes suppliers compete for you - so you get the best deal available, plus exclusive tariffs you won't find anywhere else, and <strong>10% cashback from the fee suppliers pay us</strong> on every switch.
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">

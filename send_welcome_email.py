@@ -114,9 +114,13 @@ def send_welcome_email(to_email):
         
         <div style="padding: 35px 25px; background: #ffffff; border-radius: 0 0 10px 10px;">
           <p style="font-size: 1.05rem; color: #1a1a2e; margin-bottom: 1.5rem;">Hey there! 👋</p>
-          
+
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
+            Welcome to SwitchPilot. We've got your details and we're already looking at what deals are available in your area.
+          </p>
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            Welcome to SwitchPilot. Thanks for joining us.
+            We'll be in touch with a personalised savings estimate for your area — and when we're ready to switch, we'll ask for a bit more info to get you set up properly. For now, you don't need to do anything.
           </p>
           
           <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Our Story</h2>

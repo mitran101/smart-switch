@@ -992,6 +992,34 @@
                         </select>
                     </div>
 
+                    <div id="customRateInputs" style="display:none; background:#f8faff; border:1px solid #c7d2fe; border-radius:10px; padding:16px; margin-bottom:14px;">
+                        <p style="font-size:0.85rem;color:#64748b;margin:0 0 12px 0;">Enter the rates from your bill or a tariff you want to check:</p>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                            <div>
+                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec unit rate (p/kWh)</label>
+                                <input type="number" id="customElecRate" step="0.01" placeholder="e.g. 24.50" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                            </div>
+                            <div id="customGasRateInput">
+                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas unit rate (p/kWh)</label>
+                                <input type="number" id="customGasRate" step="0.01" placeholder="e.g. 5.90" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                            </div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+                            <div>
+                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec standing charge (p/day)</label>
+                                <input type="number" id="customElecStanding" step="0.1" placeholder="e.g. 53.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                            </div>
+                            <div id="customGasStandingInput">
+                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas standing charge (p/day)</label>
+                                <input type="number" id="customGasStanding" step="0.1" placeholder="e.g. 35.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:10px;">
+                            <button onclick="applyCustomRates()" style="flex:1;padding:10px;background:linear-gradient(135deg,#6366f1,#ec4899);color:white;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;">Apply rates</button>
+                            <button onclick="clearCustomRates()" style="padding:10px 16px;background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;font-weight:600;cursor:pointer;font-family:inherit;">Clear</button>
+                        </div>
+                    </div>
+
                     <div class="current-rates" id="currentRatesGrid">
                         <div class="rate-box">
                             <div class="label">&#9889; Electricity unit rate</div>
@@ -1553,6 +1581,7 @@
             const select = document.getElementById('supplierSelect');
             if (!select) return;
             select.innerHTML = '<option value="">-- Pick a supplier --</option>';
+            select.innerHTML += '<option value="custom">&#9998; Enter my own rates</option>';
             select.innerHTML += '<option value="svt">&#9888;&#65039; SVT Price Cap (most expensive default rate)</option>';
 
             regionalTariffs.forEach((t, i) => {
@@ -1589,18 +1618,69 @@
             if (!select) return;
             const value = select.value;
 
+            const customPanel = document.getElementById('customRateInputs');
+
             if (value === '') {
+                currentTariff = null;
+                if (customPanel) customPanel.style.display = 'none';
+                resetToHyphens();
+                return;
+            } else if (value === 'custom') {
+                if (customPanel) customPanel.style.display = 'block';
+                // Show/hide gas inputs based on fuel type
+                const gasRateInput = document.getElementById('customGasRateInput');
+                const gasStandingInput = document.getElementById('customGasStandingInput');
+                if (gasRateInput) gasRateInput.style.display = currentFuelType === 'dual' ? 'block' : 'none';
+                if (gasStandingInput) gasStandingInput.style.display = currentFuelType === 'dual' ? 'block' : 'none';
                 currentTariff = null;
                 resetToHyphens();
                 return;
             } else if (value === 'svt') {
+                if (customPanel) customPanel.style.display = 'none';
                 currentTariff = { supplier: 'svt', ...getSVT() };
             } else {
+                if (customPanel) customPanel.style.display = 'none';
                 currentTariff = regionalTariffs[parseInt(value)];
             }
 
             updateRatesDisplay();
             calculateAll();
+        }
+
+        function applyCustomRates() {
+            const elecUnit = parseFloat(document.getElementById('customElecRate').value);
+            const elecStanding = parseFloat(document.getElementById('customElecStanding').value);
+            const gasUnit = currentFuelType === 'dual' ? parseFloat(document.getElementById('customGasRate').value) : 0;
+            const gasStanding = currentFuelType === 'dual' ? parseFloat(document.getElementById('customGasStanding').value) : 0;
+
+            if (isNaN(elecUnit) || isNaN(elecStanding)) {
+                alert('Please enter at least the electricity unit rate and standing charge.');
+                return;
+            }
+            if (currentFuelType === 'dual' && (isNaN(gasUnit) || isNaN(gasStanding))) {
+                alert('Please enter the gas unit rate and standing charge too.');
+                return;
+            }
+
+            currentTariff = {
+                supplier: 'custom',
+                elec_unit_rate_p: elecUnit,
+                elec_standing_p: elecStanding,
+                gas_unit_rate_p: gasUnit || 0,
+                gas_standing_p: gasStanding || 0
+            };
+
+            updateRatesDisplay();
+            calculateAll();
+        }
+
+        function clearCustomRates() {
+            ['customElecRate', 'customGasRate', 'customElecStanding', 'customGasStanding'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            currentTariff = null;
+            resetToHyphens();
         }
 
         function updateRatesDisplay() {

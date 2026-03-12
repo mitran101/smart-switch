@@ -1,0 +1,27 @@
+name: Send Newsletter Welcome Email
+
+on:
+  repository_dispatch:
+    types: [newsletter_signup]
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Send newsletter welcome email
+        env:
+          MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}
+          MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
+        run: |
+          python send_newsletter_welcome_email.py "${{ github.event.client_payload.email }}"

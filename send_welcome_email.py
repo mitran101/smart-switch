@@ -123,51 +123,45 @@ def send_welcome_email(to_email):
             We'll be in touch with a personalised savings estimate for your area - and when we're ready to switch, we'll ask for a bit more info to get you set up properly. For now, you don't need to do anything.
           </p>
           
-          <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Who We Are</h2>
+          <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">Who We Are and What We're Doing</h2>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            SwitchPilot is built by energy industry professionals who know exactly how the market works - and what most consumers don't.
-          </p>
-
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            Did you know you're paying wind farms to turn off? Or covering other people's bad debts through your bill? Or that 65% of UK households are overpaying on Standard Variable Tariffs?
-          </p>
-
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1.5rem;">
-            Most people don't know what they're actually paying for. We're here to change that - and to make sure you never overpay again.
-          </p>
-
-          <h2 style="color: #6366f1; font-size: 1.3rem; margin-top: 2rem; margin-bottom: 1rem;">What We're Building</h2>
-
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            A <strong>free auto-switching service</strong> that makes suppliers compete for you - so you get the best deal available, plus exclusive tariffs you won't find anywhere else, and <strong>10% cashback from the fee suppliers pay us</strong> on every switch.
+            SwitchPilot is built by energy industry professionals who know exactly how the market works. And one thing is clear from the inside: <strong>most UK households overpay, and the system makes it hard to do anything about it.</strong>
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot and launch us to our goal: smarter switching for everyone.
+            65% of households sit on Standard Variable Tariffs - the most expensive option. Not because they want to, but because switching is complicated, time-consuming, and confusing. Most people don't even know what they're paying for, let alone whether they could be paying less.
           </p>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            We surveyed 200 people. Here's what we found:
+            So we're fixing both problems at once.
           </p>
-          
+
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>First, we make switching automatic and free.</strong> We take your household directly to energy suppliers, make them compete for you with exclusive tariffs you won't find publicly anywhere, and switch you automatically - no forms, no phone calls. The supplier pays us a fee; we give you 10% of it back as cashback.
+          </p>
+
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
+            <strong>Second, we educate.</strong> An informed consumer is a powerful one. When people understand what's on their bill - and what they're entitled to - the market gets more competitive and suppliers are forced to offer better deals. That's why alongside the switching service, we publish free plain-English breakdowns of what's really going on in UK energy.
+          </p>
+
+          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
+            We surveyed 200 people before building this. Here's what they told us:
+          </p>
+
           <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <ul style="color: #4a5568; line-height: 1.8; margin: 0; padding-left: 20px;">
               <li><strong>77.5%</strong> want auto-switching</li>
-              <li><strong>73%</strong> of "content" customers still want switching when friction is removed</li>
+              <li><strong>73%</strong> of "content" customers still want switching when the friction is removed</li>
               <li><strong>61%</strong> don't understand their bills</li>
               <li><strong>48%</strong> haven't switched in 5+ years</li>
             </ul>
           </div>
-          
+
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            But surveys are just surveys. We want to build this <strong>WITH you</strong> - not just based on numbers, but through real conversations, shared frustrations, and your input every step of the way.
+            You're part of an <strong>exclusive early access group</strong> who will help us shape SwitchPilot. We want to build this with real input from real people - not just survey data. So if something frustrates you about your energy bill or supplier, reply to this email. We read everything.
           </p>
-          
-          <p style="color: #4a5568; line-height: 1.6; margin-bottom: 1rem;">
-            An informed consumer makes the market more competitive and forces suppliers to offer better deals. When more people engage, Ofgem listens and makes changes.
-          </p>
-          
+
           <p style="color: #1a1a2e; line-height: 1.6; margin-bottom: 2rem; font-weight: 600;">
             Let's build this together.
           </p>

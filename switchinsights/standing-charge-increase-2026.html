@@ -719,7 +719,7 @@
   </a>
   <div class="si-topbar-links">
     <a href="index.html" class="si-topbar-archive">All articles</a>
-    <a href="https://www.switch-pilot.com" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
+    <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=nav" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
   </div>
 </div>
 
@@ -904,11 +904,19 @@
 
     <!-- CTA Section -->
     <section style="padding: 0 2rem;">
-        <div class="cta-box">
-            <h3>Standing charges going up? We'll find you a better deal automatically.</h3>
-            <p>SwitchPilot is a free auto-switching service. We do the work so you don't have to - and unlock exclusive tariffs you won't find anywhere else, plus 10% cashback from our revenue on every switch.</p>
-            <a href="index.html#waitlist" class="cta-button">Sign Up Free →</a>
-        </div>
+        <div class="cta-box" id="newsletter-cta">
+    <h3>Get weekly energy insights</h3>
+    <p>Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch - just useful stuff.</p>
+    <form id="newsletter-form" onsubmit="return false;" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+        <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.7rem 1rem;border-radius:8px;border:none;font-size:0.95rem;color:#1a1a2e;">
+        <button type="button" id="nl-submit" onclick="submitNewsletter()" style="padding:0.7rem 1.4rem;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.6);color:#fff;font-weight:700;font-size:0.95rem;border-radius:8px;cursor:pointer;white-space:nowrap;">Subscribe free</button>
+    </form>
+    <p id="nl-msg" style="display:none;margin-top:8px;font-size:0.9rem;"></p>
+    <p style="font-size:12px;opacity:0.6;margin-top:6px;">Unsubscribe anytime. We respect your inbox.</p>
+</div>
+<div class="switchpilot-mention" style="text-align:center;margin-top:1rem;color:rgba(255,255,255,0.7);font-size:0.88rem;">
+    <p>We're also building <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:rgba(255,255,255,0.9);text-decoration:underline;">SwitchPilot</a> - a free service that automatically switches you to the cheapest energy deal. <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:rgba(255,255,255,0.9);text-decoration:underline;">Check it out →</a></p>
+</div>
     </section>
 
     <footer class="article-footer">
@@ -990,5 +998,57 @@
 </footer>
 
 <script src="comments.js" defer></script>
+<script>
+async function submitNewsletter() {
+  const emailInput = document.getElementById('nl-email');
+  const msg = document.getElementById('nl-msg');
+  const btn = document.getElementById('nl-submit');
+  const email = emailInput.value.trim().toLowerCase();
+
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email address.';
+    msg.style.color = '#e74c3c';
+    msg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec', {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'newsletterSignup',
+        email: email,
+        source: 'switchinsights'
+      })
+    });
+    const data = await res.json();
+
+    if (data.status === 'ok') {
+      msg.textContent = "You're in! Check your inbox for weekly energy insights.";
+      msg.style.color = '#27ae60';
+      emailInput.value = '';
+    } else if (data.status === 'already_subscribed') {
+      msg.textContent = "You're already subscribed!";
+      msg.style.color = '#e67e22';
+    } else if (data.status === 'already_on_waitlist') {
+      msg.textContent = "You're already on the SwitchPilot waitlist - you'll get insights too!";
+      msg.style.color = '#27ae60';
+    } else {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.style.color = '#e74c3c';
+    }
+  } catch (err) {
+    msg.textContent = 'Something went wrong. Please try again.';
+    msg.style.color = '#e74c3c';
+  }
+
+  msg.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = 'Subscribe free';
+}
+</script>
 </body>
 </html>

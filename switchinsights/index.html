@@ -512,7 +512,7 @@
       <span style="color:#fff;font-weight:700;font-size:1rem;letter-spacing:-0.3px;">SwitchInsights</span>
     </a>
     <div class="si-topbar-links">
-      <a href="https://www.switch-pilot.com" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
+      <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=nav" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
     </div>
   </div>
 
@@ -557,7 +557,7 @@
       </div>
       <div class="dyk-card">
         <div class="dyk-label">Did you know?</div>
-        <p>Auto-switching services could save the average household <strong>over &pound;200/year</strong> by making suppliers compete for your business automatically. <a href="https://www.switch-pilot.com" style="color:var(--purple);">We're building one &rarr;</a></p>
+        <p>Auto-switching services could save the average household <strong>over &pound;200/year</strong> by making suppliers compete for your business automatically. We're building one &mdash; <a href="#newsletter-cta" style="color:var(--purple);">sign up for insights &rarr;</a></p>
       </div>
     </div>
 
@@ -620,9 +620,17 @@
     </div>
 
     <!-- Inline CTA -->
-    <div class="dyk-card" style="margin-bottom:3.5rem;">
-      <div class="dyk-label" style="color:var(--green);">From the team</div>
-      <p>Like what you're reading? SwitchPilot is building a service that automatically moves you to the cheapest energy deal &mdash; no comparison sites, no forms, no hassle. <a href="https://www.switch-pilot.com" style="color:var(--purple);">Sign up for early access &rarr;</a></p>
+    <div id="newsletter-cta" style="background:linear-gradient(135deg,rgba(168,85,247,0.18),rgba(236,72,153,0.12));border:1px solid rgba(168,85,247,0.4);border-radius:14px;padding:2rem 2.5rem;margin-bottom:3.5rem;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;">From the team</div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin-bottom:0.6rem;">Get weekly energy insights</h3>
+      <p style="color:var(--text-muted);font-size:0.93rem;line-height:1.65;margin-bottom:1.25rem;">Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch &mdash; just useful stuff.</p>
+      <form id="newsletter-form" onsubmit="return false;" style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
+        <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.65rem 1rem;border-radius:8px;border:1px solid rgba(168,85,247,0.4);background:rgba(255,255,255,0.06);color:#fff;font-size:0.93rem;">
+        <button type="button" id="nl-submit" onclick="submitNewsletter()" style="padding:0.65rem 1.4rem;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font-weight:700;font-size:0.93rem;border-radius:8px;cursor:pointer;white-space:nowrap;">Subscribe free</button>
+      </form>
+      <p id="nl-msg" style="display:none;margin-top:8px;font-size:0.88rem;"></p>
+      <p style="font-size:0.75rem;color:var(--text-dim);margin-top:6px;">Unsubscribe anytime. We respect your inbox.</p>
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-top:1rem;">We're also building <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:var(--purple);text-decoration:none;">SwitchPilot</a> &mdash; a free service that automatically switches you to the cheapest energy deal. <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:var(--purple);text-decoration:none;">Check it out &rarr;</a></p>
     </div>
 
     <!-- Free tools -->
@@ -630,13 +638,13 @@
       <div class="section-label">Free resources</div>
       <div class="section-title" style="margin-bottom:1.25rem;">Useful tools from SwitchPilot</div>
       <div class="tools-grid">
-        <a href="../energy-bill-calculator.html" class="tool-card">
+        <a href="../energy-bill-calculator.html?utm_source=switchinsights&utm_medium=referral&utm_campaign=tool_cta" class="tool-card">
           <div class="tool-card-label">Free tool</div>
           <h4>Energy Bill Calculator</h4>
           <p>Work out your actual energy bill based on your household's gas and electricity usage.</p>
           <span class="tool-card-arrow">Try it &rarr;</span>
         </a>
-        <a href="../tariff-tracker.html" class="tool-card">
+        <a href="../tariff-tracker.html?utm_source=switchinsights&utm_medium=referral&utm_campaign=tool_cta" class="tool-card">
           <div class="tool-card-label">Free tool</div>
           <h4>Energy Price Tracker</h4>
           <p>Compare the cheapest tariffs across all 14 UK regions. Updated weekly with live market data.</p>
@@ -738,7 +746,7 @@
 
     <!-- About note -->
     <div class="about-note">
-      <p>SwitchInsights is published by <a href="https://www.switch-pilot.com">SwitchPilot</a> &mdash; we're building a free auto-switching service that makes energy suppliers compete for your business. No comparison sites, no forms, no hassle. If that sounds useful, you can sign up for early access on <a href="https://www.switch-pilot.com">our main site</a>.</p>
+      <p>SwitchInsights is published by <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=footer_cta">SwitchPilot</a> &mdash; energy explained, in plain English. Subscribe above for weekly insights, or check out <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=footer_cta">SwitchPilot</a> to see what we're building.</p>
     </div>
 
   </div><!-- /page-wrap -->
@@ -757,5 +765,57 @@
 </p>
   </footer>
 
+<script>
+async function submitNewsletter() {
+  const emailInput = document.getElementById('nl-email');
+  const msg = document.getElementById('nl-msg');
+  const btn = document.getElementById('nl-submit');
+  const email = emailInput.value.trim().toLowerCase();
+
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email address.';
+    msg.style.color = '#e74c3c';
+    msg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec', {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'newsletterSignup',
+        email: email,
+        source: 'switchinsights'
+      })
+    });
+    const data = await res.json();
+
+    if (data.status === 'ok') {
+      msg.textContent = "You're in! Check your inbox for weekly energy insights.";
+      msg.style.color = '#27ae60';
+      emailInput.value = '';
+    } else if (data.status === 'already_subscribed') {
+      msg.textContent = "You're already subscribed!";
+      msg.style.color = '#e67e22';
+    } else if (data.status === 'already_on_waitlist') {
+      msg.textContent = "You're already on the SwitchPilot waitlist - you'll get insights too!";
+      msg.style.color = '#27ae60';
+    } else {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.style.color = '#e74c3c';
+    }
+  } catch (err) {
+    msg.textContent = 'Something went wrong. Please try again.';
+    msg.style.color = '#e74c3c';
+  }
+
+  msg.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = 'Subscribe free';
+}
+</script>
 </body>
 </html>

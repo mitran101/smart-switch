@@ -1194,8 +1194,16 @@
             regionalTariffs = [];
             const seenSuppliers = new Set();
             
+            const capRates = capRatesByRegion[currentRegion] || capRatesByRegion['London'];
+
             allTariffs
                 .filter(t => t.region === currentRegion)
+                .filter(t => {
+                    // Exclude tariffs with unit rates above the price cap for this region
+                    if (t.elec_unit_rate_p > capRates.elecUnit) return false;
+                    if (currentFuelType === 'dual' && t.gas_unit_rate_p > capRates.gasUnit) return false;
+                    return true;
+                })
                 .sort((a, b) => a.elec_unit_rate_p - b.elec_unit_rate_p)
                 .forEach(t => {
                     if (!seenSuppliers.has(t.supplier)) {

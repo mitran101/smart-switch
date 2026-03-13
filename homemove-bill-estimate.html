@@ -659,6 +659,14 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label>Fuel Type</label>
+                    <select id="fuelType">
+                        <option value="dual" selected>Dual fuel (gas + electricity)</option>
+                        <option value="elec">Electricity only</option>
+                    </select>
+                </div>
+
                 <button class="calc-btn" id="calcBtn" onclick="calculateEstimate()" disabled>
                     Loading tariffs...
                 </button>
@@ -687,13 +695,13 @@
             <!-- 2. Bridge: how many deals beat this -->
             <div class="card deals-bridge-card">
                 <div class="bridge-count" id="dealsCount">0</div>
-                <div class="bridge-text">deals available in <span id="regionName2">your area</span> that beat this rate</div>
+                <div class="bridge-text">deals available in this area that beat this rate</div>
                 <div class="bridge-savings">Save up to <strong id="maxSavings">£0</strong>/year by switching before you move in</div>
             </div>
 
             <!-- 3. Chart -->
             <div class="card">
-                <h3 class="section-title">💰 Deals vs Standard Rate in <span id="regionName">Your Area</span></h3>
+                <h3 class="section-title">💰 Deals vs Standard Rate in This Area</h3>
                 <div class="chart-container">
                     <canvas id="dealsChart"></canvas>
                 </div>
@@ -866,6 +874,7 @@
 
         let allTariffs = [];
         let currentRegion = null;
+        let currentFuelType = 'dual';
         let currentConsumption = { elec: 0, gas: 0 };
         let regionalTariffs = [];
         let selectedTariff = null;
@@ -878,10 +887,9 @@
                 const response = await fetch('./all_tariffs.json');
                 const data = await response.json();
                 
-                allTariffs = (data.tariffs || data).filter(t => 
-                    !t.error && 
-                    t.elec_unit_rate_p && 
-                    t.gas_unit_rate_p &&
+                allTariffs = (data.tariffs || data).filter(t =>
+                    !t.error &&
+                    t.elec_unit_rate_p &&
                     supplierNames[t.supplier]
                 );
 
@@ -925,18 +933,20 @@
         }
 
         function calculateAnnualCost(tariff, elecKwh, gasKwh) {
-            return ((elecKwh * tariff.elec_unit_rate_p) + 
-                    (gasKwh * tariff.gas_unit_rate_p) +
-                    (tariff.elec_standing_p * 365) +
-                    (tariff.gas_standing_p * 365)) / 100;
+            const elecCost = (elecKwh * tariff.elec_unit_rate_p + (tariff.elec_standing_p || 0) * 365) / 100;
+            const gasCost = currentFuelType === 'dual' && tariff.gas_unit_rate_p
+                ? (gasKwh * tariff.gas_unit_rate_p + (tariff.gas_standing_p || 0) * 365) / 100
+                : 0;
+            return elecCost + gasCost;
         }
-        
+
         function calculateSVTCost(elecKwh, gasKwh) {
             const svt = getSVT();
-            return ((elecKwh * svt.elec_unit) + 
-                    (gasKwh * svt.gas_unit) +
-                    (svt.elec_standing * 365) +
-                    (svt.gas_standing * 365)) / 100;
+            const elecCost = (elecKwh * svt.elec_unit + svt.elec_standing * 365) / 100;
+            const gasCost = currentFuelType === 'dual'
+                ? (gasKwh * svt.gas_unit + svt.gas_standing * 365) / 100
+                : 0;
+            return elecCost + gasCost;
         }
 
         function calculateEstimate() {
@@ -948,11 +958,12 @@
             const propertyType = document.getElementById('propertyType').value;
             const bedrooms = document.getElementById('bedrooms').value;
             const epc = document.getElementById('epc').value;
+            currentFuelType = document.getElementById('fuelType').value;
 
             const base = consumptionData[propertyType][bedrooms];
             const multiplier = epcMultipliers[epc];
             currentConsumption.elec = Math.round(base.elec * multiplier);
-            currentConsumption.gas = Math.round(base.gas * multiplier);
+            currentConsumption.gas = currentFuelType === 'dual' ? Math.round(base.gas * multiplier) : 0;
 
             regionalTariffs = [];
             const seenSuppliers = new Set();
@@ -995,12 +1006,8 @@
 
             // Bridge card
             document.getElementById('dealsCount').textContent = regionalTariffs.length;
-            document.getElementById('regionName2').textContent = currentRegion;
             const maxSaving = svtCost - regionalTariffs[0].annualCost;
             document.getElementById('maxSavings').textContent = `£${Math.round(maxSaving)}`;
-
-            // Region label in chart heading
-            document.getElementById('regionName').textContent = currentRegion;
 
             // Selected deal
             document.getElementById('selectedBill').textContent = `£${Math.round(selectedTariff.annualCost)}/yr`;
@@ -1021,12 +1028,22 @@
 
             // Rate cards
             document.getElementById('elecRate').textContent = `${selectedTariff.elec_unit_rate_p.toFixed(2)}p`;
-            document.getElementById('gasRate').textContent = `${selectedTariff.gas_unit_rate_p.toFixed(2)}p`;
             document.getElementById('elecStanding').textContent = `${selectedTariff.elec_standing_p.toFixed(1)}p`;
-            document.getElementById('gasStanding').textContent = `${selectedTariff.gas_standing_p.toFixed(1)}p`;
+            const gasRateCard = document.getElementById('gasRate').closest('.rate-card');
+            const gasStandingCard = document.getElementById('gasStanding').closest('.rate-card');
+            if (currentFuelType === 'dual' && selectedTariff.gas_unit_rate_p) {
+                document.getElementById('gasRate').textContent = `${selectedTariff.gas_unit_rate_p.toFixed(2)}p`;
+                document.getElementById('gasStanding').textContent = `${(selectedTariff.gas_standing_p || 0).toFixed(1)}p`;
+                gasRateCard.style.display = '';
+                gasStandingCard.style.display = '';
+            } else {
+                gasRateCard.style.display = 'none';
+                gasStandingCard.style.display = 'none';
+            }
 
-            document.getElementById('usageEstimate').textContent =
-                `${currentConsumption.elec.toLocaleString()} kWh electricity + ${currentConsumption.gas.toLocaleString()} kWh gas`;
+            document.getElementById('usageEstimate').textContent = currentFuelType === 'dual'
+                ? `${currentConsumption.elec.toLocaleString()} kWh electricity + ${currentConsumption.gas.toLocaleString()} kWh gas`
+                : `${currentConsumption.elec.toLocaleString()} kWh electricity`;
         }
 
         function populateSupplierDropdown() {

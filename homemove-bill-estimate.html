@@ -968,14 +968,16 @@
             regionalTariffs = [];
             const seenSuppliers = new Set();
             
-            allTariffs
-                .filter(t => t.region === currentRegion)
-                .forEach(t => {
-                    t.annualCost = calculateAnnualCost(t, currentConsumption.elec, currentConsumption.gas);
-                });
+            const eligibleTariffs = allTariffs.filter(t =>
+                t.region === currentRegion &&
+                (currentFuelType === 'elec' || !!t.gas_unit_rate_p)
+            );
 
-            allTariffs
-                .filter(t => t.region === currentRegion)
+            eligibleTariffs.forEach(t => {
+                t.annualCost = calculateAnnualCost(t, currentConsumption.elec, currentConsumption.gas);
+            });
+
+            eligibleTariffs
                 .sort((a, b) => a.annualCost - b.annualCost)
                 .forEach(t => {
                     if (!seenSuppliers.has(t.supplier)) {

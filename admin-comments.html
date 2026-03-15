@@ -9,27 +9,27 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0F172A; color: #E2E8F0; font-family: system-ui, sans-serif; font-size: 0.9rem; line-height: 1.6; }
     #auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-    .auth-box { background: #1E293B; border: 1px solid rgba(168,85,247,0.3); border-radius: 12px; padding: 2rem; width: 320px; text-align: center; }
+    .auth-box { background: #1E293B; border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; padding: 2rem; width: 320px; text-align: center; }
     .auth-box h1 { font-size: 1.1rem; margin-bottom: 1.25rem; color: #fff; }
-    .auth-box input { width: 100%; background: #0F172A; border: 1px solid rgba(168,85,247,0.3); border-radius: 8px; color: #E2E8F0; padding: 0.6rem 0.9rem; font-size: 0.9rem; margin-bottom: 0.75rem; outline: none; font-family: inherit; }
-    .auth-box button { background: linear-gradient(135deg, #A855F7, #EC4899); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .auth-box input { width: 100%; background: #0F172A; border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; color: #E2E8F0; padding: 0.6rem 0.9rem; font-size: 0.9rem; margin-bottom: 0.75rem; outline: none; font-family: inherit; }
+    .auth-box button { background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 700; cursor: pointer; font-family: inherit; }
     .auth-error { color: #F87171; font-size: 0.82rem; margin-top: 0.5rem; min-height: 1rem; }
 
     #app { display: none; padding: 2rem; max-width: 960px; margin: 0 auto; }
     .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
     .page-header h1 { font-size: 1.3rem; color: #fff; }
     .tabs { display: flex; gap: 0.5rem; }
-    .tab { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.25); border-radius: 8px; padding: 0.4rem 1rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: rgba(226,232,240,0.7); transition: all 0.15s; }
-    .tab.active { background: rgba(168,85,247,0.25); border-color: #A855F7; color: #fff; }
-    .badge { display: inline-block; background: #EC4899; color: #fff; border-radius: 10px; padding: 0.1rem 0.45rem; font-size: 0.7rem; font-weight: 700; margin-left: 0.35rem; }
+    .tab { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 0.4rem 1rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: rgba(226,232,240,0.7); transition: all 0.15s; }
+    .tab.active { background: rgba(16,185,129,0.25); border-color: #10B981; color: #fff; }
+    .badge { display: inline-block; background: #059669; color: #fff; border-radius: 10px; padding: 0.1rem 0.45rem; font-size: 0.7rem; font-weight: 700; margin-left: 0.35rem; }
 
-    .comment-card { background: #1E293B; border: 1px solid rgba(168,85,247,0.2); border-radius: 10px; padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; }
-    .comment-card.reply { border-left: 3px solid #EC4899; }
+    .comment-card { background: #1E293B; border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; }
+    .comment-card.reply { border-left: 3px solid #059669; }
     .comment-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: baseline; margin-bottom: 0.5rem; }
     .comment-author { font-weight: 700; color: #fff; }
-    .comment-slug { font-size: 0.75rem; color: #A855F7; background: rgba(168,85,247,0.12); border-radius: 6px; padding: 0.1rem 0.5rem; }
+    .comment-slug { font-size: 0.75rem; color: #10B981; background: rgba(16,185,129,0.12); border-radius: 6px; padding: 0.1rem 0.5rem; }
     .comment-time { font-size: 0.75rem; color: rgba(226,232,240,0.4); }
-    .reply-tag { font-size: 0.72rem; color: #EC4899; font-weight: 700; }
+    .reply-tag { font-size: 0.72rem; color: #059669; font-weight: 700; }
     .comment-text { color: rgba(226,232,240,0.85); margin-bottom: 0.85rem; font-size: 0.88rem; white-space: pre-wrap; }
     .comment-actions { display: flex; gap: 0.5rem; }
     .btn-approve { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: #10B981; border-radius: 6px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s; }
@@ -41,7 +41,7 @@
     .loading { color: rgba(226,232,240,0.35); padding: 1.5rem 0; text-align: center; }
     .panel { display: none; }
     .panel.active { display: block; }
-    .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1E293B; border: 1px solid rgba(168,85,247,0.4); border-radius: 10px; padding: 0.75rem 1.25rem; font-size: 0.85rem; color: #E2E8F0; transform: translateY(100px); transition: transform 0.25s; z-index: 999; }
+    .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1E293B; border: 1px solid rgba(16,185,129,0.4); border-radius: 10px; padding: 0.75rem 1.25rem; font-size: 0.85rem; color: #E2E8F0; transform: translateY(100px); transition: transform 0.25s; z-index: 999; }
     .toast.show { transform: translateY(0); }
   </style>
 </head>

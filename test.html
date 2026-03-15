@@ -34,8 +34,8 @@
             --sp-green-dark: #059669;
             --sp-green-light: #D1FAE5;
             --sp-amber: #F59E0B;
-            --sp-purple: #A855F7;
-            --sp-pink: #EC4899;
+            --sp-purple: #10B981;
+            --sp-pink: #059669;
             --sp-red: #EF4444;
             --sp-bg: #0F172A;
             --sp-card: #1E293B;
@@ -189,7 +189,7 @@
         select:focus, input:focus { 
             outline: none; 
             border-color: var(--sp-purple);
-            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
         }
         select option {
             background: var(--sp-card);
@@ -266,7 +266,7 @@
         }
         .preset-btn:hover {
             border-color: var(--sp-purple);
-            background: rgba(168, 85, 247, 0.15);
+            background: rgba(16,185,129,0.15);
             color: var(--sp-purple);
         }
 
@@ -344,7 +344,7 @@
             justify-content: center;
             font-weight: 700;
             font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
         }
 
         .supplier-header {
@@ -404,7 +404,7 @@
         .badge.green { background: rgba(16, 185, 129, 0.2); color: var(--sp-green); }
         .badge.blue { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
         .badge.yellow { background: rgba(245, 158, 11, 0.2); color: var(--sp-amber); }
-        .badge.purple { background: rgba(168, 85, 247, 0.2); color: var(--sp-purple); }
+        .badge.purple { background: rgba(16,185,129,0.2); color: var(--sp-purple); }
         .badge.red { background: rgba(239, 68, 68, 0.2); color: var(--sp-red); }
         
         /* Badge with tooltip */
@@ -900,10 +900,10 @@
         </div>
 
         <!-- Ready to Switch Box -->
-        <div class="card" style="text-align: center; border: 2px solid rgba(168, 85, 247, 0.3); background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);">
+        <div class="card" style="text-align: center; border: 2px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%);">
             <h3 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--sp-text);">📖 Ready to switch?</h3>
             <p style="color: var(--sp-text-muted); margin-bottom: 1.25rem;">Not sure how switching works? Our insider guide covers everything - the 5-day process, exit fees, what to check, and common myths debunked.</p>
-            <a href="Switching-guide.html" style="display: inline-block; padding: 0.875rem 2rem; background: rgba(168, 85, 247, 0.2); border: 2px solid var(--sp-purple); color: var(--sp-purple); text-decoration: none; border-radius: 30px; font-weight: 600; transition: all 0.2s;">Read the Switching Guide →</a>
+            <a href="Switching-guide.html" style="display: inline-block; padding: 0.875rem 2rem; background: rgba(16,185,129,0.2); border: 2px solid var(--sp-purple); color: var(--sp-purple); text-decoration: none; border-radius: 30px; font-weight: 600; transition: all 0.2s;">Read the Switching Guide →</a>
         </div>
 
         <!-- CTA -->
@@ -1174,7 +1174,7 @@
             }
 
             grid.innerHTML = top5.map((tariff, index) => {
-                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#A855F7', green: false };
+                const supplier = supplierInfo[tariff.supplier] || { name: tariff.supplier, color: '#10B981', green: false };
                 const pros = getPros(tariff, tariff.savings, supplier, fuelType);
                 const cons = getCons(tariff, tariff.savings, supplier, fuelType);
                 
@@ -1262,7 +1262,7 @@
             });
             
             const data = tariffs.map(t => Math.round(t.annualCost));
-            const colors = tariffs.map((t, i) => i === 0 ? '#10B981' : '#A855F7');
+            const colors = tariffs.map((t, i) => i === 0 ? '#10B981' : '#10B981');
 
             if (chart) chart.destroy();
 

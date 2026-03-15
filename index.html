@@ -257,7 +257,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -289,7 +289,7 @@ body {
 
   transform: translateY(-5px);
 
-  box-shadow: 0 0 30px rgba(16,185,129,0.3), 0 20px 50px rgba(0,0,0,0.3);
+  box-shadow: 0 0 25px rgba(16,185,129,0.2), 0 20px 40px rgba(0,0,0,0.25);
 
 }
 
@@ -411,11 +411,11 @@ body {
 
 .nav-cta {
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink)) !important;
+  background: var(--sp-green) !important;
 
   opacity: 1 !important;
 
-  box-shadow: 0 4px 15px rgba(5,150,105,0.3);
+  box-shadow: 0 4px 15px rgba(16,185,129,0.25);
 
 }
 
@@ -425,7 +425,7 @@ body {
 
   transform: translateY(-2px);
 
-  box-shadow: 0 6px 20px rgba(5,150,105,0.4);
+  box-shadow: 0 6px 20px rgba(16,185,129,0.35);
 
 }
 
@@ -541,7 +541,7 @@ body {
 
   overflow: hidden;
 
-  background: linear-gradient(135deg, var(--sp-slate-dark) 0%, var(--sp-slate) 50%, var(--sp-slate-dark) 100%);
+  background: radial-gradient(ellipse at 25% 50%, rgba(16,185,129,0.08) 0%, transparent 55%), linear-gradient(135deg, var(--sp-slate-dark) 0%, var(--sp-slate) 50%, var(--sp-slate-dark) 100%);
 
   color: white;
 
@@ -973,7 +973,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -1017,9 +1017,9 @@ body {
 
 .vision-box.pink { border-color: rgba(5,150,105,0.4); }
 
-.vision-box.purple::before { background: linear-gradient(135deg, var(--sp-purple), #10B981, var(--sp-purple)); background-size: 200% 200%; }
+.vision-box.purple::before { background: linear-gradient(135deg, #10B981, #34D399, #10B981); background-size: 200% 200%; }
 
-.vision-box.pink::before { background: linear-gradient(135deg, var(--sp-pink), var(--sp-purple), var(--sp-pink)); background-size: 200% 200%; }
+.vision-box.pink::before { background: linear-gradient(135deg, #059669, #10B981, #059669); background-size: 200% 200%; }
 
 
 
@@ -1049,13 +1049,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
 }
 
@@ -1143,7 +1137,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -1187,13 +1181,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
   margin-bottom: 0.5rem;
 
@@ -1283,7 +1271,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -1445,13 +1433,7 @@ body {
 
 .best-part strong {
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
 }
 
@@ -1577,7 +1559,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -1599,27 +1581,7 @@ body {
 
 /* Animated scanline */
 
-.survey-card::after {
-
-  content: '';
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  right: 0;
-
-  height: 2px;
-
-  background: linear-gradient(90deg, transparent, var(--sp-purple), var(--sp-pink), transparent);
-
-  animation: scanline 3s linear infinite;
-
-  pointer-events: none;
-
-}
+.survey-card::after { display: none; }
 
 
 
@@ -1747,13 +1709,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
   margin-bottom: 0.25rem;
 
@@ -1911,7 +1867,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -1957,9 +1913,7 @@ body {
 
 
 
-@keyframes scanline {
 
-  0% { transform: translateX(-100%); }
 
   100% { transform: translateX(100%); }
 
@@ -2437,7 +2391,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -2825,7 +2779,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -2961,13 +2915,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
 }
 
@@ -3221,13 +3169,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
 }
 
@@ -3485,7 +3427,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -3687,7 +3629,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -3733,13 +3675,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
   line-height: 1;
 
@@ -3807,7 +3743,7 @@ body {
 
   padding: 2px;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
 
   background-size: 200% 200%;
 
@@ -4009,13 +3945,7 @@ body {
 
   font-weight: 800;
 
-  background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-
-  -webkit-background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-
-  background-clip: text;
+  color: #10B981;
 
 }
 
@@ -4345,7 +4275,7 @@ body {
 
   .stat-hero-card { padding: 1.5rem; }
 
-  .stat-hero-number { font-size: 3rem; }
+  .stat-hero-number-SKIP { font-size: 3rem; }
 
   .stat-hero > div { grid-template-columns: 1fr !important; }
 

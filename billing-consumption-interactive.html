@@ -51,8 +51,8 @@
     --sp-green-dark: #059669;
     --sp-green-light: #D1FAE5;
     --sp-amber: #F59E0B;
-    --sp-purple: #A855F7;
-    --sp-pink: #EC4899;
+    --sp-purple: #10B981;
+    --sp-pink: #059669;
     --sp-red: #EF4444;
     --sp-bg: #0F172A;
     --sp-card: #1E293B;
@@ -172,18 +172,18 @@ body {
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 4px 20px rgba(16,185,129,0.3);
     transition: all 0.3s;
 }
 .dd-toggle-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 8px 30px rgba(16,185,129,0.4);
 }
 
 /* Region Selector */
 .region-selector {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-    border: 2px solid rgba(168, 85, 247, 0.3);
+    background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(5,150,105,0.15) 100%);
+    border: 2px solid rgba(16,185,129,0.3);
     border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 2rem;
@@ -202,7 +202,7 @@ body {
     max-width: 400px;
     padding: 1rem;
     border-radius: 10px;
-    border: 2px solid rgba(168, 85, 247, 0.4);
+    border: 2px solid rgba(16,185,129,0.4);
     background: var(--sp-card-lighter);
     color: var(--sp-text);
     font-size: 1rem;
@@ -273,7 +273,7 @@ input[type="number"], select {
 input[type="number"]:focus, select:focus {
     outline: none;
     border-color: var(--sp-purple);
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
 }
 
 select {
@@ -314,7 +314,7 @@ select option {
 
 .preset-btn:hover {
     border-color: var(--sp-purple);
-    background: rgba(168, 85, 247, 0.15);
+    background: rgba(16,185,129,0.15);
     color: var(--sp-purple);
 }
 
@@ -419,7 +419,7 @@ select option {
 
 /* Explanation Box - Purple */
 .explanation {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%);
     border-left: 4px solid var(--sp-purple);
     padding: 1.25rem 1.5rem;
     border-radius: 12px;
@@ -610,7 +610,7 @@ select option {
 
 .dd-explainer-content {
     background: var(--sp-card);
-    border: 2px solid rgba(168, 85, 247, 0.3);
+    border: 2px solid rgba(16,185,129,0.3);
     border-radius: 16px;
     padding: 2.5rem;
 }
@@ -1371,7 +1371,7 @@ function updateChart() {
             backgroundColor: 'rgba(30, 41, 59, 0.95)',
             titleColor: '#E2E8F0',
             bodyColor: '#E2E8F0',
-            borderColor: '#A855F7',
+            borderColor: '#10B981',
             borderWidth: 2,
             padding: 12,
             displayColors: true,

@@ -63,10 +63,10 @@
       --bg: #0F172A;
       --card: #1E293B;
       --card-hover: #253352;
-      --border: rgba(168,85,247,0.18);
-      --border-hover: rgba(168,85,247,0.45);
-      --purple: #A855F7;
-      --pink: #EC4899;
+      --border: rgba(16,185,129,0.18);
+      --border-hover: rgba(16,185,129,0.45);
+      --purple: #10B981;
+      --pink: #059669;
       --green: #10B981;
       --amber: #F59E0B;
       --text: #E2E8F0;
@@ -88,7 +88,7 @@
     /* ── Topbar ── */
     .si-topbar {
       background: #1E293B;
-      border-bottom: 1px solid rgba(168,85,247,0.3);
+      border-bottom: 1px solid rgba(16,185,129,0.3);
       padding: 0.6rem 1.5rem;
       display: flex;
       align-items: center;
@@ -100,7 +100,7 @@
     .si-topbar-logo { display: flex; align-items: center; text-decoration: none; color: #fff; }
     .si-topbar-links { display: flex; align-items: center; gap: 0.75rem; }
     .si-topbar-visit {
-      background: linear-gradient(135deg, #A855F7, #EC4899);
+      background: linear-gradient(135deg, #10B981, #059669);
       color: #fff !important;
       text-decoration: none;
       font-size: 0.82rem;
@@ -114,7 +114,7 @@
     .hero {
       text-align: center;
       padding: 5rem 1.5rem 4rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,85,247,0.13) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,185,129,0.13) 0%, transparent 70%);
       border-bottom: 1px solid var(--border);
     }
     .hero-badge {
@@ -199,7 +199,7 @@
     }
     .featured-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(168,85,247,0.2);
+      box-shadow: 0 12px 40px rgba(16,185,129,0.2);
     }
     .featured-inner {
       padding: 2.5rem 2.5rem 2rem;
@@ -262,8 +262,8 @@
       gap: 1rem;
     }
     .dyk-card {
-      background: rgba(168,85,247,0.07);
-      border: 1px solid rgba(168,85,247,0.22);
+      background: rgba(16,185,129,0.07);
+      border: 1px solid rgba(16,185,129,0.22);
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
     }
@@ -304,7 +304,7 @@
     }
     .article-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(168,85,247,0.15);
+      box-shadow: 0 8px 30px rgba(16,185,129,0.15);
       border-color: var(--border-hover);
     }
     .article-card h3 {
@@ -327,8 +327,8 @@
 
     /* ── Wide banner callout ── */
     .wide-banner {
-      background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(236,72,153,0.08));
-      border: 1px solid rgba(168,85,247,0.3);
+      background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.08));
+      border: 1px solid rgba(16,185,129,0.3);
       border-radius: 14px;
       padding: 2rem 2.5rem;
       margin-bottom: 3.5rem;
@@ -383,7 +383,7 @@
       padding-right: 0.5rem;
     }
     .list-article:hover {
-      background: rgba(168,85,247,0.06);
+      background: rgba(16,185,129,0.06);
     }
     .list-article-title {
       color: var(--text);
@@ -638,12 +638,12 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
     </div>
 
     <!-- Inline CTA -->
-    <div id="newsletter-cta" style="background:linear-gradient(135deg,rgba(168,85,247,0.18),rgba(236,72,153,0.12));border:1px solid rgba(168,85,247,0.4);border-radius:14px;padding:2rem 2.5rem;margin-bottom:3.5rem;">
+    <div id="newsletter-cta" style="background:linear-gradient(135deg,rgba(16,185,129,0.18),rgba(5,150,105,0.12));border:1px solid rgba(16,185,129,0.4);border-radius:14px;padding:2rem 2.5rem;margin-bottom:3.5rem;">
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;">From the team</div>
       <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin-bottom:0.6rem;">Get weekly energy insights</h3>
       <p style="color:var(--text-muted);font-size:0.93rem;line-height:1.65;margin-bottom:1.25rem;">Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch &mdash; just useful stuff.</p>
       <form id="newsletter-form" onsubmit="return false;" style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
-        <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.65rem 1rem;border-radius:8px;border:1px solid rgba(168,85,247,0.4);background:rgba(255,255,255,0.06);color:#fff;font-size:0.93rem;">
+        <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.65rem 1rem;border-radius:8px;border:1px solid rgba(16,185,129,0.4);background:rgba(255,255,255,0.06);color:#fff;font-size:0.93rem;">
         <button type="button" id="nl-submit" onclick="submitNewsletter()" style="padding:0.65rem 1.4rem;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font-weight:700;font-size:0.93rem;border-radius:8px;cursor:pointer;white-space:nowrap;">Subscribe free</button>
       </form>
       <p id="nl-msg" style="display:none;margin-top:8px;font-size:0.88rem;"></p>
@@ -773,8 +773,8 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
   <footer class="site-footer">
     <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;">
     <p style="font-weight:700;font-size:1rem;margin-bottom:0.25rem;color:#fff;">SwitchInsights</p>
-    <p style="color:rgba(255,255,255,0.85);font-size:0.85rem;">A <a href="https://www.switch-pilot.com" style="color:#A855F7;">SwitchPilot</a> publication &mdash; energy explained, in plain English</p>
-    <p style="margin-top:1rem;color:rgba(255,255,255,0.85);font-size:0.85rem;">📧 <a href="mailto:team@switch-pilot.com" style="color:#A855F7;">team@switch-pilot.com</a></p>
+    <p style="color:rgba(255,255,255,0.85);font-size:0.85rem;">A <a href="https://www.switch-pilot.com" style="color:#10B981;">SwitchPilot</a> publication &mdash; energy explained, in plain English</p>
+    <p style="margin-top:1rem;color:rgba(255,255,255,0.85);font-size:0.85rem;">📧 <a href="mailto:team@switch-pilot.com" style="color:#10B981;">team@switch-pilot.com</a></p>
     <p style="margin-top:0.5rem;color:rgba(255,255,255,0.6);font-size:0.8rem;">&copy; 2026 SwitchPilot Ltd. All rights reserved.</p>
   <p style="margin-top:0.75rem;font-size:0.78rem;">
   <a href="https://www.switch-pilot.com/privacy-policy.html" style="color:rgba(255,255,255,0.45);">Privacy Policy</a>

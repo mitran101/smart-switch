@@ -561,7 +561,6 @@ body {
 /* FLIGHT PATH */
 
 .flight-path-wrap {
-  position: relative;
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
@@ -571,108 +570,7 @@ body {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.fp-dash {
-  stroke-dasharray: 8 6;
-  stroke-dashoffset: 0;
-  animation: dashScroll 1.8s linear infinite;
-}
-
-@keyframes dashScroll {
-  to { stroke-dashoffset: -28; }
-}
-
-/* Rocket flies along the path */
-.rocket-flier {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  top: 0; left: 0;
-  offset-path: path('M 50,270 C 130,200 310,120 470,40');
-  offset-rotate: auto;
-  animation: flyPath 5s ease-in-out infinite;
-  pointer-events: none;
-  filter: drop-shadow(0 4px 14px rgba(16,185,129,0.5));
-}
-
-@keyframes flyPath {
-  0%   { offset-distance: 0%;   opacity: 0; }
-  6%   { opacity: 1; }
-  92%  { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
-}
-
-/* Waypoints */
-.fp-waypoint {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  pointer-events: none;
-}
-
-.fp-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: currentColor;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.fp-dot::after {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.2;
-  animation: dotPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% { transform: scale(1);   opacity: 0.2; }
-  50%       { transform: scale(1.8); opacity: 0.05; }
-}
-
-.fp-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.01em;
-}
-
-/* WP1 — bottom-left, red */
-.fp-wp1 {
-  color: #ef4444;
-  top: 80%;
-  left: 2%;
-  align-items: flex-start;
-  max-width: 90px;
-}
-
-/* WP2 — middle, amber — label above dot */
-.fp-wp2 {
-  color: #f59e0b;
-  top: 38%;
-  left: 38%;
-  transform: translate(-50%, -100%);
-  align-items: center;
-  text-align: center;
-  max-width: 110px;
-}
-.fp-wp2 .fp-dot { order: 2; margin-top: 4px; }
-.fp-wp2 .fp-label { order: 1; }
-
-/* WP3 — top-right, green — label above dot */
-.fp-wp3 {
-  color: #10b981;
-  top: 2%;
-  left: 80%;
-  align-items: flex-end;
-  text-align: right;
-  max-width: 120px;
+  overflow: visible;
 }
 
 /* HERO CTA */
@@ -3471,8 +3369,6 @@ body {
   .hero-text p { font-size: 1.05rem; max-width: 100%; }
 
 
-  .flight-path-wrap { max-width: 400px; }
-  .fp-label { font-size: 0.64rem; }
 
 
 
@@ -3532,8 +3428,6 @@ body {
 
   .hero { padding: 5.5rem 1rem 3rem; }
 
-  .flight-path-wrap { max-width: 320px; }
-  .fp-label { font-size: 0.58rem; }
 
 
 
@@ -3875,41 +3769,84 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
     </div>
 
     <div class="flight-path-wrap">
-
-      <svg class="flight-svg" viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="flight-svg" viewBox="0 0 520 310"
+           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="fpGrad" x1="50" y1="270" x2="470" y2="40" gradientUnits="userSpaceOnUse">
+          <linearGradient id="fpGrad" x1="55" y1="280" x2="468" y2="48"
+                          gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
             <stop offset="100%" stop-color="#10b981"/>
           </linearGradient>
         </defs>
-        <path class="fp-dash"
-              d="M 50,270 C 130,200 310,120 470,40"
-              fill="none" stroke="url(#fpGrad)" stroke-width="2"/>
+
+        <!-- Subtle "more savings" axis label -->
+        <text transform="rotate(-90,14,155)" x="14" y="155"
+              text-anchor="middle" font-size="8.5"
+              fill="rgba(255,255,255,0.18)" font-family="Inter,system-ui,sans-serif"
+              font-weight="600" letter-spacing="0.12em">MORE SAVINGS &#x2191;</text>
+
+        <!-- Flight path (dashed, animated) -->
+        <path id="flightPath"
+              d="M 55,280 C 135,210 315,130 468,48"
+              fill="none" stroke="url(#fpGrad)" stroke-width="2.5"
+              stroke-dasharray="8 6" stroke-linecap="round">
+          <animate attributeName="stroke-dashoffset" from="0" to="-28"
+                   dur="1.8s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- WP1: Price cap — bottom-left (55, 280) -->
+        <circle cx="55" cy="280" r="5.5" fill="#ef4444" opacity="0.18">
+          <animate attributeName="r" values="5.5;15;5.5" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.18;0;0.18" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="55" cy="280" r="5.5" fill="#ef4444"/>
+        <text x="67" y="275" font-size="12" font-weight="700"
+              fill="#ef4444" font-family="Inter,system-ui,sans-serif">Price cap</text>
+        <text x="67" y="290" font-size="9.5" fill="#ef4444" opacity="0.65"
+              font-family="Inter,system-ui,sans-serif">where most people are stuck</text>
+
+        <!-- WP2: Best on market — mid path ~(232,164) -->
+        <circle cx="232" cy="164" r="5.5" fill="#f59e0b" opacity="0.18">
+          <animate attributeName="r" values="5.5;15;5.5" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.18;0;0.18" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="232" cy="164" r="5.5" fill="#f59e0b"/>
+        <text x="247" y="158" font-size="11" font-weight="700"
+              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">Best fixed tariffs</text>
+        <text x="247" y="172" font-size="11" font-weight="700"
+              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">on the market</text>
+
+        <!-- WP3: SwitchPilot exclusive — top-right (468, 48) -->
+        <circle cx="468" cy="48" r="5.5" fill="#10b981" opacity="0.18">
+          <animate attributeName="r" values="5.5;15;5.5" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.18;0;0.18" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="468" cy="48" r="5.5" fill="#10b981"/>
+        <!-- label sits left+below the dot, clear of rocket -->
+        <text x="455" y="74" text-anchor="end" font-size="12" font-weight="700"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive SwitchPilot</text>
+        <text x="455" y="88" text-anchor="end" font-size="12" font-weight="700"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif">tariffs</text>
+        <text x="455" y="101" text-anchor="end" font-size="9.5" fill="#10b981" opacity="0.65"
+              font-family="Inter,system-ui,sans-serif">maximum savings &#x2605;</text>
+
+        <!-- Rocket flying along path — upright (rotate="0"), bigger -->
+        <image href="https://mitran101.github.io/smart-switch/logo.png"
+               xlink:href="https://mitran101.github.io/smart-switch/logo.png"
+               width="72" height="72" x="-36" y="-36" opacity="0">
+          <animate attributeName="opacity"
+                   values="0;0;1;1;0"
+                   keyTimes="0;0.06;0.14;0.86;1"
+                   dur="5s" repeatCount="indefinite"/>
+          <animateMotion dur="5s" repeatCount="indefinite" rotate="0"
+                         calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1">
+            <mpath xlink:href="#flightPath"/>
+          </animateMotion>
+        </image>
+
       </svg>
-
-      <img class="rocket-flier" src="https://mitran101.github.io/smart-switch/logo.png" alt="">
-
-      <!-- WP1 bottom-left: price cap -->
-      <div class="fp-waypoint fp-wp1">
-        <div class="fp-dot"></div>
-        <div class="fp-label">Price cap</div>
-      </div>
-
-      <!-- WP2 middle: best on market -->
-      <div class="fp-waypoint fp-wp2">
-        <div class="fp-label">Best fixed tariffs<br>on the market</div>
-        <div class="fp-dot"></div>
-      </div>
-
-      <!-- WP3 top-right: SwitchPilot exclusive -->
-      <div class="fp-waypoint fp-wp3">
-        <div class="fp-label">Exclusive SwitchPilot<br>tariffs</div>
-        <div class="fp-dot"></div>
-      </div>
-
-    </div>    </div>
+    </div>
 
   </div>
 

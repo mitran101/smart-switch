@@ -2205,6 +2205,10 @@ body {
 
   border-radius: 16px;
 
+  border: 1px solid rgba(5,150,105,0.4);
+
+  box-shadow: 0 0 25px rgba(5,150,105,0.2), 0 10px 40px rgba(0,0,0,0.2);
+
   text-align: center;
 
   position: relative;
@@ -3744,15 +3748,15 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
       <h1>Most UK households overpay on energy. We're here to make sure you never do.</h1>
 
-      <p>We automatically switch you to the cheapest energy deal - including exclusive rates you won't find on comparison sites. Plus cashback on every switch. Built by energy industry insiders. Always free.</p>
+      <p>We automatically switch you to the cheapest energy deal - including exclusive tariffs you won't find anywhere else, for free. Plus cashback on every switch. Built by energy industry insiders.</p>
 
     </div>
 
     <div class="flight-path-wrap">
-      <svg class="flight-svg" viewBox="0 0 520 310"
+      <svg class="flight-svg" viewBox="0 0 520 390"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="fpGrad" x1="55" y1="280" x2="468" y2="48"
+          <linearGradient id="fpGrad" x1="55" y1="190" x2="468" y2="18"
                           gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
@@ -3760,47 +3764,58 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
           </linearGradient>
         </defs>
 
-        <!-- Diagonal flight path: bottom-left to top-right -->
+        <!-- Diagonal path: bottom-left (55,190) to top-right (468,18) -->
         <path id="flightPath"
-              d="M 55,280 C 130,200 310,120 468,48"
+              d="M 55,190 C 135,90 310,50 468,18"
               fill="none" stroke="url(#fpGrad)" stroke-width="2.5"
               stroke-dasharray="8 6" stroke-linecap="round" opacity="0.7">
           <animate attributeName="stroke-dashoffset" from="0" to="-28"
                    dur="1.8s" repeatCount="indefinite"/>
         </path>
 
-        <!-- WP1: Price cap (red) at (55,280) -->
-        <circle cx="55" cy="280" r="6" fill="#ef4444" opacity="0.2">
+        <!-- WP1: Price cap (red) dot at (55,190) -->
+        <circle cx="55" cy="190" r="6" fill="#ef4444" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="55" cy="280" r="6" fill="#ef4444"/>
-        <text x="70" y="255" font-size="13" font-weight="700"
+        <circle cx="55" cy="190" r="6" fill="#ef4444"/>
+        <!-- connector line down to safe label zone -->
+        <line x1="55" y1="196" x2="55" y2="298" stroke="#ef4444" stroke-width="1"
+              opacity="0.3" stroke-dasharray="4 3"/>
+        <text x="68" y="310" font-size="13" font-weight="700"
               fill="#ef4444" font-family="Inter,system-ui,sans-serif">Price cap</text>
 
-        <!-- WP2: Best deals on the market (amber) at ~(262,164) -->
-        <circle cx="262" cy="164" r="6" fill="#f59e0b" opacity="0.2">
+        <!-- WP2: Best deals (amber) dot at (232,79) -->
+        <circle cx="232" cy="79" r="6" fill="#f59e0b" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="262" cy="164" r="6" fill="#f59e0b"/>
-        <text x="316" y="136" font-size="12" font-weight="700"
+        <circle cx="232" cy="79" r="6" fill="#f59e0b"/>
+        <!-- connector line -->
+        <line x1="240" y1="84" x2="300" y2="195" stroke="#f59e0b" stroke-width="1"
+              opacity="0.3" stroke-dasharray="4 3"/>
+        <text x="307" y="200" font-size="12" font-weight="700"
               fill="#f59e0b" font-family="Inter,system-ui,sans-serif">Best deals</text>
-        <text x="316" y="151" font-size="12" font-weight="700"
+        <text x="307" y="216" font-size="12" font-weight="700"
               fill="#f59e0b" font-family="Inter,system-ui,sans-serif">on the market</text>
 
-        <!-- WP3: Exclusive rate / Maximum savings (green) at (468,48) -->
-        <circle cx="468" cy="48" r="6" fill="#10b981" opacity="0.2">
+        <!-- WP3: Exclusive rate (green) dot at (468,18) -->
+        <circle cx="468" cy="18" r="6" fill="#10b981" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="468" cy="48" r="6" fill="#10b981"/>
-        <text x="440" y="10" text-anchor="end" font-size="13" font-weight="700"
-              fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive rate</text>
-        <text x="440" y="25" text-anchor="end" font-size="11" font-weight="600"
-              fill="#10b981" font-family="Inter,system-ui,sans-serif" opacity="0.75">Maximum savings</text>
+        <circle cx="468" cy="18" r="6" fill="#10b981"/>
+        <!-- connector line -->
+        <line x1="460" y1="23" x2="410" y2="132" stroke="#10b981" stroke-width="1"
+              opacity="0.3" stroke-dasharray="4 3"/>
+        <text x="400" y="140" text-anchor="end" font-size="12" font-weight="700"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive tariffs</text>
+        <text x="400" y="156" text-anchor="end" font-size="12" font-weight="700"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif">SwitchPilot + cashback</text>
+        <text x="400" y="172" text-anchor="end" font-size="10" font-weight="600"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif" opacity="0.7">Maximum savings</text>
 
-        <!-- Rocket flying along path, upright, bigger -->
+        <!-- Rocket flying along path, upright -->
         <image href="https://mitran101.github.io/smart-switch/logo.png"
                xlink:href="https://mitran101.github.io/smart-switch/logo.png"
                width="192" height="192" x="-96" y="-96" opacity="0">

@@ -3744,15 +3744,15 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
       <h1>Most UK households overpay on energy. We're here to make sure you never do.</h1>
 
-      <p>We automatically switch you to the cheapest energy deal - including exclusive rates you won't find on comparison sites. Plus cashback on every switch. Built by energy industry insiders. Always free.</p>
+      <p>We automatically switch you to the cheapest energy deals on the market - <strong>for free.</strong> Then put you on exclusive tariffs so cheap you won't find them anywhere else. Built by energy industry professionals.</p>
 
     </div>
 
     <div class="flight-path-wrap">
-      <svg class="flight-svg" viewBox="0 0 520 345"
+      <svg class="flight-svg" viewBox="0 0 520 310"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="fpGrad" x1="55" y1="293" x2="465" y2="233"
+          <linearGradient id="fpGrad" x1="55" y1="280" x2="468" y2="48"
                           gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
@@ -3760,66 +3760,50 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
           </linearGradient>
         </defs>
 
-        <!-- Arc path: bottom-left peak top-centre bottom-right -->
+        <!-- Diagonal flight path: bottom-left to top-right -->
         <path id="flightPath"
-              d="M 55,293 C 165,22 355,22 465,233"
+              d="M 55,280 C 130,200 310,120 468,48"
               fill="none" stroke="url(#fpGrad)" stroke-width="2.5"
-              stroke-dasharray="8 6" stroke-linecap="round" opacity="0.75">
+              stroke-dasharray="8 6" stroke-linecap="round" opacity="0.7">
           <animate attributeName="stroke-dashoffset" from="0" to="-28"
                    dur="1.8s" repeatCount="indefinite"/>
         </path>
 
-        <!-- WP1: Ofgem price cap (red) at (55,293) -->
-        <circle cx="55" cy="293" r="6" fill="#ef4444" opacity="0.25">
-          <animate attributeName="r"       values="6;18;6"      dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.25;0;0.25" dur="2.5s" repeatCount="indefinite"/>
+        <!-- WP1: Price cap (red) at (55,280) -->
+        <circle cx="55" cy="280" r="6" fill="#ef4444" opacity="0.2">
+          <animate attributeName="r"       values="6;18;6"     dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="55" cy="293" r="6" fill="#ef4444"/>
-        <text x="69" y="274" font-size="11" font-weight="700"
-              fill="#ef4444" font-family="Inter,system-ui,sans-serif">Ofgem price cap</text>
-        <text x="69" y="293" font-size="15" font-weight="800"
-              fill="#ef4444" font-family="Inter,system-ui,sans-serif">&#163;1,568/yr</text>
+        <circle cx="55" cy="280" r="6" fill="#ef4444"/>
+        <text x="70" y="275" font-size="13" font-weight="700"
+              fill="#ef4444" font-family="Inter,system-ui,sans-serif">Price cap</text>
 
-        <!-- WP2: Best fixed deal (amber) at (260,82) -->
-        <circle cx="260" cy="82" r="6" fill="#f59e0b" opacity="0.25">
-          <animate attributeName="r"       values="6;18;6"      dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.25;0;0.25" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+        <!-- WP2: Best deals on the market (amber) at ~(262,164) -->
+        <circle cx="262" cy="164" r="6" fill="#f59e0b" opacity="0.2">
+          <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="260" cy="82" r="6" fill="#f59e0b"/>
-        <text x="260" y="46" text-anchor="middle" font-size="11" font-weight="700"
-              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">Best fixed deal on market</text>
-        <text x="260" y="65" text-anchor="middle" font-size="15" font-weight="800"
-              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">&#163;1,312/yr</text>
+        <circle cx="262" cy="164" r="6" fill="#f59e0b"/>
+        <text x="276" y="156" font-size="12" font-weight="700"
+              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">Best deals</text>
+        <text x="276" y="171" font-size="12" font-weight="700"
+              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">on the market</text>
 
-        <!-- WP3: Exclusive SwitchPilot rate (green) at (465,233) -->
-        <circle cx="465" cy="233" r="6" fill="#10b981" opacity="0.25">
-          <animate attributeName="r"       values="6;18;6"      dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.25;0;0.25" dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+        <!-- WP3: Exclusive rate / Maximum savings (green) at (468,48) -->
+        <circle cx="468" cy="48" r="6" fill="#10b981" opacity="0.2">
+          <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="465" cy="233" r="6" fill="#10b981"/>
-        <text x="450" y="214" text-anchor="end" font-size="11" font-weight="700"
-              fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive SwitchPilot rate</text>
-        <text x="450" y="233" text-anchor="end" font-size="15" font-weight="800"
-              fill="#10b981" font-family="Inter,system-ui,sans-serif">&#163;1,124/yr</text>
+        <circle cx="468" cy="48" r="6" fill="#10b981"/>
+        <text x="454" y="26" text-anchor="end" font-size="13" font-weight="700"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive rate</text>
+        <text x="454" y="43" text-anchor="end" font-size="11" font-weight="600"
+              fill="#10b981" font-family="Inter,system-ui,sans-serif" opacity="0.75">Maximum savings</text>
 
-        <!-- Savings card near WP3 -->
-        <rect x="298" y="255" width="128" height="62" rx="10" fill="none"
-              stroke="#10b981" stroke-width="6" opacity="0">
-          <animate attributeName="opacity"      values="0.35;0;0.35" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="stroke-width" values="6;14;6"       dur="2.5s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="298" y="255" width="128" height="62" rx="10"
-              fill="rgba(16,185,129,0.13)" stroke="#10b981" stroke-width="1.5"/>
-        <text x="362" y="276" text-anchor="middle" font-size="9.5" font-weight="700"
-              fill="rgba(255,255,255,0.55)" font-family="Inter,system-ui,sans-serif"
-              letter-spacing="0.1em">YOU SAVE</text>
-        <text x="362" y="303" text-anchor="middle" font-size="21" font-weight="800"
-              fill="#10b981" font-family="Inter,system-ui,sans-serif">&#163;444/yr</text>
-
-        <!-- Rocket flying along path, upright -->
+        <!-- Rocket flying along path, upright, bigger -->
         <image href="https://mitran101.github.io/smart-switch/logo.png"
                xlink:href="https://mitran101.github.io/smart-switch/logo.png"
-               width="78" height="78" x="-39" y="-39" opacity="0">
+               width="96" height="96" x="-48" y="-48" opacity="0">
           <animate attributeName="opacity"
                    values="0;0;1;1;0"
                    keyTimes="0;0.05;0.13;0.87;1"

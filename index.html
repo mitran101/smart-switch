@@ -3745,7 +3745,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
       <svg class="flight-svg" viewBox="0 0 520 370"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="fpGrad" x1="55" y1="185" x2="438" y2="38"
+          <linearGradient id="fpGrad" x1="55" y1="265" x2="430" y2="40"
                           gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
@@ -3753,55 +3753,56 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
           </linearGradient>
         </defs>
 
-        <!-- Diagonal path: (55,185) to (438,38) — WP3 inset from edges -->
+        <!-- Two equal-slope straight segments: WP1->WP2 and WP2->WP3
+             Both run at the same diagonal angle (~31 degrees).             -->
         <path id="flightPath"
-              d="M 55,185 C 183,136 310,87 438,38"
+              d="M 55,265 L 242,152 L 430,40"
               fill="none" stroke="url(#fpGrad)" stroke-width="2.5"
               stroke-dasharray="8 6" stroke-linecap="round" opacity="0.7">
           <animate attributeName="stroke-dashoffset" from="0" to="-28"
                    dur="1.8s" repeatCount="indefinite"/>
         </path>
 
-        <!-- WP1: Price cap (red) at (55,185) -->
-        <circle cx="55" cy="185" r="6" fill="#ef4444" opacity="0.2">
+        <!-- WP1: Price cap (red) at (55,265) -->
+        <circle cx="55" cy="265" r="6" fill="#ef4444" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="55" cy="185" r="6" fill="#ef4444"/>
-        <line x1="55" y1="191" x2="55" y2="298" stroke="#ef4444" stroke-width="1"
+        <circle cx="55" cy="265" r="6" fill="#ef4444"/>
+        <line x1="55" y1="271" x2="55" y2="297" stroke="#ef4444" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
-        <text x="68" y="310" font-size="13" font-weight="700"
+        <text x="68" y="307" font-size="13" font-weight="700"
               fill="#ef4444" font-family="Inter,system-ui,sans-serif">Price cap</text>
 
-        <!-- WP2: amber dot at path midpoint ~(225,76) — label center-low, clear of rocket -->
-        <circle cx="247" cy="112" r="6" fill="#f59e0b" opacity="0.2">
+        <!-- WP2: amber dot at (242,152) — exact midpoint of equal-slope path -->
+        <circle cx="242" cy="152" r="6" fill="#f59e0b" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="247" cy="112" r="6" fill="#f59e0b"/>
-        <line x1="241" y1="118" x2="140" y2="260" stroke="#f59e0b" stroke-width="1"
+        <circle cx="242" cy="152" r="6" fill="#f59e0b"/>
+        <line x1="236" y1="157" x2="148" y2="262" stroke="#f59e0b" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
-        <text x="140" y="270" text-anchor="middle" font-size="12" font-weight="700"
+        <text x="148" y="272" text-anchor="middle" font-size="12" font-weight="700"
               fill="#f59e0b" font-family="Inter,system-ui,sans-serif">&quot;Best&quot; deals</text>
-        <text x="140" y="286" text-anchor="middle" font-size="12" font-weight="700"
+        <text x="148" y="288" text-anchor="middle" font-size="12" font-weight="700"
               fill="#f59e0b" font-family="Inter,system-ui,sans-serif">on the market</text>
 
-        <!-- WP3: green dot at (438,38) — label right side, well separated from WP2 labels -->
-        <circle cx="438" cy="38" r="6" fill="#10b981" opacity="0.2">
+        <!-- WP3: green dot at (430,40) -->
+        <circle cx="430" cy="40" r="6" fill="#10b981" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="438" cy="38" r="6" fill="#10b981"/>
-        <line x1="432" y1="43" x2="415" y2="218" stroke="#10b981" stroke-width="1"
+        <circle cx="430" cy="40" r="6" fill="#10b981"/>
+        <line x1="424" y1="45" x2="406" y2="218" stroke="#10b981" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
-        <text x="410" y="228" text-anchor="end" font-size="12" font-weight="700"
+        <text x="400" y="228" text-anchor="end" font-size="12" font-weight="700"
               fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive SwitchPilot</text>
-        <text x="410" y="244" text-anchor="end" font-size="12" font-weight="700"
+        <text x="400" y="244" text-anchor="end" font-size="12" font-weight="700"
               fill="#10b981" font-family="Inter,system-ui,sans-serif">tariffs + cashback</text>
-        <text x="410" y="260" text-anchor="end" font-size="10" font-weight="600"
+        <text x="400" y="260" text-anchor="end" font-size="10" font-weight="600"
               fill="#10b981" font-family="Inter,system-ui,sans-serif" opacity="0.7">Maximum savings</text>
 
-        <!-- Rocket flying along path, upright -->
+        <!-- Rocket flying along path — upright, constant speed -->
         <image href="https://mitran101.github.io/smart-switch/logo.png"
                xlink:href="https://mitran101.github.io/smart-switch/logo.png"
                width="192" height="192" x="-96" y="-96" opacity="0">
@@ -3810,7 +3811,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
                    keyTimes="0;0.05;0.13;0.87;1"
                    dur="6s" repeatCount="indefinite"/>
           <animateMotion dur="6s" repeatCount="indefinite" rotate="0"
-                         calcMode="spline" keyTimes="0;1" keySplines="0.42 0 0.58 1">
+                         calcMode="linear">
             <mpath xlink:href="#flightPath"/>
           </animateMotion>
         </image>

@@ -476,11 +476,6 @@ body {
 }
 
 
-  100% { transform: translate(60px, 60px); }
-
-}
-
-
 .hero::after {
 
   display: none;
@@ -554,6 +549,8 @@ body {
   line-height: 1.7;
 
   max-width: 90%;
+
+  background: transparent;
 
 }
 
@@ -3748,15 +3745,15 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
       <h1>Most UK households overpay on energy. We're here to make sure you never do.</h1>
 
-      <p>We automatically switch you to the cheapest energy deal - including exclusive tariffs you won't find anywhere else, for free. Plus cashback on every switch. Built by energy industry insiders.</p>
+      <p>We automatically switch you to the cheapest energy deal - to exclusive tariffs you won't find anywhere else, for free. Plus cashback on every switch. Built by energy industry professionals.</p>
 
     </div>
 
     <div class="flight-path-wrap">
-      <svg class="flight-svg" viewBox="0 0 520 390"
+      <svg class="flight-svg" viewBox="0 0 520 370"
            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <linearGradient id="fpGrad" x1="55" y1="190" x2="468" y2="18"
+          <linearGradient id="fpGrad" x1="55" y1="185" x2="438" y2="38"
                           gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
@@ -3764,55 +3761,52 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
           </linearGradient>
         </defs>
 
-        <!-- Diagonal path: bottom-left (55,190) to top-right (468,18) -->
+        <!-- Diagonal path: (55,185) to (438,38) — WP3 inset from edges -->
         <path id="flightPath"
-              d="M 55,190 C 135,90 310,50 468,18"
+              d="M 55,185 C 135,85 300,45 438,38"
               fill="none" stroke="url(#fpGrad)" stroke-width="2.5"
               stroke-dasharray="8 6" stroke-linecap="round" opacity="0.7">
           <animate attributeName="stroke-dashoffset" from="0" to="-28"
                    dur="1.8s" repeatCount="indefinite"/>
         </path>
 
-        <!-- WP1: Price cap (red) dot at (55,190) -->
-        <circle cx="55" cy="190" r="6" fill="#ef4444" opacity="0.2">
+        <!-- WP1: Price cap (red) at (55,185) -->
+        <circle cx="55" cy="185" r="6" fill="#ef4444" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="55" cy="190" r="6" fill="#ef4444"/>
-        <!-- connector line down to safe label zone -->
-        <line x1="55" y1="196" x2="55" y2="298" stroke="#ef4444" stroke-width="1"
+        <circle cx="55" cy="185" r="6" fill="#ef4444"/>
+        <line x1="55" y1="191" x2="55" y2="298" stroke="#ef4444" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
         <text x="68" y="310" font-size="13" font-weight="700"
               fill="#ef4444" font-family="Inter,system-ui,sans-serif">Price cap</text>
 
-        <!-- WP2: Best deals (amber) dot at (232,79) -->
-        <circle cx="232" cy="79" r="6" fill="#f59e0b" opacity="0.2">
+        <!-- WP2: amber dot at path midpoint ~(225,76) — label center-low, clear of rocket -->
+        <circle cx="225" cy="76" r="6" fill="#f59e0b" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="232" cy="79" r="6" fill="#f59e0b"/>
-        <!-- connector line -->
-        <line x1="240" y1="84" x2="300" y2="195" stroke="#f59e0b" stroke-width="1"
+        <circle cx="225" cy="76" r="6" fill="#f59e0b"/>
+        <line x1="219" y1="81" x2="140" y2="260" stroke="#f59e0b" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
-        <text x="307" y="200" font-size="12" font-weight="700"
-              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">Best deals</text>
-        <text x="307" y="216" font-size="12" font-weight="700"
+        <text x="140" y="270" text-anchor="middle" font-size="12" font-weight="700"
+              fill="#f59e0b" font-family="Inter,system-ui,sans-serif">&quot;Best&quot; deals</text>
+        <text x="140" y="286" text-anchor="middle" font-size="12" font-weight="700"
               fill="#f59e0b" font-family="Inter,system-ui,sans-serif">on the market</text>
 
-        <!-- WP3: Exclusive rate (green) dot at (468,18) -->
-        <circle cx="468" cy="18" r="6" fill="#10b981" opacity="0.2">
+        <!-- WP3: green dot at (438,38) — label right side, well separated from WP2 labels -->
+        <circle cx="438" cy="38" r="6" fill="#10b981" opacity="0.2">
           <animate attributeName="r"       values="6;18;6"     dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2"  dur="2.5s" begin="1.6s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="468" cy="18" r="6" fill="#10b981"/>
-        <!-- connector line -->
-        <line x1="460" y1="23" x2="410" y2="132" stroke="#10b981" stroke-width="1"
+        <circle cx="438" cy="38" r="6" fill="#10b981"/>
+        <line x1="432" y1="43" x2="415" y2="218" stroke="#10b981" stroke-width="1"
               opacity="0.3" stroke-dasharray="4 3"/>
-        <text x="400" y="140" text-anchor="end" font-size="12" font-weight="700"
+        <text x="410" y="228" text-anchor="end" font-size="12" font-weight="700"
               fill="#10b981" font-family="Inter,system-ui,sans-serif">Exclusive tariffs</text>
-        <text x="400" y="156" text-anchor="end" font-size="12" font-weight="700"
+        <text x="410" y="244" text-anchor="end" font-size="12" font-weight="700"
               fill="#10b981" font-family="Inter,system-ui,sans-serif">SwitchPilot + cashback</text>
-        <text x="400" y="172" text-anchor="end" font-size="10" font-weight="600"
+        <text x="410" y="260" text-anchor="end" font-size="10" font-weight="600"
               fill="#10b981" font-family="Inter,system-ui,sans-serif" opacity="0.7">Maximum savings</text>
 
         <!-- Rocket flying along path, upright -->

@@ -575,6 +575,7 @@ body {
 
 .fp-dash {
   stroke-dasharray: 8 6;
+  stroke-dashoffset: 0;
   animation: dashScroll 1.8s linear infinite;
 }
 
@@ -582,110 +583,96 @@ body {
   to { stroke-dashoffset: -28; }
 }
 
+/* Rocket flies along the path */
 .rocket-flier {
   position: absolute;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   top: 0; left: 0;
-  offset-path: path('M 50,270 C 110,110 220,35 265,52 C 315,72 435,145 470,195');
+  offset-path: path('M 50,270 C 130,200 310,120 470,40');
   offset-rotate: auto;
   animation: flyPath 5s ease-in-out infinite;
   pointer-events: none;
-  filter: drop-shadow(0 4px 12px rgba(16,185,129,0.4));
+  filter: drop-shadow(0 4px 14px rgba(16,185,129,0.5));
 }
 
 @keyframes flyPath {
   0%   { offset-distance: 0%;   opacity: 0; }
-  5%   { opacity: 1; }
-  95%  { opacity: 1; }
+  6%   { opacity: 1; }
+  92%  { opacity: 1; }
   100% { offset-distance: 100%; opacity: 0; }
 }
 
+/* Waypoints */
 .fp-waypoint {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 4px;
   pointer-events: none;
 }
 
 .fp-dot {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  border: 2px solid currentColor;
+  background: currentColor;
   position: relative;
+  flex-shrink: 0;
 }
 
 .fp-dot::after {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -5px;
   border-radius: 50%;
   background: currentColor;
   opacity: 0.2;
-  animation: dotPulse 2s ease-in-out infinite;
+  animation: dotPulse 2.4s ease-in-out infinite;
 }
 
 @keyframes dotPulse {
-  0%, 100% { transform: scale(1); opacity: 0.2; }
-  50%       { transform: scale(1.6); opacity: 0.1; }
+  0%, 100% { transform: scale(1);   opacity: 0.2; }
+  50%       { transform: scale(1.8); opacity: 0.05; }
 }
 
 .fp-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  text-align: center;
-}
-
-.fp-price {
-  font-size: 0.95rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  white-space: nowrap;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 
-.fp-wp1 { color: #ef4444; top: 79%; left: 2%;  transform: translateX(-10px); align-items: flex-start; }
-.fp-wp2 { color: #f59e0b; top: 3%;  left: 50%; transform: translateX(-50%); }
-.fp-wp3 { color: #10b981; top: 52%; left: 86%; transform: translateX(-10px); align-items: flex-end; }
+/* WP1 — bottom-left, red */
+.fp-wp1 {
+  color: #ef4444;
+  top: 80%;
+  left: 2%;
+  align-items: flex-start;
+  max-width: 90px;
+}
 
-.fp-savings-card {
-  position: absolute;
-  bottom: 6%;
-  right: 0%;
-  background: rgba(16,185,129,0.1);
-  border: 1px solid rgba(16,185,129,0.4);
-  border-radius: 10px;
-  padding: 0.6rem 0.9rem;
+/* WP2 — middle, amber — label above dot */
+.fp-wp2 {
+  color: #f59e0b;
+  top: 38%;
+  left: 38%;
+  transform: translate(-50%, -100%);
+  align-items: center;
   text-align: center;
-  animation: cardPulse 3s ease-in-out infinite;
+  max-width: 110px;
 }
+.fp-wp2 .fp-dot { order: 2; margin-top: 4px; }
+.fp-wp2 .fp-label { order: 1; }
 
-@keyframes cardPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
-  50%       { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
-}
-
-.fp-savings-card .save-label {
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.6);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.fp-savings-card .save-amount {
-  font-size: 1.3rem;
-  font-weight: 800;
+/* WP3 — top-right, green — label above dot */
+.fp-wp3 {
   color: #10b981;
-  line-height: 1.1;
-}
-
-.fp-savings-card .save-sub {
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.5);
+  top: 2%;
+  left: 80%;
+  align-items: flex-end;
+  text-align: right;
+  max-width: 120px;
 }
 
 /* HERO CTA */
@@ -3484,9 +3471,8 @@ body {
   .hero-text p { font-size: 1.05rem; max-width: 100%; }
 
 
-  .flight-path-wrap { max-width: 380px; }
-  .fp-label { font-size: 0.62rem; }
-  .fp-price { font-size: 0.82rem; }
+  .flight-path-wrap { max-width: 400px; }
+  .fp-label { font-size: 0.64rem; }
 
 
 
@@ -3548,9 +3534,6 @@ body {
 
   .flight-path-wrap { max-width: 320px; }
   .fp-label { font-size: 0.58rem; }
-  .fp-price { font-size: 0.75rem; }
-  .fp-savings-card { padding: 0.4rem 0.6rem; }
-  .fp-savings-card .save-amount { font-size: 1rem; }
 
 
 
@@ -3893,51 +3876,40 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
     <div class="flight-path-wrap">
 
-      <!-- SVG flight path -->
-      <svg class="flight-svg" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="flight-svg" viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <linearGradient id="fpGrad" x1="50" y1="270" x2="470" y2="195" gradientUnits="userSpaceOnUse">
+          <linearGradient id="fpGrad" x1="50" y1="270" x2="470" y2="40" gradientUnits="userSpaceOnUse">
             <stop offset="0%"   stop-color="#ef4444"/>
             <stop offset="50%"  stop-color="#f59e0b"/>
             <stop offset="100%" stop-color="#10b981"/>
           </linearGradient>
         </defs>
-        <path class="fp-dash" d="M 50,270 C 110,110 220,35 265,52 C 315,72 435,145 470,195"
-              fill="none" stroke="url(#fpGrad)" stroke-width="2" stroke-dashoffset="0"/>
+        <path class="fp-dash"
+              d="M 50,270 C 130,200 310,120 470,40"
+              fill="none" stroke="url(#fpGrad)" stroke-width="2"/>
       </svg>
 
-      <!-- Rocket animating along the path -->
       <img class="rocket-flier" src="https://mitran101.github.io/smart-switch/logo.png" alt="">
 
-      <!-- Waypoint 1: Price cap (red, bottom-left) -->
+      <!-- WP1 bottom-left: price cap -->
       <div class="fp-waypoint fp-wp1">
         <div class="fp-dot"></div>
-        <div class="fp-label">Ofgem price cap</div>
-        <div class="fp-price">£1,568/yr</div>
+        <div class="fp-label">Price cap</div>
       </div>
 
-      <!-- Waypoint 2: Best market deal (amber, top-centre) -->
+      <!-- WP2 middle: best on market -->
       <div class="fp-waypoint fp-wp2">
+        <div class="fp-label">Best fixed tariffs<br>on the market</div>
         <div class="fp-dot"></div>
-        <div class="fp-label">Best fixed deal</div>
-        <div class="fp-price">£1,312/yr</div>
       </div>
 
-      <!-- Waypoint 3: SwitchPilot exclusive (green, right) -->
+      <!-- WP3 top-right: SwitchPilot exclusive -->
       <div class="fp-waypoint fp-wp3">
+        <div class="fp-label">Exclusive SwitchPilot<br>tariffs</div>
         <div class="fp-dot"></div>
-        <div class="fp-label">SwitchPilot exclusive</div>
-        <div class="fp-price">£1,124/yr</div>
       </div>
 
-      <!-- Savings card -->
-      <div class="fp-savings-card">
-        <div class="save-label">You save</div>
-        <div class="save-amount">£444/yr</div>
-        <div class="save-sub">vs. price cap</div>
-      </div>
-
-    </div>
+    </div>    </div>
 
   </div>
 

@@ -503,6 +503,32 @@
         .appliances-grid::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
 
         /* ===== RESULT PANEL ===== */
+
+        .selected-tariff-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+            color: #166534;
+            font-weight: 500;
+        }
+        .change-tariff-btn {
+            background: none;
+            border: 1px solid #86efac;
+            color: var(--sp-green-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .change-tariff-btn:hover { background: #dcfce7; }
         #resultPanel {
             background: var(--sp-card);
             border-radius: 16px;
@@ -868,6 +894,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             <div class="progress-step" data-step="2">2. Fuel</div>
             <div class="progress-step" data-step="3">3. Home</div>
             <div class="progress-step" data-step="4">4. Usage</div>
+            <div class="progress-step" data-step="5">5. Tariff</div>
         </div>
 
         <!-- Step 1: Postcode -->
@@ -975,7 +1002,63 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
             <div class="step-nav">
                 <button class="wizard-btn ghost" onclick="prevStep()">&larr; Back</button>
-                <button class="wizard-btn primary" onclick="showResult()">See my estimate &rarr;</button>
+                <button class="wizard-btn primary" onclick="nextStep()">Continue &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Tariff selection -->
+        <div class="step-panel" id="step5" style="display:none">
+            <h2>What tariff are you on?</h2>
+            <p class="step-subtitle">Pick your current supplier to calculate your actual bill — or choose the price cap to see the standard rate.</p>
+
+            <div id="step5Loading" style="text-align:center;padding:2rem 0;color:#64748b;">
+                <div class="spinner" style="margin:0 auto 1rem;"></div>
+                <p>Loading tariff data&hellip;</p>
+            </div>
+
+            <div id="step5Content" style="display:none">
+                <div class="supplier-selector">
+                    <select id="supplierSelect" onchange="changeSupplier()">
+                        <option value="">-- Pick a supplier --</option>
+                    </select>
+                </div>
+
+                <div id="customRateInputs" style="display:none; background:#f8faff; border:1px solid #c7d2fe; border-radius:10px; padding:16px; margin-bottom:14px;">
+                    <p style="font-size:0.85rem;color:#64748b;margin:0 0 12px 0;">Enter the rates from your bill or a tariff you want to check:</p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec unit rate (p/kWh)</label>
+                            <input type="number" id="customElecRate" step="0.01" placeholder="e.g. 24.50" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                        </div>
+                        <div id="customGasRateInput">
+                            <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas unit rate (p/kWh)</label>
+                            <input type="number" id="customGasRate" step="0.01" placeholder="e.g. 5.90" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec standing charge (p/day)</label>
+                            <input type="number" id="customElecStanding" step="0.1" placeholder="e.g. 53.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                        </div>
+                        <div id="customGasStandingInput">
+                            <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas standing charge (p/day)</label>
+                            <input type="number" id="customGasStanding" step="0.1" placeholder="e.g. 35.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <button onclick="applyCustomRates()" style="flex:1;padding:10px;background:linear-gradient(135deg,#10B981,#ec4899);color:white;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;">Apply rates</button>
+                        <button onclick="clearCustomRates()" style="padding:10px 16px;background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;font-weight:600;cursor:pointer;font-family:inherit;">Clear</button>
+                    </div>
+                </div>
+
+                <p style="font-size:0.82rem;color:#94a3b8;text-align:center;margin-top:0.5rem;">
+                    Not sure? Pick <strong>SVT Price Cap</strong> to see what you'd pay on the default tariff.
+                </p>
+            </div>
+
+            <div class="step-nav">
+                <button class="wizard-btn ghost" onclick="prevStep()">&larr; Back</button>
+                <button class="wizard-btn primary" id="step5Btn" onclick="showResult()">See my estimate &rarr;</button>
             </div>
         </div>
 
@@ -996,47 +1079,12 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             <p class="usage-context" id="usageContext">Based on your usage in <strong id="regionDisplay">London</strong></p>
 
             <div class="supplier-section">
-                <h3>&#128176; Compare tariffs</h3>
-
-                <div id="loadingState" class="loading-state">
-                    <div class="spinner"></div>
-                    <p>Loading tariff data&hellip;</p>
+                <div class="selected-tariff-bar" id="selectedTariffBar">
+                    <span id="selectedTariffLabel">&#128200; Select a tariff in step 5</span>
+                    <button class="change-tariff-btn" onclick="goToStep(5)">&#8592; Change tariff</button>
                 </div>
 
                 <div id="tariffContent" style="display:none">
-                    <div class="supplier-selector">
-                        <select id="supplierSelect" onchange="changeSupplier()">
-                            <option value="">-- Pick a supplier --</option>
-                        </select>
-                    </div>
-
-                    <div id="customRateInputs" style="display:none; background:#f8faff; border:1px solid #c7d2fe; border-radius:10px; padding:16px; margin-bottom:14px;">
-                        <p style="font-size:0.85rem;color:#64748b;margin:0 0 12px 0;">Enter the rates from your bill or a tariff you want to check:</p>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-                            <div>
-                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec unit rate (p/kWh)</label>
-                                <input type="number" id="customElecRate" step="0.01" placeholder="e.g. 24.50" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
-                            </div>
-                            <div id="customGasRateInput">
-                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas unit rate (p/kWh)</label>
-                                <input type="number" id="customGasRate" step="0.01" placeholder="e.g. 5.90" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
-                            </div>
-                        </div>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-                            <div>
-                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec standing charge (p/day)</label>
-                                <input type="number" id="customElecStanding" step="0.1" placeholder="e.g. 53.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
-                            </div>
-                            <div id="customGasStandingInput">
-                                <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#128293; Gas standing charge (p/day)</label>
-                                <input type="number" id="customGasStanding" step="0.1" placeholder="e.g. 35.00" style="width:100%;padding:9px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.95rem;font-family:inherit;">
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:10px;">
-                            <button onclick="applyCustomRates()" style="flex:1;padding:10px;background:linear-gradient(135deg,#10B981,#ec4899);color:white;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;">Apply rates</button>
-                            <button onclick="clearCustomRates()" style="padding:10px 16px;background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:8px;font-weight:600;cursor:pointer;font-family:inherit;">Clear</button>
-                        </div>
-                    </div>
 
                     <div class="current-rates" id="currentRatesGrid">
                         <div class="rate-box">
@@ -1253,7 +1301,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
         // =============================================
         function goToStep(n) {
             // Hide all panels
-            [1, 2, 3, 4].forEach(i => {
+            [1, 2, 3, 4, 5].forEach(i => {
                 document.getElementById('step' + i).style.display = 'none';
             });
             document.getElementById('resultPanel').style.display = 'none';
@@ -1279,7 +1327,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
         }
 
         function nextStep() {
-            if (currentStep < 4) goToStep(currentStep + 1);
+            if (currentStep < 5) goToStep(currentStep + 1);
         }
 
         function prevStep() {
@@ -1542,6 +1590,10 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('tariffContent').style.display = 'block';
+                var s5l = document.getElementById('step5Loading');
+                var s5c = document.getElementById('step5Content');
+                if (s5l) s5l.style.display = 'none';
+                if (s5c) s5c.style.display = 'block';
 
                 changeRegion();
 
@@ -1640,6 +1692,13 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
         }
 
         function changeSupplier() {
+            // Update the tariff label shown in result panel
+            var sel = document.getElementById('supplierSelect');
+            var bar = document.getElementById('selectedTariffLabel');
+            if (bar && sel) {
+                var txt = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : '';
+                bar.textContent = txt ? ('\u2705 ' + txt) : '\u2705 Custom rates';
+            }
             const select = document.getElementById('supplierSelect');
             if (!select) return;
             const value = select.value;

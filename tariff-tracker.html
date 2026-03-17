@@ -90,37 +90,81 @@
         }
 
         /* Top Navigation */
-        .top-nav {
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
             background: var(--sp-slate);
-            padding: 1rem 2rem;
+            padding: 0.8rem 2rem;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            transition: all 0.3s ease;
         }
-
-        .top-logo {
+        .sticky-nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0;
             text-decoration: none;
-            font-weight: 700;
-            color: white;
+            color: #fff;
         }
-
-        .top-logo img { height: 3.2rem; width: auto; margin-right: -15px; }
-        .top-logo span { font-size: 1.35rem; }
-
-        .back-home {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+        .nav-logo img { height: 3.2rem; width: auto; margin-right: -12px; }
+        .nav-logo span { font-size: 1.35rem; font-weight: 700; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-links a {
+            color: #fff;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
             font-size: 0.9rem;
-            transition: background 0.2s;
+            font-weight: 600;
+            opacity: 0.75;
+            transition: all 0.2s ease;
         }
-        .back-home:hover { background: rgba(255, 255, 255, 0.2); }
+        .nav-links a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+        .nav-links a.active { opacity: 1; background: rgba(255,255,255,0.15); }
+        .nav-cta { background: var(--sp-green) !important; opacity: 1 !important; box-shadow: 0 4px 15px rgba(16,185,129,0.25); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.35); }
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .nav-toggle span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--sp-slate);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 0.5rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+            .nav-links a { width: 100%; text-align: center; padding: 0.8rem 1rem; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+            .nav-toggle.open span:nth-child(2) { opacity: 0; }
+            .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        }
 
         /* Hero Header */
         .page-header {
@@ -691,10 +735,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .top-nav { padding: 1rem; }
-            .top-logo img { height: 2.5rem; }
-            .top-logo span { font-size: 1.25rem; }
-            .back-home { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .sticky-nav { padding: 0.8rem 1rem; }
 
             .page-header { padding: 3rem 1.5rem 3rem; }
             .container { padding: 0 1.5rem; }
@@ -779,13 +820,22 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="top-nav">
-        <a href="index.html" class="top-logo">
-            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="">
+    <nav class="sticky-nav" id="stickyNav">
+        <a href="index.html" class="nav-logo">
+            <img src="https://mitran101.github.io/smart-switch/logo.png" alt="SwitchPilot logo" style="height:3.2rem;width:auto;vertical-align:middle;margin-right:-12px;">
             <span>SwitchPilot</span>
         </a>
-        <a href="index.html" class="back-home">← Back to Home</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="index.html#about">About</a>
+            <a href="energy-bill-calculator.html">Bill Calculator</a>
+            <a href="tariff-tracker.html" class="active">Price Tracker</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="index.html#waitlist" class="nav-cta">Sign Up Free</a>
+        </div>
     </nav>
 
     <!-- Hero Header -->
@@ -1537,6 +1587,18 @@ const supplier = supplierInfo[supplierKey]?.name || t.supplier;
                 hint.style.color = '#94A3B8';
                 hint.textContent = 'Enter postcode to auto-detect region';
             }
+        });
+    </script>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        const stickyNav = document.getElementById('stickyNav');
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+        window.addEventListener('scroll', () => {
+            stickyNav.classList.toggle('scrolled', window.scrollY > 20);
         });
     </script>
 </body>

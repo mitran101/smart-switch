@@ -1011,7 +1011,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             <h2>What tariff are you on?</h2>
             <p class="step-subtitle">Pick your current supplier to calculate your actual bill — or choose the price cap to see the standard rate.</p>
 
-            <div id="step5Loading" style="text-align:center;padding:2rem 0;color:#64748b;">
+            <div id="loadingState" style="text-align:center;padding:2rem 0;color:#64748b;">
                 <div class="spinner" style="margin:0 auto 1rem;"></div>
                 <p>Loading tariff data&hellip;</p>
             </div>
@@ -1590,9 +1590,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('tariffContent').style.display = 'block';
-                var s5l = document.getElementById('step5Loading');
                 var s5c = document.getElementById('step5Content');
-                if (s5l) s5l.style.display = 'none';
                 if (s5c) s5c.style.display = 'block';
 
                 changeRegion();

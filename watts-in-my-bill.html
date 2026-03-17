@@ -1113,13 +1113,22 @@ Return ONLY the JSON. Nothing else.`;
     });
 
     const data = await response.json();
+
+    // Surface Anthropic API errors clearly instead of swallowing them
+    if (!response.ok || data.error) {
+      const apiMsg = data.error?.message || data.error || `API error ${response.status}`;
+      throw new Error(apiMsg);
+    }
+
     const text = data.content?.map(b => b.text || '').join('').trim();
+
+    if (!text) throw new Error("No response from AI. Please try again.");
 
     let parsed;
     try {
       parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
     } catch {
-      throw new Error("Could not parse response. Please try a clearer image.");
+      throw new Error("Could not parse response. Please try a clearer image of your bill.");
     }
 
     if (parsed.error) {

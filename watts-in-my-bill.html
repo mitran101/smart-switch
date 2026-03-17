@@ -1,40 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Watt's In My Bill? | SwitchPilot</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot</title>
+    <meta name="description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
+    <meta name="keywords" content="energy bill analyser, what’s in my energy bill, energy bill breakdown UK, energy bill checker, am I overpaying energy, energy bill explained, compare energy bills UK">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="SwitchPilot">
+    <link rel="canonical" href="https://www.switch-pilot.com/watts-in-my-bill.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot">
+    <meta property="og:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
+    <meta property="og:url" content="https://www.switch-pilot.com/watts-in-my-bill.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.switch-pilot.com/logo.png">
+    <meta property="og:site_name" content="SwitchPilot">
+    <meta property="og:locale" content="en_GB">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot">
+    <meta name="twitter:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
+    <meta name="twitter:image" content="https://www.switch-pilot.com/logo.png">
+
+    <!-- JSON-LD: WebApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "What’s In My Energy Bill? AI Bill Analyser",
+      "url": "https://www.switch-pilot.com/watts-in-my-bill.html",
+      "description": "Upload your UK energy bill and get an instant AI-powered breakdown of every charge - unit rates, standing charges, policy costs and whether you could save by switching.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"},
+      "publisher": {"@type": "Organization", "name": "SwitchPilot", "url": "https://www.switch-pilot.com"}
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does my energy bill actually consist of?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A typical UK energy bill is made up of four parts: wholesale energy costs (~39%), network costs for pipes and wires (~27%), supplier operating costs (~21%), and policy costs like the Warm Home Discount and green levies (~13%). Only 39p in every pound goes on the actual energy you use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if I'm overpaying on my energy bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The main indicator is whether you're on a Standard Variable Tariff (SVT) rather than a fixed deal. SVTs are capped at the Ofgem price cap but competitive fixed deals often beat that by £100-250 per year. Uploading your bill to this tool will compare your current rates against live market tariffs in your region."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to upload my energy bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your bill image is sent directly to our analysis API and is not stored or retained. We extract only the rate information needed for comparison - supplier name, unit rates, standing charges, and your region. No account numbers or personal details are saved."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much could I save by switching energy supplier?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most households on a Standard Variable Tariff can save £100-250 per year by switching to the cheapest fixed deal in their region. The exact saving depends on your current rates, your region, and current market conditions - this tool calculates it from your actual bill."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What energy bill formats does this tool accept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool accepts PNG, JPG, and PDF energy bill uploads. It works with bills from all major UK suppliers including British Gas, Octopus, E.ON, EDF, OVO, Scottish Power, and smaller suppliers. The AI reads the bill image directly, so any clear scan or photo should work."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --card: #1a1a26;
-    --accent: #f0c040;
-    --accent2: #40c0f0;
-    --accent3: #f04080;
-    --accent-green: #10B981;
-    --text: #e8e8f0;
-    --muted: #6868a0;
-    --border: #2a2a40;
-    /* SwitchPilot tokens */
+:root {
     --sp-slate: #1E293B;
-    --sp-purple: #10B981;
-    --sp-pink: #059669;
+    --sp-slate-dark: #0F172A;
+    --sp-slate-light: #94A3B8;
     --sp-green: #10B981;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    --sp-green-dark: #059669;
+    --sp-green-light: #D1FAE5;
+    --sp-amber: #F59E0B;
+    --sp-red: #EF4444;
+    --sp-bg: #0F172A;
+    --sp-card: #1E293B;
+    --sp-border: rgba(148, 163, 184, 0.2);
+    --sp-text: #E2E8F0;
+    --sp-text-muted: #94A3B8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--sp-bg);
+    color: var(--sp-text);
+    line-height: 1.7;
+    font-size: 16px;
+}
 
   /* ── SwitchPilot Nav ── */
   .top-nav {
@@ -70,18 +168,6 @@
   }
   .back-home:hover { background: rgba(255,255,255,0.2); }
 
-  /* Grid background */
-  .grid-bg {
-    position: fixed;
-    inset: 0;
-    background-image: 
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 0;
-  }
 
   .container {
     position: relative;
@@ -109,8 +195,8 @@
   }
 
   @keyframes pulse {
-    0%, 100% { text-shadow: 0 0 10px var(--accent), 0 0 30px var(--accent); opacity: 1; }
-    50% { text-shadow: 0 0 20px var(--accent), 0 0 60px var(--accent); opacity: 0.8; }
+    0%, 100% { text-shadow: 0 0 10px var(--sp-amber), 0 0 30px var(--sp-amber); opacity: 1; }
+    50% { text-shadow: 0 0 20px var(--sp-amber), 0 0 60px var(--sp-amber); opacity: 0.8; }
   }
 
   h1 {
@@ -118,14 +204,14 @@
     font-weight: 800;
     letter-spacing: -2px;
     line-height: 1;
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
 
-  h1 span { color: var(--accent); }
+  h1 span { color: var(--sp-amber); }
 
   .tagline {
-    font-family: 'Space Mono', monospace;
-    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--sp-text-muted);
     font-size: 0.8rem;
     margin-top: 10px;
     letter-spacing: 2px;
@@ -134,13 +220,13 @@
 
   /* Upload zone */
   .upload-zone {
-    border: 2px dashed var(--border);
+    border: 2px dashed var(--sp-border);
     border-radius: 16px;
     padding: 50px 30px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: var(--surface);
+    background: var(--sp-card);
     position: relative;
     overflow: hidden;
   }
@@ -154,7 +240,7 @@
   }
 
   .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--accent);
+    border-color: var(--sp-amber);
     background: #16160e;
     transform: translateY(-2px);
     box-shadow: 0 20px 60px rgba(240,192,64,0.1);
@@ -166,13 +252,13 @@
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 8px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
 
   .upload-zone p {
-    color: var(--muted);
+    color: var(--sp-text-muted);
     font-size: 0.85rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
   }
 
   #fileInput { display: none; }
@@ -182,7 +268,7 @@
     max-height: 280px;
     border-radius: 8px;
     margin-top: 20px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--sp-border);
   }
 
   /* Buttons */
@@ -191,9 +277,9 @@
     width: 100%;
     margin-top: 20px;
     padding: 18px 30px;
-    background: var(--accent);
-    color: #0a0a0f;
-    font-family: 'Syne', sans-serif;
+    background: var(--sp-amber);
+    color: var(--sp-bg);
+    font-family: 'DM Sans', sans-serif;
     font-size: 1.1rem;
     font-weight: 800;
     letter-spacing: 1px;
@@ -218,8 +304,8 @@
 
   .spinner {
     width: 50px; height: 50px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
+    border: 3px solid var(--sp-border);
+    border-top-color: var(--sp-amber);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin: 0 auto 20px;
@@ -228,8 +314,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .loading p {
-    font-family: 'Space Mono', monospace;
-    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--sp-text-muted);
     font-size: 0.85rem;
     animation: flicker 1.5s ease-in-out infinite;
   }
@@ -257,12 +343,12 @@
   .results-header h2 {
     font-size: 1.5rem;
     font-weight: 800;
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
 
   .total-badge {
-    background: var(--accent);
-    color: #0a0a0f;
+    background: var(--sp-amber);
+    color: var(--sp-bg);
     padding: 8px 20px;
     border-radius: 100px;
     font-weight: 800;
@@ -271,8 +357,8 @@
 
   /* Bill summary card */
   .bill-summary {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--sp-card);
+    border: 1px solid var(--sp-border);
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 24px;
@@ -282,8 +368,8 @@
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
+    color: var(--sp-text-muted);
+    font-family: 'DM Sans', sans-serif;
     margin-bottom: 16px;
   }
 
@@ -294,24 +380,24 @@
   }
 
   .summary-item {
-    background: var(--surface);
+    background: var(--sp-card);
     border-radius: 10px;
     padding: 14px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--sp-border);
   }
 
   .summary-item .label {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 6px;
   }
 
   .summary-item .value { font-size: 1.2rem; font-weight: 800; }
-  .summary-item .value.elec { color: var(--accent); }
-  .summary-item .value.gas { color: var(--accent2); }
+  .summary-item .value.elec { color: var(--sp-amber); }
+  .summary-item .value.gas { color: var(--sp-green); }
 
   /* Region badge */
   .region-badge {
@@ -323,7 +409,7 @@
     color: #c084fc;
     padding: 4px 12px;
     border-radius: 100px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.7rem;
     margin-top: 10px;
   }
@@ -332,11 +418,11 @@
   .breakdown-section { margin-bottom: 24px; }
 
   .section-title {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     margin-bottom: 14px;
     display: flex;
     align-items: center;
@@ -347,12 +433,12 @@
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--border);
+    background: var(--sp-border);
   }
 
   .cost-item {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--sp-card);
+    border: 1px solid var(--sp-border);
     border-radius: 12px;
     padding: 15px 18px;
     margin-bottom: 8px;
@@ -363,28 +449,28 @@
     transition: border-color 0.2s;
   }
 
-  .cost-item:hover { border-color: var(--muted); }
+  .cost-item:hover { border-color: var(--sp-text-muted); }
 
   .cost-item-left .name { font-weight: 600; font-size: 0.9rem; margin-bottom: 3px; }
 
   .cost-item-left .detail {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
   }
 
   .cost-item-right { text-align: right; }
   .cost-item-right .amount { font-weight: 800; font-size: 1rem; }
   .cost-item-right .pct {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
   }
 
   .bar-wrap {
     grid-column: 1 / -1;
     height: 3px;
-    background: var(--border);
+    background: var(--sp-border);
     border-radius: 4px;
     overflow: hidden;
     margin-top: 4px;
@@ -396,9 +482,9 @@
     transition: width 1s cubic-bezier(0.4,0,0.2,1);
   }
 
-  .bar-elec { background: var(--accent); }
-  .bar-gas { background: var(--accent2); }
-  .bar-standing { background: var(--accent3); }
+  .bar-elec { background: var(--sp-amber); }
+  .bar-gas { background: var(--sp-green); }
+  .bar-standing { background: var(--sp-red); }
   .bar-tax { background: #a040f0; }
 
   /* Tags */
@@ -407,7 +493,7 @@
     padding: 2px 7px;
     border-radius: 4px;
     font-size: 0.6rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-left: 6px;
@@ -415,12 +501,12 @@
   }
 
   .tag-regulated { background: rgba(160,64,240,0.2); color: #c080f8; }
-  .tag-wholesale { background: rgba(64,192,240,0.2); color: var(--accent2); }
-  .tag-network { background: rgba(240,64,128,0.2); color: var(--accent3); }
+  .tag-wholesale { background: rgba(64,192,240,0.2); color: var(--sp-green); }
+  .tag-network { background: rgba(240,64,128,0.2); color: var(--sp-red); }
 
   /* Insight box */
   .insight-box {
-    background: linear-gradient(135deg, #1a1510, #12121a);
+    background: linear-gradient(135deg, #1a1510, var(--sp-card));
     border: 1px solid rgba(240,192,64,0.3);
     border-radius: 16px;
     padding: 24px;
@@ -428,11 +514,11 @@
   }
 
   .insight-box h3 {
-    color: var(--accent);
+    color: var(--sp-amber);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     margin-bottom: 10px;
   }
 
@@ -457,13 +543,13 @@
   }
 
   .switching-header h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 1.2rem;
     font-weight: 800;
     color: #fff;
   }
 
-  .switching-header h3 span { color: var(--accent-green); }
+  .switching-header h3 span { color: var(--sp-green); }
 
   .saving-pill {
     background: rgba(16,185,129,0.2);
@@ -473,7 +559,7 @@
     border-radius: 100px;
     font-weight: 700;
     font-size: 0.9rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
   }
 
   .tariff-cards-grid {
@@ -506,11 +592,11 @@
     position: absolute;
     top: -10px;
     left: 14px;
-    background: var(--accent-green);
+    background: var(--sp-green);
     color: #000;
     font-size: 0.6rem;
     font-weight: 800;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     padding: 3px 10px;
     border-radius: 20px;
     text-transform: uppercase;
@@ -518,9 +604,9 @@
   }
 
   .deal-supplier {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 4px;
@@ -530,7 +616,7 @@
     font-weight: 700;
     font-size: 0.9rem;
     margin-bottom: 12px;
-    color: #e8e8f0;
+    color: var(--sp-text);
   }
 
   .deal-rates {
@@ -548,14 +634,14 @@
   }
 
   .deal-rate-label {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
   }
 
   .deal-rate-value {
     font-weight: 700;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
   }
 
@@ -570,7 +656,7 @@
   }
 
   .deal-saving-label {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.6rem;
     color: #34d399;
     text-transform: uppercase;
@@ -584,9 +670,9 @@
   }
 
   .no-savings-note {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     text-align: center;
     padding: 16px;
   }
@@ -602,9 +688,9 @@
   }
 
   .switching-footer p {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     line-height: 1.6;
     max-width: 480px;
   }
@@ -612,7 +698,7 @@
   .tariff-tracker-link {
     display: inline-block;
     padding: 10px 20px;
-    background: var(--accent-green);
+    background: var(--sp-green);
     color: #000;
     text-decoration: none;
     border-radius: 8px;
@@ -631,9 +717,9 @@
   .switching-loading {
     text-align: center;
     padding: 20px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     animation: flicker 1.5s ease-in-out infinite;
   }
 
@@ -646,7 +732,7 @@
     padding: 20px;
     margin-top: 20px;
     color: #f06070;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.8rem;
   }
 
@@ -655,8 +741,8 @@
   /* Reset */
   .reset-btn {
     background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    border: 1px solid var(--sp-border);
+    color: var(--sp-text-muted);
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
@@ -666,19 +752,19 @@
     margin-top: 16px;
   }
 
-  .reset-btn:hover { border-color: var(--muted); color: var(--text); }
+  .reset-btn:hover { border-color: var(--sp-text-muted); color: var(--sp-text); }
 
   footer {
     text-align: center;
     margin-top: 60px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     line-height: 1.9;
   }
 
-  footer a { color: var(--muted); }
-  footer a:hover { color: var(--accent-green); }
+  footer a { color: var(--sp-text-muted); }
+  footer a:hover { color: var(--sp-green); }
 
   /* ── Email Capture Card ── */
   .email-capture {
@@ -696,7 +782,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--sp-purple), var(--sp-pink), var(--sp-purple));
+    background: linear-gradient(90deg, var(--sp-green), var(--sp-green-dark), var(--sp-green));
     background-size: 200% 100%;
     animation: scanline 3s linear infinite;
   }
@@ -720,7 +806,7 @@
   }
 
   .email-capture-header h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 1.15rem;
     font-weight: 800;
     color: #fff;
@@ -729,9 +815,9 @@
   }
 
   .email-capture-header p {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.68rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     line-height: 1.6;
   }
 
@@ -751,7 +837,7 @@
     border: 1px solid rgba(16,185,129,0.3);
     border-radius: 10px;
     padding: 13px 16px;
-    color: var(--text);
+    color: var(--sp-text);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;
     outline: none;
@@ -759,21 +845,21 @@
   }
 
   .email-input-row input[type="email"]::placeholder {
-    color: var(--muted);
+    color: var(--sp-text-muted);
   }
 
   .email-input-row input[type="email"]:focus {
-    border-color: var(--sp-purple);
+    border-color: var(--sp-green);
     background: rgba(16,185,129,0.08);
   }
 
   .email-submit-btn {
-    background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+    background: linear-gradient(135deg, var(--sp-green), var(--sp-green-dark));
     border: none;
     border-radius: 10px;
     padding: 13px 22px;
     color: #fff;
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 800;
     font-size: 0.9rem;
     cursor: pointer;
@@ -792,9 +878,9 @@
   }
 
   .email-capture-privacy {
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.6rem;
-    color: var(--muted);
+    color: var(--sp-text-muted);
     margin-top: 10px;
     text-align: center;
   }
@@ -814,7 +900,7 @@
 
   .email-capture-success p {
     color: #c084fc;
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
     line-height: 1.6;
   }
@@ -835,7 +921,6 @@
   <a href="tariff-tracker.html" class="back-home">⚡ Tariff Tracker</a>
 </nav>
 
-<div class="grid-bg"></div>
 
 <div class="container">
 
@@ -843,8 +928,8 @@
     <div class="logo-wrap">
       <span class="bolt">⚡</span>
     </div>
-    <h1>Watt's In<br><span>My Bill?</span></h1>
-    <p class="tagline">Upload your bill · Get the breakdown · Find a better deal</p>
+    <h1>What's In My<br><span>Energy Bill?</span></h1>
+    <p class="tagline">Upload your bill - get an instant AI breakdown of every charge and find out if you could save</p>
   </header>
 
   <!-- Upload -->
@@ -1021,7 +1106,7 @@ Return ONLY the JSON. Nothing else.`;
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 1000,
         messages: [{ role: "user", content: contentArray }]
       })
@@ -1234,11 +1319,11 @@ function renderResults(d, tariffData) {
     html += `
       <div class="breakdown-section">
         <div class="section-title">⚡ Electricity Unit Cost — Where your money goes</div>
-        ${costRow('Wholesale Energy Cost', 'tag-wholesale', 'Wholesale', 'What your supplier paid on the wholesale market · ~36% of unit cost', elecUC.wholesale, total, 'var(--accent)', 'bar-elec')}
-        ${costRow('Network Charges', 'tag-network', 'Network', 'Transmission & distribution — getting electricity to your home · ~26% of unit cost', elecUC.network, total, 'var(--accent)', 'bar-elec')}
-        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, call centres, smart metering programme · ~17% of unit cost', elecUC.operating, total, 'var(--accent)', 'bar-elec')}
-        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Renewables obligation, ECO scheme, Warm Home Discount · ~16% of unit cost', elecUC.policy, total, 'var(--accent)', 'bar-elec')}
-        ${costRow('Supplier Margin (EBIT)', '', '', 'Regulated profit — Ofgem cap limits this to ~5% of unit cost', elecUC.ebit, total, 'var(--accent)', 'bar-elec')}
+        ${costRow('Wholesale Energy Cost', 'tag-wholesale', 'Wholesale', 'What your supplier paid on the wholesale market · ~36% of unit cost', elecUC.wholesale, total, 'var(--sp-amber)', 'bar-elec')}
+        ${costRow('Network Charges', 'tag-network', 'Network', 'Transmission & distribution — getting electricity to your home · ~26% of unit cost', elecUC.network, total, 'var(--sp-amber)', 'bar-elec')}
+        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, call centres, smart metering programme · ~17% of unit cost', elecUC.operating, total, 'var(--sp-amber)', 'bar-elec')}
+        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Renewables obligation, ECO scheme, Warm Home Discount · ~16% of unit cost', elecUC.policy, total, 'var(--sp-amber)', 'bar-elec')}
+        ${costRow('Supplier Margin (EBIT)', '', '', 'Regulated profit — Ofgem cap limits this to ~5% of unit cost', elecUC.ebit, total, 'var(--sp-amber)', 'bar-elec')}
       </div>`;
   }
 
@@ -1247,18 +1332,18 @@ function renderResults(d, tariffData) {
     html += `
       <div class="breakdown-section">
         <div class="section-title">🔥 Gas Unit Cost — Where your money goes</div>
-        ${costRow('Wholesale Gas Cost', 'tag-wholesale', 'Wholesale', 'Commodity gas price — the most volatile element of your bill · ~55% of unit cost', gasUC.wholesale, total, 'var(--accent2)', 'bar-gas')}
-        ${costRow('Gas Network Charges', 'tag-network', 'Network', 'National Transmission System & local distribution · ~23% of unit cost', gasUC.network, total, 'var(--accent2)', 'bar-gas')}
-        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, servicing, smart meter rollout · ~12% of unit cost', gasUC.operating, total, 'var(--accent2)', 'bar-gas')}
-        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Warm Home Discount, social & environmental obligations · ~7% of unit cost', gasUC.policy, total, 'var(--accent2)', 'bar-gas')}
-        ${costRow('Supplier Margin (EBIT)', '', '', 'Gas is lower-margin — Ofgem cap limits supplier profit to ~3% of unit cost', gasUC.ebit, total, 'var(--accent2)', 'bar-gas')}
+        ${costRow('Wholesale Gas Cost', 'tag-wholesale', 'Wholesale', 'Commodity gas price — the most volatile element of your bill · ~55% of unit cost', gasUC.wholesale, total, 'var(--sp-green)', 'bar-gas')}
+        ${costRow('Gas Network Charges', 'tag-network', 'Network', 'National Transmission System & local distribution · ~23% of unit cost', gasUC.network, total, 'var(--sp-green)', 'bar-gas')}
+        ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, servicing, smart meter rollout · ~12% of unit cost', gasUC.operating, total, 'var(--sp-green)', 'bar-gas')}
+        ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Warm Home Discount, social & environmental obligations · ~7% of unit cost', gasUC.policy, total, 'var(--sp-green)', 'bar-gas')}
+        ${costRow('Supplier Margin (EBIT)', '', '', 'Gas is lower-margin — Ofgem cap limits supplier profit to ~3% of unit cost', gasUC.ebit, total, 'var(--sp-green)', 'bar-gas')}
       </div>`;
   }
 
   // Other charges
   html += `<div class="breakdown-section"><div class="section-title">📋 Other Charges</div>`;
-  if (elecStanding > 0) html += costRow('⚡ Electricity Standing Charge', '', '', `${d.electricity?.days ? d.electricity.days + ' days × ' + fmtP(d.electricity.standingCharge) : 'Fixed daily charge'} · Network maintenance & metering`, elecStanding, total, 'var(--accent3)', 'bar-standing');
-  if (gasStanding > 0)  html += costRow('🔥 Gas Standing Charge', '', '', `${d.gas?.days ? d.gas.days + ' days × ' + fmtP(d.gas.standingCharge) : 'Fixed daily charge'} · Pipe network & safety`, gasStanding, total, 'var(--accent3)', 'bar-standing');
+  if (elecStanding > 0) html += costRow('⚡ Electricity Standing Charge', '', '', `${d.electricity?.days ? d.electricity.days + ' days × ' + fmtP(d.electricity.standingCharge) : 'Fixed daily charge'} · Network maintenance & metering`, elecStanding, total, 'var(--sp-red)', 'bar-standing');
+  if (gasStanding > 0)  html += costRow('🔥 Gas Standing Charge', '', '', `${d.gas?.days ? d.gas.days + ' days × ' + fmtP(d.gas.standingCharge) : 'Fixed daily charge'} · Pipe network & safety`, gasStanding, total, 'var(--sp-red)', 'bar-standing');
   if (vat > 0)          html += costRow('VAT', 'tag-regulated', 'Tax', '5% reduced rate — energy is exempt from standard 20% VAT', vat, total, '#a040f0', 'bar-tax');
   if (discounts > 0)    html += costRow('Discounts / Credits', '', '', 'Applied to your account this period', -discounts, total, '#40f0a0', '');
   html += `</div>`;
@@ -1344,7 +1429,7 @@ function renderSwitchingSection(billData, tariffData, result) {
       <h3>Could you be paying <span>less?</span></h3>
       ${maxSaving > 0 ? `<div class="saving-pill">Save up to ${fmt(maxSaving, 0)}/yr</div>` : ''}
     </div>
-    <p style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:18px;">
+    <p style="font-family: 'DM Sans', sans-serif;font-size:0.68rem;color:var(--sp-text-muted);margin-bottom:18px;">
       Live fixed deals in the <strong style="color:#c8c8d8">${region}</strong> region vs your estimated annual cost of <strong style="color:#c8c8d8">${fmt(currentCost, 0)}</strong> (${fuelLabel}, extrapolated from bill period)
     </p>`;
 
@@ -1366,20 +1451,20 @@ function renderSwitchingSection(billData, tariffData, result) {
             ${t.elec_unit_rate_p ? `
             <div class="deal-rate-row">
               <span class="deal-rate-label">⚡ Elec unit</span>
-              <span class="deal-rate-value" style="color:var(--accent)">${t.elec_unit_rate_p.toFixed(2)}p/kWh</span>
+              <span class="deal-rate-value" style="color:var(--sp-amber)">${t.elec_unit_rate_p.toFixed(2)}p/kWh</span>
             </div>
             <div class="deal-rate-row">
               <span class="deal-rate-label">⚡ Elec standing</span>
-              <span class="deal-rate-value" style="color:var(--accent)">${(t.elec_standing_p||0).toFixed(2)}p/day</span>
+              <span class="deal-rate-value" style="color:var(--sp-amber)">${(t.elec_standing_p||0).toFixed(2)}p/day</span>
             </div>` : ''}
             ${t.gas_unit_rate_p ? `
             <div class="deal-rate-row">
               <span class="deal-rate-label">🔥 Gas unit</span>
-              <span class="deal-rate-value" style="color:var(--accent2)">${t.gas_unit_rate_p.toFixed(2)}p/kWh</span>
+              <span class="deal-rate-value" style="color:var(--sp-green)">${t.gas_unit_rate_p.toFixed(2)}p/kWh</span>
             </div>
             <div class="deal-rate-row">
               <span class="deal-rate-label">🔥 Gas standing</span>
-              <span class="deal-rate-value" style="color:var(--accent2)">${(t.gas_standing_p||0).toFixed(2)}p/day</span>
+              <span class="deal-rate-value" style="color:var(--sp-green)">${(t.gas_standing_p||0).toFixed(2)}p/day</span>
             </div>` : ''}
             <div class="deal-rate-row" style="margin-top:2px">
               <span class="deal-rate-label" style="color:#555">${exitFee}</span>
@@ -1465,7 +1550,7 @@ async function submitBillScanEmail(ctxEncoded) {
   const email = emailInput?.value?.trim();
   if (!email || !email.includes('@')) {
     emailInput.focus();
-    emailInput.style.borderColor = 'var(--accent3)';
+    emailInput.style.borderColor = 'var(--sp-red)';
     setTimeout(() => emailInput.style.borderColor = '', 1500);
     return;
   }

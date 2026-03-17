@@ -726,7 +726,39 @@
 
             .pros-cons { grid-template-columns: 1fr; }
         }
-    </style>
+    
+        /* Two-step wizard */
+        #step1Panel { max-width: 680px; margin: 0 auto; }
+        .wizard-header { text-align: center; margin-bottom: 2rem; }
+        .wizard-header h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.85rem; color: var(--sp-text); margin-bottom: 0.5rem;
+        }
+        .wizard-header p { color: var(--sp-text-muted); font-size: 1rem; }
+        .see-deals-btn {
+            display: block; width: 100%; margin-top: 1.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--sp-green) 0%, var(--sp-green-dark) 100%);
+            color: #fff; font-size: 1.1rem; font-weight: 700;
+            border: none; border-radius: 12px; cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .see-deals-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        #step2Panel { display: none; }
+        .edit-details-bar {
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 1.5rem; padding: 0.75rem 1rem;
+            background: var(--sp-card); border: 1px solid var(--sp-border);
+            border-radius: 10px; font-size: 0.9rem; color: var(--sp-text-muted);
+        }
+        .edit-details-bar button {
+            background: none; border: 1px solid var(--sp-border);
+            color: var(--sp-green); padding: 0.3rem 0.85rem;
+            border-radius: 6px; cursor: pointer;
+            font-size: 0.85rem; font-weight: 600; transition: background 0.15s;
+        }
+        .edit-details-bar button:hover { background: rgba(16,185,129,0.1); }
+        </style>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -783,7 +815,14 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             </p>
         </div>
 
-        <!-- Input Section -->
+        <!-- Step 1: Input -->
+        <div id="step1Panel">
+          <div class="wizard-header">
+            <h2>Find the cheapest deal for your home</h2>
+            <p>Enter your details to see fixed tariffs beating the price cap in your region.</p>
+          </div>
+
+          <!-- Input Section -->
         <div class="card">
             <h2 class="card-title">🔍 Your Usage</h2>
             <p class="input-intro">Enter your actual usage from a recent bill, or just pick your household size below for an estimate.</p>
@@ -840,6 +879,15 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
             <p class="payment-note">📋 Rates shown are for <strong>Direct Debit, Standard Meter</strong> customers. Prepayment meter or other payment method rates may differ.</p>
         </div>
+
+          <button class="see-deals-btn" onclick="showDeals()">See the cheapest deals in my region &rarr;</button>
+        </div><!-- /step1Panel -->
+
+        <div id="step2Panel">
+          <div class="edit-details-bar">
+            <span id="editSummary">Your details</span>
+            <button onclick="editDetails()">&#8592; Edit details</button>
+          </div>
 
         <!-- Tariff Cards -->
         <h2 class="section-title">🏆 Fixed Deals That Beat The Cap in <span id="regionDisplay">London</span></h2>
@@ -964,6 +1012,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             <p>The tariffs above are the best you can find publicly. SwitchPilot members get exclusive deals from our supplier tender process - tariffs that never appear on comparison sites, because suppliers bid directly for your business. Free to join, automatic switching, and 10% cashback from the fee suppliers pay us on every switch.</p>
             <a href="index.html#waitlist" class="cta-button">Sign Up Free →</a>
         </div>
+        </div><!-- /step2Panel -->
     </main>
 
     <footer class="site-footer">
@@ -1355,10 +1404,10 @@ const supplier = supplierInfo[supplierKey]?.name || t.supplier;
             });
         }
 
-        // Event listeners
+        // Event listeners - only re-render when already on results step
         document.querySelectorAll('select, input').forEach(el => {
-            el.addEventListener('change', render);
-            el.addEventListener('input', render);
+            el.addEventListener('change', function() { if (isStep2Visible()) render(); });
+            el.addEventListener('input',  function() { if (isStep2Visible()) render(); });
         });
 
         document.querySelectorAll('.preset-btn').forEach(btn => {
@@ -1370,9 +1419,35 @@ const supplier = supplierInfo[supplierKey]?.name || t.supplier;
                 } else {
                     document.getElementById('fuelType').value = 'dual';
                 }
-                render();
+                showDeals();
             });
         });
+
+        function isStep2Visible() {
+            return document.getElementById('step2Panel').style.display !== 'none';
+        }
+
+        function showDeals() {
+            document.getElementById('step1Panel').style.display = 'none';
+            document.getElementById('step2Panel').style.display = 'block';
+            var region = document.getElementById('region').value;
+            var elec   = document.getElementById('elecUsage').value;
+            var gas    = document.getElementById('gasUsage').value;
+            var fuel   = document.getElementById('fuelType').value;
+            var label  = fuel === 'dual' ? 'Dual fuel' : 'Electricity only';
+            document.getElementById('editSummary').textContent =
+                region + ' · ' + elec + ' kWh elec'
+                + (fuel === 'dual' ? ' · ' + gas + ' kWh gas' : '')
+                + ' · ' + label;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function editDetails() {
+            document.getElementById('step2Panel').style.display = 'none';
+            document.getElementById('step1Panel').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         loadData();
 

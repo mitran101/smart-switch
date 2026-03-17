@@ -1009,7 +1009,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
         <!-- Step 5: Tariff selection -->
         <div class="step-panel" id="step5" style="display:none">
             <h2>What tariff are you on?</h2>
-            <p class="step-subtitle">Pick your current supplier to calculate your actual bill — or choose the price cap to see the standard rate.</p>
+            <p class="step-subtitle">Enter your own rates from your current bill, or choose your supplier to see their deal. Not sure? Pick the default tariff to see what most people pay.</p>
 
             <div id="loadingState" style="text-align:center;padding:2rem 0;color:#64748b;">
                 <div class="spinner" style="margin:0 auto 1rem;"></div>
@@ -1024,7 +1024,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
                 </div>
 
                 <div id="customRateInputs" style="display:none; background:#f8faff; border:1px solid #c7d2fe; border-radius:10px; padding:16px; margin-bottom:14px;">
-                    <p style="font-size:0.85rem;color:#64748b;margin:0 0 12px 0;">Enter the rates from your bill or a tariff you want to check:</p>
+                    <p style="font-size:0.85rem;color:#64748b;margin:0 0 12px 0;">Enter the exact rates from your current bill:</p>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
                         <div>
                             <label style="font-size:0.8rem;font-weight:600;color:#64748b;display:block;margin-bottom:4px;">&#9889; Elec unit rate (p/kWh)</label>
@@ -1052,7 +1052,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
                 </div>
 
                 <p style="font-size:0.82rem;color:#94a3b8;text-align:center;margin-top:0.5rem;">
-                    Not sure? Pick <strong>SVT Price Cap</strong> to see what you'd pay on the default tariff.
+                    Not sure what you're on? Pick <strong>Default tariff</strong> - this is what most people pay.
                 </p>
             </div>
 
@@ -1112,7 +1112,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
                         </div>
                         <div class="comparison-vs">vs</div>
                         <div class="comparison-item svt">
-                            <div class="label">SVT Price Cap</div>
+                            <div class="label">Default Tariff</div>
                             <div class="amount" id="svtCost">--/yr</div>
                         </div>
                     </div>
@@ -1658,7 +1658,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             if (!select) return;
             select.innerHTML = '<option value="">-- Pick a supplier --</option>';
             select.innerHTML += '<option value="custom">&#9998; Enter my own rates</option>';
-            select.innerHTML += '<option value="svt">&#9888;&#65039; SVT Price Cap (most expensive default rate)</option>';
+            select.innerHTML += '<option value="svt">Default tariff (most expensive - what most people are on)</option>';
 
             regionalTariffs.forEach((t, i) => {
                 const badges = getTariffBadges(t.tariff_name);
@@ -1908,7 +1908,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             const savingsBadge = document.getElementById('savingsBadge');
             if (savingsBadge) {
                 if (savings > 0) {
-                    savingsBadge.textContent = '✓ You could save £' + Math.round(savings) + '/year vs SVT price cap';
+                    savingsBadge.textContent = '✓ You could save £' + Math.round(savings) + '/year vs the default tariff';
                     savingsBadge.style.background = 'var(--sp-green)';
                 } else if (savings < 0) {
                     savingsBadge.textContent = '⚠️ £' + Math.round(Math.abs(savings)) + '/year more than SVT';

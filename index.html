@@ -1995,27 +1995,16 @@ body {
 
 }
 
-/* Bill breakdown - stacked bar + card grid */
-.pc-breakdown { }
+/* Bill breakdown — tap-to-reveal walkthrough */
 
-.pc-period-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.4);
-  text-align: center;
-  margin-bottom: 16px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* Proportional stacked bar */
+/* Stacked bar */
 .pc-stack {
   display: flex;
-  height: 48px;
+  height: 44px;
   border-radius: 12px;
   overflow: hidden;
-  gap: 2px;
-  margin-bottom: 24px;
+  gap: 3px;
+  margin-bottom: 20px;
 }
 
 .pc-seg {
@@ -2023,19 +2012,22 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  transition: flex 0.8s cubic-bezier(.4,0,.2,1), filter 0.2s;
-  cursor: default;
   overflow: hidden;
+  opacity: 0.18;
+  transition: opacity 0.5s ease, filter 0.3s ease;
+  cursor: default;
 }
 
-.pc-seg:hover { filter: brightness(1.2); }
+.pc-seg.lit { opacity: 1; }
+.pc-seg.active { opacity: 1; filter: brightness(1.3) drop-shadow(0 0 6px currentColor); }
 
-/* Card grid */
+/* Card grid — cards hidden until revealed */
 .pc-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  min-height: 10px;
 }
 
 @media (max-width: 900px) { .pc-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -2046,50 +2038,86 @@ body {
   border-radius: 14px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
-  transition: background 0.2s, transform 0.2s;
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+  pointer-events: none;
 }
 
-.pc-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
+.pc-card.revealed {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
 
-.pc-card-icon { font-size: 1.3rem; margin-bottom: 8px; display: block; }
+.pc-card.revealed:hover { background: rgba(255,255,255,0.09); }
+
+.pc-card-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
 
 .pc-card-name {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.5);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.45);
   margin-bottom: 4px;
   line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .pc-card-amount {
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: #fff;
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
-.pc-card-pct {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 6px;
-}
+.pc-card-pct { font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
 
 .pc-card-change {
   display: inline-block;
-  font-size: 0.67rem;
+  font-size: 0.65rem;
   font-weight: 700;
   padding: 2px 7px;
   border-radius: 8px;
 }
 
 .pc-card-change.down { background: rgba(16,185,129,0.2); color: #34d399; }
-.pc-card-change.up { background: rgba(239,68,68,0.2); color: #f87171; }
+.pc-card-change.up   { background: rgba(239,68,68,0.2);  color: #f87171; }
 .pc-card-change.neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
 
-/* Total row */
+/* Tap button */
+.pc-tap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 14px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.2s, transform 0.15s;
+  text-align: left;
+}
+
+.pc-tap-btn:hover { background: rgba(16,185,129,0.2); transform: translateY(-1px); }
+.pc-tap-btn:active { transform: scale(0.98); }
+.pc-tap-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
+
+.pc-tap-btn .btn-left { display: flex; flex-direction: column; gap: 2px; }
+.pc-tap-btn .btn-label { font-size: 0.95rem; font-weight: 700; }
+.pc-tap-btn .btn-hint  { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 500; }
+.pc-tap-btn .btn-progress { font-size: 0.78rem; color: rgba(255,255,255,0.45); white-space: nowrap; }
+.pc-tap-btn .btn-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+.pc-tap-btn:not(:disabled):hover .btn-arrow { transform: translateX(3px); }
+
+/* Total — hidden until all revealed */
 .pc-total {
   display: flex;
   align-items: center;
@@ -2099,23 +2127,20 @@ body {
   border: 1px solid rgba(16,185,129,0.25);
   border-radius: 14px;
   gap: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.pc-total-label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+.pc-total.revealed { opacity: 1; transform: none; }
 
+.pc-total-label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.65); }
 .pc-total-right { display: flex; align-items: baseline; gap: 10px; }
-
 .pc-total-amount { font-size: 1.8rem; font-weight: 800; color: #fff; }
 
-.pc-total-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 10px;
-}
-
+.pc-total-badge { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
 .pc-total-badge.down { background: rgba(16,185,129,0.25); color: #34d399; }
-.pc-total-badge.up { background: rgba(239,68,68,0.25); color: #f87171; }
+.pc-total-badge.up   { background: rgba(239,68,68,0.25);  color: #f87171; }
 
 
 .chart-close-btn {
@@ -5410,75 +5435,141 @@ const priceCapIcons = {
   vat: '🏛️'
 };
 
+const pcComponents = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
+
+const pcNextLabels = [
+  'What are network costs?',
+  'What are operating costs?',
+  'What are policy costs?',
+  'What is supplier profit?',
+  'What is the safety buffer?',
+  'What is payment adjustment?',
+  'And finally, VAT',
+  'See your full bill total'
+];
+
+let pcStep = 0;
+
 function renderPriceCapChart() {
+  pcStep = 0;
   const data = priceCapData[currentPriceCapMethod];
   const container = document.getElementById('priceCapBreakdown');
   if (!container) return;
 
-  const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
   const p1 = data.period1;
   const p2 = data.period2;
   const total = p2.total;
 
-  // Stacked bar — proportional segments
-  let stackHtml = '<div class="pc-stack">';
-  components.forEach(comp => {
+  // Stacked bar — all segments start dimmed
+  let stackHtml = '<div class="pc-stack" id="pcStack">';
+  pcComponents.forEach((comp, i) => {
     const val = Math.max(0, p2[comp]);
     const flex = ((val / total) * 100).toFixed(2);
     const color = priceCapColors[comp];
     const icon = priceCapIcons[comp];
-    stackHtml += `<div class="pc-seg" style="flex:${flex};background:${color}" title="${priceCapLabels[comp]}: £${val}">${parseFloat(flex) > 8 ? icon : ''}</div>`;
+    stackHtml += `<div class="pc-seg" id="pcSeg${i}" style="flex:${flex};background:${color}">${parseFloat(flex) > 7 ? icon : ''}</div>`;
   });
   stackHtml += '</div>';
 
-  // Card grid
-  let gridHtml = '<div class="pc-grid">';
-  components.forEach(comp => {
+  // Card grid — all hidden initially
+  let gridHtml = '<div class="pc-grid" id="pcGrid">';
+  pcComponents.forEach((comp, i) => {
     const val2 = p2[comp];
     const val1 = p1[comp];
     const change = val2 - val1;
     const pct = Math.max(0, (val2 / total) * 100).toFixed(0);
     const color = priceCapColors[comp];
-
-    let changeHtml = '';
-    if (change < 0) changeHtml = `<span class="pc-card-change down">↓ £${Math.abs(change)}</span>`;
-    else if (change > 0) changeHtml = `<span class="pc-card-change up">↑ £${change}</span>`;
-    else changeHtml = `<span class="pc-card-change neutral">no change</span>`;
-
+    let changeHtml = change < 0
+      ? `<span class="pc-card-change down">↓ £${Math.abs(change)} vs last qtr</span>`
+      : change > 0
+        ? `<span class="pc-card-change up">↑ £${change} vs last qtr</span>`
+        : `<span class="pc-card-change neutral">unchanged</span>`;
     gridHtml += `
-      <div class="pc-card" style="--card-color:${color};border-top:2px solid ${color}">
+      <div class="pc-card" id="pcCard${i}" style="border-top:2px solid ${color}">
         <span class="pc-card-icon">${priceCapIcons[comp]}</span>
         <div class="pc-card-name">${priceCapLabels[comp]}</div>
         <div class="pc-card-amount">£${val2}</div>
-        <div class="pc-card-pct">${pct}% of bill</div>
+        <div class="pc-card-pct">${pct}% of your bill</div>
         ${changeHtml}
       </div>`;
   });
   gridHtml += '</div>';
 
-  // Total
+  // Tap button
+  const tapHtml = `
+    <button class="pc-tap-btn" id="pcTapBtn" onclick="pcRevealNext()">
+      <div class="btn-left">
+        <span class="btn-label" id="pcBtnLabel">⚡ Start with wholesale energy — the actual gas &amp; electricity you use</span>
+        <span class="btn-hint" id="pcBtnHint">Tap to reveal each part of your bill</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="btn-progress" id="pcProgress">0 / 8</span>
+        <span class="btn-arrow">→</span>
+      </div>
+    </button>`;
+
+  // Total — hidden until complete
   const totalChange = p2.total - p1.total;
   const totalBadgeClass = totalChange < 0 ? 'down' : 'up';
   const totalBadgeText = totalChange < 0 ? `↓ £${Math.abs(totalChange)} vs last quarter` : `↑ £${totalChange} vs last quarter`;
-
   const totalHtml = `
-    <div class="pc-total">
-      <div>
-        <div class="pc-total-label">Total annual bill — ${p2.name}</div>
-      </div>
+    <div class="pc-total" id="pcTotal">
+      <div class="pc-total-label">Total annual bill — ${p2.name}</div>
       <div class="pc-total-right">
         <span class="pc-total-amount">£${p2.total}</span>
         <span class="pc-total-badge ${totalBadgeClass}">${totalBadgeText}</span>
       </div>
     </div>`;
 
-  container.innerHTML = `
-    <div class="pc-period-label">${p2.name} · Ofgem price cap · Average UK household</div>
-    ${stackHtml}
-    ${gridHtml}
-    ${totalHtml}`;
+  container.innerHTML = stackHtml + tapHtml + gridHtml + totalHtml;
 
   updatePriceCapStats();
+}
+
+function pcRevealNext() {
+  if (pcStep >= pcComponents.length) return;
+
+  const data = priceCapData[currentPriceCapMethod];
+  const p2 = data.period2;
+
+  // Light up this bar segment
+  const seg = document.getElementById('pcSeg' + pcStep);
+  if (seg) { seg.classList.remove('active'); seg.classList.add('lit'); }
+
+  // Briefly flash active on the newly lit one
+  if (seg) {
+    seg.classList.add('active');
+    setTimeout(() => seg.classList.remove('active'), 600);
+  }
+
+  // Reveal card
+  const card = document.getElementById('pcCard' + pcStep);
+  if (card) setTimeout(() => card.classList.add('revealed'), 60);
+
+  pcStep++;
+
+  // Update button
+  const btn = document.getElementById('pcTapBtn');
+  const label = document.getElementById('pcBtnLabel');
+  const hint = document.getElementById('pcBtnHint');
+  const progress = document.getElementById('pcProgress');
+
+  if (progress) progress.textContent = pcStep + ' / ' + pcComponents.length;
+
+  if (pcStep >= pcComponents.length) {
+    // All revealed — show total, disable button
+    setTimeout(() => {
+      const total = document.getElementById('pcTotal');
+      if (total) total.classList.add('revealed');
+    }, 300);
+    if (btn) btn.disabled = true;
+    if (label) label.textContent = "That's your full energy bill broken down ✓";
+    if (hint) hint.textContent = 'Switch payment method above to see how it changes';
+  } else {
+    const nextComp = pcComponents[pcStep];
+    if (label) label.textContent = pcNextLabels[pcStep - 1] + ' →';
+    if (hint) hint.textContent = priceCapDescriptions[pcComponents[pcStep - 1]].slice(0, 70) + '…';
+  }
 }
 
 

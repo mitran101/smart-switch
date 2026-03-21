@@ -1987,8 +1987,6 @@ body {
 
 .price-cap-chart-container {
 
-  height: 600px;
-
   margin-bottom: 30px;
 
   position: relative;
@@ -1996,6 +1994,79 @@ body {
   z-index: 2;
 
 }
+
+.pc-breakdown { display: flex; flex-direction: column; gap: 8px; }
+
+.pc-period-label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.55); text-align: center; margin-bottom: 6px; letter-spacing: 0.03em; }
+
+.pc-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px;
+  transition: background 0.2s;
+}
+
+.pc-row:hover { background: rgba(255,255,255,0.11); }
+
+.pc-row-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pc-row-body { flex: 1; min-width: 0; }
+
+.pc-row-name { font-weight: 700; font-size: 0.88rem; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+
+.pc-bar-wrap { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; margin-bottom: 6px; overflow: hidden; }
+
+.pc-bar-fill { height: 100%; border-radius: 3px; transition: width 0.7s cubic-bezier(.4,0,.2,1); }
+
+.pc-row-desc { font-size: 0.76rem; color: rgba(255,255,255,0.55); line-height: 1.45; }
+
+.pc-row-right { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; gap: 5px; }
+
+.pc-row-amount { font-size: 1.05rem; font-weight: 800; color: #fff; }
+
+.pc-row-change { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+
+.pc-row-change.down { background: rgba(16,185,129,0.22); color: #34d399; }
+
+.pc-row-change.up { background: rgba(239,68,68,0.22); color: #f87171; }
+
+.pc-row-change.neutral { background: rgba(148,163,184,0.2); color: #94a3b8; }
+
+.pc-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-top: 6px;
+}
+
+.pc-total-label { font-weight: 700; color: #fff; font-size: 0.95rem; }
+
+.pc-total-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+
+.pc-total-amount { font-size: 1.5rem; font-weight: 800; color: #fff; }
+
+.pc-total-change { font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+
+.pc-total-change.down { background: rgba(16,185,129,0.25); color: #34d399; }
+
+.pc-total-change.up { background: rgba(239,68,68,0.25); color: #f87171; }
 
 
 .chart-close-btn {
@@ -4248,9 +4319,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
     <div class="price-cap-chart-container">
 
-      <canvas id="priceCapChart"></canvas>
-
-      <button id="chartCloseBtn" class="chart-close-btn" onclick="hideChartTooltip()">✕ Close</button>
+      <div id="priceCapBreakdown" class="pc-breakdown"></div>
 
     </div>
 
@@ -4289,8 +4358,6 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
       <p><strong>Source:</strong> Ofgem (the UK energy regulator)</p>
 
       <p><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
-
-      <p><strong>Tip:</strong> Hover or tap on the bars to see what each cost means!</p>
 
     </div>
 
@@ -5279,320 +5346,82 @@ const priceCapDescriptions = {
 
 let currentPriceCapMethod = 'directDebit';
 
-let priceCapChart = null;
 
 
-const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 
-function hideChartTooltip() {
-
-  if (priceCapChart) {
-
-    priceCapChart.tooltip.setActiveElements([], {x: 0, y: 0});
-
-    priceCapChart.update();
-
-  }
-
-  const btn = document.getElementById('chartCloseBtn');
-
-  if (btn) btn.classList.remove('visible');
-
-}
-
+const priceCapIcons = {
+  wholesale: '⚡',
+  networks: '🔌',
+  operating: '🏢',
+  policy: '🌿',
+  ebit: '💰',
+  headroom: '🛡️',
+  levelisation: '⚖️',
+  vat: '🏛️'
+};
 
 function renderPriceCapChart() {
 
   const data = priceCapData[currentPriceCapMethod];
 
-  const ctx = document.getElementById('priceCapChart');
+  const container = document.getElementById('priceCapBreakdown');
 
-  
-
-  if (!ctx) return;
-
-  
-
-  if (priceCapChart) {
-
-    priceCapChart.destroy();
-
-  }
-
-  
+  if (!container) return;
 
   const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
 
-  
-
-  priceCapChart = new Chart(ctx, {
-
-    type: 'bar',
-
-    data: {
-
-      labels: [data.period1.name, data.period2.name],
-
-      datasets: components.map(comp => ({
-
-        label: priceCapLabels[comp],
-
-        data: [data.period1[comp], data.period2[comp]],
-
-        backgroundColor: priceCapColors[comp],
-
-        borderColor: priceCapColors[comp],
-
-        borderWidth: 1,
-
-        barPercentage: 0.9,
-
-        categoryPercentage: 0.5
-
-      }))
-
-    },
-
-    plugins: [ChartDataLabels],
-
-    options: {
-
-      responsive: true,
-
-      maintainAspectRatio: false,
-
-      layout: {
-
-        padding: {
-
-          top: 0,
-
-          bottom: 0
-
-        }
-
-      },
-
-      scales: {
-
-        x: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' } },
-
-        y: { stacked: true, ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.08)' }, title: { display: true, text: 'Cost (£)', color: '#94A3B8' } }
-
-      },
-
-      plugins: {
-
-        datalabels: {
-
-          display: function(context) {
-
-            return context.dataset.data[context.dataIndex] > 50;
-
-          },
-
-          color: '#fff',
-
-          font: {
-
-            size: 10,
-
-            weight: 'bold'
-
-          },
-
-          anchor: 'center',
-
-          align: 'center',
-
-          formatter: function(value) {
-
-            return '£' + Math.round(value);
-
-          }
-
-        },
-
-        legend: { 
-
-          position: 'bottom',
-
-          align: 'center',
-
-          labels: { 
-
-            color: '#94A3B8', 
-
-            padding: 12, 
-
-            font: { size: 10 }, 
-
-            boxWidth: 10,
-
-            boxHeight: 10,
-
-            usePointStyle: true,
-
-            pointStyle: 'rectRounded'
-
-          },
-
-          title: {
-
-            display: true,
-
-            padding: 15,
-
-            text: ''
-
-          }
-
-        },
-
-        tooltip: {
-
-          enabled: true,
-
-          mode: 'nearest',
-
-          intersect: true,
-
-          backgroundColor: 'rgba(255, 255, 255, 0.98)',
-
-          titleColor: '#1E293B',
-
-          bodyColor: '#475569',
-
-          borderColor: '#10B981',
-
-          borderWidth: 2,
-
-          padding: 15,
-
-          cornerRadius: 10,
-
-          titleFont: { size: 14, weight: 'bold' },
-
-          bodyFont: { size: 12 },
-
-          boxPadding: 6,
-
-          usePointStyle: true,
-
-          displayColors: true,
-
-          callbacks: {
-
-            title: function(items) {
-
-              return items[0].dataset.label;
-
-            },
-
-            label: function(context) {
-
-              return '£' + context.parsed.y + ' per year';
-
-            },
-
-            afterLabel: function(context) {
-
-              const componentKey = components[context.datasetIndex];
-
-              const description = priceCapDescriptions[componentKey];
-
-              const maxLength = window.innerWidth < 480 ? 50 : 80;
-
-              if (description.length > maxLength) {
-
-                const words = description.split(' ');
-
-                let lines = [];
-
-                let currentLine = '';
-
-                
-
-                words.forEach(word => {
-
-                  if ((currentLine + word).length > maxLength) {
-
-                    lines.push(currentLine.trim());
-
-                    currentLine = word + ' ';
-
-                  } else {
-
-                    currentLine += word + ' ';
-
-                  }
-
-                });
-
-                lines.push(currentLine.trim());
-
-                return '\n' + lines.join('\n');
-
-              }
-
-              return '\n' + description;
-
-            }
-
-          },
-
-          bodySpacing: 6,
-
-          footerMarginTop: 10,
-
-          footerFont: { size: 13, weight: 'bold' },
-
-          footerColor: '#10B981'
-
-        }
-
-      },
-
-      interaction: {
-
-        mode: 'nearest',
-
-        intersect: true
-
-      }
-
+  const p1 = data.period1;
+  const p2 = data.period2;
+  const maxVal = p2.total;
+
+  let html = `<div class="pc-period-label">📅 ${p2.name} — what makes up the annual bill</div>`;
+
+  components.forEach(comp => {
+    const val2 = p2[comp];
+    const val1 = p1[comp];
+    const change = val2 - val1;
+    const pct = Math.max(0, (val2 / maxVal) * 100).toFixed(1);
+    const color = priceCapColors[comp];
+
+    let changeHtml = '';
+    if (change < 0) {
+      changeHtml = `<span class="pc-row-change down">↓ £${Math.abs(change)}</span>`;
+    } else if (change > 0) {
+      changeHtml = `<span class="pc-row-change up">↑ £${change}</span>`;
+    } else {
+      changeHtml = `<span class="pc-row-change neutral">unchanged</span>`;
     }
 
+    html += `
+      <div class="pc-row">
+        <div class="pc-row-icon" style="background:${color}28">${priceCapIcons[comp]}</div>
+        <div class="pc-row-body">
+          <div class="pc-row-name">${priceCapLabels[comp]}</div>
+          <div class="pc-bar-wrap"><div class="pc-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+          <div class="pc-row-desc">${priceCapDescriptions[comp]}</div>
+        </div>
+        <div class="pc-row-right">
+          <span class="pc-row-amount">£${val2}</span>
+          ${changeHtml}
+        </div>
+      </div>`;
   });
 
-  
+  const totalChange = p2.total - p1.total;
+  const totalChangeClass = totalChange < 0 ? 'down' : totalChange > 0 ? 'up' : 'neutral';
+  const totalChangeLabel = totalChange < 0 ? `↓ £${Math.abs(totalChange)} vs last quarter` : totalChange > 0 ? `↑ £${totalChange} vs last quarter` : 'no change vs last quarter';
 
-  if (isMobileDevice) {
+  html += `
+    <div class="pc-total-row">
+      <span class="pc-total-label">Total annual bill</span>
+      <div class="pc-total-right">
+        <span class="pc-total-amount">£${p2.total}</span>
+        <span class="pc-total-change ${totalChangeClass}">${totalChangeLabel}</span>
+      </div>
+    </div>`;
 
-    ctx.addEventListener('click', function() {
-
-      setTimeout(function() {
-
-        const btn = document.getElementById('chartCloseBtn');
-
-        if (btn && priceCapChart && priceCapChart.tooltip._active && priceCapChart.tooltip._active.length > 0) {
-
-          btn.classList.add('visible');
-
-        } else if (btn) {
-
-          btn.classList.remove('visible');
-
-        }
-
-      }, 150);
-
-    });
-
-  }
-
-  
+  container.innerHTML = html;
 
   updatePriceCapStats();
 
@@ -5649,7 +5478,7 @@ function setPriceCapMethod(method) {
 
 window.addEventListener('load', function() {
 
-  if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
+  if (document.getElementById('priceCapBreakdown')) {
 
     renderPriceCapChart();
 

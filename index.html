@@ -1995,78 +1995,127 @@ body {
 
 }
 
-.pc-breakdown { display: flex; flex-direction: column; gap: 8px; }
+/* Bill breakdown - stacked bar + card grid */
+.pc-breakdown { }
 
-.pc-period-label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.55); text-align: center; margin-bottom: 6px; letter-spacing: 0.03em; }
-
-.pc-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 14px 16px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 14px;
-  transition: background 0.2s;
+.pc-period-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.pc-row:hover { background: rgba(255,255,255,0.11); }
+/* Proportional stacked bar */
+.pc-stack {
+  display: flex;
+  height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  gap: 2px;
+  margin-bottom: 24px;
+}
 
-.pc-row-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+.pc-seg {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-  margin-top: 1px;
+  font-size: 1rem;
+  transition: flex 0.8s cubic-bezier(.4,0,.2,1), filter 0.2s;
+  cursor: default;
+  overflow: hidden;
 }
 
-.pc-row-body { flex: 1; min-width: 0; }
+.pc-seg:hover { filter: brightness(1.2); }
 
-.pc-row-name { font-weight: 700; font-size: 0.88rem; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+/* Card grid */
+.pc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-.pc-bar-wrap { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; margin-bottom: 6px; overflow: hidden; }
+@media (max-width: 900px) { .pc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .pc-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
 
-.pc-bar-fill { height: 100%; border-radius: 3px; transition: width 0.7s cubic-bezier(.4,0,.2,1); }
+.pc-card {
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.2s, transform 0.2s;
+}
 
-.pc-row-desc { font-size: 0.76rem; color: rgba(255,255,255,0.55); line-height: 1.45; }
+.pc-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
 
-.pc-row-right { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; gap: 5px; }
+.pc-card-icon { font-size: 1.3rem; margin-bottom: 8px; display: block; }
 
-.pc-row-amount { font-size: 1.05rem; font-weight: 800; color: #fff; }
+.pc-card-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 
-.pc-row-change { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+.pc-card-amount {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 6px;
+}
 
-.pc-row-change.down { background: rgba(16,185,129,0.22); color: #34d399; }
+.pc-card-pct {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
 
-.pc-row-change.up { background: rgba(239,68,68,0.22); color: #f87171; }
+.pc-card-change {
+  display: inline-block;
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+}
 
-.pc-row-change.neutral { background: rgba(148,163,184,0.2); color: #94a3b8; }
+.pc-card-change.down { background: rgba(16,185,129,0.2); color: #34d399; }
+.pc-card-change.up { background: rgba(239,68,68,0.2); color: #f87171; }
+.pc-card-change.neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
 
-.pc-total-row {
+/* Total row */
+.pc-total {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 18px;
-  background: rgba(255,255,255,0.12);
+  padding: 16px 20px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.25);
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.2);
-  margin-top: 6px;
+  gap: 12px;
 }
 
-.pc-total-label { font-weight: 700; color: #fff; font-size: 0.95rem; }
+.pc-total-label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.7); }
 
-.pc-total-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.pc-total-right { display: flex; align-items: baseline; gap: 10px; }
 
-.pc-total-amount { font-size: 1.5rem; font-weight: 800; color: #fff; }
+.pc-total-amount { font-size: 1.8rem; font-weight: 800; color: #fff; }
 
-.pc-total-change { font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+.pc-total-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
 
-.pc-total-change.down { background: rgba(16,185,129,0.25); color: #34d399; }
-
-.pc-total-change.up { background: rgba(239,68,68,0.25); color: #f87171; }
+.pc-total-badge.down { background: rgba(16,185,129,0.25); color: #34d399; }
+.pc-total-badge.up { background: rgba(239,68,68,0.25); color: #f87171; }
 
 
 .chart-close-btn {
@@ -5362,69 +5411,74 @@ const priceCapIcons = {
 };
 
 function renderPriceCapChart() {
-
   const data = priceCapData[currentPriceCapMethod];
-
   const container = document.getElementById('priceCapBreakdown');
-
   if (!container) return;
 
   const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
-
   const p1 = data.period1;
   const p2 = data.period2;
-  const maxVal = p2.total;
+  const total = p2.total;
 
-  let html = `<div class="pc-period-label">📅 ${p2.name} — what makes up the annual bill</div>`;
+  // Stacked bar — proportional segments
+  let stackHtml = '<div class="pc-stack">';
+  components.forEach(comp => {
+    const val = Math.max(0, p2[comp]);
+    const flex = ((val / total) * 100).toFixed(2);
+    const color = priceCapColors[comp];
+    const icon = priceCapIcons[comp];
+    stackHtml += `<div class="pc-seg" style="flex:${flex};background:${color}" title="${priceCapLabels[comp]}: £${val}">${parseFloat(flex) > 8 ? icon : ''}</div>`;
+  });
+  stackHtml += '</div>';
 
+  // Card grid
+  let gridHtml = '<div class="pc-grid">';
   components.forEach(comp => {
     const val2 = p2[comp];
     const val1 = p1[comp];
     const change = val2 - val1;
-    const pct = Math.max(0, (val2 / maxVal) * 100).toFixed(1);
+    const pct = Math.max(0, (val2 / total) * 100).toFixed(0);
     const color = priceCapColors[comp];
 
     let changeHtml = '';
-    if (change < 0) {
-      changeHtml = `<span class="pc-row-change down">↓ £${Math.abs(change)}</span>`;
-    } else if (change > 0) {
-      changeHtml = `<span class="pc-row-change up">↑ £${change}</span>`;
-    } else {
-      changeHtml = `<span class="pc-row-change neutral">unchanged</span>`;
-    }
+    if (change < 0) changeHtml = `<span class="pc-card-change down">↓ £${Math.abs(change)}</span>`;
+    else if (change > 0) changeHtml = `<span class="pc-card-change up">↑ £${change}</span>`;
+    else changeHtml = `<span class="pc-card-change neutral">no change</span>`;
 
-    html += `
-      <div class="pc-row">
-        <div class="pc-row-icon" style="background:${color}28">${priceCapIcons[comp]}</div>
-        <div class="pc-row-body">
-          <div class="pc-row-name">${priceCapLabels[comp]}</div>
-          <div class="pc-bar-wrap"><div class="pc-bar-fill" style="width:${pct}%;background:${color}"></div></div>
-          <div class="pc-row-desc">${priceCapDescriptions[comp]}</div>
-        </div>
-        <div class="pc-row-right">
-          <span class="pc-row-amount">£${val2}</span>
-          ${changeHtml}
-        </div>
+    gridHtml += `
+      <div class="pc-card" style="--card-color:${color};border-top:2px solid ${color}">
+        <span class="pc-card-icon">${priceCapIcons[comp]}</span>
+        <div class="pc-card-name">${priceCapLabels[comp]}</div>
+        <div class="pc-card-amount">£${val2}</div>
+        <div class="pc-card-pct">${pct}% of bill</div>
+        ${changeHtml}
       </div>`;
   });
+  gridHtml += '</div>';
 
+  // Total
   const totalChange = p2.total - p1.total;
-  const totalChangeClass = totalChange < 0 ? 'down' : totalChange > 0 ? 'up' : 'neutral';
-  const totalChangeLabel = totalChange < 0 ? `↓ £${Math.abs(totalChange)} vs last quarter` : totalChange > 0 ? `↑ £${totalChange} vs last quarter` : 'no change vs last quarter';
+  const totalBadgeClass = totalChange < 0 ? 'down' : 'up';
+  const totalBadgeText = totalChange < 0 ? `↓ £${Math.abs(totalChange)} vs last quarter` : `↑ £${totalChange} vs last quarter`;
 
-  html += `
-    <div class="pc-total-row">
-      <span class="pc-total-label">Total annual bill</span>
+  const totalHtml = `
+    <div class="pc-total">
+      <div>
+        <div class="pc-total-label">Total annual bill — ${p2.name}</div>
+      </div>
       <div class="pc-total-right">
         <span class="pc-total-amount">£${p2.total}</span>
-        <span class="pc-total-change ${totalChangeClass}">${totalChangeLabel}</span>
+        <span class="pc-total-badge ${totalBadgeClass}">${totalBadgeText}</span>
       </div>
     </div>`;
 
-  container.innerHTML = html;
+  container.innerHTML = `
+    <div class="pc-period-label">${p2.name} · Ofgem price cap · Average UK household</div>
+    ${stackHtml}
+    ${gridHtml}
+    ${totalHtml}`;
 
   updatePriceCapStats();
-
 }
 
 

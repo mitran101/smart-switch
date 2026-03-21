@@ -4351,7 +4351,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
       <h2>Where Does Your Money Actually Go?</h2>
 
-      <p>Your energy bill isn't just paying for gas and electricity. There are dozens of hidden costs - network fees, green levies, supplier profits, and more. We've broken it all down so you can see exactly where every pound goes.</p>
+      <p>Your energy bill isn't just paying for gas and electricity. There are dozens of hidden costs baked in. These are the Jan-Mar 2026 figures - what you're paying right now. Each component also shows what changes when the new price cap kicks in from April.</p>
 
     </div>
 
@@ -5389,13 +5389,11 @@ function renderPriceCapChart() {
   const container = document.getElementById('priceCapBreakdown');
   if (!container) return;
 
-  const p2 = pcData.period2;
-  const total = p2.total;
-
-  // Thin proportional bar — clickable segments
+  // Thin proportional bar — clickable segments, sized by current quarter (p1)
+  const p1total = pcData.period1.total;
   let barHtml = '<div class="pc-stack">';
   pcComponents.forEach((comp, i) => {
-    const flex = (Math.max(0, p2[comp]) / total * 100).toFixed(2);
+    const flex = (Math.max(0, pcData.period1[comp]) / p1total * 100).toFixed(2);
     barHtml += `<div class="pc-seg${i === 0 ? ' active' : ''}" id="pcSeg${i}" style="flex:${flex};background:${priceCapColors[comp]}" onclick="pcGoTo(${i})"></div>`;
   });
   barHtml += '</div>';
@@ -5421,11 +5419,12 @@ function pcGoTo(i) {
 
 function pcRender() {
   const comp = pcComponents[pcStep];
-  const p1 = pcData.period1;
-  const p2 = pcData.period2;
-  const total = p2.total;
-  const val = p2[comp];
-  const change = val - p1[comp];
+  const p1 = pcData.period1; // Jan-Mar 2026 — what people pay RIGHT NOW
+  const p2 = pcData.period2; // Apr-Jun 2026 — coming next month
+  const total = p1.total;
+  const val = p1[comp];           // show current quarter as main figure
+  const nextVal = p2[comp];       // April figure
+  const change = nextVal - val;   // positive = going up, negative = going down
   const pct = (val / total * 100).toFixed(0);
   const color = priceCapColors[comp];
 
@@ -5435,18 +5434,20 @@ function pcRender() {
     if (s) s.className = 'pc-seg' + (i === pcStep ? ' active' : '');
   });
 
-  // Change badge
-  let changeHtml = change < 0
-    ? `<span class="pc-feature-change down">↓ £${Math.abs(change)} cheaper than last quarter</span>`
-    : change > 0
-      ? `<span class="pc-feature-change up">↑ £${change} more than last quarter</span>`
-      : `<span class="pc-feature-change neutral">Same as last quarter</span>`;
+  // Forward-looking badge: what changes from April
+  let changeHtml = '';
+  if (change < 0)
+    changeHtml = `<span class="pc-feature-change down">📅 From April: drops to £${nextVal} (↓ £${Math.abs(change)})</span>`;
+  else if (change > 0)
+    changeHtml = `<span class="pc-feature-change up">📅 From April: rises to £${nextVal} (↑ £${change})</span>`;
+  else
+    changeHtml = `<span class="pc-feature-change neutral">📅 No change from April</span>`;
 
   // Feature panel
   const panel = document.getElementById('pcFeature');
   if (panel) {
     panel.innerHTML = `
-      <div class="pc-feature-tag">${pcStep + 1} of ${pcComponents.length} · where your money goes</div>
+      <div class="pc-feature-tag">${pcStep + 1} of ${pcComponents.length} · where your money goes right now</div>
       <div class="pc-feature-icon">${priceCapIcons[comp]}</div>
       <div class="pc-feature-name">${priceCapLabels[comp]}</div>
       <div class="pc-feature-amount" style="color:${color}">£${val}</div>

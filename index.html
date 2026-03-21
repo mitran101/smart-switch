@@ -1995,152 +1995,131 @@ body {
 
 }
 
-/* Bill breakdown — tap-to-reveal walkthrough */
+/* Bill breakdown — single-panel story */
 
-/* Stacked bar */
 .pc-stack {
   display: flex;
-  height: 44px;
-  border-radius: 12px;
+  height: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  gap: 3px;
+  gap: 2px;
   margin-bottom: 20px;
 }
 
 .pc-seg {
+  cursor: pointer;
+  transition: opacity 0.3s, flex 0.5s cubic-bezier(.4,0,.2,1);
+  opacity: 0.28;
+  border-radius: 3px;
+}
+
+.pc-seg.active { opacity: 1; }
+.pc-seg:not(.active):hover { opacity: 0.55; }
+
+.pc-feature {
+  text-align: center;
+  padding: 24px 16px 20px;
+  min-height: 200px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  overflow: hidden;
-  opacity: 0.18;
-  transition: opacity 0.5s ease, filter 0.3s ease;
-  cursor: default;
 }
 
-.pc-seg.lit { opacity: 1; }
-.pc-seg.active { opacity: 1; filter: brightness(1.3) drop-shadow(0 0 6px currentColor); }
-
-/* Card grid — cards hidden until revealed */
-.pc-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 18px;
-  min-height: 10px;
+.pc-feature-icon {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+  line-height: 1;
 }
 
-@media (max-width: 900px) { .pc-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .pc-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
-
-.pc-card {
-  padding: 14px 14px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  opacity: 0;
-  transform: translateY(14px) scale(0.97);
-  transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
-  pointer-events: none;
-}
-
-.pc-card.revealed {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-.pc-card.revealed:hover { background: rgba(255,255,255,0.09); }
-
-.pc-card-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
-
-.pc-card-name {
-  font-size: 0.68rem;
+.pc-feature-tag {
+  font-size: 0.7rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 4px;
-  line-height: 1.3;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
 }
 
-.pc-card-amount {
-  font-size: 1.45rem;
+.pc-feature-name {
+  font-size: 1.2rem;
   font-weight: 800;
   color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.pc-feature-amount {
+  font-size: 2.8rem;
+  font-weight: 800;
   line-height: 1;
   margin-bottom: 4px;
 }
 
-.pc-card-pct { font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
-
-.pc-card-change {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 8px;
+.pc-feature-pct {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 12px;
 }
 
-.pc-card-change.down { background: rgba(16,185,129,0.2); color: #34d399; }
-.pc-card-change.up   { background: rgba(239,68,68,0.2);  color: #f87171; }
-.pc-card-change.neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
+.pc-feature-desc {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 14px;
+}
 
-/* Tap button */
-.pc-tap-btn {
+.pc-feature-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.pc-feature-change.down { background: rgba(16,185,129,0.18); color: #34d399; }
+.pc-feature-change.up   { background: rgba(239,68,68,0.18);  color: #f87171; }
+.pc-feature-change.neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
+
+.pc-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 14px 20px;
-  background: rgba(16,185,129,0.12);
-  border: 1px solid rgba(16,185,129,0.3);
-  border-radius: 14px;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.pc-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
   color: #fff;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
-  margin-bottom: 16px;
   transition: background 0.2s, transform 0.15s;
-  text-align: left;
+  white-space: nowrap;
 }
 
-.pc-tap-btn:hover { background: rgba(16,185,129,0.2); transform: translateY(-1px); }
-.pc-tap-btn:active { transform: scale(0.98); }
-.pc-tap-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
+.pc-nav-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); transform: translateY(-1px); }
+.pc-nav-btn:disabled { opacity: 0.25; cursor: default; }
 
-.pc-tap-btn .btn-left { display: flex; flex-direction: column; gap: 2px; }
-.pc-tap-btn .btn-label { font-size: 0.95rem; font-weight: 700; }
-.pc-tap-btn .btn-hint  { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 500; }
-.pc-tap-btn .btn-progress { font-size: 0.78rem; color: rgba(255,255,255,0.45); white-space: nowrap; }
-.pc-tap-btn .btn-arrow { font-size: 1.1rem; transition: transform 0.2s; }
-.pc-tap-btn:not(:disabled):hover .btn-arrow { transform: translateX(3px); }
-
-/* Total — hidden until all revealed */
-.pc-total {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: rgba(16,185,129,0.1);
-  border: 1px solid rgba(16,185,129,0.25);
-  border-radius: 14px;
-  gap: 12px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+.pc-nav-counter {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
 }
-
-.pc-total.revealed { opacity: 1; transform: none; }
-
-.pc-total-label { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.65); }
-.pc-total-right { display: flex; align-items: baseline; gap: 10px; }
-.pc-total-amount { font-size: 1.8rem; font-weight: 800; color: #fff; }
-
-.pc-total-badge { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
-.pc-total-badge.down { background: rgba(16,185,129,0.25); color: #34d399; }
-.pc-total-badge.up   { background: rgba(239,68,68,0.25);  color: #f87171; }
 
 
 .chart-close-btn {
@@ -4391,37 +4370,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
     
 
-    <div class="price-cap-chart-container">
-
-      <div id="priceCapBreakdown" class="pc-breakdown"></div>
-
-    </div>
-
-    
-
-    <div class="price-cap-totals">
-
-      <div class="price-cap-total previous">
-
-        <p>Jan-Mar 2026</p>
-
-        <p id="priceCapPeriod1Total">£1758</p>
-
-        <p>Previous period</p>
-
-      </div>
-
-      <div class="price-cap-total current">
-
-        <p>Apr-Jun 2026</p>
-
-        <p id="priceCapPeriod2Total">£1641</p>
-
-        <p id="priceCapChangeAmount">−£117 (−6.7%)</p>
-
-      </div>
-
-    </div>
+    <div id="priceCapBreakdown" class="pc-breakdown"></div>
 
     
 
@@ -5425,183 +5374,103 @@ let currentPriceCapMethod = 'directDebit';
 
 
 const priceCapIcons = {
-  wholesale: '⚡',
-  networks: '🔌',
-  operating: '🏢',
-  policy: '🌿',
-  ebit: '💰',
-  headroom: '🛡️',
-  levelisation: '⚖️',
-  vat: '🏛️'
+  wholesale: '⚡', networks: '🔌', operating: '🏢', policy: '🌿',
+  ebit: '💰', headroom: '🛡️', levelisation: '⚖️', vat: '🏛️'
 };
 
 const pcComponents = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
 
-const pcNextLabels = [
-  'What are network costs?',
-  'What are operating costs?',
-  'What are policy costs?',
-  'What is supplier profit?',
-  'What is the safety buffer?',
-  'What is payment adjustment?',
-  'And finally, VAT',
-  'See your full bill total'
-];
-
 let pcStep = 0;
+let pcData = null;
 
 function renderPriceCapChart() {
   pcStep = 0;
-  const data = priceCapData[currentPriceCapMethod];
+  pcData = priceCapData[currentPriceCapMethod];
   const container = document.getElementById('priceCapBreakdown');
   if (!container) return;
 
-  const p1 = data.period1;
-  const p2 = data.period2;
+  const p2 = pcData.period2;
   const total = p2.total;
 
-  // Stacked bar — all segments start dimmed
-  let stackHtml = '<div class="pc-stack" id="pcStack">';
+  // Thin proportional bar — clickable segments
+  let barHtml = '<div class="pc-stack">';
   pcComponents.forEach((comp, i) => {
-    const val = Math.max(0, p2[comp]);
-    const flex = ((val / total) * 100).toFixed(2);
-    const color = priceCapColors[comp];
-    const icon = priceCapIcons[comp];
-    stackHtml += `<div class="pc-seg" id="pcSeg${i}" style="flex:${flex};background:${color}">${parseFloat(flex) > 7 ? icon : ''}</div>`;
+    const flex = (Math.max(0, p2[comp]) / total * 100).toFixed(2);
+    barHtml += `<div class="pc-seg${i === 0 ? ' active' : ''}" id="pcSeg${i}" style="flex:${flex};background:${priceCapColors[comp]}" onclick="pcGoTo(${i})"></div>`;
   });
-  stackHtml += '</div>';
+  barHtml += '</div>';
 
-  // Card grid — all hidden initially
-  let gridHtml = '<div class="pc-grid" id="pcGrid">';
-  pcComponents.forEach((comp, i) => {
-    const val2 = p2[comp];
-    const val1 = p1[comp];
-    const change = val2 - val1;
-    const pct = Math.max(0, (val2 / total) * 100).toFixed(0);
-    const color = priceCapColors[comp];
-    let changeHtml = change < 0
-      ? `<span class="pc-card-change down">↓ £${Math.abs(change)} vs last qtr</span>`
-      : change > 0
-        ? `<span class="pc-card-change up">↑ £${change} vs last qtr</span>`
-        : `<span class="pc-card-change neutral">unchanged</span>`;
-    gridHtml += `
-      <div class="pc-card" id="pcCard${i}" style="border-top:2px solid ${color}">
-        <span class="pc-card-icon">${priceCapIcons[comp]}</span>
-        <div class="pc-card-name">${priceCapLabels[comp]}</div>
-        <div class="pc-card-amount">£${val2}</div>
-        <div class="pc-card-pct">${pct}% of your bill</div>
-        ${changeHtml}
-      </div>`;
-  });
-  gridHtml += '</div>';
-
-  // Tap button
-  const tapHtml = `
-    <button class="pc-tap-btn" id="pcTapBtn" onclick="pcRevealNext()">
-      <div class="btn-left">
-        <span class="btn-label" id="pcBtnLabel">⚡ Start with wholesale energy — the actual gas &amp; electricity you use</span>
-        <span class="btn-hint" id="pcBtnHint">Tap to reveal each part of your bill</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span class="btn-progress" id="pcProgress">0 / 8</span>
-        <span class="btn-arrow">→</span>
-      </div>
-    </button>`;
-
-  // Total — hidden until complete
-  const totalChange = p2.total - p1.total;
-  const totalBadgeClass = totalChange < 0 ? 'down' : 'up';
-  const totalBadgeText = totalChange < 0 ? `↓ £${Math.abs(totalChange)} vs last quarter` : `↑ £${totalChange} vs last quarter`;
-  const totalHtml = `
-    <div class="pc-total" id="pcTotal">
-      <div class="pc-total-label">Total annual bill — ${p2.name}</div>
-      <div class="pc-total-right">
-        <span class="pc-total-amount">£${p2.total}</span>
-        <span class="pc-total-badge ${totalBadgeClass}">${totalBadgeText}</span>
-      </div>
+  // Feature panel + nav (populated by pcRender)
+  const panelHtml = `<div class="pc-feature" id="pcFeature"></div>
+    <div class="pc-nav">
+      <button class="pc-nav-btn" id="pcPrevBtn" onclick="pcGoTo(pcStep-1)" disabled>← Prev</button>
+      <span class="pc-nav-counter" id="pcCounter"></span>
+      <button class="pc-nav-btn" id="pcNextBtn" onclick="pcGoTo(pcStep+1)">Next →</button>
     </div>`;
 
-  container.innerHTML = stackHtml + tapHtml + gridHtml + totalHtml;
-
+  container.innerHTML = barHtml + panelHtml;
+  pcRender();
   updatePriceCapStats();
 }
 
-function pcRevealNext() {
-  if (pcStep >= pcComponents.length) return;
+function pcGoTo(i) {
+  i = Math.max(0, Math.min(i, pcComponents.length - 1));
+  pcStep = i;
+  pcRender();
+}
 
-  const data = priceCapData[currentPriceCapMethod];
-  const p2 = data.period2;
+function pcRender() {
+  const comp = pcComponents[pcStep];
+  const p1 = pcData.period1;
+  const p2 = pcData.period2;
+  const total = p2.total;
+  const val = p2[comp];
+  const change = val - p1[comp];
+  const pct = (val / total * 100).toFixed(0);
+  const color = priceCapColors[comp];
 
-  // Light up this bar segment
-  const seg = document.getElementById('pcSeg' + pcStep);
-  if (seg) { seg.classList.remove('active'); seg.classList.add('lit'); }
+  // Update bar segments
+  pcComponents.forEach((_, i) => {
+    const s = document.getElementById('pcSeg' + i);
+    if (s) s.className = 'pc-seg' + (i === pcStep ? ' active' : '');
+  });
 
-  // Briefly flash active on the newly lit one
-  if (seg) {
-    seg.classList.add('active');
-    setTimeout(() => seg.classList.remove('active'), 600);
+  // Change badge
+  let changeHtml = change < 0
+    ? `<span class="pc-feature-change down">↓ £${Math.abs(change)} cheaper than last quarter</span>`
+    : change > 0
+      ? `<span class="pc-feature-change up">↑ £${change} more than last quarter</span>`
+      : `<span class="pc-feature-change neutral">Same as last quarter</span>`;
+
+  // Feature panel
+  const panel = document.getElementById('pcFeature');
+  if (panel) {
+    panel.innerHTML = `
+      <div class="pc-feature-tag">${pcStep + 1} of ${pcComponents.length} · where your money goes</div>
+      <div class="pc-feature-icon">${priceCapIcons[comp]}</div>
+      <div class="pc-feature-name">${priceCapLabels[comp]}</div>
+      <div class="pc-feature-amount" style="color:${color}">£${val}</div>
+      <div class="pc-feature-pct">${pct}% of your annual bill</div>
+      <div class="pc-feature-desc">${priceCapDescriptions[comp]}</div>
+      ${changeHtml}`;
   }
 
-  // Reveal card
-  const card = document.getElementById('pcCard' + pcStep);
-  if (card) setTimeout(() => card.classList.add('revealed'), 60);
-
-  pcStep++;
-
-  // Update button
-  const btn = document.getElementById('pcTapBtn');
-  const label = document.getElementById('pcBtnLabel');
-  const hint = document.getElementById('pcBtnHint');
-  const progress = document.getElementById('pcProgress');
-
-  if (progress) progress.textContent = pcStep + ' / ' + pcComponents.length;
-
-  if (pcStep >= pcComponents.length) {
-    // All revealed — show total, disable button
-    setTimeout(() => {
-      const total = document.getElementById('pcTotal');
-      if (total) total.classList.add('revealed');
-    }, 300);
-    if (btn) btn.disabled = true;
-    if (label) label.textContent = "That's your full energy bill broken down ✓";
-    if (hint) hint.textContent = 'Switch payment method above to see how it changes';
-  } else {
-    const nextComp = pcComponents[pcStep];
-    if (label) label.textContent = pcNextLabels[pcStep - 1] + ' →';
-    if (hint) hint.textContent = priceCapDescriptions[pcComponents[pcStep - 1]].slice(0, 70) + '…';
+  // Nav
+  const counter = document.getElementById('pcCounter');
+  if (counter) counter.textContent = (pcStep + 1) + ' / ' + pcComponents.length;
+  const prev = document.getElementById('pcPrevBtn');
+  const next = document.getElementById('pcNextBtn');
+  if (prev) prev.disabled = pcStep === 0;
+  if (next) {
+    next.disabled = pcStep === pcComponents.length - 1;
+    next.textContent = pcStep < pcComponents.length - 1
+      ? 'Next: ' + priceCapLabels[pcComponents[pcStep + 1]].split(' ').slice(0,2).join(' ') + ' →'
+      : 'Next →';
   }
 }
 
 
-function updatePriceCapStats() {
-
-  const data = priceCapData[currentPriceCapMethod];
-
-  const p1 = document.getElementById('priceCapPeriod1Total');
-
-  const p2 = document.getElementById('priceCapPeriod2Total');
-
-  const change = document.getElementById('priceCapChangeAmount');
-
-  
-
-  if (p1) p1.textContent = '£' + data.period1.total;
-
-  if (p2) p2.textContent = '£' + data.period2.total;
-
-  
-
-  if (change) {
-
-    const changeVal = data.period2.total - data.period1.total;
-
-    const percentChange = ((changeVal / data.period1.total) * 100).toFixed(1);
-
-    change.textContent = (changeVal >= 0 ? '+' : '') + '£' + changeVal + ' (' + (changeVal >= 0 ? '+' : '') + percentChange + '%)';
-
-  }
-
-}
+function updatePriceCapStats() { /* totals panel removed — data shown inline */ }
 
 
 function setPriceCapMethod(method) {

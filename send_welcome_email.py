@@ -115,7 +115,7 @@ def send_welcome_email(to_email):
           </p>
 
           <p style="color: #4a5568; line-height: 1.6; margin-bottom: 2rem;">
-            We're energy industry professionals building a <strong>free auto-switching service</strong> that makes suppliers compete for your business - so you always end up on the best deal available, with exclusive tariffs you won't find anywhere else and <strong>10% cashback</strong> from the fee suppliers pay us.
+            We're energy industry professionals building a <strong>free auto-switching service</strong> that makes suppliers compete for your business - so you always end up on the best deal available, with exclusive tariffs you won't find anywhere else and <strong>£10 cashback</strong> from the fee suppliers pay us.
           </p>
 
           <!-- Primary CTA -->

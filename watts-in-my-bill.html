@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot</title>
+    <title>Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot</title>
     <meta name="description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
     <meta name="keywords" content="energy bill analyser, what’s in my energy bill, energy bill breakdown UK, energy bill checker, am I overpaying energy, energy bill explained, compare energy bills UK">
     <meta name="robots" content="index, follow">
@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://www.switch-pilot.com/watts-in-my-bill.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot">
+    <meta property="og:title" content="Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot">
     <meta property="og:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
     <meta property="og:url" content="https://www.switch-pilot.com/watts-in-my-bill.html">
     <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="What’s In My Energy Bill? Free AI Bill Analyser | SwitchPilot">
+    <meta name="twitter:title" content="Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot">
     <meta name="twitter:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
     <meta name="twitter:image" content="https://www.switch-pilot.com/logo.png">
 
@@ -135,38 +135,56 @@ body {
 }
 
   /* ── SwitchPilot Nav ── */
-  .top-nav {
+  .sticky-nav {
+    position: sticky; top: 0; z-index: 1000;
     background: var(--sp-slate);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 10;
+    transition: box-shadow 0.3s ease;
   }
-  .top-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
+  .sticky-nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .nav-logo {
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; font-weight: 700; color: white;
   }
-  .top-logo img { height: 3rem; width: auto; margin-right: -12px; }
-  .top-logo span { font-size: 1.35rem; }
-  .back-home {
-    display: inline-block;
-    padding: 8px 18px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background 0.2s;
+  .nav-logo img { height: 3.2rem; width: auto; margin-right: -12px; }
+  .nav-logo span { font-size: 1.35rem; font-weight: 700; }
+  .nav-links {
+    display: flex; align-items: center; gap: 0.5rem;
   }
-  .back-home:hover { background: rgba(255,255,255,0.2); }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    padding: 0.5rem 0.9rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500;
+    transition: all 0.2s ease; opacity: 0.85;
+  }
+  .nav-links a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+  .nav-links a.active { opacity: 1; background: rgba(255,255,255,0.15); }
+  .nav-cta { background: var(--sp-green) !important; opacity: 1 !important; box-shadow: 0 4px 15px rgba(16,185,129,0.25); }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.35); }
+  .nav-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-toggle span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--sp-slate); flex-direction: column;
+      padding: 1rem; gap: 0.25rem;
+      transform: translateY(-10px); opacity: 0; pointer-events: none;
+      transition: all 0.3s ease;
+    }
+    .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .nav-links a { width: 100%; text-align: center; padding: 0.8rem 1rem; }
+    .nav-toggle { display: flex; }
+    .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+    .sticky-nav { padding: 0.8rem 1rem; }
+  }
 
 
   .container {
@@ -754,17 +772,17 @@ body {
 
   .reset-btn:hover { border-color: var(--sp-text-muted); color: var(--sp-text); }
 
-  footer {
+  .site-footer {
     text-align: center;
     margin-top: 60px;
+    padding: 2rem;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     color: var(--sp-text-muted);
     line-height: 1.9;
   }
-
-  footer a { color: var(--sp-text-muted); }
-  footer a:hover { color: var(--sp-green); }
+  .site-footer a { color: var(--sp-purple); text-decoration: none; }
+  .site-footer p { margin: 0.5rem 0; }
 
   /* ── Email Capture Card ── */
   .email-capture {
@@ -913,12 +931,22 @@ body {
 <body>
 
 <!-- SwitchPilot Nav -->
-<nav class="top-nav">
-  <a href="index.html" class="top-logo">
-    <img src="https://www.switch-pilot.com/logo.png" alt="" onerror="this.style.display='none'">
-    <span>SwitchPilot</span>
-  </a>
-  <a href="tariff-tracker.html" class="back-home">⚡ Tariff Tracker</a>
+<nav class="sticky-nav" id="stickyNav">
+    <a href="index.html" class="nav-logo">
+        <img src="https://www.switch-pilot.com/logo.png" alt="SwitchPilot logo" style="height:3.2rem;width:auto;vertical-align:middle;margin-right:-12px;">
+        <span>SwitchPilot</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+        <a href="index.html#how-it-works">How It Works</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#bill-breakdown">Bill Breakdown</a>
+        <a href="tariff-tracker.html">Price Tracker</a>
+        <a href="switchinsights/">Insights</a>
+        <a href="index.html#waitlist" class="nav-cta">Sign Up Free</a>
+    </div>
 </nav>
 
 
@@ -928,7 +956,7 @@ body {
     <div class="logo-wrap">
       <span class="bolt">⚡</span>
     </div>
-    <h1>What's In My<br><span>Energy Bill?</span></h1>
+    <h1>Watts in<br><span>My Bill</span></h1>
     <p class="tagline">Upload your bill - get an instant AI breakdown of every charge and find out if you could save</p>
   </header>
 
@@ -955,16 +983,25 @@ body {
 
   <button class="reset-btn" id="resetBtn" style="display:none" onclick="resetTool()">↩ Scan another bill</button>
 
-  <footer>
-    Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology.<br>
-    For UK energy bills only — Ofgem-regulated suppliers in Great Britain.<br>
-    Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly.<br>
-    Actual savings may vary. Not financial advice. Always confirm rates with your new supplier before switching.
+  <footer class="site-footer">
+    <p>Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology. For UK energy bills only - Ofgem-regulated suppliers in Great Britain.</p>
+    <p>Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly. Actual savings may vary. Not financial advice.</p>
+    <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
+    <p>Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>
+    <p style="margin-top:1rem;font-size:0.75rem;opacity:0.5;">SwitchPilot Ltd · 128 City Road, London, EC1V 2NX · Registered in England &amp; Wales</p>
+    <p style="font-size:0.75rem;opacity:0.5;margin-top:0.25rem;"><a href="/privacy-policy.html" style="color:inherit;">Privacy Policy</a> · <a href="/terms.html" style="color:inherit;">Terms of Service</a></p>
   </footer>
 
 </div>
 
 <script>
+// ── Nav ──
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const stickyNav = document.getElementById('stickyNav');
+if (navToggle) navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); navLinks.classList.toggle('open'); });
+window.addEventListener('scroll', () => { if (stickyNav) stickyNav.classList.toggle('scrolled', window.scrollY > 10); });
+
 // ── DOM refs ──
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');

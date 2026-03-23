@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/(favicon.ico|favicon-32x32.png|favicon-16x16.png|apple-touch-icon.png|logo.png|switchinsightslogo.png|switchinsights-apple-touch-icon.png|switchinsights-favicon.ico|switchinsights-favicon-32x32.png|switchinsights-favicon-16x16.png)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ],
   "redirects": [
     { "source": "/switchinsights.html", "destination": "/switchinsights/", "permanent": true },
     { "source": "/archive.html", "destination": "/switchinsights/", "permanent": true },

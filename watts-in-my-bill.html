@@ -1402,8 +1402,11 @@ function renderResults(d, tariffData) {
     html += `<div class="insight-box"><h3>⚡ Analyst's Take</h3><p>${d.insight || ''} ${d.pricecapContext || ''}</p></div>`;
   }
 
-  // Switching section
+  // Sign up CTA — always first
   let switchingResult = null;
+  html += renderEmailCapture(d, switchingResult);
+
+  // Tariff tracker callout — second
   if (tariffData && d.region) {
     switchingResult = findBestDeals(d, tariffData);
     html += renderSwitchingSection(d, tariffData, switchingResult);
@@ -1414,9 +1417,6 @@ function renderResults(d, tariffData) {
       Check our <a href="tariff-tracker.html" style="color:#34d399">Tariff Tracker</a> to see deals in your region.</div>
     </div>`;
   }
-
-  // Email capture — always render, context-aware copy
-  html += renderEmailCapture(d, switchingResult);
 
   results.innerHTML = html;
   results.classList.add('active');
@@ -1541,18 +1541,8 @@ function renderEmailCapture(billData, switchingResult) {
   const maxSaving = switchingResult?.deals?.[0]?.saving || 0;
   const supplier = billData.supplier && billData.supplier !== 'Unknown' ? billData.supplier : null;
 
-  // Context-aware headline
-  let headline, subline;
-  if (maxSaving > 50) {
-    headline = `We found you could save ${fmt(maxSaving, 0)}/yr`;
-    subline = `Get <strong>an alert when better deals appear</strong>${region ? ` in the ${region} region` : ''} — and weekly bill insights from SwitchPilot.`;
-  } else if (region) {
-    headline = `Stay ahead of rate changes in ${region}`;
-    subline = `Get <strong>weekly tariff alerts</strong> for your region and bite-sized energy insights from SwitchPilot.`;
-  } else {
-    headline = `Get alerted when better deals appear`;
-    subline = `Join SwitchPilot for <strong>weekly tariff alerts</strong> and plain-English energy insights — no jargon.`;
-  }
+  const headline = `Sign up to SwitchPilot`;
+  const subline = `We'll keep you informed on rate changes, price cap updates, and the best deals in your area — plain English, no jargon.`;
 
   // Encode bill context for the submit handler (passed as data attributes)
   const ctx = encodeURIComponent(JSON.stringify({

@@ -2707,6 +2707,135 @@ body {
 .tariff-card .footnote a { color: var(--sp-green); text-decoration: none; }
 
 
+/* WATTS IN MY BILL */
+
+.analyser-section {
+
+  max-width: 1200px;
+
+  margin: 3.5rem auto 4.5rem;
+
+  padding: 0 2rem;
+
+}
+
+.analyser-card {
+
+  background: linear-gradient(135deg, var(--sp-slate) 0%, var(--sp-slate-dark) 100%);
+
+  padding: 3rem;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(245,158,11,0.3);
+
+  box-shadow: 0 0 20px rgba(245,158,11,0.1), 0 10px 40px rgba(0,0,0,0.2);
+
+  text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: all 0.4s ease;
+
+}
+
+.analyser-card:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+
+}
+
+.analyser-tag {
+
+  display: inline-block;
+
+  background: rgba(245,158,11,0.15);
+
+  color: #FCD34D;
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 20px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  margin-bottom: 1.5rem;
+
+}
+
+.analyser-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.analyser-card h2 {
+
+  font-size: 2rem;
+
+  font-weight: 800;
+
+  margin-bottom: 1rem;
+
+  color: var(--sp-text);
+
+}
+
+.analyser-card > p {
+
+  color: var(--sp-text-muted);
+
+  font-size: 1.05rem;
+
+  max-width: 600px;
+
+  margin: 0 auto 2rem;
+
+  line-height: 1.7;
+
+}
+
+.analyser-btn {
+
+  padding: 1.2rem 2.5rem;
+
+  border: none;
+
+  border-radius: 12px;
+
+  font-size: 1.15rem;
+
+  font-weight: 700;
+
+  background: linear-gradient(135deg, var(--sp-amber), #D97706);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 30px rgba(245,158,11,0.3);
+
+  font-family: inherit;
+
+  transition: transform 0.2s;
+
+}
+
+.analyser-btn:hover { transform: translateY(-2px); }
+
+.analyser-card .footnote {
+
+  margin-top: 1.5rem;
+
+  font-size: 0.9rem;
+
+  color: var(--sp-text-muted);
+
+}
+
+
 /* INSIGHTS SECTION */
 
 .insights {
@@ -4458,6 +4587,29 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
     <button onclick="window.open('energy-bill-calculator.html','_blank')" class="billing-btn">Calculate Your Bill →</button>
 
     <p class="footnote">Find the best tariff for your actual usage</p>
+
+  </div>
+
+</section>
+
+
+<!-- WATTS IN MY BILL CALLOUT -->
+
+<section class="analyser-section">
+
+  <div class="analyser-card">
+
+    <span class="analyser-tag">📄 Free AI Tool</span>
+
+    <div class="icon">🔍</div>
+
+    <h2>Watts in My Bill</h2>
+
+    <p>Drop a photo or PDF of your energy bill and our AI breaks down every single charge - unit rates, standing charges, green levies, VAT. See exactly where your money goes and whether you're being overcharged.</p>
+
+    <button onclick="window.open('watts-in-my-bill.html','_blank')" class="analyser-btn">Analyse My Bill →</button>
+
+    <p class="footnote">Works with any UK energy bill · Takes 10 seconds · Free to use</p>
 
   </div>
 

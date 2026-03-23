@@ -2294,6 +2294,93 @@ body {
 .price-cap-footer strong { color: var(--sp-text); }
 
 
+.watts-cta {
+
+  margin-top: 2.5rem;
+
+  padding: 2rem;
+
+  background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+
+  border: 1px solid rgba(245,158,11,0.25);
+
+  border-radius: 14px;
+
+  text-align: center;
+
+}
+
+.watts-cta-label {
+
+  font-size: 0.8rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  color: var(--sp-amber);
+
+  margin-bottom: 0.5rem;
+
+  font-weight: 600;
+
+}
+
+.watts-cta h3 {
+
+  font-size: 1.4rem;
+
+  font-weight: 800;
+
+  margin: 0 0 0.75rem;
+
+  color: var(--sp-text);
+
+}
+
+.watts-cta > p {
+
+  color: var(--sp-text-muted);
+
+  font-size: 0.95rem;
+
+  max-width: 520px;
+
+  margin: 0 auto 1.5rem;
+
+  line-height: 1.6;
+
+}
+
+.watts-cta-btn {
+
+  padding: 0.9rem 2rem;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  background: linear-gradient(135deg, var(--sp-amber), #D97706);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition: transform 0.2s;
+
+  box-shadow: 0 6px 20px rgba(245,158,11,0.3);
+
+}
+
+.watts-cta-btn:hover { transform: translateY(-2px); }
+
+
 /* BILLING INTERACTIVE */
 
 .billing-section {
@@ -4535,6 +4622,13 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
       <p><strong>Based on:</strong> Average UK household using 2,700 kWh electricity + 11,500 kWh gas per year</p>
 
+    </div>
+
+    <div class="watts-cta">
+      <p class="watts-cta-label">These are average figures</p>
+      <h3>Want to see your actual breakdown?</h3>
+      <p>Drop a photo of your bill and our AI pulls out every single charge - your unit rate, your standing charge, what you're paying in green levies. Your numbers, not the average.</p>
+      <button onclick="window.open('watts-in-my-bill.html','_blank')" class="watts-cta-btn">📄 Upload My Bill →</button>
     </div>
 
   </div>

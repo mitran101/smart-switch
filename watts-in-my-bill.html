@@ -1372,7 +1372,7 @@ function renderResults(d, tariffData) {
         ${costRow('Network Charges', 'tag-network', 'Network', 'Transmission & distribution — getting electricity to your home · ~26% of unit cost', elecUC.network, total, 'var(--sp-amber)', 'bar-elec')}
         ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, call centres, smart metering programme · ~17% of unit cost', elecUC.operating, total, 'var(--sp-amber)', 'bar-elec')}
         ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Renewables obligation, ECO scheme, Warm Home Discount · ~16% of unit cost', elecUC.policy, total, 'var(--sp-amber)', 'bar-elec')}
-        ${costRow('Supplier Margin (EBIT)', '', '', 'Regulated profit — Ofgem cap limits this to ~5% of unit cost', elecUC.ebit, total, 'var(--sp-amber)', 'bar-elec')}
+        ${costRow('Supplier Profit (EBIT)', '', '', 'Regulated profit — Ofgem cap limits this to ~5% of unit cost', elecUC.ebit, total, 'var(--sp-amber)', 'bar-elec')}
       </div>`;
   }
 
@@ -1385,7 +1385,7 @@ function renderResults(d, tariffData) {
         ${costRow('Gas Network Charges', 'tag-network', 'Network', 'National Transmission System & local distribution · ~23% of unit cost', gasUC.network, total, 'var(--sp-green)', 'bar-gas')}
         ${costRow('Supplier Operating Costs', 'tag-regulated', 'Opex', 'Billing, servicing, smart meter rollout · ~12% of unit cost', gasUC.operating, total, 'var(--sp-green)', 'bar-gas')}
         ${costRow('Policy & Environmental Levies', 'tag-regulated', 'Regulated', 'Warm Home Discount, social & environmental obligations · ~7% of unit cost', gasUC.policy, total, 'var(--sp-green)', 'bar-gas')}
-        ${costRow('Supplier Margin (EBIT)', '', '', 'Gas is lower-margin — Ofgem cap limits supplier profit to ~3% of unit cost', gasUC.ebit, total, 'var(--sp-green)', 'bar-gas')}
+        ${costRow('Supplier Profit (EBIT)', '', '', 'Gas is lower-margin — Ofgem cap limits supplier profit to ~3% of unit cost', gasUC.ebit, total, 'var(--sp-green)', 'bar-gas')}
       </div>`;
   }
 

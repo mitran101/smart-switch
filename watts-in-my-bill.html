@@ -543,6 +543,46 @@ body {
   .insight-box p { color: #c8c8d8; font-size: 0.88rem; line-height: 1.7; }
 
   /* ── SWITCHING SECTION ── */
+  /* ── Post-analysis CTAs ── */
+  .cta-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .cta-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--sp-card);
+    border: 1px solid var(--sp-border);
+    border-radius: 16px;
+    padding: 24px 28px;
+  }
+  .cta-block .icon { font-size: 2rem; flex-shrink: 0; }
+  .cta-block .content { flex: 1; }
+  .cta-block .content h3 { margin: 0 0 6px; font-size: 1.1rem; font-weight: 700; color: var(--sp-text); }
+  .cta-block .content p { margin: 0; font-size: 0.9rem; color: var(--sp-text-muted); line-height: 1.5; }
+  .cta-btn {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: transform 0.2s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  .cta-btn-green { background: linear-gradient(135deg, var(--sp-green), var(--sp-green-dark)); color: #fff; box-shadow: 0 4px 15px rgba(16,185,129,0.25); }
+  .cta-btn-amber { background: linear-gradient(135deg, var(--sp-amber), #D97706); color: #fff; box-shadow: 0 4px 15px rgba(245,158,11,0.25); }
+  @media (max-width: 600px) {
+    .cta-block { flex-direction: column; text-align: center; }
+    .cta-btn { width: 100%; text-align: center; }
+  }
+
   .switching-section {
     margin-top: 32px;
     background: linear-gradient(135deg, #0d1a0d, #0a0a12);
@@ -1402,21 +1442,26 @@ function renderResults(d, tariffData) {
     html += `<div class="insight-box"><h3>⚡ Analyst's Take</h3><p>${d.insight || ''} ${d.pricecapContext || ''}</p></div>`;
   }
 
-  // Sign up CTA — always first
-  let switchingResult = null;
-  html += renderEmailCapture(d, switchingResult);
-
-  // Tariff tracker callout — second
-  if (tariffData && d.region) {
-    switchingResult = findBestDeals(d, tariffData);
-    html += renderSwitchingSection(d, tariffData, switchingResult);
-  } else if (tariffData && !d.region) {
-    html += `<div class="switching-section">
-      <div class="switching-header"><h3>Could you be paying <span>less?</span></h3></div>
-      <div class="no-savings-note">We couldn't identify your region from this bill — we need that to compare tariffs accurately by network area.<br><br>
-      Check our <a href="tariff-tracker.html" style="color:#34d399">Tariff Tracker</a> to see deals in your region.</div>
-    </div>`;
-  }
+  // CTAs
+  html += `
+  <div class="cta-section">
+    <div class="cta-block cta-signup">
+      <div class="icon">⚡</div>
+      <div class="content">
+        <h3>Never overpay again.</h3>
+        <p>SwitchPilot finds the best deal and switches you automatically — plus exclusive tariffs and £10 cashback on every switch.</p>
+      </div>
+      <a href="index.html#waitlist" class="cta-btn cta-btn-green">Sign Up Free →</a>
+    </div>
+    <div class="cta-block cta-tracker">
+      <div class="icon">🔍</div>
+      <div class="content">
+        <h3>Could you be paying less?</h3>
+        <p>See the cheapest tariffs available right now across all UK regions, updated every week.</p>
+      </div>
+      <a href="tariff-tracker.html" class="cta-btn cta-btn-amber">Check Latest Tariffs →</a>
+    </div>
+  </div>`;
 
   results.innerHTML = html;
   results.classList.add('active');

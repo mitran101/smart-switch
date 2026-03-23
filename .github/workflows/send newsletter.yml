@@ -2,7 +2,7 @@ name: Send Newsletter
 
 on:
   schedule:
-    - cron: '0 10 7 3 *'  # 10:00 AM UTC (UK time) on March 7
+    - cron: '0 10 24 3 *'  # 10:00 AM UTC on March 24
   workflow_dispatch:
     inputs:
       mode:

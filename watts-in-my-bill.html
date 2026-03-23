@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot</title>
-    <meta name="description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
-    <meta name="keywords" content="energy bill analyser, what’s in my energy bill, energy bill breakdown UK, energy bill checker, am I overpaying energy, energy bill explained, compare energy bills UK">
+    <title>Watts in My Bill? - AI Energy Bill Breakdown UK | SwitchPilot</title>
+    <meta name="description" content="Upload your UK energy bill and our AI explains every charge - unit rate, standing charge, green levies, VAT and more. See exactly where your money goes in seconds.">
+    <meta name="keywords" content="energy bill breakdown UK, what is on my energy bill, energy bill analyser, energy bill checker UK, what is standing charge energy, green levies energy bill, am I overpaying energy, energy bill explained, unit rate energy bill, AI energy bill tool, upload energy bill, energy bill breakdown tool, what does my energy bill consist of, energy bill charges explained, Ofgem price cap bill breakdown">
     <meta name="robots" content="index, follow">
     <meta name="author" content="SwitchPilot">
     <link rel="canonical" href="https://www.switch-pilot.com/watts-in-my-bill.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot">
-    <meta property="og:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
+    <meta property="og:title" content="Watts in My Bill? - AI Energy Bill Breakdown UK | SwitchPilot">
+    <meta property="og:description" content="Upload your UK energy bill and our AI explains every charge - unit rate, standing charge, green levies, VAT and more. See exactly where your money goes in seconds.">
     <meta property="og:url" content="https://www.switch-pilot.com/watts-in-my-bill.html">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.switch-pilot.com/logo.png">
@@ -21,22 +21,30 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Watts in My Bill - Free AI Energy Bill Analyser | SwitchPilot">
-    <meta name="twitter:description" content="Upload your energy bill and get an instant AI breakdown of every charge. See if you’re overpaying and find cheaper tariffs in your region. Free to use.">
+    <meta name="twitter:title" content="Watts in My Bill? - AI Energy Bill Breakdown UK | SwitchPilot">
+    <meta name="twitter:description" content="Upload your UK energy bill and our AI explains every charge - unit rate, standing charge, green levies, VAT and more. See exactly where your money goes in seconds.">
     <meta name="twitter:image" content="https://www.switch-pilot.com/logo.png">
+    <meta name="twitter:site" content="@switchpilot">
 
     <!-- JSON-LD: WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "What’s In My Energy Bill? AI Bill Analyser",
+      "name": "Watts in My Bill? - AI Energy Bill Breakdown",
       "url": "https://www.switch-pilot.com/watts-in-my-bill.html",
-      "description": "Upload your UK energy bill and get an instant AI-powered breakdown of every charge - unit rates, standing charges, policy costs and whether you could save by switching.",
+      "description": "Upload your UK energy bill and get an instant AI-powered breakdown of every charge - unit rates, standing charges, green levies, VAT, network costs and whether you could save by switching.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web",
+      "browserRequirements": "Requires JavaScript",
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"},
-      "publisher": {"@type": "Organization", "name": "SwitchPilot", "url": "https://www.switch-pilot.com"}
+      "featureList": "AI bill analysis, unit rate extraction, standing charge breakdown, tariff comparison, overpayment detection",
+      "publisher": {
+        "@type": "Organization",
+        "name": "SwitchPilot",
+        "url": "https://www.switch-pilot.com",
+        "logo": "https://www.switch-pilot.com/logo.png"
+      }
     }
     </script>
 
@@ -56,10 +64,26 @@
         },
         {
           "@type": "Question",
-          "name": "How do I know if I'm overpaying on my energy bill?",
+          "name": "How do I know if I’m overpaying on my energy bill?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The main indicator is whether you're on a Standard Variable Tariff (SVT) rather than a fixed deal. SVTs are capped at the Ofgem price cap but competitive fixed deals often beat that by £100-250 per year. Uploading your bill to this tool will compare your current rates against live market tariffs in your region."
+            "text": "The main indicator is whether you’re on a Standard Variable Tariff (SVT) rather than a fixed deal. SVTs are capped at the Ofgem price cap but competitive fixed deals often beat that by £100-250 per year. Uploading your bill to this tool will compare your current rates against live market tariffs in your region."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a standing charge on an energy bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standing charge is a fixed daily fee you pay regardless of how much energy you use. It covers the cost of maintaining the pipes, wires and meters that connect your home to the grid. In 2026, the Ofgem price cap sets the maximum standing charge at around 61p/day for electricity and 32p/day for gas on direct debit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are green levies on my energy bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Green levies are government policy costs added to every UK energy bill to fund renewable energy schemes, home insulation programmes, and support for vulnerable customers. They include the Renewables Obligation, Feed-in Tariffs, the Warm Home Discount, and the Energy Company Obligation. Together they add roughly £150-180 per year to the average dual-fuel bill."
           }
         },
         {
@@ -67,7 +91,7 @@
           "name": "Is it safe to upload my energy bill?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Your bill image is sent directly to our analysis API and is not stored or retained. We extract only the rate information needed for comparison - supplier name, unit rates, standing charges, and your region. No account numbers or personal details are saved."
+            "text": "Yes. Your bill image is sent directly to the analysis API and is not stored or retained. We extract only the rate information needed - supplier name, unit rates, standing charges, and your region. No account numbers or personal details are saved."
           }
         },
         {
@@ -83,7 +107,23 @@
           "name": "What energy bill formats does this tool accept?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The tool accepts PNG, JPG, and PDF energy bill uploads. It works with bills from all major UK suppliers including British Gas, Octopus, E.ON, EDF, OVO, Scottish Power, and smaller suppliers. The AI reads the bill image directly, so any clear scan or photo should work."
+            "text": "The tool accepts PNG, JPG, and PDF energy bill uploads. It works with bills from all major UK suppliers including British Gas, Octopus, E.ON, EDF, OVO, Scottish Power, and smaller suppliers. Any clear photo or scan of your bill will work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a unit rate on an energy bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A unit rate is the price you pay per kilowatt-hour (kWh) of energy you actually consume. It is measured in pence per kWh. In 2026, the Ofgem price cap unit rate is around 24.5p/kWh for electricity and 6.0p/kWh for gas on direct debit. If your bill shows a higher unit rate, you may be overpaying."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does my energy bill change every quarter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Energy bills in the UK change quarterly because Ofgem reviews and resets the price cap every three months based on wholesale gas and electricity market prices. The price cap sets the maximum unit rate and standing charge suppliers can charge on default tariffs. Bills can go up or down depending on global energy market conditions."
           }
         }
       ]
@@ -1029,7 +1069,16 @@ body {
 </div>
 
 <footer class="site-footer">
-    <p>Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology. For UK energy bills only - Ofgem-regulated suppliers in Great Britain.</p>
+    <p style="margin-bottom:1.5rem;font-size:0.9rem;font-weight:600;color:var(--sp-text);">Related reading</p>
+    <p>
+      <a href="switchinsights/why-uk-electricity-bills-follow-gas-prices.html">Why UK electricity bills follow gas prices</a> ·
+      <a href="switchinsights/standing-charge-increase-2026.html">Standing charge increases 2026</a> ·
+      <a href="switchinsights/supplier-profits-analysis.html">Are energy suppliers really making a fortune?</a> ·
+      <a href="switchinsights/q2-2026-price-cap.html">Q2 2026 price cap explained</a> ·
+      <a href="tariff-tracker.html">Live tariff tracker</a> ·
+      <a href="energy-bill-calculator.html">Energy bill calculator</a>
+    </p>
+    <p style="margin-top: 1.5rem;">Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology. For UK energy bills only - Ofgem-regulated suppliers in Great Britain.</p>
     <p>Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly. Actual savings may vary. Not financial advice.</p>
     <p style="margin-top: 1rem;">📧 Questions? <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
     <p>Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>

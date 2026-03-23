@@ -8,8 +8,8 @@ import base64
 import requests
 
 def fetch_newsletter_html():
-    """Fetch the newsletter HTML from GitHub Pages"""
-    url = "https://mitran101.github.io/smart-switch/switchpilot-newsletter-iran-crisis.html"
+    """Fetch the newsletter HTML from Vercel"""
+    url = "https://www.switch-pilot.com/switchpilot-newsletter-watts-in-my-bill.html"
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
@@ -19,11 +19,10 @@ def fetch_newsletter_html():
         return None
 
 def personalize_html(html_content, to_email):
-    """Replace generic unsubscribe link with personalized one"""
-    generic_unsub = "https://mitran101.github.io/smart-switch/unsubscribe.html"
+    """Replace generic unsubscribe placeholder with personalized one"""
     token = base64.b64encode(to_email.encode('utf-8')).decode('utf-8')
-    personal_unsub = f"https://mitran101.github.io/smart-switch/unsubscribe.html?token={quote(token)}"
-    return html_content.replace(generic_unsub, personal_unsub)
+    personal_unsub = f"https://www.switch-pilot.com/unsubscribe.html?token={quote(token)}"
+    return html_content.replace("{{unsubscribe_url}}", personal_unsub)
 
 def send_newsletter(to_email, html_content):
     smtp_server = "smtp.office365.com"
@@ -37,7 +36,7 @@ def send_newsletter(to_email, html_content):
     msg = MIMEMultipart('alternative')
     msg['From'] = f"SwitchPilot Team <team@switch-pilot.com>"
     msg['To'] = to_email
-    msg['Subject'] = "Gas prices just doubled. Here's what you need to know."
+    msg['Subject'] = "Where does your energy bill money actually go?"
 
     msg.attach(MIMEText(html, 'html'))
 

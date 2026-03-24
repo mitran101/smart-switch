@@ -187,8 +187,25 @@ def send_welcome_email(to_email):
         print(f"Failed to send email: {e}")
         return False
 
+SENT_LOG = "welcome_sent.txt"
+
+def already_sent(email):
+    if not os.path.exists(SENT_LOG):
+        return False
+    with open(SENT_LOG, 'r') as f:
+        return email.lower().strip() in [line.lower().strip() for line in f.readlines()]
+
+def mark_sent(email):
+    with open(SENT_LOG, 'a') as f:
+        f.write(email.lower().strip() + "\n")
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        send_welcome_email(sys.argv[1])
+        email = sys.argv[1]
+        if already_sent(email):
+            print(f"Skipping {email} - welcome email already sent.")
+            sys.exit(0)
+        if send_welcome_email(email):
+            mark_sent(email)
     else:
         print("Usage: python send_welcome_email.py email@example.com")

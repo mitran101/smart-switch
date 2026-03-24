@@ -25,3 +25,11 @@ jobs:
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
         run: |
           python send_welcome_email.py "${{ github.event.client_payload.email }}"
+
+      - name: Save sent log
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add welcome_sent.txt
+          git diff --staged --quiet || git commit -m "Log welcome email sent"
+          git push || echo "Nothing to push"

@@ -171,40 +171,50 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
 
         # STEP 2: Enter postcode
         print(f"\n  [2] Entering postcode: {postcode}")
+        page.screenshot(path=f"screenshots/eon_step2_before_postcode.png")
         postcode_entered = False
-        for sel in ['input[name*="postcode" i]', 'input[placeholder*="postcode" i]', 'input[type="text"]']:
+        for sel in [
+            'input[name*="postcode" i]',
+            'input[placeholder*="postcode" i]',
+            'input[id*="postcode" i]',
+            'input[autocomplete*="postal" i]',
+            'input[type="search"]',
+            'input[type="text"]',
+            'input',
+        ]:
             try:
                 inp = page.locator(sel).first
-                if inp.is_visible(timeout=2000):
-                    inp.click()
-                    hd(100, 200)
-                    inp.fill(postcode)
-                    hd(300, 500)
-                    # Try clicking a Find/Search button first
-                    submitted = False
-                    for btn_sel in [
-                        'button:has-text("Find")', 'button:has-text("Search")',
-                        'button:has-text("Go")', 'button[type="submit"]',
-                        'button:has-text("Look up")', 'button:has-text("Find address")',
-                    ]:
-                        try:
-                            btn = page.locator(btn_sel).first
-                            if btn.is_visible(timeout=1000):
-                                btn.click()
-                                submitted = True
-                                print(f"    ✓ Clicked submit button")
-                                break
-                        except:
-                            continue
-                    if not submitted:
-                        inp.press('Enter')
-                        print(f"    ✓ Pressed Enter to submit postcode")
-                    postcode_entered = True
-                    print(f"    ✓ Entered postcode")
-                    break
+                inp.wait_for(state="visible", timeout=5000)
+                inp.click()
+                hd(100, 200)
+                inp.fill(postcode)
+                hd(300, 500)
+                submitted = False
+                for btn_sel in [
+                    'button:has-text("Find")', 'button:has-text("Search")',
+                    'button:has-text("Go")', 'button[type="submit"]',
+                    'button:has-text("Look up")', 'button:has-text("Find address")',
+                    'button:has-text("Continue")',
+                ]:
+                    try:
+                        btn = page.locator(btn_sel).first
+                        if btn.is_visible(timeout=1000):
+                            btn.click()
+                            submitted = True
+                            print(f"    ✓ Clicked submit button ({btn_sel})")
+                            break
+                    except:
+                        continue
+                if not submitted:
+                    inp.press('Enter')
+                    print(f"    ✓ Pressed Enter to submit postcode")
+                postcode_entered = True
+                print(f"    ✓ Entered postcode via: {sel}")
+                break
             except:
                 continue
         if not postcode_entered:
+            page.screenshot(path=f"screenshots/eon_step2_failed.png")
             raise Exception("Could not find postcode input field")
         hd(2000, 3000)
 

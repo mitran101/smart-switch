@@ -115,6 +115,18 @@ def click_text(page, *texts):
             continue
     return False
 
+def click_text_partial(page, *texts):
+    for text in texts:
+        try:
+            el = page.get_by_text(text, exact=False).first
+            if el.is_visible(timeout=1500):
+                el.click()
+                hd(300, 600)
+                return True
+        except:
+            continue
+    return False
+
 # ============================================
 # MAIN SCRAPE FUNCTION
 # ============================================
@@ -288,14 +300,33 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
 
         # STEP 4: Select options
         print(f"\n  [4] Selecting options...")
-        click_text(page, 'Electricity and gas')
+        click_text(page, 'No')  # EV = No (exact to avoid false positives)
         hd(200, 400)
-        click_text(page, 'No')  # EV = No
-        hd(200, 400)
-        # Button text changed to include usage hint - try both variants
-        clicked_bedroom = click_text(page, '1-2 bedrooms (low usage)', '1-2 bedrooms')
-        if not clicked_bedroom:
-            print(f"    ⚠ Could not click bedroom size button")
+        fuel_clicked = click_text_partial(page, 'Electricity and gas', 'Electricity & gas')
+        if not fuel_clicked:
+            print(f"    ⚠ Could not click fuel type button")
+        hd(300, 500)
+        size_clicked = click_text_partial(page, '1-2 bedroom', '1 or 2 bedroom', 'Small', 'Low')
+        if not size_clicked:
+            # Try selecting from a dropdown
+            for sel in ['select[name*="bedroom" i]', 'select[name*="usage" i]', 'select[name*="size" i]', 'select[name*="house" i]']:
+                try:
+                    dd = page.locator(sel).first
+                    if dd.is_visible(timeout=1500):
+                        opts = dd.locator('option').all()
+                        for opt in opts:
+                            txt = opt.text_content().strip().lower()
+                            if any(k in txt for k in ['1', '2', 'small', 'low', 'medium']):
+                                dd.select_option(label=opt.text_content().strip())
+                                print(f"    ✓ Selected usage from dropdown: {opt.text_content().strip()}")
+                                size_clicked = True
+                                break
+                        if size_clicked:
+                            break
+                except:
+                    continue
+            if not size_clicked:
+                print(f"    ⚠ Could not select household size/usage - check screenshot")
         hd(300, 500)
         print(f"    ✓ Options selected")
 

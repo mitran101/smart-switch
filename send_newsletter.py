@@ -36,7 +36,7 @@ def send_newsletter(to_email, html_content):
     msg = MIMEMultipart('alternative')
     msg['From'] = f"SwitchPilot Team <team@switch-pilot.com>"
     msg['To'] = to_email
-    msg['Subject'] = "Where does your energy bill money actually go?"
+    msg['Subject'] = "Your AI energy bill analyser"
 
     msg.attach(MIMEText(html, 'html'))
 

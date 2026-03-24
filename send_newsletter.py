@@ -51,18 +51,38 @@ def send_newsletter(to_email, html_content):
         print(f"FAILED {to_email}: {e}")
         return False
 
+# Log is keyed by newsletter URL so each newsletter has its own sent list
+NEWSLETTER_URL = "https://www.switch-pilot.com/switchpilot-newsletter-watts-in-my-bill.html"
+SENT_LOG = "newsletter_sent_watts-in-my-bill.txt"
+
+def already_sent(email):
+    if not os.path.exists(SENT_LOG):
+        return False
+    with open(SENT_LOG, 'r') as f:
+        return email.lower().strip() in [line.lower().strip() for line in f.readlines()]
+
+def mark_sent(email):
+    with open(SENT_LOG, 'a') as f:
+        f.write(email.lower().strip() + "\n")
+
 def send_to_list(emails, html_content):
     sent = 0
+    skipped = 0
     failed = 0
     for email in emails:
         email = email.strip()
         if not email or '@' not in email:
             continue
+        if already_sent(email):
+            print(f"Skipping {email} - already sent")
+            skipped += 1
+            continue
         if send_newsletter(email, html_content):
+            mark_sent(email)
             sent += 1
         else:
             failed += 1
-    print(f"\nDONE - Sent: {sent} | Failed: {failed} | Total: {sent + failed}")
+    print(f"\nDONE - Sent: {sent} | Skipped: {skipped} | Failed: {failed} | Total: {sent + skipped + failed}")
 
 if __name__ == "__main__":
     html = fetch_newsletter_html()
@@ -70,15 +90,12 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if len(sys.argv) > 1 and sys.argv[1] == "--test":
-        # Test mode - send to yourself
         send_newsletter("mmitran30@gmail.com", html)
     elif len(sys.argv) > 1 and sys.argv[1] == "--file":
-        # Read emails from a file (one per line)
         with open(sys.argv[2], 'r') as f:
             emails = f.readlines()
         send_to_list(emails, html)
     elif len(sys.argv) > 1:
-        # Send to a single email
         send_newsletter(sys.argv[1], html)
     else:
         print("Usage:")

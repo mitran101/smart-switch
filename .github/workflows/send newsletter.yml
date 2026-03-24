@@ -50,3 +50,12 @@ jobs:
             echo "ERROR: No subscribers found. Check GOOGLE_SERVICE_ACCOUNT secret and sheet sharing."
             exit 1
           fi
+
+      - name: Save sent log
+        if: ${{ github.event.inputs.mode == 'send' || github.event_name == 'schedule' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add newsletter_sent_watts-in-my-bill.txt
+          git diff --staged --quiet || git commit -m "Log newsletter sent $(date +'%Y-%m-%d')"
+          git push || echo "Nothing to push"

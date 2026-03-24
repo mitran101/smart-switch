@@ -1,8 +1,6 @@
 name: Send Newsletter
 
 on:
-  schedule:
-    - cron: '0 10 24 3 *'  # 10:00 AM UTC on March 24
   workflow_dispatch:
     inputs:
       mode:
@@ -36,7 +34,7 @@ jobs:
         run: python send_newsletter.py --test
 
       - name: Send to all subscribers
-        if: ${{ github.event.inputs.mode == 'send' || github.event_name == 'schedule' }}
+        if: ${{ github.event.inputs.mode == 'send' }}
         env:
           MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
@@ -52,7 +50,7 @@ jobs:
           fi
 
       - name: Save sent log
-        if: ${{ github.event.inputs.mode == 'send' || github.event_name == 'schedule' }}
+        if: ${{ github.event.inputs.mode == 'send' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"

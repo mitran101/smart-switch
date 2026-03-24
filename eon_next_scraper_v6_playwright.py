@@ -171,6 +171,7 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
 
         # STEP 2: Enter postcode
         print(f"\n  [2] Entering postcode: {postcode}")
+        postcode_entered = False
         for sel in ['input[name*="postcode" i]', 'input[placeholder*="postcode" i]', 'input[type="text"]']:
             try:
                 inp = page.locator(sel).first
@@ -178,10 +179,33 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
                     inp.click()
                     hd(100, 200)
                     inp.fill(postcode)
+                    hd(300, 500)
+                    # Try clicking a Find/Search button first
+                    submitted = False
+                    for btn_sel in [
+                        'button:has-text("Find")', 'button:has-text("Search")',
+                        'button:has-text("Go")', 'button[type="submit"]',
+                        'button:has-text("Look up")', 'button:has-text("Find address")',
+                    ]:
+                        try:
+                            btn = page.locator(btn_sel).first
+                            if btn.is_visible(timeout=1000):
+                                btn.click()
+                                submitted = True
+                                print(f"    ✓ Clicked submit button")
+                                break
+                        except:
+                            continue
+                    if not submitted:
+                        inp.press('Enter')
+                        print(f"    ✓ Pressed Enter to submit postcode")
+                    postcode_entered = True
                     print(f"    ✓ Entered postcode")
                     break
             except:
                 continue
+        if not postcode_entered:
+            raise Exception("Could not find postcode input field")
         hd(2000, 3000)
 
         # STEP 3: Select address

@@ -10,9 +10,15 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<meta name="description" content="SwitchPilot privacy policy - how we collect, use and protect your data. Plain English, no legalese.">
+<meta name="description" content="SwitchPilot Privacy Policy - how we collect, use, and protect your personal data when you use our energy switching service.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.switch-pilot.com/privacy-policy.html">
+
+<meta property="og:title" content="Privacy Policy | SwitchPilot">
+<meta property="og:description" content="How SwitchPilot collects, uses, and protects your personal data when you use our energy switching service.">
+<meta property="og:url" content="https://www.switch-pilot.com/privacy-policy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SwitchPilot">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
@@ -23,162 +29,335 @@
   gtag('config', 'G-WEQ6VBT567');
 </script>
 
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #0F172A;
-    color: #E2E8F0;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-  a { color: #10B981; text-decoration: none; }
-  a:hover { text-decoration: underline; }
+:root {
+  --sp-slate: #1E293B;
+  --sp-slate-dark: #0F172A;
+  --sp-slate-light: #94A3B8;
+  --sp-green: #10B981;
+  --sp-green-dark: #059669;
+  --sp-bg: #F8FAFC;
+}
 
-  .back-link {
-    display: inline-block;
-    padding: 2rem 2rem 0;
-    font-size: 0.9rem;
-    color: rgba(226,232,240,0.6);
-  }
-  .back-link:hover { color: #10B981; text-decoration: none; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .page-wrap {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 1.5rem 2rem 4rem;
-  }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--sp-bg);
+  color: #1E293B;
+  font-size: 17px;
+  line-height: 1.7;
+}
 
-  .policy-card {
-    background: #1E293B;
-    border-radius: 16px;
-    padding: 3rem 3.5rem;
-    margin-top: 1.5rem;
-  }
+/* NAV */
+.sticky-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: var(--sp-slate);
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
 
-  @media (max-width: 600px) {
-    .policy-card { padding: 2rem 1.5rem; }
-    .page-wrap { padding: 1rem 1rem 3rem; }
-    .back-link { padding: 1.5rem 1rem 0; }
-  }
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
 
-  .policy-card h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.35rem;
-  }
-  .policy-card .last-updated {
-    font-size: 0.82rem;
-    color: rgba(226,232,240,0.45);
-    margin-bottom: 2.5rem;
-  }
-  .policy-card h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #10B981;
-    margin: 2rem 0 0.6rem;
-  }
-  .policy-card p {
-    color: rgba(226,232,240,0.85);
-    margin-bottom: 0.75rem;
-  }
-  .policy-card ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 0.75rem;
-  }
-  .policy-card ul li {
-    color: rgba(226,232,240,0.85);
-    padding-left: 1.25rem;
-    position: relative;
-    margin-bottom: 0.35rem;
-  }
-  .policy-card ul li::before {
-    content: '–';
+.nav-logo img { height: 3.2rem; width: auto; margin-right: -12px; }
+.nav-logo span { font-size: 1.35rem; font-weight: 700; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.nav-cta {
+  background: var(--sp-green) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  margin-left: 0.5rem;
+  border-radius: 8px !important;
+}
+
+.nav-cta:hover { background: var(--sp-green-dark) !important; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* PAGE */
+.page-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 7rem 2rem 4rem;
+}
+
+.page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.page-header h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2.5rem;
+  color: var(--sp-slate);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.page-header .last-updated {
+  color: var(--sp-slate-light);
+  font-size: 0.9rem;
+}
+
+/* CONTENT */
+.policy-content h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.45rem;
+  color: var(--sp-slate);
+  margin: 2.5rem 0 0.75rem;
+}
+
+.policy-content h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--sp-slate);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.policy-content p {
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+.policy-content ul {
+  margin: 0.5rem 0 1rem 1.5rem;
+  color: #334155;
+}
+
+.policy-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+
+.policy-content a {
+  color: var(--sp-green);
+  text-decoration: none;
+}
+
+.policy-content a:hover { text-decoration: underline; }
+.policy-content strong { color: var(--sp-slate); }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--sp-slate);
+  color: rgba(255,255,255,0.7);
+}
+
+.footer p { margin: 0 0 1rem 0; }
+.footer p:last-child { margin: 0; }
+.footer a { color: var(--sp-green); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .page-wrap { padding: 6rem 1.25rem 3rem; }
+  .page-header h1 { font-size: 1.9rem; }
+
+  .nav-links {
+    display: none;
     position: absolute;
-    left: 0;
-    color: #10B981;
-  }
-  .policy-card a {
-    color: #10B981;
+    top: 100%;
+    left: 0; right: 0;
+    background: var(--sp-slate);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.25rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
 
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.8rem;
-    color: rgba(226,232,240,0.35);
-  }
+  .nav-links.open { display: flex; }
+  .nav-links a { width: 100%; padding: 0.65rem 1rem; }
+  .nav-toggle { display: flex; }
+}
 </style>
 </head>
 <body>
 
-<a class="back-link" href="/">← Back to SwitchPilot</a>
+<nav class="sticky-nav">
+  <a href="/" class="nav-logo">
+    <img src="https://www.switch-pilot.com/logo.png" alt="SwitchPilot logo">
+    <span>SwitchPilot</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="/#how-it-works">How It Works</a>
+    <a href="/#about">About</a>
+    <a href="/energy-bill-calculator.html">Bill Calculator</a>
+    <a href="/tariff-tracker.html">Price Tracker</a>
+    <a href="/#insights">Insights</a>
+    <a href="/#waitlist" class="nav-cta">Sign Up Free</a>
+  </div>
+</nav>
 
 <div class="page-wrap">
-  <div class="policy-card">
+  <div class="page-header">
     <h1>Privacy Policy</h1>
-    <p class="last-updated">Last updated: 9 March 2026</p>
+    <p class="last-updated">Last updated: 25 March 2026</p>
+  </div>
 
-    <h2>Who we are</h2>
-    <p>SwitchPilot Ltd ("SwitchPilot", "we", "us") is registered in England &amp; Wales. Our registered address is 128 City Road, London, EC1V 2NX. You can contact us at <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a>.</p>
+  <div class="policy-content">
 
-    <h2>What data we collect</h2>
+    <h2>1. Who We Are</h2>
+    <p>SwitchPilot ("we", "us", "our") is an energy switching service that helps UK households find and switch to cheaper energy tariffs. Our registered address is 128 City Road, London, EC1V 2NX. For data protection queries, contact us at <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a>.</p>
+
+    <h2>2. What Data We Collect</h2>
+
+    <h3>2.1 Questionnaire Data</h3>
+    <p>When you complete our energy questionnaire, we collect:</p>
     <ul>
-      <li><strong>Waitlist signup:</strong> email address, postcode, and optionally your address and home size (bedrooms). This is collected through our signup form.</li>
-      <li><strong>Comments:</strong> if you leave a comment on a SwitchInsights article, we collect your name and comment text.</li>
-      <li><strong>Reactions:</strong> anonymous thumbs-up reactions on articles (no personal data, just a count).</li>
-      <li><strong>Analytics:</strong> we use Google Analytics (G-WEQ6VBT567) which collects anonymised usage data (pages visited, approximate location, device type). No personally identifiable information is collected by analytics.</li>
+      <li>Full name, email address, and phone number</li>
+      <li>Postcode and property address</li>
+      <li>Current energy supplier and tariff details</li>
+      <li>Annual energy usage (kWh) or recent bill information</li>
+      <li>Meter type (standard, Economy 7, smart, prepayment)</li>
+      <li>Tariff preferences (fixed, variable, green energy)</li>
     </ul>
 
-    <h2>Why we collect it</h2>
+    <h3>2.2 Switching Data</h3>
+    <p>If you instruct us to switch on your behalf, we additionally collect:</p>
     <ul>
-      <li>Your email and postcode are used to send you energy savings estimates and our weekly SwitchInsights newsletter.</li>
-      <li>Address details (if provided) help us give more accurate savings estimates for your area.</li>
-      <li>Comments are displayed publicly on articles to enable discussion.</li>
-      <li>Analytics help us understand how people use the site so we can improve it.</li>
+      <li>Bank account holder name, sort code, and account number (for direct debit setup with your new supplier)</li>
+      <li>Meter serial number, MPAN (electricity) and/or MPRN (gas)</li>
+      <li>Current meter reading</li>
     </ul>
 
-    <h2>How long we keep it</h2>
-    <p>We keep your data for as long as you remain subscribed. You can ask us to delete your data at any time by emailing <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a>.</p>
-
-    <h2>Who we share it with</h2>
+    <h3>2.3 Website Data</h3>
+    <p>When you visit our website, we collect:</p>
     <ul>
-      <li><strong>Energy suppliers:</strong> during our tender process, suppliers receive anonymised group data (e.g. "500 households in the East Midlands"). They never receive your individual details until you explicitly agree to switch.</li>
-      <li><strong>Supabase:</strong> our database provider, used to store signup and comment data. Data is hosted in the EU.</li>
-      <li><strong>Google:</strong> Google Analytics processes anonymised usage data.</li>
-      <li><strong>Vercel:</strong> our website hosting provider.</li>
+      <li>Email address and postcode (signup form)</li>
+      <li>Standard web analytics data (cookies, IP address, browser type)</li>
     </ul>
-    <p>We do not sell your data to anyone, ever.</p>
 
-    <h2>Your rights</h2>
-    <p>Under UK GDPR you have the right to:</p>
+    <h2>3. Why We Collect Your Data (Legal Basis)</h2>
+    <p>We process your data on the following legal bases under UK GDPR:</p>
     <ul>
-      <li>Access the data we hold about you</li>
-      <li>Correct inaccurate data</li>
-      <li>Request deletion of your data</li>
-      <li>Unsubscribe from emails at any time (every email has an unsubscribe link)</li>
+      <li><strong>Contract performance (Article 6(1)(b))</strong> - to provide you with our energy comparison and switching service</li>
+      <li><strong>Consent (Article 6(1)(a))</strong> - where you explicitly consent to us collecting and using your banking details to set up an energy account on your behalf</li>
+      <li><strong>Legitimate interests (Article 6(1)(f))</strong> - to improve our service and communicate with you about your switch</li>
     </ul>
-    <p>To exercise any of these rights, email <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a>.</p>
 
-    <h2>Cookies</h2>
-    <p>We use minimal cookies. Google Analytics sets cookies to track anonymised usage. We do not use advertising cookies or sell data to advertisers.</p>
+    <h2>4. How We Use Your Data</h2>
+    <p>We use your personal data to:</p>
+    <ul>
+      <li>Compare energy tariffs and provide you with personalised recommendations</li>
+      <li>Set up an energy supply account with your chosen supplier on your behalf</li>
+      <li>Communicate with you about the progress of your switch</li>
+      <li>Contact you about our services (only with your consent)</li>
+    </ul>
 
-    <h2>Updates to this policy</h2>
-    <p>We may update this policy from time to time. The "last updated" date at the top will always reflect the latest version.</p>
+    <h2>5. Who We Share Your Data With</h2>
+    <p>We share your data with:</p>
+    <ul>
+      <li><strong>Your chosen energy supplier</strong> - to set up your new energy account and direct debit. Once submitted, your data is subject to that supplier's own privacy policy.</li>
+      <li><strong>Jotform Inc.</strong> - our secure form provider, which processes and stores your form submissions on encrypted EU-based servers. Jotform is UK GDPR compliant.</li>
+    </ul>
+    <p>We do not sell, rent, or share your personal data with any third parties for marketing purposes.</p>
+
+    <h2>6. How We Store and Protect Your Data</h2>
+    <p>Your data is collected via encrypted forms (256-bit SSL, RSA-2048 encryption at rest) and stored on EU-based servers. Access to your data is restricted to authorised SwitchPilot personnel only.</p>
+    <p><strong>Banking details:</strong> Your bank account details are collected solely for the purpose of setting up a direct debit with your new energy supplier. Once the switch is confirmed and your direct debit is active, we permanently delete your banking details from our systems. We do not store banking details beyond what is necessary to complete the switch.</p>
+
+    <h2>7. How Long We Keep Your Data</h2>
+    <ul>
+      <li><strong>Banking details (sort code, account number)</strong> - deleted within 7 days of your switch being confirmed</li>
+      <li><strong>Questionnaire data (name, usage, preferences)</strong> - retained for up to 12 months to support your account and any follow-up queries, then deleted</li>
+      <li><strong>Email and postcode (signup)</strong> - retained until you unsubscribe or request deletion</li>
+    </ul>
+
+    <h2>8. Your Rights</h2>
+    <p>Under UK GDPR, you have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> - request a copy of the personal data we hold about you</li>
+      <li><strong>Rectification</strong> - ask us to correct any inaccurate data</li>
+      <li><strong>Erasure</strong> - ask us to delete your data (subject to any legal obligations)</li>
+      <li><strong>Restrict processing</strong> - ask us to limit how we use your data</li>
+      <li><strong>Data portability</strong> - request your data in a machine-readable format</li>
+      <li><strong>Withdraw consent</strong> - withdraw consent for processing at any time (this does not affect the lawfulness of processing before withdrawal)</li>
+      <li><strong>Object</strong> - object to processing based on legitimate interests</li>
+    </ul>
+    <p>To exercise any of these rights, email us at <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a>. We will respond within 30 days.</p>
+
+    <h2>9. Complaints</h2>
+    <p>If you are unhappy with how we handle your data, you have the right to lodge a complaint with the Information Commissioner's Office (ICO) at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> or by calling 0303 123 1113.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this policy from time to time. Any changes will be posted on this page with an updated date. We encourage you to review this policy periodically.</p>
+    <p>See also our <a href="/terms.html">Terms of Service</a>.</p>
+
   </div>
 </div>
 
-<footer>
-  <p>SwitchPilot Ltd &middot; 128 City Road, London, EC1V 2NX &middot; Registered in England &amp; Wales</p>
-  <p style="margin-top:0.4rem;"><a href="/privacy-policy.html" style="color:rgba(255,255,255,0.45);">Privacy Policy</a> &middot; <a href="/terms.html" style="color:rgba(255,255,255,0.45);">Terms of Service</a></p>
+<footer class="footer">
+  <p>💌 Weekly energy insights delivered to your inbox</p>
+  <p>📧 Questions? <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
+  <p>&copy; 2026 SwitchPilot. Making energy bills make sense.</p>
+  <p style="margin-top:1rem;font-size:0.75rem;color:rgba(255,255,255,0.4);">SwitchPilot Ltd &middot; 128 City Road, London, EC1V 2NX &middot; Registered in England &amp; Wales</p>
+  <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;"><a href="/privacy-policy.html" style="color:rgba(255,255,255,0.6);">Privacy Policy</a> &middot; <a href="/terms.html" style="color:rgba(255,255,255,0.5);">Terms of Service</a></p>
 </footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open');
+  });
+</script>
 
 </body>
 </html>

@@ -338,9 +338,44 @@ body {
 
 <div class="form-section">
   <div class="form-wrap">
-    <script type="text/javascript" src="https://form.jotform.com/jsform/260837321755056"></script>
+    <iframe
+      id="JotFormIFrame-260837321755056"
+      title="Switch &amp; Save - Energy Switch Form"
+      src="https://form.jotform.com/260837321755056"
+      allow="geolocation; microphone; camera; fullscreen"
+      style="width:1px;min-width:100%;border:none;display:block;"
+      scrolling="no"
+    ></iframe>
   </div>
 </div>
+
+<script>
+  (function() {
+    var ifr = document.getElementById("JotFormIFrame-260837321755056");
+    if (!ifr) return;
+
+    // Append embed flag
+    ifr.src += (ifr.src.indexOf("?") === -1 ? "?" : "&") + "isIframeEmbed=1";
+
+    // Auto-resize on message from Jotform
+    function handleMsg(e) {
+      if (typeof e.data !== "string") return;
+      var args = e.data.split(":");
+      var frame = document.getElementById("JotFormIFrame-" + args[args.length - 1])
+                  || document.getElementById("JotFormIFrame-260837321755056");
+      if (!frame) return;
+      if (args[0] === "setHeight") {
+        frame.style.height = args[1] + "px";
+      } else if (args[0] === "scrollIntoView") {
+        frame.scrollIntoView();
+      } else if (args[0] === "reloadPage") {
+        window.location.reload();
+      }
+    }
+
+    window.addEventListener("message", handleMsg, false);
+  })();
+</script>
 
 <div class="trust-section">
   <div class="trust-grid">

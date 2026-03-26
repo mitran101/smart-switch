@@ -98,7 +98,7 @@
       z-index: 10000;
     }
     .si-topbar-logo { display: flex; align-items: center; text-decoration: none; color: #fff; }
-    .si-topbar-links { display: flex; align-items: center; gap: 0.75rem; }
+    .si-topbar-links { display: flex; align-items: center; gap: 1.2rem; }
     .si-topbar-visit {
       background: linear-gradient(135deg, #10B981, #059669);
       color: #fff !important;
@@ -493,7 +493,8 @@
       .hero { padding: 3.5rem 1.25rem 3rem; }
     }
     @media (max-width: 480px) {
-      .si-topbar { padding: 0.6rem 1rem; }
+      .si-topbar { justify-content: flex-start; padding-left: 0.5rem; }
+      .si-topbar-links { margin-left: auto; }
       .page-wrap { padding: 0 1rem; }
     }
   

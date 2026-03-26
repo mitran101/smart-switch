@@ -354,8 +354,11 @@ body {
     var ifr = document.getElementById("JotFormIFrame-260837321755056");
     if (!ifr) return;
 
-    // Append embed flag
-    ifr.src += (ifr.src.indexOf("?") === -1 ? "?" : "&") + "isIframeEmbed=1";
+    // Forward any query params from the page URL into the Jotform iframe src
+    // e.g. /switch?q4_email2=test@email.com becomes prefilled in the form
+    var pageParams = window.location.search.slice(1); // strip leading "?"
+    var extra = pageParams ? pageParams + "&isIframeEmbed=1" : "isIframeEmbed=1";
+    ifr.src += (ifr.src.indexOf("?") === -1 ? "?" : "&") + extra;
 
     // Auto-resize on message from Jotform
     function handleMsg(e) {

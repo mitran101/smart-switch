@@ -233,9 +233,9 @@
 
         .influence-meter-title { font-size: 1.1rem; font-weight: 700; color: var(--sp-slate); margin-bottom: 1.5rem; text-align: center; }
         .meter-row { margin-bottom: 1.5rem; }
-        .meter-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-        .meter-label-text { font-weight: 600; color: var(--sp-slate); }
-        .meter-label-value { font-weight: 800; font-size: 1.25rem; }
+        .meter-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 1rem; }
+        .meter-label-text { font-weight: 600; color: var(--sp-slate); flex: 1; }
+        .meter-label-value { font-weight: 800; font-size: 1.25rem; min-width: 90px; text-align: right; flex-shrink: 0; }
         .meter-bar { height: 24px; background: #E2E8F0; border-radius: 12px; overflow: hidden; }
         .meter-fill { height: 100%; border-radius: 12px; transition: width 1s ease-out; }
         .meter-fill.gas-gen { background: linear-gradient(90deg, #FCD34D 0%, var(--sp-amber) 100%); width: 26%; }

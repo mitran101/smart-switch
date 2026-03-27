@@ -1,5 +1,101 @@
 [
   {
+    "supplier": "eon_next",
+    "tariffName": "Next Pledge Tracker 12m v10",
+    "regions": {
+      "Eastern": {
+        "elecUnitRate": 23.08,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 53.95,
+        "gasUnitRate": 5.24,
+        "gasStanding": 28.74
+      },
+      "East Midlands": {
+        "elecUnitRate": 21.82,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 53.61,
+        "gasUnitRate": 5.16,
+        "gasStanding": 28.82
+      },
+      "London": {
+        "elecUnitRate": 23.04,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 44.83,
+        "gasUnitRate": 5.48,
+        "gasStanding": 29.6
+      },
+      "North Wales & Merseyside": {
+        "elecUnitRate": 24.34,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 70.78,
+        "gasUnitRate": 5.26,
+        "gasStanding": 29.48
+      },
+      "West Midlands": {
+        "elecUnitRate": 22.04,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 59.72,
+        "gasUnitRate": 5.25,
+        "gasStanding": 29.11
+      },
+      "North East": {
+        "elecUnitRate": 21.95,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 64.3,
+        "gasUnitRate": 5.26,
+        "gasStanding": 29.2
+      },
+      "North West": {
+        "elecUnitRate": 22.85,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 47.63,
+        "gasUnitRate": 5.21,
+        "gasStanding": 29.22
+      },
+      "South East": {
+        "elecUnitRate": 23.37,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 54.45,
+        "gasUnitRate": 5.36,
+        "gasStanding": 28.67
+      },
+      "South West": {
+        "elecUnitRate": 23.11,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 57.9,
+        "gasUnitRate": 5.45,
+        "gasStanding": 28.72
+      },
+      "Yorkshire": {
+        "elecUnitRate": 21.95,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 64.3,
+        "gasUnitRate": 5.26,
+        "gasStanding": 29.2
+      },
+      "South Scotland": {
+        "elecUnitRate": 22.54,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 64.2,
+        "gasUnitRate": 5.21,
+        "gasStanding": 29.3
+      }
+    },
+    "exitFees": "\u00a325 per fuel",
+    "contractLength": null
+  },
+  {
     "supplier": "british_gas",
     "tariffName": "Fixed Tariff Mar27 v6",
     "regions": {
@@ -42,6 +138,14 @@
         "elecStanding": 51.603,
         "gasUnitRate": 7.017,
         "gasStanding": 32.667
+      },
+      "North East": {
+        "elecUnitRate": 25.323,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 58.468,
+        "gasUnitRate": 6.943,
+        "gasStanding": 32.757
       },
       "North West": {
         "elecUnitRate": 24.796,
@@ -1793,130 +1897,130 @@
   },
   {
     "supplier": "fuse_energy",
-    "tariffName": "Variable",
+    "tariffName": "Fixed (15m) v8",
     "regions": {
       "Eastern": {
-        "elecUnitRate": 27.69,
+        "elecUnitRate": 25.41,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 47.7,
-        "gasUnitRate": 7.49,
-        "gasStanding": 22.22
+        "elecStanding": 50.18,
+        "gasUnitRate": 7.53,
+        "gasStanding": 21.45
       },
       "East Midlands": {
-        "elecUnitRate": 26.74,
+        "elecUnitRate": 24.4,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 48.51,
+        "elecStanding": 47.94,
         "gasUnitRate": 5.77,
         "gasStanding": 32.99
       },
       "London": {
-        "elecUnitRate": 26.85,
+        "elecUnitRate": 25.04,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 45.5,
+        "elecStanding": 42.94,
         "gasUnitRate": 6.0,
         "gasStanding": 33.75
       },
-      "West Midlands": {
-        "elecUnitRate": 26.84,
+      "North Wales & Merseyside": {
+        "elecUnitRate": 25.93,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 52.44,
+        "elecStanding": 64.79,
+        "gasUnitRate": 5.91,
+        "gasStanding": 33.61
+      },
+      "West Midlands": {
+        "elecUnitRate": 24.3,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 50.81,
         "gasUnitRate": 5.83,
         "gasStanding": 33.26
       },
       "North East": {
-        "elecUnitRate": 23.77,
+        "elecUnitRate": 24.2,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 64.31,
+        "elecStanding": 60.6,
         "gasUnitRate": 5.69,
         "gasStanding": 29.19
       },
-      "South East": {
-        "elecUnitRate": 25.22,
+      "North West": {
+        "elecUnitRate": 24.95,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 54.43,
+        "elecStanding": 39.0,
+        "gasUnitRate": 5.87,
+        "gasStanding": 33.38
+      },
+      "South East": {
+        "elecUnitRate": 25.89,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 45.25,
         "gasUnitRate": 5.8,
         "gasStanding": 28.69
       },
       "Southern": {
-        "elecUnitRate": 27.64,
+        "elecUnitRate": 25.38,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 44.06,
-        "gasUnitRate": 7.72,
-        "gasStanding": 18.87
+        "elecStanding": 42.39,
+        "gasUnitRate": 5.97,
+        "gasStanding": 32.73
       },
       "South Wales": {
-        "elecUnitRate": 27.97,
+        "elecUnitRate": 25.15,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 51.07,
+        "elecStanding": 47.54,
         "gasUnitRate": 6.08,
         "gasStanding": 33.49
       },
       "South West": {
-        "elecUnitRate": 24.97,
+        "elecUnitRate": 25.95,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 57.92,
+        "elecStanding": 53.95,
         "gasUnitRate": 5.88,
         "gasStanding": 28.74
       },
       "Yorkshire": {
-        "elecUnitRate": 26.61,
+        "elecUnitRate": 24.2,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 59.25,
+        "elecStanding": 60.6,
         "gasUnitRate": 5.9,
         "gasStanding": 33.35
       },
-      "South Scotland": {
-        "elecUnitRate": 24.43,
-        "elecDayRate": null,
-        "elecNightRate": null,
-        "elecStanding": 64.22,
-        "gasUnitRate": 7.45,
-        "gasStanding": 23.3
-      }
-    },
-    "exitFees": "\u00a30 per fuel",
-    "contractLength": null
-  },
-  {
-    "supplier": "fuse_energy",
-    "tariffName": "Fixed (15m) v6",
-    "regions": {
-      "North Wales & Merseyside": {
-        "elecUnitRate": 29.55,
-        "elecDayRate": null,
-        "elecNightRate": null,
-        "elecStanding": 64.27,
-        "gasUnitRate": 5.91,
-        "gasStanding": 33.61
-      },
-      "North West": {
-        "elecUnitRate": 27.79,
-        "elecDayRate": null,
-        "elecNightRate": null,
-        "elecStanding": 43.83,
-        "gasUnitRate": 5.87,
-        "gasStanding": 33.38
-      },
       "North Scotland": {
-        "elecUnitRate": 27.91,
+        "elecUnitRate": 24.87,
         "elecDayRate": null,
         "elecNightRate": null,
-        "elecStanding": 51.63,
+        "elecStanding": 49.64,
         "gasUnitRate": 5.87,
         "gasStanding": 33.42
       }
     },
     "exitFees": "\u00a350 per fuel",
+    "contractLength": null
+  },
+  {
+    "supplier": "fuse_energy",
+    "tariffName": "Variable",
+    "regions": {
+      "South Scotland": {
+        "elecUnitRate": 24.43,
+        "elecDayRate": null,
+        "elecNightRate": null,
+        "elecStanding": 64.22,
+        "gasUnitRate": 7.5,
+        "gasStanding": 29.14
+      }
+    },
+    "exitFees": "\u00a30 per fuel",
     "contractLength": null
   },
   {

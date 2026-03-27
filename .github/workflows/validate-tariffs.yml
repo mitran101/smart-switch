@@ -1,7 +1,7 @@
 name: Validate Tariff Data
 on:
   workflow_run:
-    workflows: ["Weekly Tariff Scraper"]
+    workflows: ["Daily Tariff Scraper"]
     types: [completed]
   workflow_dispatch:
 

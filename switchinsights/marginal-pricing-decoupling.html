@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Does Gas Still Set Your Electricity Price - And Could That Change? | SwitchInsights</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Gas sets the price of electricity even when wind generates half our power. We explain marginal pricing, the merit order, and what reform could actually change for UK households.">
+    <meta name="keywords" content="marginal pricing electricity UK, gas sets electricity price, electricity market reform UK, REMA decoupling, merit order explained, electricity price gas link, energy market reform 2026">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="SwitchInsights">
+    <link rel="canonical" href="https://www.switch-pilot.com/switchinsights/marginal-pricing-decoupling.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.switch-pilot.com/switchinsights/marginal-pricing-decoupling.html">
+    <meta property="og:title" content="Why Does Gas Still Set Your Electricity Price - And Could That Change?">
+    <meta property="og:description" content="Gas sets the price of electricity even when wind generates half our power. We explain marginal pricing, the merit order, and what reform could actually change.">
+    <meta property="og:image" content="https://www.switch-pilot.com/switchinsightslogo.png">
+    <meta property="og:site_name" content="SwitchPilot">
+    <meta property="og:locale" content="en_GB">
+    <meta property="article:published_time" content="2026-03-29T00:00:00Z">
+    <meta property="article:section" content="Energy">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Why Does Gas Still Set Your Electricity Price - And Could That Change?">
+    <meta name="twitter:description" content="Gas sets the price of electricity even when wind generates half our power. We explain marginal pricing and what reform could change.">
+    <meta name="twitter:image" content="https://www.switch-pilot.com/switchinsightslogo.png">
+
+    <!-- Favicons -->
+    <link rel="icon" href="../switchinsights-favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../switchinsights-favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../switchinsights-favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/switchinsights-apple-touch-icon.png">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Why Does Gas Still Set Your Electricity Price - And Could That Change?",
+      "description": "Gas sets the price of electricity even when wind generates half our power. We explain marginal pricing, the merit order, and what reform could actually change for UK households.",
+      "url": "https://www.switch-pilot.com/switchinsights/marginal-pricing-decoupling.html",
+      "datePublished": "2026-03-29",
+      "dateModified": "2026-03-29",
+      "author": {"@type": "Organization", "name": "SwitchInsights", "url": "https://www.switch-pilot.com/switchinsights/"},
+      "publisher": {"@type": "Organization", "name": "SwitchPilot", "logo": {"@type": "ImageObject", "url": "https://www.switch-pilot.com/switchinsightslogo.png"}},
+      "image": "https://www.switch-pilot.com/switchinsightslogo.png",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.switch-pilot.com/switchinsights/marginal-pricing-decoupling.html"}
+    }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEQ6VBT567');
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --sp-slate: #1E293B;
+            --sp-slate-light: #475569;
+            --sp-green: #10B981;
+            --sp-green-dark: #059669;
+            --sp-green-light: #D1FAE5;
+            --sp-amber: #F59E0B;
+            --sp-red: #EF4444;
+            --sp-purple: #A855F7;
+            --sp-purple-light: #F3E8FF;
+            --sp-pink: #EC4899;
+            --sp-blue: #3B82F6;
+            --sp-blue-light: #DBEAFE;
+            --sp-bg: #F8FAFC;
+            --sp-card: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--sp-bg);
+            color: var(--sp-slate);
+            line-height: 1.75;
+            font-size: 17px;
+            overflow-x: hidden;
+        }
+
+        /* ── Nav ── */
+        .top-nav {
+            background: var(--sp-slate);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            transition: opacity 0.2s;
+        }
+        .top-logo:hover { opacity: 0.8; }
+        .top-logo img { height: 3rem; width: auto; margin-right: -12px; }
+        .top-logo span { font-size: 1.35rem; }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .back-home:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Hero ── */
+        .article-header {
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-header h1 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: clamp(1.9rem, 4vw, 2.9rem);
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            font-weight: 400;
+        }
+
+        .article-header .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            max-width: 640px;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+        /* ── Article body ── */
+        .article-body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .article-body h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: var(--sp-slate);
+            margin: 2.75rem 0 1rem;
+            line-height: 1.25;
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sp-slate);
+            margin: 2rem 0 0.6rem;
+        }
+
+        .article-body p {
+            margin-bottom: 1.2rem;
+            color: #334155;
+        }
+
+        .article-body strong { color: var(--sp-slate); }
+
+        .article-body a {
+            color: var(--sp-purple);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .article-body ul, .article-body ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: #334155;
+        }
+        .article-body li { margin-bottom: 0.75rem; line-height: 1.65; }
+
+        /* ── Key stat boxes ── */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .stat-card .stat-num {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 2.2rem;
+            color: var(--sp-purple);
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.82rem;
+            color: var(--sp-slate-light);
+            line-height: 1.4;
+        }
+
+        /* ── Chart cards ── */
+        .chart-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin: 2.25rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .chart-card h4 {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--sp-slate);
+            margin-bottom: 0.35rem;
+        }
+
+        .chart-card .chart-sub {
+            font-size: 0.82rem;
+            color: var(--sp-slate-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 280px;
+        }
+
+        .chart-wrap-tall {
+            position: relative;
+            height: 340px;
+        }
+
+        /* ── Callout boxes ── */
+        .highlight-box {
+            background: #F0FDF4;
+            border-left: 4px solid var(--sp-green);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .highlight-box p { margin: 0; color: #166534; }
+
+        .amber-box {
+            background: #FFFBEB;
+            border-left: 4px solid var(--sp-amber);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .amber-box p { margin: 0; color: #92400E; }
+
+        .purple-box {
+            background: var(--sp-purple-light);
+            border-left: 4px solid var(--sp-purple);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .purple-box p { margin: 0; color: #581C87; }
+
+        .red-box {
+            background: #FEF2F2;
+            border-left: 4px solid var(--sp-red);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .red-box p { margin: 0; color: #991B1B; }
+
+        /* ── Reform options grid ── */
+        .reform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .reform-grid { grid-template-columns: 1fr; }
+        }
+
+        .reform-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .reform-card .rc-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+        }
+
+        .rc-tag.fast { background: #D1FAE5; color: #065F46; }
+        .rc-tag.medium { background: #FEF3C7; color: #92400E; }
+        .rc-tag.slow { background: #FEE2E2; color: #991B1B; }
+        .rc-tag.radical { background: #EDE9FE; color: #4C1D95; }
+
+        .reform-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--sp-slate); }
+        .reform-card p { font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.55; }
+
+        /* ── Divider ── */
+        .section-divider {
+            border: none;
+            border-top: 1px solid #E2E8F0;
+            margin: 2.5rem 0;
+        }
+
+        /* ── CTA ── */
+        .cta-box {
+            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            color: white;
+            margin: 3rem 0 1rem;
+        }
+
+        .cta-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p { opacity: 0.9; margin-bottom: 1.5rem; font-size: 1rem; }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--sp-purple);
+            font-weight: 700;
+            padding: 0.85rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            color: var(--sp-purple);
+        }
+
+        /* ── Table of contents ── */
+        .toc {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+        .toc h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--sp-slate-light);
+            margin-bottom: 0.75rem;
+        }
+        .toc ol {
+            margin-left: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .toc li a {
+            font-size: 0.9rem;
+            color: var(--sp-purple);
+            text-decoration: none;
+        }
+        .toc li a:hover { text-decoration: underline; }
+
+        /* ── Related reading ── */
+        .related-reading {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0 1rem;
+        }
+        .related-reading h4 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--sp-slate);
+            margin-bottom: 1rem;
+        }
+        .related-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .related-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            background: var(--sp-bg);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .related-item:hover { background: #EDE9FE; }
+        .related-item .ri-emoji { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+        .related-item .ri-text strong { display: block; font-size: 0.9rem; color: var(--sp-slate); font-weight: 600; }
+        .related-item .ri-text span { font-size: 0.82rem; color: var(--sp-slate-light); }
+
+        /* ── Footer ── */
+        .article-footer {
+            background: #F1F5F9;
+            border-top: 1px solid #E2E8F0;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .footer-note {
+            font-size: 0.82rem;
+            color: var(--sp-slate-light);
+            line-height: 1.6;
+        }
+
+        .site-footer {
+            background: var(--sp-slate);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+        .site-footer a { color: var(--sp-green); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .article-body { padding: 2rem 1.25rem 3rem; }
+            .stat-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="top-nav">
+    <a href="index.html" class="top-logo">
+        <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo">
+        <span>SwitchInsights</span>
+    </a>
+    <a href="index.html" class="back-home">← All articles</a>
+</nav>
+
+<!-- Series context banner -->
+<div style="background:#1E293B; border-bottom:1px solid rgba(168,85,247,0.3); padding:0.65rem 2rem;">
+    <div style="max-width:800px; margin:0 auto; display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+        <span style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#A855F7;">Series: The Gas Crisis</span>
+        <span style="color:rgba(255,255,255,0.2); font-size:0.8rem;">|</span>
+        <a href="gas-price-shock-middle-east-2026.html" style="font-size:0.82rem; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#A855F7'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Part 1: The Middle East shock - what it means for your bills</a>
+        <span style="color:rgba(255,255,255,0.2); font-size:0.8rem;">·</span>
+        <span style="font-size:0.82rem; color:white; font-weight:600;">Part 2: Why gas still sets your electricity price - and could that change? &#x2190; You are here</span>
+    </div>
+</div>
+
+<!-- Hero -->
+<header class="article-header">
+    <div class="header-content">
+        <span class="tag">Market Mechanics · Deep Dive</span>
+        <h1>Why Does Gas Still Set Your Electricity Price - And Could That Change?</h1>
+        <p class="subtitle">The Middle East conflict has exposed Britain's structural vulnerability again - electricity priced as though gas generates every kilowatt, even when the wind is blowing. We explain the mechanics and what reform could actually achieve.</p>
+        <div class="article-meta">
+            <span>&#x1F4C5; 29 March 2026</span>
+            <span>&#x23F1; 9 min read</span>
+            <span>&#x270D;&#xFE0F; SwitchInsights</span>
+        </div>
+    </div>
+</header>
+
+<!-- Article body -->
+<main class="article-body">
+
+    <!-- Series context -->
+    <div style="background:#F3E8FF; border:1px solid #D8B4FE; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1.75rem; font-size:0.9rem; color:#581C87; line-height:1.6;">
+        <strong>This is Part 2 of our Gas Crisis series.</strong> In <a href="gas-price-shock-middle-east-2026.html" style="color:#7C3AED;">Part 1</a> we covered the immediate shock - a surge in UK wholesale gas prices following escalating tensions in the Middle East and disruption to LNG supply routes. This piece addresses the question that kept coming up: <em>why does gas set electricity prices at all - and could that change?</em>
+    </div>
+
+    <p>On a breezy afternoon in Britain, wind turbines might be generating 40% of the country's electricity at a cost of essentially nothing - fuel-free, zero emissions, running on weather. And yet, at that same moment, households are paying for electricity as though it came from a gas-fired power station, at whatever gas costs that day on international markets.</p>
+
+    <p>It is not a scam or an accounting error. It is how the electricity market is deliberately designed. The Middle East conflict has made the consequences of that design impossible to ignore again - just as Russia's invasion of Ukraine did in 2022. And this time, the question of whether Britain should keep that design - or fundamentally change it - has reached the top of government. Energy Secretary Ed Miliband has told Labour MPs he is actively exploring decoupling electricity prices from gas.</p>
+
+    <p>This article unpacks exactly how the current system works, what effect renewables are already having on it, and what the various reform proposals would actually do - including some honest caveats that often get lost in the political debate.</p>
+
+    <!-- Table of contents -->
+    <nav class="toc" aria-label="Contents">
+        <h4>In this article</h4>
+        <ol>
+            <li><a href="#merit-order">The merit order - how electricity is priced</a></li>
+            <li><a href="#renewables-paradox">The renewable energy paradox - you're funding it, but you can't benefit</a></li>
+            <li><a href="#renewables-effect">What renewables are already doing</a></li>
+            <li><a href="#spain">The Spain case study</a></li>
+            <li><a href="#reform-options">Reform options on the table</a></li>
+            <li><a href="#rema">What REMA decided - and didn't decide</a></li>
+            <li><a href="#honest-caveats">What decoupling wouldn't do</a></li>
+            <li><a href="#consumers">What this means for you now</a></li>
+        </ol>
+    </nav>
+
+    <!-- Section 1: Merit order -->
+    <h2 id="merit-order">The merit order - how electricity is priced</h2>
+
+    <p>Electricity is bought and sold in wholesale markets in half-hourly slots. Every generator that wants to sell power submits a bid - the minimum price at which they are willing to generate. These bids are ranked from cheapest to most expensive, and the system operator (NESO) accepts them in order until enough supply exists to meet demand. This ranking is called the <strong>merit order stack</strong>.</p>
+
+    <p>The critical feature is this: every generator dispatched in a given half-hour receives the same price - the price of the <em>last</em> (most expensive) generator needed to balance supply and demand. That is called the <strong>marginal price</strong>, or the clearing price.</p>
+
+    <div class="amber-box">
+        <p><strong>Why do generators bid their short-run marginal cost (SRMC)?</strong> It is the economically rational strategy. A wind farm's SRMC is near zero - there is no fuel cost, so they will generate at almost any positive price. A gas plant's SRMC is dominated by the cost of the gas it burns, so it bids roughly its fuel cost plus a margin. Generators do not bid their <em>long-run</em> or levelised costs - only what it costs them to run right now.</p>
+    </div>
+
+    <p>Here is the approximate SRMC stack for different generation types in Britain today:</p>
+
+    <!-- Merit Order Visual -->
+    <div class="chart-card">
+        <h4>Illustrative Merit Order Stack</h4>
+        <p class="chart-sub">Short-run marginal cost bids by technology type (£/MWh, approximate). The clearing price is set by the last unit dispatched - almost always gas.</p>
+
+        <div style="display:flex; align-items:flex-end; gap:6px; height:220px; margin: 1rem 0 0.5rem; border-bottom: 2px solid #CBD5E1; border-left: 2px solid #CBD5E1; padding: 0 8px 0 8px; position:relative;">
+            <!-- Wind/Solar -->
+            <div style="flex:1.8; display:flex; flex-direction:column; justify-content:flex-end;">
+                <div style="background:#10B981; border-radius:4px 4px 0 0; height:12px; display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:0.55rem; font-weight:700; color:white;">£0-10</span>
+                </div>
+                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Wind &amp;<br>Solar</div>
+            </div>
+            <!-- Nuclear -->
+            <div style="flex:0.9; display:flex; flex-direction:column; justify-content:flex-end;">
+                <div style="background:#3B82F6; border-radius:4px 4px 0 0; height:28px; display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:0.55rem; font-weight:700; color:white;">£10-20</span>
+                </div>
+                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Nuclear</div>
+            </div>
+            <!-- Hydro -->
+            <div style="flex:0.5; display:flex; flex-direction:column; justify-content:flex-end;">
+                <div style="background:#60A5FA; border-radius:4px 4px 0 0; height:24px; display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:0.5rem; font-weight:700; color:white;">£15-30</span>
+                </div>
+                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Hydro</div>
+            </div>
+            <!-- Biomass -->
+            <div style="flex:0.7; display:flex; flex-direction:column; justify-content:flex-end;">
+                <div style="background:#F59E0B; border-radius:4px 4px 0 0; height:70px; display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:0.55rem; font-weight:700; color:white;">£40-60</span>
+                </div>
+                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Biomass</div>
+            </div>
+            <!-- Gas CCGT -->
+            <div style="flex:1.2; display:flex; flex-direction:column; justify-content:flex-end; position:relative;">
+                <div style="background:#EF4444; border-radius:4px 4px 0 0; height:130px; display:flex; align-items:center; justify-content:center; position:relative;">
+                    <span style="font-size:0.6rem; font-weight:700; color:white; text-align:center; padding:2px;">£70-90</span>
+                    <div style="position:absolute; top:-28px; right:-40px; background:#EF4444; color:white; font-size:0.6rem; font-weight:700; padding:2px 6px; border-radius:4px; white-space:nowrap;">&#x2190; Clears here</div>
+                </div>
+                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Gas CCGT<br><em>(marginal)</em></div>
+            </div>
+            <!-- Peakers -->
+            <div style="flex:0.5; display:flex; flex-direction:column; justify-content:flex-end; opacity:0.5;">
+                <div style="background:#9CA3AF; border-radius:4px 4px 0 0; height:160px; display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:0.5rem; font-weight:700; color:white; writing-mode:vertical-rl; transform:rotate(180deg);">£100+</span>
+                </div>
+                <div style="font-size:0.62rem; color:#94A3B8; text-align:center; margin-top:4px; line-height:1.3;">Peakers<br><em>(rarely)</em></div>
+            </div>
+            <!-- Y-axis label -->
+            <div style="position:absolute; left:-8px; top:0; height:100%; display:flex; align-items:center;">
+                <span style="font-size:0.6rem; color:#94A3B8; writing-mode:vertical-rl; transform:rotate(180deg);">Cost (£/MWh) &#x2192;</span>
+            </div>
+        </div>
+        <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.5rem;">All generators dispatched receive the gas clearing price - not their individual bid. Wind earns the same price as gas in that half-hour.</p>
+    </div>
+
+    <p>This is why a windy, sunny afternoon in Britain still prices electricity at the cost of gas. Wind might be generating 40% of demand at near-zero cost, but <strong>if any gas plant is needed to make up the remaining supply, it sets the price for every megawatt-hour traded that period</strong> - including the wind farm's output.</p>
+
+    <p>This is not a glitch. The uniform clearing price is an efficiency mechanism: by paying all generators the marginal price, the market ensures the cheapest units are always dispatched first. The problem is what happens to the difference - the gap between what wind costs to run and what it gets paid. That is called the <strong>inframarginal rent</strong>, and it flows to low-cost generators as windfall profit. Under normal gas prices, it is an accepted feature of the design. When gas prices spike by 50% because of a geopolitical crisis, it becomes politically explosive.</p>
+
+    <div class="stat-row">
+        <div class="stat-card">
+            <div class="stat-num">27.7p</div>
+            <div class="stat-label">Electricity unit price (p/kWh) under Q1 2026 price cap</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">5.9p</div>
+            <div class="stat-label">Gas unit price (p/kWh) under Q1 2026 price cap</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">4.7x</div>
+            <div class="stat-label">Ratio of electricity to gas unit price - highest in the EU</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">£1,641</div>
+            <div class="stat-label">Typical annual dual fuel bill, Q2 2026 - still 35% above pre-crisis levels</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Renewables paradox -->
+    <h2 id="renewables-paradox">The renewable energy paradox - you're funding it, but you can't benefit from it</h2>
+
+    <p>Here is the sharpest way to state the problem with the current system. Over the past decade, British households and businesses have collectively paid tens of billions of pounds in levies on their electricity bills to fund the construction of offshore wind farms, solar parks, and other low-carbon generation. These costs appear on your bill as "policy charges" - currently around £170 per year for a typical household.</p>
+
+    <p>That investment has been largely successful. Britain now has some of the largest offshore wind capacity in the world. On many days, wind alone generates more than half the country's electricity. The <em>fuel</em> cost of that electricity is zero.</p>
+
+    <p>And yet under the current market design, households pay for electricity as though none of that wind exists.</p>
+
+    <div style="background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%); border-radius: 14px; padding: 1.75rem; margin: 1.75rem 0; border: 1px solid #E9D5FF;">
+        <p style="font-size: 1.05rem; font-weight: 700; color: #581C87; margin-bottom: 0.6rem;">The core injustice of marginal pricing</p>
+        <p style="color: #6B21A8; margin: 0; line-height: 1.7;">When wind generates 50% of Britain's electricity at near-zero cost, that electricity is still sold at the gas clearing price. <strong>The saving does not flow to consumers - it flows to wind farm operators as profit above their running costs.</strong> The public paid to build the infrastructure. The public bears the bill when gas prices spike. But the public does not capture the upside when wind is cheap and plentiful.</p>
+    </div>
+
+    <p>This is not an accident of design. Uniform clearing prices are a deliberate feature: they ensure every generator recovers sufficient revenue to justify investment, without the grid having to negotiate individual prices with hundreds of operators every half-hour. The problem is that a system designed in the 1990s - when gas was the dominant and cheapest source of power - now produces increasingly absurd outcomes as renewable capacity scales up.</p>
+
+    <p>Consider what happens on a windy Sunday afternoon in February. Demand is low, offshore wind is running flat out, and gas barely needs to be dispatched. The clearing price might be £40-50/MWh - low by recent standards, reflecting cheap gas backup. Wind farms earn £40-50/MWh on fuel that cost them nothing. Households pay £40-50/MWh and perceive no benefit whatsoever from the fact that most of their electricity came from zero-fuel-cost sources.</p>
+
+    <p>Now consider what happens when a Middle East conflict causes gas prices to double. That same clearing price mechanism transmits the full shock instantly - even on days when gas is generating a small fraction of total supply. Every megawatt-hour of wind-generated electricity is re-priced upward in lockstep with gas. Wind farms earn windfall profits. Consumers pay as though gas generated everything.</p>
+
+    <div class="red-box">
+        <p><strong>The public investment argument:</strong> There is a legitimate case that this represents a failure of policy design. Consumers were told - explicitly, repeatedly - that investment in renewables would bring down bills over time as cheap clean energy displaced expensive fossil fuels. The mechanism that was supposed to deliver that benefit does not. The savings accrue to shareholders of generation companies, not to bill-payers. This is the underlying political grievance that has made decoupling a mainstream policy demand rather than a fringe academic proposal.</p>
+    </div>
+
+    <p>It is worth being precise about what <em>has</em> happened, to be fair to the system. Renewable expansion has reduced UK wholesale prices compared to what they would otherwise have been - analysis suggests by around a third in 2025 versus a counterfactual all-fossil system. The public has benefited, just not in a way that is visible or proportionate to the scale of investment made. The question is whether a reformed market design could make that benefit direct, transparent, and insulated from gas price shocks.</p>
+
+    <!-- Section 3: What renewables are doing -->
+    <h2 id="renewables-effect">What renewables are already doing - an effect most commentary misses</h2>
+
+    <p>Here is an important nuance that most "decouple now" commentary glosses over: renewables are already reducing the influence of gas on electricity prices, even within the current market design. They just do it gradually, and less dramatically than advocates suggest.</p>
+
+    <p>As more wind and solar capacity is added, gas plants are progressively pushed higher up the merit order - and eventually knocked out of it entirely in the periods when renewables are generating most abundantly. Even when gas still sets the marginal price, it is increasingly a <em>cheaper, more efficient</em> gas unit than it was, because the pricier, less efficient plants have been squeezed out by cheaper competition below them.</p>
+
+    <p>Analysis by the Energy and Climate Intelligence Unit (ECIU) suggests that renewable expansion had already reduced UK wholesale electricity prices by around a third in 2025 compared to what they would have been under an equivalent all-fossil system. And analysis from LCP Delta indicates that if the UK reaches its clean power 2030 targets, the electricity system would be almost entirely insulated from gas price shocks - not because of market redesign, but because gas simply would not be needed often enough to set the price.</p>
+
+    <div class="highlight-box">
+        <p><strong>The SwitchPilot take:</strong> Building more renewables is the most durable route to genuine decoupling - it does not need new legislation, it does not disrupt investment signals, and it is already working. The political problem is that it takes years, and households are exposed to gas price spikes <em>right now</em>. That is the legitimate case for market reform running in parallel - not instead of - the buildout.</p>
+    </div>
+
+    <!-- Section 4: Spain -->
+    <h2 id="spain">The Spain case study - what near-decoupling looks like in practice</h2>
+
+    <p>Spain offers the clearest real-world example of what happens when renewable penetration reaches the point where gas rarely sets the price. The data is striking.</p>
+
+    <!-- Spain chart -->
+    <div class="chart-card">
+        <h4>Hours Gas Sets the Electricity Price: Spain vs UK</h4>
+        <p class="chart-sub">Share of half-hour trading periods where gas is the marginal (price-setting) unit. Spain's dramatic drop shows the trajectory of high-renewables systems. UK data is illustrative based on available analysis.</p>
+        <div class="chart-wrap">
+            <canvas id="spainChart"></canvas>
+        </div>
+        <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.75rem;">Source: Ember / Modo Energy (Spain); LCP Delta, ECIU analysis (UK estimates). UK figures are illustrative and directionally consistent with available analysis.</p>
+    </div>
+
+    <p>In Spain, gas plants were clearing - appearing in the dispatch stack - in roughly two-thirds of half-hour periods as recently as 2023. By 2025 that figure had collapsed to under 14%, driven by the rapid expansion of solar and hydro. As one industry analyst put it, gas participation in the Spanish wholesale market has dropped dramatically in just two years as solar and hydro push it out of the merit order, meaning gas sets the price far less often.</p>
+
+    <p>Spain also benefits from hydro - dispatchable, zero-SRMC, able to respond to gaps in solar output. The UK has far less hydro capacity and relies much more heavily on offshore wind, which is less predictable on daily timescales. But the principle is the same: more zero-SRMC generation capacity reduces the frequency with which gas is the marginal unit. The UK is on the same trajectory - just behind.</p>
+
+    <div class="amber-box">
+        <p><strong>Important caveat:</strong> Even in Spain, gas still sets the price in roughly 1 in 7 half-hours. Complete decoupling through buildout alone requires either enormous storage capacity or dispatchable clean alternatives (nuclear, hydrogen, long-duration storage) to cover periods when renewables cannot meet demand. Spain's geography and hydro resource are structural advantages the UK does not fully share.</p>
+    </div>
+
+    <!-- Section 5: Reform options -->
+    <h2 id="reform-options">Reform options - a taxonomy of what's actually being proposed</h2>
+
+    <p>The policy debate contains several distinct mechanisms that are often conflated. It is worth separating them clearly, because they have very different implications for investment, affordability, and delivery timelines.</p>
+
+    <div class="reform-grid">
+        <div class="reform-card">
+            <span class="rc-tag medium">Medium complexity</span>
+            <h4>Pay-as-bid</h4>
+            <p>Replace the uniform clearing price: each generator is paid what they actually bid, rather than the marginal price. Intuitive in principle. In practice, low-SRMC generators would likely rebid close to the gas price anyway, knowing they will be dispatched. The efficiency signal breaks down and inframarginal rent does not disappear - it just gets captured through higher bids instead.</p>
+        </div>
+        <div class="reform-card">
+            <span class="rc-tag medium">Medium complexity</span>
+            <h4>Split markets / non-gas pool</h4>
+            <p>Separate the wholesale market: non-gas generators trade at their own marginal price, while gas plants are compensated separately. The Regulatory Assistance Project's "price shock absorber" variant does this. Problem: if generators know they will not be pushed out of dispatch, they can still rebid close to gas-level prices, recreating the rent problem in a new form.</p>
+        </div>
+        <div class="reform-card">
+            <span class="rc-tag radical">Most radical</span>
+            <h4>Single buyer / central dispatch</h4>
+            <p>NESO acts as buyer of all generation on regulated contracts, removing gas and low-carbon assets from the wholesale market entirely - essentially extending the CfD model to all generation. Eliminates inframarginal rent at source. Requires primary legislation, transforms the investment signal landscape, and would take years to implement. The Common Wealth think tank is the main advocate.</p>
+        </div>
+        <div class="reform-card">
+            <span class="rc-tag fast">Already being explored</span>
+            <h4>Gas strategic reserve</h4>
+            <p>Gas plants move off the open wholesale market onto a regulated reserve, dispatched centrally at cost by NESO when needed. The market price is then set by the highest non-gas generator. Removes gas-setting-the-price dynamics while retaining competitive markets for clean generation. Greenpeace UK's preferred model. Balancing mechanism cost likely rises as CCGTs still required for flexibility.</p>
+        </div>
+    </div>
+
+    <!-- Reform options chart -->
+    <div class="chart-card">
+        <h4>Reform Options: Speed vs Depth of Market Change</h4>
+        <p class="chart-sub">Approximate positioning of major proposals on a delivery timeline vs structural change spectrum. All involve trade-offs.</p>
+        <div class="chart-wrap-tall">
+            <canvas id="reformChart"></canvas>
+        </div>
+    </div>
+
+    <p>There are important cross-cutting issues that apply to almost all the structural reform proposals. First, <strong>investment signals</strong>: the uniform clearing price and competitive wholesale market have underpinned the large capital inflows into UK renewables. Changing the market design mid-programme introduces uncertainty that increases the risk premium developers apply, potentially raising the cost of capital for new wind and solar projects. The government is acutely aware of this - it is a primary reason REMA was so cautious.</p>
+
+    <p>Second, <strong>the balancing mechanism</strong>: gas CCGTs accounted for roughly 77% of turn-up costs in 2025's balancing mechanism - around £850 million out of a £1.1 billion total. Operators have sometimes charged over £5,000/MWh for short-notice dispatch. Moving gas off the main wholesale market does not eliminate this - it potentially makes it more expensive to manage, because the commercial incentive to maintain plant availability weakens.</p>
+
+    <!-- Section 6: REMA -->
+    <h2 id="rema">What REMA decided - and what it left open</h2>
+
+    <p>The government's Review of Electricity Market Arrangements (REMA), launched in 2022 and concluded in July 2025, was the most comprehensive review of British electricity market design in decades. Its conclusion was deliberately cautious.</p>
+
+    <p>The government decided to retain a single national GB-wide wholesale electricity market - explicitly ruling out both zonal pricing and the more radical structural separations. The rationale centred on investment certainty: the seven-year implementation timeline for zonal pricing, and the risk that regional price disparities would deter development in Scotland and north-east England where the best wind resources sit.</p>
+
+    <p>What REMA instead committed to is a package of "Reformed National Pricing" measures focused on better locational signals <em>within</em> the existing market structure:</p>
+
+    <ul>
+        <li>A <strong>Strategic Spatial Energy Plan (SSEP)</strong> - due in late 2026 - mapping optimal locations for new generation and storage across Britain, to reduce the grid constraint costs that arise when wind generates in Scotland but demand is in London.</li>
+        <li>Reform of <strong>Transmission Network Use of System (TNUoS) charges</strong> - aimed at making network cost signals more stable and better reflecting where investment is genuinely needed.</li>
+        <li>Code modification <strong>P462</strong> - would remove government subsidies from bid prices in the Balancing Mechanism, making dispatch costs more transparent and reducing distortion.</li>
+        <li>Expanded <strong>Contracts for Difference (CfD)</strong> for new low-carbon dispatchable technologies.</li>
+    </ul>
+
+    <div class="purple-box">
+        <p><strong>The key REMA gap:</strong> None of these measures directly address the marginal pricing mechanism. They improve how the grid is planned and how network costs are allocated - but under Reformed National Pricing, gas will still set the clearing price for the wholesale market whenever it is dispatched. The decoupling question was essentially left for another day. That is now the day Ed Miliband is trying to confront.</p>
+    </div>
+
+    <!-- Section 7: Honest caveats -->
+    <h2 id="honest-caveats">What decoupling wouldn't do - the honest version</h2>
+
+    <p>A lot of the political rhetoric around decoupling implies that breaking the gas-electricity link would mean bills fall dramatically and stay low. It is worth being precise about what the evidence actually supports.</p>
+
+    <p><strong>Switching to pay-as-bid or splitting markets would not reduce the underlying cost of gas.</strong> The UK imports significant volumes of LNG and trades gas on international markets. Whatever system is used to price electricity, the cost of procuring gas to run gas power stations is set by global supply and demand - not by domestic market design choices. Reform does not make gas cheaper; it changes who captures the difference between gas costs and the clearing price.</p>
+
+    <p><strong>Inframarginal rent is harder to eliminate than it appears.</strong> If non-gas generators know they are in a protected pool and will not be undercut by cheaper gas dispatch, the rational move is to bid higher. Several economists and analysts have raised this concern about both pay-as-bid and split market proposals - the rent gets recreated through higher bids rather than higher clearing prices.</p>
+
+    <p><strong>The balancing mechanism cost likely rises.</strong> As mentioned above, gas peakers and CCGTs play a critical role in grid stability that the wholesale market currently incentivises through the clearing price. Move them off the market and that incentive has to be replaced - either through regulated contracts (at potentially higher cost) or through an expanded capacity market.</p>
+
+    <div class="red-box">
+        <p><strong>What reform would genuinely deliver:</strong> Reduced windfall profits for low-cost generators during gas price spikes. Greater price stability and less exposure to geopolitical gas shocks - particularly if combined with a gas strategic reserve that caps what gas generators can charge. A fairer distribution of the rents that already exist in the system. These are real and meaningful benefits. Just not "bills will fall by £X overnight."</p>
+    </div>
+
+    <!-- Electricity/gas ratio chart -->
+    <div class="chart-card">
+        <h4>UK Electricity vs Gas Unit Price Ratio, 2020-2026</h4>
+        <p class="chart-sub">The ratio of electricity to gas unit prices illustrates how much "extra" consumers pay for electricity relative to the underlying fuel. The UK's ratio is the highest in the EU - driven by marginal pricing, policy cost loading, and network charges on electricity.</p>
+        <div class="chart-wrap">
+            <canvas id="ratioChart"></canvas>
+        </div>
+        <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.75rem;">Source: Ofgem price cap data; House of Commons Library CBP-9714 (March 2026). Ratios derived from unit price cap data. Pre-2022 figures based on pre-crisis unit prices.</p>
+    </div>
+
+    <!-- Section 8: What it means for consumers -->
+    <h2 id="consumers">What this means for consumers making decisions right now</h2>
+
+    <p>While the policy debate plays out - and it will take years to resolve - the practical question for households is what to do about their energy costs in the interim.</p>
+
+    <p>The price cap for Q2 2026 falls by 7% to £1,641 for a typical annual dual fuel bill - largely because of reductions in policy costs, not because wholesale prices have eased materially. Forecasters are watching whether conditions in the Middle East escalate or resolve, and the Q3 outlook is genuinely uncertain.</p>
+
+    <p>The fixed tariff market has responded to that uncertainty in a way that matters for switching decisions. Most competitive one-year fixed deals have been withdrawn as suppliers price in the risk of sustained elevated wholesale costs - the fixed deals that remain are currently priced around £2,000 annually for typical consumption, well above the Q2 cap level.</p>
+
+    <ul>
+        <li><strong>Fixing now looks expensive relative to the current cap.</strong> With available one-year fixes around £2,000 versus a Q2 cap of £1,641, you would need wholesale prices to rise substantially and stay elevated for a fix to pay off in the near term. That is a plausible scenario, but it is a risk bet, not a straightforward saving.</li>
+        <li><strong>Staying on SVT is defensible</strong> if you are willing to monitor the situation and switch quickly if competitive fixed deals return. Some suppliers are currently offering tracker tariffs priced at or near the Q2 cap rate - these can look attractive right now, but they will reprice when the Q3 cap is announced. Given current wholesale market conditions, Q3 is widely expected to move back toward £2,000.</li>
+        <li><strong>Smart meters matter more during periods of market volatility</strong> - they enable time-of-use tariffs that allow households to shift consumption to periods when gas is not the marginal unit, capturing some of the benefit of renewable cheapness directly. This is the consumer-level equivalent of what market redesign tries to achieve at system level.</li>
+    </ul>
+
+    <h2>The bottom line</h2>
+
+    <p>The mechanics of marginal pricing are not going away tomorrow. The government's REMA process ruled out the most radical structural changes and opted for incremental reform within the existing national market design. Ed Miliband's current exploration of decoupling reflects genuine political pressure - but the policy options are genuinely complex, the trade-offs are real, and history suggests these processes take longer than the crisis that triggered them.</p>
+
+    <p>The most durable route to electricity prices that genuinely reflect the cost of clean generation is still building more of it, faster, with the grid infrastructure to deliver it where it is needed. Spain did not decouple through market design - it did it by building solar at a scale that pushed gas to the margins.</p>
+
+    <p>Market reform can help. A gas strategic reserve, better-designed CfD contracts, or reformed balancing arrangements could reduce windfall rents and limit exposure to future gas shocks. But the honest expectation is meaningful improvement over a period of years - not a sharp bill cut next quarter.</p>
+
+    <p>In the meantime, the most powerful thing households can do is understand how their bill is actually constructed, compare what the market is offering against the cap, and switch when the numbers make sense. That is what SwitchPilot is here for.</p>
+
+    <!-- CTA -->
+    <div class="cta-box">
+        <h3>Compare energy deals now</h3>
+        <p>See which tariffs are available in your area, whether fixing makes sense at current prices, and how your bill breaks down between wholesale costs, network charges, and policy levies.</p>
+        <a href="https://www.switch-pilot.com" class="cta-button">Compare deals at SwitchPilot &#x2192;</a>
+    </div>
+
+    <!-- Related reading -->
+    <div class="related-reading">
+        <h4>Related reading</h4>
+        <div class="related-list">
+            <a href="gas-price-shock-middle-east-2026.html" class="related-item">
+                <span class="ri-emoji">&#x1F30D;</span>
+                <div class="ri-text">
+                    <strong>The Middle East Gas Price Shock - What It Means for Your Bills</strong>
+                    <span>How the latest geopolitical crisis is feeding through to UK energy prices</span>
+                </div>
+            </a>
+            <a href="q2-2026-price-cap.html" class="related-item">
+                <span class="ri-emoji">&#x1F4C9;</span>
+                <div class="ri-text">
+                    <strong>Q2 2026 Price Cap: What the 7% Cut Actually Means</strong>
+                    <span>A breakdown of the April 2026 cap change and what drives it</span>
+                </div>
+            </a>
+            <a href="why-uk-electricity-bills-follow-gas-prices.html" class="related-item">
+                <span class="ri-emoji">&#x26A1;</span>
+                <div class="ri-text">
+                    <strong>Why UK Electricity Prices Are Set by Gas</strong>
+                    <span>The deeper history of how Britain's electricity market came to be gas-linked</span>
+                </div>
+            </a>
+            <a href="ofgem-state-of-market-2026.html" class="related-item">
+                <span class="ri-emoji">&#x1F4CA;</span>
+                <div class="ri-text">
+                    <strong>Ofgem's State of the Market 2026 - Key Findings</strong>
+                    <span>What the regulator's latest assessment says about competition and affordability</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<!-- Sources footer -->
+<footer class="article-footer">
+    <p class="footer-note"><strong>Sources:</strong> Carbon Brief, "Q&amp;A: Why does gas set the price of electricity - and is there an alternative?" (March 2026); Common Wealth, "Crude Awakening: Averting the Unfolding Energy Crisis by Decoupling the Price of Electricity from Gas"; Energy Live News / Sky News, "Labour exploring how to decouple gas and electricity pricing" (March 2026); House of Commons Library CBP-9714, "Gas and electricity prices during the energy crisis and beyond" (March 2026); UK Government, REMA Summer Update 2025 (July 2025); Euronews, "High carbon costs, negative energy prices: EU confronts electricity price conundrum" (February 2026); Ember / Modo Energy analysis (Spain); LCP Delta / ECIU analysis (UK renewables impact). Ofgem price cap data, Q1 and Q2 2026.</p>
+    <p class="footer-note" style="margin-top:0.75rem;"><strong>Note:</strong> Merit order SRMC figures are illustrative approximations. Spain hours-gas-sets-the-price figures are based on Ember/Modo Energy analysis cited in Carbon Brief. UK equivalent figures are directional estimates. The electricity-to-gas price ratio chart uses Ofgem unit price cap data; pre-2020 interpolation is approximate.</p>
+</footer>
+
+<!-- Site footer -->
+<footer class="site-footer">
+    <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;display:block;margin-left:auto;margin-right:auto;">
+    <p style="font-weight:700;font-size:1rem;margin-bottom:0.25rem;color:#fff;">SwitchInsights</p>
+    <p>A <a href="https://www.switch-pilot.com">SwitchPilot</a> publication - energy explained, in plain English</p>
+    <p style="margin-top:0.75rem;">&#x1F4E7; <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;color:rgba(255,255,255,0.4);">&#x00A9; 2026 SwitchPilot Ltd. All rights reserved.</p>
+    <p style="margin-top:0.5rem;font-size:0.78rem;">
+        <a href="https://www.switch-pilot.com/privacy-policy.html" style="color:rgba(255,255,255,0.45);">Privacy Policy</a>
+        <span style="color:rgba(255,255,255,0.25);margin:0 0.4rem;">&#xB7;</span>
+        <a href="https://www.switch-pilot.com/terms.html" style="color:rgba(255,255,255,0.45);">Terms of Service</a>
+    </p>
+</footer>
+
+<script>
+window.addEventListener('load', function() {
+
+// ── Chart 1: Spain vs UK gas-sets-price ──
+(function() {
+    const ctx = document.getElementById('spainChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2022', '2023', '2024', '2025', '2026 (partial)'],
+            datasets: [
+                {
+                    label: 'Spain',
+                    data: [72, 67, 38, 14, 8],
+                    backgroundColor: '#F59E0B',
+                    borderRadius: 6,
+                    barPercentage: 0.38
+                },
+                {
+                    label: 'UK (estimated)',
+                    data: [88, 82, 75, 68, 65],
+                    backgroundColor: '#A855F7',
+                    borderRadius: 6,
+                    barPercentage: 0.38
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { family: 'DM Sans', size: 12 }, padding: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}% of hours`
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { callback: v => v + '%', font: { family: 'DM Sans', size: 11 } },
+                    grid: { color: '#F1F5F9' },
+                    title: { display: true, text: '% of hours gas sets price', font: { family: 'DM Sans', size: 11 }, color: '#94A3B8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { family: 'DM Sans', size: 11 } }
+                }
+            }
+        }
+    });
+})();
+
+// ── Chart 2: Reform options scatter ──
+(function() {
+    const ctx = document.getElementById('reformChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Reformed National Pricing (REMA)',
+                    data: [{ x: 2, y: 2 }],
+                    backgroundColor: '#10B981',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                },
+                {
+                    label: 'Pay-as-bid',
+                    data: [{ x: 3, y: 3 }],
+                    backgroundColor: '#F59E0B',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                },
+                {
+                    label: 'Gas Strategic Reserve',
+                    data: [{ x: 4, y: 6 }],
+                    backgroundColor: '#3B82F6',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                },
+                {
+                    label: 'Split markets',
+                    data: [{ x: 5, y: 7 }],
+                    backgroundColor: '#EC4899',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                },
+                {
+                    label: 'Single buyer / central dispatch',
+                    data: [{ x: 8, y: 9 }],
+                    backgroundColor: '#A855F7',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                },
+                {
+                    label: 'Renewables buildout (current path)',
+                    data: [{ x: 7, y: 4 }],
+                    backgroundColor: '#059669',
+                    pointRadius: 12,
+                    pointHoverRadius: 14
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { family: 'DM Sans', size: 10 }, padding: 10, boxWidth: 10 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ctx.dataset.label
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    min: 0, max: 10,
+                    title: { display: true, text: '\u2190 Faster delivery          Longer to deliver \u2192', font: { family: 'DM Sans', size: 11 }, color: '#64748B' },
+                    ticks: { display: false },
+                    grid: { color: '#F1F5F9' }
+                },
+                y: {
+                    min: 0, max: 10,
+                    title: { display: true, text: '\u2190 Incremental change          Structural overhaul \u2192', font: { family: 'DM Sans', size: 11 }, color: '#64748B' },
+                    ticks: { display: false },
+                    grid: { color: '#F1F5F9' }
+                }
+            }
+        }
+    });
+})();
+
+// ── Chart 3: Electricity/gas price ratio ──
+(function() {
+    const ctx = document.getElementById('ratioChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Pre-crisis\n(2021)', 'Apr 2022\n(+54%)', 'Oct 2022\n(peak)', 'Apr 2023', 'Jan 2024', 'Apr 2025', 'Q1 2026', 'Q2 2026'],
+            datasets: [
+                {
+                    label: 'UK electricity/gas price ratio',
+                    data: [3.6, 3.9, 4.1, 4.3, 4.5, 4.6, 4.7, 4.3],
+                    borderColor: '#A855F7',
+                    backgroundColor: 'rgba(168,85,247,0.08)',
+                    borderWidth: 2.5,
+                    fill: true,
+                    tension: 0.35,
+                    pointBackgroundColor: '#A855F7',
+                    pointRadius: 4
+                },
+                {
+                    label: 'EU average ratio (approximate)',
+                    data: [3.2, 3.4, 3.5, 3.6, 3.5, 3.4, 3.3, 3.2],
+                    borderColor: '#10B981',
+                    backgroundColor: 'rgba(16,185,129,0.05)',
+                    borderWidth: 2,
+                    borderDash: [5, 4],
+                    fill: false,
+                    tension: 0.35,
+                    pointBackgroundColor: '#10B981',
+                    pointRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { family: 'DM Sans', size: 12 }, padding: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}\u00d7 ratio`
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    min: 2.5, max: 5.5,
+                    ticks: { callback: v => v + '\u00d7', font: { family: 'DM Sans', size: 11 } },
+                    grid: { color: '#F1F5F9' },
+                    title: { display: true, text: 'Electricity/gas unit price ratio', font: { family: 'DM Sans', size: 11 }, color: '#94A3B8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { family: 'DM Sans', size: 10 } }
+                }
+            }
+        }
+    });
+})();
+
+}); // end window.addEventListener('load')
+</script>
+
+</body>
+</html>

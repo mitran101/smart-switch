@@ -497,17 +497,6 @@
   </div>
 </div>
 
-<!-- Series context banner -->
-<div style="background:#1E293B; border-bottom:1px solid rgba(168,85,247,0.3); padding:0.65rem 2rem;">
-    <div style="max-width:800px; margin:0 auto; display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
-        <span style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#A855F7;">Series: The Gas Crisis</span>
-        <span style="color:rgba(255,255,255,0.2); font-size:0.8rem;">|</span>
-        <a href="gas-price-shock-middle-east-2026.html" style="font-size:0.82rem; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#A855F7'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Part 1: The Middle East shock - what it means for your bills</a>
-        <span style="color:rgba(255,255,255,0.2); font-size:0.8rem;">·</span>
-        <span style="font-size:0.82rem; color:white; font-weight:600;">Part 2: Why gas still sets your electricity price - and could that change? &#x2190; You are here</span>
-    </div>
-</div>
-
 <!-- Hero -->
 <header class="article-header">
     <div class="header-content">
@@ -524,11 +513,6 @@
 
 <!-- Article body -->
 <main class="article-body">
-
-    <!-- Series context -->
-    <div style="background:#F3E8FF; border:1px solid #D8B4FE; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1.75rem; font-size:0.9rem; color:#581C87; line-height:1.6;">
-        <strong>This is Part 2 of our Gas Crisis series.</strong> In <a href="gas-price-shock-middle-east-2026.html" style="color:#7C3AED;">Part 1</a> we covered the immediate shock - a surge in UK wholesale gas prices following escalating tensions in the Middle East and disruption to LNG supply routes. This piece addresses the question that kept coming up: <em>why does gas set electricity prices at all - and could that change?</em>
-    </div>
 
     <p>On a breezy afternoon in Britain, wind turbines might be generating 40% of the country's electricity at a cost of essentially nothing - fuel-free, zero emissions, running on weather. And yet, at that same moment, households are paying for electricity as though it came from a gas-fired power station, at whatever gas costs that day on international markets.</p>
 
@@ -817,54 +801,40 @@
 
     <p>In the meantime, the most powerful thing households can do is understand how their bill is actually constructed, compare what the market is offering against the cap, and switch when the numbers make sense. That is what SwitchPilot is here for.</p>
 
-    <!-- CTA -->
-    <div class="cta-box">
-        <h3>Compare energy deals now</h3>
-        <p>See which tariffs are available in your area, whether fixing makes sense at current prices, and how your bill breaks down between wholesale costs, network charges, and policy levies.</p>
-        <a href="https://www.switch-pilot.com" class="cta-button">Compare deals at SwitchPilot &#x2192;</a>
-    </div>
-
-    <!-- Related reading -->
-    <div class="related-reading">
-        <h4>Related reading</h4>
-        <div class="related-list">
-            <a href="gas-price-shock-middle-east-2026.html" class="related-item">
-                <span class="ri-emoji">&#x1F30D;</span>
-                <div class="ri-text">
-                    <strong>The Middle East Gas Price Shock - What It Means for Your Bills</strong>
-                    <span>How the latest geopolitical crisis is feeding through to UK energy prices</span>
-                </div>
-            </a>
-            <a href="q2-2026-price-cap.html" class="related-item">
-                <span class="ri-emoji">&#x1F4C9;</span>
-                <div class="ri-text">
-                    <strong>Q2 2026 Price Cap: What the 7% Cut Actually Means</strong>
-                    <span>A breakdown of the April 2026 cap change and what drives it</span>
-                </div>
-            </a>
-            <a href="why-uk-electricity-bills-follow-gas-prices.html" class="related-item">
-                <span class="ri-emoji">&#x26A1;</span>
-                <div class="ri-text">
-                    <strong>Why UK Electricity Prices Are Set by Gas</strong>
-                    <span>The deeper history of how Britain's electricity market came to be gas-linked</span>
-                </div>
-            </a>
-            <a href="ofgem-state-of-market-2026.html" class="related-item">
-                <span class="ri-emoji">&#x1F4CA;</span>
-                <div class="ri-text">
-                    <strong>Ofgem's State of the Market 2026 - Key Findings</strong>
-                    <span>What the regulator's latest assessment says about competition and affordability</span>
-                </div>
-            </a>
-        </div>
-    </div>
-
 </main>
+
+<section style="padding: 0 2rem;">
+    <div class="cta-box" id="newsletter-cta">
+        <h3>Get weekly energy insights</h3>
+        <p>Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch - just useful stuff.</p>
+        <form id="newsletter-form" onsubmit="return false;" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+            <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.7rem 1rem;border-radius:8px;border:none;font-size:0.95rem;color:#1a1a2e;">
+            <button type="button" id="nl-submit" onclick="submitNewsletter()" style="padding:0.7rem 1.4rem;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.6);color:#fff;font-weight:700;font-size:0.95rem;border-radius:8px;cursor:pointer;white-space:nowrap;">Subscribe free</button>
+        </form>
+        <p id="nl-msg" style="display:none;margin-top:8px;font-size:0.9rem;"></p>
+        <p style="font-size:12px;opacity:0.6;margin-top:6px;">Unsubscribe anytime. We respect your inbox.</p>
+    </div>
+    <div style="margin-top:1.25rem;padding:1rem 1.75rem;background:linear-gradient(135deg,#10B981,#059669);border-radius:12px;text-align:center;max-width:700px;margin-left:auto;margin-right:auto;">
+        <p style="font-size:0.88rem;color:#fff;margin:0;">&#x26A1; We're also building <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:#fff;font-weight:700;text-decoration:underline;">SwitchPilot</a> &mdash; a free service that automatically switches you to the cheapest energy deal. <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:#fff;font-weight:700;text-decoration:underline;">Find out more &rarr;</a></p>
+    </div>
+</section>
 
 <!-- Sources footer -->
 <footer class="article-footer">
-    <p class="footer-note"><strong>Sources:</strong> Carbon Brief, "Q&amp;A: Why does gas set the price of electricity - and is there an alternative?" (March 2026); Common Wealth, "Crude Awakening: Averting the Unfolding Energy Crisis by Decoupling the Price of Electricity from Gas"; Energy Live News / Sky News, "Labour exploring how to decouple gas and electricity pricing" (March 2026); House of Commons Library CBP-9714, "Gas and electricity prices during the energy crisis and beyond" (March 2026); UK Government, REMA Summer Update 2025 (July 2025); Euronews, "High carbon costs, negative energy prices: EU confronts electricity price conundrum" (February 2026); Ember / Modo Energy analysis (Spain); LCP Delta / ECIU analysis (UK renewables impact). Ofgem price cap data, Q1 and Q2 2026.</p>
+    <p class="footer-note"><strong>Sources:</strong> Carbon Brief, "Q&amp;A: Why does gas set the price of electricity - and is there an alternative?" (March 2026); Common Wealth, "Crude Awakening: Averting the Unfolding Energy Crisis by Decoupling the Price of Electricity from Gas"; Energy Live News / Sky News, "Labour exploring how to decouple gas and electricity pricing" (March 2026); House of Commons Library CBP-9714, "Gas and electricity prices during the energy crisis and beyond" (March 2026); UK Government, REMA Summer Update 2025 (July 2025); Ember / Modo Energy analysis (Spain); LCP Delta / ECIU analysis (UK renewables impact). Ofgem price cap data, Q1 and Q2 2026.</p>
     <p class="footer-note" style="margin-top:0.75rem;"><strong>Note:</strong> Merit order SRMC figures are illustrative approximations. Spain hours-gas-sets-the-price figures are based on Ember/Modo Energy analysis cited in Carbon Brief. UK equivalent figures are directional estimates. The electricity-to-gas price ratio chart uses Ofgem unit price cap data; pre-2020 interpolation is approximate.</p>
+    <p class="footer-note" style="margin-top:1.25rem;">
+        <strong>Related reading:</strong><br>
+        <a href="gas-price-shock-middle-east-2026.html" style="color:var(--sp-green);text-decoration:none;">The Middle East Gas Price Shock - What It Means for Your Bills &rarr;</a><br>
+        <a href="why-uk-electricity-bills-follow-gas-prices.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">Why UK Electricity Bills Follow Gas Prices &rarr;</a><br>
+        <a href="q2-2026-price-cap.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">Q2 2026 Price Cap: What the 7% Cut Actually Means &rarr;</a><br>
+        <a href="ofgem-state-of-market-2026.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">Ofgem State of the Market 2026 &rarr;</a>
+    </p>
+    <p style="margin-top:0.75rem;font-size:0.78rem;">
+        <a href="https://www.switch-pilot.com/privacy-policy.html" style="color:rgba(0,0,0,0.35);">Privacy Policy</a>
+        <span style="color:rgba(0,0,0,0.2);margin:0 0.4rem;">&#183;</span>
+        <a href="https://www.switch-pilot.com/terms.html" style="color:rgba(0,0,0,0.35);">Terms of Service</a>
+    </p>
 </footer>
 
 <!-- Site footer -->
@@ -1082,6 +1052,60 @@ window.addEventListener('load', function() {
 })();
 
 }); // end window.addEventListener('load')
+</script>
+
+<script>
+async function submitNewsletter() {
+  const emailInput = document.getElementById('nl-email');
+  const msg = document.getElementById('nl-msg');
+  const btn = document.getElementById('nl-submit');
+  const email = emailInput.value.trim().toLowerCase();
+
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email address.';
+    msg.style.color = '#e74c3c';
+    msg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec', {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'newsletterSignup',
+        email: email,
+        source: 'switchinsights',
+        page_url: window.location.href
+      })
+    });
+    const data = await res.json();
+
+    if (data.status === 'ok') {
+      msg.textContent = "You're in! Check your inbox for weekly energy insights.";
+      msg.style.color = '#27ae60';
+      emailInput.value = '';
+    } else if (data.status === 'already_subscribed') {
+      msg.textContent = "You're already subscribed!";
+      msg.style.color = '#e67e22';
+    } else if (data.status === 'already_on_waitlist') {
+      msg.textContent = "You're already on the SwitchPilot waitlist - you'll get insights too!";
+      msg.style.color = '#27ae60';
+    } else {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.style.color = '#e74c3c';
+    }
+  } catch (err) {
+    msg.textContent = 'Something went wrong. Please try again.';
+    msg.style.color = '#e74c3c';
+  }
+
+  msg.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = 'Subscribe free';
+}
 </script>
 
 </body>

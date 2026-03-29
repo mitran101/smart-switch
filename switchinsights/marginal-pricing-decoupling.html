@@ -504,9 +504,11 @@
         <h1>Why Does Gas Still Set Your Electricity Price - And Could That Change?</h1>
         <p class="subtitle">The Middle East conflict has exposed Britain's structural vulnerability again - electricity priced as though gas generates every kilowatt, even when the wind is blowing. We explain the mechanics and what reform could actually achieve.</p>
         <div class="article-meta">
-            <span>&#x1F4C5; 29 March 2026</span>
-            <span>&#x23F1; 9 min read</span>
-            <span>&#x270D;&#xFE0F; SwitchInsights</span>
+            <span>29 March 2026</span>
+            <span>&bull;</span>
+            <span>9 min read</span>
+            <span>&bull;</span>
+            <span>SwitchInsights</span>
         </div>
     </div>
 </header>
@@ -551,58 +553,11 @@
     <!-- Merit Order Visual -->
     <div class="chart-card">
         <h4>Illustrative Merit Order Stack</h4>
-        <p class="chart-sub">Short-run marginal cost bids by technology type (£/MWh, approximate). The clearing price is set by the last unit dispatched - almost always gas.</p>
-
-        <div style="display:flex; align-items:flex-end; gap:6px; height:220px; margin: 1rem 0 0.5rem; border-bottom: 2px solid #CBD5E1; border-left: 2px solid #CBD5E1; padding: 0 8px 0 8px; position:relative;">
-            <!-- Wind/Solar -->
-            <div style="flex:1.8; display:flex; flex-direction:column; justify-content:flex-end;">
-                <div style="background:#10B981; border-radius:4px 4px 0 0; height:12px; display:flex; align-items:center; justify-content:center;">
-                    <span style="font-size:0.55rem; font-weight:700; color:white;">£0-10</span>
-                </div>
-                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Wind &amp;<br>Solar</div>
-            </div>
-            <!-- Nuclear -->
-            <div style="flex:0.9; display:flex; flex-direction:column; justify-content:flex-end;">
-                <div style="background:#3B82F6; border-radius:4px 4px 0 0; height:28px; display:flex; align-items:center; justify-content:center;">
-                    <span style="font-size:0.55rem; font-weight:700; color:white;">£10-20</span>
-                </div>
-                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Nuclear</div>
-            </div>
-            <!-- Hydro -->
-            <div style="flex:0.5; display:flex; flex-direction:column; justify-content:flex-end;">
-                <div style="background:#60A5FA; border-radius:4px 4px 0 0; height:24px; display:flex; align-items:center; justify-content:center;">
-                    <span style="font-size:0.5rem; font-weight:700; color:white;">£15-30</span>
-                </div>
-                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Hydro</div>
-            </div>
-            <!-- Biomass -->
-            <div style="flex:0.7; display:flex; flex-direction:column; justify-content:flex-end;">
-                <div style="background:#F59E0B; border-radius:4px 4px 0 0; height:70px; display:flex; align-items:center; justify-content:center;">
-                    <span style="font-size:0.55rem; font-weight:700; color:white;">£40-60</span>
-                </div>
-                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Biomass</div>
-            </div>
-            <!-- Gas CCGT -->
-            <div style="flex:1.2; display:flex; flex-direction:column; justify-content:flex-end; position:relative;">
-                <div style="background:#EF4444; border-radius:4px 4px 0 0; height:130px; display:flex; align-items:center; justify-content:center; position:relative;">
-                    <span style="font-size:0.6rem; font-weight:700; color:white; text-align:center; padding:2px;">£70-90</span>
-                    <div style="position:absolute; top:-28px; right:-40px; background:#EF4444; color:white; font-size:0.6rem; font-weight:700; padding:2px 6px; border-radius:4px; white-space:nowrap;">&#x2190; Clears here</div>
-                </div>
-                <div style="font-size:0.62rem; color:#64748B; text-align:center; margin-top:4px; line-height:1.3;">Gas CCGT<br><em>(marginal)</em></div>
-            </div>
-            <!-- Peakers -->
-            <div style="flex:0.5; display:flex; flex-direction:column; justify-content:flex-end; opacity:0.5;">
-                <div style="background:#9CA3AF; border-radius:4px 4px 0 0; height:160px; display:flex; align-items:center; justify-content:center;">
-                    <span style="font-size:0.5rem; font-weight:700; color:white; writing-mode:vertical-rl; transform:rotate(180deg);">£100+</span>
-                </div>
-                <div style="font-size:0.62rem; color:#94A3B8; text-align:center; margin-top:4px; line-height:1.3;">Peakers<br><em>(rarely)</em></div>
-            </div>
-            <!-- Y-axis label -->
-            <div style="position:absolute; left:-8px; top:0; height:100%; display:flex; align-items:center;">
-                <span style="font-size:0.6rem; color:#94A3B8; writing-mode:vertical-rl; transform:rotate(180deg);">Cost (£/MWh) &#x2192;</span>
-            </div>
+        <p class="chart-sub">Short-run marginal cost bids by technology type (£/MWh, approximate). Every generator dispatched earns the clearing price set by the last - almost always gas.</p>
+        <div class="chart-wrap">
+            <canvas id="meritOrderChart"></canvas>
         </div>
-        <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.5rem;">All generators dispatched receive the gas clearing price - not their individual bid. Wind earns the same price as gas in that half-hour.</p>
+        <p style="font-size:0.78rem; color:#94A3B8; margin-top:0.75rem;">The dashed red line shows the gas clearing price paid to <em>all</em> generators in that half-hour - including wind farms whose fuel cost is zero.</p>
     </div>
 
     <p>This is why a windy, sunny afternoon in Britain still prices electricity at the cost of gas. Wind might be generating 40% of demand at near-zero cost, but <strong>if any gas plant is needed to make up the remaining supply, it sets the price for every megawatt-hour traded that period</strong> - including the wind farm's output.</p>
@@ -838,6 +793,7 @@
 </footer>
 
 <!-- Site footer -->
+<script src="comments.js" defer></script>
 <style>.site-footer{background:#1E293B;text-align:center;padding:3rem 2rem;margin-top:3rem;}</style>
 <footer class="site-footer">
     <img src="https://www.switch-pilot.com/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;">
@@ -849,6 +805,70 @@
 
 <script>
 window.addEventListener('load', function() {
+
+// ── Chart 0: Merit order stack ──
+(function() {
+    const ctx = document.getElementById('meritOrderChart').getContext('2d');
+    const prices = [5, 15, 22, 50, 80, 120];
+    const clearingPrice = 80;
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Wind & Solar', 'Nuclear', 'Hydro', 'Biomass', 'Gas CCGT\n(marginal)', 'Peakers\n(rare)'],
+            datasets: [
+                {
+                    label: 'Short-run marginal cost (£/MWh)',
+                    data: prices,
+                    backgroundColor: ['#10B981','#3B82F6','#60A5FA','#F59E0B','#EF4444','#9CA3AF'],
+                    borderRadius: 4,
+                    barPercentage: 0.65
+                },
+                {
+                    label: 'Clearing price (set by gas)',
+                    data: Array(6).fill(clearingPrice),
+                    type: 'line',
+                    borderColor: '#EF4444',
+                    borderWidth: 2,
+                    borderDash: [6, 4],
+                    pointRadius: 0,
+                    fill: false,
+                    tension: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { family: 'DM Sans', size: 12 }, padding: 16, boxWidth: 12 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            if (ctx.datasetIndex === 1) return ' Clearing price: £' + ctx.raw + '/MWh — paid to all generators';
+                            return ' SRMC: ~£' + ctx.raw + '/MWh';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 140,
+                    ticks: { callback: v => '£' + v, font: { family: 'DM Sans', size: 11 } },
+                    grid: { color: '#F1F5F9' },
+                    title: { display: true, text: 'Short-run marginal cost (£/MWh)', font: { family: 'DM Sans', size: 11 }, color: '#94A3B8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { family: 'DM Sans', size: 11 } }
+                }
+            }
+        }
+    });
+})();
 
 // ── Chart 1: Spain vs UK gas-sets-price ──
 (function() {

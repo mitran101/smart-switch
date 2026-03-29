@@ -99,42 +99,15 @@
         }
 
         /* ── Nav ── */
-        .top-nav {
-            background: var(--sp-slate);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .top-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            color: white;
-            transition: opacity 0.2s;
-        }
-        .top-logo:hover { opacity: 0.8; }
-        .top-logo img { height: 3rem; width: auto; margin-right: -12px; }
-        .top-logo span { font-size: 1.35rem; }
-
-        .back-home {
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-        }
-        .back-home:hover { background: rgba(255,255,255,0.2); }
+        .si-topbar { background: #1E293B; border-bottom: 1px solid rgba(16,185,129,0.3); padding: 0.6rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; }
+        .si-topbar-logo { display: flex; align-items: center; text-decoration: none; }
+        .si-topbar-links { display: flex; align-items: center; gap: 1.2rem; }
+        .si-topbar-archive { background: rgba(16,185,129,0.15); border: 1px solid #10B981; color: #10B981 !important; text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 8px; }
+        .si-topbar-archive:hover { background: rgba(16,185,129,0.3); }
+        .si-topbar-visit { background: linear-gradient(135deg, #10B981, #059669); color: #fff !important; text-decoration: none; font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.9rem; border-radius: 8px; }
+        .si-topbar-visit:hover { opacity: 0.9; }
+        @media (max-width: 500px) { .si-topbar-archive { display: none; } }
+        @media (max-width: 768px) { .si-topbar { justify-content: flex-start; padding-left: 0.5rem; } .si-topbar-links { margin-left: auto; } }
 
         /* ── Hero ── */
         .article-header {
@@ -520,14 +493,16 @@
 </head>
 <body>
 
-<!-- Nav -->
-<nav class="top-nav">
-    <a href="index.html" class="top-logo">
-        <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo">
-        <span>SwitchInsights</span>
-    </a>
-    <a href="index.html" class="back-home">← All articles</a>
-</nav>
+<div class="si-topbar">
+  <a href="index.html" class="si-topbar-logo" style="display:flex;align-items:center;text-decoration:none;color:#fff;">
+    <img src="https://www.switch-pilot.com/switchinsightslogo.png" alt="SwitchInsights logo" style="height:32px;width:auto;vertical-align:middle;margin-right:6px;">
+    <span style="color:#fff;font-weight:700;font-size:1rem;letter-spacing:-0.3px;">SwitchInsights</span>
+  </a>
+  <div class="si-topbar-links">
+    <a href="index.html" class="si-topbar-archive">All articles</a>
+    <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=nav" class="si-topbar-visit">Visit SwitchPilot &rarr;</a>
+  </div>
+</div>
 
 <!-- Series context banner -->
 <div style="background:#1E293B; border-bottom:1px solid rgba(168,85,247,0.3); padding:0.65rem 2rem;">

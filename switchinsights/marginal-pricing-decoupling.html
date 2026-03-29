@@ -52,6 +52,64 @@
     }
     </script>
 
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does gas set the price of electricity in the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The UK electricity market uses a 'marginal pricing' system. Generators bid their short-run marginal costs and are dispatched from cheapest to most expensive. Every generator dispatched in a given period receives the same price - the price of the last (most expensive) generator needed. Because gas-fired plants are usually the last needed to balance supply and demand, they set the clearing price for all electricity traded, including wind and solar output that has near-zero fuel costs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the merit order in electricity markets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The merit order is the ranking of electricity generators from cheapest to most expensive short-run marginal cost. Wind and solar bid near zero (no fuel cost), followed by nuclear, hydro, biomass, and then gas. The grid operator (NESO) accepts bids from cheapest upward until enough supply meets demand. The price of the last unit needed - almost always gas - becomes the clearing price paid to all generators dispatched in that period."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is decoupling electricity from gas prices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Decoupling means reforming the electricity market so that the wholesale price of electricity is no longer directly set by the cost of gas. Proposals include pay-as-bid pricing (generators receive what they bid rather than the gas clearing price), a gas strategic reserve (gas plants operate outside the main wholesale market), split market designs, or a central buyer model where all generation is procured on regulated contracts. Each approach has different trade-offs for investment, affordability, and implementation timelines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will decoupling electricity from gas lower UK bills?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Decoupling would not directly reduce the underlying cost of gas, which is set by global markets. What it would do is reduce the windfall profits generators earn when gas prices spike, and provide more price stability by insulating electricity pricing from geopolitical gas shocks. Most analysts expect a meaningful improvement over time rather than an immediate sharp bill reduction. The most durable route to lower bills is building more renewable capacity so gas is needed less often to set the price."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What did REMA decide about electricity market reform?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The UK government's Review of Electricity Market Arrangements (REMA), concluded in July 2025, decided to retain the single national GB-wide wholesale electricity market. It explicitly ruled out zonal pricing and major structural separations, citing the need for investment certainty. Instead, REMA committed to 'Reformed National Pricing' - a package including a Strategic Spatial Energy Plan, reformed network charges, and expanded Contracts for Difference for low-carbon generation. None of these measures directly address the marginal pricing mechanism itself."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When will UK electricity bills stop following gas prices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Spain's experience offers the clearest evidence: as renewable capacity scaled rapidly, the share of half-hours where gas set the electricity price collapsed from around 67% in 2023 to under 14% in 2025. The UK is on the same trajectory but behind - the clean power 2030 targets, if met, would leave gas needing to set the price far less often. Without market reform running in parallel, full insulation from gas price shocks would require near-complete renewable penetration plus substantial storage capacity."
+          }
+        }
+      ]
+    }
+    </script>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
     <script>
@@ -85,6 +143,8 @@
             --sp-blue-light: #DBEAFE;
             --sp-bg: #F8FAFC;
             --sp-card: #FFFFFF;
+            --sp-amber-light: #FEF3C7;
+            --sp-red-light: #FEE2E2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -477,6 +537,46 @@
         .site-footer a { color: var(--sp-green); text-decoration: none; }
         .site-footer a:hover { text-decoration: underline; }
 
+        /* ── Summary / Key Takeaways ── */
+        .summary-section {
+            background: var(--sp-card); border: 2px solid #E2E8F0;
+            border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0;
+        }
+        .summary-title {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.25rem; margin-bottom: 1.25rem; color: var(--sp-slate);
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.85rem;
+        }
+        .summary-item {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            padding: 0.85rem 1rem; border-radius: 8px;
+            font-size: 0.9rem; line-height: 1.4;
+        }
+        .summary-item.positive { background: var(--sp-green-light); }
+        .summary-item.warning { background: var(--sp-amber-light); }
+        .summary-item.danger { background: var(--sp-red-light); }
+        .summary-item.info { background: #EFF6FF; }
+        .summary-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+        /* ── Action box ── */
+        .action-box {
+            background: linear-gradient(135deg, #4C1D95 0%, #1E293B 100%);
+            color: white; padding: 2rem; border-radius: 12px;
+            margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .action-box h3 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.4rem; margin-bottom: 0.75rem; color: white;
+        }
+        .action-box p { color: rgba(255,255,255,0.85); margin-bottom: 1rem; }
+        .action-box ul { color: rgba(255,255,255,0.8); margin-left: 1.25rem; }
+        .action-box ul li { margin-bottom: 0.5rem; }
+        .action-box strong { color: white; }
+
         /* ── Responsive ── */
         @media (max-width: 600px) {
             .article-body { padding: 2rem 1.25rem 3rem; }
@@ -536,6 +636,49 @@
             <li><a href="#consumers">What this means for you now</a></li>
         </ol>
     </nav>
+
+    <!-- Key Takeaways -->
+    <div class="summary-section">
+        <div class="summary-title">Key Takeaways</div>
+        <div class="summary-grid">
+            <div class="summary-item danger">
+                <span class="summary-icon">&#9888;</span>
+                <span><strong>Gas still sets 80%+ of UK electricity prices</strong> - even when wind generates half our power</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">&#128161;</span>
+                <span><strong>This is deliberate market design</strong> - the merit order is an efficiency mechanism, not a flaw or a scam</span>
+            </div>
+            <div class="summary-item warning">
+                <span class="summary-icon">&#9888;</span>
+                <span><strong>You paid to build the renewables</strong> - but inframarginal rent means you don't capture the fuel-cost saving</span>
+            </div>
+            <div class="summary-item positive">
+                <span class="summary-icon">&#10003;</span>
+                <span><strong>Renewables already cut wholesale prices ~1/3</strong> vs an equivalent all-fossil system in 2025</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">&#128161;</span>
+                <span><strong>Spain shows the trajectory</strong> - gas share of price-setting periods fell from 67% to 14% in just two years</span>
+            </div>
+            <div class="summary-item warning">
+                <span class="summary-icon">&#9888;</span>
+                <span><strong>REMA kept the existing market intact</strong> - no structural decoupling was agreed in July 2025</span>
+            </div>
+            <div class="summary-item warning">
+                <span class="summary-icon">&#9888;</span>
+                <span><strong>Most reform proposals have a rebidding problem</strong> - generators can recreate the rent through higher bids</span>
+            </div>
+            <div class="summary-item info">
+                <span class="summary-icon">&#128161;</span>
+                <span><strong>Q2 2026 cap: £1,641</strong> - down 7%, but Q3 is uncertain; most available fixed deals sit above £2,000</span>
+            </div>
+            <div class="summary-item positive">
+                <span class="summary-icon">&#10003;</span>
+                <span><strong>Building more renewables is the most durable fix</strong> - no legislation needed, already working, UK is on the same path as Spain</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Section 1: Merit order -->
     <h2 id="merit-order">The merit order - how electricity is priced</h2>
@@ -740,11 +883,16 @@
 
     <p>The fixed tariff market has responded to that uncertainty in a way that matters for switching decisions. Most competitive one-year fixed deals have been withdrawn as suppliers price in the risk of sustained elevated wholesale costs - the fixed deals that remain are currently priced around £2,000 annually for typical consumption, well above the Q2 cap level.</p>
 
-    <ul>
-        <li><strong>Fixing now looks expensive relative to the current cap.</strong> With available one-year fixes around £2,000 versus a Q2 cap of £1,641, you would need wholesale prices to rise substantially and stay elevated for a fix to pay off in the near term. That is a plausible scenario, but it is a risk bet, not a straightforward saving.</li>
-        <li><strong>Staying on SVT is defensible</strong> if you are willing to monitor the situation and switch quickly if competitive fixed deals return. Some suppliers are currently offering tracker tariffs priced at or near the Q2 cap rate - these can look attractive right now, but they will reprice when the Q3 cap is announced. Given current wholesale market conditions, Q3 is widely expected to move back toward £2,000.</li>
-        <li><strong>Smart meters matter more during periods of market volatility</strong> - they enable time-of-use tariffs that allow households to shift consumption to periods when gas is not the marginal unit, capturing some of the benefit of renewable cheapness directly. This is the consumer-level equivalent of what market redesign tries to achieve at system level.</li>
-    </ul>
+    <div class="action-box">
+        <h3>The SwitchPilot take: what to do while reform plays out</h3>
+        <p>The market design debate matters - but it will not change your bill next quarter. Here is how to think clearly about your options right now:</p>
+        <ul>
+            <li><strong>Fixing now looks expensive.</strong> Available one-year fixes sit around £2,000 versus a Q2 cap of £1,641. You would need wholesale prices to rise substantially and stay elevated for a fix to pay off. Plausible - but a risk bet, not a guaranteed saving.</li>
+            <li><strong>Staying on the cap is defensible</strong> if you are willing to monitor and switch quickly if competitive deals return. Some tracker tariffs are currently at or near cap rates - but they will reprice when the Q3 cap is announced, and Q3 is widely expected to move back toward £2,000.</li>
+            <li><strong>Get a smart meter if you don't have one.</strong> Time-of-use tariffs let you shift consumption to periods when gas is not the marginal unit - this is the consumer-level version of what market redesign tries to achieve at system level.</li>
+            <li><strong>Don't wait for reform to deliver savings.</strong> The most actionable thing you can do is understand what the market is offering versus the cap, and switch when the numbers make sense. That is what SwitchPilot is built to help you do.</li>
+        </ul>
+    </div>
 
     <h2>The bottom line</h2>
 
@@ -758,7 +906,7 @@
 
 </main>
 
-<section style="padding: 0 2rem;">
+<section style="padding: 0 2rem; padding-bottom: 3rem;">
     <div class="cta-box" id="newsletter-cta">
         <h3>Get weekly energy insights</h3>
         <p>Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch - just useful stuff.</p>

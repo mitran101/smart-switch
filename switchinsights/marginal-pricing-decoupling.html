@@ -67,7 +67,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
     <style>
         :root {
@@ -281,38 +281,38 @@
         .highlight-box {
             background: #F0FDF4;
             border-left: 4px solid var(--sp-green);
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 8px 8px 0;
             padding: 1.25rem 1.5rem;
-            margin: 1.75rem 0;
+            margin: 1.5rem 0;
         }
-        .highlight-box p { margin: 0; color: #166534; }
+        .highlight-box p { margin: 0; color: var(--sp-slate); }
 
         .amber-box {
             background: #FFFBEB;
             border-left: 4px solid var(--sp-amber);
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 8px 8px 0;
             padding: 1.25rem 1.5rem;
-            margin: 1.75rem 0;
+            margin: 1.5rem 0;
         }
-        .amber-box p { margin: 0; color: #92400E; }
+        .amber-box p { margin: 0; color: var(--sp-slate); }
 
         .purple-box {
             background: var(--sp-purple-light);
             border-left: 4px solid var(--sp-purple);
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 8px 8px 0;
             padding: 1.25rem 1.5rem;
-            margin: 1.75rem 0;
+            margin: 1.5rem 0;
         }
-        .purple-box p { margin: 0; color: #581C87; }
+        .purple-box p { margin: 0; color: var(--sp-slate); }
 
         .red-box {
             background: #FEF2F2;
             border-left: 4px solid var(--sp-red);
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 8px 8px 0;
             padding: 1.25rem 1.5rem;
-            margin: 1.75rem 0;
+            margin: 1.5rem 0;
         }
-        .red-box p { margin: 0; color: #991B1B; }
+        .red-box p { margin: 0; color: var(--sp-slate); }
 
         /* ── Reform options grid ── */
         .reform-grid {
@@ -361,38 +361,43 @@
 
         /* ── CTA ── */
         .cta-box {
-            background: linear-gradient(135deg, var(--sp-purple), var(--sp-pink));
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
+            background: linear-gradient(135deg, var(--sp-purple) 0%, var(--sp-pink) 100%);
             color: white;
-            margin: 3rem 0 1rem;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(168,85,247,0.25);
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 700px;
         }
 
         .cta-box h3 {
             font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 1.6rem;
+            font-size: 1.75rem;
             font-weight: 400;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            color: white;
         }
 
-        .cta-box p { opacity: 0.9; margin-bottom: 1.5rem; font-size: 1rem; }
+        .cta-box p { font-size: 1.05rem; margin: 0 0 1.5rem; color: rgba(255,255,255,0.92); }
 
         .cta-button {
             display: inline-block;
             background: white;
             color: var(--sp-purple);
-            font-weight: 700;
-            padding: 0.85rem 2rem;
-            border-radius: 30px;
+            padding: 1rem 2.5rem;
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: transform 0.15s, box-shadow 0.15s;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0.25rem;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
             color: var(--sp-purple);
         }
 
@@ -462,27 +467,15 @@
 
         /* ── Footer ── */
         .article-footer {
-            background: #F1F5F9;
-            border-top: 1px solid #E2E8F0;
-            padding: 2rem;
             max-width: 800px;
             margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
         }
-        .footer-note {
-            font-size: 0.82rem;
-            color: var(--sp-slate-light);
-            line-height: 1.6;
-        }
+        .footer-note { font-size: 0.8rem; color: var(--sp-slate-light); line-height: 1.6; }
 
-        .site-footer {
-            background: var(--sp-slate);
-            color: rgba(255,255,255,0.7);
-            text-align: center;
-            padding: 2.5rem 2rem;
-            font-size: 0.85rem;
-            line-height: 1.8;
-        }
         .site-footer a { color: var(--sp-green); text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
 
         /* ── Responsive ── */
         @media (max-width: 600px) {
@@ -875,17 +868,13 @@
 </footer>
 
 <!-- Site footer -->
+<style>.site-footer{background:#1E293B;text-align:center;padding:3rem 2rem;margin-top:3rem;}</style>
 <footer class="site-footer">
-    <img src="https://mitran101.github.io/smart-switch/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;display:block;margin-left:auto;margin-right:auto;">
+    <img src="https://www.switch-pilot.com/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;">
     <p style="font-weight:700;font-size:1rem;margin-bottom:0.25rem;color:#fff;">SwitchInsights</p>
-    <p>A <a href="https://www.switch-pilot.com">SwitchPilot</a> publication - energy explained, in plain English</p>
-    <p style="margin-top:0.75rem;">&#x1F4E7; <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
-    <p style="margin-top:0.5rem;font-size:0.8rem;color:rgba(255,255,255,0.4);">&#x00A9; 2026 SwitchPilot Ltd. All rights reserved.</p>
-    <p style="margin-top:0.5rem;font-size:0.78rem;">
-        <a href="https://www.switch-pilot.com/privacy-policy.html" style="color:rgba(255,255,255,0.45);">Privacy Policy</a>
-        <span style="color:rgba(255,255,255,0.25);margin:0 0.4rem;">&#xB7;</span>
-        <a href="https://www.switch-pilot.com/terms.html" style="color:rgba(255,255,255,0.45);">Terms of Service</a>
-    </p>
+    <p style="color:rgba(255,255,255,0.75);font-size:0.85rem;">A <a href="https://www.switch-pilot.com" style="color:#10B981;">SwitchPilot</a> publication &mdash; energy explained, in plain English</p>
+    <p style="margin-top:1rem;color:rgba(255,255,255,0.75);font-size:0.85rem;">&#128231; <a href="mailto:team@switch-pilot.com" style="color:#10B981;">team@switch-pilot.com</a></p>
+    <p style="margin-top:0.5rem;color:rgba(255,255,255,0.5);font-size:0.8rem;">&copy; 2026 SwitchPilot Ltd. All rights reserved.</p>
 </footer>
 
 <script>

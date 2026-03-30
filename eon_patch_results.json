@@ -1,0 +1,66 @@
+[
+  {
+    "supplier": "eon_next",
+    "region": "Southern",
+    "postcode": "RG21 4AU",
+    "scraped_at": "2026-03-30T19:41:52.091534",
+    "tariffs": [
+      {
+        "tariff_name": "Next Pledge Tracker 12m v10",
+        "exit_fee_gbp": 25,
+        "elec_unit_rate_p": 23.13,
+        "gas_unit_rate_p": 5.5,
+        "elec_standing_p": 49.7,
+        "gas_standing_p": 28.56
+      }
+    ],
+    "attempt": 1,
+    "url": "https://www.eonnext.com/dashboard/journey/get-a-quote/your-tariff-options",
+    "tried_addresses": [
+      1
+    ]
+  },
+  {
+    "supplier": "eon_next",
+    "region": "South Wales",
+    "postcode": "CF5 2AH",
+    "scraped_at": "2026-03-30T19:42:17.834142",
+    "tariffs": [
+      {
+        "tariff_name": "Next Pledge Tracker 12m v10",
+        "exit_fee_gbp": 25,
+        "elec_unit_rate_p": 23.05,
+        "gas_unit_rate_p": 5.4,
+        "elec_standing_p": 57.86,
+        "gas_standing_p": 29.35
+      }
+    ],
+    "attempt": 1,
+    "url": "https://www.eonnext.com/dashboard/journey/get-a-quote/your-tariff-options",
+    "tried_addresses": [
+      1
+    ]
+  },
+  {
+    "supplier": "eon_next",
+    "region": "North Scotland",
+    "postcode": "IV2 3BT",
+    "scraped_at": "2026-03-30T19:43:32.666626",
+    "tariffs": [
+      {
+        "tariff_name": "Next Pledge Tracker 12m v10",
+        "exit_fee_gbp": 25,
+        "elec_unit_rate_p": 23.16,
+        "gas_unit_rate_p": 5.21,
+        "elec_standing_p": 57.57,
+        "gas_standing_p": 29.27
+      }
+    ],
+    "attempt": 2,
+    "url": "https://www.eonnext.com/dashboard/journey/get-a-quote/your-tariff-options",
+    "tried_addresses": [
+      1,
+      2
+    ]
+  }
+]

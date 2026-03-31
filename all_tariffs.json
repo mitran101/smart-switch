@@ -133,32 +133,30 @@
       "region": "Southern",
       "postcode": "BH6 4AS",
       "scraped_at": "2026-03-31T06:04:33.988938",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
+      "tariff_name": "Next Pledge Tracker 12m v10",
+      "elec_unit_rate_p": 23.13,
       "elec_day_rate_p": null,
       "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "No valid residential addresses found"
+      "elec_standing_p": 49.7,
+      "gas_unit_rate_p": 5.5,
+      "gas_standing_p": 28.56,
+      "exit_fee_gbp": 25,
+      "contract_months": null
     },
     {
       "supplier": "eon_next",
       "region": "South Wales",
       "postcode": "CF14 2DY",
       "scraped_at": "2026-03-31T06:05:46.918215",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
+      "tariff_name": "Next Pledge Tracker 12m v10",
+      "elec_unit_rate_p": 23.05,
       "elec_day_rate_p": null,
       "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "No valid residential addresses found"
+      "elec_standing_p": 57.86,
+      "gas_unit_rate_p": 5.4,
+      "gas_standing_p": 29.35,
+      "exit_fee_gbp": 25,
+      "contract_months": null
     },
     {
       "supplier": "eon_next",
@@ -197,16 +195,15 @@
       "region": "North Scotland",
       "postcode": "AB24 3EN",
       "scraped_at": "2026-03-31T06:07:23.003357",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
+      "tariff_name": "Next Pledge Tracker 12m v10",
+      "elec_unit_rate_p": 23.16,
       "elec_day_rate_p": null,
       "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Could not extract rates"
+      "elec_standing_p": 57.57,
+      "gas_unit_rate_p": 5.21,
+      "gas_standing_p": 29.27,
+      "exit_fee_gbp": 25,
+      "contract_months": null
     },
     {
       "supplier": "eon_next",
@@ -4081,5 +4078,5 @@
       "error": null
     }
   ],
-  "updated": "2026-03-31T06:33:08.534521"
+  "updated": "2026-03-31T10:18:51.473660"
 }

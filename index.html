@@ -5288,6 +5288,9 @@ function handleSubmit(e) {
 
     const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
 
+    const params = new URLSearchParams(window.location.search);
+    const signupSource = params.get('utm_campaign') || params.get('utm_source') || 'direct';
+
 
     const form = e.target.closest('.waitlist-form');
 
@@ -5351,7 +5354,7 @@ function handleSubmit(e) {
 
             gasUsage: gasUsage,
 
-            source: 'homepage',
+            source: signupSource,
 
             page_url: window.location.href
 

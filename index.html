@@ -4081,7 +4081,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
     </div>
 
     <div class="stat-hero-card">
-      <div class="stat-hero-number">£200<span style="font-size:2rem">+</span></div>
+      <div class="stat-hero-number" id="heroSavings">£200<span style="font-size:2rem">+</span></div>
       <h3>average saving per year</h3>
       <p>What switching to the right deal puts back in your pocket. Real money, not small print.</p>
     </div>
@@ -5773,19 +5773,26 @@ async function loadDynamicSavings() {
 
       const avgSavings = savingsByRegion.reduce((a, b) => a + b, 0) / savingsByRegion.length;
 
-      
+
 
       if (avgSavings > 20) {
 
+        const snapped = Math.max(100, Math.floor(avgSavings / 50) * 50);
+        const savingsStr = '£' + snapped + '+';
+
+        const heroEl = document.getElementById('heroSavings');
+
+        if (heroEl) heroEl.innerHTML = '£' + snapped + '<span style="font-size:2rem">+</span>';
+
         const savingsEl = document.getElementById('dynamicSavings');
 
-        if (savingsEl) savingsEl.textContent = '£' + Math.round(avgSavings) + '+';
+        if (savingsEl) savingsEl.textContent = savingsStr;
 
-        
+
 
         const savingsTextEl = document.getElementById('dynamicSavingsText');
 
-        if (savingsTextEl) savingsTextEl.textContent = '£' + Math.round(avgSavings) + '+';
+        if (savingsTextEl) savingsTextEl.textContent = savingsStr;
 
         
 

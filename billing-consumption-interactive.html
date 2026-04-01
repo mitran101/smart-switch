@@ -1025,7 +1025,7 @@ select option {
                 <input type="number" id="svtElecSC" value="47.11" min="20" max="100" step="0.01">
                 
                 <label>Electricity Unit Rate (p/kWh)</label>
-                <input type="number" id="svtElecUnit" value="27.00" min="10" max="50" step="0.01">
+                <input type="number" id="svtElecUnit" value="23.46" min="10" max="50" step="0.01">
                 
                 <label>Gas Standing Charge (p/day)</label>
                 <input type="number" id="svtGasSC" value="35.62" min="10" max="60" step="0.01">
@@ -1214,22 +1214,22 @@ const seasonalMultipliers = {
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Regional SVT rates (Ofgem Price Cap Q1 2026)
+// Regional SVT rates (Ofgem Price Cap Q2 2026)
 const regionalSVTRates = {
-  "London":                 { elecSC: 47.11, elecUnit: 27.00, gasSC: 35.63, gasUnit: 6.03 },
-  "South East":             { elecSC: 48.66, elecUnit: 28.27, gasSC: 34.68, gasUnit: 5.83 },
-  "Southern":               { elecSC: 45.70, elecUnit: 27.83, gasSC: 34.56, gasUnit: 6.00 },
-  "South West":             { elecSC: 55.11, elecUnit: 28.16, gasSC: 34.71, gasUnit: 6.15 },
-  "South Wales":            { elecSC: 52.75, elecUnit: 28.18, gasSC: 35.35, gasUnit: 6.11 },
-  "Eastern":                { elecSC: 49.33, elecUnit: 27.88, gasSC: 34.74, gasUnit: 5.87 },
-  "East Midlands":          { elecSC: 50.17, elecUnit: 26.89, gasSC: 34.82, gasUnit: 5.79 },
-  "West Midlands":          { elecSC: 54.08, elecUnit: 26.99, gasSC: 35.12, gasUnit: 5.85 },
-  "North West":             { elecSC: 52.22, elecUnit: 28.45, gasSC: 35.23, gasUnit: 5.89 },
-  "North East":             { elecSC: 60.93, elecUnit: 26.75, gasSC: 35.21, gasUnit: 5.93 },
-  "Yorkshire":              { elecSC: 59.72, elecUnit: 26.69, gasSC: 35.18, gasUnit: 5.90 },
-  "North Wales & Merseyside": { elecSC: 71.01, elecUnit: 29.09, gasSC: 35.49, gasUnit: 5.94 },
-  "South Scotland":         { elecSC: 57.62, elecUnit: 27.18, gasSC: 35.30, gasUnit: 5.89 },
-  "North Scotland":         { elecSC: 62.07, elecUnit: 28.36, gasSC: 35.28, gasUnit: 5.89 }
+  "London":                 { elecSC: 52.59, elecUnit: 23.46, gasSC: 35.63, gasUnit: 5.68 },
+  "South East":             { elecSC: 54.14, elecUnit: 24.73, gasSC: 34.68, gasUnit: 5.48 },
+  "Southern":               { elecSC: 51.18, elecUnit: 24.29, gasSC: 34.56, gasUnit: 5.65 },
+  "South West":             { elecSC: 60.59, elecUnit: 24.62, gasSC: 34.71, gasUnit: 5.80 },
+  "South Wales":            { elecSC: 58.23, elecUnit: 24.64, gasSC: 35.35, gasUnit: 5.76 },
+  "Eastern":                { elecSC: 54.81, elecUnit: 24.34, gasSC: 34.74, gasUnit: 5.52 },
+  "East Midlands":          { elecSC: 55.65, elecUnit: 23.35, gasSC: 34.82, gasUnit: 5.44 },
+  "West Midlands":          { elecSC: 59.56, elecUnit: 23.45, gasSC: 35.12, gasUnit: 5.50 },
+  "North West":             { elecSC: 57.70, elecUnit: 24.91, gasSC: 35.23, gasUnit: 5.54 },
+  "North East":             { elecSC: 66.41, elecUnit: 23.21, gasSC: 35.21, gasUnit: 5.58 },
+  "Yorkshire":              { elecSC: 65.20, elecUnit: 23.15, gasSC: 35.18, gasUnit: 5.55 },
+  "North Wales & Merseyside": { elecSC: 76.49, elecUnit: 25.55, gasSC: 35.49, gasUnit: 5.59 },
+  "South Scotland":         { elecSC: 63.10, elecUnit: 23.64, gasSC: 35.30, gasUnit: 5.54 },
+  "North Scotland":         { elecSC: 67.55, elecUnit: 24.82, gasSC: 35.28, gasUnit: 5.54 }
 };
 
 // Default supplier rates

@@ -274,22 +274,6 @@
     },
     {
       "supplier": "british_gas",
-      "region": "North Wales & Merseyside",
-      "postcode": "L3 2BN",
-      "scraped_at": "2026-04-01T06:10:19.376318",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
-      "elec_day_rate_p": null,
-      "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Timeout: Locator.wait_for: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\"#address-select\") to be visible\n"
-    },
-    {
-      "supplier": "british_gas",
       "region": "West Midlands",
       "postcode": "SY2 6HL",
       "scraped_at": "2026-04-01T06:11:19.327677",
@@ -351,38 +335,6 @@
       "exit_fee_gbp": "\u00a350 per fuel",
       "contract_months": null,
       "error": null
-    },
-    {
-      "supplier": "british_gas",
-      "region": "Southern",
-      "postcode": "BH6 4AS",
-      "scraped_at": "2026-04-01T06:22:17.234064",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
-      "elec_day_rate_p": null,
-      "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Timeout: Locator.wait_for: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator(\"#address-select\") to be visible\n"
-    },
-    {
-      "supplier": "british_gas",
-      "region": "South Wales",
-      "postcode": "CF14 2DY",
-      "scraped_at": "2026-04-01T06:27:19.750526",
-      "tariff_name": null,
-      "elec_unit_rate_p": null,
-      "elec_day_rate_p": null,
-      "elec_night_rate_p": null,
-      "elec_standing_p": null,
-      "gas_unit_rate_p": null,
-      "gas_standing_p": null,
-      "exit_fee_gbp": null,
-      "contract_months": null,
-      "error": "Timeout: Locator.wait_for: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\"#address-select\") to be visible\n"
     },
     {
       "supplier": "british_gas",
@@ -4079,7 +4031,55 @@
       "exit_fee_gbp": "\u00a395 / fuel",
       "contract_months": null,
       "error": null
+    },
+    {
+      "supplier": "british_gas",
+      "region": "North Wales & Merseyside",
+      "postcode": "L3 2BN",
+      "scraped_at": "2026-04-01T06:45:46.726517",
+      "tariff_name": "Fixed Tariff Apr27 v1",
+      "elec_unit_rate_p": 27.794,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 69.537,
+      "gas_unit_rate_p": 7.419,
+      "gas_standing_p": 34.004,
+      "exit_fee_gbp": null,
+      "contract_months": null,
+      "error": null
+    },
+    {
+      "supplier": "british_gas",
+      "region": "Southern",
+      "postcode": "BH6 4AS",
+      "scraped_at": "2026-04-01T06:53:06.983100",
+      "tariff_name": "Fixed Tariff Apr27 v1",
+      "elec_unit_rate_p": 26.666,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 44.213,
+      "gas_unit_rate_p": 7.538,
+      "gas_standing_p": 33.052,
+      "exit_fee_gbp": null,
+      "contract_months": null,
+      "error": null
+    },
+    {
+      "supplier": "british_gas",
+      "region": "South Wales",
+      "postcode": "CF14 2DY",
+      "scraped_at": "2026-04-01T06:55:44.250388",
+      "tariff_name": "Fixed Tariff Apr27 v1",
+      "elec_unit_rate_p": 26.96,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 51.278,
+      "gas_unit_rate_p": 7.406,
+      "gas_standing_p": 33.871,
+      "exit_fee_gbp": null,
+      "contract_months": null,
+      "error": null
     }
   ],
-  "updated": "2026-04-01T06:39:28.139880"
+  "updated": "2026-04-01T07:02:25.482359"
 }

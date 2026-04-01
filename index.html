@@ -5288,7 +5288,8 @@ function handleSubmit(e) {
 
     const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
 
-    const signupSource = document.referrer || 'direct';
+    const params = new URLSearchParams(window.location.search);
+    const signupSource = params.get('utm_source') || document.referrer || 'direct';
 
 
     const form = e.target.closest('.waitlist-form');

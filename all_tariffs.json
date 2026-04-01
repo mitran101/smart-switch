@@ -12,7 +12,7 @@
       "elec_standing_p": 53.95,
       "gas_unit_rate_p": 5.24,
       "gas_standing_p": 28.74,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -28,7 +28,7 @@
       "elec_standing_p": 53.61,
       "gas_unit_rate_p": 5.16,
       "gas_standing_p": 28.82,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -44,7 +44,7 @@
       "elec_standing_p": 44.83,
       "gas_unit_rate_p": 5.48,
       "gas_standing_p": 29.6,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -60,7 +60,7 @@
       "elec_standing_p": 70.78,
       "gas_unit_rate_p": 5.26,
       "gas_standing_p": 29.48,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -76,7 +76,7 @@
       "elec_standing_p": 59.72,
       "gas_unit_rate_p": 5.25,
       "gas_standing_p": 29.11,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -92,7 +92,7 @@
       "elec_standing_p": 64.3,
       "gas_unit_rate_p": 5.26,
       "gas_standing_p": 29.2,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -108,7 +108,7 @@
       "elec_standing_p": 47.63,
       "gas_unit_rate_p": 5.21,
       "gas_standing_p": 29.22,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -124,7 +124,7 @@
       "elec_standing_p": 54.45,
       "gas_unit_rate_p": 5.36,
       "gas_standing_p": 28.67,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -140,7 +140,7 @@
       "elec_standing_p": 49.7,
       "gas_unit_rate_p": 5.5,
       "gas_standing_p": 28.56,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -156,7 +156,7 @@
       "elec_standing_p": 57.86,
       "gas_unit_rate_p": 5.4,
       "gas_standing_p": 29.35,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -172,7 +172,7 @@
       "elec_standing_p": 57.9,
       "gas_unit_rate_p": 5.45,
       "gas_standing_p": 28.72,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -188,7 +188,7 @@
       "elec_standing_p": 64.3,
       "gas_unit_rate_p": 5.26,
       "gas_standing_p": 29.2,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -204,7 +204,7 @@
       "elec_standing_p": 57.57,
       "gas_unit_rate_p": 5.21,
       "gas_standing_p": 29.27,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },
@@ -220,7 +220,7 @@
       "elec_standing_p": 64.2,
       "gas_unit_rate_p": 5.21,
       "gas_standing_p": 29.3,
-      "exit_fee_gbp": null,
+      "exit_fee_gbp": 25,
       "contract_months": null,
       "error": null
     },

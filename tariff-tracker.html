@@ -1186,7 +1186,10 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
                                    tariff.gas_unit_rate_p && tariff.gas_standing_p && 
                                    tariff.elec_unit_rate_p && tariff.elec_standing_p;
             
-            if (!tariff.exit_fee_gbp || tariff.exit_fee_gbp === '£0' || tariff.exit_fee_gbp === 0) {
+            if (tariff.exit_fee_gbp === null || tariff.exit_fee_gbp === undefined) {
+                return 'unknown';
+            }
+            if (tariff.exit_fee_gbp === '£0' || tariff.exit_fee_gbp === 0 || tariff.exit_fee_gbp === '') {
                 return '£0';
             }
             
@@ -1264,7 +1267,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             const pros = [];
             if (savings > 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
-            if (getExitFee(tariff, fuelType).includes('£0')) pros.push('No exit fees');
+            if (getExitFee(tariff, fuelType) === '£0') pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             if (supplier?.complaints && supplier.complaints < 1) pros.push('Low complaint rate');
             return pros.slice(0, 3);
@@ -1273,9 +1276,11 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
         function getCons(tariff, savings, supplier, fuelType) {
             const cons = [];
             const exitFee = getExitFee(tariff, fuelType);
-            if (!exitFee.includes('£0')) cons.push(`Exit fee: ${exitFee}`);
+            if (exitFee !== '£0' && exitFee !== 'unknown') cons.push(`Exit fee: ${exitFee}`);
             if (fuelType === 'dual' && isElecOnly(tariff)) cons.push('Electricity only');
-            if (tariff.tariff_name?.toLowerCase().includes('variable')) cons.push('Price may change');
+            const nameLower = tariff.tariff_name?.toLowerCase() || '';
+            if (nameLower.includes('tracker')) cons.push('Rates rise with price cap');
+            else if (nameLower.includes('variable')) cons.push('Price may change');
             if (tariff.tariff_name?.toLowerCase().includes('go') || tariff.tariff_name?.toLowerCase().includes('ev')) cons.push('Requires EV/equipment');
             if (supplier?.complaints && supplier.complaints > 1.2) cons.push('Higher complaint rate');
             return cons.slice(0, 3);

@@ -427,7 +427,7 @@ def scrape_eon(browser, postcode, region, attempt=1, tried_addresses=None):
                 break
 
         # Exit fee
-        m = re.search(r'Â£(\d+)\s*(?:per fuel\s*)?exit fee|exit fee[:\s]*Â£(\d+)', page_text, re.I)
+        m = re.search(r'£(\d+)\s*(?:per fuel\s*)?exit fee|exit fee[:\s]*£(\d+)', page_text, re.I)
         if m:
             rates['exit_fee_gbp'] = int(m.group(1) or m.group(2))
 

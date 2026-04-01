@@ -607,7 +607,7 @@ def save_results(results):
     success = sum(1 for r in results if r.get('tariffs'))
     print(f"Success: {success}/{len(results)} ({100*success/len(results) if results else 0:.0f}%)")
     for r in results:
-        t = (r.get('tariffs') or [{}])[0]
+        t = r.get('tariffs', [{}])[0]
         icon = "âœ“" if r.get('tariffs') else "âœ—"
         print(f"  {icon} {r['region']}: {t.get('elec_unit_rate_p','?')}p elec, {t.get('gas_unit_rate_p','?')}p gas")
 

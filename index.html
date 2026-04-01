@@ -5291,7 +5291,10 @@ function handleSubmit(e) {
     const params = new URLSearchParams(window.location.search);
     const referrer = document.referrer;
     let signupSource = params.get('utm_campaign') || params.get('utm_source') || 'direct';
-    if (referrer && referrer.includes('switchinsights/')) {
+    if (referrer && referrer.includes('switch-pilot.com')) {
+        const slug = referrer.split('/').pop().replace('.html', '') || 'homepage';
+        if (slug && slug !== 'index') signupSource = slug;
+    } else if (referrer && referrer.includes('switchinsights/')) {
         signupSource = referrer.split('switchinsights/')[1].replace('.html', '');
     }
 

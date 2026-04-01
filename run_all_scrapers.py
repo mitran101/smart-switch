@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import sys
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 """
 MASTER TARIFF SCRAPER
 Runs all supplier scrapers and combines results into one file.
@@ -275,12 +277,33 @@ def get_supplier_status(results):
     return supplier_regions
 
 
-def save_combined_results(results):
-    """Save combined results to JSON and CSV."""
+def save_combined_results(results, updated_supplier_names=None):
+    """Save combined results to JSON and CSV.
+
+    If updated_supplier_names is provided, only those suppliers are replaced
+    in the existing all_tariffs.json — all other suppliers are preserved.
+    """
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    
-    tracker_data = {"tariffs": results, "updated": datetime.now().isoformat()}
-    
+
+    if updated_supplier_names:
+        # Merge: keep existing data for suppliers we didn't scrape
+        existing = []
+        if os.path.exists("all_tariffs.json"):
+            try:
+                with open("all_tariffs.json", "r") as f:
+                    old = json.load(f)
+                existing = old.get("tariffs", [])
+            except Exception:
+                pass
+        # Drop stale records for the suppliers we just refreshed
+        preserved = [r for r in existing if r.get("supplier") not in updated_supplier_names]
+        merged = preserved + results
+        print(f"  Merging: kept {len(preserved)} existing records, added {len(results)} new records")
+    else:
+        merged = results
+
+    tracker_data = {"tariffs": merged, "updated": datetime.now().isoformat()}
+
     with open("all_tariffs.json", "w") as f:
         json.dump(tracker_data, f, indent=2)
     print(f"\n  ✓ Saved: all_tariffs.json")
@@ -288,10 +311,10 @@ def save_combined_results(results):
     with open(f"all_tariffs_{timestamp}.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS, extrasaction='ignore')
         writer.writeheader()
-        writer.writerows(results)
+        writer.writerows(merged)
     print(f"  ✓ Saved: all_tariffs_{timestamp}.csv")
-    
-    summary = create_summary(results)
+
+    summary = create_summary(merged)
     with open("tariff_data_latest.json", "w") as f:
         json.dump(summary, f, indent=2)
     print(f"  ✓ Saved: tariff_data_latest.json")
@@ -427,9 +450,17 @@ def main():
     
     # Combine all results
     results = combine_results(scrapers_to_run)
-    
+
+    # Work out which supplier name strings were refreshed (for partial-run merging)
+    all_scraper_keys = set(SCRAPERS.keys())
+    is_partial_run = set(scrapers_to_run) != all_scraper_keys
+    if is_partial_run:
+        updated_supplier_names = {SCRAPERS[k]["supplier_name"] for k in scrapers_to_run if k in SCRAPERS}
+    else:
+        updated_supplier_names = None
+
     if results:
-        save_combined_results(results)
+        save_combined_results(results, updated_supplier_names)
         
         # =====================================================
         # SUPPLIER STATUS REPORT - Enhanced with error details

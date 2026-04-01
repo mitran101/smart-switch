@@ -1081,7 +1081,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
             'ovo': { name: 'OVO Energy', color: '#00dc64', green: true, greenNote: '100% renewable', trustpilot: 4.6, complaints: 1.5 },
             'scottish_power': { name: 'Scottish Power', color: '#0066b3', green: true, greenNote: '100% renewable', trustpilot: 4.3, complaints: 1.4 },
             'edf': { name: 'EDF', color: '#ff6600', green: true, greenNote: '100% renewable', trustpilot: 4.8, complaints: 1.2 },
-            'fuse_energy': { name: 'Fuse Energy', color: '#ff8c00', green: false, greenNote: 'Standard mix', trustpilot: 4.7, proNote: 'Transparent about energy mix' },
+            'fuse_energy': { name: 'Fuse Energy', color: '#ff8c00', green: false, greenNote: 'Standard mix', trustpilot: 4.7 },
             'so_energy': { name: 'SO Energy', color: '#7BC67E', green: true, greenNote: '100% renewable', trustpilot: 4.4, complaints: 1.3 }
         };
 
@@ -1265,13 +1265,12 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
         function getPros(tariff, savings, supplier, fuelType) {
             const pros = [];
-            if (savings >= 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
+            if (Math.round(savings) >= 100) pros.push(`Save £${Math.round(savings)}/year vs cap`);
             if (supplier?.green) pros.push(supplier.greenNote);
             if (getExitFee(tariff, fuelType) === '£0') pros.push('No exit fees');
             if (tariff.tariff_name?.toLowerCase().includes('fixed')) pros.push('Price protection');
             if (supplier?.complaints && supplier.complaints < 1) pros.push('Low complaint rate');
-            if (supplier?.trustpilot && supplier.trustpilot >= 4.6) pros.push(`${supplier.trustpilot}★ Trustpilot`);
-            if (supplier?.proNote) pros.push(supplier.proNote);
+            if (supplier?.trustpilot && supplier.trustpilot >= 4.5) pros.push('High Trustpilot score');
             return pros.slice(0, 3);
         }
 

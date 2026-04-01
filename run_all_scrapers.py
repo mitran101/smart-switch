@@ -56,12 +56,6 @@ SCRAPERS = {
         "supplier_name": "scottish_power",
         "is_api": False,
     },
-    "edf": {
-        "script": "edf_scraper_v5_fixed.py",
-        "output_pattern": "edf_tariffs_*.json",
-        "supplier_name": "edf",
-        "is_api": False,
-    },
     "fuse": {
         "script": "fuse_energy_scraper_v2_fixed.py",
         "output_pattern": "fuse_tariffs_*.json",

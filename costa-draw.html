@@ -476,15 +476,8 @@ async function handleSubmit() {
   btn.disabled = true;
   btn.textContent = 'Entering you...';
 
-  const payload = {
-    email: emailEl.value.trim().toLowerCase(),
-    postcode: postcodeEl.value.trim().toUpperCase(),
-    source: 'instagram-costa-draw',
-    timestamp: new Date().toISOString()
-  };
-
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/costa_leads`, {
+    await fetch(`${SUPABASE_URL}/rest/v1/signups`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
@@ -492,7 +485,12 @@ async function handleSubmit() {
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        type: 'waitlist',
+        email: emailEl.value.trim().toLowerCase(),
+        postcode: postcodeEl.value.trim().toUpperCase(),
+        source: 'costa-draw'
+      })
     });
   } catch (e) {
     // fail silently

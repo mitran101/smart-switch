@@ -7,7 +7,7 @@ from email.mime.multipart import MIMEMultipart
 import requests
 from bs4 import BeautifulSoup
 
-WEBAPP_URL = "https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec"
+UNSUBSCRIBE_BASE = "https://www.switch-pilot.com/unsubscribe.html"
 
 def fetch_recent_articles():
     """Fetch recent articles from the SwitchInsights hub page"""
@@ -82,7 +82,7 @@ def send_newsletter_welcome_email(to_email):
     articles = fetch_recent_articles()
 
     token = base64.b64encode(to_email.encode()).decode()
-    unsubscribe_url = f"{WEBAPP_URL}?unsubscribe={token}"
+    unsubscribe_url = f"{UNSUBSCRIBE_BASE}?token={token}"
 
     articles_html = ""
     for article in articles:

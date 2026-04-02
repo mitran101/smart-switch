@@ -1118,27 +1118,29 @@ async function submitNewsletter() {
   btn.textContent = 'Subscribing...';
 
   try {
-    const res = await fetch('https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec', {
+    const res = await fetch('https://jkiyisnoetcxndwtqoom.supabase.co/rest/v1/signups', {
       method: 'POST',
+      headers: {
+        'apikey': 'sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T',
+        'Authorization': 'Bearer sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T',
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
       body: JSON.stringify({
-        action: 'newsletterSignup',
+        type: 'newsletter',
         email: email,
         source: 'switchinsights',
         page_url: window.location.href
       })
     });
-    const data = await res.json();
 
-    if (data.status === 'ok') {
+    if (res.ok) {
       msg.textContent = "You're in! Check your inbox for weekly energy insights.";
       msg.style.color = '#27ae60';
       emailInput.value = '';
-    } else if (data.status === 'already_subscribed') {
+    } else if (res.status === 409) {
       msg.textContent = "You're already subscribed!";
       msg.style.color = '#e67e22';
-    } else if (data.status === 'already_on_waitlist') {
-      msg.textContent = "You're already on the SwitchPilot waitlist - you'll get insights too!";
-      msg.style.color = '#27ae60';
     } else {
       msg.textContent = 'Something went wrong. Please try again.';
       msg.style.color = '#e74c3c';

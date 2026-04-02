@@ -4780,17 +4780,21 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"
 
 <script>
 
-// Google Apps Script URL
-
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec';
-
+// Supabase config
+const SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T';
+const SUPABASE_HEADERS = {
+    'apikey': SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    'Content-Type': 'application/json'
+};
 
 // Target number for countdown
 
 const TARGET_SIGNUPS = 5000;
 
 
-// Initialize signup counter - fetch from Google Sheets
+// Initialize signup counter - fetch from Supabase
 
 let signupCount = 0;
 
@@ -4814,18 +4818,16 @@ function updateCounterDisplay(count) {
 }
 
 
-// Fetch ONLY verified count ("yes") from Apps Script
+// Fetch signup count from Supabase
 
-fetch(SCRIPT_URL + '?getCount=1')
+fetch(SUPABASE_URL + '/rest/v1/signups?unsubscribed=eq.false&select=id', {
+    headers: Object.assign({}, SUPABASE_HEADERS, { 'Prefer': 'count=exact' })
+})
 
-    .then(response => response.json())
-
-    .then(data => {
-
-        signupCount = data.count || 0;
-
+    .then(response => {
+        const count = parseInt(response.headers.get('content-range')?.split('/')[1] || '0', 10);
+        signupCount = count;
         updateCounterDisplay(signupCount);
-
     })
 
     .catch(err => {
@@ -5326,38 +5328,33 @@ function handleSubmit(e) {
 
     
 
-    fetch(SCRIPT_URL, {
+    fetch(SUPABASE_URL + '/rest/v1/signups', {
 
         method: 'POST',
 
-        mode: 'no-cors',
+        headers: Object.assign({}, SUPABASE_HEADERS, { 'Prefer': 'return=minimal' }),
 
-        headers: { 'Content-Type': 'application/json' },
-
-        body: JSON.stringify({ 
-
+        body: JSON.stringify({
+            type: 'waitlist',
             email: email,
-
             postcode: postcode,
-
-            houseNumber: houseNumber,
-
+            house_number: houseNumber,
             street: street,
-
             city: city,
-
             region: region,
-
-            energyRegion: energyRegion,
-
-            elecUsage: elecUsage,
-
-            gasUsage: gasUsage,
-
+            energy_region: energyRegion,
+            elec_usage: parseFloat(elecUsage) || null,
+            gas_usage: parseFloat(gasUsage) || null,
             source: signupSource
-
         })
 
+    })
+
+    .then(res => {
+        if (res.status === 409) {
+            // Already signed up - show success anyway, don't reveal existence
+        }
+        return res;
     })
 
     .then(() => {

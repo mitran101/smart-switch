@@ -37,19 +37,58 @@
     </div>
     
     <script>
-        const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbysh_5S6Lloh7UsQ4zhyTJEs0Ja13XfJUwFj9rUEUPlQZoGIyFtpJvz3jPZmcjVwdlf_g/exec';
-        
+        const SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T';
+
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
-        
-        if (token) {
-            window.location.href = WEBAPP_URL + '?unsubscribe=' + encodeURIComponent(token);
-        } else {
-            document.querySelector('.container').innerHTML = `
-                <h1 style="color: #fca5a5;">Invalid Link</h1>
-                <p>No unsubscribe token found.</p>
-            `;
+
+        async function processUnsubscribe() {
+            if (!token) {
+                document.querySelector('.container').innerHTML = `
+                    <h1 style="color: #fca5a5;">Invalid Link</h1>
+                    <p>No unsubscribe token found.</p>
+                `;
+                return;
+            }
+
+            try {
+                const email = atob(decodeURIComponent(token));
+
+                const res = await fetch(
+                    SUPABASE_URL + '/rest/v1/signups?email=eq.' + encodeURIComponent(email),
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': 'Bearer ' + SUPABASE_KEY,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify({ unsubscribed: true })
+                    }
+                );
+
+                if (res.ok) {
+                    document.querySelector('.container').innerHTML = `
+                        <h1>✅ Unsubscribed</h1>
+                        <p>You've been removed from our mailing list.</p>
+                    `;
+                } else {
+                    document.querySelector('.container').innerHTML = `
+                        <h1 style="color: #fca5a5;">Something went wrong</h1>
+                        <p>Please email <a href="mailto:team@switch-pilot.com" style="color:#10B981;">team@switch-pilot.com</a> to unsubscribe.</p>
+                    `;
+                }
+            } catch (err) {
+                document.querySelector('.container').innerHTML = `
+                    <h1 style="color: #fca5a5;">Invalid Link</h1>
+                    <p>This unsubscribe link appears to be invalid.</p>
+                `;
+            }
         }
+
+        processUnsubscribe();
     </script>
 </body>
 </html>

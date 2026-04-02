@@ -1,30 +1,26 @@
-import gspread
-import json
 import os
-from google.oauth2.service_account import Credentials
+import requests
+
+SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co'
 
 def fetch_subscribers():
-    """Fetch email addresses from Sheet1, column B"""
-    creds_json = os.getenv('GOOGLE_SERVICE_ACCOUNT')
-    if not creds_json:
-        print("ERROR: GOOGLE_SERVICE_ACCOUNT secret not set", file=__import__('sys').stderr)
+    """Fetch all active (non-unsubscribed) email addresses from Supabase."""
+    service_key = os.getenv('SUPABASE_SERVICE_KEY')
+    if not service_key:
+        print("ERROR: SUPABASE_SERVICE_KEY secret not set", file=__import__('sys').stderr)
         return []
 
-    creds_dict = json.loads(creds_json)
-    creds = Credentials.from_service_account_info(creds_dict, scopes=[
-        'https://www.googleapis.com/auth/spreadsheets.readonly'
-    ])
-    client = gspread.authorize(creds)
+    headers = {
+        'apikey': service_key,
+        'Authorization': f'Bearer {service_key}'
+    }
 
-    # Open by ID from your Apps Script
-    sheet = client.open_by_key("10r_oruP0YcfRHH_k_nhjSDQ6knwgd89EqJ0vfx-v2No").sheet1
-    
-    # Get all data, skip header
-    rows = sheet.get_all_values()[1:]
-    
-    # Column B = email, Column C = unsubscribed ("yes" means skip)
-    emails = [row[1].strip() for row in rows if row[1] and '@' in row[1] and row[2] != 'yes']
-    return emails
+    response = requests.get(
+        f'{SUPABASE_URL}/rest/v1/signups?unsubscribed=eq.false&select=email',
+        headers=headers
+    )
+    response.raise_for_status()
+    return [row['email'] for row in response.json()]
 
 if __name__ == "__main__":
     for email in fetch_subscribers():

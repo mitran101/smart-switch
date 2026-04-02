@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Win a £20 Costa Voucher - SwitchPilot</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WEQ6VBT567');
+</script>
+<style>
+:root {
+  --bg: #0F172A;
+  --card: #1E293B;
+  --border: rgba(255,255,255,0.08);
+  --green: #10B981;
+  --green-dark: #059669;
+  --green-light: #D1FAE5;
+  --text: #F1F5F9;
+  --muted: #94A3B8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.logo span { color: var(--green); }
+
+/* ── STATE 1: FORM ── */
+#state-form {
+  width: 100%;
+  max-width: 420px;
+}
+
+.prize-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 1.2rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.6rem;
+}
+
+.subtext {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+}
+
+.subtext strong { color: var(--text); }
+
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+
+input::placeholder { color: var(--muted); }
+
+input:focus {
+  border-color: var(--green);
+  background: rgba(16,185,129,0.06);
+}
+
+input.error { border-color: #EF4444; }
+
+.error-msg {
+  font-size: 0.78rem;
+  color: #EF4444;
+  margin-top: 0.3rem;
+  display: none;
+}
+
+.error-msg.show { display: block; }
+
+.submit-btn {
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.95rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: -0.2px;
+}
+
+.submit-btn:hover { background: var(--green-dark); }
+.submit-btn:active { transform: scale(0.98); }
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.no-spam {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.85rem;
+}
+
+.footer-links {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2rem;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+/* ── STATE 2: CONFIRMATION ── */
+#state-confirm {
+  width: 100%;
+  max-width: 420px;
+  display: none;
+}
+
+.confirm-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.confirm-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.confirm-sub {
+  color: var(--muted);
+  font-size: 0.93rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 1.5rem;
+}
+
+.tools-heading {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 1rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.tool-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: border-color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tool-card:hover, .tool-card:active {
+  border-color: rgba(16,185,129,0.4);
+  background: rgba(16,185,129,0.06);
+}
+
+.tool-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.1rem;
+}
+
+.tool-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tool-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.tool-arrow {
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+</style>
+</head>
+<body>
+
+<div class="logo">Switch<span>Pilot</span></div>
+
+<!-- STATE 1: FORM -->
+<div id="state-form">
+  <div style="text-align:center;">
+    <div class="prize-badge">☕ £20 Costa Coffee Voucher Draw</div>
+  </div>
+  <h1>Could you be overpaying on energy?</h1>
+  <p class="subtext">Enter your details to find out - plus you'll be entered into our <strong>£20 Costa Coffee gift card draw</strong>.</p>
+
+  <div class="form-card">
+    <div class="field">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" />
+      <div class="error-msg" id="email-error">Please enter a valid email address.</div>
+    </div>
+    <div class="field">
+      <label for="postcode">Your postcode</label>
+      <input type="text" id="postcode" name="postcode" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" maxlength="8" />
+      <div class="error-msg" id="postcode-error">Please enter a valid UK postcode.</div>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Enter the draw →</button>
+    <p class="no-spam">🔒 No spam, unsubscribe anytime</p>
+  </div>
+
+  <p class="footer-links">
+    By entering you agree to our <a href="/terms.html">Terms &amp; Conditions</a> and <a href="/privacy-policy.html">Privacy Policy</a>
+  </p>
+</div>
+
+<!-- STATE 2: CONFIRMATION -->
+<div id="state-confirm">
+  <div style="text-align:center;">
+    <div class="confirm-icon">🎉</div>
+    <h1 class="confirm-title">You're in the draw!</h1>
+    <p class="confirm-sub">We'll notify the winner by email. Good luck!</p>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="tools-heading">While you're here - see how much you could save</p>
+
+  <div class="tools-grid">
+    <a class="tool-card" href="/tariff-tracker.html">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">Tariff Tracker</div>
+      <div class="tool-desc">Compare live energy deals in your area</div>
+      <div class="tool-arrow">Check now →</div>
+    </a>
+    <a class="tool-card" href="/energy-bill-calculator.html">
+      <div class="tool-icon">🧮</div>
+      <div class="tool-name">Bill Calculator</div>
+      <div class="tool-desc">See exactly what you should be paying</div>
+      <div class="tool-arrow">Calculate →</div>
+    </a>
+    <a class="tool-card" href="/watts-in-my-bill.html">
+      <div class="tool-icon">🤖</div>
+      <div class="tool-name">AI Bill Analyst</div>
+      <div class="tool-desc">Upload your bill and we'll break it down</div>
+      <div class="tool-arrow">Analyse →</div>
+    </a>
+    <a class="tool-card" href="/switchinsights/">
+      <div class="tool-icon">📰</div>
+      <div class="tool-name">SwitchInsights</div>
+      <div class="tool-desc">Plain-English energy market guides</div>
+      <div class="tool-arrow">Read more →</div>
+    </a>
+  </div>
+
+  <p class="footer-links" style="margin-top:1.75rem;">
+    <a href="https://www.switch-pilot.com" style="color:#10B981;font-weight:700;text-decoration:none;">← Back to SwitchPilot</a>
+  </p>
+</div>
+
+<script>
+const WEBHOOK = 'https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX/';
+
+const UK_POSTCODE = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+
+function validateEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+}
+
+function validatePostcode(v) {
+  return UK_POSTCODE.test(v.trim());
+}
+
+async function handleSubmit() {
+  const emailEl = document.getElementById('email');
+  const postcodeEl = document.getElementById('postcode');
+  const emailErr = document.getElementById('email-error');
+  const postcodeErr = document.getElementById('postcode-error');
+  const btn = document.getElementById('submit-btn');
+
+  let valid = true;
+
+  if (!validateEmail(emailEl.value)) {
+    emailEl.classList.add('error');
+    emailErr.classList.add('show');
+    valid = false;
+  } else {
+    emailEl.classList.remove('error');
+    emailErr.classList.remove('show');
+  }
+
+  if (!validatePostcode(postcodeEl.value)) {
+    postcodeEl.classList.add('error');
+    postcodeErr.classList.add('show');
+    valid = false;
+  } else {
+    postcodeEl.classList.remove('error');
+    postcodeErr.classList.remove('show');
+  }
+
+  if (!valid) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Entering you...';
+
+  const payload = {
+    email: emailEl.value.trim().toLowerCase(),
+    postcode: postcodeEl.value.trim().toUpperCase(),
+    source: 'instagram-costa-draw',
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'
+    });
+  } catch (e) {
+    // fail silently - show success regardless
+  }
+
+  gtag('event', 'costa_draw_entry', {
+    event_category: 'lead',
+    event_label: 'instagram'
+  });
+
+  document.getElementById('state-form').style.display = 'none';
+  document.getElementById('state-confirm').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// Tidy postcode input on blur
+document.getElementById('postcode').addEventListener('blur', function() {
+  const v = this.value.trim().toUpperCase();
+  const m = v.match(/^([A-Z]{1,2}[0-9][0-9A-Z]?)\s*([0-9][A-Z]{2})$/i);
+  if (m) this.value = m[1] + ' ' + m[2];
+});
+</script>
+</body>
+</html>

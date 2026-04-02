@@ -359,7 +359,8 @@ input.error { border-color: #EF4444; }
 </div>
 
 <script>
-const WEBHOOK = 'https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX/';
+const SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpraXlpc25vZXRjeG5kd3Rxb29tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODk1MzQsImV4cCI6MjA4ODY2NTUzNH0.rn3vrNABTaxnQIVpU147n_YFZWUZwB9E9tBcYkxMeYI';
 
 const UK_POSTCODE = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
 
@@ -411,11 +412,15 @@ async function handleSubmit() {
   };
 
   try {
-    await fetch(WEBHOOK, {
+    await fetch(`${SUPABASE_URL}/rest/v1/costa_leads`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      mode: 'no-cors'
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
     });
   } catch (e) {
     // fail silently - show success regardless

@@ -52,8 +52,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 2rem 0 1rem;
-  margin-bottom: 0.5rem;
+  padding: 2rem 0 1.25rem;
+  margin-bottom: 0;
   text-decoration: none;
 }
 .site-header img { height: 3.4rem; width: auto; margin-right: -14px; }
@@ -73,7 +73,11 @@ body {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--green);
-  margin-bottom: 1rem;
+}
+
+.prize-badge-wrap {
+  text-align: center;
+  margin-bottom: 1.25rem;
 }
 .prize-badge img { width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0; }
 
@@ -303,9 +307,11 @@ h1 {
 
 <!-- STATE 1: FORM -->
 <div id="state-form">
-  <div class="prize-badge">
-    <img src="/costa-logo.png" alt="Costa Coffee">
-    £20 Costa Coffee Voucher Draw
+  <div class="prize-badge-wrap">
+    <div class="prize-badge">
+      <img src="/costa-logo.png" alt="Costa Coffee">
+      £20 Costa Coffee Voucher Draw
+    </div>
   </div>
 
   <h1>Could you be overpaying on energy?</h1>

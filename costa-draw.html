@@ -27,7 +27,6 @@
   --border: rgba(255,255,255,0.08);
   --green: #10B981;
   --green-dark: #059669;
-  --green-light: #D1FAE5;
   --text: #F1F5F9;
   --muted: #94A3B8;
 }
@@ -42,20 +41,33 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1rem;
+  padding: 0 1rem 2rem;
 }
 
-.logo {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+/* ── HEADER (matches main site nav) ── */
+.site-header {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1.2rem 0;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.site-header img {
+  height: 2.6rem;
+  width: auto;
+  margin-right: -8px;
+}
+
+.site-header span {
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--text);
-  margin-bottom: 1.75rem;
-  text-align: center;
+  letter-spacing: -0.3px;
 }
-
-.logo span { color: var(--green); }
 
 /* ── STATE 1: FORM ── */
 #state-form {
@@ -66,7 +78,7 @@ body {
 .prize-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   background: rgba(16,185,129,0.12);
   border: 1px solid rgba(16,185,129,0.3);
   border-radius: 999px;
@@ -75,6 +87,13 @@ body {
   font-weight: 600;
   color: var(--green);
   margin-bottom: 1.2rem;
+}
+
+.prize-badge img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
 h1 {
@@ -89,10 +108,30 @@ h1 {
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.5;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .subtext strong { color: var(--text); }
+
+.savings-callout {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.savings-callout .amt {
+  font-weight: 800;
+  color: var(--green);
+  font-size: 1rem;
+}
 
 .form-card {
   background: var(--card);
@@ -101,9 +140,7 @@ h1 {
   padding: 1.5rem;
 }
 
-.field {
-  margin-bottom: 1rem;
-}
+.field { margin-bottom: 1rem; }
 
 label {
   display: block;
@@ -130,13 +167,9 @@ input {
 }
 
 input::placeholder { color: var(--muted); }
-
-input:focus {
-  border-color: var(--green);
-  background: rgba(16,185,129,0.06);
-}
-
+input:focus { border-color: var(--green); background: rgba(16,185,129,0.06); }
 input.error { border-color: #EF4444; }
+input.valid { border-color: var(--green); }
 
 .error-msg {
   font-size: 0.78rem;
@@ -144,8 +177,19 @@ input.error { border-color: #EF4444; }
   margin-top: 0.3rem;
   display: none;
 }
-
 .error-msg.show { display: block; }
+
+.postcode-wrap { position: relative; }
+
+.postcode-status {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  pointer-events: none;
+}
 
 .submit-btn {
   width: 100%;
@@ -165,12 +209,7 @@ input.error { border-color: #EF4444; }
 
 .submit-btn:hover { background: var(--green-dark); }
 .submit-btn:active { transform: scale(0.98); }
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 .no-spam {
   text-align: center;
@@ -185,22 +224,13 @@ input.error { border-color: #EF4444; }
   color: var(--muted);
   margin-top: 2rem;
 }
-
-.footer-links a {
-  color: var(--muted);
-  text-decoration: underline;
-}
+.footer-links a { color: var(--muted); text-decoration: underline; }
 
 /* ── STATE 2: CONFIRMATION ── */
 #state-confirm {
   width: 100%;
   max-width: 420px;
   display: none;
-}
-
-.confirm-icon {
-  font-size: 2.8rem;
-  margin-bottom: 0.75rem;
 }
 
 .confirm-title {
@@ -257,42 +287,34 @@ input.error { border-color: #EF4444; }
   background: rgba(16,185,129,0.06);
 }
 
-.tool-icon {
-  font-size: 1.4rem;
-  margin-bottom: 0.1rem;
-}
-
-.tool-name {
-  font-size: 0.88rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.tool-desc {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-.tool-arrow {
-  font-size: 0.75rem;
-  color: var(--green);
-  font-weight: 600;
-  margin-top: 0.4rem;
-}
+.tool-icon { font-size: 1.4rem; margin-bottom: 0.1rem; }
+.tool-name { font-size: 0.88rem; font-weight: 700; line-height: 1.2; }
+.tool-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+.tool-arrow { font-size: 0.75rem; color: var(--green); font-weight: 600; margin-top: 0.4rem; }
 </style>
 </head>
 <body>
 
-<div class="logo">Switch<span>Pilot</span></div>
+<!-- Header matching main site -->
+<a class="site-header" href="https://www.switch-pilot.com">
+  <img src="https://www.switch-pilot.com/logo.png" alt="SwitchPilot logo">
+  <span>SwitchPilot</span>
+</a>
 
 <!-- STATE 1: FORM -->
 <div id="state-form">
-  <div style="text-align:center;">
-    <div class="prize-badge"><img src="/costa-logo.png" alt="Costa Coffee" style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:6px;"> £20 Costa Coffee Voucher Draw</div>
+  <div>
+    <div class="prize-badge">
+      <img src="/costa-logo.png" alt="Costa Coffee">
+      £20 Costa Coffee Voucher Draw
+    </div>
   </div>
   <h1>Could you be overpaying on energy?</h1>
-  <p class="subtext">Enter your details to find out - plus you'll be entered into our <strong>£20 Costa Coffee gift card draw</strong>.</p>
+  <p class="subtext">Enter your details and we'll check - plus you're entered to <strong>win a £20 Costa Coffee gift card</strong>.</p>
+
+  <div class="savings-callout">
+    ⚡ UK households switching tariff save an average of <span class="amt">&nbsp;£100+&nbsp;</span> a year on energy bills
+  </div>
 
   <div class="form-card">
     <div class="field">
@@ -302,7 +324,10 @@ input.error { border-color: #EF4444; }
     </div>
     <div class="field">
       <label for="postcode">Your postcode</label>
-      <input type="text" id="postcode" name="postcode" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" maxlength="8" />
+      <div class="postcode-wrap">
+        <input type="text" id="postcode" name="postcode" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" maxlength="8" />
+        <span class="postcode-status" id="postcode-status"></span>
+      </div>
       <div class="error-msg" id="postcode-error">Please enter a valid UK postcode.</div>
     </div>
     <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Enter the draw →</button>
@@ -361,16 +386,63 @@ input.error { border-color: #EF4444; }
 <script>
 const SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpraXlpc25vZXRjeG5kd3Rxb29tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODk1MzQsImV4cCI6MjA4ODY2NTUzNH0.rn3vrNABTaxnQIVpU147n_YFZWUZwB9E9tBcYkxMeYI';
+const IDEAL_KEY = 'ak_mkmkogpnZZ5AR83WNyoK3DW1EOxNS';
 
-const UK_POSTCODE = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+const UK_POSTCODE_RE = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
 
 function validateEmail(v) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 }
 
-function validatePostcode(v) {
-  return UK_POSTCODE.test(v.trim());
-}
+// Live postcode validation via ideal-postcodes on blur
+document.getElementById('postcode').addEventListener('blur', async function() {
+  const v = this.value.trim().replace(/\s+/g, '').toUpperCase();
+  if (!v) return;
+
+  // Format nicely
+  if (v.length >= 5) {
+    this.value = v.slice(0, -3) + ' ' + v.slice(-3);
+  }
+
+  const statusEl = document.getElementById('postcode-status');
+  const errEl = document.getElementById('postcode-error');
+
+  if (!UK_POSTCODE_RE.test(this.value)) {
+    this.classList.add('error');
+    this.classList.remove('valid');
+    errEl.textContent = 'Please enter a valid UK postcode.';
+    errEl.classList.add('show');
+    statusEl.textContent = '';
+    return;
+  }
+
+  statusEl.textContent = '...';
+  statusEl.style.color = 'var(--muted)';
+
+  try {
+    const res = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${encodeURIComponent(v)}?api_key=${IDEAL_KEY}`);
+    const data = await res.json();
+    if (data.code === 2000) {
+      this.classList.remove('error');
+      this.classList.add('valid');
+      errEl.classList.remove('show');
+      statusEl.textContent = '✓';
+      statusEl.style.color = 'var(--green)';
+    } else {
+      this.classList.add('error');
+      this.classList.remove('valid');
+      errEl.textContent = 'Postcode not found - please check and try again.';
+      errEl.classList.add('show');
+      statusEl.textContent = '';
+    }
+  } catch {
+    // API unavailable - fall back to regex only
+    statusEl.textContent = '';
+    this.classList.remove('error');
+    this.classList.add('valid');
+    errEl.classList.remove('show');
+  }
+});
 
 async function handleSubmit() {
   const emailEl = document.getElementById('email');
@@ -390,13 +462,13 @@ async function handleSubmit() {
     emailErr.classList.remove('show');
   }
 
-  if (!validatePostcode(postcodeEl.value)) {
+  if (!UK_POSTCODE_RE.test(postcodeEl.value.trim())) {
     postcodeEl.classList.add('error');
+    postcodeErr.textContent = 'Please enter a valid UK postcode.';
     postcodeErr.classList.add('show');
     valid = false;
-  } else {
-    postcodeEl.classList.remove('error');
-    postcodeErr.classList.remove('show');
+  } else if (postcodeEl.classList.contains('error')) {
+    valid = false;
   }
 
   if (!valid) return;
@@ -423,7 +495,7 @@ async function handleSubmit() {
       body: JSON.stringify(payload)
     });
   } catch (e) {
-    // fail silently - show success regardless
+    // fail silently
   }
 
   gtag('event', 'costa_draw_entry', {
@@ -435,13 +507,6 @@ async function handleSubmit() {
   document.getElementById('state-confirm').style.display = 'block';
   window.scrollTo(0, 0);
 }
-
-// Tidy postcode input on blur
-document.getElementById('postcode').addEventListener('blur', function() {
-  const v = this.value.trim().toUpperCase();
-  const m = v.match(/^([A-Z]{1,2}[0-9][0-9A-Z]?)\s*([0-9][A-Z]{2})$/i);
-  if (m) this.value = m[1] + ' ' + m[2];
-});
 </script>
 </body>
 </html>

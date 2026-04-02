@@ -38,14 +38,14 @@ jobs:
         env:
           MICROSOFT_EMAIL: ${{ secrets.MICROSOFT_EMAIL }}
           MICROSOFT_PASSWORD: ${{ secrets.MICROSOFT_PASSWORD }}
-          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           python fetch_subscribers.py > emails.txt
           if [ -s emails.txt ]; then
             echo "Found $(wc -l < emails.txt) subscribers"
             python send_newsletter.py --file emails.txt
           else
-            echo "ERROR: No subscribers found. Check GOOGLE_SERVICE_ACCOUNT secret and sheet sharing."
+            echo "ERROR: No subscribers found. Check SUPABASE_SERVICE_KEY secret."
             exit 1
           fi
 

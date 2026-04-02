@@ -11,8 +11,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- Google Analytics -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEQ6VBT567"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -23,7 +22,8 @@
 <style>
 :root {
   --bg: #0F172A;
-  --card: #1E293B;
+  --slate: #1E293B;
+  --slate-dark: #0F172A;
   --border: rgba(255,255,255,0.08);
   --green: #10B981;
   --green-dark: #059669;
@@ -41,40 +41,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 1rem 2rem;
+  padding: 0 1rem 3rem;
 }
 
-/* ── HEADER (matches main site nav) ── */
+/* ── HEADER ── */
 .site-header {
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 1.2rem 0;
-  margin-bottom: 1.5rem;
+  padding: 2rem 0 1rem;
+  margin-bottom: 0.5rem;
   text-decoration: none;
 }
-
-.site-header img {
-  height: 2.6rem;
-  width: auto;
-  margin-right: -8px;
-}
-
-.site-header span {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.3px;
-}
+.site-header img { height: 2.6rem; width: auto; margin-right: -8px; }
+.site-header span { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
 
 /* ── STATE 1: FORM ── */
-#state-form {
-  width: 100%;
-  max-width: 420px;
-}
+#state-form { width: 100%; max-width: 500px; }
 
 .prize-badge {
   display: inline-flex;
@@ -83,35 +69,28 @@ body {
   background: rgba(16,185,129,0.12);
   border: 1px solid rgba(16,185,129,0.3);
   border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.8rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--green);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
-
-.prize-badge img {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
+.prize-badge img { width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0; }
 
 h1 {
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 400;
   line-height: 1.2;
-  letter-spacing: -0.5px;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .subtext {
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.5;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
 }
-
 .subtext strong { color: var(--text); }
 
 .savings-callout {
@@ -127,150 +106,176 @@ h1 {
   color: var(--text);
   font-weight: 500;
 }
+.savings-callout .amt { font-weight: 800; color: var(--green); }
 
-.savings-callout .amt {
-  font-weight: 800;
-  color: var(--green);
-  font-size: 1rem;
-}
-
+/* ── FORM CARD (matches index waitlist style) ── */
 .form-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--slate) 0%, var(--slate-dark) 100%);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(16,185,129,0.2), 0 15px 50px rgba(0,0,0,0.25);
+}
+.form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, #10B981, #34D399, #10B981);
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.field { margin-bottom: 1rem; }
+.form-group { margin-bottom: 1rem; position: relative; z-index: 2; }
 
-label {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-
-input {
+.form-group input, .form-group select {
   width: 100%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
+  padding: 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
   font-size: 1rem;
-  font-family: inherit;
   color: var(--text);
-  outline: none;
-  transition: border-color 0.2s;
+  font-family: inherit;
+  transition: border-color 0.2s, background 0.2s;
   -webkit-appearance: none;
 }
-
-input::placeholder { color: var(--muted); }
-input:focus { border-color: var(--green); background: rgba(16,185,129,0.06); }
-input.error { border-color: #EF4444; }
-input.valid { border-color: var(--green); }
-
-.error-msg {
-  font-size: 0.78rem;
-  color: #EF4444;
-  margin-top: 0.3rem;
-  display: none;
+.form-group input::placeholder { color: var(--muted); }
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--green);
+  background: rgba(255,255,255,0.12);
 }
-.error-msg.show { display: block; }
 
-.postcode-wrap { position: relative; }
+.find-address-row { display: flex; gap: 0.5rem; }
+.find-address-row input { flex: 1; }
 
-.postcode-status {
-  position: absolute;
-  right: 0.9rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.8rem;
-  font-weight: 600;
-  pointer-events: none;
+.find-address-btn {
+  padding: 1rem 1.25rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.find-address-btn:hover { background: var(--green-dark); }
+.find-address-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+#postcodeError { color: #F87171; font-size: 0.85rem; margin: 0.5rem 0 0; display: none; }
+
+#addressDropdownWrapper { margin-bottom: 1rem; position: relative; z-index: 2; }
+#addressDropdownWrapper label { font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 0.4rem; }
+
+#addressDropdown {
+  width: 100%;
+  padding: 1.1rem;
+  border-radius: 12px;
+  border: 2px solid var(--green);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2310B981' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+#addressDropdown:focus { outline: none; border-color: var(--green-dark); }
+#addressDropdown option { background: var(--slate); color: var(--text); }
+#addressDropdownWrapper .manual-link { font-size: 0.75rem; color: var(--muted); margin: 0.4rem 0 0; }
+#addressDropdownWrapper .manual-link a { color: var(--green); cursor: pointer; }
+
+#addressFields { position: relative; z-index: 2; }
+.address-row { display: flex; gap: 0.5rem; }
+.address-row input { flex: 1; }
+
+#usageFields { margin-top: 1.5rem; }
+.usage-title { color: var(--text); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem; }
+
+.usage-presets { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.usage-preset {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.6rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.usage-preset.active {
+  border-color: var(--green);
+  background: rgba(16,185,129,0.2);
+  color: var(--text);
+  box-shadow: 0 0 15px rgba(16,185,129,0.2);
+}
+
+.usage-inputs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.usage-input-group { flex: 1; }
+.usage-input-group label { font-size: 0.8rem; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+.usage-input-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;
+  color: var(--text);
+  font-family: inherit;
 }
 
 .submit-btn {
   width: 100%;
-  background: var(--green);
-  color: #fff;
+  padding: 1.2rem;
   border: none;
-  border-radius: 10px;
-  padding: 0.95rem 1rem;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
   font-weight: 700;
-  font-family: inherit;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: #fff;
   cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
-  letter-spacing: -0.2px;
+  box-shadow: 0 0 30px rgba(16,185,129,0.4), 0 10px 30px rgba(16,185,129,0.3);
+  margin-top: 1rem;
+  font-family: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 2;
 }
-
-.submit-btn:hover { background: var(--green-dark); }
-.submit-btn:active { transform: scale(0.98); }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(16,185,129,0.5), 0 15px 40px rgba(16,185,129,0.4); }
 .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-.no-spam {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin-top: 0.85rem;
-}
+.privacy-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.85rem; text-align: center; position: relative; z-index: 2; }
+.privacy-note a { color: var(--muted); text-decoration: underline; }
 
-.footer-links {
-  text-align: center;
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-top: 2rem;
-}
+.footer-links { text-align: center; font-size: 0.72rem; color: var(--muted); margin-top: 1.5rem; }
 .footer-links a { color: var(--muted); text-decoration: underline; }
 
 /* ── STATE 2: CONFIRMATION ── */
-#state-confirm {
-  width: 100%;
-  max-width: 420px;
-  display: none;
-}
+#state-confirm { width: 100%; max-width: 500px; display: none; }
 
-.confirm-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 0.5rem;
-}
+.confirm-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+.confirm-sub { color: var(--muted); font-size: 0.93rem; margin-bottom: 2rem; line-height: 1.5; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 0 0 1.5rem; }
+.tools-heading { font-size: 0.82rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 1rem; }
 
-.confirm-sub {
-  color: var(--muted);
-  font-size: 0.93rem;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-}
-
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0 0 1.5rem;
-}
-
-.tools-heading {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  margin-bottom: 1rem;
-}
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-}
-
+.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 .tool-card {
-  background: var(--card);
+  background: var(--slate);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.1rem;
@@ -282,12 +287,7 @@ input.valid { border-color: var(--green); }
   transition: border-color 0.2s, background 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
-
-.tool-card:hover, .tool-card:active {
-  border-color: rgba(16,185,129,0.4);
-  background: rgba(16,185,129,0.06);
-}
-
+.tool-card:hover, .tool-card:active { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.06); }
 .tool-icon { font-size: 1.4rem; margin-bottom: 0.1rem; }
 .tool-name { font-size: 0.88rem; font-weight: 700; line-height: 1.2; }
 .tool-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
@@ -296,7 +296,6 @@ input.valid { border-color: var(--green); }
 </head>
 <body>
 
-<!-- Header matching main site -->
 <a class="site-header" href="https://www.switch-pilot.com">
   <img src="https://www.switch-pilot.com/logo.png" alt="SwitchPilot logo">
   <span>SwitchPilot</span>
@@ -304,48 +303,92 @@ input.valid { border-color: var(--green); }
 
 <!-- STATE 1: FORM -->
 <div id="state-form">
-  <div>
-    <div class="prize-badge">
-      <img src="/costa-logo.png" alt="Costa Coffee">
-      £20 Costa Coffee Voucher Draw
-    </div>
+  <div class="prize-badge">
+    <img src="/costa-logo.png" alt="Costa Coffee">
+    £20 Costa Coffee Voucher Draw
   </div>
+
   <h1>Could you be overpaying on energy?</h1>
-  <p class="subtext">Enter your details and we'll check - plus you're entered to <strong>win a £20 Costa Coffee gift card</strong>.</p>
+  <p class="subtext">Enter your details and join our <strong>free auto-switching service</strong> - we make sure you'll never overpay again. Plus you're entered to win a <strong>£20 Costa Coffee gift card</strong>.</p>
 
   <div class="savings-callout">
     ⚡ UK households switching tariff save an average of <span class="amt">&nbsp;£100+&nbsp;</span> a year on energy bills
   </div>
 
   <div class="form-card">
-    <div class="field">
-      <label for="email">Email address</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" />
-      <div class="error-msg" id="email-error">Please enter a valid email address.</div>
+    <div class="form-group">
+      <input type="email" id="emailAddress" placeholder="Email Address" required />
     </div>
-    <div class="field">
-      <label for="postcode">Your postcode</label>
-      <div class="postcode-wrap">
-        <input type="text" id="postcode" name="postcode" placeholder="e.g. SW1A 1AA" autocomplete="postal-code" maxlength="8" />
-        <span class="postcode-status" id="postcode-status"></span>
-      </div>
-      <div class="error-msg" id="postcode-error">Please enter a valid UK postcode.</div>
-    </div>
-    <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Enter the draw →</button>
-    <p class="no-spam">🔒 No spam, unsubscribe anytime</p>
-  </div>
 
-  <p class="footer-links">
-    By entering you agree to our <a href="/terms.html">Terms &amp; Conditions</a> and <a href="/privacy-policy.html">Privacy Policy</a>
-  </p>
+    <div class="form-group">
+      <div class="find-address-row">
+        <input type="text" id="postcode" placeholder="Postcode (e.g. SW1A 1AA)" required />
+        <button type="button" onclick="lookupPostcode()" id="findAddressBtn" class="find-address-btn">Find Address</button>
+      </div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;">We use your address to find the best deal in your area.</p>
+      <p id="postcodeError"></p>
+    </div>
+
+    <div id="addressDropdownWrapper" style="display:none;">
+      <label>Select your address:</label>
+      <select id="addressDropdown" onchange="selectAddress()">
+        <option value="">-- Select your address --</option>
+      </select>
+      <p class="manual-link">Can't find your address? <a onclick="showManualEntry();return false;">Enter manually</a></p>
+    </div>
+
+    <div id="addressFields" style="display:none;">
+      <div class="form-group">
+        <input type="text" id="houseNumber" placeholder="House/Flat Number" />
+      </div>
+      <div class="form-group">
+        <input type="text" id="street" placeholder="Street Name" />
+      </div>
+      <div class="form-group address-row">
+        <input type="text" id="city" placeholder="City" readonly style="background:rgba(255,255,255,0.05);color:var(--muted);" />
+        <input type="text" id="region" placeholder="Region" readonly style="background:rgba(255,255,255,0.05);color:var(--muted);" />
+      </div>
+    </div>
+
+    <div id="usageFields" style="display:none;">
+      <p class="usage-title">🏠 What's your home like?</p>
+      <div class="usage-presets">
+        <button type="button" class="usage-preset" data-elec="1800" data-gas="7500">🏢 Small<br>1-2 bed</button>
+        <button type="button" class="usage-preset active" data-elec="2700" data-gas="11500">🏠 Medium<br>2-3 bed</button>
+        <button type="button" class="usage-preset" data-elec="4300" data-gas="17000">🏡 Large<br>4+ bed</button>
+      </div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.8rem;cursor:pointer;" onclick="toggleManualUsage()">Know your exact usage? <a style="color:var(--green);">Enter it here</a></p>
+      <div id="manualUsageInputs" style="display:none;margin-top:0.8rem;">
+        <div class="usage-inputs">
+          <div class="usage-input-group">
+            <label>Electricity (kWh/year)</label>
+            <input type="number" id="elecUsage" value="2700" />
+          </div>
+          <div class="usage-input-group">
+            <label>Gas (kWh/year)</label>
+            <input type="number" id="gasUsage" value="11500" />
+          </div>
+        </div>
+      </div>
+      <input type="hidden" id="elecUsageHidden" value="2700" />
+      <input type="hidden" id="gasUsageHidden" value="11500" />
+    </div>
+
+    <input type="hidden" id="energyRegion" value="" />
+
+    <button type="button" class="submit-btn" id="submitBtn" onclick="handleSubmit()">Sign me up + enter the draw →</button>
+
+    <p class="privacy-note">🔒 Unsubscribe anytime. We respect your inbox.</p>
+    <p class="privacy-note" style="margin-top:0.4rem;">By signing up you agree to our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>
+  </div>
 </div>
 
 <!-- STATE 2: CONFIRMATION -->
 <div id="state-confirm">
-  <div style="text-align:center;">
+  <div style="text-align:center;margin-bottom:1.5rem;">
     <img src="/costa-logo.png" alt="Costa Coffee" style="width:90px;height:90px;border-radius:18px;margin-bottom:0.75rem;display:block;margin-left:auto;margin-right:auto;">
     <h1 class="confirm-title">You're in the draw!</h1>
-    <p class="confirm-sub">We'll notify the winner by email. Good luck!</p>
+    <p class="confirm-sub">We'll notify the winner by email. Good luck!<br>We'll also be in touch when your auto-switching is live.</p>
   </div>
 
   <hr class="divider" />
@@ -379,8 +422,8 @@ input.valid { border-color: var(--green); }
     </a>
   </div>
 
-  <p class="footer-links" style="margin-top:1.75rem;">
-    <a href="https://www.switch-pilot.com" style="color:#10B981;font-weight:700;text-decoration:none;">← Back to SwitchPilot</a>
+  <p style="text-align:center;margin-top:1.75rem;">
+    <a href="https://www.switch-pilot.com" style="color:var(--green);font-weight:700;text-decoration:none;">← Back to SwitchPilot</a>
   </p>
 </div>
 
@@ -389,93 +432,131 @@ const SUPABASE_URL = 'https://jkiyisnoetcxndwtqoom.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpraXlpc25vZXRjeG5kd3Rxb29tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODk1MzQsImV4cCI6MjA4ODY2NTUzNH0.rn3vrNABTaxnQIVpU147n_YFZWUZwB9E9tBcYkxMeYI';
 const IDEAL_KEY = 'ak_mkmkogpnZZ5AR83WNyoK3DW1EOxNS';
 
-const UK_POSTCODE_RE = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+let addressList = [];
 
-function validateEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-}
+async function lookupPostcode() {
+  const postcodeInput = document.getElementById('postcode');
+  const postcodeError = document.getElementById('postcodeError');
+  const addressDropdownWrapper = document.getElementById('addressDropdownWrapper');
+  const addressDropdown = document.getElementById('addressDropdown');
+  const findBtn = document.getElementById('findAddressBtn');
 
-// Live postcode validation via ideal-postcodes on blur
-document.getElementById('postcode').addEventListener('blur', async function() {
-  const v = this.value.trim().replace(/\s+/g, '').toUpperCase();
-  if (!v) return;
+  let postcode = postcodeInput.value.trim().replace(/\s+/g, '').toUpperCase();
 
-  // Format nicely
-  if (v.length >= 5) {
-    this.value = v.slice(0, -3) + ' ' + v.slice(-3);
-  }
-
-  const statusEl = document.getElementById('postcode-status');
-  const errEl = document.getElementById('postcode-error');
-
-  if (!UK_POSTCODE_RE.test(this.value)) {
-    this.classList.add('error');
-    this.classList.remove('valid');
-    errEl.textContent = 'Please enter a valid UK postcode.';
-    errEl.classList.add('show');
-    statusEl.textContent = '';
+  if (!postcode) {
+    postcodeError.textContent = 'Please enter a postcode';
+    postcodeError.style.display = 'block';
     return;
   }
 
-  statusEl.textContent = '...';
-  statusEl.style.color = 'var(--muted)';
+  postcodeError.style.display = 'none';
+  findBtn.textContent = 'Searching...';
+  findBtn.disabled = true;
 
   try {
-    const res = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${encodeURIComponent(v)}?api_key=${IDEAL_KEY}`);
-    const data = await res.json();
-    if (data.code === 2000) {
-      this.classList.remove('error');
-      this.classList.add('valid');
-      errEl.classList.remove('show');
-      statusEl.textContent = '✓';
-      statusEl.style.color = 'var(--green)';
+    const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${postcode}?api_key=${IDEAL_KEY}`);
+    const data = await response.json();
+
+    if (data.code === 2000 && data.result && data.result.length > 0) {
+      addressList = data.result;
+
+      if (postcode.length > 4) {
+        postcodeInput.value = postcode.slice(0, -3) + ' ' + postcode.slice(-3);
+      }
+
+      addressDropdown.innerHTML = '<option value="">-- Select your address --</option>';
+      addressList.forEach((addr, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = addr.line_1 + (addr.line_2 ? ', ' + addr.line_2 : '') + ', ' + addr.post_town;
+        addressDropdown.appendChild(option);
+      });
+
+      addressDropdownWrapper.style.display = 'block';
+      document.getElementById('addressFields').style.display = 'none';
+    } else if (data.code === 4040) {
+      postcodeError.textContent = 'Postcode not found. Please check and try again.';
+      postcodeError.style.display = 'block';
+      addressDropdownWrapper.style.display = 'none';
     } else {
-      this.classList.add('error');
-      this.classList.remove('valid');
-      errEl.textContent = 'Postcode not found - please check and try again.';
-      errEl.classList.add('show');
-      statusEl.textContent = '';
+      postcodeError.textContent = 'Error looking up postcode. Please try again.';
+      postcodeError.style.display = 'block';
     }
   } catch {
-    // API unavailable - fall back to regex only
-    statusEl.textContent = '';
-    this.classList.remove('error');
-    this.classList.add('valid');
-    errEl.classList.remove('show');
+    postcodeError.textContent = 'Error looking up postcode. Please try again.';
+    postcodeError.style.display = 'block';
   }
+
+  findBtn.textContent = 'Find Address';
+  findBtn.disabled = false;
+}
+
+function selectAddress() {
+  const dropdown = document.getElementById('addressDropdown');
+  const index = dropdown.value;
+  if (index === '') return;
+
+  const addr = addressList[index];
+  const flatParts = [addr.sub_building_name, addr.building_name].filter(Boolean);
+  document.getElementById('houseNumber').value = flatParts.length > 0 ? flatParts.join(', ') : (addr.building_number || '');
+
+  const street = addr.thoroughfare || addr.dependant_locality || '';
+  const streetWithNumber = (flatParts.length > 0 && addr.building_number) ? addr.building_number + ' ' + street : street;
+  document.getElementById('street').value = streetWithNumber;
+  document.getElementById('city').value = addr.post_town || '';
+  document.getElementById('region').value = addr.county || addr.post_town || '';
+
+  const energyRegion = mapToEnergyRegion(addr.county, addr.post_town, addr.postcode);
+  document.getElementById('energyRegion').value = energyRegion;
+
+  document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
+}
+
+function showManualEntry() {
+  document.getElementById('addressDropdownWrapper').style.display = 'none';
+  document.getElementById('addressFields').style.display = 'block';
+  document.getElementById('usageFields').style.display = 'block';
+  document.getElementById('houseNumber').focus();
+
+  const postcode = document.getElementById('postcode').value.trim().toUpperCase();
+  document.getElementById('energyRegion').value = mapToEnergyRegion('', '', postcode);
+}
+
+function toggleManualUsage() {
+  const m = document.getElementById('manualUsageInputs');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+document.querySelectorAll('.usage-preset').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.getElementById('elecUsageHidden').value = this.dataset.elec;
+    document.getElementById('gasUsageHidden').value = this.dataset.gas;
+    if (document.getElementById('elecUsage')) document.getElementById('elecUsage').value = this.dataset.elec;
+    if (document.getElementById('gasUsage')) document.getElementById('gasUsage').value = this.dataset.gas;
+    document.querySelectorAll('.usage-preset').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
 });
 
 async function handleSubmit() {
-  const emailEl = document.getElementById('email');
-  const postcodeEl = document.getElementById('postcode');
-  const emailErr = document.getElementById('email-error');
-  const postcodeErr = document.getElementById('postcode-error');
-  const btn = document.getElementById('submit-btn');
+  const email = document.getElementById('emailAddress').value.trim();
+  const postcode = document.getElementById('postcode').value.trim();
+  const houseNumber = document.getElementById('houseNumber').value.trim();
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const region = document.getElementById('region').value.trim();
+  const energyRegion = document.getElementById('energyRegion').value;
+  const elecUsage = document.getElementById('elecUsage')?.value || document.getElementById('elecUsageHidden').value;
+  const gasUsage = document.getElementById('gasUsage')?.value || document.getElementById('gasUsageHidden').value;
 
-  let valid = true;
+  if (!email) { alert('Please enter your email address.'); return; }
+  if (!postcode) { alert('Please enter your postcode.'); return; }
+  if (!houseNumber && !street) { alert('Please find your address using the postcode lookup.'); return; }
 
-  if (!validateEmail(emailEl.value)) {
-    emailEl.classList.add('error');
-    emailErr.classList.add('show');
-    valid = false;
-  } else {
-    emailEl.classList.remove('error');
-    emailErr.classList.remove('show');
-  }
-
-  if (!UK_POSTCODE_RE.test(postcodeEl.value.trim())) {
-    postcodeEl.classList.add('error');
-    postcodeErr.textContent = 'Please enter a valid UK postcode.';
-    postcodeErr.classList.add('show');
-    valid = false;
-  } else if (postcodeEl.classList.contains('error')) {
-    valid = false;
-  }
-
-  if (!valid) return;
-
+  const btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Entering you...';
+  btn.textContent = 'Signing you up...';
 
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/signups`, {
@@ -488,8 +569,15 @@ async function handleSubmit() {
       },
       body: JSON.stringify({
         type: 'waitlist',
-        email: emailEl.value.trim().toLowerCase(),
-        postcode: postcodeEl.value.trim().toUpperCase(),
+        email: email.toLowerCase(),
+        postcode: postcode.toUpperCase(),
+        house_number: houseNumber,
+        street,
+        city,
+        region,
+        energy_region: energyRegion,
+        elec_usage: parseFloat(elecUsage) || null,
+        gas_usage: parseFloat(gasUsage) || null,
         source: 'costa-draw'
       })
     });
@@ -497,14 +585,36 @@ async function handleSubmit() {
     // fail silently
   }
 
-  gtag('event', 'costa_draw_entry', {
-    event_category: 'lead',
-    event_label: 'instagram'
-  });
+  gtag('event', 'costa_draw_signup', { event_category: 'lead', event_label: 'instagram' });
 
   document.getElementById('state-form').style.display = 'none';
   document.getElementById('state-confirm').style.display = 'block';
   window.scrollTo(0, 0);
+}
+
+function mapToEnergyRegion(county, town, postcode) {
+  const pc = (postcode || '').toUpperCase().replace(/\s+/g, '');
+  const countyLower = (county || '').toLowerCase();
+  const townLower = (town || '').toLowerCase();
+  const pcArea = pc.match(/^[A-Z]+/)?.[0] || '';
+
+  if (['E','EC','N','NW','SE','SW','W','WC','UB','HA'].includes(pcArea) || townLower === 'london') {
+    if (!['EX','EN','NE','WA','WN','WR','WS','WV','WF'].includes(pcArea)) return 'London';
+  }
+  if (['AB','DD','IV','KW','PH','ZE','HS'].includes(pcArea)) return 'North Scotland';
+  if (['DG','EH','FK','G','KA','KY','ML','PA','TD'].includes(pcArea)) return 'South Scotland';
+  if (['CH','LL','SY'].includes(pcArea)) return 'North Wales & Merseyside';
+  if (['CF','NP','SA','LD'].includes(pcArea)) return 'South Wales';
+  if (['NE','DH','SR','TS','DL'].includes(pcArea)) return 'North East';
+  if (['M','BL','BB','PR','FY','LA','CA','WA','WN','OL','SK','CW'].includes(pcArea) || pcArea === 'L') return 'North West';
+  if (['LS','BD','HG','HX','WF','HD','HU','YO','DN','S'].includes(pcArea)) return 'Yorkshire';
+  if (['DE','NG','LE','LN','NN'].includes(pcArea)) return 'East Midlands';
+  if (['B','CV','DY','WS','WV','WR','ST','TF','HR'].includes(pcArea)) return 'West Midlands';
+  if (['CB','CO','IP','NR','CM','SS','SG','AL','EN','LU','PE','IG','RM','WD'].includes(pcArea)) return 'Eastern';
+  if (['CT','ME','DA','BR','TN','KT','CR','SM','TW','BN','RH','GU','MK'].includes(pcArea)) return 'South East';
+  if (['SO','PO','RG','SP','HP','OX','SL'].includes(pcArea)) return 'Southern';
+  if (['EX','PL','TQ','TR','TA','BA','BS','GL','SN','DT','BH'].includes(pcArea)) return 'South West';
+  return 'Unknown';
 }
 </script>
 </body>

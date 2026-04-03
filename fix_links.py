@@ -119,7 +119,7 @@ ROOT_FILES = [
     "billing-consumption-interactive.html",
     "homemove-bill-estimate.html",
     "homemove-bill-estimate-calculator.html",
-    "gas-bill-value-calculator.html",
+    "switchinsights/gas-value-calculator.html",
     "community.html",
     "Switching-guide.html",
     "watts-in-my-bill.html",

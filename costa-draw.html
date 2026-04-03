@@ -97,6 +97,13 @@ h1 {
 }
 .subtext strong { color: var(--text); }
 
+.energy-benefit {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
 .savings-callout {
   display: flex;
   align-items: center;
@@ -105,7 +112,8 @@ h1 {
   border: 1px solid rgba(16,185,129,0.2);
   border-radius: 10px;
   padding: 0.7rem 1rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
   font-size: 0.88rem;
   color: var(--text);
   font-weight: 500;
@@ -314,12 +322,9 @@ h1 {
     </div>
   </div>
 
-  <h1>Could you be overpaying on energy?</h1>
-  <p class="subtext">Enter your details and join our <strong>free auto-switching service</strong> - we make sure you'll never overpay again. Plus you're entered to win a <strong>£20 Costa Coffee gift card</strong>.</p>
-
-  <div class="savings-callout">
-    ⚡ UK households could save £100+ a year on average by switching energy tariffs
-  </div>
+  <h1>Win a £20 Costa Coffee Voucher</h1>
+  <p class="energy-benefit">⚡ Save £100+ a year on energy</p>
+  <p class="subtext">Enter your details to join our free auto-switching service and enter the draw.</p>
 
   <div class="form-card">
     <div class="form-group">
@@ -327,10 +332,7 @@ h1 {
     </div>
 
     <div class="form-group">
-      <div class="find-address-row">
-        <input type="text" id="postcode" placeholder="Your postcode" required />
-        <button type="button" onclick="lookupPostcode()" id="findAddressBtn" class="find-address-btn">Find Address</button>
-      </div>
+      <input type="text" id="postcode" placeholder="Your postcode" required onblur="lookupPostcode()" />
       <p style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;">We use your address to find the best deal in your area.</p>
       <p id="postcodeError"></p>
     </div>
@@ -386,6 +388,10 @@ h1 {
 
     <p class="privacy-note">🔒 Unsubscribe anytime. We respect your inbox.</p>
     <p class="privacy-note" style="margin-top:0.4rem;">By signing up you agree to our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>
+  </div>
+
+  <div class="savings-callout">
+    ⚡ UK households could save £100+ a year on average by switching energy tariffs
   </div>
 </div>
 
@@ -445,19 +451,12 @@ async function lookupPostcode() {
   const postcodeError = document.getElementById('postcodeError');
   const addressDropdownWrapper = document.getElementById('addressDropdownWrapper');
   const addressDropdown = document.getElementById('addressDropdown');
-  const findBtn = document.getElementById('findAddressBtn');
 
   let postcode = postcodeInput.value.trim().replace(/\s+/g, '').toUpperCase();
 
-  if (!postcode) {
-    postcodeError.textContent = 'Please enter a postcode';
-    postcodeError.style.display = 'block';
-    return;
-  }
+  if (!postcode) return;
 
   postcodeError.style.display = 'none';
-  findBtn.textContent = 'Searching...';
-  findBtn.disabled = true;
 
   try {
     const response = await fetch(`https://api.ideal-postcodes.co.uk/v1/postcodes/${postcode}?api_key=${IDEAL_KEY}`);
@@ -492,9 +491,6 @@ async function lookupPostcode() {
     postcodeError.textContent = 'Error looking up postcode. Please try again.';
     postcodeError.style.display = 'block';
   }
-
-  findBtn.textContent = 'Find Address';
-  findBtn.disabled = false;
 }
 
 function selectAddress() {

@@ -37,7 +37,7 @@ DNO_POSTCODES = {
     "South West": "PL9 7BS",
     "Yorkshire": "YO31 1DT",
     "North Scotland": "AB24 3EN",
-    "South Scotland": "G20 6NQ",
+    "South Scotland": "EH12 7AT",
 }
 
 EON_QUOTE_URL = "https://www.eonnext.com/dashboard/journey/get-a-quote"
@@ -57,10 +57,9 @@ COMMERCIAL_KEYWORDS = [
 ]
 
 USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
-    "Mozilla/5.0 (X11; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
 ]
 
 STEALTH_SCRIPT = """
@@ -529,9 +528,14 @@ def run_scraper(headless=False, test_postcode=None, regions=None, wait_secs=15, 
             print(f"  BATCH {batch_idx + 1}/{len(batches)} - {len(batch)} regions")
             print('#'*60)
 
-            browser = p.firefox.launch(
+            browser = p.chromium.launch(
                 headless=headless,
-                slow_mo=50,
+                args=[
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-setuid-sandbox',
+                ]
             )
 
             try:

@@ -37,7 +37,7 @@ DNO_POSTCODES = {
     "South West": "PL9 7BS",
     "Yorkshire": "YO31 1DT",
     "North Scotland": "AB24 3EN",
-    "South Scotland": "EH12 7AT",
+    "South Scotland": "TD1 3HU",
 }
 
 EON_QUOTE_URL = "https://www.eonnext.com/dashboard/journey/get-a-quote"
@@ -528,15 +528,20 @@ def run_scraper(headless=False, test_postcode=None, regions=None, wait_secs=15, 
             print(f"  BATCH {batch_idx + 1}/{len(batches)} - {len(batch)} regions")
             print('#'*60)
 
-            browser = p.chromium.launch(
-                headless=headless,
-                args=[
-                    '--disable-blink-features=AutomationControlled',
-                    '--no-sandbox',
-                    '--disable-dev-shm-usage',
-                    '--disable-setuid-sandbox',
-                ]
-            )
+            if headless:
+                # Firefox avoids headless detection in CI
+                browser = p.firefox.launch(headless=True, slow_mo=50)
+            else:
+                # Chromium works perfectly locally (headed)
+                browser = p.chromium.launch(
+                    headless=False,
+                    args=[
+                        '--disable-blink-features=AutomationControlled',
+                        '--no-sandbox',
+                        '--disable-dev-shm-usage',
+                        '--disable-setuid-sandbox',
+                    ]
+                )
 
             try:
                 for i, (region, postcode) in enumerate(batch):

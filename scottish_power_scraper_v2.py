@@ -1037,10 +1037,73 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
             print(f"    ⚠ Could not find Continue button, trying Enter...")
             page.keyboard.press("Enter")
         
-        # IMPORTANT: Wait for tariff options page to load
+        # IMPORTANT: Wait for next page to load
         print(f"    Waiting for tariff options page...")
         human_delay(5000, 8000)
-        
+
+        # ============================================
+        # STEP 7b: Handle "Tell us more" usage page (new SP step)
+        # ============================================
+        page_text_check = page.inner_text('body').lower()
+        if 'how much energy do you use' in page_text_check or 'tell us more' in page_text_check:
+            print(f"\n  [STEP 7b] Usage question detected - handling...")
+
+            # Try "I don't know" / typical usage option first
+            usage_options = [
+                "text=\"I don't know my annual usage\"",
+                "text=\"I don't know\"",
+                "text=/don.t know/i",
+                "text=/typical/i",
+                "text=/average/i",
+            ]
+            usage_selected = False
+            for sel in usage_options:
+                try:
+                    opt = page.locator(sel).first
+                    if opt.is_visible(timeout=3000):
+                        opt.click()
+                        print(f"    ✓ Selected usage option")
+                        usage_selected = True
+                        break
+                except:
+                    continue
+
+            # If there's a usage input, enter a typical value
+            if not usage_selected:
+                for sel in ['input[name*="electric" i]', 'input[name*="usage" i]', 'input[type="number"]']:
+                    try:
+                        inp = page.locator(sel).first
+                        if inp.is_visible(timeout=2000):
+                            inp.fill("3100")
+                            print(f"    ✓ Entered typical electricity usage (3100 kWh)")
+                            usage_selected = True
+                            # Also fill gas if present
+                            gas_inputs = page.locator('input[name*="gas" i]').all()
+                            if gas_inputs:
+                                gas_inputs[0].fill("12000")
+                                print(f"    ✓ Entered typical gas usage (12000 kWh)")
+                            break
+                    except:
+                        continue
+
+            human_delay(1000, 2000)
+
+            # Click Continue to proceed past usage page
+            for sel in ['button:has-text("Continue")', 'button:has-text("Next")', 'button[type="submit"]']:
+                try:
+                    btn = page.locator(sel).first
+                    if btn.is_visible(timeout=5000):
+                        btn.scroll_into_view_if_needed()
+                        human_delay(800, 1200)
+                        btn.click()
+                        print(f"    ✓ Clicked Continue past usage page")
+                        break
+                except:
+                    continue
+
+            print(f"    Waiting for tariff options page...")
+            human_delay(5000, 8000)
+
         # ============================================
         # STEP 8: Select cheapest tariff
         # ============================================

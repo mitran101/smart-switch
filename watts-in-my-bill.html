@@ -363,6 +363,13 @@ h1 span { color: var(--sp-amber); }
 .site-footer a { color: var(--sp-purple); text-decoration: none; }
 .site-footer a:hover { color: var(--sp-green); }
 .site-footer p { margin: 0.5rem 0; }
+.footer-logo { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 0.75rem; }
+.footer-logo img { height: 2rem; width: auto; margin-right: -8px; }
+.footer-logo span { font-size: 1rem; font-weight: 700; color: var(--sp-text); }
+/* ── Tariff mini CTA ── */
+.tariff-tracker-mini { margin: 0.75rem 0 0; text-align: center; }
+.tariff-tracker-mini a { display: inline-block; padding: 0.6rem 1.2rem; background: rgba(255,255,255,0.05); border: 1px solid var(--sp-border); border-radius: 8px; font-size: 0.85rem; color: var(--sp-text-muted); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+.tariff-tracker-mini a:hover { border-color: var(--sp-green); color: var(--sp-green); }
 </style>
 </head>
 <body>
@@ -419,17 +426,16 @@ h1 span { color: var(--sp-amber); }
 </div>
 
 <footer class="site-footer">
-    <p style="margin-bottom:1.5rem;font-size:0.9rem;font-weight:600;color:var(--sp-text);">Related reading</p>
+    <div class="footer-logo">
+        <img src="https://www.switch-pilot.com/logo.png" alt="SwitchPilot logo">
+        <span>SwitchPilot</span>
+    </div>
     <p>
       <a href="switchinsights/why-uk-electricity-bills-follow-gas-prices.html">Why UK electricity bills follow gas prices</a> ·
-      <a href="switchinsights/standing-charge-increase-2026.html">Standing charge increases 2026</a> ·
-      <a href="tariff-tracker.html">Live tariff tracker</a> ·
-      <a href="energy-bill-calculator.html">Energy bill calculator</a>
+      <a href="energy-bill-calculator.html">Energy bill calculator</a> ·
+      <a href="gas-bill-value-calculator.html">Gas value calculator</a>
     </p>
-    <p style="margin-top:1.5rem;">Cost stack breakdowns are theoretical estimates based on Ofgem price cap methodology. For UK energy bills only — Ofgem-regulated suppliers in Great Britain.</p>
-    <p>Tariff comparison uses live data from the <a href="tariff-tracker.html">SwitchPilot Tariff Tracker</a>, updated weekly. Actual savings may vary. Not financial advice.</p>
-    <p style="margin-top:1rem;">📧 <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
-    <p>Built with 💜 by <a href="https://switch-pilot.com">SwitchPilot</a></p>
+    <p style="margin-top:1rem;">📧 Questions? <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
     <p style="margin-top:1rem;font-size:0.75rem;opacity:0.5;">SwitchPilot Ltd · 128 City Road, London, EC1V 2NX · Registered in England &amp; Wales</p>
     <p style="font-size:0.75rem;opacity:0.5;margin-top:0.25rem;"><a href="/privacy-policy.html" style="color:inherit;">Privacy Policy</a> · <a href="/terms.html" style="color:inherit;">Terms of Service</a></p>
 </footer>
@@ -752,22 +758,6 @@ function renderResults(d, tariffData) {
     html += `<div class="insight-box"><h3>⚡ Analyst's Take</h3><p>${d.insight || ''} ${d.pricecapContext || ''}</p></div>`;
   }
 
-  // Switching section
-  let switchingResult = null;
-  if (tariffData && d.region) {
-    switchingResult = findBestDeals(d, tariffData);
-    html += renderSwitchingSection(d, tariffData, switchingResult);
-  } else if (tariffData && !d.region) {
-    html += `<div class="switching-section">
-      <div class="switching-header"><h3>Could you be paying <span>less?</span></h3></div>
-      <div class="no-savings-note">We couldn't identify your region from this bill — needed to compare tariffs accurately.<br><br>
-      <a href="tariff-tracker.html" style="color:#34d399">Check our Tariff Tracker →</a></div>
-    </div>`;
-  }
-
-  // Email capture
-  html += renderEmailCapture(d, switchingResult);
-
   // CTAs
   html += `<div class="cta-section">
     <div class="cta-block">
@@ -778,14 +768,9 @@ function renderResults(d, tariffData) {
       </div>
       <a href="index.html?utm_source=https://www.switch-pilot.com/watts-in-my-bill.html#waitlist" class="cta-btn cta-btn-green">Sign Up Free →</a>
     </div>
-    <div class="cta-block">
-      <div class="icon">🔍</div>
-      <div class="content">
-        <h3>See all live tariffs</h3>
-        <p>Compare the cheapest fixed deals available right now across all UK regions, updated every week.</p>
-      </div>
-      <a href="tariff-tracker.html" class="cta-btn cta-btn-amber">Tariff Tracker →</a>
-    </div>
+  </div>
+  <div class="tariff-tracker-mini">
+    <a href="tariff-tracker.html">🔍 Tariff Tracker — see all live tariffs →</a>
   </div>`;
 
   results.innerHTML = html;

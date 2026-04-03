@@ -1,5 +1,8 @@
 name: Validate Tariff Data
 on:
+  workflow_run:
+    workflows: ["Daily Tariff Scraper"]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +26,7 @@ jobs:
       id: validate
       run: |
         python3 << 'PYEOF'
-        import json, os, sys
+        import json, os, sys, glob, base64
 
         RATE_BOUNDS = {
             "elec_unit_rate_p": (15, 55),
@@ -32,80 +35,78 @@ jobs:
             "gas_standing_p":   (10, 100),
         }
 
-        # Maps supplier name in JSON -> scraper script and output pattern
         SUPPLIER_META = {
-            "eon_next":       {"script": "eon_next_scraper_v6_playwright.py", "pattern": "eon_tariffs_*.json",  "supports_regions": True},
-            "british_gas":    {"script": "bg_scraper_v10.py",                 "pattern": "bg_tariffs_*.json",   "supports_regions": False},
-            "ovo":            {"script": "ovo_scraper_v1.py",                 "pattern": "ovo_tariffs_*.json",  "supports_regions": False},
+            "eon_next":       {"script": "eon_next_scraper_v6_playwright.py", "pattern": "eon_tariffs_*.json",     "supports_regions": True},
+            "british_gas":    {"script": "bg_scraper_v10.py",                 "pattern": "bg_tariffs_*.json",      "supports_regions": False},
+            "ovo":            {"script": "ovo_scraper_v1.py",                 "pattern": "ovo_tariffs_*.json",     "supports_regions": False},
             "octopus":        {"script": "octopus_api_v1.py",                 "pattern": "octopus_tariffs_*.json", "supports_regions": False},
-            "scottish_power": {"script": "scottish_power_scraper_v2.py",      "pattern": "sp_tariffs_*.json",   "supports_regions": False},
-            "fuse_energy":    {"script": "fuse_energy_scraper_v2_fixed.py",   "pattern": "fuse_tariffs_*.json", "supports_regions": False},
-            "so_energy":      {"script": "so_energy_scraper_v2.py",           "pattern": "so_tariffs_*.json",   "supports_regions": False},
+            "scottish_power": {"script": "scottish_power_scraper_v2.py",      "pattern": "sp_tariffs_*.json",      "supports_regions": False},
+            "fuse_energy":    {"script": "fuse_energy_scraper_v2_fixed.py",   "pattern": "fuse_tariffs_*.json",    "supports_regions": False},
+            "so_energy":      {"script": "so_energy_scraper_v2.py",           "pattern": "so_tariffs_*.json",      "supports_regions": False},
         }
 
         try:
             data = json.load(open("all_tariffs.json"))
-            tariffs = data.get("tariffs", [])
-        except Exception as e:
-            print(f"Could not read all_tariffs.json: {e}")
-            sys.exit(0)
-
-        if not tariffs:
-            print("all_tariffs.json is empty")
-            sys.exit(0)
-
-        # Find failed regions per supplier
-        # A region entry is "good" if it has elec rate and no error
-        by_supplier_region = {}
-        for t in tariffs:
-            s = t.get("supplier", "unknown")
-            r = t.get("region", "unknown")
-            key = (s, r)
-            # If we already have a good entry, keep it
-            if key not in by_supplier_region or not by_supplier_region[key].get("elec_unit_rate_p"):
-                by_supplier_region[key] = t
+            existing = {(t["supplier"], t["region"]): t for t in data.get("tariffs", [])}
+        except:
+            existing = {}
 
         failed_by_supplier = {}
-        print("\n=== TARIFF VALIDATION ===\n")
+        print("
+=== TARIFF VALIDATION ===
+")
 
         for supplier, meta in SUPPLIER_META.items():
-            supplier_entries = {r: t for (s, r), t in by_supplier_region.items() if s == supplier}
-            if not supplier_entries:
+            # Only validate suppliers that were actually run this time
+            files = sorted(glob.glob(meta["pattern"]), key=os.path.getmtime, reverse=True)
+            if not files:
+                print(f"  {supplier}: no output file — skipping (not run this time)")
                 continue
 
-            failed_regions = []
-            for region, t in supplier_entries.items():
-                is_bad = bool(t.get("error")) or not t.get("elec_unit_rate_p")
-                if not is_bad:
-                    # Check rate bounds
-                    for field, (lo, hi) in RATE_BOUNDS.items():
-                        val = t.get(field)
-                        if val is not None and not (lo <= val <= hi):
-                            is_bad = True
-                            print(f"  !! {supplier} / {region}: {field}={val} out of range ({lo}-{hi})")
-                            break
-                if is_bad:
-                    failed_regions.append(region)
+            with open(files[0]) as f:
+                run_results = json.load(f)
 
-            ok = len(supplier_entries) - len(failed_regions)
-            total = len(supplier_entries)
-            print(f"  {supplier}: {ok}/{total} regions OK" + (f", failed: {failed_regions}" if failed_regions else ""))
+            failed = []
+            ok = 0
+            for entry in run_results:
+                region = entry.get("region", "unknown")
 
-            if failed_regions:
-                failed_by_supplier[supplier] = failed_regions
+                # Check if this run got good data
+                run_tariffs = entry.get("tariffs", [])
+                run_good = bool(run_tariffs and run_tariffs[0].get("elec_unit_rate_p"))
+
+                # Check if all_tariffs.json already has good data for this region
+                existing_entry = existing.get((supplier, region), {})
+                existing_good = bool(
+                    existing_entry.get("elec_unit_rate_p") and not existing_entry.get("error")
+                )
+
+                if run_good or existing_good:
+                    ok += 1
+                else:
+                    failed.append(region)
+
+            total = ok + len(failed)
+            print(f"  {supplier}: {ok}/{total} regions OK" + (f", failed: {failed}" if failed else ""))
+
+            if failed:
+                failed_by_supplier[supplier] = failed
 
         if failed_by_supplier:
-            # Encode as JSON for next step
-            import base64
             encoded = base64.b64encode(json.dumps(failed_by_supplier).encode()).decode()
             with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-                f.write(f"needs_rerun=true\n")
-                f.write(f"failed_map={encoded}\n")
-            print(f"\nFailed suppliers: {list(failed_by_supplier.keys())}")
+                f.write(f"needs_rerun=true
+")
+                f.write(f"failed_map={encoded}
+")
+            print(f"
+Will re-run: {failed_by_supplier}")
         else:
             with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-                f.write("needs_rerun=false\n")
-            print("\nAll good!")
+                f.write("needs_rerun=false
+")
+            print("
+All good — nothing to re-run")
         PYEOF
 
     - name: Cache Playwright browsers

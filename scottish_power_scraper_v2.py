@@ -245,10 +245,26 @@ def extract_tariff_rates(page_text: str) -> dict:
     # If no sections found, try generic extraction
     if not rates.get('elec_unit_rate_p') and not rates.get('gas_unit_rate_p'):
         print(f"    ⚠ Section-based extraction failed, trying generic patterns...")
-        all_rates = re.findall(r'(\d+\.\d+)\s*p', page_text)
-        if all_rates:
-            print(f"    📊 Found prices: {all_rates[:10]}")
-    
+        unit_rates = [float(v) for v in re.findall(r'(\d+\.\d+)\s*p\s*(?:per\s*)?kWh', page_text, re.I) if 3 < float(v) < 50]
+        standing = [float(v) for v in re.findall(r'(\d+\.\d+)\s*p\s*(?:per\s*)?day', page_text, re.I) if 10 < float(v) < 100]
+        all_pence = [float(v) for v in re.findall(r'(\d+\.\d+)\s*p(?!\s*(?:er\s*)?(?:year|month|week))', page_text, re.I) if 3 < float(v) < 100]
+        print(f"    📊 unit_rates={unit_rates[:6]}, standing={standing[:4]}, all_p={all_pence[:10]}")
+
+        elec_candidates = [v for v in (unit_rates or all_pence) if 10 < v < 50]
+        gas_candidates = [v for v in (unit_rates or all_pence) if 3 < v < 20]
+        sc_candidates = [v for v in (standing or all_pence) if 20 < v < 100]
+
+        if elec_candidates:
+            rates['elec_unit_rate_p'] = elec_candidates[0]
+        if gas_candidates and len(gas_candidates) > 1:
+            rates['gas_unit_rate_p'] = gas_candidates[1]
+        elif gas_candidates and gas_candidates[0] != rates.get('elec_unit_rate_p'):
+            rates['gas_unit_rate_p'] = gas_candidates[0]
+        if sc_candidates:
+            rates['elec_standing_p'] = sc_candidates[0]
+        if len(sc_candidates) > 1:
+            rates['gas_standing_p'] = sc_candidates[1]
+
     return rates
 
 
@@ -1105,16 +1121,19 @@ def scrape_sp_tariffs(browser, postcode: str, region: str, attempt: int = 1,
         if not tariff_details_clicked:
             print(f"    ⚠ Could not click Tariff details or Select tariff")
             page.screenshot(path=f"screenshots/sp_{region.replace(' ', '_')}_no_select_btn.png")
-        
+        else:
+            # Give modal time to animate open
+            human_delay(2000, 3000)
+
         # ============================================
         # STEP 9: Extract rates from modal
         # ============================================
         print(f"\n  [STEP 9] Extracting rates from modal...")
 
         # Wait for modal rate content to appear
-        for indicator in ['text=/Primary Unit rate/i', 'text=/Electricity monthly cost/i', 'text=/Standing charge/i']:
+        for indicator in ['text=/Primary Unit rate/i', 'text=/Electricity monthly cost/i', 'text=/Standing charge/i', 'text=/Unit rate/i', 'text=/p per kWh/i']:
             try:
-                page.wait_for_selector(indicator, timeout=10000)
+                page.wait_for_selector(indicator, timeout=15000)
                 print(f"    ✓ Rate content visible ({indicator})")
                 break
             except:

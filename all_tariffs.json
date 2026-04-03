@@ -3839,6 +3839,22 @@
       "gas_unit_rate_p": 5.21,
       "elec_standing_p": 57.57,
       "gas_standing_p": 29.27
+    },
+    {
+      "supplier": "eon_next",
+      "region": "South Scotland",
+      "postcode": "G20 6NQ",
+      "scraped_at": "2026-04-03T13:08:30",
+      "tariff_name": "Next Pledge Tracker 12m v10",
+      "elec_unit_rate_p": 22.54,
+      "elec_day_rate_p": null,
+      "elec_night_rate_p": null,
+      "elec_standing_p": 64.2,
+      "gas_unit_rate_p": 5.21,
+      "gas_standing_p": 29.3,
+      "exit_fee_gbp": 25,
+      "contract_months": null,
+      "error": null
     }
   ],
   "updated": "2026-04-03T06:57:14.273883"

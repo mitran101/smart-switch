@@ -407,6 +407,7 @@ h1 span { color: var(--sp-amber); }
     <p>PNG, JPG or PDF · Click or drag &amp; drop</p>
     <p style="margin-top:10px;font-size:0.7rem;color:#6868a0;letter-spacing:1px;">🇬🇧 UK energy bills only · Ofgem-regulated suppliers</p>
     <img id="previewImg" class="preview-img" style="display:none" alt="Bill preview">
+    <div id="pdfConfirm" style="display:none;margin-top:16px;padding:12px 18px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:10px;font-size:0.9rem;color:var(--sp-text);">📄 PDF uploaded — ready to analyse</div>
     <input type="file" id="fileInput" accept="image/*,.pdf">
   </div>
 
@@ -500,8 +501,8 @@ function handleFile(file) {
   const reader = new FileReader();
   reader.onload = e => {
     base64Data = e.target.result.split(',')[1];
-    if (file.type.startsWith('image/')) { previewImg.src = e.target.result; previewImg.style.display = 'block'; }
-    else { previewImg.style.display = 'none'; }
+    if (file.type.startsWith('image/')) { previewImg.src = e.target.result; previewImg.style.display = 'block'; document.getElementById('pdfConfirm').style.display = 'none'; }
+    else { previewImg.style.display = 'none'; document.getElementById('pdfConfirm').style.display = 'block'; }
     analyseBtn.disabled = false;
   };
   reader.readAsDataURL(file);
@@ -933,7 +934,7 @@ function showError(msg) {
 
 function resetTool() {
   selectedFile = null; base64Data = null; fileInput.value = '';
-  previewImg.src = ''; previewImg.style.display = 'none';
+  previewImg.src = ''; previewImg.style.display = 'none'; document.getElementById('pdfConfirm').style.display = 'none';
   analyseBtn.disabled = true; results.classList.remove('active'); results.innerHTML = '';
   errorBox.classList.remove('active'); loading.classList.remove('active'); resetBtn.style.display = 'none';
 }

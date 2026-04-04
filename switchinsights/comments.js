@@ -303,6 +303,7 @@
 
     const section = document.createElement('div');
     section.className = 'si-comments-section';
+    section.id = 'si-comments';
     section.innerHTML = `
       <div class="si-comments-inner">
         <div class="si-comments-topbar">

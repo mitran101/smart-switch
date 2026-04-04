@@ -588,6 +588,15 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"/></
         }
         .cta-button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
 
+        /* ── Article footer ── */
+        .article-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid #E2E8F0;
+        }
+        .footer-note { font-size: 0.8rem; color: var(--sp-slate-light); line-height: 1.6; }
+
         .site-footer {
             background: var(--sp-slate);
             text-align: center;
@@ -596,7 +605,7 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"/></
             margin-top: 3rem;
         }
         .site-footer p { opacity: 0.8; margin: 0.5rem 0; color: white; font-size: 0.95rem; }
-        .site-footer a { color: var(--sp-purple); text-decoration: none; }
+        .site-footer a { color: #10B981; text-decoration: none; }
         .site-footer a:hover { text-decoration: underline; }
 
         @media (max-width: 700px) {
@@ -1015,11 +1024,19 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"/></
 </article>
 
 <!-- CTA -->
-<section style="padding: 0 2rem;">
-    <div class="cta-box">
-        <h3>Don't stay with a bad supplier</h3>
-        <p>SwitchPilot will monitor the market on your behalf and tell you when a better deal is available. No jargon. No dark patterns. Just better bills.</p>
-        <a href="https://www.switch-pilot.com#waitlist" class="cta-button">Join the Waitlist →</a>
+<section style="padding: 0 2rem; padding-bottom: 3rem;">
+    <div class="cta-box" id="newsletter-cta">
+        <h3>Get weekly energy insights</h3>
+        <p>Plain-English breakdowns of what's really happening with UK energy prices. No spam, no sales pitch - just useful stuff.</p>
+        <form id="newsletter-form" onsubmit="return false;" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+            <input type="email" id="nl-email" placeholder="Your email address" required style="flex:1;min-width:200px;padding:0.7rem 1rem;border-radius:8px;border:none;font-size:0.95rem;color:#1a1a2e;">
+            <button type="button" id="nl-submit" onclick="submitNewsletter()" style="padding:0.7rem 1.4rem;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.6);color:#fff;font-weight:700;font-size:0.95rem;border-radius:8px;cursor:pointer;white-space:nowrap;">Subscribe free</button>
+        </form>
+        <p id="nl-msg" style="display:none;margin-top:8px;font-size:0.9rem;"></p>
+        <p style="font-size:12px;opacity:0.6;margin-top:6px;">Unsubscribe anytime. We respect your inbox.</p>
+    </div>
+    <div style="margin-top:1.25rem;padding:1rem 1.75rem;background:linear-gradient(135deg,#10B981,#059669);border-radius:12px;text-align:center;max-width:700px;margin-left:auto;margin-right:auto;">
+        <p style="font-size:0.88rem;color:#fff;margin:0;">&#x26A1; We're also building <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:#fff;font-weight:700;text-decoration:underline;">SwitchPilot</a> - a free service that automatically switches you to the cheapest energy deal. <a href="https://www.switch-pilot.com?utm_source=switchinsights&utm_medium=referral&utm_campaign=article_cta" style="color:#fff;font-weight:700;text-decoration:underline;">Find out more &rarr;</a></p>
     </div>
 </section>
 
@@ -1052,14 +1069,94 @@ src="https://www.facebook.com/tr?id=1468513154931300&ev=PageView&noscript=1"/></
 
             <li><span class="ref-num">[12]</span> SwitchPilot SwitchInsights — <em>Fuse Energy and the History of Small Suppliers</em>. Context on Fuse Energy's current customer numbers and regulatory standing.<br><a href="fuse-energy-and-the-history-of-small-suppliers.html">switchinsights — Fuse Energy profile</a></li>
         </ol>
-        <p style="font-size:0.82rem; color:var(--sp-slate-light); margin-top:1.25rem; margin-bottom:0;"><strong>Methodology note:</strong> The Citizens Advice Q4 2025 data is the primary dataset for the league table above. Trustpilot scores are approximate as of December 2025–January 2026 and sourced from published supplier profile pages rather than live Trustpilot scraping. The DataEQ/Unstructured social sentiment study is not specifically dated to Q4 2025; it represents a three-month cross-section from an earlier period but is cited as directionally consistent with other Q4 2025 findings. <strong>This article does not constitute financial or energy advice. See <a href="terms.html">full terms</a>.</strong></p>
+        <p style="font-size:0.82rem; color:var(--sp-slate-light); margin-top:1.25rem; margin-bottom:0;"><strong>Methodology note:</strong> The Citizens Advice Q4 2025 data is the primary dataset for the league table above. Trustpilot scores are approximate as of December 2025-January 2026 and sourced from published supplier profile pages rather than live Trustpilot scraping. The DataEQ/Unstructured social sentiment study is not specifically dated to Q4 2025; it represents a three-month cross-section from an earlier period but is cited as directionally consistent with other Q4 2025 findings. <strong>This article does not constitute financial or energy advice. See <a href="../terms.html">full terms</a>.</strong></p>
     </div>
 </div>
 
-<footer class="site-footer">
-    <p>📧 Questions? <a href="mailto:team@switch-pilot.com">team@switch-pilot.com</a></p>
-    <p>© 2026 SwitchPilot. Making energy bills make sense.</p>
+<!-- Article footer with related reading -->
+<footer class="article-footer">
+    <p class="footer-note" style="margin-top:1.25rem;">
+        <strong>Related reading:</strong><br>
+        <a href="supplier-profits-analysis.html" style="color:var(--sp-green);text-decoration:none;">Do Energy Suppliers Really Make a Fortune from You? &rarr;</a><br>
+        <a href="ofgem-state-of-market-2026.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">Ofgem State of the Market 2026: Record Satisfaction, Record Debt &rarr;</a><br>
+        <a href="fuse-energy-and-the-history-of-small-suppliers.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">Fuse Energy and the History of Small Suppliers &rarr;</a><br>
+        <a href="energy-debt-crisis.html" style="color:var(--sp-green);text-decoration:none;margin-top:0.4rem;display:inline-block;">The UK Energy Debt Crisis &rarr;</a>
+    </p>
+    <p style="margin-top:0.75rem;font-size:0.78rem;">
+        <a href="https://www.switch-pilot.com/privacy-policy.html" style="color:rgba(0,0,0,0.35);">Privacy Policy</a>
+        <span style="color:rgba(0,0,0,0.2);margin:0 0.4rem;">&#183;</span>
+        <a href="https://www.switch-pilot.com/terms.html" style="color:rgba(0,0,0,0.35);">Terms of Service</a>
+    </p>
 </footer>
+
+<!-- Comments -->
+<script src="comments.js" defer></script>
+
+<!-- Site footer -->
+<style>.site-footer{background:#1E293B;text-align:center;padding:3rem 2rem;margin-top:3rem;}</style>
+<footer class="site-footer">
+    <img src="https://www.switch-pilot.com/switchinsightslogo.png" alt="SwitchInsights logo" style="height:36px;width:auto;margin-bottom:0.75rem;">
+    <p style="font-weight:700;font-size:1rem;margin-bottom:0.25rem;color:#fff;">SwitchInsights</p>
+    <p style="color:rgba(255,255,255,0.75);font-size:0.85rem;">A <a href="https://www.switch-pilot.com" style="color:#10B981;">SwitchPilot</a> publication - energy explained, in plain English</p>
+    <p style="margin-top:1rem;color:rgba(255,255,255,0.75);font-size:0.85rem;">&#128231; <a href="mailto:team@switch-pilot.com" style="color:#10B981;">team@switch-pilot.com</a></p>
+    <p style="margin-top:0.5rem;color:rgba(255,255,255,0.5);font-size:0.8rem;">&copy; 2026 SwitchPilot Ltd. All rights reserved.</p>
+</footer>
+
+<script>
+async function submitNewsletter() {
+  const emailInput = document.getElementById('nl-email');
+  const msg = document.getElementById('nl-msg');
+  const btn = document.getElementById('nl-submit');
+  const email = emailInput.value.trim().toLowerCase();
+
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email address.';
+    msg.style.color = '#e74c3c';
+    msg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    const res = await fetch('https://jkiyisnoetcxndwtqoom.supabase.co/rest/v1/signups', {
+      method: 'POST',
+      headers: {
+        'apikey': 'sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T',
+        'Authorization': 'Bearer sb_publishable_UJOFqh8sPlZHAx56_hJXaw_N1onof2T',
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        type: 'newsletter',
+        email: email,
+        source: 'switchinsights',
+        page_url: window.location.href
+      })
+    });
+
+    if (res.ok) {
+      msg.textContent = "You're in! Check your inbox for weekly energy insights.";
+      msg.style.color = '#27ae60';
+      emailInput.value = '';
+    } else if (res.status === 409) {
+      msg.textContent = "You're already subscribed!";
+      msg.style.color = '#e67e22';
+    } else {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.style.color = '#e74c3c';
+    }
+  } catch (err) {
+    msg.textContent = 'Something went wrong. Please try again.';
+    msg.style.color = '#e74c3c';
+  }
+
+  msg.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = 'Subscribe free';
+}
+</script>
 
 </body>
 </html>
